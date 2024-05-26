@@ -1,5 +1,9 @@
+import { useTranslation } from 'react-i18next';
+
 function SignInPage() {
-  return <div>Sign In</div>;
+  const { t } = useTranslation();
+
+  return <div> {t('examplePageText.signInPage')} </div>;
 }
 
 export default SignInPage;

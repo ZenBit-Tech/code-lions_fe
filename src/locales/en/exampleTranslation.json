@@ -1,5 +1,9 @@
 {
   "exampleText": {
     "submitButton": "Submit"
+  },
+  "examplePageText": {
+    "homePage": "Home Page",
+    "signInPage": "Sing In"
   }
 }
