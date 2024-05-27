@@ -1,4 +1,4 @@
-import ExampleForm from 'src/components/ExampleForm/ExampleForm';
+import ExampleForm from 'src/components/ExampleForm';
 
 function SignUpPage() {
   return (
