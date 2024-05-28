@@ -1,0 +1,110 @@
+@import '../node_modules/modern-normalize/modern-normalize.css';
+
+:root {
+  line-height: 1.5;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+figure,
+p,
+ol,
+ul {
+  margin: 0;
+}
+
+ol[role='list'],
+ul[role='list'] {
+  list-style: none;
+  padding-inline: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+img {
+  display: block;
+  max-inline-size: 100%;
+}
+
+@font-face {
+  font-family: 'DM Sans';
+  src: url('src/assets/fonts/DMSans-VariableFont.ttf') format('truetype');
+  font-weight: 100 900;
+  font-stretch: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Playfair Display';
+  src: url('src/assets/fonts/PlayfairDisplay-VariableFont.ttf')
+    format('truetype');
+  font-weight: 100 900;
+  font-stretch: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Playfair Display SC';
+  src: url('src/assets/fonts/PlayfairDisplaySC-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Inter Regular';
+  src: url('src/assets/fonts/Inter-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Inter SemiBold';
+  src: url('src/assets/fonts/Inter-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Source Serif Pro SemiBold';
+  src: url('src/assets/fonts/SourceSerif4-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Source Serif Pro Regular';
+  src: url('src/assets/fonts/SourceSerif4-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Quicksand Medium';
+  src: url('src/assets/fonts/Quicksand-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Urbanist Medium';
+  src: url('src/assets/fonts/Urbanist-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Space Grotesk Medium';
+  src: url('src/assets/fonts/SpaceGrotesk-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+}
