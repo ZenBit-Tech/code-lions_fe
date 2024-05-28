@@ -46,6 +46,9 @@ const theme = createTheme({
       secondary: '#EDEAE9',
       dark: '#333333',
     },
+    action: {
+      hoverOpacity: 0.8,
+    },
   },
   typography: {
     fontFamily: 'DM Sans, Arial, sans-serif',
@@ -60,39 +63,40 @@ const theme = createTheme({
       '@media (min-width:1440px)': {
         fontSize: 28,
       },
-      h4: {
-        fontFamily: 'DM Sans, Arial, sans-serif',
-        fontSize: 14,
-        fontWeightRegular: 500,
-        lineHeight: 1.43,
-        letterSpacing: '-0.21px',
-      },
-      subtitle1: {
-        fontFamily: 'Playfair Display, Arial, sans-serif',
-        fontSize: 14,
-        fontWeightRegular: 600,
-        lineHeight: 1.43,
-        letterSpacing: '-0.21px',
-      },
-      subtitle2: {
-        fontFamily: 'DM Sans, Arial, sans-serif',
-        fontSize: 14,
-        fontWeightRegular: 400,
-        lineHeight: 1.43,
-      },
-      body1: {
-        fontFamily: 'DM Sans, Arial, sans-serif',
-        fontSize: 16,
-        fontWeight: 400,
-        lineHeight: 1.25,
-        letterSpacing: '-0.24px',
-      },
-      button: {
-        fontFamily: 'DM Sans, Arial, sans-serif',
-        fontSize: 16,
-        fontWeight: 500,
-        letterSpacing: '-0.5px',
-      },
+    },
+    h4: {
+      fontFamily: 'DM Sans, Arial, sans-serif',
+      fontSize: 14,
+      fontWeightRegular: 500,
+      lineHeight: 1.43,
+      letterSpacing: '-0.21px',
+    },
+    subtitle1: {
+      fontFamily: 'Playfair Display, Arial, sans-serif',
+      fontSize: 14,
+      fontWeightRegular: 600,
+      lineHeight: 1.43,
+      letterSpacing: '-0.21px',
+    },
+    subtitle2: {
+      fontFamily: 'DM Sans, Arial, sans-serif',
+      fontSize: 14,
+      fontWeightRegular: 400,
+      lineHeight: 1.43,
+    },
+    body1: {
+      fontFamily: 'DM Sans, Arial, sans-serif',
+      fontSize: 16,
+      fontWeight: 400,
+      lineHeight: 1.25,
+      letterSpacing: '-0.24px',
+    },
+    button: {
+      fontFamily: 'DM Sans, Arial, sans-serif',
+      fontSize: 16,
+      fontWeight: 500,
+      letterSpacing: '-0.5px',
+      textTransform: 'none',
     },
   },
 });
