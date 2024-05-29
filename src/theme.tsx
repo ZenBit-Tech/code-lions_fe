@@ -92,7 +92,7 @@ const theme = createTheme({
       letterSpacing: '-0.24px',
     },
     button: {
-      fontFamily: 'DM Sans, Arial, sans-serif',
+      fontFamily: 'Playfair Display, Arial, sans-serif',
       fontSize: 16,
       fontWeight: 500,
       letterSpacing: '-0.5px',
