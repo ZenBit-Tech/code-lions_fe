@@ -98,6 +98,16 @@ const theme = createTheme({
       fontWeight: 500,
       letterSpacing: '-0.5px',
       textTransform: 'none',
+      lineHeight: 1.32,
+    },
+    overline: {
+      fontFamily: 'DM Sans, Arial, sans-serif',
+      fontSize: 12,
+      fontStyle: 'normal',
+      fontWeight: 400,
+      lineHeight: 1.33,
+      letterSpacing: '-0.06px',
+      textTransform: 'none',
     },
   },
 });
