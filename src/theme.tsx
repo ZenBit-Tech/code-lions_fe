@@ -22,18 +22,18 @@ const theme = createTheme({
   palette: {
     common: {
       black: '#000000',
-      white: 'ffffff',
+      white: '#ffffff',
     },
     primary: {
       main: '#333333',
       light: '#EDEAE9',
-      contrastText: 'ffffff',
+      contrastText: '#ffffff',
     },
     secondary: {
       main: '#E3EEE2',
     },
     background: {
-      default: 'ffffff',
+      default: '#ffffff',
       paper: '#EDEAE9',
     },
     text: {
@@ -74,7 +74,7 @@ const theme = createTheme({
     subtitle1: {
       fontFamily: 'Playfair Display, Arial, sans-serif',
       fontSize: 14,
-      fontWeightRegular: 600,
+      fontWeight: 600,
       lineHeight: 1.43,
       letterSpacing: '-0.21px',
     },
@@ -92,11 +92,12 @@ const theme = createTheme({
       letterSpacing: '-0.24px',
     },
     button: {
-      fontFamily: 'DM Sans, Arial, sans-serif',
+      fontFamily: 'Playfair Display, Arial, sans-serif',
       fontSize: 16,
       fontWeight: 500,
       letterSpacing: '-0.5px',
       textTransform: 'none',
+      lineHeight: 1.32,
     },
   },
 });

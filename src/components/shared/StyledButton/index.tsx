@@ -1,9 +1,9 @@
 import { styled } from '@mui/system';
 import { LoadingButton } from '@mui/lab';
-import { StyledButtonProps } from './types';
+import { IStyledButtonProps } from './types';
 import { ButtonPaddings, ButtonStyles } from './styles';
 
-const StyledButton = styled(LoadingButton)<StyledButtonProps>(
+const StyledButton = styled(LoadingButton)<IStyledButtonProps>(
   ({ theme, ...props }) => ({
     width: props.width,
     boxShadow: 'none',

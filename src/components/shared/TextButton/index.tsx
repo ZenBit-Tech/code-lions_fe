@@ -4,12 +4,14 @@ import { Button } from '@mui/material';
 const TextButton = styled(Button)(({ theme }) => ({
   boxShadow: 'none',
   textTransform: 'none',
-  fontSize: 14,
   padding: '16px 24px',
-  width: '10%',
-  lineHeight: 1,
-  color: theme.palette.text.primary,
   cursor: 'pointer',
+  '&:hover, &:active, &:focus': {
+    backgroundColor: 'transparent',
+  },
+  '&:hover, &:disabled': {
+    opacity: theme.palette.action.hoverOpacity,
+  },
 }));
 
 export default TextButton;

@@ -15,7 +15,7 @@ export enum PaddingVariants {
   XL = 'xl',
 }
 
-export interface StyledButtonProps extends ButtonProps {
+export interface IStyledButtonProps extends ButtonProps {
   width?: string;
   radius?: string;
   styles: StyleVariants;
