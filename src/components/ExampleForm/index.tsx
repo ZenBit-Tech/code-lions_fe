@@ -15,9 +15,7 @@ export default function ExampleForm() {
     },
   });
 
-  const onSubmit: SubmitHandler<IFormInput> = (data) => {
-    return data;
-  };
+  const onSubmit: SubmitHandler<IFormInput> = () => {};
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>

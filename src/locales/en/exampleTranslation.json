@@ -13,5 +13,10 @@
     "verify": "Verify",
     "expire": "will expire in 00:",
     "sendAgain": "Send Again"
+  },
+  "inputPlaceholder": {
+    "userEmail": "your_email@gmail.com",
+    "userPassword": "Min. 8 characters",
+    "userName": "Enter your name"
   }
 }
