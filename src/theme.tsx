@@ -22,18 +22,18 @@ const theme = createTheme({
   palette: {
     common: {
       black: '#000000',
-      white: 'ffffff',
+      white: '#ffffff',
     },
     primary: {
       main: '#333333',
       light: '#EDEAE9',
-      contrastText: 'ffffff',
+      contrastText: '#ffffff',
     },
     secondary: {
       main: '#E3EEE2',
     },
     background: {
-      default: 'ffffff',
+      default: '#ffffff',
       paper: '#EDEAE9',
     },
     text: {
