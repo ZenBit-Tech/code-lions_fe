@@ -6,6 +6,11 @@
     "homePage": "Home Page",
     "signInPage": "Sing In"
   },
+  "inputPlaceholder": {
+    "userEmail": "your_email@gmail.com",
+    "userPassword": "Min. 8 characters",
+    "userName": "Enter your name"
+  },
   "signup": {
     "createAccount": "Create your account",
     "signUpSocial": "Sign Up with social networks",
