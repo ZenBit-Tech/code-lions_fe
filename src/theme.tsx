@@ -22,18 +22,19 @@ const theme = createTheme({
   palette: {
     common: {
       black: '#000000',
-      white: 'ffffff',
+      white: '#ffffff',
     },
     primary: {
       main: '#333333',
       light: '#EDEAE9',
-      contrastText: 'ffffff',
+      contrastText: '#ffffff',
     },
     secondary: {
       main: '#E3EEE2',
+      contrastText: '#333333',
     },
     background: {
-      default: 'ffffff',
+      default: '#ffffff',
       paper: '#EDEAE9',
     },
     text: {
@@ -67,21 +68,21 @@ const theme = createTheme({
     h4: {
       fontFamily: 'DM Sans, Arial, sans-serif',
       fontSize: 14,
-      fontWeightRegular: 500,
+      fontWeight: 500,
       lineHeight: 1.43,
       letterSpacing: '-0.21px',
     },
     subtitle1: {
       fontFamily: 'Playfair Display, Arial, sans-serif',
       fontSize: 14,
-      fontWeightRegular: 600,
+      fontWeight: 600,
       lineHeight: 1.43,
       letterSpacing: '-0.21px',
     },
     subtitle2: {
       fontFamily: 'DM Sans, Arial, sans-serif',
       fontSize: 14,
-      fontWeightRegular: 400,
+      fontWeight: 400,
       lineHeight: 1.43,
     },
     body1: {

@@ -5,5 +5,22 @@
   "examplePageText": {
     "homePage": "Home Page",
     "signInPage": "Sing In"
+  },
+  "signup": {
+    "createAccount": "Create your account",
+    "signUpSocial": "Sign Up with social networks",
+    "textOr": "or",
+    "nameLabel": "Name*",
+    "namePlaceholder": "Enter your name",
+    "emailLabel": "Email*",
+    "emailPlaceholder": "your_email@gmail.com",
+    "passwordLabel": "Password*",
+    "passwordPlaceholder": "Min. 8 characters",
+    "repeatPasswordLabel": "Repeat Password*",
+    "singUpButton": "Sign Up",
+    "haveAccount": "Do you have an account?",
+    "signIn": "Sign In",
+    "privacyPolicy": "Privacy Policy",
+    "termsOfUse": "Terms of Use"
   }
 }
