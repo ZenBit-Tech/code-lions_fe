@@ -42,10 +42,14 @@ function SignUpPage() {
           mt="23px"
         >
           <TextButton sx={{ padding: '12px 24px' }}>
-            <LabelText align="left">{t('signup.privacyPolicy')}</LabelText>
+            <LabelText variant="h4" align="left">
+              {t('signup.privacyPolicy')}
+            </LabelText>
           </TextButton>
           <TextButton sx={{ padding: '12px 24px' }}>
-            <LabelText align="right">{t('signup.termsOfUse')}</LabelText>
+            <LabelText variant="h4" align="right">
+              {t('signup.termsOfUse')}
+            </LabelText>
           </TextButton>
         </Box>
       </Container>

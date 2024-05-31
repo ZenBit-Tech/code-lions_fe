@@ -5,12 +5,17 @@ import theme from 'src/theme';
 interface ILabelTextProps {
   children: ReactNode;
   align?: 'right' | 'left' | 'center' | 'inherit' | 'justify' | undefined;
+  variant?: 'subtitle1' | 'h4';
 }
 
-function LabelText({ children, align = 'left' }: ILabelTextProps) {
+function LabelText({
+  children,
+  align = 'left',
+  variant = 'subtitle1',
+}: ILabelTextProps) {
   return (
     <Typography
-      variant="subtitle1"
+      variant={variant}
       align={align}
       sx={{ color: theme.palette.primary.main }}
     >
