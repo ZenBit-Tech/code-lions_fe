@@ -35,5 +35,12 @@
     "signIn": "Sign In",
     "privacyPolicy": "Privacy Policy",
     "termsOfUse": "Terms of Use"
-  }
+  },
+  "restorePassword": {
+    "restoreYourPassword": "Restore password",
+    "enterEmailText": "Enter your email to restore your password",
+    "emailLabel": "Email*",
+    "sendCode": "Send Code"
+  },
+  "logoTitle": "Black Circle"
 }
