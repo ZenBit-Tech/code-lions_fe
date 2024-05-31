@@ -6,6 +6,7 @@ declare module '@mui/material/styles' {
       primary: string;
       secondary: string;
       dark: string;
+      error: string;
     };
   }
 
@@ -14,6 +15,7 @@ declare module '@mui/material/styles' {
       primary?: string;
       secondary?: string;
       dark?: string;
+      error?: string;
     };
   }
 }
@@ -45,6 +47,7 @@ const theme = createTheme({
       primary: 'rgba(0, 0, 0, 0.24)',
       secondary: '#EDEAE9',
       dark: '#333333',
+      error: '#F7392E',
     },
     action: {
       hoverOpacity: 0.8,
