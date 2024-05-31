@@ -18,7 +18,7 @@ export const InputStyles = {
 export const InputPaddings = {
   [InputPaddingVariants.XS]: '4px',
   [InputPaddingVariants.SM]: '8px',
-  [InputPaddingVariants.MD]: '12px',
+  [InputPaddingVariants.MD]: '12px 16px',
   [InputPaddingVariants.LG]: '16px',
   [InputPaddingVariants.XL]: '20px',
 };

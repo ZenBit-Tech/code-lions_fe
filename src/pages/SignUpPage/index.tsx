@@ -4,6 +4,7 @@ import SocialIconButton from 'src/components/shared/SocialIconButton';
 import GoogleIcon from 'src/assets/icons/google.svg';
 import Separator from 'src/components/shared/Separator';
 import Container from 'src/components/shared/Container';
+import SignUpForm from 'src/components/SignUpForm';
 
 function SignUpPage() {
   const { t } = useTranslation();
@@ -17,6 +18,7 @@ function SignUpPage() {
           <GoogleIcon />
         </SocialIconButton>
         <Separator text={t('signup.textOr')} />
+        <SignUpForm />
       </Container>
     </Section>
   );
