@@ -6,6 +6,14 @@
     "homePage": "Home Page",
     "signInPage": "Sing In"
   },
+  "verifyEmail": {
+    "verifyYourEmail": "Verify your email",
+    "sentEmailText": "We have sent an OTP verification code to your email, please enter it here",
+    "code": "Code",
+    "verify": "Verify",
+    "expire": "will expire in 00:",
+    "sendAgain": "Send Again"
+  },
   "inputPlaceholder": {
     "userEmail": "your_email@gmail.com",
     "userPassword": "Min. 8 characters",
