@@ -65,8 +65,7 @@ function RestorePasswordForm() {
           padding={PaddingVariants.LG}
         >
           <Typography variant="button">
-            {' '}
-            {t('restorePassword.sendCode')}{' '}
+            {t('restorePassword.sendCode')}
           </Typography>
         </StyledButton>
       </FormWrapper>

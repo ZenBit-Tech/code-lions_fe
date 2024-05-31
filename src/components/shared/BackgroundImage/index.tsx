@@ -1,12 +1,13 @@
 import { styled } from '@mui/system';
 import { Box, BoxProps } from '@mui/material';
 
+const URL = 'url';
 interface BackgroundImageProps extends BoxProps {
   url: string;
 }
 
 const BackgroundImage = styled(Box, {
-  shouldForwardProp: (prop) => prop !== 'url',
+  shouldForwardProp: (prop) => prop !== URL,
 })<BackgroundImageProps>(({ theme, url }) => ({
   display: 'none',
   position: 'relative',
