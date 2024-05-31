@@ -1,5 +1,5 @@
-import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { Typography } from '@mui/material';
 import PasswordInput from 'src/components/shared/PasswordInput';
 import {
   InputPaddingVariants,
@@ -11,89 +11,55 @@ import {
   PaddingVariants,
   StyleVariants,
 } from 'src/components/shared/StyledButton/types';
-import { Typography } from '@mui/material';
-
-interface IFormInput {
-  name: string;
-  email: string;
-  password: string;
-  repeatPassword: string;
-}
+import LabelText from 'src/components/shared/LabelText';
+import TitleInputWrapper from 'src/components/shared/TitleInputWrapper';
+import FormStyled from './styles';
 
 function SignUpForm() {
   const { t } = useTranslation();
 
-  const { control, handleSubmit } = useForm({
-    defaultValues: {
-      name: '',
-      email: '',
-      password: '',
-      repeatPassword: '',
-    },
-  });
-
-  const onSubmit: SubmitHandler<IFormInput> = (data) => {
-    console.log(data);
-  };
-
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <Controller
-        name="name"
-        control={control}
-        rules={{ required: true }}
-        render={({ field }) => (
-          <StyledInput
-            autoComplete="off"
-            placeholder={t('signup.namePlaceholder')}
-            padding={InputPaddingVariants.MD}
-            stylevariant={InputStyleVariants.OUTLINED}
-            {...field}
-          />
-        )}
-      />
-      <Controller
-        name="email"
-        control={control}
-        rules={{ required: true }}
-        render={({ field }) => (
-          <StyledInput
-            autoComplete="off"
-            placeholder={t('signup.emailPlaceholder')}
-            padding={InputPaddingVariants.MD}
-            stylevariant={InputStyleVariants.OUTLINED}
-            {...field}
-          />
-        )}
-      />
-      <Controller
-        name="password"
-        control={control}
-        rules={{ required: true }}
-        render={({ field }) => (
-          <PasswordInput
-            autoComplete="off"
-            placeholder={t('signup.passwordPlaceholder')}
-            padding={InputPaddingVariants.MD}
-            stylevariant={InputStyleVariants.OUTLINED}
-            {...field}
-          />
-        )}
-      />
-      <Controller
-        name="repeatPassword"
-        control={control}
-        rules={{ required: true }}
-        render={({ field }) => (
-          <PasswordInput
-            autoComplete="off"
-            placeholder={t('signup.passwordPlaceholder')}
-            padding={InputPaddingVariants.MD}
-            stylevariant={InputStyleVariants.OUTLINED}
-            {...field}
-          />
-        )}
-      />
+    <FormStyled>
+      <TitleInputWrapper>
+        <LabelText> {t('signup.nameLabel')} </LabelText>
+        <StyledInput
+          name="name"
+          autoComplete="off"
+          placeholder={t('signup.namePlaceholder')}
+          padding={InputPaddingVariants.MD}
+          stylevariant={InputStyleVariants.OUTLINED}
+        />
+      </TitleInputWrapper>
+      <TitleInputWrapper>
+        <LabelText> {t('signup.emailLabel')} </LabelText>
+        <StyledInput
+          name="email"
+          autoComplete="off"
+          placeholder={t('signup.emailPlaceholder')}
+          padding={InputPaddingVariants.MD}
+          stylevariant={InputStyleVariants.OUTLINED}
+        />
+      </TitleInputWrapper>
+      <TitleInputWrapper>
+        <LabelText> {t('signup.passwordLabel')} </LabelText>
+        <PasswordInput
+          name="password"
+          autoComplete="off"
+          placeholder={t('signup.passwordPlaceholder')}
+          padding={InputPaddingVariants.MD}
+          stylevariant={InputStyleVariants.OUTLINED}
+        />
+      </TitleInputWrapper>
+      <TitleInputWrapper>
+        <LabelText> {t('signup.repeatPasswordLabel')} </LabelText>
+        <PasswordInput
+          name="repeatPassword"
+          autoComplete="off"
+          placeholder={t('signup.passwordPlaceholder')}
+          padding={InputPaddingVariants.MD}
+          stylevariant={InputStyleVariants.OUTLINED}
+        />
+      </TitleInputWrapper>
       <StyledButton
         width="100%"
         type="submit"
@@ -102,7 +68,7 @@ function SignUpForm() {
       >
         <Typography variant="button"> {t('signup.singUpButton')} </Typography>
       </StyledButton>
-    </form>
+    </FormStyled>
   );
 }
 

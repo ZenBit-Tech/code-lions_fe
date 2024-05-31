@@ -45,6 +45,7 @@ module.exports = {
     'import/no-relative-parent-imports': 'error',
     'react/react-in-jsx-scope': 0,
     'react/jsx-props-no-spreading': 0,
+    'react/require-default-props': 0,
     'react-refresh/only-export-components': [
       'warn',
       { allowConstantExport: true },

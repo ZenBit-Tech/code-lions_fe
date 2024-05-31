@@ -7,11 +7,7 @@ interface ILabelTextProps {
   align?: 'right' | 'left' | 'center' | 'inherit' | 'justify' | undefined;
 }
 
-const defaultProps = {
-  align: 'left',
-};
-
-function LabelText({ children, align }: ILabelTextProps) {
+function LabelText({ children, align = 'left' }: ILabelTextProps) {
   return (
     <Typography
       variant="subtitle1"
@@ -22,7 +18,5 @@ function LabelText({ children, align }: ILabelTextProps) {
     </Typography>
   );
 }
-
-LabelText.defaultProps = defaultProps;
 
 export default LabelText;

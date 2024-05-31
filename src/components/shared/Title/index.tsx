@@ -7,11 +7,7 @@ interface ITitleProps {
   align?: 'right' | 'left' | 'center' | 'inherit' | 'justify' | undefined;
 }
 
-const defaultProps = {
-  align: 'left',
-};
-
-function Title({ children, align }: ITitleProps) {
+function Title({ children, align = 'left' }: ITitleProps) {
   return (
     <Typography
       variant="h1"
@@ -22,7 +18,5 @@ function Title({ children, align }: ITitleProps) {
     </Typography>
   );
 }
-
-Title.defaultProps = defaultProps;
 
 export default Title;
