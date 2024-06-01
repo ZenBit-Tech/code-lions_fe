@@ -18,4 +18,5 @@ export interface StyledInputProps extends InputProps {
   fontSize?: string;
   padding: InputPaddingVariants;
   stylevariant: InputStyleVariants;
+  autoComplete?: string;
 }

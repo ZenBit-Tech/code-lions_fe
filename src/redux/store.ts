@@ -1,7 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
+import exampleReducer from './exampleSlice';
 
 const store = configureStore({
-  reducer: {},
+  reducer: {
+    counter: exampleReducer,
+  },
 });
 
 export default store;

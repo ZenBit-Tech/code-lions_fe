@@ -33,6 +33,7 @@ const theme = createTheme({
     },
     secondary: {
       main: '#E3EEE2',
+      contrastText: '#333333',
     },
     background: {
       default: '#ffffff',
@@ -70,7 +71,7 @@ const theme = createTheme({
     h4: {
       fontFamily: 'DM Sans, Arial, sans-serif',
       fontSize: 14,
-      fontWeightRegular: 500,
+      fontWeight: 500,
       lineHeight: 1.43,
       letterSpacing: '-0.21px',
     },
@@ -84,7 +85,7 @@ const theme = createTheme({
     subtitle2: {
       fontFamily: 'DM Sans, Arial, sans-serif',
       fontSize: 14,
-      fontWeightRegular: 400,
+      fontWeight: 400,
       lineHeight: 1.43,
     },
     body1: {
@@ -101,6 +102,15 @@ const theme = createTheme({
       letterSpacing: '-0.5px',
       textTransform: 'none',
       lineHeight: 1.32,
+    },
+    overline: {
+      fontFamily: 'DM Sans, Arial, sans-serif',
+      fontSize: 12,
+      fontStyle: 'normal',
+      fontWeight: 400,
+      lineHeight: 1.33,
+      letterSpacing: '-0.06px',
+      textTransform: 'none',
     },
   },
 });
