@@ -6,6 +6,14 @@ interface IOtpFunctionsProps {
   onChange: Dispatch<SetStateAction<string>>;
 }
 
+const keyValues = {
+  space: ' ',
+  arrowLeft: 'ArrowLeft',
+  arrowRight: 'ArrowRight',
+  delete: 'Delete',
+  backspace: 'Backspace',
+};
+
 const useOtpFunctions = ({ length, value, onChange }: IOtpFunctionsProps) => {
   const inputRefs = useRef<HTMLInputElement[]>(new Array(length).fill(null));
 
@@ -24,11 +32,11 @@ const useOtpFunctions = ({ length, value, onChange }: IOtpFunctionsProps) => {
     currentIndex: number
   ): void => {
     switch (event.key) {
-      case ' ':
+      case keyValues.space:
         event.preventDefault();
         break;
 
-      case 'ArrowLeft':
+      case keyValues.arrowLeft:
         event.preventDefault();
         if (currentIndex > 0) {
           focusInput(currentIndex - 1);
@@ -36,7 +44,7 @@ const useOtpFunctions = ({ length, value, onChange }: IOtpFunctionsProps) => {
         }
         break;
 
-      case 'ArrowRight':
+      case keyValues.arrowRight:
         event.preventDefault();
         if (currentIndex < length - 1) {
           focusInput(currentIndex + 1);
@@ -44,7 +52,7 @@ const useOtpFunctions = ({ length, value, onChange }: IOtpFunctionsProps) => {
         }
         break;
 
-      case 'Delete':
+      case keyValues.delete:
         event.preventDefault();
         onChange((prevOtp) => {
           const otp =
@@ -53,7 +61,7 @@ const useOtpFunctions = ({ length, value, onChange }: IOtpFunctionsProps) => {
         });
         break;
 
-      case 'Backspace':
+      case keyValues.backspace:
         event.preventDefault();
         if (currentIndex > 0) {
           focusInput(currentIndex - 1);

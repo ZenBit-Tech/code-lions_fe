@@ -15,9 +15,10 @@ import ButtonText from 'src/components/shared/ButtonText';
 import OTPInput from 'src/components/shared/OTPInput';
 import useVerificationTimer from './VerifyEmailPageHooks';
 
+const otpLengthMin = 0;
+const otpLengthMax = 6;
+
 function VerifyEmailPage() {
-  const otpLengthMin = 0;
-  const otpLengthMax = 6;
   const { t } = useTranslation();
   const [otp, setOtp] = useState<string>('');
   const [isError, setIsError] = useState<boolean>(false);
