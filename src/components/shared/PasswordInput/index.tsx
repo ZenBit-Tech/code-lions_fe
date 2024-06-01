@@ -10,7 +10,6 @@ function PasswordInput({
   width,
   padding,
   name,
-  borderRadius,
   stylevariant,
 }: StyledInputProps): JSX.Element {
   const [showPassword, setShowPassword] = useState(false);
@@ -40,7 +39,6 @@ function PasswordInput({
       placeholder={placeholder}
       width={width}
       padding={padding}
-      borderRadius={borderRadius}
       stylevariant={stylevariant}
     />
   );
