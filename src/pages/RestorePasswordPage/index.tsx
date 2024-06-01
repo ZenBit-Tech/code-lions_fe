@@ -28,7 +28,6 @@ const IconButtonContainer = styled(Box)(({ theme }) => ({
   alignItems: 'center',
   marginBottom: theme.spacing(1),
 }));
-
 function RestorePasswordPage() {
   const { t } = useTranslation();
   return (

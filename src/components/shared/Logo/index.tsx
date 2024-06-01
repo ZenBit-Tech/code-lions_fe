@@ -16,7 +16,6 @@ function Circle() {
     />
   );
 }
-
 function Logo() {
   const { t } = useTranslation();
   return (
