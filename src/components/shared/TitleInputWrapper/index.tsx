@@ -1,19 +1,19 @@
 import { ReactNode } from 'react';
 import { Box, styled } from '@mui/system';
 
-interface InputWrapperProps {
+interface TitleInputWrapperProps {
   children: ReactNode;
 }
 
-const InputWrapperStyled = styled(Box)({
+const TitleInputWrapperStyled = styled(Box)({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'space-between',
   gap: '8px',
 });
 
-function InputWrapper({ children }: InputWrapperProps): JSX.Element {
-  return <InputWrapperStyled>{children}</InputWrapperStyled>;
+function TitleInputWrapper({ children }: TitleInputWrapperProps): JSX.Element {
+  return <TitleInputWrapperStyled>{children}</TitleInputWrapperStyled>;
 }
 
-export default InputWrapper;
+export default TitleInputWrapper;
