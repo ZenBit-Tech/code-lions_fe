@@ -35,6 +35,8 @@ const useVerificationTimer = () => {
 
   return {
     timer,
+    timerMin,
+    timerMax,
     formattedTimer,
     isSendAgainButtonDisabled,
     handleSendAgain,

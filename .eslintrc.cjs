@@ -50,5 +50,6 @@ module.exports = {
       'warn',
       { allowConstantExport: true },
     ],
+    'react/no-array-index-key': 'warn',
   },
 };
