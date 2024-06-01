@@ -7,11 +7,7 @@ interface IRegularTextProps {
   align?: 'right' | 'left' | 'center' | 'inherit' | 'justify' | undefined;
 }
 
-const defaultProps = {
-  align: 'left',
-};
-
-function RegularText({ children, align }: IRegularTextProps) {
+function RegularText({ children, align = 'left' }: IRegularTextProps) {
   return (
     <Typography
       variant="subtitle2"
@@ -22,7 +18,5 @@ function RegularText({ children, align }: IRegularTextProps) {
     </Typography>
   );
 }
-
-RegularText.defaultProps = defaultProps;
 
 export default RegularText;
