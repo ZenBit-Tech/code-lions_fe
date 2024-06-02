@@ -24,7 +24,7 @@ function OTP({ separator, length, value, onChange, isError }: IOTPProps) {
     useOtpFunctions({ length, onChange, value });
 
   return (
-    <Box display="flex" alignItems="center" gap={1}>
+    <Box display="flex" alignItems="center" gap="6px">
       {new Array(length).fill(null).map((_, index) => (
         <React.Fragment key={index}>
           <BaseInput

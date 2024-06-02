@@ -20,6 +20,9 @@ const StyledInput = styled(TextField)<StyledInputProps>(
     '& .MuiOutlinedInput-notchedOutline': {
       borderRadius: props.borderRadius || '6px',
     },
+    [theme.breakpoints.down('sm')]: {
+      width: '300px',
+    },
   })
 );
 
