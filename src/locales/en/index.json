@@ -4,7 +4,8 @@
   },
   "examplePageText": {
     "homePage": "Home Page",
-    "signInPage": "Sing In"
+    "signInPage": "Sing In",
+    "newPasswordPage": "New Password"
   },
   "verifyEmail": {
     "verifyYourEmail": "Verify your email",

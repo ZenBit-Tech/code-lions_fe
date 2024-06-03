@@ -6,6 +6,7 @@ const imageUrls = {
   verifyImageUrl: 'src/assets/photos/verifyPhoto.jpeg',
   signinImageUrl: 'src/assets/photos/signInPhoto.png',
   restoreImageUrl: 'src/assets/photos/restorePasswordPhoto.jpg',
+  newPasswordImageUrl: 'src/assets/photos/newPasswordPhoto.jpeg',
 };
 
 const locations = {
@@ -13,7 +14,7 @@ const locations = {
   verify: '/verify',
   signin: '/signin',
   restorePassword: '/restore-password',
-  auth: '/auth',
+  newPassword: '/new-password',
 };
 
 const RouteConfig: {
@@ -35,8 +36,8 @@ const RouteConfig: {
     backgroundImage: imageUrls.restoreImageUrl,
     logoColor: theme.palette.common.black,
   },
-  [locations.auth]: {
-    backgroundImage: imageUrls.verifyImageUrl,
+  [locations.newPassword]: {
+    backgroundImage: imageUrls.newPasswordImageUrl,
     logoColor: theme.palette.common.white,
   },
 };
