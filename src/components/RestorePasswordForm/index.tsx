@@ -24,6 +24,7 @@ const FormWrapper = styled(Box)({
   flexDirection: 'column',
   justifyContent: 'space-between',
   gap: '20px',
+  width: '100%',
 });
 
 function RestorePasswordForm() {
