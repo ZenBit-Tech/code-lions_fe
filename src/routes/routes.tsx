@@ -4,6 +4,7 @@ import SignInPage from 'src/pages/SignInPage';
 import SignUpPage from 'src/pages/SignUpPage';
 import VerifyEmailPage from 'src/pages/VerifyEmailPage';
 import RestorePasswordPage from 'src/pages/RestorePasswordPage';
+import NewPasswordPage from 'src/pages/NewPasswordPage';
 
 const router = createBrowserRouter([
   { path: '', element: <HomePage /> },
@@ -11,6 +12,8 @@ const router = createBrowserRouter([
   { path: 'verify', element: <VerifyEmailPage /> },
   { path: 'signin', element: <SignInPage /> },
   { path: 'restore-password', element: <RestorePasswordPage /> },
+  { path: 'enter-code', element: <VerifyEmailPage /> },
+  { path: 'new-password', element: <NewPasswordPage /> },
 ]);
 
 export default router;

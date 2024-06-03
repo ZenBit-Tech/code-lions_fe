@@ -20,6 +20,9 @@ const StyledButton = styled(LoadingButton)<IStyledButtonProps>(
     '&:hover': {
       opacity: theme.palette.action.hoverOpacity,
     },
+    [theme.breakpoints.down('sm')]: {
+      width: '300px',
+    },
   })
 );
 

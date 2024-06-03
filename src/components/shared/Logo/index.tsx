@@ -1,14 +1,17 @@
 import { Box, Typography } from '@mui/material';
-import theme from 'src/theme';
 import { useTranslation } from 'react-i18next';
 
-function Circle() {
+interface ILogoProps {
+  logoColor: string;
+}
+
+function Circle({ logoColor }: ILogoProps) {
   return (
     <Box
       sx={{
         width: '28px',
         height: '28px',
-        backgroundColor: theme.palette.common.black,
+        backgroundColor: logoColor,
         borderRadius: '50%',
         display: 'inline-block',
         marginRight: '6.25px',
@@ -16,15 +19,21 @@ function Circle() {
     />
   );
 }
-function Logo() {
+
+function Logo({ logoColor }: ILogoProps) {
   const { t } = useTranslation();
   return (
-    <Box sx={{ display: 'flex', alignItems: 'center' }}>
-      <Circle />
-      <Typography
-        variant="h1"
-        sx={{ color: theme.palette.common.black, fontSize: '31.22px' }}
-      >
+    <Box
+      sx={{
+        display: 'flex',
+        alignItems: 'center',
+        marginLeft: '63px',
+        marginTop: '42px',
+        position: 'absolute',
+      }}
+    >
+      <Circle logoColor={logoColor} />
+      <Typography variant="h1" sx={{ color: logoColor, fontSize: '31.22px' }}>
         {t('logoTitle')}
       </Typography>
     </Box>

@@ -10,7 +10,7 @@ interface IOTPInputProps {
 
 function OTPInput({ otp, setOtp, isError }: IOTPInputProps) {
   return (
-    <Box display="flex" gap={2}>
+    <Box display="flex" sx={{ marginTop: '8px' }}>
       <OTP
         separator={<span> </span>}
         value={otp}
