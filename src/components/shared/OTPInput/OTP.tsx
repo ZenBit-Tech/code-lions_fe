@@ -5,7 +5,7 @@ import {
 } from '@mui/base/Input';
 import { Box } from '@mui/system';
 import StyledOtpInput from 'src/components/shared/OTPInput/StyledOtpInput';
-import useOtpFunctions from './OTPhook';
+import useOtpFunctions from './OTPInputHook';
 
 interface IOTPProps {
   separator: React.ReactNode;

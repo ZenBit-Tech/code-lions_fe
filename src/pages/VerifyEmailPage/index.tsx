@@ -44,7 +44,6 @@ const TimerContainer = styled(Box)(() => ({
 }));
 
 const verifyUrl: string = '/verify';
-const enterCodeUrl: string = '/enter-code';
 const otpLengthMin: number = 0;
 const otpLengthMax: number = 6;
 
@@ -72,12 +71,14 @@ function VerifyEmailPage() {
     }
   }, [otp, timer, timerMin]);
 
-  let titleText;
-  if (pathname === verifyUrl) {
-    titleText = t('verifyEmail.verifyYourEmail');
-  } else if (pathname === enterCodeUrl) {
-    titleText = t('verifyEmail.enterCode');
-  }
+  const getTitleText = (path: string) => {
+    if (path === verifyUrl) {
+      return t('verifyEmail.verifyYourEmail');
+    }
+    return t('verifyEmail.enterCode');
+  };
+
+  const titleText = getTitleText(pathname);
 
   const handleVerify = () => {
     return otp;
