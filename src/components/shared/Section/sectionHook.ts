@@ -14,6 +14,7 @@ const locations = {
   verify: '/verify',
   signin: '/signin',
   restorePassword: '/restore-password',
+  enterCode: '/enter-code',
   newPassword: '/new-password',
 };
 
@@ -35,6 +36,10 @@ const RouteConfig: {
   [locations.restorePassword]: {
     backgroundImage: imageUrls.restoreImageUrl,
     logoColor: theme.palette.common.black,
+  },
+  [locations.enterCode]: {
+    backgroundImage: imageUrls.verifyImageUrl,
+    logoColor: theme.palette.common.white,
   },
   [locations.newPassword]: {
     backgroundImage: imageUrls.newPasswordImageUrl,

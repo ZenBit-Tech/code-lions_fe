@@ -9,6 +9,7 @@
   },
   "verifyEmail": {
     "verifyYourEmail": "Verify your email",
+    "enterCode": "Enter Code",
     "sentEmailText": "We have sent an OTP verification code to your email, please enter it here",
     "code": "Code",
     "verify": "Verify",

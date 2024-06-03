@@ -1,5 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { Box, IconButton } from '@mui/material';
 import { styled } from '@mui/system';
 import Section from 'src/components/shared/Section';
@@ -42,10 +43,13 @@ const TimerContainer = styled(Box)(() => ({
   width: '100%',
 }));
 
+const verifyUrl = '/verify';
+const enterCodeUrl = '/enter-code';
 const otpLengthMin = 0;
 const otpLengthMax = 6;
 
 function VerifyEmailPage() {
+  const { pathname } = useLocation();
   const { t } = useTranslation();
   const [otp, setOtp] = useState<string>('');
   const [isError, setIsError] = useState<boolean>(false);
@@ -56,6 +60,13 @@ function VerifyEmailPage() {
     isSendAgainButtonDisabled,
     handleSendAgain,
   } = useVerificationTimer();
+
+  let titleText;
+  if (pathname === verifyUrl) {
+    titleText = t('verifyEmail.verifyYourEmail');
+  } else if (pathname === enterCodeUrl) {
+    titleText = t('verifyEmail.enterCode');
+  }
 
   useEffect(() => {
     if (
@@ -79,7 +90,7 @@ function VerifyEmailPage() {
           <IconButton sx={{ padding: 0, marginRight: '12px' }}>
             <ArrowLeftIcon />
           </IconButton>
-          <Title>{t('verifyEmail.verifyYourEmail')}</Title>
+          <Title>{titleText}</Title>
         </TitleContainer>
         <Box mb="16px">
           <RegularText align="left">
