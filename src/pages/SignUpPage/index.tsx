@@ -8,9 +8,9 @@ import Container from 'src/components/shared/Container';
 import SignUpForm from 'src/components/SignUpForm';
 import Title from 'src/components/shared/Title';
 import RegularText from 'src/components/shared/RegularText';
-import TitleInputWrapper from 'src/components/shared/InputWrapper';
 import TextButton from 'src/components/shared/TextButton';
 import LabelText from 'src/components/shared/LabelText';
+import TitleInputWrapper from 'src/components/shared/TitleInputWrapper';
 
 function SignUpPage() {
   const { t } = useTranslation();
