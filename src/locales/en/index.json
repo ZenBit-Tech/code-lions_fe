@@ -38,6 +38,19 @@
     "privacyPolicy": "Privacy Policy",
     "termsOfUse": "Terms of Use"
   },
+  "signin": {
+    "signIn": "Sign In",
+    "signInSocial": "Sign In with social networks",
+    "textOr": "or",
+    "emailLabel": "Email*",
+    "emailPlaceholder": "your_email@gmail.com",
+    "passwordLabel": "Password*",
+    "passwordPlaceholder": "Min. 8 characters",
+    "forgotPassword": "Forgot Password?",
+    "singInButton": "Sign In",
+    "haveNoAccount": "Don`t have an account?",
+    "signUp": "Sign Up"
+  },
   "restorePassword": {
     "restoreYourPassword": "Restore password",
     "enterEmailText": "Enter your email to restore your password",
