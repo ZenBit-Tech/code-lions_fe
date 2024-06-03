@@ -68,6 +68,13 @@ const theme = createTheme({
         fontSize: 28,
       },
     },
+    h2: {
+      fontFamily: 'Playfair Display, Arial, sans-serif',
+      fontSize: 31.22,
+      fontWeight: 600,
+      lineHeight: 1.85,
+      letterSpacing: '-0.31px',
+    },
     h4: {
       fontFamily: 'DM Sans, Arial, sans-serif',
       fontSize: 14,
