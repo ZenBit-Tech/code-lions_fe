@@ -17,7 +17,7 @@ import TitleInputWrapper from 'src/components/shared/TitleInputWrapper';
 import TextButton from 'src/components/shared/TextButton';
 import FormStyled from './styles';
 
-function SignUpForm() {
+function SignInForm() {
   const { t } = useTranslation();
 
   return (
@@ -59,4 +59,4 @@ function SignUpForm() {
   );
 }
 
-export default SignUpForm;
+export default SignInForm;

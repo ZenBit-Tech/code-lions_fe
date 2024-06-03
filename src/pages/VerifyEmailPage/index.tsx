@@ -43,10 +43,10 @@ const TimerContainer = styled(Box)(() => ({
   width: '100%',
 }));
 
-const verifyUrl = '/verify';
-const enterCodeUrl = '/enter-code';
-const otpLengthMin = 0;
-const otpLengthMax = 6;
+const verifyUrl: string = '/verify';
+const enterCodeUrl: string = '/enter-code';
+const otpLengthMin: number = 0;
+const otpLengthMax: number = 6;
 
 function VerifyEmailPage() {
   const { pathname } = useLocation();
@@ -61,13 +61,6 @@ function VerifyEmailPage() {
     handleSendAgain,
   } = useVerificationTimer();
 
-  let titleText;
-  if (pathname === verifyUrl) {
-    titleText = t('verifyEmail.verifyYourEmail');
-  } else if (pathname === enterCodeUrl) {
-    titleText = t('verifyEmail.enterCode');
-  }
-
   useEffect(() => {
     if (
       (otp.length > otpLengthMin && otp.length < otpLengthMax) ||
@@ -78,6 +71,13 @@ function VerifyEmailPage() {
       setIsError(false);
     }
   }, [otp, timer, timerMin]);
+
+  let titleText;
+  if (pathname === verifyUrl) {
+    titleText = t('verifyEmail.verifyYourEmail');
+  } else if (pathname === enterCodeUrl) {
+    titleText = t('verifyEmail.enterCode');
+  }
 
   const handleVerify = () => {
     return otp;
