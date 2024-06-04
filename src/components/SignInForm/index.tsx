@@ -72,7 +72,7 @@ function SignInForm() {
                 {...field}
               />
               {errors.email && (
-                <Typography mt={1} color="error">
+                <Typography mt={1} color={theme.palette.error.main}>
                   {errors.email.message}
                 </Typography>
               )}
