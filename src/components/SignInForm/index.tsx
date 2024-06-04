@@ -1,7 +1,6 @@
 import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
-import { Typography } from '@mui/material';
+import { Typography, Link } from '@mui/material';
 import { Box } from '@mui/system';
 import theme from 'src/theme';
 import { urls, validations } from 'src/common/constants';
@@ -115,7 +114,7 @@ function SignInForm() {
       </TitleInputWrapper>
       <Box display="flex" alignItems="center">
         <TextButton sx={{ padding: '0' }}>
-          <Link to={urls.RESTORE_PASSWORD}>
+          <Link href={urls.RESTORE_PASSWORD} underline="none">
             <LabelText align="right">{t('signin.forgotPassword')}</LabelText>
           </Link>
         </TextButton>
