@@ -1,6 +1,9 @@
 import { useTranslation } from 'react-i18next';
-import { Typography } from '@mui/material';
 import { useForm, Controller, SubmitHandler } from 'react-hook-form';
+import { Typography } from '@mui/material';
+import { Box } from '@mui/system';
+import theme from 'src/theme';
+import { validations } from 'src/common/constants';
 import PasswordInput from 'src/components/shared/PasswordInput';
 import {
   InputPaddingVariants,
@@ -26,14 +29,21 @@ interface ISignUpForm {
 function SignUpForm() {
   const { t } = useTranslation();
 
-  const { control, handleSubmit } = useForm({
+  const {
+    control,
+    handleSubmit,
+    formState: { isDirty, isValid, errors },
+  } = useForm<ISignUpForm>({
     defaultValues: {
       name: '',
       email: '',
       password: '',
       repeatPassword: '',
     },
+    mode: 'onChange',
   });
+
+  const errorsLength: number = Object.keys(errors).length;
 
   const onSubmit: SubmitHandler<ISignUpForm> = (data) => {
     console.log(data);
@@ -46,14 +56,25 @@ function SignUpForm() {
         <Controller
           name="name"
           control={control}
+          rules={{
+            required: t('authErrors.missingCredentials'),
+          }}
           render={({ field }) => (
-            <StyledInput
-              {...field}
-              autoComplete="off"
-              placeholder={t('signup.namePlaceholder')}
-              padding={InputPaddingVariants.MD}
-              stylevariant={InputStyleVariants.OUTLINED}
-            />
+            <Box>
+              <StyledInput
+                {...field}
+                autoComplete="off"
+                placeholder={t('signup.namePlaceholder')}
+                padding={InputPaddingVariants.MD}
+                stylevariant={InputStyleVariants.OUTLINED}
+                error={!!errors.name}
+              />
+              {errors.name && (
+                <Typography mt={1} color={theme.palette.error.main}>
+                  {errors.name.message}
+                </Typography>
+              )}
+            </Box>
           )}
         />
       </TitleInputWrapper>
@@ -62,15 +83,30 @@ function SignUpForm() {
         <Controller
           name="email"
           control={control}
+          rules={{
+            required: t('authErrors.missingCredentials'),
+            pattern: {
+              value: validations.EMAIL_REGEX,
+              message: t('authErrors.invalidEmail'),
+            },
+          }}
           render={({ field }) => (
-            <StyledInput
-              {...field}
-              name="email"
-              autoComplete="off"
-              placeholder={t('signup.emailPlaceholder')}
-              padding={InputPaddingVariants.MD}
-              stylevariant={InputStyleVariants.OUTLINED}
-            />
+            <Box>
+              <StyledInput
+                {...field}
+                name="email"
+                autoComplete="off"
+                placeholder={t('signup.emailPlaceholder')}
+                padding={InputPaddingVariants.MD}
+                stylevariant={InputStyleVariants.OUTLINED}
+                error={!!errors.email}
+              />
+              {errors.email && (
+                <Typography mt={1} color={theme.palette.error.main}>
+                  {errors.email.message}
+                </Typography>
+              )}
+            </Box>
           )}
         />
       </TitleInputWrapper>
@@ -111,6 +147,7 @@ function SignUpForm() {
         type="submit"
         styles={StyleVariants.BLACK}
         padding={PaddingVariants.LG}
+        disabled={!isDirty || !isValid || errorsLength > 0}
       >
         <Typography variant="button"> {t('signup.singUpButton')} </Typography>
       </StyledButton>

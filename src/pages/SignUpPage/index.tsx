@@ -1,5 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { Box } from '@mui/system';
+import { Link } from 'react-router-dom';
 import Section from 'src/components/shared/Section';
 import SocialIconButton from 'src/components/shared/SocialIconButton';
 import GoogleIcon from 'src/assets/icons/google.svg';
@@ -11,6 +12,7 @@ import RegularText from 'src/components/shared/RegularText';
 import TextButton from 'src/components/shared/TextButton';
 import LabelText from 'src/components/shared/LabelText';
 import TitleInputWrapper from 'src/components/shared/TitleInputWrapper';
+import PolicyTermsLinks from 'src/components/shared/PolicyTermsLinks';
 
 function SignUpPage() {
   const { t } = useTranslation();
@@ -31,27 +33,13 @@ function SignUpPage() {
         <SignUpForm />
         <Box display="flex" justifyContent="center" alignItems="center">
           <RegularText align="left">{t('signup.haveAccount')}</RegularText>
-          <TextButton sx={{ padding: '12px 0' }}>
-            <LabelText align="right">{t('signup.signIn')}</LabelText>
-          </TextButton>
+          <Link to="/signin">
+            <TextButton sx={{ padding: '12px 0' }}>
+              <LabelText align="right">{t('signup.signIn')}</LabelText>
+            </TextButton>
+          </Link>
         </Box>
-        <Box
-          display="flex"
-          justifyContent="space-between"
-          alignItems="center"
-          mt="23px"
-        >
-          <TextButton sx={{ padding: '12px 24px' }}>
-            <LabelText variant="h4" align="left">
-              {t('signup.privacyPolicy')}
-            </LabelText>
-          </TextButton>
-          <TextButton sx={{ padding: '12px 24px' }}>
-            <LabelText variant="h4" align="right">
-              {t('signup.termsOfUse')}
-            </LabelText>
-          </TextButton>
-        </Box>
+        <PolicyTermsLinks />
       </Container>
     </Section>
   );
