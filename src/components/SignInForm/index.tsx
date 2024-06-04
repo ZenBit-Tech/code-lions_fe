@@ -1,6 +1,10 @@
+import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 import { Typography } from '@mui/material';
 import { Box } from '@mui/system';
+import theme from 'src/theme';
+import { urls, validations } from 'src/common/constants';
 import PasswordInput from 'src/components/shared/PasswordInput';
 import {
   InputPaddingVariants,
@@ -17,43 +21,115 @@ import TitleInputWrapper from 'src/components/shared/TitleInputWrapper';
 import TextButton from 'src/components/shared/TextButton';
 import FormStyled from './styles';
 
+interface IFormInput {
+  email: string;
+  password: string;
+}
+
 function SignInForm() {
   const { t } = useTranslation();
 
+  const {
+    control,
+    handleSubmit,
+    formState: { isDirty, isValid, errors },
+  } = useForm<IFormInput>({
+    defaultValues: {
+      email: '',
+      password: '',
+    },
+    mode: 'onChange',
+  });
+
+  const errorsLength: number = Object.keys(errors).length;
+
+  const onSubmit: SubmitHandler<IFormInput> = (data) => {
+    return data;
+  };
+
   return (
-    <FormStyled>
+    <FormStyled onSubmit={handleSubmit(onSubmit)}>
       <TitleInputWrapper>
-        <LabelText> {t('signin.emailLabel')} </LabelText>
-        <StyledInput
+        <LabelText>{t('signin.emailLabel')}</LabelText>
+        <Controller
           name="email"
-          autoComplete="off"
-          placeholder={t('signin.emailPlaceholder')}
-          padding={InputPaddingVariants.MD}
-          stylevariant={InputStyleVariants.OUTLINED}
+          control={control}
+          rules={{
+            required: t('authErrors.enterCredentials'),
+            pattern: {
+              value: validations.EMAIL_REGEX,
+              message: t('authErrors.invalidEmail'),
+            },
+          }}
+          render={({ field }) => (
+            <Box>
+              <StyledInput
+                fullWidth
+                autoComplete="off"
+                placeholder={t('signin.emailPlaceholder')}
+                padding={InputPaddingVariants.MD}
+                stylevariant={InputStyleVariants.OUTLINED}
+                error={!!errors.email}
+                {...field}
+              />
+              {errors.email && (
+                <Typography mt={1} color="error">
+                  {errors.email.message}
+                </Typography>
+              )}
+            </Box>
+          )}
         />
       </TitleInputWrapper>
       <TitleInputWrapper>
-        <LabelText> {t('signin.passwordLabel')} </LabelText>
-        <PasswordInput
+        <LabelText>{t('signin.passwordLabel')}</LabelText>
+        <Controller
           name="password"
-          autoComplete="off"
-          placeholder={t('signin.passwordPlaceholder')}
-          padding={InputPaddingVariants.MD}
-          stylevariant={InputStyleVariants.OUTLINED}
+          control={control}
+          rules={{
+            required: t('authErrors.enterCredentials'),
+            minLength: {
+              value: validations.PASSWORD_MIN_LENGTH,
+              message: t('authErrors.passwordLength'),
+            },
+          }}
+          render={({ field }) => (
+            <Box>
+              <PasswordInput
+                fullWidth
+                autoComplete="off"
+                placeholder={t('signin.passwordPlaceholder')}
+                padding={InputPaddingVariants.MD}
+                stylevariant={InputStyleVariants.OUTLINED}
+                error={!!errors.password}
+                {...field}
+              />
+              {errors.password && (
+                <Typography mt={1} color={theme.palette.error.main}>
+                  {errors.password.message}
+                </Typography>
+              )}
+            </Box>
+          )}
         />
       </TitleInputWrapper>
       <Box display="flex" alignItems="center">
         <TextButton sx={{ padding: '0' }}>
-          <LabelText align="right">{t('signin.forgotPassword')}</LabelText>
+          <Link to={urls.RESTORE_PASSWORD}>
+            <LabelText align="right">{t('signin.forgotPassword')}</LabelText>
+          </Link>
         </TextButton>
       </Box>
       <StyledButton
-        width="100%"
+        fullWidth
         type="submit"
         styles={StyleVariants.BLACK}
         padding={PaddingVariants.LG}
+        disabled={!isDirty || !isValid || errorsLength > 0}
       >
-        <Typography variant="button"> {t('signin.singInButton')} </Typography>
+        <Typography variant="button" color={theme.palette.common.white}>
+          {t('signin.singInButton')}
+        </Typography>
       </StyledButton>
     </FormStyled>
   );

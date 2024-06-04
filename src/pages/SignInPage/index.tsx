@@ -1,5 +1,7 @@
 import { useTranslation } from 'react-i18next';
+import { urls } from 'src/common/constants';
 import { Box } from '@mui/system';
+import { Link } from 'react-router-dom';
 import Section from 'src/components/shared/Section';
 import SocialIconButton from 'src/components/shared/SocialIconButton';
 import GoogleIcon from 'src/assets/icons/google.svg';
@@ -36,8 +38,11 @@ function SignInPage() {
           sx={{ padding: '24px' }}
         >
           <RegularText align="left">{t('signin.haveNoAccount')}</RegularText>
+
           <TextButton sx={{ padding: '0' }}>
-            <LabelText align="right">{t('signin.signUp')}</LabelText>
+            <Link to={urls.SIGN_UP}>
+              <LabelText align="right">{t('signin.signUp')}</LabelText>
+            </Link>
           </TextButton>
         </Box>
       </Container>
