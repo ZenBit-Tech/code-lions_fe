@@ -31,6 +31,7 @@ function SignUpForm() {
 
   const {
     control,
+    watch,
     handleSubmit,
     formState: { isDirty, isValid, errors },
   } = useForm<ISignUpForm>({
@@ -42,6 +43,8 @@ function SignUpForm() {
     },
     mode: 'onChange',
   });
+
+  const password = watch('password');
 
   const errorsLength: number = Object.keys(errors).length;
 
@@ -115,14 +118,30 @@ function SignUpForm() {
         <Controller
           name="password"
           control={control}
+          rules={{
+            required: t('authErrors.missingCredentials'),
+            minLength: {
+              value: validations.PASSWORD_MIN_LENGTH,
+              message: t('authErrors.passwordLength'),
+            },
+          }}
           render={({ field }) => (
-            <PasswordInput
-              {...field}
-              autoComplete="off"
-              placeholder={t('signup.passwordPlaceholder')}
-              padding={InputPaddingVariants.MD}
-              stylevariant={InputStyleVariants.OUTLINED}
-            />
+            <Box>
+              <PasswordInput
+                {...field}
+                fullWidth
+                autoComplete="off"
+                placeholder={t('signup.passwordPlaceholder')}
+                padding={InputPaddingVariants.MD}
+                stylevariant={InputStyleVariants.OUTLINED}
+                error={!!errors.password}
+              />
+              {errors.password && (
+                <Typography mt={1} color={theme.palette.error.main}>
+                  {errors.password.message}
+                </Typography>
+              )}
+            </Box>
           )}
         />
       </TitleInputWrapper>
@@ -131,14 +150,32 @@ function SignUpForm() {
         <Controller
           name="repeatPassword"
           control={control}
+          rules={{
+            required: t('authErrors.missingCredentials'),
+            minLength: {
+              value: validations.PASSWORD_MIN_LENGTH,
+              message: t('authErrors.passwordLength'),
+            },
+            validate: (value) => {
+              return password === value || t('authErrors.passwordsNotMatch');
+            },
+          }}
           render={({ field }) => (
-            <PasswordInput
-              {...field}
-              autoComplete="off"
-              placeholder={t('signup.passwordPlaceholder')}
-              padding={InputPaddingVariants.MD}
-              stylevariant={InputStyleVariants.OUTLINED}
-            />
+            <Box>
+              <PasswordInput
+                {...field}
+                fullWidth
+                autoComplete="off"
+                placeholder={t('signup.passwordPlaceholder')}
+                padding={InputPaddingVariants.MD}
+                stylevariant={InputStyleVariants.OUTLINED}
+              />
+              {errors.repeatPassword && (
+                <Typography mt={1} color={theme.palette.error.main}>
+                  {errors.repeatPassword.message}
+                </Typography>
+              )}
+            </Box>
           )}
         />
       </TitleInputWrapper>
