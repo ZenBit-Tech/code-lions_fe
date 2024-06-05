@@ -16,6 +16,8 @@ import LabelText from 'src/components/shared/LabelText';
 import TextButton from 'src/components/shared/TextButton';
 import ButtonText from 'src/components/shared/ButtonText';
 import OTPInput from 'src/components/shared/OTPInput';
+import { useAppSelector } from 'src/redux/hooks';
+import { userApi } from 'src/redux/user/userService';
 import useVerificationTimer from './VerifyEmailPageHooks';
 
 const OtpContainer = styled(Box)(({ theme }) => ({
@@ -48,6 +50,7 @@ const otpLengthMin: number = 0;
 const otpLengthMax: number = 6;
 
 function VerifyEmailPage() {
+  const userId = useAppSelector((state) => state.user.user.id);
   const { pathname } = useLocation();
   const { t } = useTranslation();
   const [otp, setOtp] = useState<string>('');
@@ -59,6 +62,7 @@ function VerifyEmailPage() {
     isSendAgainButtonDisabled,
     handleSendAgain,
   } = useVerificationTimer();
+  const [verifyEmail] = userApi.useVerifyEmailMutation();
 
   useEffect(() => {
     if (
@@ -80,8 +84,9 @@ function VerifyEmailPage() {
 
   const titleText = getTitleText(pathname);
 
-  const handleVerify = () => {
-    return otp;
+  const handleVerify = async () => {
+    // try/catch
+    await verifyEmail({ id: userId, otp }).unwrap();
   };
 
   return (

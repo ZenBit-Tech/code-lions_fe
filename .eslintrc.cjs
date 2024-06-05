@@ -34,6 +34,7 @@ module.exports = {
     ],
     'no-constant-condition': 'error',
     'no-nested-ternary': 'error',
+    'no-param-reassign': 0,
     'no-unused-vars': [
       'error',
       { vars: 'all', varsIgnorePattern: '^_', args: 'none' },
