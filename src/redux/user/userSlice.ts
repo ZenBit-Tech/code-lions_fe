@@ -5,9 +5,9 @@ import { IUserState } from './types';
 
 const initialState: IUserState = {
   user: {
-    id: '64b1ee3d-7306-4a18-9b0b-5c65289a2b8',
-    name: 'Arseniia',
-    email: 'arseniiadamaxcoop@gmail.com',
+    id: '',
+    name: '',
+    email: '',
     isEmailVerified: false,
     isLoggedIn: false,
     accessToken: '',

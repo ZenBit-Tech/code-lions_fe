@@ -17,7 +17,7 @@ import ButtonText from 'src/components/shared/ButtonText';
 import OTPInput from 'src/components/shared/OTPInput';
 import theme from 'src/theme';
 import { OtpContainer, TitleContainer, TimerContainer } from './styles';
-import useVerification from './VerifyEmailPageHooks';
+import useVerification from './hooks/useVerification';
 
 function VerifyEmailPage() {
   const { pathname } = useLocation();
