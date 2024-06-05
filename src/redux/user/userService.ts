@@ -1,22 +1,28 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { HttpMethods, RTKUrls } from 'src/common/constants';
+import {
+  IVerifyEmailRequest,
+  IVerifyEmailResponse,
+  IResendOtpRequest,
+} from './types';
 
 export const userApi = createApi({
   reducerPath: 'userApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://code-lions-be.onrender.com/auth',
+    baseUrl: import.meta.env.VITE_API_URL,
   }),
   endpoints: (build) => ({
-    verifyEmail: build.mutation({
+    verifyEmail: build.mutation<IVerifyEmailResponse, IVerifyEmailRequest>({
       query: (post) => ({
-        url: '/verify-otp',
-        method: 'POST',
+        url: RTKUrls.VERIFY_OTP,
+        method: HttpMethods.POST,
         body: post,
       }),
     }),
-    resendOtp: build.mutation({
+    resendOtp: build.mutation<void, IResendOtpRequest>({
       query: (post) => ({
-        url: '/resend-otp',
-        method: 'POST',
+        url: RTKUrls.RESEND_OTP,
+        method: HttpMethods.POST,
         body: post,
       }),
     }),

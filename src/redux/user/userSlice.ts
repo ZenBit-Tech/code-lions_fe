@@ -1,24 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { appErrors } from 'src/common/constants';
 import { userApi } from './userService';
-
-interface IUser {
-  id: string;
-  name: string;
-  email: string;
-  isEmailVerified: boolean;
-  isLoggedIn: boolean;
-  accessToken: string;
-  refreshToken: string;
-  error: string;
-}
-
-interface IUserState {
-  user: IUser;
-}
+import { IUserState } from './types';
 
 const initialState: IUserState = {
   user: {
-    id: '19a34e39-758d-4de6-9fa7-6480bd88f225',
+    id: '64b1ee3d-7306-4a18-9b0b-5c65289a2b8',
     name: 'Arseniia',
     email: 'arseniiadamaxcoop@gmail.com',
     isEmailVerified: false,
@@ -37,9 +24,23 @@ export const userSlice = createSlice({
     builder.addMatcher(
       userApi.endpoints.verifyEmail.matchFulfilled,
       (state, action) => {
-        state.user.isEmailVerified = true;
+        state.user.isEmailVerified = action.payload.isEmailVerified;
         state.user.accessToken = action.payload.accessToken;
         state.user.refreshToken = action.payload.refreshToken;
+        state.user.error = '';
+      }
+    );
+    builder.addMatcher(
+      userApi.endpoints.verifyEmail.matchRejected,
+      (state, action) => {
+        state.user.error = action.error.message || appErrors.FAILED_TO_VERIFY;
+      }
+    );
+    builder.addMatcher(
+      userApi.endpoints.resendOtp.matchRejected,
+      (state, action) => {
+        state.user.error =
+          action.error.message || appErrors.FAILED_TO_RESEND_OTP;
       }
     );
   },
