@@ -75,6 +75,7 @@ function VerifyEmailPage() {
     if (path === verifyUrl) {
       return t('verifyEmail.verifyYourEmail');
     }
+
     return t('verifyEmail.enterCode');
   };
 

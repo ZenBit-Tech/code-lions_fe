@@ -22,6 +22,7 @@ function Circle({ logoColor }: ILogoProps) {
 
 function Logo({ logoColor }: ILogoProps) {
   const { t } = useTranslation();
+
   return (
     <Box
       sx={{

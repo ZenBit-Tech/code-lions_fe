@@ -22,6 +22,7 @@ const useVerificationTimer = () => {
         if (prevTimer > timerMin) {
           return prevTimer - 1;
         }
+
         return prevTimer;
       });
     }, intervalStep);
