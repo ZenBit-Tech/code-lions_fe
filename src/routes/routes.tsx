@@ -14,6 +14,7 @@ const router = createBrowserRouter([
   { path: 'restore-password', element: <RestorePasswordPage /> },
   { path: 'enter-code', element: <VerifyEmailPage /> },
   { path: 'new-password', element: <NewPasswordPage /> },
+  { path: 'home', element: <HomePage /> },
 ]);
 
 export default router;

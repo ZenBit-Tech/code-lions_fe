@@ -49,7 +49,8 @@
     "forgotPassword": "Forgot Password?",
     "singInButton": "Sign In",
     "haveNoAccount": "Don`t have an account?",
-    "signUp": "Sign Up"
+    "signUp": "Sign Up",
+    "loginFailed": "Log In failed"
   },
   "restorePassword": {
     "restoreYourPassword": "Restore password",
