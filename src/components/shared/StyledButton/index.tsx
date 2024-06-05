@@ -20,6 +20,10 @@ const StyledButton = styled(LoadingButton)<IStyledButtonProps>(
     '&:hover': {
       opacity: theme.palette.action.hoverOpacity,
     },
+    '&:disabled': {
+      opacity: 0.7,
+      cursor: 'not-allowed',
+    },
     [theme.breakpoints.down('sm')]: {
       width: '300px',
     },

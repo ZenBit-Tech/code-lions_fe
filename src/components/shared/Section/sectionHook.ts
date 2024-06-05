@@ -1,4 +1,5 @@
 import { useLocation } from 'react-router-dom';
+import { urls } from 'src/common/constants';
 import theme from 'src/theme';
 
 const imageUrls = {
@@ -9,39 +10,30 @@ const imageUrls = {
   newPasswordImageUrl: 'src/assets/photos/newPasswordPhoto.jpeg',
 };
 
-const locations = {
-  signup: '/signup',
-  verify: '/verify',
-  signin: '/signin',
-  restorePassword: '/restore-password',
-  enterCode: '/enter-code',
-  newPassword: '/new-password',
-};
-
 const RouteConfig: {
   [key: string]: { backgroundImage: string; logoColor: string };
 } = {
-  [locations.signup]: {
+  [urls.SIGN_UP]: {
     backgroundImage: imageUrls.signupImageUrl,
     logoColor: theme.palette.common.black,
   },
-  [locations.verify]: {
+  [urls.VERIFY]: {
     backgroundImage: imageUrls.verifyImageUrl,
     logoColor: theme.palette.common.white,
   },
-  [locations.signin]: {
+  [urls.SIGN_IN]: {
     backgroundImage: imageUrls.signinImageUrl,
     logoColor: theme.palette.common.black,
   },
-  [locations.restorePassword]: {
+  [urls.RESTORE_PASSWORD]: {
     backgroundImage: imageUrls.restoreImageUrl,
     logoColor: theme.palette.common.black,
   },
-  [locations.enterCode]: {
+  [urls.ENTER_CODE]: {
     backgroundImage: imageUrls.verifyImageUrl,
     logoColor: theme.palette.common.white,
   },
-  [locations.newPassword]: {
+  [urls.NEW_PASSWORD]: {
     backgroundImage: imageUrls.newPasswordImageUrl,
     logoColor: theme.palette.common.white,
   },
