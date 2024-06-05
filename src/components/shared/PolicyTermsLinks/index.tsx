@@ -3,6 +3,7 @@ import Box from '@mui/material/Box';
 import TextButton from 'src/components/shared/TextButton';
 import LabelText from 'src/components/shared/LabelText';
 import { Link, useLocation } from 'react-router-dom';
+import { urls } from 'src/common/constants';
 
 function PolicyTermsLinks(): JSX.Element {
   const location = useLocation();
@@ -15,14 +16,14 @@ function PolicyTermsLinks(): JSX.Element {
       alignItems="center"
       mt="23px"
     >
-      <Link to="/privacy-policy" state={{ from: location }}>
+      <Link to={urls.PRIVACY_POLICY} state={{ from: location }}>
         <TextButton sx={{ padding: '12px 24px' }}>
           <LabelText variant="h4" align="left">
             {t('signup.privacyPolicy')}
           </LabelText>
         </TextButton>
       </Link>
-      <Link to="/terms-of-use" state={{ from: location }}>
+      <Link to={urls.TERMS_OF_USE} state={{ from: location }}>
         <TextButton sx={{ padding: '12px 24px' }}>
           <LabelText variant="h4" align="right">
             {t('signup.termsOfUse')}

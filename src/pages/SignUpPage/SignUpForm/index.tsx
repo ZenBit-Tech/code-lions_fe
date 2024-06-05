@@ -45,8 +45,6 @@ function SignUpForm() {
     mode: 'onChange',
   });
 
-  // const password = watch('password');
-
   const errorsLength: number = Object.keys(errors).length;
 
   const [userSignUp, { isLoading }] = useUserSignUpMutation();
@@ -79,6 +77,7 @@ function SignUpForm() {
             <Box>
               <StyledInput
                 {...field}
+                fullWidth
                 autoComplete="off"
                 placeholder={t('signup.namePlaceholder')}
                 padding={InputPaddingVariants.MD}
@@ -110,6 +109,7 @@ function SignUpForm() {
             <Box>
               <StyledInput
                 {...field}
+                fullWidth
                 name="email"
                 autoComplete="off"
                 placeholder={t('signup.emailPlaceholder')}

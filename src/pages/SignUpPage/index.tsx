@@ -13,6 +13,7 @@ import TextButton from 'src/components/shared/TextButton';
 import LabelText from 'src/components/shared/LabelText';
 import TitleInputWrapper from 'src/components/shared/TitleInputWrapper';
 import PolicyTermsLinks from 'src/components/shared/PolicyTermsLinks';
+import { urls } from 'src/common/constants';
 
 function SignUpPage() {
   const { t } = useTranslation();
@@ -33,7 +34,7 @@ function SignUpPage() {
         <SignUpForm />
         <Box display="flex" justifyContent="center" alignItems="center">
           <RegularText align="left">{t('signup.haveAccount')}</RegularText>
-          <Link to="/signin">
+          <Link to={urls.SIGN_IN}>
             <TextButton sx={{ padding: '12px 0' }}>
               <LabelText align="right">{t('signup.signIn')}</LabelText>
             </TextButton>
