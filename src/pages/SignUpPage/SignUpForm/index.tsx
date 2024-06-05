@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import { Typography } from '@mui/material';
 import { Box } from '@mui/system';
+import { useUserSignUpMutation } from 'src/redux/apiUserSlice';
 import theme from 'src/theme';
 import { validations } from 'src/common/constants';
 import PasswordInput from 'src/components/shared/PasswordInput';
@@ -44,12 +45,24 @@ function SignUpForm() {
     mode: 'onChange',
   });
 
-  const password = watch('password');
+  // const password = watch('password');
 
   const errorsLength: number = Object.keys(errors).length;
 
-  const onSubmit: SubmitHandler<ISignUpForm> = (data) => {
-    console.log(data);
+  const [userSignUp, { isLoading }] = useUserSignUpMutation();
+
+  const onSubmit: SubmitHandler<ISignUpForm> = async ({
+    name,
+    email,
+    password,
+  }) => {
+    if ([name, email, password].every(Boolean) && !isLoading) {
+      try {
+        await userSignUp({ name, email, password }).unwrap();
+      } catch (err) {
+        console.error('Failed to save the post: ', err);
+      }
+    }
   };
 
   return (
@@ -157,7 +170,9 @@ function SignUpForm() {
               message: t('authErrors.passwordLength'),
             },
             validate: (value) => {
-              return password === value || t('authErrors.passwordsNotMatch');
+              return (
+                watch('password') === value || t('authErrors.passwordsNotMatch')
+              );
             },
           }}
           render={({ field }) => (
