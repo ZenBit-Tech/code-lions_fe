@@ -184,6 +184,7 @@ function SignUpForm() {
                 placeholder={t('signup.passwordPlaceholder')}
                 padding={InputPaddingVariants.MD}
                 stylevariant={InputStyleVariants.OUTLINED}
+                error={!!errors.repeatPassword}
               />
               {errors.repeatPassword && (
                 <Typography mt={1} color={theme.palette.error.main}>
