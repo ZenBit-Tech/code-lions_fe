@@ -66,7 +66,7 @@ function SignUpForm() {
         dispatch(setUser(userData));
         navigate(urls.VERIFY);
       } catch (err) {
-        console.error('Failed to save the post: ', err);
+        console.error('Failed to register user: ', err);
       }
     }
   };

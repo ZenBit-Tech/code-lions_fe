@@ -60,7 +60,10 @@ export interface IRegisterUserResponse {
 }
 
 export interface IRegisterErrorResponse {
-  statusCode: number;
-  message: string | string[];
-  error: string;
+  status: number;
+  data: {
+    error: string;
+    message: string | string[];
+    statusCode: number;
+  };
 }
