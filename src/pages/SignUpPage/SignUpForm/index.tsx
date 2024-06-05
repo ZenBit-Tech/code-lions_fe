@@ -1,10 +1,13 @@
 import { useTranslation } from 'react-i18next';
 import { useForm, Controller, SubmitHandler } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 import { Typography } from '@mui/material';
 import { Box } from '@mui/system';
-import { useUserSignUpMutation } from 'src/redux/apiUserSlice';
+import { useAppDispatch } from 'src/redux/hooks';
+import { useUserSignUpMutation } from 'src/redux/user/service';
+import { setUser } from 'src/redux/user/userSlice';
 import theme from 'src/theme';
-import { validations } from 'src/common/constants';
+import { urls, validations } from 'src/common/constants';
 import PasswordInput from 'src/components/shared/PasswordInput';
 import {
   InputPaddingVariants,
@@ -29,6 +32,8 @@ interface ISignUpForm {
 
 function SignUpForm() {
   const { t } = useTranslation();
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   const {
     control,
@@ -56,7 +61,10 @@ function SignUpForm() {
   }) => {
     if ([name, email, password].every(Boolean) && !isLoading) {
       try {
-        await userSignUp({ name, email, password }).unwrap();
+        const userData = await userSignUp({ name, email, password }).unwrap();
+
+        dispatch(setUser(userData));
+        navigate(urls.VERIFY);
       } catch (err) {
         console.error('Failed to save the post: ', err);
       }
