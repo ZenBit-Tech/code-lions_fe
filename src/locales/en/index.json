@@ -57,5 +57,10 @@
     "emailLabel": "Email*",
     "sendCode": "Send Code"
   },
-  "logoTitle": "Black Circle"
+  "logoTitle": "Black Circle",
+  "authErrors": {
+    "enterCredentials": "Please enter your credentials",
+    "invalidEmail": "Invalid email address format",
+    "passwordLength": "Password must be at least 8 characters long"
+  }
 }
