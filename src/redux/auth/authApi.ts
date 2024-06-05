@@ -1,6 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { ILoginDto, ILoginResponse } from 'src/redux/types/user';
 import { HttpMethods, RTKUrls } from "src/common/constants";
+import { IForgotPasswordDto, IForgotPasswordResponse } from "src/redux/types/email";
 
 export const authApi = createApi({
   reducerPath: 'authApi',
@@ -13,7 +14,14 @@ export const authApi = createApi({
         body: credentials,
       }),
     }),
+    forgotPassword: builder.mutation<IForgotPasswordResponse, IForgotPasswordDto>({
+      query: (data) => ({
+        url: RTKUrls.FORGOT_PASSWORD,
+        method: HttpMethods.POST,
+        body: data,
+      }),
+    }),
   }),
 });
 
-export const { useLoginMutation } = authApi;
+export const { useLoginMutation, useForgotPasswordMutation } = authApi;

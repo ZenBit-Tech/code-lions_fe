@@ -19,11 +19,11 @@ import LabelText from 'src/components/shared/LabelText';
 import TitleInputWrapper from 'src/components/shared/TitleInputWrapper';
 import TextButton from 'src/components/shared/TextButton';
 import FormStyled from './styles';
-import { useLoginMutation } from 'src/redux/auth/authApi.ts';
+import { useLoginMutation } from 'src/redux/auth/authApi';
 import { useNavigate } from 'react-router';
-import { useAppDispatch } from 'src/redux/hooks/hooks.ts';
+import { useAppDispatch } from 'src/redux/hooks/hooks';
 import { loginStart, loginSuccess, loginFailure, setTokens, setUser } from 'src/redux/auth/authSlice';
-import { ILoginDto, ILoginResponse } from 'src/redux/types/user.ts';
+import { ILoginDto, ILoginResponse } from 'src/redux/types/user';
 
 interface IFormInput {
   email: string;
@@ -64,7 +64,7 @@ function SignInForm() {
       dispatch(setUser(user));
       dispatch(setTokens(tokens));
 
-      navigate(`/home`);
+      navigate(urls.HOME_BASE);
     } catch (err: any) {
       let errorMessage = appErrors.FAILED_SIGN_IN;
       if (err.data && err.data.message) {

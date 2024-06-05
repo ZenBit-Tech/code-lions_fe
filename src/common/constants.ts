@@ -6,13 +6,14 @@ export const urls = {
   RESTORE_PASSWORD: '/restore-password',
   ENTER_CODE: '/enter-code',
   NEW_PASSWORD: '/new-password',
+  HOME_BASE: '/home'
 };
 
 export const RTKUrls = {
   VERIFY_OTP: 'auth/verify-otp',
   RESEND_OTP: 'auth/resend-otp',
   SIGN_IN: 'auth/login',
-
+  FORGOT_PASSWORD: 'auth/forgot-password'
 };
 
 export const HttpMethods = {
@@ -32,4 +33,5 @@ export const appErrors = {
   FAILED_TO_VERIFY: 'Failed to verify email',
   FAILED_TO_RESEND_OTP: 'Failed to resend otp code',
   FAILED_SIGN_IN: 'An unexpected error occurred',
+  FAILED_TO_SEND_EMAIL: 'Email are not send due to unexpected error'
 };

@@ -8,6 +8,7 @@ interface AuthState {
   isAuthenticated: boolean;
   loading: boolean;
   error: string | null;
+  forgotPasswordSuccess: boolean;
 }
 
 const initialState: AuthState = {
@@ -16,6 +17,7 @@ const initialState: AuthState = {
   isAuthenticated: false,
   loading: false,
   error: null,
+  forgotPasswordSuccess: false,
 };
 
 const authSlice = createSlice({
@@ -47,10 +49,26 @@ const authSlice = createSlice({
       state.tokens = null;
       state.isAuthenticated = false;
     },
+    forgotPasswordStart(state) {
+      state.loading = true;
+      state.error = null;
+      state.forgotPasswordSuccess = false;
+    },
+    forgotPasswordSuccess(state) {
+      state.loading = false;
+      state.forgotPasswordSuccess = true;
+    },
+    forgotPasswordFailure(state, action: PayloadAction<string>) {
+      state.loading = false;
+      state.error = action.payload;
+    },
   },
 });
 
-export const { loginStart, loginSuccess, loginFailure, setTokens, setUser, logout } = authSlice.actions;
+export const {
+  loginStart, loginSuccess, loginFailure, setTokens, setUser, logout,
+  forgotPasswordStart, forgotPasswordSuccess, forgotPasswordFailure
+} = authSlice.actions;
 
 export const selectAuth = (state: RootState) => state.auth;
 

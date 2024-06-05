@@ -56,7 +56,9 @@
     "restoreYourPassword": "Restore password",
     "enterEmailText": "Enter your email to restore your password",
     "emailLabel": "Email*",
-    "sendCode": "Send Code"
+    "sendCode": "Send Code",
+    "emailFailed": "Email are not send due to unexpected error",
+    "enterCredentials": "Please enter your email"
   },
   "logoTitle": "Black Circle",
   "authErrors": {
