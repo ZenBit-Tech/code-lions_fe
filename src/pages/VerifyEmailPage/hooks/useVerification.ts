@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { userApi } from 'src/redux/user/userService';
 import { urls } from 'src/common/constants';
 import { useAppSelector } from 'src/redux/hooks';
@@ -10,13 +10,13 @@ import useOtp from './useOtp';
 const timerMin: number = 0;
 const timerMax: number = 55;
 const intervalStep: number = 1000;
-const otpLengthMin: number = 0;
-const otpLengthMax: number = 6;
 
 type ErrorType = FetchBaseQueryError | SerializedError | undefined;
 
 const useVerification = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+
   const userId = useAppSelector((state) => state.user.user.id);
 
   const [verifyEmail, { error: verifyEmailError, isLoading }] =
@@ -27,29 +27,33 @@ const useVerification = () => {
     useTimer(timerMax, intervalStep);
   const { errorMessages, setCurrentError } = useErrorHandling();
   const { otp, setOtp, isError, setIsError } = useOtp(
-    otpLengthMin,
-    otpLengthMax,
-    timerMin,
     timer,
     (verifyEmailError as ErrorType) || (resendOtpError as ErrorType)
   );
 
+  const currentLocation = location.pathname;
+
   const handleVerify = async () => {
     try {
       await verifyEmail({ id: userId, otp }).unwrap();
-      navigate(urls.HOME);
+      if (currentLocation === urls.VERIFY) {
+        navigate(urls.HOME);
+      } else if (currentLocation === urls.ENTER_CODE) {
+        navigate(urls.NEW_PASSWORD);
+      }
     } catch (error) {
-      setCurrentError(error as SerializedError);
+      setCurrentError(error as FetchBaseQueryError);
       setIsError(true);
     }
   };
 
   const handleSendAgain = async () => {
     try {
-      await resendOtp({ id: userId }).unwrap();
       setTimer(timerMax);
+      await resendOtp({ id: userId }).unwrap();
     } catch (error) {
-      setCurrentError(error as SerializedError);
+      setCurrentError(error as FetchBaseQueryError);
+      setTimer(timerMin);
       setIsError(true);
     }
   };

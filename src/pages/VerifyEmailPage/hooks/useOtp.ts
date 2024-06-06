@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
 import { FetchBaseQueryError, SerializedError } from 'src/redux/user/types';
 
+const otpLengthMin: number = 0;
+const otpLengthMax: number = 6;
+const timerMin: number = 0;
+
 const useOtp = (
-  otpLengthMin: number,
-  otpLengthMax: number,
-  timerMin: number,
   timer: number,
   error: FetchBaseQueryError | SerializedError | undefined
 ) => {

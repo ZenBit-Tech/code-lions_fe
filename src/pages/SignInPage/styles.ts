@@ -1,6 +1,7 @@
 import { styled } from '@mui/system';
+import { Link } from 'react-router-dom';
 
-const FormStyled = styled('form')(({ theme }) => ({
+export const FormStyled = styled('form')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   gap: '20px',
@@ -10,4 +11,6 @@ const FormStyled = styled('form')(({ theme }) => ({
   },
 }));
 
-export default FormStyled;
+export const LinkStyled = styled(Link)({
+  textDecoration: 'none',
+});

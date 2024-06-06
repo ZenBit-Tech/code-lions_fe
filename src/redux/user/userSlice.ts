@@ -1,19 +1,21 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { appErrors } from 'src/common/constants';
 import { userApi } from './userService';
-import { IUserState } from './types';
+import { IUser, IUserState } from './types';
+
+const initialUser: IUser = {
+  id: '',
+  name: '',
+  email: '',
+  isEmailVerified: false,
+  isLoggedIn: false,
+  accessToken: '',
+  refreshToken: '',
+  error: '',
+};
 
 const initialState: IUserState = {
-  user: {
-    id: '',
-    name: '',
-    email: '',
-    isEmailVerified: false,
-    isLoggedIn: false,
-    accessToken: '',
-    refreshToken: '',
-    error: '',
-  },
+  user: initialUser,
 };
 
 export const userSlice = createSlice({
@@ -27,6 +29,7 @@ export const userSlice = createSlice({
         state.user.isEmailVerified = action.payload.isEmailVerified;
         state.user.accessToken = action.payload.accessToken;
         state.user.refreshToken = action.payload.refreshToken;
+        state.user.isLoggedIn = true;
         state.user.error = '';
       }
     );

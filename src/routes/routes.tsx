@@ -5,11 +5,19 @@ import SignUpPage from 'src/pages/SignUpPage';
 import VerifyEmailPage from 'src/pages/VerifyEmailPage';
 import RestorePasswordPage from 'src/pages/RestorePasswordPage';
 import NewPasswordPage from 'src/pages/NewPasswordPage';
+import VerifyPrivateRoute from './VerifyPrivateRoute';
 
 const router = createBrowserRouter([
   { path: '', element: <HomePage /> },
   { path: 'signup', element: <SignUpPage /> },
-  { path: 'verify', element: <VerifyEmailPage /> },
+  {
+    path: 'verify',
+    element: (
+      <VerifyPrivateRoute>
+        <VerifyEmailPage />
+      </VerifyPrivateRoute>
+    ),
+  },
   { path: 'signin', element: <SignInPage /> },
   { path: 'restore-password', element: <RestorePasswordPage /> },
   { path: 'enter-code', element: <VerifyEmailPage /> },

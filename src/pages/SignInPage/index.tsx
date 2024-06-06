@@ -1,7 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { urls } from 'src/common/constants';
 import { Box } from '@mui/system';
-import { Link } from '@mui/material';
 import Section from 'src/components/shared/Section';
 import SocialIconButton from 'src/components/shared/SocialIconButton';
 import GoogleIcon from 'src/assets/icons/google.svg';
@@ -12,6 +11,7 @@ import RegularText from 'src/components/shared/RegularText';
 import TitleInputWrapper from 'src/components/shared/InputWrapper';
 import TextButton from 'src/components/shared/TextButton';
 import LabelText from 'src/components/shared/LabelText';
+import { LinkStyled } from './styles';
 import SignInForm from './SignInForm';
 
 function SignInPage() {
@@ -40,9 +40,9 @@ function SignInPage() {
           <RegularText align="left">{t('signin.haveNoAccount')}</RegularText>
 
           <TextButton sx={{ padding: '0' }}>
-            <Link href={urls.SIGN_UP} underline="none">
+            <LinkStyled to={urls.SIGN_UP}>
               <LabelText align="right">{t('signin.signUp')}</LabelText>
-            </Link>
+            </LinkStyled>
           </TextButton>
         </Box>
       </Container>

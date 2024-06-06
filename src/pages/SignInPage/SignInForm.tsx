@@ -1,6 +1,6 @@
 import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { Typography, Link } from '@mui/material';
+import { Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import theme from 'src/theme';
 import { urls, validations } from 'src/common/constants';
@@ -18,7 +18,7 @@ import {
 import LabelText from 'src/components/shared/LabelText';
 import TitleInputWrapper from 'src/components/shared/TitleInputWrapper';
 import TextButton from 'src/components/shared/TextButton';
-import FormStyled from './styles';
+import { FormStyled, LinkStyled } from './styles';
 
 interface IFormInput {
   email: string;
@@ -61,7 +61,7 @@ function SignInForm() {
             },
           }}
           render={({ field }) => (
-            <Box>
+            <Box height="45px" mb={1}>
               <StyledInput
                 fullWidth
                 autoComplete="off"
@@ -72,7 +72,7 @@ function SignInForm() {
                 {...field}
               />
               {errors.email && (
-                <Typography mt={1} color={theme.palette.error.main}>
+                <Typography mt={0.25} color={theme.palette.error.main}>
                   {errors.email.message}
                 </Typography>
               )}
@@ -93,7 +93,7 @@ function SignInForm() {
             },
           }}
           render={({ field }) => (
-            <Box>
+            <Box height="45px" mb={1.5}>
               <PasswordInput
                 fullWidth
                 autoComplete="off"
@@ -104,7 +104,7 @@ function SignInForm() {
                 {...field}
               />
               {errors.password && (
-                <Typography mt={1} color={theme.palette.error.main}>
+                <Typography color={theme.palette.error.main} mt={0.25}>
                   {errors.password.message}
                 </Typography>
               )}
@@ -114,9 +114,9 @@ function SignInForm() {
       </TitleInputWrapper>
       <Box display="flex" alignItems="center">
         <TextButton sx={{ padding: '0' }}>
-          <Link href={urls.RESTORE_PASSWORD} underline="none">
+          <LinkStyled to={urls.RESTORE_PASSWORD}>
             <LabelText align="right">{t('signin.forgotPassword')}</LabelText>
-          </Link>
+          </LinkStyled>
         </TextButton>
       </Box>
       <StyledButton

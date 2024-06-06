@@ -62,8 +62,24 @@ function VerifyEmailPage() {
           flexDirection="column"
           alignItems="flex-start"
           width="100%"
+          height="50px"
           marginBottom={2}
+          // position="relative"
         >
+          {/* {errorMessages.length > 0 && (
+    <ul style={{ color: theme.palette.error.main, position: 'absolute', listStyleType: 'none', padding: 0, width: "100%" }}>
+      {errorMessages.map((msg, index) => (
+        <li key={index}>  <Typography
+        align="left"
+        key={index}
+        color={theme.palette.error.main}
+        position="absolute"
+      >
+        {msg}
+      </Typography></li>
+      ))}
+    </ul>
+  )} */}
           {errorMessages.length > 0 &&
             errorMessages.map((msg, index) => (
               <Typography

@@ -41,12 +41,14 @@ module.exports = {
     ],
     camelcase: ['error', { properties: 'never' }],
     'spaced-comment': ['warn', 'always'],
+    'no-else-return': 0,
 
     'react/forbid-component-props': ['error', { forbid: ['style'] }],
     'import/no-relative-parent-imports': 'error',
     'react/react-in-jsx-scope': 0,
     'react/jsx-props-no-spreading': 0,
     'react/require-default-props': 0,
+    'react/jsx-no-useless-fragment': 0,
     'react-refresh/only-export-components': [
       'warn',
       { allowConstantExport: true },

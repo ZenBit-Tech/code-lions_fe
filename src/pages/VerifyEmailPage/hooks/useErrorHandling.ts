@@ -13,23 +13,21 @@ const useErrorHandling = () => {
   const [currentError, setCurrentError] = useState<ErrorType>(undefined);
 
   useEffect(() => {
-    if (currentError) {
-      if ('data' in currentError) {
-        const errorData = (currentError as FetchBaseQueryError)
-          .data as IErrorResponse;
-        setErrorMessages(
-          Array.isArray(errorData.message)
-            ? errorData.message
-            : [errorData.message]
-        );
-      } else {
-        const serializedError = currentError as SerializedError;
-        setErrorMessages([
-          serializedError.message || appErrors.FAILED_TO_VERIFY,
-        ]);
-      }
-    } else {
+    if (!currentError) {
       setErrorMessages([]);
+      return;
+    }
+
+    if ('data' in currentError) {
+      const errorData = currentError.data as IErrorResponse;
+      setErrorMessages(
+        Array.isArray(errorData.message)
+          ? errorData.message
+          : [errorData.message]
+      );
+    } else {
+      const serializedError = currentError as SerializedError;
+      setErrorMessages([serializedError.message || appErrors.FAILED_TO_VERIFY]);
     }
   }, [currentError]);
 
