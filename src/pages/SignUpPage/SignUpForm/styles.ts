@@ -1,6 +1,7 @@
-import { styled } from '@mui/system';
+import { Typography } from '@mui/material';
+import { Box, styled } from '@mui/system';
 
-const FormStyled = styled('form')(({ theme }) => ({
+export const FormStyled = styled('form')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   gap: '20px',
@@ -10,4 +11,12 @@ const FormStyled = styled('form')(({ theme }) => ({
   },
 }));
 
-export default FormStyled;
+export const ErrorWrapper = styled(Box)({
+  position: 'relative',
+});
+
+export const ErrorMessage = styled(Typography)(({ theme }) => ({
+  margin: 0,
+  position: 'absolute',
+  color: theme.palette.error.main,
+}));

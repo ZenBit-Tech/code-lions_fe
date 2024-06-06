@@ -51,7 +51,7 @@ const theme = createTheme({
       error: '#F7392E',
     },
     action: {
-      hoverOpacity: 0.8,
+      hoverOpacity: 0.3,
     },
   },
   typography: {

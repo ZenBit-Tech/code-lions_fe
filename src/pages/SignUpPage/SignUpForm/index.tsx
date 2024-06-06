@@ -2,7 +2,6 @@ import { useTranslation } from 'react-i18next';
 import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { Typography } from '@mui/material';
-import { Box } from '@mui/system';
 import { useAppDispatch } from 'src/redux/hooks';
 import { useUserSignUpMutation } from 'src/redux/user/service';
 import { setUser } from 'src/redux/user/userSlice';
@@ -21,7 +20,7 @@ import {
 } from 'src/components/shared/StyledButton/types';
 import LabelText from 'src/components/shared/LabelText';
 import TitleInputWrapper from 'src/components/shared/TitleInputWrapper';
-import FormStyled from './styles';
+import { FormStyled, ErrorWrapper, ErrorMessage } from './styles';
 
 interface ISignUpForm {
   name: string;
@@ -82,7 +81,7 @@ function SignUpForm() {
             required: t('authErrors.missingCredentials'),
           }}
           render={({ field }) => (
-            <Box>
+            <ErrorWrapper>
               <StyledInput
                 {...field}
                 fullWidth
@@ -93,11 +92,15 @@ function SignUpForm() {
                 error={!!errors.name}
               />
               {errors.name && (
-                <Typography mt={1} color={theme.palette.error.main}>
+                <ErrorMessage
+                  variant="subtitle2"
+                  mt={1}
+                  color={theme.palette.error.main}
+                >
                   {errors.name.message}
-                </Typography>
+                </ErrorMessage>
               )}
-            </Box>
+            </ErrorWrapper>
           )}
         />
       </TitleInputWrapper>
@@ -114,7 +117,7 @@ function SignUpForm() {
             },
           }}
           render={({ field }) => (
-            <Box>
+            <ErrorWrapper>
               <StyledInput
                 {...field}
                 fullWidth
@@ -126,11 +129,15 @@ function SignUpForm() {
                 error={!!errors.email}
               />
               {errors.email && (
-                <Typography mt={1} color={theme.palette.error.main}>
+                <ErrorMessage
+                  variant="subtitle2"
+                  mt={1}
+                  color={theme.palette.error.main}
+                >
                   {errors.email.message}
-                </Typography>
+                </ErrorMessage>
               )}
-            </Box>
+            </ErrorWrapper>
           )}
         />
       </TitleInputWrapper>
@@ -147,7 +154,7 @@ function SignUpForm() {
             },
           }}
           render={({ field }) => (
-            <Box>
+            <ErrorWrapper>
               <PasswordInput
                 {...field}
                 fullWidth
@@ -158,11 +165,15 @@ function SignUpForm() {
                 error={!!errors.password}
               />
               {errors.password && (
-                <Typography mt={1} color={theme.palette.error.main}>
+                <ErrorMessage
+                  variant="subtitle2"
+                  mt={1}
+                  color={theme.palette.error.main}
+                >
                   {errors.password.message}
-                </Typography>
+                </ErrorMessage>
               )}
-            </Box>
+            </ErrorWrapper>
           )}
         />
       </TitleInputWrapper>
@@ -184,7 +195,7 @@ function SignUpForm() {
             },
           }}
           render={({ field }) => (
-            <Box>
+            <ErrorWrapper>
               <PasswordInput
                 {...field}
                 fullWidth
@@ -195,15 +206,20 @@ function SignUpForm() {
                 error={!!errors.repeatPassword}
               />
               {errors.repeatPassword && (
-                <Typography mt={1} color={theme.palette.error.main}>
+                <ErrorMessage
+                  variant="subtitle2"
+                  mt={1}
+                  color={theme.palette.error.main}
+                >
                   {errors.repeatPassword.message}
-                </Typography>
+                </ErrorMessage>
               )}
-            </Box>
+            </ErrorWrapper>
           )}
         />
       </TitleInputWrapper>
       <StyledButton
+        sx={{ marginTop: '20px' }}
         width="100%"
         type="submit"
         styles={StyleVariants.BLACK}
