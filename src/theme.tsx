@@ -64,9 +64,6 @@ const theme = createTheme({
       fontWeight: 600,
       lineHeight: 1.32,
       letterSpacing: '-0.28px',
-      '@media (min-width:1440px)': {
-        fontSize: 28,
-      },
     },
     h2: {
       fontFamily: 'Playfair Display, Arial, sans-serif',
@@ -74,6 +71,12 @@ const theme = createTheme({
       fontWeight: 600,
       lineHeight: 1.85,
       letterSpacing: '-0.31px',
+    },
+    h3: {
+      fontFamily: 'Playfair Display, Arial, sans-serif',
+      fontSize: 16,
+      fontWeight: 500,
+      lineHeight: 'normal',
     },
     h4: {
       fontFamily: 'DM Sans, Arial, sans-serif',
@@ -101,6 +104,12 @@ const theme = createTheme({
       fontWeight: 400,
       lineHeight: 1.25,
       letterSpacing: '-0.24px',
+    },
+    body2: {
+      fontFamily: 'DM Sans, Arial, sans-serif',
+      fontSize: 14,
+      fontWeight: 400,
+      lineHeight: 1.43,
     },
     button: {
       fontFamily: 'Playfair Display, Arial, sans-serif',
