@@ -47,7 +47,7 @@ function SignInForm() {
       email: '',
       password: '',
     },
-    mode: 'onChange',
+    mode: 'onBlur',
   });
 
   const errorsLength: number = Object.keys(errors).length;

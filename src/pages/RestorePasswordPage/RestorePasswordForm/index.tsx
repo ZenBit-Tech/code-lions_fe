@@ -42,7 +42,7 @@ function RestorePasswordForm() {
     defaultValues: {
       email: '',
     },
-    mode: 'onChange',
+    mode: 'onBlur',
   });
 
   const errorsLength: number = Object.keys(errors).length;
