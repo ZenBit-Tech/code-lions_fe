@@ -48,7 +48,7 @@ function SignUpForm() {
       password: '',
       repeatPassword: '',
     },
-    mode: 'onChange',
+    mode: 'onBlur',
   });
 
   const errorsLength: number = Object.keys(errors).length;
