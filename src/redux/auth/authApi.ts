@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { ILoginDto, ILoginResponse } from 'src/redux/types/user';
+import { ILoginDto, ILoginResponse, IResetPasswordDto, IUserWithTokensDto } from 'src/redux/types/user';
 import { HttpMethods, RTKUrls } from "src/common/constants";
 import { IForgotPasswordDto, IForgotPasswordResponse } from "src/redux/types/email";
 
@@ -21,7 +21,14 @@ export const authApi = createApi({
         body: data,
       }),
     }),
+    resetPassword: builder.mutation<IUserWithTokensDto, IResetPasswordDto>({
+      query: (data) => ({
+        url: RTKUrls.RESET_PASSWORD,
+        method: HttpMethods.POST,
+        body: data,
+      }),
+    }),
   }),
 });
 
-export const { useLoginMutation, useForgotPasswordMutation } = authApi;
+export const { useLoginMutation, useForgotPasswordMutation, useResetPasswordMutation } = authApi;

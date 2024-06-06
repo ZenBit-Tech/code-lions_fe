@@ -3,7 +3,7 @@ import { IconButton, Box } from '@mui/material';
 import { styled } from '@mui/system';
 import Section from 'src/components/shared/Section';
 import Container from 'src/components/shared/Container';
-import RestorePasswordForm from 'src/components/RestorePasswordForm';
+import RestorePasswordForm from 'src/pages/RestorePasswordPage/RestorePasswordForm';
 import Title from 'src/components/shared/Title';
 import RegularText from 'src/components/shared/RegularText';
 import ArrowLeftIcon from 'src/assets/icons/arrow-left.svg';

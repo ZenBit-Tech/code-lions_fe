@@ -2,26 +2,26 @@ import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { Typography } from '@mui/material';
 import { Box } from '@mui/system';
-import theme from 'src/theme';
-import { appErrors, urls, validations } from "src/common/constants";
+import theme from 'src/theme.tsx';
+import { appErrors, urls, validations } from "src/common/constants.ts";
 import {
   InputPaddingVariants,
   InputStyleVariants,
-} from 'src/components/shared/StyledInput/types';
+} from 'src/components/shared/StyledInput/types.ts';
 import StyledInput from 'src/components/shared/StyledInput';
 import StyledButton from 'src/components/shared/StyledButton';
 import {
   PaddingVariants,
   StyleVariants,
-} from 'src/components/shared/StyledButton/types';
+} from 'src/components/shared/StyledButton/types.ts';
 import LabelText from 'src/components/shared/LabelText';
 import TitleInputWrapper from 'src/components/shared/TitleInputWrapper';
-import { useForgotPasswordMutation } from 'src/redux/auth/authApi';
+import { useForgotPasswordMutation } from 'src/redux/auth/authApi.ts';
 import { useNavigate } from 'react-router';
-import { useAppDispatch } from 'src/redux/hooks/hooks';
-import { forgotPasswordStart, forgotPasswordSuccess, forgotPasswordFailure } from 'src/redux/auth/authSlice';
-import FormStyled from "src/components/SignInForm/styles";
-import { IForgotPasswordDto } from "src/redux/types/email";
+import { useAppDispatch } from 'src/redux/hooks/hooks.ts';
+import { forgotPasswordStart, forgotPasswordSuccess, forgotPasswordFailure } from 'src/redux/auth/authSlice.ts';
+import FormStyled from "src/pages/SignInPage/SignInForm/styles.ts";
+import { IForgotPasswordDto } from "src/redux/types/email.ts";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import { SerializedError } from "@reduxjs/toolkit";
 

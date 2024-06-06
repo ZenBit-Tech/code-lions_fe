@@ -4,8 +4,10 @@ export interface ILoginDto {
 }
 
 export interface IPublicUserDto {
+  id: string;
+  name: string;
   email: string;
-  password: string;
+  isEmailVerified: boolean;
 }
 
 export interface IAuthTokenResponse {
@@ -14,6 +16,16 @@ export interface IAuthTokenResponse {
 }
 
 export interface ILoginResponse {
+  user: IPublicUserDto;
+  tokens: IAuthTokenResponse;
+}
+
+export interface IResetPasswordDto {
+  password: string;
+  repeatPassword: string;
+}
+
+export interface IUserWithTokensDto {
   user: IPublicUserDto;
   tokens: IAuthTokenResponse;
 }

@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IPublicUserDto, IAuthTokenResponse } from 'src/redux/types/user';
 import { RootState } from 'src/redux/store';
+import { authApi } from './authApi';
 
 interface AuthState {
   user: IPublicUserDto | null;
@@ -9,6 +10,7 @@ interface AuthState {
   loading: boolean;
   error: string | null;
   forgotPasswordSuccess: boolean;
+  resetPasswordSuccess: boolean; // Добавлено состояние для сброса пароля
 }
 
 const initialState: AuthState = {
@@ -18,6 +20,7 @@ const initialState: AuthState = {
   loading: false,
   error: null,
   forgotPasswordSuccess: false,
+  resetPasswordSuccess: false, // Начальное значение
 };
 
 const authSlice = createSlice({
@@ -62,12 +65,57 @@ const authSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     },
+    resetPasswordStart(state) {
+      state.loading = true;
+      state.error = null;
+      state.resetPasswordSuccess = false;
+    },
+    resetPasswordSuccess(state, action: PayloadAction<{ user: IPublicUserDto; tokens: IAuthTokenResponse }>) {
+      state.loading = false;
+      state.resetPasswordSuccess = true;
+      state.isAuthenticated = true;
+      state.user = action.payload.user;
+      state.tokens = action.payload.tokens;
+    },
+    resetPasswordFailure(state, action: PayloadAction<string>) {
+      state.loading = false;
+      state.error = action.payload;
+    },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addMatcher(
+        authApi.endpoints.resetPassword.matchPending,
+        (state) => {
+          state.loading = true;
+          state.error = null;
+          state.resetPasswordSuccess = false;
+        }
+      )
+      .addMatcher(
+        authApi.endpoints.resetPassword.matchFulfilled,
+        (state, { payload }) => {
+          state.loading = false;
+          state.resetPasswordSuccess = true;
+          state.isAuthenticated = true;
+          state.user = payload.user;
+          state.tokens = payload.tokens;
+        }
+      )
+      .addMatcher(
+        authApi.endpoints.resetPassword.matchRejected,
+        (state, { error }) => {
+          state.loading = false;
+          state.error = error.message ?? 'Failed to reset password';
+        }
+      );
   },
 });
 
 export const {
   loginStart, loginSuccess, loginFailure, setTokens, setUser, logout,
-  forgotPasswordStart, forgotPasswordSuccess, forgotPasswordFailure
+  forgotPasswordStart, forgotPasswordSuccess, forgotPasswordFailure,
+  resetPasswordStart, resetPasswordSuccess, resetPasswordFailure
 } = authSlice.actions;
 
 export const selectAuth = (state: RootState) => state.auth;
