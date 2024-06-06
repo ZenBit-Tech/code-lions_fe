@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { Box, IconButton, Typography } from '@mui/material';
 import { urls } from 'src/common/constants';
 import Section from 'src/components/shared/Section';
@@ -21,6 +21,7 @@ import useVerification from './hooks/useVerification';
 
 function VerifyEmailPage() {
   const { pathname } = useLocation();
+  const navigate = useNavigate();
   const { t } = useTranslation();
   const {
     otp,
@@ -43,11 +44,22 @@ function VerifyEmailPage() {
 
   const titleText = getTitleText(pathname);
 
+  const handleNavigation = () => {
+    if (pathname === urls.VERIFY) {
+      navigate(urls.SIGN_UP);
+    } else if (pathname === urls.ENTER_CODE) {
+      navigate(urls.RESTORE_PASSWORD);
+    }
+  };
+
   return (
     <Section>
       <OtpContainer>
         <TitleContainer>
-          <IconButton sx={{ padding: 0, marginRight: '12px' }}>
+          <IconButton
+            sx={{ padding: 0, marginRight: '12px' }}
+            onClick={handleNavigation}
+          >
             <ArrowLeftIcon />
           </IconButton>
           <Title>{titleText}</Title>
@@ -62,24 +74,8 @@ function VerifyEmailPage() {
           flexDirection="column"
           alignItems="flex-start"
           width="100%"
-          height="50px"
           marginBottom={2}
-          // position="relative"
         >
-          {/* {errorMessages.length > 0 && (
-    <ul style={{ color: theme.palette.error.main, position: 'absolute', listStyleType: 'none', padding: 0, width: "100%" }}>
-      {errorMessages.map((msg, index) => (
-        <li key={index}>  <Typography
-        align="left"
-        key={index}
-        color={theme.palette.error.main}
-        position="absolute"
-      >
-        {msg}
-      </Typography></li>
-      ))}
-    </ul>
-  )} */}
           {errorMessages.length > 0 &&
             errorMessages.map((msg, index) => (
               <Typography
