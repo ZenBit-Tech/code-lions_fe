@@ -7,7 +7,8 @@ import StyledPasswordInput from './styledPasswordInput';
 
 const PasswordInput = forwardRef<HTMLInputElement, StyledInputProps>(
   ({ placeholder, width, padding, name, stylevariant, ...props }, ref) => {
-    const [showPassword, setShowPassword] = useState(false);
+    const [showPassword, setShowPassword] = useState<boolean>(false);
+
     const handleClickShowPassword = () => setShowPassword(!showPassword);
     const handleMouseDownPassword = (
       event: React.MouseEvent<HTMLButtonElement>
