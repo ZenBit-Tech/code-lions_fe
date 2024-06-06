@@ -62,5 +62,17 @@
     "enterCredentials": "Please enter your credentials",
     "invalidEmail": "Invalid email address format",
     "passwordLength": "Password must be at least 8 characters long"
+  },
+  "newPassword": {
+    "newPassword": "New Password",
+    "passwordLabel": "Password*",
+    "enterNewPasswordText": "Please enter your new password",
+    "repeatPasswordLabel": "Repeat Password*",
+    "savePasswordButton": "Save password"
+  },
+  "newPasswordErrors": {
+    "enterCredentials": "Please enter your password",
+    "passwordsNotMatch": "Passwords do not match",
+    "passwordLength": "Password must be at least 8 characters long"
   }
 }
