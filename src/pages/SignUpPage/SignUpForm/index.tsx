@@ -20,6 +20,8 @@ import {
 } from 'src/components/shared/StyledButton/types';
 import LabelText from 'src/components/shared/LabelText';
 import TitleInputWrapper from 'src/components/shared/TitleInputWrapper';
+import { SerializedError } from 'src/redux/user/types';
+import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import { FormStyled, ErrorWrapper, ErrorMessage } from './styles';
 
 interface ISignUpForm {
@@ -51,7 +53,7 @@ function SignUpForm() {
 
   const errorsLength: number = Object.keys(errors).length;
 
-  const [userSignUp, { isLoading }] = useUserSignUpMutation();
+  const [userSignUp, { isLoading, error }] = useUserSignUpMutation();
 
   const onSubmit: SubmitHandler<ISignUpForm> = async ({
     name,
@@ -65,9 +67,24 @@ function SignUpForm() {
         dispatch(setUser(userData));
         navigate(urls.VERIFY);
       } catch (err) {
-        console.error('Failed to register user: ', err);
+        console.error(err);
       }
     }
+  };
+
+  const getErrorMessage = (
+    // eslint-disable-next-line @typescript-eslint/no-shadow
+    error: FetchBaseQueryError | SerializedError
+  ): string => {
+    if (
+      'data' in error &&
+      error.data &&
+      (error.data as { message?: string }).message
+    ) {
+      return (error.data as { message: string }).message;
+    }
+
+    return t('authErrors.failed');
   };
 
   return (
@@ -228,6 +245,11 @@ function SignUpForm() {
       >
         <Typography variant="button"> {t('signup.singUpButton')} </Typography>
       </StyledButton>
+      {error && (
+        <Typography textAlign="center" color="error">
+          {getErrorMessage(error)}
+        </Typography>
+      )}
     </FormStyled>
   );
 }

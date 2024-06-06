@@ -1,6 +1,5 @@
 import { useTranslation } from 'react-i18next';
 import { Box } from '@mui/system';
-import { Link } from 'react-router-dom';
 import Section from 'src/components/shared/Section';
 import SocialIconButton from 'src/components/shared/SocialIconButton';
 import GoogleIcon from 'src/assets/icons/google.svg';
@@ -14,6 +13,7 @@ import LabelText from 'src/components/shared/LabelText';
 import TitleInputWrapper from 'src/components/shared/TitleInputWrapper';
 import PolicyTermsLinks from 'src/components/shared/PolicyTermsLinks';
 import { urls } from 'src/common/constants';
+import LinkStyled from './styles';
 
 function SignUpPage() {
   const { t } = useTranslation();
@@ -34,11 +34,11 @@ function SignUpPage() {
         <SignUpForm />
         <Box display="flex" justifyContent="center" alignItems="center">
           <RegularText align="left">{t('signup.haveAccount')}</RegularText>
-          <Link to={urls.SIGN_IN}>
+          <LinkStyled to={urls.SIGN_IN}>
             <TextButton sx={{ padding: '12px 0' }}>
               <LabelText align="right">{t('signup.signIn')}</LabelText>
             </TextButton>
-          </Link>
+          </LinkStyled>
         </Box>
         <PolicyTermsLinks />
       </Container>
