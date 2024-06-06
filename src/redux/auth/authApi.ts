@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { ILoginDto, ILoginResponse, IResetPasswordDto, IUserWithTokensDto } from 'src/redux/types/user';
+import { ILoginDto, ILoginResponse, IResetPasswordDto, IUserWithTokensDto } from 'src/redux/auth/types/user';
 import { HttpMethods, RTKUrls } from "src/common/constants";
-import { IForgotPasswordDto, IForgotPasswordResponse } from "src/redux/types/email";
+import { IForgotPasswordDto, IForgotPasswordResponse } from "src/redux/auth/types/email";
 
 export const authApi = createApi({
   reducerPath: 'authApi',

@@ -64,14 +64,18 @@
   "authErrors": {
     "enterCredentials": "Please enter your credentials",
     "invalidEmail": "Invalid email address format",
-    "passwordLength": "Password must be at least 8 characters long"
+    "passwordLength": "Password must be at least 8 characters long",
+    "missingCredentials": "Missing credentials",
+    "passwordsNotMatch": "Passwords entered in the 'Password' and 'Repeat password' fields must match",
+    "failed": "Failed to sign up"
   },
   "newPassword": {
     "newPassword": "New Password",
     "passwordLabel": "Password*",
     "enterNewPasswordText": "Please enter your new password",
     "repeatPasswordLabel": "Repeat Password*",
-    "savePasswordButton": "Save password"
+    "savePasswordButton": "Save password",
+    "unknownError": "An unknown error occurred"
   },
   "newPasswordErrors": {
     "enterCredentials": "Please enter your password",

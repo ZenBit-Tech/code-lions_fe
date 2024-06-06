@@ -1,29 +1,30 @@
 import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router';
 import { Typography, Link } from '@mui/material';
 import { Box } from '@mui/system';
-import theme from 'src/theme.tsx';
-import { appErrors, urls, validations } from "src/common/constants.ts";
+import { useLoginMutation } from 'src/redux/auth/authApi';
+import { useAppDispatch } from 'src/redux/auth/hooks/hooks';
+import { loginStart, loginSuccess, loginFailure, setTokens, setUser } from 'src/redux/auth/authSlice';
+import { ILoginDto, ILoginResponse } from 'src/redux/auth/types/user';
+import theme from 'src/theme';
+import { appErrors, urls, validations } from "src/common/constants";
 import PasswordInput from 'src/components/shared/PasswordInput';
 import {
   InputPaddingVariants,
   InputStyleVariants,
-} from 'src/components/shared/StyledInput/types.ts';
+} from 'src/components/shared/StyledInput/types';
 import StyledInput from 'src/components/shared/StyledInput';
 import StyledButton from 'src/components/shared/StyledButton';
 import {
   PaddingVariants,
   StyleVariants,
-} from 'src/components/shared/StyledButton/types.ts';
+} from 'src/components/shared/StyledButton/types';
 import LabelText from 'src/components/shared/LabelText';
 import TitleInputWrapper from 'src/components/shared/TitleInputWrapper';
+import useToast from 'src/components/shared/toasts/components/ToastProvider/ToastProviderHooks';
 import TextButton from 'src/components/shared/TextButton';
-import FormStyled from './styles.ts';
-import { useLoginMutation } from 'src/redux/auth/authApi.ts';
-import { useNavigate } from 'react-router';
-import { useAppDispatch } from 'src/redux/hooks/hooks.ts';
-import { loginStart, loginSuccess, loginFailure, setTokens, setUser } from 'src/redux/auth/authSlice.ts';
-import { ILoginDto, ILoginResponse } from 'src/redux/types/user.ts';
+import FormStyled from './styles';
 
 interface IFormInput {
   email: string;
@@ -34,7 +35,8 @@ function SignInForm() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const [login, { isLoading, error }] = useLoginMutation();
+  const [login, { isLoading }] = useLoginMutation();
+  const { showToast } = useToast();
 
   const {
     control,
@@ -74,6 +76,7 @@ function SignInForm() {
           errorMessage = err.data.message;
         }
       }
+      showToast('error', errorMessage);
       dispatch(loginFailure(errorMessage));
     }
   };
@@ -162,11 +165,6 @@ function SignInForm() {
           {t('signin.singInButton')}
         </Typography>
       </StyledButton>
-      {error && (
-        <Typography color="error">
-          {t('signin.loginFailed')}
-        </Typography>
-      )}
     </FormStyled>
   );
 }

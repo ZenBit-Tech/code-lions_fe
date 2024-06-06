@@ -2,24 +2,25 @@ import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { Box, Typography } from '@mui/material';
 import { useDispatch } from 'react-redux';
-import { useResetPasswordMutation } from 'src/redux/auth/authApi.ts';
-import { resetPasswordStart, resetPasswordSuccess, resetPasswordFailure } from 'src/redux/auth/authSlice.ts';
+import { useResetPasswordMutation } from 'src/redux/auth/authApi';
+import { resetPasswordStart, resetPasswordSuccess, resetPasswordFailure } from 'src/redux/auth/authSlice';
 
 import PasswordInput from 'src/components/shared/PasswordInput';
 import {
   InputPaddingVariants,
   InputStyleVariants,
-} from 'src/components/shared/StyledInput/types.ts';
+} from 'src/components/shared/StyledInput/types';
 import StyledButton from 'src/components/shared/StyledButton';
 import {
   PaddingVariants,
   StyleVariants,
-} from 'src/components/shared/StyledButton/types.ts';
+} from 'src/components/shared/StyledButton/types';
 import LabelText from 'src/components/shared/LabelText';
 import TitleInputWrapper from 'src/components/shared/TitleInputWrapper';
-import { validations } from 'src/common/constants.ts';
-import theme from 'src/theme.tsx';
-import FormStyled from "src/pages/SignInPage/SignInForm/styles.ts";
+import { validations } from 'src/common/constants';
+import theme from 'src/theme';
+import FormStyled from "src/pages/SignInPage/SignInForm/styles";
+import useToast from 'src/components/shared/toasts/components/ToastProvider/ToastProviderHooks';
 
 interface IFormInput {
   password: string;
@@ -46,6 +47,7 @@ function NewPasswordForm() {
 
   const errorsLength: number = Object.keys(errors).length;
   const password = watch('password');
+  const { showToast } = useToast();
 
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
     dispatch(resetPasswordStart());
@@ -56,10 +58,10 @@ function NewPasswordForm() {
     } catch (err) {
       if (err instanceof Error) {
         dispatch(resetPasswordFailure(err.message));
-        console.error('Failed to reset password:', err.message);
+        showToast('error', err.message);
       } else {
-        dispatch(resetPasswordFailure('An unknown error occurred'));
-        console.error('Failed to reset password:', err);
+        dispatch(resetPasswordFailure(t('newPassword.unknownError')));
+        showToast('error', t('newPassword.unknownError'));
       }
     }
   };

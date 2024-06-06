@@ -7,7 +7,7 @@ import RestorePasswordPage from 'src/pages/RestorePasswordPage';
 import NewPasswordPage from 'src/pages/NewPasswordPage';
 import TermsOfUsePage from "src/pages/TermsOfUsePage";
 import PrivacyPolicyPage from "src/pages/PrivacyPolicyPage";
-import { urls } from "src/common/constants.ts";
+import { urls } from "src/common/constants";
 
 const router = createBrowserRouter([
   { path: '', element: <HomePage /> },
