@@ -65,30 +65,7 @@ function SignUpForm() {
 
   const [userSignUp, { isLoading }] = useUserSignUpMutation();
 
-  const onSubmit: SubmitHandler<ISignUpForm> = async ({
-                                                        name,
-                                                        email,
-                                                        password,
-                                                      }) => {
-    if ([name, email, password].every(Boolean) && !isLoading) {
-      try {
-        const userData = await userSignUp({ name, email, password }).unwrap();
-
-        dispatch(setUser(userData));
-        navigate(urls.VERIFY);
-      } catch (err) {
-        console.error(err);
-        if (isFetchBaseQueryError(err) || isSerializedError(err)) {
-          showToast('error', getErrorMessage(err));
-        } else {
-          showToast('error', t('authErrors.failed'));
-        }
-      }
-    }
-  };
-
   const getErrorMessage = (
-    // eslint-disable-next-line @typescript-eslint/no-shadow
     error: FetchBaseQueryError | SerializedError
   ): string => {
     if (
@@ -100,6 +77,27 @@ function SignUpForm() {
     }
 
     return t('authErrors.failed');
+  };
+
+  const onSubmit: SubmitHandler<ISignUpForm> = async ({
+    name,
+    email,
+    password,
+  }) => {
+    if ([name, email, password].every(Boolean) && !isLoading) {
+      try {
+        const userData = await userSignUp({ name, email, password }).unwrap();
+
+        dispatch(setUser(userData));
+        navigate(urls.VERIFY);
+      } catch (err) {
+        if (isFetchBaseQueryError(err) || isSerializedError(err)) {
+          showToast('error', getErrorMessage(err));
+        } else {
+          showToast('error', t('authErrors.failed'));
+        }
+      }
+    }
   };
 
   return (

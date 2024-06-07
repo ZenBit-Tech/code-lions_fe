@@ -7,8 +7,8 @@ import Title from 'src/components/shared/Title';
 import RegularText from 'src/components/shared/RegularText';
 import NewPasswordForm from 'src/pages/NewPasswordPage/NewPasswordForm';
 import { styled } from '@mui/system';
-import { urls } from "src/common/constants";
-import { useNavigate } from "react-router";
+import { urls } from 'src/common/constants';
+import { useNavigate } from 'react-router-dom';
 
 const FormContainer = styled(Box)(({ theme }) => ({
   width: '100%',
@@ -46,7 +46,7 @@ function NewPasswordPage() {
           <Box sx={{ marginBottom: '32px' }}>
             <RegularText>{t('newPassword.enterNewPasswordText')}</RegularText>
           </Box>
-          <NewPasswordForm/>
+          <NewPasswordForm />
         </Container>
       </FormContainer>
     </Section>

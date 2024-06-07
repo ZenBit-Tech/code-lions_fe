@@ -3,7 +3,11 @@ import { useTranslation } from 'react-i18next';
 import { Box, Typography } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { useResetPasswordMutation } from 'src/redux/auth/authApi';
-import { resetPasswordStart, resetPasswordSuccess, resetPasswordFailure } from 'src/redux/auth/authSlice';
+import {
+  resetPasswordStart,
+  resetPasswordSuccess,
+  resetPasswordFailure,
+} from 'src/redux/auth/authSlice';
 
 import PasswordInput from 'src/components/shared/PasswordInput';
 import {
@@ -19,7 +23,7 @@ import LabelText from 'src/components/shared/LabelText';
 import TitleInputWrapper from 'src/components/shared/TitleInputWrapper';
 import { validations } from 'src/common/constants';
 import theme from 'src/theme';
-import FormStyled from "src/pages/SignInPage/SignInForm/styles";
+import FormStyled from 'src/pages/SignInPage/SignInForm/styles';
 import useToast from 'src/components/shared/toasts/components/ToastProvider/ToastProviderHooks';
 
 interface IFormInput {
@@ -52,9 +56,11 @@ function NewPasswordForm() {
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
     dispatch(resetPasswordStart());
     try {
-      const response = await resetPassword({ password: data.password, repeatPassword: data.repeatPassword }).unwrap();
+      const response = await resetPassword({
+        password: data.password,
+        repeatPassword: data.repeatPassword,
+      }).unwrap();
       dispatch(resetPasswordSuccess(response));
-      console.log('Password reset successfully:', response);
     } catch (err) {
       if (err instanceof Error) {
         dispatch(resetPasswordFailure(err.message));

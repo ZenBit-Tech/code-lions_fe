@@ -1,6 +1,9 @@
 import React, { useState, useMemo, useCallback } from 'react';
 import { Snackbar, Alert } from '@mui/material';
-import { ToastType, ToastContext } from 'src/components/shared/toasts/context/toast';
+import {
+  ToastType,
+  ToastContext,
+} from 'src/components/shared/toasts/context/toast';
 
 interface ToastProviderProps {
   children: React.ReactNode;

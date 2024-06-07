@@ -5,7 +5,7 @@ import { useAppSelector } from 'src/redux/auth/hooks/hooks';
 import { FetchBaseQueryError, SerializedError } from 'src/redux/user/types';
 import useTimer from './useTimer';
 import useErrorHandling from './useErrorHandling';
-import useOtp from './useOpt';
+import useOtp from './useOtp';
 
 const timerMin: number = 0;
 const timerMax: number = 55;

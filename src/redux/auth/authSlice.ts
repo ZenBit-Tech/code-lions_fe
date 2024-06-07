@@ -31,7 +31,13 @@ const authSlice = createSlice({
       state.loading = true;
       state.error = null;
     },
-    loginSuccess(state, action: PayloadAction<{ user: IPublicUserDto; tokens: IAuthTokenResponse }>) {
+    loginSuccess(
+      state,
+      action: PayloadAction<{
+        user: IPublicUserDto;
+        tokens: IAuthTokenResponse;
+      }>
+    ) {
       state.loading = false;
       state.isAuthenticated = true;
       state.user = action.payload.user;
@@ -70,7 +76,13 @@ const authSlice = createSlice({
       state.error = null;
       state.resetPasswordSuccess = false;
     },
-    resetPasswordSuccess(state, action: PayloadAction<{ user: IPublicUserDto; tokens: IAuthTokenResponse }>) {
+    resetPasswordSuccess(
+      state,
+      action: PayloadAction<{
+        user: IPublicUserDto;
+        tokens: IAuthTokenResponse;
+      }>
+    ) {
       state.loading = false;
       state.resetPasswordSuccess = true;
       state.isAuthenticated = true;
@@ -84,14 +96,11 @@ const authSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addMatcher(
-        authApi.endpoints.resetPassword.matchPending,
-        (state) => {
-          state.loading = true;
-          state.error = null;
-          state.resetPasswordSuccess = false;
-        }
-      )
+      .addMatcher(authApi.endpoints.resetPassword.matchPending, (state) => {
+        state.loading = true;
+        state.error = null;
+        state.resetPasswordSuccess = false;
+      })
       .addMatcher(
         authApi.endpoints.resetPassword.matchFulfilled,
         (state, { payload }) => {
@@ -113,9 +122,18 @@ const authSlice = createSlice({
 });
 
 export const {
-  loginStart, loginSuccess, loginFailure, setTokens, setUser, logout,
-  forgotPasswordStart, forgotPasswordSuccess, forgotPasswordFailure,
-  resetPasswordStart, resetPasswordSuccess, resetPasswordFailure
+  loginStart,
+  loginSuccess,
+  loginFailure,
+  setTokens,
+  setUser,
+  logout,
+  forgotPasswordStart,
+  forgotPasswordSuccess,
+  forgotPasswordFailure,
+  resetPasswordStart,
+  resetPasswordSuccess,
+  resetPasswordFailure,
 } = authSlice.actions;
 
 export const selectAuth = (state: RootState) => state.auth;

@@ -19,11 +19,13 @@ const useOtpFunctions = ({ length, value, onChange }: IOtpFunctionsProps) => {
 
   const focusInput = (targetIndex: number): void => {
     const targetInput = inputRefs.current[targetIndex];
+
     targetInput.focus();
   };
 
   const selectInput = (targetIndex: number): void => {
     const targetInput = inputRefs.current[targetIndex];
+
     targetInput.select();
   };
 
@@ -57,6 +59,7 @@ const useOtpFunctions = ({ length, value, onChange }: IOtpFunctionsProps) => {
         onChange((prevOtp) => {
           const otp =
             prevOtp.slice(0, currentIndex) + prevOtp.slice(currentIndex + 1);
+
           return otp;
         });
         break;
@@ -71,6 +74,7 @@ const useOtpFunctions = ({ length, value, onChange }: IOtpFunctionsProps) => {
         onChange((prevOtp) => {
           const otp =
             prevOtp.slice(0, currentIndex) + prevOtp.slice(currentIndex + 1);
+
           return otp;
         });
         break;

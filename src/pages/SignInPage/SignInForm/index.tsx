@@ -1,14 +1,20 @@
 import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 import { Typography, Link } from '@mui/material';
 import { Box } from '@mui/system';
 import { useLoginMutation } from 'src/redux/auth/authApi';
 import { useAppDispatch } from 'src/redux/auth/hooks/hooks';
-import { loginStart, loginSuccess, loginFailure, setTokens, setUser } from 'src/redux/auth/authSlice';
+import {
+  loginStart,
+  loginSuccess,
+  loginFailure,
+  setTokens,
+  setUser,
+} from 'src/redux/auth/authSlice';
 import { ILoginDto, ILoginResponse } from 'src/redux/auth/types/user';
 import theme from 'src/theme';
-import { appErrors, urls, validations } from "src/common/constants";
+import { appErrors, urls, validations } from 'src/common/constants';
 import PasswordInput from 'src/components/shared/PasswordInput';
 import {
   InputPaddingVariants,
@@ -24,11 +30,21 @@ import LabelText from 'src/components/shared/LabelText';
 import TitleInputWrapper from 'src/components/shared/TitleInputWrapper';
 import useToast from 'src/components/shared/toasts/components/ToastProvider/ToastProviderHooks';
 import TextButton from 'src/components/shared/TextButton';
+import { SerializedError } from 'src/redux/user/types';
+import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import FormStyled from './styles';
 
 interface IFormInput {
   email: string;
   password: string;
+}
+
+function isFetchBaseQueryError(error: unknown): error is FetchBaseQueryError {
+  return typeof error === 'object' && error != null && 'status' in error;
+}
+
+function isSerializedError(error: unknown): error is SerializedError {
+  return typeof error === 'object' && error != null && 'message' in error;
 }
 
 function SignInForm() {
@@ -52,6 +68,20 @@ function SignInForm() {
 
   const errorsLength: number = Object.keys(errors).length;
 
+  const getErrorMessage = (
+    error: FetchBaseQueryError | SerializedError
+  ): string => {
+    if (
+      'data' in error &&
+      error.data &&
+      (error.data as { message?: string }).message
+    ) {
+      return (error.data as { message: string }).message;
+    }
+
+    return t('authErrors.failed');
+  };
+
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
     dispatch(loginStart());
     try {
@@ -67,14 +97,10 @@ function SignInForm() {
       dispatch(setTokens(tokens));
 
       navigate(urls.HOME_BASE);
-    } catch (err: any) {
-      let errorMessage = appErrors.FAILED_SIGN_IN;
-      if (err.data && err.data.message) {
-        if (Array.isArray(err.data.message)) {
-          errorMessage = err.data.message.join(', ');
-        } else {
-          errorMessage = err.data.message;
-        }
+    } catch (err) {
+      const errorMessage = appErrors.FAILED_SIGN_IN;
+      if (isFetchBaseQueryError(err) || isSerializedError(err)) {
+        showToast('error', getErrorMessage(err));
       }
       showToast('error', errorMessage);
       dispatch(loginFailure(errorMessage));

@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { userApi } from "src/redux/user/service";
+import { userApi } from 'src/redux/user/service';
 import { appErrors } from 'src/common/constants';
 import { IUser, IUserState } from './types';
 

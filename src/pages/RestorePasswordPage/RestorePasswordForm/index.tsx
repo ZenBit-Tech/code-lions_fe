@@ -1,14 +1,18 @@
 import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 import { Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import { useForgotPasswordMutation } from 'src/redux/auth/authApi';
 import { useAppDispatch } from 'src/redux/auth/hooks/hooks';
-import { forgotPasswordStart, forgotPasswordSuccess, forgotPasswordFailure } from 'src/redux/auth/authSlice';
-import { IForgotPasswordDto } from "src/redux/auth/types/email";
+import {
+  forgotPasswordStart,
+  forgotPasswordSuccess,
+  forgotPasswordFailure,
+} from 'src/redux/auth/authSlice';
+import { IForgotPasswordDto } from 'src/redux/auth/types/email';
 import theme from 'src/theme';
-import { appErrors, urls, validations } from "src/common/constants";
+import { appErrors, urls, validations } from 'src/common/constants';
 import {
   InputPaddingVariants,
   InputStyleVariants,
@@ -22,10 +26,20 @@ import {
 import LabelText from 'src/components/shared/LabelText';
 import TitleInputWrapper from 'src/components/shared/TitleInputWrapper';
 import useToast from 'src/components/shared/toasts/components/ToastProvider/ToastProviderHooks';
-import FormStyled from "src/pages/SignInPage/SignInForm/styles";
+import { SerializedError } from 'src/redux/user/types';
+import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
+import FormStyled from 'src/pages/SignInPage/SignInForm/styles';
 
 interface IFormInput {
   email: string;
+}
+
+function isFetchBaseQueryError(error: unknown): error is FetchBaseQueryError {
+  return typeof error === 'object' && error != null && 'status' in error;
+}
+
+function isSerializedError(error: unknown): error is SerializedError {
+  return typeof error === 'object' && error != null && 'message' in error;
 }
 
 function RestorePasswordForm() {
@@ -48,6 +62,20 @@ function RestorePasswordForm() {
   const errorsLength: number = Object.keys(errors).length;
   const { showToast } = useToast();
 
+  const getErrorMessage = (
+    error: FetchBaseQueryError | SerializedError
+  ): string => {
+    if (
+      'data' in error &&
+      error.data &&
+      (error.data as { message?: string }).message
+    ) {
+      return (error.data as { message: string }).message;
+    }
+
+    return t('authErrors.failed');
+  };
+
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
     dispatch(forgotPasswordStart());
     try {
@@ -57,14 +85,10 @@ function RestorePasswordForm() {
       await forgotPassword(emailData).unwrap();
       dispatch(forgotPasswordSuccess());
       navigate(urls.ENTER_CODE);
-    } catch (err: any) {
-      let errorMessage = appErrors.FAILED_TO_SEND_EMAIL;
-      if (err.data && err.data.message) {
-        if (Array.isArray(err.data.message)) {
-          errorMessage = err.data.message.join(', ');
-        } else {
-          errorMessage = err.data.message;
-        }
+    } catch (err) {
+      const errorMessage = appErrors.FAILED_TO_SEND_EMAIL;
+      if (isFetchBaseQueryError(err) || isSerializedError(err)) {
+        showToast('error', getErrorMessage(err));
       }
       showToast('error', errorMessage);
       dispatch(forgotPasswordFailure(errorMessage));

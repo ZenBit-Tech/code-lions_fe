@@ -7,8 +7,8 @@ import RestorePasswordForm from 'src/pages/RestorePasswordPage/RestorePasswordFo
 import Title from 'src/components/shared/Title';
 import RegularText from 'src/components/shared/RegularText';
 import ArrowLeftIcon from 'src/assets/icons/arrow-left.svg';
-import { useNavigate } from "react-router";
-import { urls } from "src/common/constants";
+import { useNavigate } from 'react-router-dom';
+import { urls } from 'src/common/constants';
 
 const FormContainer = styled(Box)(({ theme }) => ({
   width: '100%',

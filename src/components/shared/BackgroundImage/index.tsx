@@ -2,6 +2,7 @@ import { styled } from '@mui/system';
 import { Box, BoxProps } from '@mui/material';
 
 const URL = 'url';
+
 interface IBackgroundImageProps extends BoxProps {
   url: string;
 }
