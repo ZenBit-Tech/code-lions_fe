@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { Box } from '@mui/system';
 
-function NewPasswordPage() {
+function TermsOfUsePage() {
   const { t } = useTranslation();
 
   return (
@@ -11,4 +11,4 @@ function NewPasswordPage() {
   );
 }
 
-export default NewPasswordPage;
+export default TermsOfUsePage;

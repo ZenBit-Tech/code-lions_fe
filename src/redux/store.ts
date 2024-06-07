@@ -10,10 +10,15 @@ import {
   REGISTER,
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
+import { setupListeners } from '@reduxjs/toolkit/query';
+import authReducer from 'src/redux/auth/authSlice';
+import { authApi } from 'src/redux/auth/authApi';
 import userReducer from './user/userSlice';
 import { userApi } from './user/service';
 
 const rootReducer = combineReducers({
+  auth: authReducer,
+  [authApi.reducerPath]: authApi.reducer,
   user: userReducer,
   [userApi.reducerPath]: userApi.reducer,
 });
@@ -33,8 +38,10 @@ const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }).concat(userApi.middleware),
+    }).concat(authApi.middleware, userApi.middleware),
 });
+
+setupListeners(store.dispatch);
 
 export const persistor = persistStore(store);
 

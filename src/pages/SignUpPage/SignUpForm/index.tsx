@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { Typography } from '@mui/material';
-import { useAppDispatch } from 'src/redux/hooks';
+import { useAppDispatch } from 'src/redux/auth/hooks/hooks';
 import { useUserSignUpMutation } from 'src/redux/user/service';
 import { setUser } from 'src/redux/user/userSlice';
 import theme from 'src/theme';
@@ -20,6 +20,7 @@ import {
 } from 'src/components/shared/StyledButton/types';
 import LabelText from 'src/components/shared/LabelText';
 import TitleInputWrapper from 'src/components/shared/TitleInputWrapper';
+import useToast from 'src/components/shared/toasts/components/ToastProvider/ToastProviderHooks';
 import { SerializedError } from 'src/redux/user/types';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import { FormStyled, ErrorWrapper, ErrorMessage } from './styles';
@@ -31,10 +32,19 @@ interface ISignUpForm {
   repeatPassword: string;
 }
 
+function isFetchBaseQueryError(error: unknown): error is FetchBaseQueryError {
+  return typeof error === 'object' && error != null && 'status' in error;
+}
+
+function isSerializedError(error: unknown): error is SerializedError {
+  return typeof error === 'object' && error != null && 'message' in error;
+}
+
 function SignUpForm() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const { showToast } = useToast();
 
   const {
     control,
@@ -53,27 +63,9 @@ function SignUpForm() {
 
   const errorsLength: number = Object.keys(errors).length;
 
-  const [userSignUp, { isLoading, error }] = useUserSignUpMutation();
-
-  const onSubmit: SubmitHandler<ISignUpForm> = async ({
-    name,
-    email,
-    password,
-  }) => {
-    if ([name, email, password].every(Boolean) && !isLoading) {
-      try {
-        const userData = await userSignUp({ name, email, password }).unwrap();
-
-        dispatch(setUser(userData));
-        navigate(urls.VERIFY);
-      } catch (err) {
-        console.error(err);
-      }
-    }
-  };
+  const [userSignUp, { isLoading }] = useUserSignUpMutation();
 
   const getErrorMessage = (
-    // eslint-disable-next-line @typescript-eslint/no-shadow
     error: FetchBaseQueryError | SerializedError
   ): string => {
     if (
@@ -85,6 +77,32 @@ function SignUpForm() {
     }
 
     return t('authErrors.failed');
+  };
+
+  const onSubmit: SubmitHandler<ISignUpForm> = async ({
+    name,
+    email,
+    password,
+  }) => {
+    if ([name, email, password].every(Boolean) && !isLoading) {
+      try {
+        const userData = await userSignUp({
+          name,
+          email,
+          password,
+        }).unwrap();
+
+        dispatch(setUser(userData));
+        navigate(urls.VERIFY);
+      } catch (err) {
+        console.error(err);
+        if (isFetchBaseQueryError(err) || isSerializedError(err)) {
+          showToast('error', getErrorMessage(err));
+        } else {
+          showToast('error', t('authErrors.failed'));
+        }
+      }
+    }
   };
 
   return (
@@ -245,11 +263,6 @@ function SignUpForm() {
       >
         <Typography variant="button"> {t('signup.singUpButton')} </Typography>
       </StyledButton>
-      {error && (
-        <Typography textAlign="center" color="error">
-          {getErrorMessage(error)}
-        </Typography>
-      )}
     </FormStyled>
   );
 }
