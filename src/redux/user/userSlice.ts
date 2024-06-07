@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { userApi } from 'src/redux/user/service';
 import { appErrors } from 'src/common/constants';
-import { userApi } from './userService';
 import { IUser, IUserState } from './types';
 
 const initialUser: IUser = {
@@ -21,7 +21,17 @@ const initialState: IUserState = {
 export const userSlice = createSlice({
   name: 'user',
   initialState,
-  reducers: {},
+  reducers: {
+    setUser(state, action) {
+      const { id, name, email, isEmailVerified } = action.payload;
+
+      state.user.id = id;
+      state.user.name = name;
+      state.user.email = email;
+      state.user.isEmailVerified = isEmailVerified;
+      state.user.isLoggedIn = true;
+    },
+  },
   extraReducers: (builder) => {
     builder.addMatcher(
       userApi.endpoints.verifyEmail.matchFulfilled,
@@ -48,5 +58,7 @@ export const userSlice = createSlice({
     );
   },
 });
+
+export const { setUser } = userSlice.actions;
 
 export default userSlice.reducer;

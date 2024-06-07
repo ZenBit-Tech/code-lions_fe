@@ -11,8 +11,8 @@ import RegularText from 'src/components/shared/RegularText';
 import TitleInputWrapper from 'src/components/shared/InputWrapper';
 import TextButton from 'src/components/shared/TextButton';
 import LabelText from 'src/components/shared/LabelText';
-import { LinkStyled } from './styles';
 import SignInForm from './SignInForm';
+import LinkStyled from './styles';
 
 function SignInPage() {
   const { t } = useTranslation();

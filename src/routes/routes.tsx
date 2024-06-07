@@ -5,23 +5,28 @@ import SignUpPage from 'src/pages/SignUpPage';
 import VerifyEmailPage from 'src/pages/VerifyEmailPage';
 import RestorePasswordPage from 'src/pages/RestorePasswordPage';
 import NewPasswordPage from 'src/pages/NewPasswordPage';
+import TermsOfUsePage from 'src/pages/TermsOfUsePage';
+import PrivacyPolicyPage from 'src/pages/PrivacyPolicyPage';
+import { urls } from 'src/common/constants';
 import VerifyPrivateRoute from './VerifyPrivateRoute';
 
 const router = createBrowserRouter([
-  { path: '', element: <HomePage /> },
-  { path: 'signup', element: <SignUpPage /> },
+  { path: urls.HOME, element: <HomePage /> },
+  { path: urls.SIGN_UP, element: <SignUpPage /> },
   {
-    path: 'verify',
+    path: urls.VERIFY,
     element: (
       <VerifyPrivateRoute>
         <VerifyEmailPage />
       </VerifyPrivateRoute>
     ),
   },
-  { path: 'signin', element: <SignInPage /> },
-  { path: 'restore-password', element: <RestorePasswordPage /> },
-  { path: 'enter-code', element: <VerifyEmailPage /> },
-  { path: 'new-password', element: <NewPasswordPage /> },
+  { path: urls.SIGN_IN, element: <SignInPage /> },
+  { path: urls.RESTORE_PASSWORD, element: <RestorePasswordPage /> },
+  { path: urls.VERIFY, element: <VerifyEmailPage /> },
+  { path: urls.NEW_PASSWORD, element: <NewPasswordPage /> },
+  { path: urls.PRIVACY_POLICY, element: <PrivacyPolicyPage /> },
+  { path: urls.TERMS_OF_USE, element: <TermsOfUsePage /> },
 ]);
 
 export default router;

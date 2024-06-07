@@ -45,3 +45,25 @@ export interface SerializedError {
   message?: string;
   code?: string;
 }
+
+export interface IRegisterUserRequest {
+  name: string;
+  email: string;
+  password: string;
+}
+
+export interface IRegisterUserResponse {
+  id: string;
+  name: string;
+  email: string;
+  isEmailVerified: boolean;
+}
+
+export interface IRegisterErrorResponse {
+  status: number;
+  data: {
+    error: string;
+    message: string | string[];
+    statusCode: number;
+  };
+}
