@@ -1,5 +1,5 @@
 import { useLocation, useNavigate } from 'react-router-dom';
-import { userApi } from 'src/redux/user/service';
+import { userApi } from 'src/redux/user/userService';
 import { urls } from 'src/common/constants';
 import { useAppSelector } from 'src/redux/auth/hooks/hooks';
 import { FetchBaseQueryError, SerializedError } from 'src/redux/user/types';

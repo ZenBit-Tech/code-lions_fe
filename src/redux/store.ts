@@ -14,12 +14,12 @@ import { setupListeners } from '@reduxjs/toolkit/query';
 import { authApi } from 'src/redux/auth/authApi';
 import authReducer from 'src/redux/auth/authSlice';
 import { userApi } from './user/userService';
-import userReduser from './user/userSlice';
+import userReducer from './user/userSlice';
 
 const rootReducer = combineReducers({
   auth: authReducer,
   [authApi.reducerPath]: authApi.reducer,
-  user: userReduser,
+  user: userReducer,
   [userApi.reducerPath]: userApi.reducer,
 });
 

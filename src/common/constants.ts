@@ -6,7 +6,6 @@ export const urls = {
   RESTORE_PASSWORD: '/restore-password',
   ENTER_CODE: '/enter-code',
   NEW_PASSWORD: '/new-password',
-  HOME_BASE: '/home',
   PRIVACY_POLICY: '/privacy-policy',
   TERMS_OF_USE: '/terms-of-use',
 };

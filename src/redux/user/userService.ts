@@ -4,6 +4,8 @@ import {
   IVerifyEmailRequest,
   IVerifyEmailResponse,
   IResendOtpRequest,
+  IRegisterUserRequest,
+  IRegisterUserResponse,
 } from './types';
 
 export const userApi = createApi({
@@ -26,7 +28,18 @@ export const userApi = createApi({
         body: post,
       }),
     }),
+    userSignUp: build.mutation<IRegisterUserResponse, IRegisterUserRequest>({
+      query: (newUser) => ({
+        url: RTKUrls.REGISTER_USER,
+        method: HttpMethods.POST,
+        body: newUser,
+      }),
+    }),
   }),
 });
 
-export const { useVerifyEmailMutation, useResendOtpMutation } = userApi;
+export const {
+  useVerifyEmailMutation,
+  useResendOtpMutation,
+  useUserSignUpMutation,
+} = userApi;
