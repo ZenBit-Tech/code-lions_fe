@@ -11,15 +11,15 @@ import {
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import { setupListeners } from '@reduxjs/toolkit/query';
-import authReducer from 'src/redux/auth/authSlice';
 import { authApi } from 'src/redux/auth/authApi';
-import userReducer from './user/userSlice';
-import { userApi } from './user/service';
+import authReducer from 'src/redux/auth/authSlice';
+import { userApi } from './user/userService';
+import userReduser from './user/userSlice';
 
 const rootReducer = combineReducers({
   auth: authReducer,
   [authApi.reducerPath]: authApi.reducer,
-  user: userReducer,
+  user: userReduser,
   [userApi.reducerPath]: userApi.reducer,
 });
 

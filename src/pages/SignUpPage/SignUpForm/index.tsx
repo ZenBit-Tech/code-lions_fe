@@ -95,7 +95,6 @@ function SignUpForm() {
         dispatch(setUser(userData));
         navigate(urls.VERIFY);
       } catch (err) {
-        console.error(err);
         if (isFetchBaseQueryError(err) || isSerializedError(err)) {
           showToast('error', getErrorMessage(err));
         } else {

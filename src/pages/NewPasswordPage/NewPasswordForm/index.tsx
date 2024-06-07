@@ -62,7 +62,6 @@ function NewPasswordForm() {
       }).unwrap();
 
       dispatch(resetPasswordSuccess(response));
-      console.log('Password reset successfully:', response);
     } catch (err) {
       if (err instanceof Error) {
         dispatch(resetPasswordFailure(err.message));

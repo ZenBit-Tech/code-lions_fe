@@ -30,11 +30,21 @@ import LabelText from 'src/components/shared/LabelText';
 import TitleInputWrapper from 'src/components/shared/TitleInputWrapper';
 import useToast from 'src/components/shared/toasts/components/ToastProvider/ToastProviderHooks';
 import TextButton from 'src/components/shared/TextButton';
+import { SerializedError } from 'src/redux/user/types';
+import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import FormStyled from './styles';
 
 interface IFormInput {
   email: string;
   password: string;
+}
+
+function isFetchBaseQueryError(error: unknown): error is FetchBaseQueryError {
+  return typeof error === 'object' && error != null && 'status' in error;
+}
+
+function isSerializedError(error: unknown): error is SerializedError {
+  return typeof error === 'object' && error != null && 'message' in error;
 }
 
 function SignInForm() {
@@ -58,6 +68,20 @@ function SignInForm() {
 
   const errorsLength: number = Object.keys(errors).length;
 
+  const getErrorMessage = (
+    error: FetchBaseQueryError | SerializedError
+  ): string => {
+    if (
+      'data' in error &&
+      error.data &&
+      (error.data as { message?: string }).message
+    ) {
+      return (error.data as { message: string }).message;
+    }
+
+    return t('authErrors.failed');
+  };
+
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
     dispatch(loginStart());
     try {
@@ -73,16 +97,11 @@ function SignInForm() {
       dispatch(setTokens(tokens));
 
       navigate(urls.HOME_BASE);
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (err: any) {
-      let errorMessage = appErrors.FAILED_SIGN_IN;
+    } catch (err) {
+      const errorMessage = appErrors.FAILED_SIGN_IN;
 
-      if (err.data && err.data.message) {
-        if (Array.isArray(err.data.message)) {
-          errorMessage = err.data.message.join(', ');
-        } else {
-          errorMessage = err.data.message;
-        }
+      if (isFetchBaseQueryError(err) || isSerializedError(err)) {
+        showToast('error', getErrorMessage(err));
       }
       showToast('error', errorMessage);
       dispatch(loginFailure(errorMessage));

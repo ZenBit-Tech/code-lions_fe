@@ -26,10 +26,20 @@ import {
 import LabelText from 'src/components/shared/LabelText';
 import TitleInputWrapper from 'src/components/shared/TitleInputWrapper';
 import useToast from 'src/components/shared/toasts/components/ToastProvider/ToastProviderHooks';
+import { SerializedError } from 'src/redux/user/types';
+import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import FormStyled from 'src/pages/SignInPage/SignInForm/styles';
 
 interface IFormInput {
   email: string;
+}
+
+function isFetchBaseQueryError(error: unknown): error is FetchBaseQueryError {
+  return typeof error === 'object' && error != null && 'status' in error;
+}
+
+function isSerializedError(error: unknown): error is SerializedError {
+  return typeof error === 'object' && error != null && 'message' in error;
 }
 
 function RestorePasswordForm() {
@@ -52,6 +62,20 @@ function RestorePasswordForm() {
   const errorsLength: number = Object.keys(errors).length;
   const { showToast } = useToast();
 
+  const getErrorMessage = (
+    error: FetchBaseQueryError | SerializedError
+  ): string => {
+    if (
+      'data' in error &&
+      error.data &&
+      (error.data as { message?: string }).message
+    ) {
+      return (error.data as { message: string }).message;
+    }
+
+    return t('authErrors.failed');
+  };
+
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
     dispatch(forgotPasswordStart());
     try {
@@ -62,16 +86,11 @@ function RestorePasswordForm() {
       await forgotPassword(emailData).unwrap();
       dispatch(forgotPasswordSuccess());
       navigate(urls.ENTER_CODE);
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (err: any) {
-      let errorMessage = appErrors.FAILED_TO_SEND_EMAIL;
+    } catch (err) {
+      const errorMessage = appErrors.FAILED_TO_SEND_EMAIL;
 
-      if (err.data && err.data.message) {
-        if (Array.isArray(err.data.message)) {
-          errorMessage = err.data.message.join(', ');
-        } else {
-          errorMessage = err.data.message;
-        }
+      if (isFetchBaseQueryError(err) || isSerializedError(err)) {
+        showToast('error', getErrorMessage(err));
       }
       showToast('error', errorMessage);
       dispatch(forgotPasswordFailure(errorMessage));

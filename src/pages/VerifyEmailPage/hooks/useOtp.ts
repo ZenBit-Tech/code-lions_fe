@@ -22,7 +22,7 @@ const useOtp = (
     } else {
       setIsError(false);
     }
-  }, [otp, timer, error, otpLengthMax, otpLengthMin, timerMin]);
+  }, [otp, timer, error]);
 
   return { otp, setOtp, isError, setIsError };
 };

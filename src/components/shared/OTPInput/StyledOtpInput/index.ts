@@ -10,7 +10,7 @@ const StyledOtpInput = styled('input')<IStyledOtpInputProps>(
     width: 45px;
     height: 45px;
     border-radius: 4px;
-    border: 1px solid ${error ? theme.palette.border.error : theme.palette.border.secondary};
+    border: 1px solid ${error ? theme.palette.error.main : theme.palette.border.secondary};
     padding: 12px 16px;
     font-family: ${theme.typography.fontFamily},
     font-size: 14px;
@@ -21,7 +21,7 @@ const StyledOtpInput = styled('input')<IStyledOtpInputProps>(
     box-shadow: 0px 2px 4px ${theme.palette.primary.light};
   
     &:hover, &:focus, &:active {
-      border-color: ${error ? theme.palette.border.error : theme.palette.border.dark};
+      border-color: ${error ? theme.palette.error.main : theme.palette.border.dark};
     }   
   `
 );
