@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useCallback } from 'react';
-import { Snackbar, Alert } from '@mui/material';
+import { Snackbar, Alert, Typography } from '@mui/material';
 import {
   ToastType,
   ToastContext,
@@ -21,8 +21,8 @@ function ToastProvider({ children }: ToastProviderProps): JSX.Element {
   }, []);
 
   const handleClose = () => {
-    setText('');
     setShow(false);
+    setText('');
   };
 
   const contextValue = useMemo(
@@ -41,8 +41,20 @@ function ToastProvider({ children }: ToastProviderProps): JSX.Element {
         onClose={handleClose}
         anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
       >
-        <Alert onClose={handleClose} severity={severity} sx={{ width: '100%' }}>
-          {text}
+        <Alert
+          onClose={handleClose}
+          severity={severity}
+          sx={{
+            width: '100%',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            gap: '5px',
+            '& .MuiAlert-action': { padding: 0 },
+            '& .MuiAlert-icon': { padding: 0, margin: '5px' },
+          }}
+        >
+          <Typography variant="body1"> {text}</Typography>
         </Alert>
       </Snackbar>
     </ToastContext.Provider>
