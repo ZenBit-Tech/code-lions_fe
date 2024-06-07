@@ -7,12 +7,12 @@ import SocialIconButton from 'src/components/shared/SocialIconButton';
 import GoogleIcon from 'src/assets/icons/google.svg';
 import Separator from 'src/components/shared/Separator';
 import Container from 'src/components/shared/Container';
+import SignInForm from 'src/pages/SignInPage/SignInForm';
 import Title from 'src/components/shared/Title';
 import RegularText from 'src/components/shared/RegularText';
 import TitleInputWrapper from 'src/components/shared/InputWrapper';
 import TextButton from 'src/components/shared/TextButton';
 import LabelText from 'src/components/shared/LabelText';
-import SignInForm from './SignInForm';
 
 function SignInPage() {
   const { t } = useTranslation();

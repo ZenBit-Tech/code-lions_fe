@@ -5,12 +5,15 @@ import SocialIconButton from 'src/components/shared/SocialIconButton';
 import GoogleIcon from 'src/assets/icons/google.svg';
 import Separator from 'src/components/shared/Separator';
 import Container from 'src/components/shared/Container';
-import SignUpForm from 'src/components/SignUpForm';
+import SignUpForm from 'src/pages/SignUpPage/SignUpForm';
 import Title from 'src/components/shared/Title';
 import RegularText from 'src/components/shared/RegularText';
-import TitleInputWrapper from 'src/components/shared/InputWrapper';
 import TextButton from 'src/components/shared/TextButton';
 import LabelText from 'src/components/shared/LabelText';
+import TitleInputWrapper from 'src/components/shared/TitleInputWrapper';
+import PolicyTermsLinks from 'src/components/shared/PolicyTermsLinks';
+import { urls } from 'src/common/constants';
+import LinkStyled from './styles';
 
 function SignUpPage() {
   const { t } = useTranslation();
@@ -31,27 +34,13 @@ function SignUpPage() {
         <SignUpForm />
         <Box display="flex" justifyContent="center" alignItems="center">
           <RegularText align="left">{t('signup.haveAccount')}</RegularText>
-          <TextButton sx={{ padding: '12px 0' }}>
-            <LabelText align="right">{t('signup.signIn')}</LabelText>
-          </TextButton>
+          <LinkStyled to={urls.SIGN_IN}>
+            <TextButton sx={{ padding: '12px 0' }}>
+              <LabelText align="right">{t('signup.signIn')}</LabelText>
+            </TextButton>
+          </LinkStyled>
         </Box>
-        <Box
-          display="flex"
-          justifyContent="space-between"
-          alignItems="center"
-          mt="23px"
-        >
-          <TextButton sx={{ padding: '12px 24px' }}>
-            <LabelText variant="h4" align="left">
-              {t('signup.privacyPolicy')}
-            </LabelText>
-          </TextButton>
-          <TextButton sx={{ padding: '12px 24px' }}>
-            <LabelText variant="h4" align="right">
-              {t('signup.termsOfUse')}
-            </LabelText>
-          </TextButton>
-        </Box>
+        <PolicyTermsLinks />
       </Container>
     </Section>
   );

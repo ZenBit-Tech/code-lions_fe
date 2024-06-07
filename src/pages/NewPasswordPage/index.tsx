@@ -5,8 +5,10 @@ import { Box, IconButton } from '@mui/material';
 import ArrowLeftIcon from 'src/assets/icons/arrow-left.svg';
 import Title from 'src/components/shared/Title';
 import RegularText from 'src/components/shared/RegularText';
-import NewPasswordForm from 'src/components/NewPasswordForm';
+import NewPasswordForm from 'src/pages/NewPasswordPage/NewPasswordForm';
 import { styled } from '@mui/system';
+import { urls } from "src/common/constants";
+import { useNavigate } from "react-router";
 
 const FormContainer = styled(Box)(({ theme }) => ({
   width: '100%',
@@ -25,13 +27,18 @@ const IconButtonContainer = styled(Box)(({ theme }) => ({
 
 function NewPasswordPage() {
   const { t } = useTranslation();
+  const navigate = useNavigate();
+
+  const handleBackClick = () => {
+    navigate(urls.SIGN_IN);
+  };
 
   return (
     <Section>
       <FormContainer>
         <Container>
           <IconButtonContainer>
-            <IconButton>
+            <IconButton onClick={handleBackClick}>
               <ArrowLeftIcon />
             </IconButton>
             <Title> {t('newPassword.newPassword')} </Title>
@@ -39,7 +46,7 @@ function NewPasswordPage() {
           <Box sx={{ marginBottom: '32px' }}>
             <RegularText>{t('newPassword.enterNewPasswordText')}</RegularText>
           </Box>
-          <NewPasswordForm />
+          <NewPasswordForm/>
         </Container>
       </FormContainer>
     </Section>
