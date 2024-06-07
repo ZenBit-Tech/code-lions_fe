@@ -42,17 +42,36 @@ module.exports = {
     camelcase: ['error', { properties: 'never' }],
     'spaced-comment': ['warn', 'always'],
     'no-else-return': 0,
-
     'react/forbid-component-props': ['error', { forbid: ['style'] }],
     'import/no-relative-parent-imports': 'error',
     'react/react-in-jsx-scope': 0,
     'react/jsx-props-no-spreading': 0,
     'react/require-default-props': 0,
     'react/jsx-no-useless-fragment': 0,
+    'no-param-reassign': 0,
     'react-refresh/only-export-components': [
       'warn',
       { allowConstantExport: true },
     ],
     'react/no-array-index-key': 'warn',
+    'lines-between-class-members': [
+      'error',
+      'always',
+      { exceptAfterSingleLine: true },
+    ],
+
+    'padding-line-between-statements': [
+      'error',
+      { blankLine: 'always', prev: '*', next: 'return' },
+      { blankLine: 'always', prev: ['const', 'let', 'var'], next: '*' },
+      {
+        blankLine: 'any',
+        prev: ['const', 'let', 'var'],
+        next: ['const', 'let', 'var'],
+      },
+      { blankLine: 'always', prev: 'directive', next: '*' },
+      { blankLine: 'any', prev: 'directive', next: 'directive' },
+      { blankLine: 'always', prev: ['case', 'default'], next: '*' },
+    ],
   },
 };

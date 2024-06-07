@@ -23,6 +23,7 @@ const StyledButton = styled(LoadingButton)<IStyledButtonProps>(
     '&:disabled': {
       opacity: 0.7,
       cursor: 'not-allowed',
+      color: theme.palette.text.secondary,
     },
     [theme.breakpoints.down('sm')]: {
       width: '300px',

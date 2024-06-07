@@ -22,6 +22,7 @@ function Circle({ logoColor }: ILogoProps) {
 
 function Logo({ logoColor }: ILogoProps) {
   const { t } = useTranslation();
+
   return (
     <Box
       sx={{
@@ -33,7 +34,7 @@ function Logo({ logoColor }: ILogoProps) {
       }}
     >
       <Circle logoColor={logoColor} />
-      <Typography variant="h1" sx={{ color: logoColor, fontSize: '31.22px' }}>
+      <Typography variant="h2" sx={{ color: logoColor }}>
         {t('logoTitle')}
       </Typography>
     </Box>

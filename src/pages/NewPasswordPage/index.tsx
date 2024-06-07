@@ -1,14 +1,14 @@
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
+import { styled } from '@mui/system';
+import { Box, IconButton } from '@mui/material';
 import Section from 'src/components/shared/Section';
 import Container from 'src/components/shared/Container';
-import { Box, IconButton } from '@mui/material';
 import ArrowLeftIcon from 'src/assets/icons/arrow-left.svg';
 import Title from 'src/components/shared/Title';
 import RegularText from 'src/components/shared/RegularText';
 import NewPasswordForm from 'src/pages/NewPasswordPage/NewPasswordForm';
-import { styled } from '@mui/system';
 import { urls } from 'src/common/constants';
-import { useNavigate } from 'react-router-dom';
 
 const FormContainer = styled(Box)(({ theme }) => ({
   width: '100%',

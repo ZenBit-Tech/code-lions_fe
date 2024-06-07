@@ -41,6 +41,7 @@ const RouteConfig: {
 
 const useRoute = () => {
   const location = useLocation();
+
   return RouteConfig[location.pathname];
 };
 

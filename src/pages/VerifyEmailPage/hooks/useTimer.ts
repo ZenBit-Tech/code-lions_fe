@@ -6,6 +6,7 @@ const timerMin: number = 0;
 const useTimer = (initialTime: number, intervalStep: number) => {
   const [timer, setTimer] = useState(() => {
     const storedTimer = localStorage.getItem('timer');
+
     return storedTimer !== null ? parseInt(storedTimer, 10) : initialTime;
   });
 
@@ -18,7 +19,9 @@ const useTimer = (initialTime: number, intervalStep: number) => {
       setTimer((prevTimer) => {
         if (prevTimer > timerMin) {
           const newTime = prevTimer - 1;
+
           localStorage.setItem('timer', newTime.toString());
+
           return newTime;
         } else {
           return prevTimer;

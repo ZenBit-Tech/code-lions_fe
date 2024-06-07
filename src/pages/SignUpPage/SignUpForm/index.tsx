@@ -3,7 +3,7 @@ import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { Typography } from '@mui/material';
 import { useAppDispatch } from 'src/redux/auth/hooks/hooks';
-import { useUserSignUpMutation } from 'src/redux/user/service';
+import { useUserSignUpMutation } from 'src/redux/user/userService';
 import { setUser } from 'src/redux/user/userSlice';
 import theme from 'src/theme';
 import { urls, validations } from 'src/common/constants';
@@ -86,11 +86,17 @@ function SignUpForm() {
   }) => {
     if ([name, email, password].every(Boolean) && !isLoading) {
       try {
-        const userData = await userSignUp({ name, email, password }).unwrap();
+        const userData = await userSignUp({
+          name,
+          email,
+          password,
+        }).unwrap();
 
+        console.log(userData);
         dispatch(setUser(userData));
         navigate(urls.VERIFY);
       } catch (err) {
+        console.error(err);
         if (isFetchBaseQueryError(err) || isSerializedError(err)) {
           showToast('error', getErrorMessage(err));
         } else {

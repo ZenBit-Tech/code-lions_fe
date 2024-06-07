@@ -39,6 +39,7 @@ function VerifyEmailPage() {
     if (path === urls.VERIFY) {
       return t('verifyEmail.verifyYourEmail');
     }
+
     return t('verifyEmail.enterCode');
   };
 

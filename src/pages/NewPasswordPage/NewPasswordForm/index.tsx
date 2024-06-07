@@ -60,6 +60,7 @@ function NewPasswordForm() {
         password: data.password,
         repeatPassword: data.repeatPassword,
       }).unwrap();
+
       dispatch(resetPasswordSuccess(response));
     } catch (err) {
       if (err instanceof Error) {

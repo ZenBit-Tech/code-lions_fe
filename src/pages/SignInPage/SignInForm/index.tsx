@@ -96,9 +96,10 @@ function SignInForm() {
       dispatch(setUser(user));
       dispatch(setTokens(tokens));
 
-      navigate(urls.HOME_BASE);
+      navigate(urls.HOME);
     } catch (err) {
       const errorMessage = appErrors.FAILED_SIGN_IN;
+
       if (isFetchBaseQueryError(err) || isSerializedError(err)) {
         showToast('error', getErrorMessage(err));
       }

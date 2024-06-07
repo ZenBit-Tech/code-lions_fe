@@ -104,7 +104,9 @@ const useOtpFunctions = ({ length, value, onChange }: IOtpFunctionsProps) => {
     onChange((prev) => {
       const otpArray = prev.split('');
       const lastValue = currentValue[currentValue.length - 1];
+
       otpArray[indexToEnter] = lastValue;
+
       return otpArray.join('');
     });
     if (currentValue !== '') {
@@ -131,6 +133,7 @@ const useOtpFunctions = ({ length, value, onChange }: IOtpFunctionsProps) => {
 
     if (clipboardData.types.includes('text/plain')) {
       let pastedText = clipboardData.getData('text/plain');
+
       pastedText = pastedText.substring(0, length).trim();
       let indexToEnter = 0;
 
@@ -149,6 +152,7 @@ const useOtpFunctions = ({ length, value, onChange }: IOtpFunctionsProps) => {
 
       for (let i = indexToEnter; i < length; i += 1) {
         const lastValue = pastedText[i - indexToEnter] ?? ' ';
+
         otpArray[i] = lastValue;
       }
 

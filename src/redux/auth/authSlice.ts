@@ -139,4 +139,5 @@ export const {
 export const selectAuth = (state: RootState) => state.auth;
 
 const authReducer = authSlice.reducer;
+
 export default authReducer;

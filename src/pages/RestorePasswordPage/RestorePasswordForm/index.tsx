@@ -82,11 +82,13 @@ function RestorePasswordForm() {
       const emailData: IForgotPasswordDto = {
         email: data.email,
       };
+
       await forgotPassword(emailData).unwrap();
       dispatch(forgotPasswordSuccess());
       navigate(urls.ENTER_CODE);
     } catch (err) {
       const errorMessage = appErrors.FAILED_TO_SEND_EMAIL;
+
       if (isFetchBaseQueryError(err) || isSerializedError(err)) {
         showToast('error', getErrorMessage(err));
       }

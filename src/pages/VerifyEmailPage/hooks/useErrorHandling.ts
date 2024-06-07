@@ -15,11 +15,13 @@ const useErrorHandling = () => {
   useEffect(() => {
     if (!currentError) {
       setErrorMessages([]);
+
       return;
     }
 
     if ('data' in currentError) {
       const errorData = currentError.data as IErrorResponse;
+
       setErrorMessages(
         Array.isArray(errorData.message)
           ? errorData.message
@@ -27,6 +29,7 @@ const useErrorHandling = () => {
       );
     } else {
       const serializedError = currentError as SerializedError;
+
       setErrorMessages([serializedError.message || appErrors.FAILED_TO_VERIFY]);
     }
   }, [currentError]);
