@@ -77,6 +77,11 @@ const theme = createTheme({
       fontSize: 16,
       fontWeight: 500,
       lineHeight: 'normal',
+      '@media (min-width:600px)': {
+        fontSize: 24,
+        lineHeight: 1.83,
+        letterSpacing: '-0.4px',
+      },
     },
     h4: {
       fontFamily: 'DM Sans, Arial, sans-serif',
@@ -84,6 +89,19 @@ const theme = createTheme({
       fontWeight: 500,
       lineHeight: 1.43,
       letterSpacing: '-0.21px',
+    },
+    h5: {
+      fontFamily: 'Playfair Display, Arial, sans-serif',
+      fontSize: 20,
+      fontWeight: 600,
+      lineHeight: 1.85,
+      letterSpacing: '-0.2px',
+      '@media (min-width:600px)': {
+        fontSize: 40,
+        fontWeight: 500,
+        lineHeight: 1.45,
+        letterSpacing: '-1px',
+      },
     },
     subtitle1: {
       fontFamily: 'Playfair Display, Arial, sans-serif',
@@ -110,6 +128,10 @@ const theme = createTheme({
       fontSize: 14,
       fontWeight: 400,
       lineHeight: 1.43,
+      '@media (min-width:600px)': {
+        fontSize: 16,
+        lineHeight: 1.63,
+      },
     },
     button: {
       fontFamily: 'Playfair Display, Arial, sans-serif',
