@@ -1,6 +1,5 @@
 import { useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import Container from 'src/components/shared/Container';
 import Title from 'src/components/shared/Title';
 import ArrowIcon from 'src/assets/icons/arrow-left.svg';
 import { IconButton, Typography } from '@mui/material';
@@ -8,10 +7,12 @@ import theme from 'src/theme';
 import articles from './articles';
 import {
   ArticleWrapper,
+  Container,
   SectionWrapper,
   SimpleSection,
   StyledLink,
   TextWrapper,
+  TitleStyled,
   TitleWrapper,
 } from './styles';
 
@@ -29,13 +30,17 @@ function NewPasswordPage() {
               <ArrowIcon />
             </IconButton>
           </StyledLink>
-          <Title>{t('privacyPolicy.title')}</Title>
+          <Title variant="h5" component="h1">
+            {t('privacyPolicy.title')}
+          </Title>
         </TitleWrapper>
         <SectionWrapper>
           <TextWrapper>
-            {articles.map(({ id, title, text }) => (
+            {articles.map(({ id, title, text }, index) => (
               <ArticleWrapper key={id}>
-                <Typography variant="h3">{t(title)}</Typography>
+                <TitleStyled variant="h3" center={index === 0}>
+                  {t(title)}
+                </TitleStyled>
                 <Typography variant="body2" color={theme.palette.text.disabled}>
                   {t(text)}
                 </Typography>
