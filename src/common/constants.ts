@@ -8,6 +8,7 @@ export const urls = {
   NEW_PASSWORD: '/new-password',
   PRIVACY_POLICY: '/privacy-policy',
   TERMS_OF_USE: '/terms-of-use',
+  SIGN_IN_ADMIN: '/signin-admin',
 };
 
 export const RTKUrls = {
