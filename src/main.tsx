@@ -10,6 +10,7 @@ import './index.css';
 import App from './App';
 import theme from './theme';
 import ToastProvider from './components/shared/toasts/components/ToastProvider';
+import GoogleAuthProvider from './components/GoogleOAuthProvider';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
@@ -17,9 +18,11 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
       <PersistGate loading={null} persistor={persistor}>
         <I18nextProvider i18n={i18n}>
           <ThemeProvider theme={theme}>
-            <ToastProvider>
-              <App />
-            </ToastProvider>
+            <GoogleAuthProvider>
+              <ToastProvider>
+                <App />
+              </ToastProvider>
+            </GoogleAuthProvider>
           </ThemeProvider>
         </I18nextProvider>
       </PersistGate>

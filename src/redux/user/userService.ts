@@ -6,6 +6,8 @@ import {
   IResendOtpRequest,
   IRegisterUserRequest,
   IRegisterUserResponse,
+  IRegisterGoogleResponse,
+  IRegisterGoogleRequest,
 } from './types';
 
 export const userApi = createApi({
@@ -35,6 +37,17 @@ export const userApi = createApi({
         body: newUser,
       }),
     }),
+    addUserGoogle: build.mutation<
+      IRegisterGoogleResponse,
+      IRegisterGoogleRequest
+    >({
+      query: (post) => ({
+        url: RTKUrls.GOOGLE_AUTH,
+        method: HttpMethods.POST,
+        body: post,
+        headers: { 'Access-Control-Allow-Origin': '*' },
+      }),
+    }),
   }),
 });
 
@@ -42,4 +55,5 @@ export const {
   useVerifyEmailMutation,
   useResendOtpMutation,
   useUserSignUpMutation,
+  useAddUserGoogleMutation,
 } = userApi;

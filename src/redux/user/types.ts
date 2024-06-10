@@ -2,6 +2,7 @@ export interface IUser {
   id: string;
   name: string;
   email: string;
+  role: 'BUYER' | 'VENDOR' | 'ADMIN' | null;
   isEmailVerified: boolean;
   isLoggedIn: boolean;
   accessToken: string;
@@ -9,9 +10,9 @@ export interface IUser {
   error: string;
 }
 
-export interface IUserState {
-  user: IUser;
-}
+// export interface IUserState {
+//   user: IUser;
+// }
 
 export interface IVerifyEmailRequest {
   id: string;
@@ -59,11 +60,15 @@ export interface IRegisterUserResponse {
   isEmailVerified: boolean;
 }
 
-export interface IRegisterErrorResponse {
-  status: number;
-  data: {
-    error: string;
-    message: string | string[];
-    statusCode: number;
-  };
+export interface IRegisterGoogleRequest {
+  token: string | undefined;
+}
+
+export interface IRegisterGoogleResponse {
+  id: string;
+  name: string;
+  email: string;
+  isEmailVerified: boolean;
+  accessToken?: string;
+  refreshToken?: string;
 }

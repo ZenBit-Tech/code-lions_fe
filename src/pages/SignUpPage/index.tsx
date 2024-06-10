@@ -1,5 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { Box } from '@mui/system';
+import { useGoogleLogin } from '@react-oauth/google';
 import Section from 'src/components/shared/Section';
 import SocialIconButton from 'src/components/shared/SocialIconButton';
 import GoogleIcon from 'src/assets/icons/google.svg';
@@ -12,11 +13,15 @@ import TextButton from 'src/components/shared/TextButton';
 import LabelText from 'src/components/shared/LabelText';
 import TitleInputWrapper from 'src/components/shared/TitleInputWrapper';
 import PolicyTermsLinks from 'src/components/shared/PolicyTermsLinks';
+import GoogleLoginButton from 'src/components/GoogleLoginButton';
 import { urls } from 'src/common/constants';
 import LinkStyled from './styles';
 
 function SignUpPage() {
   const { t } = useTranslation();
+  const login = useGoogleLogin({
+    onSuccess: (codeResponse) => console.log(codeResponse),
+  });
 
   return (
     <Section>
@@ -26,10 +31,11 @@ function SignUpPage() {
           <RegularText>{t('signup.signUpSocial')}</RegularText>
         </TitleInputWrapper>
         <Box mt="22px">
-          <SocialIconButton>
+          <SocialIconButton onClick={() => login()}>
             <GoogleIcon />
           </SocialIconButton>
         </Box>
+        <GoogleLoginButton text="signup_with" />
         <Separator text={t('signup.textOr')} />
         <SignUpForm />
         <Box display="flex" justifyContent="center" alignItems="center">

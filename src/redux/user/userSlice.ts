@@ -1,12 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { userApi } from 'src/redux/user/userService';
 import { appErrors } from 'src/common/constants';
-import { IUser, IUserState } from './types';
+import { IUser } from './types';
 
-const initialUser: IUser = {
+const initialState: IUser = {
   id: '',
   name: '',
   email: '',
+  role: null,
   isEmailVerified: false,
   isLoggedIn: false,
   accessToken: '',
@@ -14,9 +15,9 @@ const initialUser: IUser = {
   error: '',
 };
 
-const initialState: IUserState = {
-  user: initialUser,
-};
+// const initialState: IUserState = {
+//   user: initialUser,
+// };
 
 export const userSlice = createSlice({
   name: 'user',
@@ -25,40 +26,51 @@ export const userSlice = createSlice({
     setUser(state, action) {
       const { id, name, email, isEmailVerified } = action.payload;
 
-      state.user.id = id;
-      state.user.name = name;
-      state.user.email = email;
-      state.user.isEmailVerified = isEmailVerified;
-      state.user.isLoggedIn = true;
+      state.id = id;
+      state.name = name;
+      state.email = email;
+      state.isEmailVerified = isEmailVerified;
+      state.isLoggedIn = true;
+    },
+    setVerifiedUser(state, action) {
+      const { id, name, email, isEmailVerified, accessToken, refreshToken } =
+        action.payload;
+
+      state.id = id;
+      state.name = name;
+      state.email = email;
+      state.isEmailVerified = isEmailVerified;
+      state.isLoggedIn = true;
+      state.accessToken = accessToken;
+      state.refreshToken = refreshToken;
     },
   },
   extraReducers: (builder) => {
     builder.addMatcher(
       userApi.endpoints.verifyEmail.matchFulfilled,
       (state, action) => {
-        state.user.isEmailVerified = action.payload.isEmailVerified;
-        state.user.accessToken = action.payload.accessToken;
-        state.user.refreshToken = action.payload.refreshToken;
-        state.user.isLoggedIn = true;
-        state.user.error = '';
+        state.isEmailVerified = action.payload.isEmailVerified;
+        state.accessToken = action.payload.accessToken;
+        state.refreshToken = action.payload.refreshToken;
+        state.isLoggedIn = true;
+        state.error = '';
       }
     );
     builder.addMatcher(
       userApi.endpoints.verifyEmail.matchRejected,
       (state, action) => {
-        state.user.error = action.error.message || appErrors.FAILED_TO_VERIFY;
+        state.error = action.error.message || appErrors.FAILED_TO_VERIFY;
       }
     );
     builder.addMatcher(
       userApi.endpoints.resendOtp.matchRejected,
       (state, action) => {
-        state.user.error =
-          action.error.message || appErrors.FAILED_TO_RESEND_OTP;
+        state.error = action.error.message || appErrors.FAILED_TO_RESEND_OTP;
       }
     );
   },
 });
 
-export const { setUser } = userSlice.actions;
+export const { setUser, setVerifiedUser } = userSlice.actions;
 
 export default userSlice.reducer;
