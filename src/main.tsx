@@ -10,7 +10,7 @@ import './index.css';
 import App from './App';
 import theme from './theme';
 import ToastProvider from './components/shared/toasts/components/ToastProvider';
-import GoogleAuthProvider from './components/GoogleOAuthProvider';
+import GoogleAuthProvider from './components/GoogleAuthProvider';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
