@@ -22,29 +22,7 @@ const initialState: IUser = {
 export const userSlice = createSlice({
   name: 'user',
   initialState,
-  reducers: {
-    setUser(state, action) {
-      const { id, name, email, isEmailVerified } = action.payload;
-
-      state.id = id;
-      state.name = name;
-      state.email = email;
-      state.isEmailVerified = isEmailVerified;
-      state.isLoggedIn = true;
-    },
-    setVerifiedUser(state, action) {
-      const { id, name, email, isEmailVerified, accessToken, refreshToken } =
-        action.payload;
-
-      state.id = id;
-      state.name = name;
-      state.email = email;
-      state.isEmailVerified = isEmailVerified;
-      state.isLoggedIn = true;
-      state.accessToken = accessToken;
-      state.refreshToken = refreshToken;
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder.addMatcher(
       userApi.endpoints.verifyEmail.matchFulfilled,
@@ -68,9 +46,60 @@ export const userSlice = createSlice({
         state.error = action.error.message || appErrors.FAILED_TO_RESEND_OTP;
       }
     );
+    builder.addMatcher(
+      userApi.endpoints.addUserGoogle.matchFulfilled,
+      (state, action) => {
+        const { id, name, email, isEmailVerified, accessToken, refreshToken } =
+          action.payload;
+
+        state.id = id;
+        state.name = name;
+        state.email = email;
+        state.isEmailVerified = isEmailVerified;
+        state.isLoggedIn = true;
+
+        if (isEmailVerified) {
+          state.accessToken = accessToken;
+          state.refreshToken = refreshToken;
+        }
+      }
+    );
+    builder.addMatcher(
+      userApi.endpoints.userSignUp.matchFulfilled,
+      (state, action) => {
+        const { id, name, email, isEmailVerified } = action.payload;
+
+        state.id = id;
+        state.name = name;
+        state.email = email;
+        state.isEmailVerified = isEmailVerified;
+        state.isLoggedIn = true;
+      }
+    );
+    builder.addMatcher(
+      userApi.endpoints.loginUser.matchFulfilled,
+      (state, action) => {
+        const {
+          id,
+          name,
+          email,
+          isEmailVerified,
+          role,
+          accessToken,
+          refreshToken,
+        } = action.payload;
+
+        state.id = id;
+        state.name = name;
+        state.email = email;
+        state.isEmailVerified = isEmailVerified;
+        state.isLoggedIn = true;
+        state.role = role;
+        state.accessToken = accessToken;
+        state.refreshToken = refreshToken;
+      }
+    );
   },
 });
-
-export const { setUser, setVerifiedUser } = userSlice.actions;
 
 export default userSlice.reducer;

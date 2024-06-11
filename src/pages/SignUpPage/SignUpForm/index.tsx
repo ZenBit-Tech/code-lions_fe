@@ -2,9 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { Typography } from '@mui/material';
-import { useAppDispatch } from 'src/redux/auth/hooks/hooks';
 import { useUserSignUpMutation } from 'src/redux/user/userService';
-import { setUser } from 'src/redux/user/userSlice';
 import theme from 'src/theme';
 import { urls, validations } from 'src/common/constants';
 import PasswordInput from 'src/components/shared/PasswordInput';
@@ -43,7 +41,6 @@ function isSerializedError(error: unknown): error is SerializedError {
 function SignUpForm() {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const dispatch = useAppDispatch();
   const { showToast } = useToast();
 
   const {
@@ -86,14 +83,12 @@ function SignUpForm() {
   }) => {
     if ([name, email, password].every(Boolean) && !isLoading) {
       try {
-        const userData = await userSignUp({
+        await userSignUp({
           name,
           email,
           password,
         }).unwrap();
 
-        console.log(userData);
-        dispatch(setUser(userData));
         navigate(urls.VERIFY);
       } catch (err) {
         console.error(err);

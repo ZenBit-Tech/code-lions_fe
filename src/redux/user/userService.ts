@@ -8,6 +8,9 @@ import {
   IRegisterUserResponse,
   IRegisterGoogleResponse,
   IRegisterGoogleRequest,
+  ILoginResponse,
+  ILoginRequest,
+  IForgotPasswordRequest,
 } from './types';
 
 export const userApi = createApi({
@@ -31,10 +34,10 @@ export const userApi = createApi({
       }),
     }),
     userSignUp: build.mutation<IRegisterUserResponse, IRegisterUserRequest>({
-      query: (newUser) => ({
+      query: (post) => ({
         url: RTKUrls.REGISTER_USER,
         method: HttpMethods.POST,
-        body: newUser,
+        body: post,
       }),
     }),
     addUserGoogle: build.mutation<
@@ -48,6 +51,27 @@ export const userApi = createApi({
         headers: { 'Access-Control-Allow-Origin': '*' },
       }),
     }),
+    loginUser: build.mutation<ILoginResponse, ILoginRequest>({
+      query: (post) => ({
+        url: RTKUrls.SIGN_IN,
+        method: HttpMethods.POST,
+        body: post,
+      }),
+    }),
+    forgotPassword: build.mutation<void, IForgotPasswordRequest>({
+      query: (post) => ({
+        url: RTKUrls.FORGOT_PASSWORD,
+        method: HttpMethods.POST,
+        body: post,
+      }),
+    }),
+    // resetPassword: build.mutation<IUserWithTokensDto, IResetPasswordDto>({
+    //   query: (post) => ({
+    //     url: RTKUrls.RESET_PASSWORD,
+    //     method: HttpMethods.POST,
+    //     body: post,
+    //   }),
+    // }),
   }),
 });
 
@@ -56,4 +80,6 @@ export const {
   useResendOtpMutation,
   useUserSignUpMutation,
   useAddUserGoogleMutation,
+  useLoginUserMutation,
+  useForgotPasswordMutation,
 } = userApi;

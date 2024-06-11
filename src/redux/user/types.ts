@@ -5,8 +5,8 @@ export interface IUser {
   role: 'BUYER' | 'VENDOR' | 'ADMIN' | null;
   isEmailVerified: boolean;
   isLoggedIn: boolean;
-  accessToken: string;
-  refreshToken: string;
+  accessToken: string | undefined;
+  refreshToken: string | undefined;
   error: string;
 }
 
@@ -71,4 +71,49 @@ export interface IRegisterGoogleResponse {
   isEmailVerified: boolean;
   accessToken?: string;
   refreshToken?: string;
+}
+
+export interface ILoginRequest {
+  email: string;
+  password: string;
+}
+
+// export interface IPublicUserDto {
+//   id: string;
+//   name: string;
+//   email: string;
+//   isEmailVerified: boolean;
+// }
+
+// export interface IAuthTokenResponse {
+//   accessToken: string;
+//   refreshToken: string;
+// }
+
+export interface ILoginResponse {
+  id: string;
+  name: string;
+  email: string;
+  isEmailVerified: boolean;
+  role: null;
+  accessToken: string;
+  refreshToken: string;
+}
+
+export interface IForgotPasswordRequest {
+  email: string;
+}
+
+// export interface IForgotPasswordResponse {
+//   email: string;
+// }
+
+export interface IResetPasswordDto {
+  password: string;
+  repeatPassword: string;
+}
+
+export interface IUserWithTokensDto {
+  user: IPublicUserDto;
+  tokens: IAuthTokenResponse;
 }

@@ -1,33 +1,48 @@
 import { GoogleLogin } from '@react-oauth/google';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import { useTheme } from '@mui/material/styles';
 import { useAddUserGoogleMutation } from 'src/redux/user/userService';
 import { useNavigate } from 'react-router-dom';
-import { useAppDispatch } from 'src/redux/auth/hooks/hooks';
-import { setUser, setVerifiedUser } from 'src/redux/user/userSlice';
 import { urls } from 'src/common/constants';
+
+const GoogleButtonProps = {
+  WIDTH_SMALL: '300px',
+  WIDTH_BIG: '335px',
+  LOCALE: 'en',
+  SIGN_UP: 'signup_with',
+  SIGN_IN: 'signin_with',
+  CENTER: 'center',
+} as const;
+
+type GoogleButtonText =
+  | typeof GoogleButtonProps.SIGN_UP
+  | typeof GoogleButtonProps.SIGN_IN;
 
 interface IGoogleLoginButtonProps {
   width?: string;
-  text?: 'signin_with' | 'signup_with' | 'continue_with' | 'signin' | undefined;
+  text?: GoogleButtonText;
   locale?: string;
 }
 
 function GoogleLoginButton({
-  width = '335px',
+  width = GoogleButtonProps.WIDTH_BIG,
   text,
-  locale = 'en',
+  locale = GoogleButtonProps.LOCALE,
 }: IGoogleLoginButtonProps) {
   const [addUser] = useAddUserGoogleMutation();
   const navigate = useNavigate();
-  const dispatch = useAppDispatch();
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
+  const adjustedWidth = isSmallScreen ? GoogleButtonProps.WIDTH_SMALL : width;
 
   return (
     <GoogleLogin
-      width={width}
+      logo_alignment={GoogleButtonProps.CENTER}
+      width={adjustedWidth}
       text={text}
       locale={locale}
       onSuccess={async (credentialResponse) => {
         try {
-          console.log(credentialResponse);
           const response = await addUser({
             token: credentialResponse.credential,
           });
@@ -36,14 +51,10 @@ function GoogleLoginButton({
             const { isEmailVerified } = response.data;
 
             if (isEmailVerified) {
-              dispatch(setUser(response.data));
               navigate(urls.HOME);
             } else {
-              dispatch(setVerifiedUser(response.data));
               navigate(urls.VERIFY);
             }
-
-            console.log(response);
           } else {
             console.error('Response data is undefined');
           }

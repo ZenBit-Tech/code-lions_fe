@@ -148,7 +148,7 @@ function NewPasswordForm() {
         padding={PaddingVariants.LG}
         disabled={!isDirty || !isValid || errorsLength > 0 || isLoading}
       >
-        <Typography variant="button" color={theme.palette.common.white}>
+        <Typography variant="button">
           {t('newPassword.savePasswordButton')}
         </Typography>
       </StyledButton>

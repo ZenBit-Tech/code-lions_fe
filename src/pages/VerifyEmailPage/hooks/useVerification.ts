@@ -17,7 +17,7 @@ const useVerification = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const userId = useAppSelector((state) => state.user.user.id);
+  const userId = useAppSelector((state) => state.user.id);
 
   const [verifyEmail, { error: verifyEmailError, isLoading }] =
     userApi.useVerifyEmailMutation();
