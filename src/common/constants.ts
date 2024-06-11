@@ -16,6 +16,7 @@ export const RTKUrls = {
   SIGN_IN: 'auth/login',
   FORGOT_PASSWORD: 'auth/forgot-password',
   RESET_PASSWORD: 'auth/reset-password',
+  NEW_PASSWORD: 'auth/new-password',
   REGISTER_USER: 'auth/register',
   GOOGLE_AUTH: 'auth/google',
 };

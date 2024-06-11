@@ -22,6 +22,8 @@ import { SerializedError } from 'src/redux/user/types';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import FormStyled from 'src/pages/SignInPage/SignInForm/styles';
 import { useForgotPasswordMutation } from 'src/redux/user/userService';
+import { useAppDispatch } from 'src/redux/hooks';
+import { setEmail } from 'src/redux/user/userSlice';
 
 interface IFormInput {
   email: string;
@@ -39,6 +41,7 @@ function RestorePasswordForm() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [forgotPassword, { isLoading }] = useForgotPasswordMutation();
+  const dispatch = useAppDispatch();
 
   const {
     control,
@@ -72,6 +75,7 @@ function RestorePasswordForm() {
     if (email && !isLoading) {
       try {
         await forgotPassword({ email }).unwrap();
+        dispatch(setEmail(email));
         navigate(urls.ENTER_CODE);
       } catch (err) {
         if (isFetchBaseQueryError(err) || isSerializedError(err)) {

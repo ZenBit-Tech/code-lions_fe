@@ -7,7 +7,6 @@ export interface IUser {
   isLoggedIn: boolean;
   accessToken: string | undefined;
   refreshToken: string | undefined;
-  error: string;
 }
 
 // export interface IUserState {
@@ -104,16 +103,24 @@ export interface IForgotPasswordRequest {
   email: string;
 }
 
+export interface IResetPasswordRequest {
+  email: string;
+  otp: string;
+}
+
+export interface IResetPasswordResponse {
+  id: string;
+  name: string;
+  email: string;
+  isEmailVerified: boolean;
+  accessToken: string;
+  refreshToken: string;
+}
+
 // export interface IForgotPasswordResponse {
 //   email: string;
 // }
 
-export interface IResetPasswordDto {
+export interface INewPasswordRequest {
   password: string;
-  repeatPassword: string;
-}
-
-export interface IUserWithTokensDto {
-  user: IPublicUserDto;
-  tokens: IAuthTokenResponse;
 }

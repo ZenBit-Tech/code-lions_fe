@@ -11,6 +11,9 @@ import {
   ILoginResponse,
   ILoginRequest,
   IForgotPasswordRequest,
+  IResetPasswordResponse,
+  IResetPasswordRequest,
+  INewPasswordRequest,
 } from './types';
 
 export const userApi = createApi({
@@ -65,13 +68,23 @@ export const userApi = createApi({
         body: post,
       }),
     }),
-    // resetPassword: build.mutation<IUserWithTokensDto, IResetPasswordDto>({
-    //   query: (post) => ({
-    //     url: RTKUrls.RESET_PASSWORD,
-    //     method: HttpMethods.POST,
-    //     body: post,
-    //   }),
-    // }),
+    resetPassword: build.mutation<
+      IResetPasswordResponse,
+      IResetPasswordRequest
+    >({
+      query: (post) => ({
+        url: RTKUrls.RESET_PASSWORD,
+        method: HttpMethods.POST,
+        body: post,
+      }),
+    }),
+    newPassword: build.mutation<void, INewPasswordRequest>({
+      query: (post) => ({
+        url: RTKUrls.NEW_PASSWORD,
+        method: HttpMethods.POST,
+        body: post,
+      }),
+    }),
   }),
 });
 
@@ -82,4 +95,6 @@ export const {
   useAddUserGoogleMutation,
   useLoginUserMutation,
   useForgotPasswordMutation,
+  useResetPasswordMutation,
+  useNewPasswordMutation,
 } = userApi;

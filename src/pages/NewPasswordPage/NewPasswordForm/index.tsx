@@ -1,13 +1,13 @@
 import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { Box, Typography } from '@mui/material';
-import { useDispatch } from 'react-redux';
-import { useResetPasswordMutation } from 'src/redux/auth/authApi';
-import {
-  resetPasswordStart,
-  resetPasswordSuccess,
-  resetPasswordFailure,
-} from 'src/redux/auth/authSlice';
+// import { useDispatch } from 'react-redux';
+// import { useResetPasswordMutation } from 'src/redux/auth/authApi';
+// import {
+//   resetPasswordStart,
+//   resetPasswordSuccess,
+//   resetPasswordFailure,
+// } from 'src/redux/auth/authSlice';
 
 import PasswordInput from 'src/components/shared/PasswordInput';
 import {
@@ -25,6 +25,7 @@ import { validations } from 'src/common/constants';
 import theme from 'src/theme';
 import FormStyled from 'src/pages/SignInPage/SignInForm/styles';
 import useToast from 'src/components/shared/toasts/components/ToastProvider/ToastProviderHooks';
+import { useNewPasswordMutation } from 'src/redux/user/userService';
 
 interface IFormInput {
   password: string;
@@ -33,8 +34,8 @@ interface IFormInput {
 
 function NewPasswordForm() {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
-  const [resetPassword, { isLoading }] = useResetPasswordMutation();
+  // const dispatch = useDispatch();
+  const [newPassword, { isLoading }] = useNewPasswordMutation();
 
   const {
     control,
@@ -50,24 +51,21 @@ function NewPasswordForm() {
   });
 
   const errorsLength: number = Object.keys(errors).length;
-  const password = watch('password');
   const { showToast } = useToast();
 
-  const onSubmit: SubmitHandler<IFormInput> = async (data) => {
-    dispatch(resetPasswordStart());
+  const onSubmit: SubmitHandler<IFormInput> = async ({ password }) => {
+    // dispatch(resetPasswordStart());
     try {
-      const response = await resetPassword({
-        password: data.password,
-        repeatPassword: data.repeatPassword,
-      }).unwrap();
+      await newPassword({ password }).unwrap();
 
-      dispatch(resetPasswordSuccess(response));
+      // dispatch(resetPasswordSuccess(response));
     } catch (err) {
+      console.log(err);
       if (err instanceof Error) {
-        dispatch(resetPasswordFailure(err.message));
+        // dispatch(resetPasswordFailure(err.message));
         showToast('error', err.message);
       } else {
-        dispatch(resetPasswordFailure(t('newPassword.unknownError')));
+        // dispatch(resetPasswordFailure(t('newPassword.unknownError')));
         showToast('error', t('newPassword.unknownError'));
       }
     }
@@ -119,7 +117,8 @@ function NewPasswordForm() {
               message: t('newPasswordErrors.passwordLength'),
             },
             validate: (value) =>
-              value === password || t('newPasswordErrors.passwordsNotMatch'),
+              value === watch('password') ||
+              t('newPasswordErrors.passwordsNotMatch'),
           }}
           render={({ field }) => (
             <Box>

@@ -18,10 +18,12 @@ const useVerification = () => {
   const location = useLocation();
 
   const userId = useAppSelector((state) => state.user.id);
+  const userEmail = useAppSelector((state) => state.user.email);
 
   const [verifyEmail, { error: verifyEmailError, isLoading }] =
     userApi.useVerifyEmailMutation();
   const [resendOtp, { error: resendOtpError }] = userApi.useResendOtpMutation();
+  const [resetPassword] = userApi.useResetPasswordMutation();
 
   const { timer, setTimer, formattedTimer, isSendAgainButtonDisabled } =
     useTimer(timerMax, intervalStep);
@@ -35,10 +37,14 @@ const useVerification = () => {
 
   const handleVerify = async () => {
     try {
-      await verifyEmail({ id: userId, otp }).unwrap();
       if (currentLocation === urls.VERIFY) {
+        await verifyEmail({ id: userId, otp }).unwrap();
         navigate(urls.HOME);
       } else if (currentLocation === urls.ENTER_CODE) {
+        await resetPassword({
+          email: userEmail,
+          otp,
+        }).unwrap();
         navigate(urls.NEW_PASSWORD);
       }
     } catch (error) {
