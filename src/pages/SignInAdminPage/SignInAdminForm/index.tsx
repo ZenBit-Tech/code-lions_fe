@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { Typography } from '@mui/material';
 import { Box } from '@mui/system';
-import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import { useLoginMutation } from 'src/redux/auth/authApi';
 import { useAppDispatch } from 'src/redux/auth/hooks/hooks';
 import {
@@ -14,6 +13,11 @@ import {
   setUser,
 } from 'src/redux/auth/authSlice';
 import { ILoginDto, ILoginResponse } from 'src/redux/auth/types/user';
+import {
+  CustomFetchBaseQueryError,
+  IErrorResponse,
+  SerializedError,
+} from 'src/redux/user/types';
 import theme from 'src/theme';
 import { appErrors, urls, validations } from 'src/common/constants';
 import PasswordInput from 'src/components/shared/PasswordInput';
@@ -30,20 +34,11 @@ import {
 import LabelText from 'src/components/shared/LabelText';
 import TitleInputWrapper from 'src/components/shared/TitleInputWrapper';
 import useToast from 'src/components/shared/toasts/components/ToastProvider/ToastProviderHooks';
-import { SerializedError } from 'src/redux/user/types';
 import FormStyled, { ErrorMessage } from './styles';
 
 interface IFormInput {
   email: string;
   password: string;
-}
-
-function isFetchBaseQueryError(error: unknown): error is FetchBaseQueryError {
-  return typeof error === 'object' && error != null && 'status' in error;
-}
-
-function isSerializedError(error: unknown): error is SerializedError {
-  return typeof error === 'object' && error != null && 'message' in error;
 }
 
 function SignInAdminForm() {
@@ -68,14 +63,14 @@ function SignInAdminForm() {
   const errorsLength: number = Object.keys(errors).length;
 
   const getErrorMessage = (
-    error: FetchBaseQueryError | SerializedError
+    error: CustomFetchBaseQueryError | SerializedError
   ): string => {
     if (
       'data' in error &&
       error.data &&
-      (error.data as { message?: string }).message
+      (error.data as IErrorResponse).message
     ) {
-      return (error.data as { message: string }).message;
+      return (error.data as IErrorResponse).message as string;
     }
 
     return t('authErrors.failed');
@@ -97,12 +92,15 @@ function SignInAdminForm() {
 
       navigate(urls.HOME);
     } catch (err) {
+      const error = err as CustomFetchBaseQueryError | SerializedError;
       const errorMessage = appErrors.FAILED_SIGN_IN;
+      const updatedError = error;
 
-      if (isFetchBaseQueryError(err) || isSerializedError(err)) {
-        showToast('error', getErrorMessage(err));
+      if (updatedError) {
+        showToast('error', getErrorMessage(updatedError));
+      } else {
+        showToast('error', errorMessage);
       }
-      showToast('error', errorMessage);
       dispatch(loginFailure(errorMessage));
     }
   };
