@@ -16,16 +16,6 @@ export interface IVerifyEmailRequest {
   otp: string;
 }
 
-// export interface IVerifyEmailResponse {
-//   id: string;
-//   name: string;
-//   email: string;
-//   role: UserRole;
-//   isEmailVerified: boolean;
-//   accessToken: string;
-//   refreshToken: string;
-// }
-
 export interface IResendOtpRequest {
   id: string;
 }
@@ -69,30 +59,10 @@ export interface IRegisterGoogleRequest {
   token: string | undefined;
 }
 
-// export interface IRegisterGoogleResponse {
-//   id: string;
-//   name: string;
-//   email: string;
-//   role: UserRole;
-//   isEmailVerified: boolean;
-//   accessToken?: string;
-//   refreshToken?: string;
-// }
-
 export interface ILoginRequest {
   email: string;
   password: string;
 }
-
-// export interface ILoginResponse {
-//   id: string;
-//   name: string;
-//   email: string;
-//   role: UserRole;
-//   isEmailVerified: boolean;
-//   accessToken: string;
-//   refreshToken: string;
-// }
 
 export interface IForgotPasswordRequest {
   email: string;
@@ -102,16 +72,6 @@ export interface IResetPasswordRequest {
   email: string;
   otp: string;
 }
-
-// export interface IResetPasswordResponse {
-//   id: string;
-//   name: string;
-//   email: string;
-//   role: UserRole;
-//   isEmailVerified: boolean;
-//   accessToken: string;
-//   refreshToken: string;
-// }
 
 export interface INewPasswordRequest {
   password: string;
