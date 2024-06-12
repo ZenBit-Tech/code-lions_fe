@@ -1,10 +1,11 @@
 import { useTranslation } from 'react-i18next';
 import { useForm, Controller, SubmitHandler } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
 import { useNavigate } from 'react-router-dom';
 import { Typography } from '@mui/material';
 import { useUserSignUpMutation } from 'src/redux/user/userService';
 import theme from 'src/theme';
-import { urls, validations } from 'src/common/constants';
+import { urls } from 'src/common/constants';
 import PasswordInput from 'src/components/shared/PasswordInput';
 import {
   InputPaddingVariants,
@@ -22,6 +23,7 @@ import useToast from 'src/components/shared/toasts/components/ToastProvider/Toas
 import { SerializedError } from 'src/redux/user/types';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import { FormStyled, ErrorWrapper, ErrorMessage } from './styles';
+import userSignUpSchema from './schema';
 
 interface ISignUpForm {
   name: string;
@@ -55,8 +57,11 @@ function SignUpForm() {
       password: '',
       repeatPassword: '',
     },
-    mode: 'onBlur',
+    resolver: yupResolver(userSignUpSchema),
+    mode: 'onTouched',
   });
+
+  watch('password');
 
   const errorsLength: number = Object.keys(errors).length;
 
@@ -108,9 +113,6 @@ function SignUpForm() {
         <Controller
           name="name"
           control={control}
-          rules={{
-            required: t('authErrors.missingCredentials'),
-          }}
           render={({ field }) => (
             <ErrorWrapper>
               <StyledInput
@@ -140,13 +142,6 @@ function SignUpForm() {
         <Controller
           name="email"
           control={control}
-          rules={{
-            required: t('authErrors.missingCredentials'),
-            pattern: {
-              value: validations.EMAIL_REGEX,
-              message: t('authErrors.invalidEmail'),
-            },
-          }}
           render={({ field }) => (
             <ErrorWrapper>
               <StyledInput
@@ -177,13 +172,6 @@ function SignUpForm() {
         <Controller
           name="password"
           control={control}
-          rules={{
-            required: t('authErrors.missingCredentials'),
-            minLength: {
-              value: validations.PASSWORD_MIN_LENGTH,
-              message: t('authErrors.passwordLength'),
-            },
-          }}
           render={({ field }) => (
             <ErrorWrapper>
               <PasswordInput
@@ -213,18 +201,6 @@ function SignUpForm() {
         <Controller
           name="repeatPassword"
           control={control}
-          rules={{
-            required: t('authErrors.missingCredentials'),
-            minLength: {
-              value: validations.PASSWORD_MIN_LENGTH,
-              message: t('authErrors.passwordLength'),
-            },
-            validate: (value) => {
-              return (
-                watch('password') === value || t('authErrors.passwordsNotMatch')
-              );
-            },
-          }}
           render={({ field }) => (
             <ErrorWrapper>
               <PasswordInput
