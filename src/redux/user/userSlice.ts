@@ -25,35 +25,45 @@ export const userSlice = createSlice({
     builder.addMatcher(
       userApi.endpoints.verifyEmail.matchFulfilled,
       (state, action) => {
-        state.isEmailVerified = action.payload.isEmailVerified;
-        state.accessToken = action.payload.accessToken;
-        state.refreshToken = action.payload.refreshToken;
-        state.isLoggedIn = true;
-      }
-    );
-    // builder.addMatcher(
-    //   userApi.endpoints.verifyEmail.matchRejected,
-    //   (state, action) => {
-    //     state.error = action.error.message || appErrors.FAILED_TO_VERIFY;
-    //   }
-    // );
-    // builder.addMatcher(
-    //   userApi.endpoints.resendOtp.matchRejected,
-    //   (state, action) => {
-    //     state.error = action.error.message || appErrors.FAILED_TO_RESEND_OTP;
-    //   }
-    // );
-    builder.addMatcher(
-      userApi.endpoints.addUserGoogle.matchFulfilled,
-      (state, action) => {
-        const { id, name, email, isEmailVerified, accessToken, refreshToken } =
-          action.payload;
+        const {
+          id,
+          name,
+          email,
+          isEmailVerified,
+          role,
+          accessToken,
+          refreshToken,
+        } = action.payload;
 
         state.id = id;
         state.name = name;
         state.email = email;
         state.isEmailVerified = isEmailVerified;
         state.isLoggedIn = true;
+        state.role = role;
+        state.accessToken = accessToken;
+        state.refreshToken = refreshToken;
+      }
+    );
+    builder.addMatcher(
+      userApi.endpoints.addUserGoogle.matchFulfilled,
+      (state, action) => {
+        const {
+          id,
+          name,
+          email,
+          role,
+          isEmailVerified,
+          accessToken,
+          refreshToken,
+        } = action.payload;
+
+        state.id = id;
+        state.name = name;
+        state.email = email;
+        state.isEmailVerified = isEmailVerified;
+        state.isLoggedIn = true;
+        state.role = role;
 
         if (isEmailVerified) {
           state.accessToken = accessToken;
@@ -64,13 +74,14 @@ export const userSlice = createSlice({
     builder.addMatcher(
       userApi.endpoints.userSignUp.matchFulfilled,
       (state, action) => {
-        const { id, name, email, isEmailVerified } = action.payload;
+        const { id, name, email, role, isEmailVerified } = action.payload;
 
         state.id = id;
         state.name = name;
         state.email = email;
         state.isEmailVerified = isEmailVerified;
         state.isLoggedIn = true;
+        state.role = role;
       }
     );
     builder.addMatcher(
@@ -99,14 +110,22 @@ export const userSlice = createSlice({
     builder.addMatcher(
       userApi.endpoints.resetPassword.matchFulfilled,
       (state, action) => {
-        const { id, name, email, isEmailVerified, accessToken, refreshToken } =
-          action.payload;
+        const {
+          id,
+          name,
+          email,
+          role,
+          isEmailVerified,
+          accessToken,
+          refreshToken,
+        } = action.payload;
 
         state.id = id;
         state.name = name;
         state.email = email;
         state.isEmailVerified = isEmailVerified;
         state.isLoggedIn = true;
+        state.role = role;
         state.accessToken = accessToken;
         state.refreshToken = refreshToken;
       }

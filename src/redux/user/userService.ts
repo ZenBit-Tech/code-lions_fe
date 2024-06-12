@@ -1,5 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { HttpMethods, RTKUrls } from 'src/common/constants';
+import { RootState } from 'src/redux/store';
 import {
   IVerifyEmailRequest,
   IVerifyEmailResponse,
@@ -20,6 +21,15 @@ export const userApi = createApi({
   reducerPath: 'userApi',
   baseQuery: fetchBaseQuery({
     baseUrl: import.meta.env.VITE_API_URL,
+    prepareHeaders: (headers, { getState }) => {
+      const { accessToken } = (getState() as RootState).user;
+
+      if (accessToken) {
+        headers.set('Authorization', `Bearer ${accessToken}`);
+      }
+
+      return headers;
+    },
   }),
   endpoints: (build) => ({
     verifyEmail: build.mutation<IVerifyEmailResponse, IVerifyEmailRequest>({

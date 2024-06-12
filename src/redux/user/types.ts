@@ -1,17 +1,15 @@
+export type UserRole = 'BUYER' | 'VENDOR' | 'ADMIN' | null;
+
 export interface IUser {
   id: string;
   name: string;
   email: string;
-  role: 'BUYER' | 'VENDOR' | 'ADMIN' | null;
+  role: UserRole;
   isEmailVerified: boolean;
   isLoggedIn: boolean;
   accessToken: string | undefined;
   refreshToken: string | undefined;
 }
-
-// export interface IUserState {
-//   user: IUser;
-// }
 
 export interface IVerifyEmailRequest {
   id: string;
@@ -22,6 +20,7 @@ export interface IVerifyEmailResponse {
   id: string;
   name: string;
   email: string;
+  role: UserRole;
   isEmailVerified: boolean;
   accessToken: string;
   refreshToken: string;
@@ -56,6 +55,7 @@ export interface IRegisterUserResponse {
   id: string;
   name: string;
   email: string;
+  role: UserRole;
   isEmailVerified: boolean;
 }
 
@@ -67,6 +67,7 @@ export interface IRegisterGoogleResponse {
   id: string;
   name: string;
   email: string;
+  role: UserRole;
   isEmailVerified: boolean;
   accessToken?: string;
   refreshToken?: string;
@@ -77,24 +78,12 @@ export interface ILoginRequest {
   password: string;
 }
 
-// export interface IPublicUserDto {
-//   id: string;
-//   name: string;
-//   email: string;
-//   isEmailVerified: boolean;
-// }
-
-// export interface IAuthTokenResponse {
-//   accessToken: string;
-//   refreshToken: string;
-// }
-
 export interface ILoginResponse {
   id: string;
   name: string;
   email: string;
+  role: UserRole;
   isEmailVerified: boolean;
-  role: null;
   accessToken: string;
   refreshToken: string;
 }
@@ -112,14 +101,11 @@ export interface IResetPasswordResponse {
   id: string;
   name: string;
   email: string;
+  role: UserRole;
   isEmailVerified: boolean;
   accessToken: string;
   refreshToken: string;
 }
-
-// export interface IForgotPasswordResponse {
-//   email: string;
-// }
 
 export interface INewPasswordRequest {
   password: string;

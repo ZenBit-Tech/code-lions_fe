@@ -75,7 +75,8 @@
     "enterNewPasswordText": "Please enter your new password",
     "repeatPasswordLabel": "Repeat Password*",
     "savePasswordButton": "Save password",
-    "unknownError": "An unknown error occurred"
+    "unknownError": "An unknown error occurred",
+    "passwordChanged": "Password successfully changed"
   },
   "newPasswordErrors": {
     "enterCredentials": "Please enter your password",

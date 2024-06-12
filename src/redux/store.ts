@@ -11,14 +11,10 @@ import {
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import { setupListeners } from '@reduxjs/toolkit/query';
-import { authApi } from 'src/redux/auth/authApi';
-import authReducer from 'src/redux/auth/authSlice';
 import { userApi } from './user/userService';
 import userReducer from './user/userSlice';
 
 const rootReducer = combineReducers({
-  auth: authReducer,
-  [authApi.reducerPath]: authApi.reducer,
   user: userReducer,
   [userApi.reducerPath]: userApi.reducer,
 });
@@ -38,7 +34,7 @@ const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }).concat(authApi.middleware, userApi.middleware),
+    }).concat(userApi.middleware),
 });
 
 setupListeners(store.dispatch);
