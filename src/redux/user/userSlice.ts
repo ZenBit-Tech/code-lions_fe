@@ -25,109 +25,31 @@ export const userSlice = createSlice({
     builder.addMatcher(
       userApi.endpoints.verifyEmail.matchFulfilled,
       (state, action) => {
-        const {
-          id,
-          name,
-          email,
-          isEmailVerified,
-          role,
-          accessToken,
-          refreshToken,
-        } = action.payload;
-
-        state.id = id;
-        state.name = name;
-        state.email = email;
-        state.isEmailVerified = isEmailVerified;
-        state.isLoggedIn = true;
-        state.role = role;
-        state.accessToken = accessToken;
-        state.refreshToken = refreshToken;
+        return { ...state, ...action.payload, isLoggedIn: true };
       }
     );
     builder.addMatcher(
       userApi.endpoints.addUserGoogle.matchFulfilled,
       (state, action) => {
-        const {
-          id,
-          name,
-          email,
-          role,
-          isEmailVerified,
-          accessToken,
-          refreshToken,
-        } = action.payload;
-
-        state.id = id;
-        state.name = name;
-        state.email = email;
-        state.isEmailVerified = isEmailVerified;
-        state.isLoggedIn = true;
-        state.role = role;
-
-        if (isEmailVerified) {
-          state.accessToken = accessToken;
-          state.refreshToken = refreshToken;
-        }
+        return { ...state, ...action.payload, isLoggedIn: true };
       }
     );
     builder.addMatcher(
       userApi.endpoints.userSignUp.matchFulfilled,
       (state, action) => {
-        const { id, name, email, role, isEmailVerified } = action.payload;
-
-        state.id = id;
-        state.name = name;
-        state.email = email;
-        state.isEmailVerified = isEmailVerified;
-        state.isLoggedIn = true;
-        state.role = role;
+        return { ...state, ...action.payload, isLoggedIn: true };
       }
     );
     builder.addMatcher(
       userApi.endpoints.loginUser.matchFulfilled,
       (state, action) => {
-        const {
-          id,
-          name,
-          email,
-          isEmailVerified,
-          role,
-          accessToken,
-          refreshToken,
-        } = action.payload;
-
-        state.id = id;
-        state.name = name;
-        state.email = email;
-        state.isEmailVerified = isEmailVerified;
-        state.isLoggedIn = true;
-        state.role = role;
-        state.accessToken = accessToken;
-        state.refreshToken = refreshToken;
+        return { ...state, ...action.payload, isLoggedIn: true };
       }
     );
     builder.addMatcher(
       userApi.endpoints.resetPassword.matchFulfilled,
       (state, action) => {
-        const {
-          id,
-          name,
-          email,
-          role,
-          isEmailVerified,
-          accessToken,
-          refreshToken,
-        } = action.payload;
-
-        state.id = id;
-        state.name = name;
-        state.email = email;
-        state.isEmailVerified = isEmailVerified;
-        state.isLoggedIn = true;
-        state.role = role;
-        state.accessToken = accessToken;
-        state.refreshToken = refreshToken;
+        return { ...state, ...action.payload, isLoggedIn: true };
       }
     );
   },

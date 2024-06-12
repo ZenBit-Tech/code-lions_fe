@@ -3,18 +3,15 @@ import { HttpMethods, RTKUrls } from 'src/common/constants';
 import { RootState } from 'src/redux/store';
 import {
   IVerifyEmailRequest,
-  IVerifyEmailResponse,
   IResendOtpRequest,
   IRegisterUserRequest,
   IRegisterUserResponse,
-  IRegisterGoogleResponse,
   IRegisterGoogleRequest,
-  ILoginResponse,
   ILoginRequest,
   IForgotPasswordRequest,
-  IResetPasswordResponse,
   IResetPasswordRequest,
   INewPasswordRequest,
+  IUser,
 } from './types';
 
 export const userApi = createApi({
@@ -32,7 +29,7 @@ export const userApi = createApi({
     },
   }),
   endpoints: (build) => ({
-    verifyEmail: build.mutation<IVerifyEmailResponse, IVerifyEmailRequest>({
+    verifyEmail: build.mutation<IUser, IVerifyEmailRequest>({
       query: (post) => ({
         url: RTKUrls.VERIFY_OTP,
         method: HttpMethods.POST,
@@ -53,10 +50,7 @@ export const userApi = createApi({
         body: post,
       }),
     }),
-    addUserGoogle: build.mutation<
-      IRegisterGoogleResponse,
-      IRegisterGoogleRequest
-    >({
+    addUserGoogle: build.mutation<IUser, IRegisterGoogleRequest>({
       query: (post) => ({
         url: RTKUrls.GOOGLE_AUTH,
         method: HttpMethods.POST,
@@ -64,7 +58,7 @@ export const userApi = createApi({
         headers: { 'Access-Control-Allow-Origin': '*' },
       }),
     }),
-    loginUser: build.mutation<ILoginResponse, ILoginRequest>({
+    loginUser: build.mutation<IUser, ILoginRequest>({
       query: (post) => ({
         url: RTKUrls.SIGN_IN,
         method: HttpMethods.POST,
@@ -78,10 +72,7 @@ export const userApi = createApi({
         body: post,
       }),
     }),
-    resetPassword: build.mutation<
-      IResetPasswordResponse,
-      IResetPasswordRequest
-    >({
+    resetPassword: build.mutation<IUser, IResetPasswordRequest>({
       query: (post) => ({
         url: RTKUrls.RESET_PASSWORD,
         method: HttpMethods.POST,
