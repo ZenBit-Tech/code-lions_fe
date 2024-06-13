@@ -57,4 +57,6 @@ export const userSlice = createSlice({
 
 export const { setEmail } = userSlice.actions;
 
+export const selectUserName = (state: { user: IUser }) => state.user.name;
+
 export default userSlice.reducer;

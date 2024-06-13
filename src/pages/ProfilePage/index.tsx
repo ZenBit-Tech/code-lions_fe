@@ -1,6 +1,8 @@
 import { useTranslation } from 'react-i18next';
 import { Avatar, Typography } from '@mui/material';
 import { Box } from '@mui/system';
+import { useAppSelector } from 'src/redux/hooks';
+import { selectUserName } from 'src/redux/user/userSlice';
 import SimpleSection from 'src/components/shared/SimpleSection';
 import Container from 'src/components/shared/Container';
 import SectionTitle from 'src/components/shared/SectionTitle';
@@ -15,6 +17,7 @@ import { IconButtonStyled, NameTitle, SubTitle, TitleWrapper } from './styles';
 
 function ProfilePage() {
   const { t } = useTranslation();
+  const userName = useAppSelector(selectUserName) ?? t('profile.name');
 
   return (
     <SimpleSection>
@@ -38,7 +41,7 @@ function ProfilePage() {
             src="src/assets/photos/avatar.jpg"
             sx={{ width: '120px', height: '120px' }}
           />
-          <NameTitle variant="subtitle1">{t('profile.name')}</NameTitle>
+          <NameTitle variant="subtitle1">{userName}</NameTitle>
         </Box>
         <Box
           display="flex"
