@@ -8,6 +8,7 @@ import NewPasswordPage from 'src/pages/NewPasswordPage';
 import TermsOfUsePage from 'src/pages/TermsOfUsePage';
 import PrivacyPolicyPage from 'src/pages/PrivacyPolicyPage';
 import { urls } from 'src/common/constants';
+import SizesGuidePage from 'src/pages/SizesGuidePage';
 import VerifyPrivateRoute from './VerifyPrivateRoute';
 
 const router = createBrowserRouter([
@@ -23,10 +24,11 @@ const router = createBrowserRouter([
   },
   { path: urls.SIGN_IN, element: <SignInPage /> },
   { path: urls.RESTORE_PASSWORD, element: <RestorePasswordPage /> },
-  { path: urls.VERIFY, element: <VerifyEmailPage /> },
+  { path: urls.ENTER_CODE, element: <VerifyEmailPage /> },
   { path: urls.NEW_PASSWORD, element: <NewPasswordPage /> },
   { path: urls.PRIVACY_POLICY, element: <PrivacyPolicyPage /> },
   { path: urls.TERMS_OF_USE, element: <TermsOfUsePage /> },
+  { path: urls.SIZES_GUIDE, element: <SizesGuidePage /> },
 ]);
 
 export default router;

@@ -7,6 +7,9 @@
     "signInPage": "Sing In",
     "newPasswordPage": "New Password"
   },
+  "header": {
+    "home": "Home"
+  },
   "verifyEmail": {
     "verifyYourEmail": "Verify your email",
     "enterCode": "Enter Code",
@@ -51,6 +54,12 @@
     "haveNoAccount": "Don`t have an account?",
     "signUp": "Sign Up",
     "loginFailed": "Log In failed"
+  },
+  "sizesGuide": {
+    "title": "Sizes Guide",
+    "clothesSizeTable": "Clothes Size Table",
+    "shoeSizeTable": "Shoe Size Table",
+    "oneSize": "One Size"
   },
   "restorePassword": {
     "restoreYourPassword": "Restore password",
