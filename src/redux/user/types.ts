@@ -7,8 +7,8 @@ export interface IUser {
   role: UserRole;
   isEmailVerified: boolean;
   isLoggedIn: boolean;
-  accessToken: string | undefined;
-  refreshToken: string | undefined;
+  accessToken?: string;
+  refreshToken?: string;
 }
 
 export interface IVerifyEmailRequest {

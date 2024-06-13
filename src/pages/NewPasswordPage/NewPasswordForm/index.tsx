@@ -52,7 +52,6 @@ function NewPasswordForm() {
       showToast('success', t('newPassword.passwordChanged'));
       navigate(urls.HOME);
     } catch (err) {
-      console.log(err);
       if (err instanceof Error) {
         showToast('error', err.message);
       } else {

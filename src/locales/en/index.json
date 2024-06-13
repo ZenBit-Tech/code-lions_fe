@@ -68,7 +68,8 @@
     "passwordLength": "Password must be at least 8 characters long",
     "missingCredentials": "Missing credentials",
     "passwordsNotMatch": "Passwords entered in the 'Password' and 'Repeat password' fields must match",
-    "failed": "Failed to sign up"
+    "failed": "Failed to sign up",
+    "googleLoginFailed": "Unable to sign in with Google. Please try again later"
   },
   "newPassword": {
     "newPassword": "New Password",

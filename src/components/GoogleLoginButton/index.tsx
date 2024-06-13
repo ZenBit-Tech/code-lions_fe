@@ -4,6 +4,10 @@ import { useTheme } from '@mui/material/styles';
 import { useAddUserGoogleMutation } from 'src/redux/user/userService';
 import { useNavigate } from 'react-router-dom';
 import { urls } from 'src/common/constants';
+import useToast from 'src/components/shared/toasts/components/ToastProvider/ToastProviderHooks';
+import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
+import { SerializedError } from '@reduxjs/toolkit';
+import { useTranslation } from 'react-i18next';
 
 const GoogleButtonProps = {
   WIDTH_SMALL: '300px',
@@ -24,16 +28,40 @@ interface IGoogleLoginButtonProps {
   locale?: string;
 }
 
+function isFetchBaseQueryError(error: unknown): error is FetchBaseQueryError {
+  return typeof error === 'object' && error != null && 'status' in error;
+}
+
+function isSerializedError(error: unknown): error is SerializedError {
+  return typeof error === 'object' && error != null && 'message' in error;
+}
+
 function GoogleLoginButton({
   width = GoogleButtonProps.WIDTH_BIG,
   text,
   locale = GoogleButtonProps.LOCALE,
 }: IGoogleLoginButtonProps) {
+  const { t } = useTranslation();
   const [addUser] = useAddUserGoogleMutation();
   const navigate = useNavigate();
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
   const adjustedWidth = isSmallScreen ? GoogleButtonProps.WIDTH_SMALL : width;
+  const { showToast } = useToast();
+
+  const getErrorMessage = (
+    error: FetchBaseQueryError | SerializedError
+  ): string => {
+    if (
+      'data' in error &&
+      error.data &&
+      (error.data as { message?: string }).message
+    ) {
+      return (error.data as { message: string }).message;
+    }
+
+    return t('authErrors.failed');
+  };
 
   return (
     <GoogleLogin
@@ -45,25 +73,27 @@ function GoogleLoginButton({
         try {
           const response = await addUser({
             token: credentialResponse.credential,
-          });
+          }).unwrap();
 
-          if (response && response.data) {
-            const { isEmailVerified } = response.data;
+          if (response) {
+            const { isEmailVerified } = response;
 
             if (isEmailVerified) {
               navigate(urls.HOME);
             } else {
               navigate(urls.VERIFY);
             }
-          } else {
-            console.error('Response data is undefined');
           }
         } catch (err) {
-          alert(err);
+          if (isFetchBaseQueryError(err) || isSerializedError(err)) {
+            showToast('error', getErrorMessage(err));
+          } else {
+            showToast('error', t('authErrors.failed'));
+          }
         }
       }}
       onError={() => {
-        console.log('Login Failed');
+        showToast('error', t('authErrors.googleLoginFailed'));
       }}
     />
   );
