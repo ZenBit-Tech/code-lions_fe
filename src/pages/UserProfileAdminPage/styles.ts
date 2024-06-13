@@ -55,3 +55,11 @@ export const StyledUserSection = styled(Box)({
   backgroundColor: hexToRgba(theme.palette.background.paper, backgroundOpacity),
   padding: '30px',
 });
+
+export const StyledAvatar = styled(Box)({
+  backgroundColor: theme.palette.border.primary,
+  padding: '10px',
+  borderRadius: '50%',
+  marginRight: '10px',
+  marginLeft: '20px',
+});

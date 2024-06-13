@@ -61,7 +61,7 @@ function SideBar() {
 
   return (
     <>
-      <Box marginBottom="28px" height="50px" width="100%">
+      <Box marginBottom="35px" height="50px" width="100%">
         <Logo logoColor="black" />
       </Box>
       <List component="nav">

@@ -28,6 +28,7 @@ function Logo({ logoColor }: ILogoProps) {
       sx={{
         display: 'flex',
         alignItems: 'center',
+        marginTop: '10px',
         padding: '10px',
       }}
     >

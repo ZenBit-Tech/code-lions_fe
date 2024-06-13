@@ -101,5 +101,10 @@
     "requests": "Requests",
     "productsList": "Products List",
     "chats": "Chats"
+  },
+  "topbar": {
+    "mockAvatar": "AA",
+    "mockName": "Anna Asol",
+    "mockRole": "Admin"
   }
 }
