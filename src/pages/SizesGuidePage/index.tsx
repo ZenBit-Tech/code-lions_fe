@@ -4,14 +4,14 @@ import Footer from 'src/components/Footer';
 import Header from 'src/components/Header';
 import InfoTable from 'src/components/shared/InfoTable';
 import Title from 'src/components/shared/Title';
-import { TitleWrapper } from 'src/pages/TermsOfUsePage/styles';
-
 import {
-  StyledHeader3,
+  TitleWrapper,
   Container,
   SectionWrapper,
   SimpleSection,
-} from './styles';
+} from 'src/pages/TermsOfUsePage/styles';
+
+import StyledHeader3 from './styles';
 import { clothesSizeData, shoeSizeData } from './tableData';
 
 function SizesGuidePage() {
