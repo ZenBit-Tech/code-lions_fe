@@ -1,15 +1,18 @@
 import { useTranslation } from 'react-i18next';
+
 import { Box } from '@mui/system';
+
 import { urls } from 'src/common/constants';
+import GoogleLoginButton from 'src/components/GoogleLoginButton';
+import Container from 'src/components/shared/Container';
+import LabelText from 'src/components/shared/LabelText';
+import RegularText from 'src/components/shared/RegularText';
 import Section from 'src/components/shared/Section';
 import Separator from 'src/components/shared/Separator';
-import Container from 'src/components/shared/Container';
-import Title from 'src/components/shared/Title';
-import RegularText from 'src/components/shared/RegularText';
-import TitleInputWrapper from 'src/components/shared/TitleInputWrapper';
 import TextButton from 'src/components/shared/TextButton';
-import LabelText from 'src/components/shared/LabelText';
-import GoogleLoginButton from 'src/components/GoogleLoginButton';
+import Title from 'src/components/shared/Title';
+import TitleInputWrapper from 'src/components/shared/TitleInputWrapper';
+
 import SignInForm from './SignInForm';
 import LinkStyled from './styles';
 

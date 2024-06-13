@@ -4,13 +4,11 @@ import { useNavigate } from 'react-router-dom';
 
 import { Typography } from '@mui/material';
 import { Box } from '@mui/system';
-import theme from 'src/theme';
+
+import { SerializedError } from '@reduxjs/toolkit';
+import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import { urls, validations } from 'src/common/constants';
-import {
-  InputPaddingVariants,
-  InputStyleVariants,
-} from 'src/components/shared/StyledInput/types';
-import StyledInput from 'src/components/shared/StyledInput';
+import LabelText from 'src/components/shared/LabelText';
 import StyledButton from 'src/components/shared/StyledButton';
 import {
   PaddingVariants,
@@ -24,9 +22,10 @@ import {
 import TitleInputWrapper from 'src/components/shared/TitleInputWrapper';
 import useToast from 'src/components/shared/toasts/components/ToastProvider/ToastProviderHooks';
 import FormStyled from 'src/pages/SignInPage/SignInForm/styles';
-import { useForgotPasswordMutation } from 'src/redux/user/userService';
 import { useAppDispatch } from 'src/redux/hooks';
+import { useForgotPasswordMutation } from 'src/redux/user/userService';
 import { setEmail } from 'src/redux/user/userSlice';
+import theme from 'src/theme';
 
 interface IFormInput {
   email: string;

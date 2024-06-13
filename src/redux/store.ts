@@ -11,7 +11,7 @@ import {
   REGISTER,
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-import { setupListeners } from '@reduxjs/toolkit/query';
+
 import { userApi } from './user/userService';
 import userReducer from './user/userSlice';
 
