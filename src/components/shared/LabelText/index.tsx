@@ -1,5 +1,7 @@
 import { ReactNode } from 'react';
+
 import { Typography } from '@mui/material';
+
 import theme from 'src/theme';
 
 interface ILabelTextProps {
@@ -23,5 +25,10 @@ function LabelText({
     </Typography>
   );
 }
+
+LabelText.defaultProps = {
+  align: 'left',
+  variant: 'subtitle1',
+};
 
 export default LabelText;

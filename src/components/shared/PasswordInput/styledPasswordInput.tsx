@@ -1,10 +1,11 @@
-import { styled } from '@mui/system';
 import { OutlinedInput } from '@mui/material';
-import { StyledInputProps } from 'src/components/shared/StyledInput/types';
+import { styled } from '@mui/system';
+
 import {
   InputPaddings,
   InputStyles,
 } from 'src/components/shared/StyledInput/styles';
+import { StyledInputProps } from 'src/components/shared/StyledInput/types';
 
 const StyledPasswordInput = styled(OutlinedInput)<StyledInputProps>(
   ({ theme, ...props }) => ({

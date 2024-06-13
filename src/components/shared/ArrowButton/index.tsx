@@ -1,5 +1,5 @@
-import { styled } from '@mui/system';
 import { IconButton } from '@mui/material';
+import { styled } from '@mui/system';
 
 const ArrowButton = styled(IconButton)(({ theme }) => ({
   padding: '18px',

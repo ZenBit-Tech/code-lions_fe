@@ -1,5 +1,3 @@
-import theme from 'src/theme';
-
 import {
   Table,
   TableBody,
@@ -9,6 +7,8 @@ import {
   TableCell,
   Typography,
 } from '@mui/material';
+
+import theme from 'src/theme';
 
 interface ITableData {
   header: string[];
@@ -115,5 +115,9 @@ function InfoTable({ tableData, lastLine }: IInfoTableProps) {
     </TableContainer>
   );
 }
+
+InfoTable.defaultProps = {
+  lastLine: '',
+};
 
 export default InfoTable;

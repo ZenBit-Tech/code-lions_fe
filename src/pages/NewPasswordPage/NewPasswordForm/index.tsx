@@ -1,30 +1,31 @@
 import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { Box, Typography } from '@mui/material';
 import { useDispatch } from 'react-redux';
+
+import { Box, Typography } from '@mui/material';
+
+import { validations } from 'src/common/constants';
+import LabelText from 'src/components/shared/LabelText';
+import PasswordInput from 'src/components/shared/PasswordInput';
+import StyledButton from 'src/components/shared/StyledButton';
+import {
+  PaddingVariants,
+  StyleVariants,
+} from 'src/components/shared/StyledButton/types';
+import {
+  InputPaddingVariants,
+  InputStyleVariants,
+} from 'src/components/shared/StyledInput/types';
+import TitleInputWrapper from 'src/components/shared/TitleInputWrapper';
+import useToast from 'src/components/shared/toasts/components/ToastProvider/ToastProviderHooks';
+import FormStyled from 'src/pages/SignInPage/SignInForm/styles';
 import { useResetPasswordMutation } from 'src/redux/auth/authApi';
 import {
   resetPasswordStart,
   resetPasswordSuccess,
   resetPasswordFailure,
 } from 'src/redux/auth/authSlice';
-
-import PasswordInput from 'src/components/shared/PasswordInput';
-import {
-  InputPaddingVariants,
-  InputStyleVariants,
-} from 'src/components/shared/StyledInput/types';
-import StyledButton from 'src/components/shared/StyledButton';
-import {
-  PaddingVariants,
-  StyleVariants,
-} from 'src/components/shared/StyledButton/types';
-import LabelText from 'src/components/shared/LabelText';
-import TitleInputWrapper from 'src/components/shared/TitleInputWrapper';
-import { validations } from 'src/common/constants';
 import theme from 'src/theme';
-import FormStyled from 'src/pages/SignInPage/SignInForm/styles';
-import useToast from 'src/components/shared/toasts/components/ToastProvider/ToastProviderHooks';
 
 interface IFormInput {
   password: string;

@@ -1,5 +1,7 @@
 import { ReactNode } from 'react';
+
 import { Typography } from '@mui/material';
+
 import theme from 'src/theme';
 
 interface ITitleProps {
@@ -26,5 +28,11 @@ function Title({
     </Typography>
   );
 }
+
+Title.defaultProps = {
+  align: 'left',
+  variant: 'h1',
+  component: 'h1',
+};
 
 export default Title;

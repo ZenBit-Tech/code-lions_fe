@@ -1,18 +1,21 @@
 import { useTranslation } from 'react-i18next';
+
 import { Box } from '@mui/system';
-import Section from 'src/components/shared/Section';
-import SocialIconButton from 'src/components/shared/SocialIconButton';
+
 import GoogleIcon from 'src/assets/icons/google.svg';
-import Separator from 'src/components/shared/Separator';
-import Container from 'src/components/shared/Container';
-import SignUpForm from 'src/pages/SignUpPage/SignUpForm';
-import Title from 'src/components/shared/Title';
-import RegularText from 'src/components/shared/RegularText';
-import TextButton from 'src/components/shared/TextButton';
-import LabelText from 'src/components/shared/LabelText';
-import TitleInputWrapper from 'src/components/shared/TitleInputWrapper';
-import PolicyTermsLinks from 'src/components/shared/PolicyTermsLinks';
 import { urls } from 'src/common/constants';
+import Container from 'src/components/shared/Container';
+import LabelText from 'src/components/shared/LabelText';
+import PolicyTermsLinks from 'src/components/shared/PolicyTermsLinks';
+import RegularText from 'src/components/shared/RegularText';
+import Section from 'src/components/shared/Section';
+import Separator from 'src/components/shared/Separator';
+import SocialIconButton from 'src/components/shared/SocialIconButton';
+import TextButton from 'src/components/shared/TextButton';
+import Title from 'src/components/shared/Title';
+import TitleInputWrapper from 'src/components/shared/TitleInputWrapper';
+import SignUpForm from 'src/pages/SignUpPage/SignUpForm';
+
 import LinkStyled from './styles';
 
 function SignUpPage() {

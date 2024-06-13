@@ -1,5 +1,5 @@
-import { styled } from '@mui/system';
 import Box from '@mui/material/Box';
+import { styled } from '@mui/system';
 
 const Container = styled(Box)(() => ({
   display: 'flex',

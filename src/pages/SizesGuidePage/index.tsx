@@ -1,19 +1,18 @@
 import { useTranslation } from 'react-i18next';
-import Title from 'src/components/shared/Title';
-// import theme from 'src/theme';
 
+import Footer from 'src/components/Footer';
+import Header from 'src/components/Header';
+import InfoTable from 'src/components/shared/InfoTable';
+import Title from 'src/components/shared/Title';
 import { TitleWrapper } from 'src/pages/TermsOfUsePage/styles';
 
-import InfoTable from 'src/components/shared/InfoTable';
-import Header from 'src/components/Header';
-import Footer from 'src/components/Footer';
-import { clothesSizeData, shoeSizeData } from './tableData';
 import {
   StyledHeader3,
   Container,
   SectionWrapper,
   SimpleSection,
 } from './styles';
+import { clothesSizeData, shoeSizeData } from './tableData';
 
 function SizesGuidePage() {
   const { t } = useTranslation();

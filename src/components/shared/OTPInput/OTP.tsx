@@ -1,10 +1,13 @@
 import * as React from 'react';
+
 import {
   Input as BaseInput,
   InputInputSlotPropsOverrides,
 } from '@mui/base/Input';
 import { Box } from '@mui/system';
+
 import StyledOtpInput from 'src/components/shared/OTPInput/StyledOtpInput';
+
 import useOtpFunctions from './OTPInputHook';
 
 interface IOTPProps {

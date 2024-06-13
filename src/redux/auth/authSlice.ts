@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IPublicUserDto, IAuthTokenResponse } from 'src/redux/auth/types/user';
 import { RootState } from 'src/redux/store';
+
 import { authApi } from './authApi';
 
 interface AuthState {

@@ -1,10 +1,28 @@
 import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
+
 import { Typography, Link } from '@mui/material';
 import { Box } from '@mui/system';
+
+import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
+import { appErrors, urls, validations } from 'src/common/constants';
+import LabelText from 'src/components/shared/LabelText';
+import PasswordInput from 'src/components/shared/PasswordInput';
+import StyledButton from 'src/components/shared/StyledButton';
+import {
+  PaddingVariants,
+  StyleVariants,
+} from 'src/components/shared/StyledButton/types';
+import StyledInput from 'src/components/shared/StyledInput';
+import {
+  InputPaddingVariants,
+  InputStyleVariants,
+} from 'src/components/shared/StyledInput/types';
+import TextButton from 'src/components/shared/TextButton';
+import TitleInputWrapper from 'src/components/shared/TitleInputWrapper';
+import useToast from 'src/components/shared/toasts/components/ToastProvider/ToastProviderHooks';
 import { useLoginMutation } from 'src/redux/auth/authApi';
-import { useAppDispatch } from 'src/redux/auth/hooks/hooks';
 import {
   loginStart,
   loginSuccess,
@@ -12,26 +30,11 @@ import {
   setTokens,
   setUser,
 } from 'src/redux/auth/authSlice';
+import { useAppDispatch } from 'src/redux/auth/hooks/hooks';
 import { ILoginDto, ILoginResponse } from 'src/redux/auth/types/user';
-import theme from 'src/theme';
-import { appErrors, urls, validations } from 'src/common/constants';
-import PasswordInput from 'src/components/shared/PasswordInput';
-import {
-  InputPaddingVariants,
-  InputStyleVariants,
-} from 'src/components/shared/StyledInput/types';
-import StyledInput from 'src/components/shared/StyledInput';
-import StyledButton from 'src/components/shared/StyledButton';
-import {
-  PaddingVariants,
-  StyleVariants,
-} from 'src/components/shared/StyledButton/types';
-import LabelText from 'src/components/shared/LabelText';
-import TitleInputWrapper from 'src/components/shared/TitleInputWrapper';
-import useToast from 'src/components/shared/toasts/components/ToastProvider/ToastProviderHooks';
-import TextButton from 'src/components/shared/TextButton';
 import { SerializedError } from 'src/redux/user/types';
-import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
+import theme from 'src/theme';
+
 import FormStyled from './styles';
 
 interface IFormInput {
