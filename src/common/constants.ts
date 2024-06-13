@@ -9,6 +9,7 @@ export const urls = {
   PRIVACY_POLICY: '/privacy-policy',
   TERMS_OF_USE: '/terms-of-use',
   SIGN_IN_ADMIN: '/signin-admin',
+  PROFILE: '/profile',
 };
 
 export const RTKUrls = {

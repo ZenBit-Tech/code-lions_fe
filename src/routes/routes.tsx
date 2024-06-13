@@ -1,4 +1,5 @@
 import { createBrowserRouter } from 'react-router-dom';
+import { urls } from 'src/common/constants';
 import HomePage from 'src/pages/HomePage';
 import SignInPage from 'src/pages/SignInPage';
 import SignUpPage from 'src/pages/SignUpPage';
@@ -8,7 +9,7 @@ import NewPasswordPage from 'src/pages/NewPasswordPage';
 import TermsOfUsePage from 'src/pages/TermsOfUsePage';
 import PrivacyPolicyPage from 'src/pages/PrivacyPolicyPage';
 import SignInAdminPage from 'src/pages/SignInAdminPage';
-import { urls } from 'src/common/constants';
+import ProfilePage from 'src/pages/ProfilePage';
 import VerifyPrivateRoute from './VerifyPrivateRoute';
 
 const router = createBrowserRouter([
@@ -29,6 +30,7 @@ const router = createBrowserRouter([
   { path: urls.PRIVACY_POLICY, element: <PrivacyPolicyPage /> },
   { path: urls.TERMS_OF_USE, element: <TermsOfUsePage /> },
   { path: urls.SIGN_IN_ADMIN, element: <SignInAdminPage /> },
+  { path: urls.PROFILE, element: <ProfilePage /> },
 ]);
 
 export default router;

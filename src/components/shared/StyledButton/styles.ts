@@ -4,7 +4,7 @@ import { PaddingVariants, StyleVariants } from './types';
 export const ButtonStyles = {
   [StyleVariants.BLACK]: {
     backgroundColor: theme.palette.primary.main,
-    color: theme.palette.text.secondary,
+    color: theme.palette.primary.contrastText,
     border: 'none',
   },
   [StyleVariants.WHITE]: {
