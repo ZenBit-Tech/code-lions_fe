@@ -5,6 +5,7 @@ import HomePage from 'src/pages/HomePage';
 import NewPasswordPage from 'src/pages/NewPasswordPage';
 import PrivacyPolicyPage from 'src/pages/PrivacyPolicyPage';
 import RestorePasswordPage from 'src/pages/RestorePasswordPage';
+import SignInAdminPage from 'src/pages/SignInAdminPage';
 import SignInPage from 'src/pages/SignInPage';
 import SignUpPage from 'src/pages/SignUpPage';
 import SizesGuidePage from 'src/pages/SizesGuidePage';
@@ -31,6 +32,7 @@ const router = createBrowserRouter([
   { path: urls.PRIVACY_POLICY, element: <PrivacyPolicyPage /> },
   { path: urls.TERMS_OF_USE, element: <TermsOfUsePage /> },
   { path: urls.SIZES_GUIDE, element: <SizesGuidePage /> },
+  { path: urls.SIGN_IN_ADMIN, element: <SignInAdminPage /> },
 ]);
 
 export default router;
