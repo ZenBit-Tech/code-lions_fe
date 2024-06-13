@@ -25,9 +25,6 @@ const StyledButton = styled(LoadingButton)<IStyledButtonProps>(
       cursor: 'not-allowed',
       color: theme.palette.primary.contrastText,
     },
-    [theme.breakpoints.down('sm')]: {
-      width: '300px',
-    },
   })
 );
 

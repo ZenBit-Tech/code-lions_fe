@@ -22,6 +22,7 @@ function NewPasswordPage() {
           title={t('privacyPolicy.title')}
           greyBackground
           showBackLink
+          mt="12px"
         />
         <SectionWrapper>
           <TextWrapper>

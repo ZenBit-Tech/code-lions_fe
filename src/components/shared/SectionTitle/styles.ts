@@ -11,7 +11,6 @@ export const TitleWrapper = styled(Box, {
   display: 'flex',
   alignItems: 'center',
   gap: '12px',
-  marginTop: '12px',
   [theme.breakpoints.up('sm')]: {
     margin: 0,
     background: greyBackground

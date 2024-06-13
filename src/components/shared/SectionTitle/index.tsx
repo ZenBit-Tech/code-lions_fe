@@ -8,18 +8,20 @@ interface ISectionTitle {
   title: string;
   greyBackground?: boolean;
   showBackLink?: boolean;
+  mt?: string;
 }
 
 function SectionTitle({
   title,
   greyBackground = false,
   showBackLink = false,
+  mt,
 }: ISectionTitle) {
   const location = useLocation();
   const backLinkHref = location.state?.from ?? '/';
 
   return (
-    <TitleWrapper greyBackground={greyBackground}>
+    <TitleWrapper greyBackground={greyBackground} mt={mt}>
       {showBackLink && (
         <StyledLink to={backLinkHref}>
           <IconButton sx={{ padding: 0 }}>

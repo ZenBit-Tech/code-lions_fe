@@ -22,6 +22,7 @@ function TermsOfUsePage() {
           title={t('termsOfUse.title')}
           greyBackground
           showBackLink
+          mt="12px"
         />
         <SectionWrapper>
           <TextWrapper>

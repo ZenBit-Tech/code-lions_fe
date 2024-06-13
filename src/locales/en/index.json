@@ -97,7 +97,8 @@
     "title": "Your Profile",
     "myProfile": "My Profile",
     "buyerMode": "Buyer Mode",
-    "goToVendor ": "Go to Vendor"
+    "goToVendor": "Go to Vendor Mode",
+    "name": "Anna Asol"
   },
   "profileMenu": {
     "personalInformation": "Personal Information",
