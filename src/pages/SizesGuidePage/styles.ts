@@ -1,10 +1,12 @@
 import { Typography, TypographyProps } from '@mui/material';
 import { styled } from '@mui/system';
 
-const StyledHeader3 = styled(Typography)<TypographyProps>(({ theme }) => ({
+import theme from 'src/theme';
+
+const StyledHeader3 = styled(Typography)<TypographyProps>(() => ({
   margin: '40px 0 12px',
   padding: '0 5px',
-  fontFamily: 'DM Sans, Arial, sans-serif',
+  fontFamily: theme.typography.h4.fontFamily,
   fontWeight: 400,
   fontSize: 20,
   lineHeight: 2.2,
