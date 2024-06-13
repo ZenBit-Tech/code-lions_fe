@@ -1,13 +1,13 @@
 import { useTranslation } from 'react-i18next';
 import { Typography } from '@mui/material';
 import theme from 'src/theme';
+import SimpleSection from 'src/components/shared/SimpleSection';
 import SectionTitle from 'src/components/shared/SectionTitle';
 import articles from './articles';
 import {
   ArticleWrapper,
   Container,
   SectionWrapper,
-  SimpleSection,
   TextWrapper,
   TitleStyled,
 } from './styles';
@@ -16,7 +16,7 @@ function TermsOfUsePage() {
   const { t } = useTranslation();
 
   return (
-    <SimpleSection component="section">
+    <SimpleSection>
       <Container>
         <SectionTitle
           title={t('termsOfUse.title')}

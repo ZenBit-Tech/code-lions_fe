@@ -10,7 +10,7 @@ import {
 
 export const ListStyled = styled(List)(({ theme }) => ({
   width: '100%',
-  maxWidth: '343px',
+  width: '343px',
   borderRadius: '16px',
   backgroundColor: theme.palette.background.default,
   padding: '12px',

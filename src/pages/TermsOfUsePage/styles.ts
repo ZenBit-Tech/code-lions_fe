@@ -1,20 +1,10 @@
 import { Typography, TypographyProps } from '@mui/material';
 import { Box, styled } from '@mui/system';
 
-export const SimpleSection = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  padding: '0 16px',
-  [theme.breakpoints.up('sm')]: {
-    padding: 0,
-  },
-}));
-
-export const Container = styled(Box)(() => ({
+export const Container = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-  '@media (max-width:600px)': {
+  [theme.breakpoints.down('sm')]: {
     margin: '44px 0 21px 0',
   },
 }));
