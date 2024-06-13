@@ -1,65 +1,60 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { appErrors } from 'src/common/constants';
 import { userApi } from 'src/redux/user/userService';
+import { IUser } from './types';
 
-import { IUser, IUserState } from './types';
-
-const initialUser: IUser = {
+const initialState: IUser = {
   id: '',
   name: '',
   email: '',
+  role: null,
   isEmailVerified: false,
   isLoggedIn: false,
   accessToken: '',
   refreshToken: '',
-  error: '',
-};
-
-const initialState: IUserState = {
-  user: initialUser,
 };
 
 export const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    setUser(state, action) {
-      const { id, name, email, isEmailVerified } = action.payload;
-
-      state.user.id = id;
-      state.user.name = name;
-      state.user.email = email;
-      state.user.isEmailVerified = isEmailVerified;
-      state.user.isLoggedIn = true;
+    setEmail(state, action) {
+      state.email = action.payload;
     },
   },
   extraReducers: (builder) => {
     builder.addMatcher(
       userApi.endpoints.verifyEmail.matchFulfilled,
       (state, action) => {
-        state.user.isEmailVerified = action.payload.isEmailVerified;
-        state.user.accessToken = action.payload.accessToken;
-        state.user.refreshToken = action.payload.refreshToken;
-        state.user.isLoggedIn = true;
-        state.user.error = '';
+        return { ...state, ...action.payload, isLoggedIn: true };
       }
     );
     builder.addMatcher(
-      userApi.endpoints.verifyEmail.matchRejected,
+      userApi.endpoints.addUserGoogle.matchFulfilled,
       (state, action) => {
-        state.user.error = action.error.message || appErrors.FAILED_TO_VERIFY;
+        return { ...state, ...action.payload, isLoggedIn: true };
       }
     );
     builder.addMatcher(
-      userApi.endpoints.resendOtp.matchRejected,
+      userApi.endpoints.userSignUp.matchFulfilled,
       (state, action) => {
-        state.user.error =
-          action.error.message || appErrors.FAILED_TO_RESEND_OTP;
+        return { ...state, ...action.payload, isLoggedIn: true };
+      }
+    );
+    builder.addMatcher(
+      userApi.endpoints.loginUser.matchFulfilled,
+      (state, action) => {
+        return { ...state, ...action.payload, isLoggedIn: true };
+      }
+    );
+    builder.addMatcher(
+      userApi.endpoints.resetPassword.matchFulfilled,
+      (state, action) => {
+        return { ...state, ...action.payload, isLoggedIn: true };
       }
     );
   },
 });
 
-export const { setUser } = userSlice.actions;
+export const { setEmail } = userSlice.actions;
 
 export default userSlice.reducer;

@@ -4,34 +4,24 @@ import { useNavigate } from 'react-router-dom';
 
 import { Typography, Link } from '@mui/material';
 import { Box } from '@mui/system';
-
-import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
-import { appErrors, urls, validations } from 'src/common/constants';
-import LabelText from 'src/components/shared/LabelText';
+import { useLoginUserMutation } from 'src/redux/user/userService';
+import theme from 'src/theme';
+import { urls, validations } from 'src/common/constants';
 import PasswordInput from 'src/components/shared/PasswordInput';
+import {
+  InputPaddingVariants,
+  InputStyleVariants,
+} from 'src/components/shared/StyledInput/types';
+import StyledInput from 'src/components/shared/StyledInput';
 import StyledButton from 'src/components/shared/StyledButton';
 import {
   PaddingVariants,
   StyleVariants,
 } from 'src/components/shared/StyledButton/types';
-import StyledInput from 'src/components/shared/StyledInput';
-import {
-  InputPaddingVariants,
-  InputStyleVariants,
-} from 'src/components/shared/StyledInput/types';
-import TextButton from 'src/components/shared/TextButton';
+import LabelText from 'src/components/shared/LabelText';
 import TitleInputWrapper from 'src/components/shared/TitleInputWrapper';
 import useToast from 'src/components/shared/toasts/components/ToastProvider/ToastProviderHooks';
-import { useLoginMutation } from 'src/redux/auth/authApi';
-import {
-  loginStart,
-  loginSuccess,
-  loginFailure,
-  setTokens,
-  setUser,
-} from 'src/redux/auth/authSlice';
-import { useAppDispatch } from 'src/redux/auth/hooks/hooks';
-import { ILoginDto, ILoginResponse } from 'src/redux/auth/types/user';
+import TextButton from 'src/components/shared/TextButton';
 import { SerializedError } from 'src/redux/user/types';
 import theme from 'src/theme';
 
@@ -53,8 +43,7 @@ function isSerializedError(error: unknown): error is SerializedError {
 function SignInForm() {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const dispatch = useAppDispatch();
-  const [login, { isLoading }] = useLoginMutation();
+  const [login, { isLoading }] = useLoginUserMutation();
   const { showToast } = useToast();
 
   const {
@@ -85,29 +74,18 @@ function SignInForm() {
     return t('authErrors.failed');
   };
 
-  const onSubmit: SubmitHandler<IFormInput> = async (data) => {
-    dispatch(loginStart());
-    try {
-      const loginData: ILoginDto = {
-        email: data.email,
-        password: data.password,
-      };
-      const response: ILoginResponse = await login(loginData).unwrap();
-      const { user, tokens } = response;
-
-      dispatch(loginSuccess({ user, tokens }));
-      dispatch(setUser(user));
-      dispatch(setTokens(tokens));
-
-      navigate(urls.HOME);
-    } catch (err) {
-      const errorMessage = appErrors.FAILED_SIGN_IN;
-
-      if (isFetchBaseQueryError(err) || isSerializedError(err)) {
-        showToast('error', getErrorMessage(err));
+  const onSubmit: SubmitHandler<IFormInput> = async ({ email, password }) => {
+    if ([email, password].every(Boolean) && !isLoading) {
+      try {
+        await login({ email, password }).unwrap();
+        navigate(urls.HOME);
+      } catch (err) {
+        if (isFetchBaseQueryError(err) || isSerializedError(err)) {
+          showToast('error', getErrorMessage(err));
+        } else {
+          showToast('error', t('authErrors.failed'));
+        }
       }
-      showToast('error', errorMessage);
-      dispatch(loginFailure(errorMessage));
     }
   };
 
@@ -191,9 +169,7 @@ function SignInForm() {
         padding={PaddingVariants.LG}
         disabled={!isDirty || !isValid || errorsLength > 0 || isLoading}
       >
-        <Typography variant="button" color={theme.palette.common.white}>
-          {t('signin.singInButton')}
-        </Typography>
+        <Typography variant="button">{t('signin.singInButton')}</Typography>
       </StyledButton>
     </FormStyled>
   );

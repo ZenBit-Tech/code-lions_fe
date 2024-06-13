@@ -1,12 +1,11 @@
 import { useForm, Controller, SubmitHandler } from 'react-hook-form';
-import { useTranslation } from 'react-i18next';
+import { yupResolver } from '@hookform/resolvers/yup';
 import { useNavigate } from 'react-router-dom';
 
 import { Typography } from '@mui/material';
-
-import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
-import { urls, validations } from 'src/common/constants';
-import LabelText from 'src/components/shared/LabelText';
+import { useUserSignUpMutation } from 'src/redux/user/userService';
+import theme from 'src/theme';
+import { urls } from 'src/common/constants';
 import PasswordInput from 'src/components/shared/PasswordInput';
 import StyledButton from 'src/components/shared/StyledButton';
 import {
@@ -27,6 +26,7 @@ import { setUser } from 'src/redux/user/userSlice';
 import theme from 'src/theme';
 
 import { FormStyled, ErrorWrapper, ErrorMessage } from './styles';
+import userSignUpSchema from './schema';
 
 interface ISignUpForm {
   name: string;
@@ -46,7 +46,6 @@ function isSerializedError(error: unknown): error is SerializedError {
 function SignUpForm() {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const dispatch = useAppDispatch();
   const { showToast } = useToast();
 
   const {
@@ -61,8 +60,11 @@ function SignUpForm() {
       password: '',
       repeatPassword: '',
     },
-    mode: 'onBlur',
+    resolver: yupResolver(userSignUpSchema),
+    mode: 'onTouched',
   });
+
+  watch('password');
 
   const errorsLength: number = Object.keys(errors).length;
 
@@ -89,17 +91,14 @@ function SignUpForm() {
   }) => {
     if ([name, email, password].every(Boolean) && !isLoading) {
       try {
-        const userData = await userSignUp({
+        await userSignUp({
           name,
           email,
           password,
         }).unwrap();
 
-        console.log(userData);
-        dispatch(setUser(userData));
         navigate(urls.VERIFY);
       } catch (err) {
-        console.error(err);
         if (isFetchBaseQueryError(err) || isSerializedError(err)) {
           showToast('error', getErrorMessage(err));
         } else {
@@ -116,9 +115,6 @@ function SignUpForm() {
         <Controller
           name="name"
           control={control}
-          rules={{
-            required: t('authErrors.missingCredentials'),
-          }}
           render={({ field }) => (
             <ErrorWrapper>
               <StyledInput
@@ -148,13 +144,6 @@ function SignUpForm() {
         <Controller
           name="email"
           control={control}
-          rules={{
-            required: t('authErrors.missingCredentials'),
-            pattern: {
-              value: validations.EMAIL_REGEX,
-              message: t('authErrors.invalidEmail'),
-            },
-          }}
           render={({ field }) => (
             <ErrorWrapper>
               <StyledInput
@@ -185,13 +174,6 @@ function SignUpForm() {
         <Controller
           name="password"
           control={control}
-          rules={{
-            required: t('authErrors.missingCredentials'),
-            minLength: {
-              value: validations.PASSWORD_MIN_LENGTH,
-              message: t('authErrors.passwordLength'),
-            },
-          }}
           render={({ field }) => (
             <ErrorWrapper>
               <PasswordInput
@@ -221,18 +203,6 @@ function SignUpForm() {
         <Controller
           name="repeatPassword"
           control={control}
-          rules={{
-            required: t('authErrors.missingCredentials'),
-            minLength: {
-              value: validations.PASSWORD_MIN_LENGTH,
-              message: t('authErrors.passwordLength'),
-            },
-            validate: (value) => {
-              return (
-                watch('password') === value || t('authErrors.passwordsNotMatch')
-              );
-            },
-          }}
           render={({ field }) => (
             <ErrorWrapper>
               <PasswordInput
