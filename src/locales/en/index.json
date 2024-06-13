@@ -50,7 +50,8 @@
     "singInButton": "Sign In",
     "haveNoAccount": "Don`t have an account?",
     "signUp": "Sign Up",
-    "loginFailed": "Log In failed"
+    "loginFailed": "Log In failed",
+    "enterCredentials": "Please enter your credentials to sign in"
   },
   "restorePassword": {
     "restoreYourPassword": "Restore password",

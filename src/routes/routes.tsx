@@ -7,7 +7,8 @@ import RestorePasswordPage from 'src/pages/RestorePasswordPage';
 import NewPasswordPage from 'src/pages/NewPasswordPage';
 import TermsOfUsePage from 'src/pages/TermsOfUsePage';
 import PrivacyPolicyPage from 'src/pages/PrivacyPolicyPage';
-import UserProfileAdmin from 'src/pages/UserProfileAdmin';
+import UserProfileAdminPage from 'src/pages/UserProfileAdminPage';
+import SignInAdminPage from 'src/pages/SignInAdminPage';
 import { urls } from 'src/common/constants';
 import VerifyPrivateRoute from './VerifyPrivateRoute';
 
@@ -28,7 +29,8 @@ const router = createBrowserRouter([
   { path: urls.NEW_PASSWORD, element: <NewPasswordPage /> },
   { path: urls.PRIVACY_POLICY, element: <PrivacyPolicyPage /> },
   { path: urls.TERMS_OF_USE, element: <TermsOfUsePage /> },
-  { path: 'admin/user-profile', element: <UserProfileAdmin /> },
+  { path: urls.SIGN_IN_ADMIN, element: <SignInAdminPage /> },
+  { path: urls.USER_PROFILE_ADMIN, element: <UserProfileAdminPage /> },
 ]);
 
 export default router;

@@ -3,7 +3,7 @@ import SideBar from './SideBar';
 import TopBar from './TopBar';
 import UserProfileSection from './UserProfileSection';
 
-function UserProfileAdmin() {
+function UserProfileAdminPage() {
   return (
     <Grid container sx={{ height: '100vh' }} columns={5}>
       <Grid item xs={1} padding="15px 24px">
@@ -17,4 +17,4 @@ function UserProfileAdmin() {
   );
 }
 
-export default UserProfileAdmin;
+export default UserProfileAdminPage;
