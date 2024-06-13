@@ -92,7 +92,6 @@ function SignUpForm() {
           password,
         }).unwrap();
 
-        console.log(userData);
         dispatch(setUser(userData));
         navigate(urls.VERIFY);
       } catch (err) {
