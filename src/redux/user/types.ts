@@ -35,6 +35,12 @@ export interface IErrorResponse {
   message: string | string[];
 }
 
+export interface CustomFetchBaseQueryError extends FetchBaseQueryError {
+  data: IErrorResponse;
+}
+
+export type ErrorType = CustomFetchBaseQueryError | SerializedError | undefined;
+
 export interface FetchBaseQueryError {
   status: number;
   data: IErrorResponse;

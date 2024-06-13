@@ -9,6 +9,7 @@ export const urls = {
   PRIVACY_POLICY: '/privacy-policy',
   TERMS_OF_USE: '/terms-of-use',
   SIZES_GUIDE: '/sizes-guide',
+  SIGN_IN_ADMIN: '/signin-admin',
 };
 
 export const RTKUrls = {
@@ -36,7 +37,7 @@ export const validations = {
 export const appErrors = {
   FAILED_TO_VERIFY: 'Failed to verify email',
   FAILED_TO_RESEND_OTP: 'Failed to resend otp code',
-  FAILED_SIGN_IN: 'An unexpected error occurred',
+  FAILED_SIGN_IN: 'Failed to sign in',
   FAILED_TO_SEND_EMAIL: 'Email are not send due to unexpected error',
 };
 
