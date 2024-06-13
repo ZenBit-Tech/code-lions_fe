@@ -21,8 +21,4 @@ function VerifyPrivateRoute({ children }: PrivateRouteProps) {
   }
 }
 
-VerifyPrivateRoute.defaultProps = {
-  children: null,
-};
-
 export default VerifyPrivateRoute;

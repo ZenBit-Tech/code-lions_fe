@@ -29,10 +29,4 @@ function Title({
   );
 }
 
-Title.defaultProps = {
-  align: 'left',
-  variant: 'h1',
-  component: 'h1',
-};
-
 export default Title;

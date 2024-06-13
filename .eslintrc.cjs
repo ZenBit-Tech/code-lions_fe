@@ -100,6 +100,7 @@ module.exports = {
       'warn',
       { allowConstantExport: true },
     ],
+    'react/require-default-props': 'off',
     'react/no-array-index-key': 'warn',
     'spaced-comment': ['warn', 'always'],
     'prettier/prettier': [

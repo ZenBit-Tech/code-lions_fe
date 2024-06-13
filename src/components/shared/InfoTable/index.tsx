@@ -116,8 +116,4 @@ function InfoTable({ tableData, lastLine }: IInfoTableProps) {
   );
 }
 
-InfoTable.defaultProps = {
-  lastLine: '',
-};
-
 export default InfoTable;

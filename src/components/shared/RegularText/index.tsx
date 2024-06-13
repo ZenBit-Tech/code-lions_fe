@@ -21,8 +21,4 @@ function RegularText({ children, align = 'left' }: IRegularTextProps) {
   );
 }
 
-RegularText.defaultProps = {
-  align: 'left',
-};
-
 export default RegularText;

@@ -26,9 +26,4 @@ function LabelText({
   );
 }
 
-LabelText.defaultProps = {
-  align: 'left',
-  variant: 'subtitle1',
-};
-
 export default LabelText;
