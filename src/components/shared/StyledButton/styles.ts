@@ -1,4 +1,5 @@
 import theme from 'src/theme';
+
 import { PaddingVariants, StyleVariants } from './types';
 
 export const ButtonStyles = {

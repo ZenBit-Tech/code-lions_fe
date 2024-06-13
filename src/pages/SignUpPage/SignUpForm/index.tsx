@@ -1,29 +1,32 @@
-import { useTranslation } from 'react-i18next';
 import { useForm, Controller, SubmitHandler } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
+
 import { Typography } from '@mui/material';
-import { useUserSignUpMutation } from 'src/redux/user/userService';
-import theme from 'src/theme';
+
+import { yupResolver } from '@hookform/resolvers/yup';
+import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import { urls } from 'src/common/constants';
+import LabelText from 'src/components/shared/LabelText';
 import PasswordInput from 'src/components/shared/PasswordInput';
-import {
-  InputPaddingVariants,
-  InputStyleVariants,
-} from 'src/components/shared/StyledInput/types';
-import StyledInput from 'src/components/shared/StyledInput';
 import StyledButton from 'src/components/shared/StyledButton';
 import {
   PaddingVariants,
   StyleVariants,
 } from 'src/components/shared/StyledButton/types';
-import LabelText from 'src/components/shared/LabelText';
+import StyledInput from 'src/components/shared/StyledInput';
+import {
+  InputPaddingVariants,
+  InputStyleVariants,
+} from 'src/components/shared/StyledInput/types';
 import TitleInputWrapper from 'src/components/shared/TitleInputWrapper';
 import useToast from 'src/components/shared/toasts/components/ToastProvider/ToastProviderHooks';
 import { SerializedError } from 'src/redux/user/types';
-import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
-import { FormStyled, ErrorWrapper, ErrorMessage } from './styles';
+import { useUserSignUpMutation } from 'src/redux/user/userService';
+import theme from 'src/theme';
+
 import userSignUpSchema from './schema';
+import { FormStyled, ErrorWrapper, ErrorMessage } from './styles';
 
 interface ISignUpForm {
   name: string;

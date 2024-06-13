@@ -1,7 +1,8 @@
-import { styled } from '@mui/system';
 import { TextField } from '@mui/material';
-import { StyledInputProps } from './types';
+import { styled } from '@mui/system';
+
 import { InputPaddings, InputStyles } from './styles';
+import { StyledInputProps } from './types';
 
 const StyledInput = styled(TextField)<StyledInputProps>(
   ({ theme, ...props }) => ({

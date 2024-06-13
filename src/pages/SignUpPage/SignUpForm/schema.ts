@@ -1,5 +1,5 @@
-import * as Yup from 'yup';
 import { appErrors, validations } from 'src/common/constants';
+import * as Yup from 'yup';
 
 const userSignUpSchema = Yup.object().shape({
   email: Yup.string()

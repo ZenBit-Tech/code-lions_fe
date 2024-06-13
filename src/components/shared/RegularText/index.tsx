@@ -1,5 +1,7 @@
 import { ReactNode } from 'react';
+
 import { Typography } from '@mui/material';
+
 import theme from 'src/theme';
 
 interface IRegularTextProps {

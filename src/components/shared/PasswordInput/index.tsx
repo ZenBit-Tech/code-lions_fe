@@ -1,8 +1,11 @@
 import React, { useState, forwardRef } from 'react';
+
 import { IconButton, InputAdornment } from '@mui/material';
-import { StyledInputProps } from 'src/components/shared/StyledInput/types';
-import CustomVisibleIcon from 'src/assets/icons/eye.svg';
+
 import CustomHiddenIcon from 'src/assets/icons/eye-closed.svg';
+import CustomVisibleIcon from 'src/assets/icons/eye.svg';
+import { StyledInputProps } from 'src/components/shared/StyledInput/types';
+
 import StyledPasswordInput from './styledPasswordInput';
 
 const PasswordInput = forwardRef<HTMLInputElement, StyledInputProps>(

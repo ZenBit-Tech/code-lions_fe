@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+
 import { FetchBaseQueryError, SerializedError } from 'src/redux/user/types';
 
 const otpLengthMin: number = 0;

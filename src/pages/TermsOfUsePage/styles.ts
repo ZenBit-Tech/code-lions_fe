@@ -1,6 +1,7 @@
+import { Link } from 'react-router-dom';
+
 import { Typography, TypographyProps } from '@mui/material';
 import { Box, styled } from '@mui/system';
-import { Link } from 'react-router-dom';
 
 export const SimpleSection = styled(Box)(({ theme }) => ({
   display: 'flex',

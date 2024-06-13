@@ -1,9 +1,12 @@
-import { useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import Title from 'src/components/shared/Title';
-import ArrowIcon from 'src/assets/icons/arrow-left.svg';
+import { useLocation } from 'react-router-dom';
+
 import { IconButton, Typography } from '@mui/material';
+
+import ArrowIcon from 'src/assets/icons/arrow-left.svg';
+import Title from 'src/components/shared/Title';
 import theme from 'src/theme';
+
 import articles from './articles';
 import {
   ArticleWrapper,

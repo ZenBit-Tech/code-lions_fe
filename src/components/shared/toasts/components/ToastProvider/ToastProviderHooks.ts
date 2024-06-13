@@ -1,4 +1,5 @@
 import { useContext } from 'react';
+
 import { ToastContext } from 'src/components/shared/toasts/context/toast';
 
 const useToast = () => {

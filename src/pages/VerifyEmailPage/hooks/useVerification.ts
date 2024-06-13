@@ -1,11 +1,13 @@
 import { useLocation, useNavigate } from 'react-router-dom';
-import { userApi } from 'src/redux/user/userService';
+
 import { urls } from 'src/common/constants';
 import { useAppSelector } from 'src/redux/hooks';
 import { FetchBaseQueryError, SerializedError } from 'src/redux/user/types';
-import useTimer from './useTimer';
+import { userApi } from 'src/redux/user/userService';
+
 import useErrorHandling from './useErrorHandling';
 import useOtp from './useOtp';
+import useTimer from './useTimer';
 
 const timerMin: number = 0;
 const timerMax: number = 55;
