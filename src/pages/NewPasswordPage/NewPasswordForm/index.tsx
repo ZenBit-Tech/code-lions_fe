@@ -1,14 +1,8 @@
 import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 import { Box, Typography } from '@mui/material';
-import { useDispatch } from 'react-redux';
-import { useResetPasswordMutation } from 'src/redux/auth/authApi';
-import {
-  resetPasswordStart,
-  resetPasswordSuccess,
-  resetPasswordFailure,
-} from 'src/redux/auth/authSlice';
-
+import { useNewPasswordMutation } from 'src/redux/user/userService';
 import PasswordInput from 'src/components/shared/PasswordInput';
 import {
   InputPaddingVariants,
@@ -21,10 +15,10 @@ import {
 } from 'src/components/shared/StyledButton/types';
 import LabelText from 'src/components/shared/LabelText';
 import TitleInputWrapper from 'src/components/shared/TitleInputWrapper';
-import { validations } from 'src/common/constants';
+import useToast from 'src/components/shared/toasts/components/ToastProvider/ToastProviderHooks';
+import { urls, validations } from 'src/common/constants';
 import theme from 'src/theme';
 import FormStyled from 'src/pages/SignInPage/SignInForm/styles';
-import useToast from 'src/components/shared/toasts/components/ToastProvider/ToastProviderHooks';
 
 interface IFormInput {
   password: string;
@@ -33,8 +27,8 @@ interface IFormInput {
 
 function NewPasswordForm() {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
-  const [resetPassword, { isLoading }] = useResetPasswordMutation();
+  const [newPassword, { isLoading }] = useNewPasswordMutation();
+  const navigate = useNavigate();
 
   const {
     control,
@@ -50,24 +44,17 @@ function NewPasswordForm() {
   });
 
   const errorsLength: number = Object.keys(errors).length;
-  const password = watch('password');
   const { showToast } = useToast();
 
-  const onSubmit: SubmitHandler<IFormInput> = async (data) => {
-    dispatch(resetPasswordStart());
+  const onSubmit: SubmitHandler<IFormInput> = async ({ password }) => {
     try {
-      const response = await resetPassword({
-        password: data.password,
-        repeatPassword: data.repeatPassword,
-      }).unwrap();
-
-      dispatch(resetPasswordSuccess(response));
+      await newPassword({ password }).unwrap();
+      showToast('success', t('newPassword.passwordChanged'));
+      navigate(urls.HOME);
     } catch (err) {
       if (err instanceof Error) {
-        dispatch(resetPasswordFailure(err.message));
         showToast('error', err.message);
       } else {
-        dispatch(resetPasswordFailure(t('newPassword.unknownError')));
         showToast('error', t('newPassword.unknownError'));
       }
     }
@@ -119,7 +106,8 @@ function NewPasswordForm() {
               message: t('newPasswordErrors.passwordLength'),
             },
             validate: (value) =>
-              value === password || t('newPasswordErrors.passwordsNotMatch'),
+              value === watch('password') ||
+              t('newPasswordErrors.passwordsNotMatch'),
           }}
           render={({ field }) => (
             <Box>
@@ -148,7 +136,7 @@ function NewPasswordForm() {
         padding={PaddingVariants.LG}
         disabled={!isDirty || !isValid || errorsLength > 0 || isLoading}
       >
-        <Typography variant="button" color={theme.palette.common.white}>
+        <Typography variant="button">
           {t('newPassword.savePasswordButton')}
         </Typography>
       </StyledButton>

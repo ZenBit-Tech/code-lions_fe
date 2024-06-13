@@ -1,20 +1,35 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { HttpMethods, RTKUrls } from 'src/common/constants';
+import { RootState } from 'src/redux/store';
 import {
   IVerifyEmailRequest,
-  IVerifyEmailResponse,
   IResendOtpRequest,
   IRegisterUserRequest,
   IRegisterUserResponse,
+  IRegisterGoogleRequest,
+  ILoginRequest,
+  IForgotPasswordRequest,
+  IResetPasswordRequest,
+  INewPasswordRequest,
+  IUser,
 } from './types';
 
 export const userApi = createApi({
   reducerPath: 'userApi',
   baseQuery: fetchBaseQuery({
     baseUrl: import.meta.env.VITE_API_URL,
+    prepareHeaders: (headers, { getState }) => {
+      const { accessToken } = (getState() as RootState).user;
+
+      if (accessToken) {
+        headers.set('Authorization', `Bearer ${accessToken}`);
+      }
+
+      return headers;
+    },
   }),
   endpoints: (build) => ({
-    verifyEmail: build.mutation<IVerifyEmailResponse, IVerifyEmailRequest>({
+    verifyEmail: build.mutation<IUser, IVerifyEmailRequest>({
       query: (post) => ({
         url: RTKUrls.VERIFY_OTP,
         method: HttpMethods.POST,
@@ -29,10 +44,46 @@ export const userApi = createApi({
       }),
     }),
     userSignUp: build.mutation<IRegisterUserResponse, IRegisterUserRequest>({
-      query: (newUser) => ({
+      query: (post) => ({
         url: RTKUrls.REGISTER_USER,
         method: HttpMethods.POST,
-        body: newUser,
+        body: post,
+      }),
+    }),
+    addUserGoogle: build.mutation<IUser, IRegisterGoogleRequest>({
+      query: (post) => ({
+        url: RTKUrls.GOOGLE_AUTH,
+        method: HttpMethods.POST,
+        body: post,
+        headers: { 'Access-Control-Allow-Origin': '*' },
+      }),
+    }),
+    loginUser: build.mutation<IUser, ILoginRequest>({
+      query: (post) => ({
+        url: RTKUrls.SIGN_IN,
+        method: HttpMethods.POST,
+        body: post,
+      }),
+    }),
+    forgotPassword: build.mutation<void, IForgotPasswordRequest>({
+      query: (post) => ({
+        url: RTKUrls.FORGOT_PASSWORD,
+        method: HttpMethods.POST,
+        body: post,
+      }),
+    }),
+    resetPassword: build.mutation<IUser, IResetPasswordRequest>({
+      query: (post) => ({
+        url: RTKUrls.RESET_PASSWORD,
+        method: HttpMethods.POST,
+        body: post,
+      }),
+    }),
+    newPassword: build.mutation<void, INewPasswordRequest>({
+      query: (post) => ({
+        url: RTKUrls.NEW_PASSWORD,
+        method: HttpMethods.POST,
+        body: post,
       }),
     }),
   }),
@@ -42,4 +93,9 @@ export const {
   useVerifyEmailMutation,
   useResendOtpMutation,
   useUserSignUpMutation,
+  useAddUserGoogleMutation,
+  useLoginUserMutation,
+  useForgotPasswordMutation,
+  useResetPasswordMutation,
+  useNewPasswordMutation,
 } = userApi;

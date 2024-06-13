@@ -100,7 +100,7 @@ function VerifyEmailPage() {
           <TextButton
             onClick={handleSendAgain}
             disabled={isSendAgainButtonDisabled}
-            sx={{ padding: '12px 6px 24px 6px' }}
+            sx={{ padding: '18px 6px 18px 6px' }}
           >
             <LabelText align="right">{t('verifyEmail.sendAgain')}</LabelText>
           </TextButton>

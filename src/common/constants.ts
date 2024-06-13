@@ -17,7 +17,9 @@ export const RTKUrls = {
   SIGN_IN: 'auth/login',
   FORGOT_PASSWORD: 'auth/forgot-password',
   RESET_PASSWORD: 'auth/reset-password',
+  NEW_PASSWORD: 'auth/new-password',
   REGISTER_USER: 'auth/register',
+  GOOGLE_AUTH: 'auth/google',
 };
 
 export const HttpMethods = {
@@ -38,4 +40,9 @@ export const appErrors = {
   FAILED_TO_RESEND_OTP: 'Failed to resend otp code',
   FAILED_SIGN_IN: 'Failed to sign in',
   FAILED_TO_SEND_EMAIL: 'Email are not send due to unexpected error',
+  MISSING_CREDENTIALS: 'Missing credentials',
+  EMAIL_INCORRECT: 'Please enter valid email',
+  PASSWORD_LENGTH: 'Password needs to be at least 8 characters',
+  PASSWORD_MATCH:
+    'Passwords entered in the "Password" and "Repeat password" fields must match',
 };

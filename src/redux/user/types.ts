@@ -1,30 +1,19 @@
+export type UserRole = 'BUYER' | 'VENDOR' | 'ADMIN' | null;
+
 export interface IUser {
   id: string;
   name: string;
   email: string;
+  role: UserRole;
   isEmailVerified: boolean;
   isLoggedIn: boolean;
-  accessToken: string;
-  refreshToken: string;
-  error: string;
-}
-
-export interface IUserState {
-  user: IUser;
+  accessToken?: string;
+  refreshToken?: string;
 }
 
 export interface IVerifyEmailRequest {
   id: string;
   otp: string;
-}
-
-export interface IVerifyEmailResponse {
-  id: string;
-  name: string;
-  email: string;
-  isEmailVerified: boolean;
-  accessToken: string;
-  refreshToken: string;
 }
 
 export interface IResendOtpRequest {
@@ -62,14 +51,28 @@ export interface IRegisterUserResponse {
   id: string;
   name: string;
   email: string;
+  role: UserRole;
   isEmailVerified: boolean;
 }
 
-export interface IRegisterErrorResponse {
-  status: number;
-  data: {
-    error: string;
-    message: string | string[];
-    statusCode: number;
-  };
+export interface IRegisterGoogleRequest {
+  token: string | undefined;
+}
+
+export interface ILoginRequest {
+  email: string;
+  password: string;
+}
+
+export interface IForgotPasswordRequest {
+  email: string;
+}
+
+export interface IResetPasswordRequest {
+  email: string;
+  otp: string;
+}
+
+export interface INewPasswordRequest {
+  password: string;
 }
