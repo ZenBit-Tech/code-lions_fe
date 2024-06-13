@@ -39,3 +39,5 @@ export const appErrors = {
   FAILED_SIGN_IN: 'An unexpected error occurred',
   FAILED_TO_SEND_EMAIL: 'Email are not send due to unexpected error',
 };
+
+export const pathToPhotos = '/assets/photos';
