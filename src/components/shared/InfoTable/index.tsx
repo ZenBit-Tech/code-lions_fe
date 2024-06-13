@@ -24,7 +24,7 @@ function InfoTable({ tableData, lastLine }: IInfoTableProps) {
   return (
     <TableContainer
       sx={{
-        width: '857px',
+        width: '100%',
         margin: '0 auto',
         border: '1px solid',
         borderColor: theme.palette.common.black,
