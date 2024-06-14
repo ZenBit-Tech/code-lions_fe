@@ -1,23 +1,26 @@
 import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router-dom';
+
 import { Box, IconButton, Typography } from '@mui/material';
-import { urls } from 'src/common/constants';
-import Section from 'src/components/shared/Section';
+
 import ArrowLeftIcon from 'src/assets/icons/arrow-left.svg';
+import { urls } from 'src/common/constants';
+import ButtonText from 'src/components/shared/ButtonText';
+import LabelText from 'src/components/shared/LabelText';
+import OTPInput from 'src/components/shared/OTPInput';
+import RegularText from 'src/components/shared/RegularText';
+import Section from 'src/components/shared/Section';
 import StyledButton from 'src/components/shared/StyledButton';
 import {
   PaddingVariants,
   StyleVariants,
 } from 'src/components/shared/StyledButton/types';
-import Title from 'src/components/shared/Title';
-import RegularText from 'src/components/shared/RegularText';
-import LabelText from 'src/components/shared/LabelText';
 import TextButton from 'src/components/shared/TextButton';
-import ButtonText from 'src/components/shared/ButtonText';
-import OTPInput from 'src/components/shared/OTPInput';
+import Title from 'src/components/shared/Title';
 import theme from 'src/theme';
-import { OtpContainer, TitleContainer, TimerContainer } from './styles';
+
 import useVerification from './hooks/useVerification';
+import { OtpContainer, TitleContainer, TimerContainer } from './styles';
 
 function VerifyEmailPage() {
   const { pathname } = useLocation();
@@ -100,7 +103,7 @@ function VerifyEmailPage() {
           <TextButton
             onClick={handleSendAgain}
             disabled={isSendAgainButtonDisabled}
-            sx={{ padding: '12px 6px 24px 6px' }}
+            sx={{ padding: '18px 6px 18px 6px' }}
           >
             <LabelText align="right">{t('verifyEmail.sendAgain')}</LabelText>
           </TextButton>

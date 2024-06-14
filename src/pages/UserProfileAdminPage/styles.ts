@@ -1,18 +1,10 @@
 import { ListItemButton } from '@mui/material';
 import { Box, styled } from '@mui/system';
+
+import hexToRgba from 'src/common/hexToRgba';
 import theme from 'src/theme';
 
-const hexToDecimal: number = 16;
 const backgroundOpacity: number = 0.5;
-
-const hexToRgba = (hex: string, opacity: number) => {
-  /* eslint-disable no-magic-numbers */
-  const r = parseInt(hex.slice(1, 3), hexToDecimal);
-  const g = parseInt(hex.slice(3, 5), hexToDecimal);
-  const b = parseInt(hex.slice(5, 7), hexToDecimal);
-
-  return `rgba(${r}, ${g}, ${b}, ${opacity})`;
-};
 
 export const StyledListItemButton = styled(ListItemButton)({
   marginBottom: '12px',

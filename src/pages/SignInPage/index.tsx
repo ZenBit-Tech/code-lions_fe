@@ -1,16 +1,18 @@
 import { useTranslation } from 'react-i18next';
-import { urls } from 'src/common/constants';
+
 import { Box } from '@mui/system';
-import Section from 'src/components/shared/Section';
-import SocialIconButton from 'src/components/shared/SocialIconButton';
-import GoogleIcon from 'src/assets/icons/google.svg';
-import Separator from 'src/components/shared/Separator';
+
+import { urls } from 'src/common/constants';
+import GoogleLoginButton from 'src/components/GoogleLoginButton';
 import Container from 'src/components/shared/Container';
-import Title from 'src/components/shared/Title';
-import RegularText from 'src/components/shared/RegularText';
-import TitleInputWrapper from 'src/components/shared/InputWrapper';
-import TextButton from 'src/components/shared/TextButton';
 import LabelText from 'src/components/shared/LabelText';
+import RegularText from 'src/components/shared/RegularText';
+import Section from 'src/components/shared/Section';
+import Separator from 'src/components/shared/Separator';
+import TextButton from 'src/components/shared/TextButton';
+import Title from 'src/components/shared/Title';
+import TitleInputWrapper from 'src/components/shared/TitleInputWrapper';
+
 import SignInForm from './SignInForm';
 import LinkStyled from './styles';
 
@@ -20,15 +22,11 @@ function SignInPage() {
   return (
     <Section>
       <Container>
-        <TitleInputWrapper>
+        <TitleInputWrapper mb="22px">
           <Title>{t('signin.signIn')} </Title>
           <RegularText>{t('signin.signInSocial')}</RegularText>
         </TitleInputWrapper>
-        <Box mt="22px">
-          <SocialIconButton>
-            <GoogleIcon />
-          </SocialIconButton>
-        </Box>
+        <GoogleLoginButton text="signin_with" />
         <Separator text={t('signin.textOr')} />
         <SignInForm />
         <Box

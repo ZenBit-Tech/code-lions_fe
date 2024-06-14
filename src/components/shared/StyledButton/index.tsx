@@ -1,7 +1,8 @@
-import { styled } from '@mui/system';
 import { LoadingButton } from '@mui/lab';
-import { IStyledButtonProps } from './types';
+import { styled } from '@mui/system';
+
 import { ButtonPaddings, ButtonStyles } from './styles';
+import { IStyledButtonProps } from './types';
 
 const StyledButton = styled(LoadingButton)<IStyledButtonProps>(
   ({ theme, ...props }) => ({
@@ -21,9 +22,9 @@ const StyledButton = styled(LoadingButton)<IStyledButtonProps>(
       opacity: theme.palette.action.hoverOpacity,
     },
     '&:disabled': {
-      opacity: 0.7,
       cursor: 'not-allowed',
-      color: theme.palette.text.secondary,
+      color: theme.palette.text.disabled,
+      backgroundColor: theme.palette.background.paper,
     },
     [theme.breakpoints.down('sm')]: {
       width: '300px',

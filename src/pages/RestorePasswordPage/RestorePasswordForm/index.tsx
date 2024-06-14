@@ -1,34 +1,31 @@
 import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
+
 import { Typography } from '@mui/material';
 import { Box } from '@mui/system';
-import { useForgotPasswordMutation } from 'src/redux/auth/authApi';
-import { useAppDispatch } from 'src/redux/auth/hooks/hooks';
-import {
-  forgotPasswordStart,
-  forgotPasswordSuccess,
-  forgotPasswordFailure,
-} from 'src/redux/auth/authSlice';
-import { IForgotPasswordDto } from 'src/redux/auth/types/email';
-import theme from 'src/theme';
-import { appErrors, urls, validations } from 'src/common/constants';
-import {
-  InputPaddingVariants,
-  InputStyleVariants,
-} from 'src/components/shared/StyledInput/types';
-import StyledInput from 'src/components/shared/StyledInput';
+
+import { SerializedError } from '@reduxjs/toolkit';
+import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
+import { urls, validations } from 'src/common/constants';
+import LabelText from 'src/components/shared/LabelText';
 import StyledButton from 'src/components/shared/StyledButton';
 import {
   PaddingVariants,
   StyleVariants,
 } from 'src/components/shared/StyledButton/types';
-import LabelText from 'src/components/shared/LabelText';
+import StyledInput from 'src/components/shared/StyledInput';
+import {
+  InputPaddingVariants,
+  InputStyleVariants,
+} from 'src/components/shared/StyledInput/types';
 import TitleInputWrapper from 'src/components/shared/TitleInputWrapper';
 import useToast from 'src/components/shared/toasts/components/ToastProvider/ToastProviderHooks';
-import { SerializedError } from 'src/redux/user/types';
-import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import FormStyled from 'src/pages/SignInPage/SignInForm/styles';
+import { useAppDispatch } from 'src/redux/hooks';
+import { useForgotPasswordMutation } from 'src/redux/user/userService';
+import { setEmail } from 'src/redux/user/userSlice';
+import theme from 'src/theme';
 
 interface IFormInput {
   email: string;
@@ -45,8 +42,8 @@ function isSerializedError(error: unknown): error is SerializedError {
 function RestorePasswordForm() {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const dispatch = useAppDispatch();
   const [forgotPassword, { isLoading }] = useForgotPasswordMutation();
+  const dispatch = useAppDispatch();
 
   const {
     control,
@@ -76,24 +73,19 @@ function RestorePasswordForm() {
     return t('authErrors.failed');
   };
 
-  const onSubmit: SubmitHandler<IFormInput> = async (data) => {
-    dispatch(forgotPasswordStart());
-    try {
-      const emailData: IForgotPasswordDto = {
-        email: data.email,
-      };
-
-      await forgotPassword(emailData).unwrap();
-      dispatch(forgotPasswordSuccess());
-      navigate(urls.ENTER_CODE);
-    } catch (err) {
-      const errorMessage = appErrors.FAILED_TO_SEND_EMAIL;
-
-      if (isFetchBaseQueryError(err) || isSerializedError(err)) {
-        showToast('error', getErrorMessage(err));
+  const onSubmit: SubmitHandler<IFormInput> = async ({ email }) => {
+    if (email && !isLoading) {
+      try {
+        await forgotPassword({ email }).unwrap();
+        dispatch(setEmail(email));
+        navigate(urls.ENTER_CODE);
+      } catch (err) {
+        if (isFetchBaseQueryError(err) || isSerializedError(err)) {
+          showToast('error', getErrorMessage(err));
+        } else {
+          showToast('error', t('authErrors.failed'));
+        }
       }
-      showToast('error', errorMessage);
-      dispatch(forgotPasswordFailure(errorMessage));
     }
   };
 
@@ -138,7 +130,7 @@ function RestorePasswordForm() {
         padding={PaddingVariants.LG}
         disabled={!isDirty || !isValid || errorsLength > 0 || isLoading}
       >
-        <Typography variant="button" color={theme.palette.common.white}>
+        <Typography variant="button">
           {t('restorePassword.sendCode')}
         </Typography>
       </StyledButton>

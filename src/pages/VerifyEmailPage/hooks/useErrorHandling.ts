@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
+
+import { appErrors } from 'src/common/constants';
 import {
   IErrorResponse,
   FetchBaseQueryError,
   SerializedError,
 } from 'src/redux/user/types';
-import { appErrors } from 'src/common/constants';
 
 type ErrorType = FetchBaseQueryError | SerializedError | undefined;
 

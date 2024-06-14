@@ -1,7 +1,10 @@
 import { ReactNode } from 'react';
+
 import { Grid } from '@mui/material';
+
 import BackgroundImage from 'src/components/shared/BackgroundImage';
 import Logo from 'src/components/shared/Logo';
+
 import useRoute from './sectionHook';
 
 interface ISectionProps {

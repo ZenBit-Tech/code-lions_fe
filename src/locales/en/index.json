@@ -7,6 +7,9 @@
     "signInPage": "Sing In",
     "newPasswordPage": "New Password"
   },
+  "header": {
+    "home": "Home"
+  },
   "verifyEmail": {
     "verifyYourEmail": "Verify your email",
     "enterCode": "Enter Code",
@@ -53,6 +56,12 @@
     "loginFailed": "Log In failed",
     "enterCredentials": "Please enter your credentials to sign in"
   },
+  "sizesGuide": {
+    "title": "Sizes Guide",
+    "clothesSizeTable": "Clothes Size Table",
+    "shoeSizeTable": "Shoe Size Table",
+    "oneSize": "One Size"
+  },
   "restorePassword": {
     "restoreYourPassword": "Restore password",
     "enterEmailText": "Enter your email to restore your password",
@@ -68,7 +77,8 @@
     "passwordLength": "Password must be at least 8 characters long",
     "missingCredentials": "Missing credentials",
     "passwordsNotMatch": "Passwords entered in the 'Password' and 'Repeat password' fields must match",
-    "failed": "Failed to sign up"
+    "failed": "Failed to sign up",
+    "googleLoginFailed": "Unable to sign in with Google. Please try again later"
   },
   "newPassword": {
     "newPassword": "New Password",
@@ -76,7 +86,8 @@
     "enterNewPasswordText": "Please enter your new password",
     "repeatPasswordLabel": "Repeat Password*",
     "savePasswordButton": "Save password",
-    "unknownError": "An unknown error occurred"
+    "unknownError": "An unknown error occurred",
+    "passwordChanged": "Password successfully changed"
   },
   "newPasswordErrors": {
     "enterCredentials": "Please enter your password",

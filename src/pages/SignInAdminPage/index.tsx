@@ -1,10 +1,13 @@
-import { Grid, Box } from '@mui/material';
 import { useTranslation } from 'react-i18next';
-import theme from 'src/theme';
-import Title from 'src/components/shared/Title';
-import RegularText from 'src/components/shared/RegularText';
+
+import { Grid, Box } from '@mui/material';
+
 import TitleInputWrapper from 'src/components/shared/InputWrapper';
 import Logo from 'src/components/shared/Logo';
+import RegularText from 'src/components/shared/RegularText';
+import Title from 'src/components/shared/Title';
+import theme from 'src/theme';
+
 import SignInAdminForm from './SignInAdminForm';
 import InnerContainer from './styles';
 

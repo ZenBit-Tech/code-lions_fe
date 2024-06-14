@@ -1,5 +1,5 @@
-import { styled } from '@mui/system';
 import { Box, BoxProps } from '@mui/material';
+import { styled } from '@mui/system';
 
 const URL = 'url';
 

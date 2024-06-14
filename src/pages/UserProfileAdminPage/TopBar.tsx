@@ -1,8 +1,11 @@
 import { useTranslation } from 'react-i18next';
+
 import { Typography } from '@mui/material';
 import { Box } from '@mui/system';
+
 import ArrowDown from 'src/assets/icons/arrow-down-grey.svg';
 import theme from 'src/theme';
+
 import { StyledAvatar } from './styles';
 
 function TopBar() {

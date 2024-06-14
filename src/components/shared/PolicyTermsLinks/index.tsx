@@ -1,9 +1,12 @@
 import { useTranslation } from 'react-i18next';
-import Box from '@mui/material/Box';
-import TextButton from 'src/components/shared/TextButton';
-import LabelText from 'src/components/shared/LabelText';
 import { useLocation } from 'react-router-dom';
+
+import Box from '@mui/material/Box';
+
 import { urls } from 'src/common/constants';
+import LabelText from 'src/components/shared/LabelText';
+import TextButton from 'src/components/shared/TextButton';
+
 import LinkStyled from './styles';
 
 function PolicyTermsLinks(): JSX.Element {

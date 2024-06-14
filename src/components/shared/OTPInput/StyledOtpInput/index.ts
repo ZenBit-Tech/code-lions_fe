@@ -1,4 +1,5 @@
 import { styled } from '@mui/system';
+
 import theme from 'src/theme';
 
 interface IStyledOtpInputProps {

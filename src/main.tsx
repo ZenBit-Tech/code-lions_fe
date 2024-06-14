@@ -1,15 +1,19 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
-import { Provider } from 'react-redux';
-import { PersistGate } from 'redux-persist/integration/react';
 import { I18nextProvider } from 'react-i18next';
+import { Provider } from 'react-redux';
+
 import { ThemeProvider } from '@mui/material/styles';
+
+import ReactDOM from 'react-dom/client';
+import { PersistGate } from 'redux-persist/integration/react';
 import store, { persistor } from 'src/redux/store';
+
+import App from './App';
+import GoogleAuthProvider from './components/GoogleAuthProvider';
+import ToastProvider from './components/shared/toasts/components/ToastProvider';
 import i18n from './locales/i18n';
 import './index.css';
-import App from './App';
 import theme from './theme';
-import ToastProvider from './components/shared/toasts/components/ToastProvider';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
@@ -17,9 +21,11 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
       <PersistGate loading={null} persistor={persistor}>
         <I18nextProvider i18n={i18n}>
           <ThemeProvider theme={theme}>
-            <ToastProvider>
-              <App />
-            </ToastProvider>
+            <GoogleAuthProvider>
+              <ToastProvider>
+                <App />
+              </ToastProvider>
+            </GoogleAuthProvider>
           </ThemeProvider>
         </I18nextProvider>
       </PersistGate>

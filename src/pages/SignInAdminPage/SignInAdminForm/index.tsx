@@ -1,39 +1,33 @@
 import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
+
 import { Typography } from '@mui/material';
 import { Box } from '@mui/system';
-import { useLoginMutation } from 'src/redux/auth/authApi';
-import { useAppDispatch } from 'src/redux/auth/hooks/hooks';
-import {
-  loginStart,
-  loginSuccess,
-  loginFailure,
-  setTokens,
-  setUser,
-} from 'src/redux/auth/authSlice';
-import { ILoginDto, ILoginResponse } from 'src/redux/auth/types/user';
-import {
-  CustomFetchBaseQueryError,
-  IErrorResponse,
-  SerializedError,
-} from 'src/redux/user/types';
-import theme from 'src/theme';
+
 import { appErrors, urls, validations } from 'src/common/constants';
+import LabelText from 'src/components/shared/LabelText';
 import PasswordInput from 'src/components/shared/PasswordInput';
-import {
-  InputPaddingVariants,
-  InputStyleVariants,
-} from 'src/components/shared/StyledInput/types';
-import StyledInput from 'src/components/shared/StyledInput';
 import StyledButton from 'src/components/shared/StyledButton';
 import {
   PaddingVariants,
   StyleVariants,
 } from 'src/components/shared/StyledButton/types';
-import LabelText from 'src/components/shared/LabelText';
+import StyledInput from 'src/components/shared/StyledInput';
+import {
+  InputPaddingVariants,
+  InputStyleVariants,
+} from 'src/components/shared/StyledInput/types';
 import TitleInputWrapper from 'src/components/shared/TitleInputWrapper';
 import useToast from 'src/components/shared/toasts/components/ToastProvider/ToastProviderHooks';
+import {
+  CustomFetchBaseQueryError,
+  IErrorResponse,
+  SerializedError,
+} from 'src/redux/user/types';
+import { useLoginUserMutation } from 'src/redux/user/userService';
+import theme from 'src/theme';
+
 import FormStyled, { ErrorMessage } from './styles';
 
 interface IFormInput {
@@ -44,8 +38,7 @@ interface IFormInput {
 function SignInAdminForm() {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const dispatch = useAppDispatch();
-  const [login, { isLoading }] = useLoginMutation();
+  const [login, { isLoading }] = useLoginUserMutation();
   const { showToast } = useToast();
 
   const {
@@ -76,19 +69,9 @@ function SignInAdminForm() {
     return t('authErrors.failed');
   };
 
-  const onSubmit: SubmitHandler<IFormInput> = async (data) => {
-    dispatch(loginStart());
+  const onSubmit: SubmitHandler<IFormInput> = async ({ email, password }) => {
     try {
-      const loginData: ILoginDto = {
-        email: data.email,
-        password: data.password,
-      };
-      const response: ILoginResponse = await login(loginData).unwrap();
-      const { user, tokens } = response;
-
-      dispatch(loginSuccess({ user, tokens }));
-      dispatch(setUser(user));
-      dispatch(setTokens(tokens));
+      await login({ email, password }).unwrap();
 
       navigate(urls.HOME);
     } catch (err) {
@@ -101,7 +84,6 @@ function SignInAdminForm() {
       } else {
         showToast('error', errorMessage);
       }
-      dispatch(loginFailure(errorMessage));
     }
   };
 
@@ -178,9 +160,7 @@ function SignInAdminForm() {
         padding={PaddingVariants.LG}
         disabled={!isDirty || !isValid || errorsLength > 0 || isLoading}
       >
-        <Typography variant="button" color={theme.palette.common.white}>
-          {t('signin.singInButton')}
-        </Typography>
+        <Typography variant="button">{t('signin.singInButton')}</Typography>
       </StyledButton>
     </FormStyled>
   );

@@ -1,4 +1,5 @@
 import theme from 'src/theme';
+
 import { InputStyleVariants, InputPaddingVariants } from './types';
 
 export const InputStyles = {

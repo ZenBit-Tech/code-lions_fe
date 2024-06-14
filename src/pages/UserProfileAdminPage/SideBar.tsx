@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+
 import {
   Collapse,
   IconButton,
@@ -8,26 +9,32 @@ import {
   Typography,
 } from '@mui/material';
 import { Box } from '@mui/system';
-import UsersIcon from 'src/assets/icons/users.svg';
-import ProductsIcon from 'src/assets/icons/products.svg';
-import ChatsIcon from 'src/assets/icons/chats.svg';
-import ArrowUp from 'src/assets/icons/arrow-up.svg';
+
 import ArrowDown from 'src/assets/icons/arrow-down.svg';
+import ArrowUp from 'src/assets/icons/arrow-up.svg';
+import ChatsIcon from 'src/assets/icons/chats.svg';
+import ProductsIcon from 'src/assets/icons/products.svg';
+import UsersIcon from 'src/assets/icons/users.svg';
 import theme from 'src/theme';
+
 import Logo from './Logo';
 import { StyledListItemButton, StyledSubListItemButton } from './styles';
 
-const listUsers: number = 0;
-const listProducts: number = 1;
-const listChats: number = 2;
+const listIndexes = {
+  users: 0,
+  products: 1,
+  chats: 2,
+};
 
-const subListBuyers: number = 1;
-const subListVendors: number = 2;
-const subListRequests: number = 3;
-const subListProducts: number = 4;
+const subListIndexes = {
+  buyers: 1,
+  vendors: 2,
+  requests: 3,
+  productsList: 4,
+};
 
 function SideBar() {
-  const [selectedIndex, setSelectedIndex] = useState(listUsers);
+  const [selectedIndex, setSelectedIndex] = useState(listIndexes.users);
   const [selectedSubIndex, setSelectedSubIndex] = useState<number | null>(null);
   const [openUsers, setOpenUsers] = useState(false);
   const [openProducts, setOpenProducts] = useState(false);
@@ -66,9 +73,9 @@ function SideBar() {
       </Box>
       <List component="nav">
         <StyledListItemButton
-          selected={selectedIndex === listUsers}
+          selected={selectedIndex === listIndexes.users}
           onClick={(event) => {
-            handleListItemClick(event, listUsers);
+            handleListItemClick(event, listIndexes.users);
           }}
         >
           <Box
@@ -80,7 +87,7 @@ function SideBar() {
             <ListItemIcon sx={{ minWidth: '24px' }}>
               <UsersIcon />
             </ListItemIcon>
-            {selectedIndex === listUsers ? (
+            {selectedIndex === listIndexes.users ? (
               <Typography
                 variant="subtitle1"
                 sx={{ marginLeft: '12px', fontSize: '16px' }}
@@ -94,11 +101,21 @@ function SideBar() {
             )}
           </Box>
           {openUsers ? (
-            <IconButton onClick={handleUsersClick}>
+            <IconButton
+              onClick={(event) => {
+                event.stopPropagation();
+                handleUsersClick();
+              }}
+            >
               <ArrowUp />
             </IconButton>
           ) : (
-            <IconButton onClick={handleUsersClick}>
+            <IconButton
+              onClick={(event) => {
+                event.stopPropagation();
+                handleUsersClick();
+              }}
+            >
               <ArrowDown />
             </IconButton>
           )}
@@ -115,17 +132,25 @@ function SideBar() {
             }}
           >
             <StyledSubListItemButton
-              selected={selectedSubIndex === subListBuyers}
+              selected={selectedSubIndex === subListIndexes.buyers}
               onClick={(event) =>
-                handleSubListItemClick(event, subListBuyers, listUsers)
+                handleSubListItemClick(
+                  event,
+                  subListIndexes.buyers,
+                  listIndexes.users
+                )
               }
             >
               <Typography variant="h4">{t('sidebar.buyers')}</Typography>
             </StyledSubListItemButton>
             <StyledSubListItemButton
-              selected={selectedSubIndex === subListVendors}
+              selected={selectedSubIndex === subListIndexes.vendors}
               onClick={(event) =>
-                handleSubListItemClick(event, subListVendors, listUsers)
+                handleSubListItemClick(
+                  event,
+                  subListIndexes.vendors,
+                  listIndexes.users
+                )
               }
             >
               <Typography variant="h4">{t('sidebar.vendors')}</Typography>
@@ -134,9 +159,9 @@ function SideBar() {
         </Collapse>
 
         <StyledListItemButton
-          selected={selectedIndex === listProducts}
+          selected={selectedIndex === listIndexes.products}
           onClick={(event) => {
-            handleListItemClick(event, listProducts);
+            handleListItemClick(event, listIndexes.products);
           }}
         >
           <Box
@@ -148,7 +173,7 @@ function SideBar() {
             <ListItemIcon sx={{ minWidth: '24px' }}>
               <ProductsIcon />
             </ListItemIcon>
-            {selectedIndex === listProducts ? (
+            {selectedIndex === listIndexes.products ? (
               <Typography
                 variant="subtitle1"
                 sx={{ marginLeft: '12px', fontSize: '16px' }}
@@ -162,11 +187,21 @@ function SideBar() {
             )}
           </Box>
           {openProducts ? (
-            <IconButton onClick={handleProductsClick}>
+            <IconButton
+              onClick={(event) => {
+                event.stopPropagation();
+                handleProductsClick();
+              }}
+            >
               <ArrowUp />
             </IconButton>
           ) : (
-            <IconButton onClick={handleProductsClick}>
+            <IconButton
+              onClick={(event) => {
+                event.stopPropagation();
+                handleProductsClick();
+              }}
+            >
               <ArrowDown />
             </IconButton>
           )}
@@ -183,17 +218,25 @@ function SideBar() {
             }}
           >
             <StyledSubListItemButton
-              selected={selectedSubIndex === subListRequests}
+              selected={selectedSubIndex === subListIndexes.requests}
               onClick={(event) =>
-                handleSubListItemClick(event, subListRequests, listProducts)
+                handleSubListItemClick(
+                  event,
+                  subListIndexes.requests,
+                  listIndexes.products
+                )
               }
             >
               <Typography variant="h4">{t('sidebar.requests')}</Typography>
             </StyledSubListItemButton>
             <StyledSubListItemButton
-              selected={selectedSubIndex === subListProducts}
+              selected={selectedSubIndex === subListIndexes.productsList}
               onClick={(event) =>
-                handleSubListItemClick(event, subListProducts, listProducts)
+                handleSubListItemClick(
+                  event,
+                  subListIndexes.productsList,
+                  listIndexes.products
+                )
               }
             >
               <Typography variant="h4">{t('sidebar.productsList')}</Typography>
@@ -202,9 +245,9 @@ function SideBar() {
         </Collapse>
 
         <StyledListItemButton
-          selected={selectedIndex === listChats}
+          selected={selectedIndex === listIndexes.chats}
           onClick={(event) => {
-            handleListItemClick(event, listChats);
+            handleListItemClick(event, listIndexes.chats);
             setSelectedSubIndex(null);
           }}
         >
@@ -217,7 +260,7 @@ function SideBar() {
             <ListItemIcon sx={{ minWidth: '24px' }}>
               <ChatsIcon />
             </ListItemIcon>
-            {selectedIndex === listChats ? (
+            {selectedIndex === listIndexes.chats ? (
               <Typography
                 variant="subtitle1"
                 sx={{ marginLeft: '12px', fontSize: '16px' }}
