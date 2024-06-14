@@ -1,4 +1,3 @@
-import { styled } from '@mui/system';
 import {
   Avatar,
   Divider,
@@ -7,6 +6,7 @@ import {
   ListItemAvatar,
   ListItemText,
 } from '@mui/material';
+import { styled } from '@mui/system';
 
 export const ListStyled = styled(List)(({ theme }) => ({
   width: '100%',

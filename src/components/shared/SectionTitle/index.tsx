@@ -1,7 +1,10 @@
 import { useLocation } from 'react-router-dom';
+
 import { IconButton } from '@mui/material';
+
 import ArrowIcon from 'src/assets/icons/arrow-left.svg';
 import Title from 'src/components/shared/Title';
+
 import { StyledLink, TitleWrapper } from './styles';
 
 interface ISectionTitle {

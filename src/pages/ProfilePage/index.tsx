@@ -1,17 +1,20 @@
 import { useTranslation } from 'react-i18next';
+
 import { Avatar, Typography } from '@mui/material';
 import { Box } from '@mui/system';
-import { useAppSelector } from 'src/redux/hooks';
-import { selectUserName } from 'src/redux/user/userSlice';
-import SimpleSection from 'src/components/shared/SimpleSection';
+
+import NotificationIcon from 'src/assets/icons/profile/notification.svg';
 import Container from 'src/components/shared/Container';
 import SectionTitle from 'src/components/shared/SectionTitle';
+import SimpleSection from 'src/components/shared/SimpleSection';
 import StyledButton from 'src/components/shared/StyledButton';
 import {
   PaddingVariants,
   StyleVariants,
 } from 'src/components/shared/StyledButton/types';
-import NotificationIcon from 'src/assets/icons/profile/notification.svg';
+import { useAppSelector } from 'src/redux/hooks';
+import { selectUserName } from 'src/redux/user/userSlice';
+
 import ProfileMenu from './ProfileMenu';
 import { IconButtonStyled, NameTitle, SubTitle, TitleWrapper } from './styles';
 

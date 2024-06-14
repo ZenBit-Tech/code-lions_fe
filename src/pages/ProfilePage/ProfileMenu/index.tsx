@@ -1,11 +1,13 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import ProfileIcon from 'src/assets/icons/profile/profile.svg';
+
+import LogoutIcon from 'src/assets/icons/profile/logout.svg';
 import OrdersIcon from 'src/assets/icons/profile/orders.svg';
-import WishlistIcon from 'src/assets/icons/profile/wishlist.svg';
+import ProfileIcon from 'src/assets/icons/profile/profile.svg';
 import SettingsIcon from 'src/assets/icons/profile/settings.svg';
 import SupportIcon from 'src/assets/icons/profile/support.svg';
-import LogoutIcon from 'src/assets/icons/profile/logout.svg';
+import WishlistIcon from 'src/assets/icons/profile/wishlist.svg';
+
 import {
   AvatarStyled,
   DividerStyled,

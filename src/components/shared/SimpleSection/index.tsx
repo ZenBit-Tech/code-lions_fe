@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+
 import SimpleSectionStyled from './styles';
 
 interface ISimpleSection {
