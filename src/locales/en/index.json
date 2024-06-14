@@ -117,5 +117,21 @@
     "mockAvatar": "AA",
     "mockName": "Anna Asol",
     "mockRole": "Admin"
+  },
+  "userProfileAdmin": {
+    "superadmin": "Superadmin",
+    "profile": "Buyer Profile",
+    "buyers": "Buyers",
+    "buyerName": "Buyer Name Profile",
+    "name": "Name",
+    "phoneNumber": "Phone Number",
+    "status": "Status",
+    "email": "Email",
+    "completeAddress": "Complete Address",
+    "mockName": "Anna Asol",
+    "mockPhoneNumber": "8791238193",
+    "mockStatus": "Active",
+    "mockEmail": "your.email@gmail.com",
+    "mockCompleteAddress": "2972 Westheimer Rd. Santa Ana, Illinois 85486"
   }
 }

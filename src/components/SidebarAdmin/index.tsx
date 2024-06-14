@@ -10,9 +10,9 @@ import {
 } from '@mui/material';
 import { Box } from '@mui/system';
 
-import ArrowDown from 'src/assets/icons/arrow-down.svg';
-import ArrowUp from 'src/assets/icons/arrow-up.svg';
 import ChatsIcon from 'src/assets/icons/chats.svg';
+import ChevronDown from 'src/assets/icons/chevron-down.svg';
+import ChevronUp from 'src/assets/icons/chevron-up.svg';
 import ProductsIcon from 'src/assets/icons/products.svg';
 import UsersIcon from 'src/assets/icons/users.svg';
 import theme from 'src/theme';
@@ -107,7 +107,7 @@ function SideBar() {
                 handleUsersClick();
               }}
             >
-              <ArrowUp />
+              <ChevronUp />
             </IconButton>
           ) : (
             <IconButton
@@ -116,7 +116,7 @@ function SideBar() {
                 handleUsersClick();
               }}
             >
-              <ArrowDown />
+              <ChevronDown />
             </IconButton>
           )}
         </StyledListItemButton>
@@ -193,7 +193,7 @@ function SideBar() {
                 handleProductsClick();
               }}
             >
-              <ArrowUp />
+              <ChevronUp />
             </IconButton>
           ) : (
             <IconButton
@@ -202,7 +202,7 @@ function SideBar() {
                 handleProductsClick();
               }}
             >
-              <ArrowDown />
+              <ChevronDown />
             </IconButton>
           )}
         </StyledListItemButton>
