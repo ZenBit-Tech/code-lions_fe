@@ -1,14 +1,16 @@
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
+
 import { IconButton, Box } from '@mui/material';
 import { styled } from '@mui/system';
-import Section from 'src/components/shared/Section';
-import Container from 'src/components/shared/Container';
-import RestorePasswordForm from 'src/pages/RestorePasswordPage/RestorePasswordForm';
-import Title from 'src/components/shared/Title';
-import RegularText from 'src/components/shared/RegularText';
+
 import ArrowLeftIcon from 'src/assets/icons/arrow-left.svg';
 import { urls } from 'src/common/constants';
+import Container from 'src/components/shared/Container';
+import RegularText from 'src/components/shared/RegularText';
+import Section from 'src/components/shared/Section';
+import Title from 'src/components/shared/Title';
+import RestorePasswordForm from 'src/pages/RestorePasswordPage/RestorePasswordForm';
 
 const FormContainer = styled(Box)(({ theme }) => ({
   width: '100%',

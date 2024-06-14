@@ -137,6 +137,11 @@ const theme = createTheme({
         lineHeight: 1.63,
       },
     },
+    caption: {
+      fontSize: 12,
+      fontWeight: 400,
+      color: 'black',
+    },
     button: {
       fontFamily: 'Playfair Display, Arial, sans-serif',
       fontSize: 16,

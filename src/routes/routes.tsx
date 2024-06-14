@@ -1,15 +1,18 @@
 import { createBrowserRouter } from 'react-router-dom';
+
 import { urls } from 'src/common/constants';
 import HomePage from 'src/pages/HomePage';
+import NewPasswordPage from 'src/pages/NewPasswordPage';
+import PrivacyPolicyPage from 'src/pages/PrivacyPolicyPage';
+import ProfilePage from 'src/pages/ProfilePage';
+import RestorePasswordPage from 'src/pages/RestorePasswordPage';
+import SignInAdminPage from 'src/pages/SignInAdminPage';
 import SignInPage from 'src/pages/SignInPage';
 import SignUpPage from 'src/pages/SignUpPage';
-import VerifyEmailPage from 'src/pages/VerifyEmailPage';
-import RestorePasswordPage from 'src/pages/RestorePasswordPage';
-import NewPasswordPage from 'src/pages/NewPasswordPage';
+import SizesGuidePage from 'src/pages/SizesGuidePage';
 import TermsOfUsePage from 'src/pages/TermsOfUsePage';
-import PrivacyPolicyPage from 'src/pages/PrivacyPolicyPage';
-import SignInAdminPage from 'src/pages/SignInAdminPage';
-import ProfilePage from 'src/pages/ProfilePage';
+import VerifyEmailPage from 'src/pages/VerifyEmailPage';
+
 import VerifyPrivateRoute from './VerifyPrivateRoute';
 
 const router = createBrowserRouter([
@@ -29,6 +32,7 @@ const router = createBrowserRouter([
   { path: urls.NEW_PASSWORD, element: <NewPasswordPage /> },
   { path: urls.PRIVACY_POLICY, element: <PrivacyPolicyPage /> },
   { path: urls.TERMS_OF_USE, element: <TermsOfUsePage /> },
+  { path: urls.SIZES_GUIDE, element: <SizesGuidePage /> },
   { path: urls.SIGN_IN_ADMIN, element: <SignInAdminPage /> },
   { path: urls.PROFILE, element: <ProfilePage /> },
 ]);

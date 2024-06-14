@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { userApi } from 'src/redux/user/userService';
+
 import { IUser } from './types';
 
 const initialState: IUser = {

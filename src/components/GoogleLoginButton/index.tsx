@@ -1,13 +1,15 @@
-import { GoogleLogin } from '@react-oauth/google';
-import useMediaQuery from '@mui/material/useMediaQuery';
-import { useTheme } from '@mui/material/styles';
-import { useAddUserGoogleMutation } from 'src/redux/user/userService';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
+
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
+
+import { GoogleLogin } from '@react-oauth/google';
+import { SerializedError } from '@reduxjs/toolkit';
+import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import { urls } from 'src/common/constants';
 import useToast from 'src/components/shared/toasts/components/ToastProvider/ToastProviderHooks';
-import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
-import { SerializedError } from '@reduxjs/toolkit';
-import { useTranslation } from 'react-i18next';
+import { useAddUserGoogleMutation } from 'src/redux/user/userService';
 
 const GoogleButtonProps = {
   WIDTH_SMALL: '300px',

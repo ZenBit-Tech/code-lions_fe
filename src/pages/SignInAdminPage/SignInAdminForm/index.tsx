@@ -1,30 +1,33 @@
 import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
+
 import { Typography } from '@mui/material';
 import { Box } from '@mui/system';
-import { useLoginUserMutation } from 'src/redux/user/userService';
-import {
-  CustomFetchBaseQueryError,
-  IErrorResponse,
-  SerializedError,
-} from 'src/redux/user/types';
-import theme from 'src/theme';
+
 import { appErrors, urls, validations } from 'src/common/constants';
+import LabelText from 'src/components/shared/LabelText';
 import PasswordInput from 'src/components/shared/PasswordInput';
-import {
-  InputPaddingVariants,
-  InputStyleVariants,
-} from 'src/components/shared/StyledInput/types';
-import StyledInput from 'src/components/shared/StyledInput';
 import StyledButton from 'src/components/shared/StyledButton';
 import {
   PaddingVariants,
   StyleVariants,
 } from 'src/components/shared/StyledButton/types';
-import LabelText from 'src/components/shared/LabelText';
+import StyledInput from 'src/components/shared/StyledInput';
+import {
+  InputPaddingVariants,
+  InputStyleVariants,
+} from 'src/components/shared/StyledInput/types';
 import TitleInputWrapper from 'src/components/shared/TitleInputWrapper';
 import useToast from 'src/components/shared/toasts/components/ToastProvider/ToastProviderHooks';
+import {
+  CustomFetchBaseQueryError,
+  IErrorResponse,
+  SerializedError,
+} from 'src/redux/user/types';
+import { useLoginUserMutation } from 'src/redux/user/userService';
+import theme from 'src/theme';
+
 import FormStyled, { ErrorMessage } from './styles';
 
 interface IFormInput {

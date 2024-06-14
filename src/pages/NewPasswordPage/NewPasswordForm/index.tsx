@@ -1,24 +1,26 @@
 import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
+
 import { Box, Typography } from '@mui/material';
-import { useNewPasswordMutation } from 'src/redux/user/userService';
+
+import { urls, validations } from 'src/common/constants';
+import LabelText from 'src/components/shared/LabelText';
 import PasswordInput from 'src/components/shared/PasswordInput';
-import {
-  InputPaddingVariants,
-  InputStyleVariants,
-} from 'src/components/shared/StyledInput/types';
 import StyledButton from 'src/components/shared/StyledButton';
 import {
   PaddingVariants,
   StyleVariants,
 } from 'src/components/shared/StyledButton/types';
-import LabelText from 'src/components/shared/LabelText';
+import {
+  InputPaddingVariants,
+  InputStyleVariants,
+} from 'src/components/shared/StyledInput/types';
 import TitleInputWrapper from 'src/components/shared/TitleInputWrapper';
 import useToast from 'src/components/shared/toasts/components/ToastProvider/ToastProviderHooks';
-import { urls, validations } from 'src/common/constants';
-import theme from 'src/theme';
 import FormStyled from 'src/pages/SignInPage/SignInForm/styles';
+import { useNewPasswordMutation } from 'src/redux/user/userService';
+import theme from 'src/theme';
 
 interface IFormInput {
   password: string;

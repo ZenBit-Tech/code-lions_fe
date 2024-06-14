@@ -1,7 +1,8 @@
-import { styled } from '@mui/system';
 import { LoadingButton } from '@mui/lab';
-import { IStyledButtonProps } from './types';
+import { styled } from '@mui/system';
+
 import { ButtonPaddings, ButtonStyles } from './styles';
+import { IStyledButtonProps } from './types';
 
 const StyledButton = styled(LoadingButton)<IStyledButtonProps>(
   ({ theme, ...props }) => ({

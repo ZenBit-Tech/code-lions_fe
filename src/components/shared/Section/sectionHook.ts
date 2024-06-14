@@ -1,13 +1,14 @@
 import { useLocation } from 'react-router-dom';
-import { urls } from 'src/common/constants';
+
+import { pathToPhotos, urls } from 'src/common/constants';
 import theme from 'src/theme';
 
 const imageUrls = {
-  signupImageUrl: 'src/assets/photos/signUpPhoto.jpeg',
-  verifyImageUrl: 'src/assets/photos/verifyPhoto.jpeg',
-  signinImageUrl: 'src/assets/photos/signInPhoto.png',
-  restoreImageUrl: 'src/assets/photos/restorePasswordPhoto.jpg',
-  newPasswordImageUrl: 'src/assets/photos/newPasswordPhoto.jpeg',
+  signupImageUrl: `${pathToPhotos}/signUpPhoto.jpeg`,
+  verifyImageUrl: `${pathToPhotos}/verifyPhoto.jpeg`,
+  signinImageUrl: `${pathToPhotos}/signInPhoto.png`,
+  restoreImageUrl: `${pathToPhotos}/restorePasswordPhoto.jpg`,
+  newPasswordImageUrl: `${pathToPhotos}/newPasswordPhoto.jpeg`,
 };
 
 const RouteConfig: {
