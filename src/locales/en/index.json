@@ -139,5 +139,20 @@
     "mockSaveDate": "Apr 9, 2023-15-03",
     "saveButton": "Save",
     "cancelButton": "Cancel"
+  },
+  "profile": {
+    "title": "Your Profile",
+    "myProfile": "My Profile",
+    "buyerMode": "Buyer Mode",
+    "goToVendor": "Go to Vendor Mode",
+    "name": "Anna Asol"
+  },
+  "profileMenu": {
+    "personalInformation": "Personal Information",
+    "myOrders": "My Orders",
+    "wishlist": "Wishlist",
+    "settings": "Settings",
+    "support": "Support",
+    "logOut": "Log Out"
   }
 }
