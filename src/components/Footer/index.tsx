@@ -7,9 +7,9 @@ import EmailIcon from 'src/assets/icons/email.svg';
 import FacebookIcon from 'src/assets/icons/facebook.svg';
 import InstagramIcon from 'src/assets/icons/instagram.svg';
 import { socialNetworkLinks } from 'src/common/constants';
+import FooterMenu from 'src/components/FooterMenu';
+import HeaderLogo from 'src/components/HeaderLogo';
 import theme from 'src/theme';
-
-import FooterMenu from '../FooterMenu';
 
 import { SocialMediaButtons, SocialMediaButton } from './styles';
 
@@ -23,6 +23,7 @@ function Footer() {
         display: 'none',
         width: '100%',
         minHeight: '381px',
+        marginTop: '120px',
         paddingTop: '74px',
         background: theme.palette.background.paper,
         [theme.breakpoints.up('md')]: {
@@ -51,28 +52,8 @@ function Footer() {
             maxWidth: '180px',
           }}
         >
-          <Box sx={{ display: 'flex', marginTop: '8px' }}>
-            <Box
-              sx={{
-                width: '18px',
-                height: '18px',
-                backgroundColor: theme.palette.common.black,
-                borderRadius: '50%',
-                display: 'inline-block',
-              }}
-            />
-
-            <Typography
-              component="h4"
-              variant="h1"
-              sx={{
-                margin: '-3px 0 0 4px',
-                fontSize: '20px',
-                letterSpacing: '-0.2px',
-              }}
-            >
-              {t('logoTitle')}
-            </Typography>
+          <Box sx={{ marginTop: '8px' }}>
+            <HeaderLogo />
           </Box>
           <Typography
             sx={{

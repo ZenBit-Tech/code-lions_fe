@@ -8,7 +8,9 @@
     "newPasswordPage": "New Password"
   },
   "header": {
-    "home": "Home"
+    "shop": "Shop",
+    "vendors": "Vendors",
+    "messages": "Messages"
   },
   "footer": {
     "someText": "Some text will be here two - three lines",
