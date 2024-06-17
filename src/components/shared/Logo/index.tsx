@@ -6,21 +6,6 @@ interface ILogoProps {
   logoColor: string;
 }
 
-function Circle({ logoColor }: ILogoProps) {
-  return (
-    <Box
-      sx={{
-        width: '28px',
-        height: '28px',
-        backgroundColor: logoColor,
-        borderRadius: '50%',
-        display: 'inline-block',
-        marginRight: '6.25px',
-      }}
-    />
-  );
-}
-
 function Logo({ logoColor }: ILogoProps) {
   const { t } = useTranslation();
 
@@ -34,7 +19,16 @@ function Logo({ logoColor }: ILogoProps) {
         position: 'absolute',
       }}
     >
-      <Circle logoColor={logoColor} />
+      <Box
+        sx={{
+          width: '28px',
+          height: '28px',
+          backgroundColor: logoColor,
+          borderRadius: '50%',
+          display: 'inline-block',
+          marginRight: '6.25px',
+        }}
+      />
       <Typography variant="h2" sx={{ color: logoColor }}>
         {t('logoTitle')}
       </Typography>
