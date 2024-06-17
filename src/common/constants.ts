@@ -10,6 +10,7 @@ export const urls = {
   TERMS_OF_USE: '/terms-of-use',
   SIZES_GUIDE: '/sizes-guide',
   SIGN_IN_ADMIN: '/signin-admin',
+  PROFILE: '/profile',
 };
 
 export const RTKUrls = {

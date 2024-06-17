@@ -4,6 +4,7 @@ import { urls } from 'src/common/constants';
 import HomePage from 'src/pages/HomePage';
 import NewPasswordPage from 'src/pages/NewPasswordPage';
 import PrivacyPolicyPage from 'src/pages/PrivacyPolicyPage';
+import ProfilePage from 'src/pages/ProfilePage';
 import RestorePasswordPage from 'src/pages/RestorePasswordPage';
 import SignInAdminPage from 'src/pages/SignInAdminPage';
 import SignInPage from 'src/pages/SignInPage';
@@ -33,6 +34,7 @@ const router = createBrowserRouter([
   { path: urls.TERMS_OF_USE, element: <TermsOfUsePage /> },
   { path: urls.SIZES_GUIDE, element: <SizesGuidePage /> },
   { path: urls.SIGN_IN_ADMIN, element: <SignInAdminPage /> },
+  { path: urls.PROFILE, element: <ProfilePage /> },
 ]);
 
 export default router;
