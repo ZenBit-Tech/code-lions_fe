@@ -13,10 +13,11 @@ import { StyledShape, StyledUserSection } from './styles';
 
 interface IUserDetailsSectionProps {
   children?: ReactNode;
+  sectionHeight: string;
 }
 
 function UserDetailsSection(props: IUserDetailsSectionProps) {
-  const { children } = props;
+  const { children, sectionHeight } = props;
 
   const { t } = useTranslation();
 
@@ -59,10 +60,10 @@ function UserDetailsSection(props: IUserDetailsSectionProps) {
         </Box>
         <Box
           sx={{
-            backgroundColor: 'white',
+            backgroundColor: theme.palette.common.white,
             borderRadius: '10px',
             padding: '24px 24px 8px 24px',
-            height: '356px',
+            height: sectionHeight,
           }}
         >
           <Box display="flex" justifyContent="space-between" width="100%">

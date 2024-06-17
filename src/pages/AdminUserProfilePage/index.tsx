@@ -2,13 +2,13 @@ import { useTranslation } from 'react-i18next';
 
 import { Grid } from '@mui/material';
 
+import HeaderAdmin from 'src/components/HeaderAdmin';
 import SideBar from 'src/components/SidebarAdmin';
-import TopBar from 'src/components/TopbarAdmin';
 
 import ProfileField from './ProfileField';
 import UserDetailsSection from './UserDetailsSection';
 
-function UserProfileAdminPage() {
+function AdminUserProfilePage() {
   const { t } = useTranslation();
 
   return (
@@ -17,8 +17,8 @@ function UserProfileAdminPage() {
         <SideBar />
       </Grid>
       <Grid item xs={4} height="100%">
-        <TopBar />
-        <UserDetailsSection>
+        <HeaderAdmin />
+        <UserDetailsSection sectionHeight="356px">
           <Grid container columns={2} width="100%">
             <Grid item xs={1}>
               <ProfileField
@@ -51,4 +51,4 @@ function UserProfileAdminPage() {
   );
 }
 
-export default UserProfileAdminPage;
+export default AdminUserProfilePage;

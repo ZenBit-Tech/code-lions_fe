@@ -113,10 +113,11 @@
     "productsList": "Products List",
     "chats": "Chats"
   },
-  "topbar": {
+  "headerAdmin": {
     "mockAvatar": "AA",
     "mockName": "Anna Asol",
-    "mockRole": "Admin"
+    "mockRole": "Admin",
+    "logout": "Log out"
   },
   "userProfileAdmin": {
     "superadmin": "Superadmin",
@@ -130,8 +131,13 @@
     "completeAddress": "Complete Address",
     "mockName": "Anna Asol",
     "mockPhoneNumber": "8791238193",
-    "mockStatus": "Active",
+    "mockStatusActive": "Active",
+    "mockStatusInactive": "Inactive",
     "mockEmail": "your.email@gmail.com",
-    "mockCompleteAddress": "2972 Westheimer Rd. Santa Ana, Illinois 85486"
+    "mockCompleteAddress": "2972 Westheimer Rd. Santa Ana, Illinois 85486",
+    "lastSaved": "last saved",
+    "mockSaveDate": "Apr 9, 2023-15-03",
+    "saveButton": "Save",
+    "cancelButton": "Cancel"
   }
 }

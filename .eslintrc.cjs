@@ -93,8 +93,8 @@ module.exports = {
     ],
     'react/forbid-component-props': ['error', { forbid: ['style'] }],
     'react/jsx-props-no-spreading': 0,
-    'react/jsx-props-no-spreading': 0,
     'react/jsx-no-useless-fragment': 0,
+    'react/no-unstable-nested-components': 0,
     'react/react-in-jsx-scope': 0,
     'react-refresh/only-export-components': [
       'warn',

@@ -10,7 +10,8 @@ export const urls = {
   TERMS_OF_USE: '/terms-of-use',
   SIZES_GUIDE: '/sizes-guide',
   SIGN_IN_ADMIN: '/signin-admin',
-  USER_PROFILE_ADMIN: 'admin/user-profile',
+  ADMIN_USER_PROFILE: 'admin/user',
+  ADMIN_USER_PROFILE_EDIT: 'admin/user/edit',
 };
 
 export const RTKUrls = {
@@ -50,3 +51,5 @@ export const appErrors = {
 };
 
 export const pathToPhotos = '/assets/photos';
+
+export const countryCodes = [{ code: '+62' }, { code: '+38' }];
