@@ -49,3 +49,9 @@ export const appErrors = {
 };
 
 export const pathToPhotos = '/assets/photos';
+
+export const socialNetworkLinks = {
+  FACEBOOK: 'https://www.facebook.com/',
+  INSTAGRAM: 'https://www.instagram.com/',
+  EMAIL: 'mailto:codelions@helpseo.net',
+};
