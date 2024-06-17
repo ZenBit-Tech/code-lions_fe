@@ -36,6 +36,7 @@ const theme = createTheme({
       contrastText: '#333333',
     },
     grey: {
+      300: 'rgba(237, 234, 233, 0.50)',
       800: '#141519',
       900: '#1C1C1E',
     },
