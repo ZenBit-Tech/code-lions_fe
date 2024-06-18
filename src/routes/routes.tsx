@@ -5,6 +5,7 @@ import AdminUserProfileEditPage from 'src/pages/AdminUserProfileEditPage';
 import AdminUserProfilePage from 'src/pages/AdminUserProfilePage';
 import HomePage from 'src/pages/HomePage';
 import NewPasswordPage from 'src/pages/NewPasswordPage';
+import OnboardingPage from 'src/pages/OnboardingPage';
 import PrivacyPolicyPage from 'src/pages/PrivacyPolicyPage';
 import ProfilePage from 'src/pages/ProfilePage';
 import RestorePasswordPage from 'src/pages/RestorePasswordPage';
@@ -36,6 +37,7 @@ const router = createBrowserRouter([
   { path: urls.TERMS_OF_USE, element: <TermsOfUsePage /> },
   { path: urls.SIZES_GUIDE, element: <SizesGuidePage /> },
   { path: urls.SIGN_IN_ADMIN, element: <SignInAdminPage /> },
+  { path: urls.ONBOARDING, element: <OnboardingPage /> },
   { path: urls.PROFILE, element: <ProfilePage /> },
   { path: urls.ADMIN_USER_PROFILE, element: <AdminUserProfilePage /> },
   { path: urls.ADMIN_USER_PROFILE_EDIT, element: <AdminUserProfileEditPage /> },

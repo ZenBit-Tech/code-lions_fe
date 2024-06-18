@@ -176,5 +176,13 @@
     "settings": "Settings",
     "support": "Support",
     "logOut": "Log Out"
+  },
+  "onboarding": {
+    "fillProfile": "Fill Profile",
+    "userRole": "User Role",
+    "generalInformation": "General Information",
+    "yourAddress": "Your Address",
+    "creditCard": "Credit Card",
+    "size": "Size"
   }
 }
