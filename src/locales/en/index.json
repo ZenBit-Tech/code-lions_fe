@@ -8,7 +8,29 @@
     "newPasswordPage": "New Password"
   },
   "header": {
-    "home": "Home"
+    "shop": "Shop",
+    "vendors": "Vendors",
+    "messages": "Messages"
+  },
+  "footer": {
+    "someText": "Some text will be here two - three lines",
+    "copyright": "© 2023 Black Circle"
+  },
+  "menu": {
+    "shop": "Shop",
+    "login": "Login",
+    "wishlist": "Wishlist",
+    "cart": "Cart",
+    "company": "Company",
+    "aboutUs": "About US",
+    "terms": "Terms & Conditions",
+    "privacy": "Privacy Policy",
+    "contact": "Contact Us",
+    "help": "Help",
+    "faqs": "FAQs",
+    "shipping": "Shipping and Delivery",
+    "rent": "Rent your closet",
+    "resell": "Resell your closet"
   },
   "verifyEmail": {
     "verifyYourEmail": "Verify your email",
