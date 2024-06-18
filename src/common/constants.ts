@@ -10,6 +10,9 @@ export const urls = {
   TERMS_OF_USE: '/terms-of-use',
   SIZES_GUIDE: '/sizes-guide',
   SIGN_IN_ADMIN: '/signin-admin',
+  PROFILE: '/profile',
+  ADMIN_USER_PROFILE: 'admin/user',
+  ADMIN_USER_PROFILE_EDIT: 'admin/user/edit',
 };
 
 export const RTKUrls = {
@@ -55,3 +58,5 @@ export const socialNetworkLinks = {
   INSTAGRAM: 'https://www.instagram.com/',
   EMAIL: 'mailto:codelions@helpseo.net',
 };
+
+export const countryCodes = [{ code: '+62' }, { code: '+38' }];

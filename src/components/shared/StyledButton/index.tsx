@@ -23,11 +23,8 @@ const StyledButton = styled(LoadingButton)<IStyledButtonProps>(
     },
     '&:disabled': {
       cursor: 'not-allowed',
-      color: theme.palette.text.disabled,
+      color: theme.palette.primary.contrastText,
       backgroundColor: theme.palette.background.paper,
-    },
-    [theme.breakpoints.down('sm')]: {
-      width: '300px',
     },
   })
 );

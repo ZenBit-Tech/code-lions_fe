@@ -1,43 +1,11 @@
-import { Link } from 'react-router-dom';
-
 import { Typography, TypographyProps } from '@mui/material';
 import { Box, styled } from '@mui/system';
-
-export const SimpleSection = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  padding: '0 16px',
-  [theme.breakpoints.up('sm')]: {
-    padding: 0,
-  },
-}));
 
 export const Container = styled(Box)(() => ({
   display: 'flex',
   flexDirection: 'column',
   '@media (max-width:600px)': {
     margin: '44px 0 21px 0',
-  },
-}));
-
-export const TitleWrapper = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  alignItems: 'center',
-  gap: '12px',
-  marginTop: '12px',
-  [theme.breakpoints.up('sm')]: {
-    margin: 0,
-    background: theme.palette.background.paper,
-    padding: '32px 0',
-    justifyContent: 'center',
-  },
-}));
-
-export const StyledLink = styled(Link)(({ theme }) => ({
-  textDecoration: 'none',
-  [theme.breakpoints.up('sm')]: {
-    display: 'none',
   },
 }));
 
@@ -85,9 +53,9 @@ interface TitleStyledProps extends TypographyProps {
 export const TitleStyled = styled(Typography)<TitleStyledProps>(
   ({ theme, center }) => ({
     color: theme.palette.text.primary,
-    textAlign: center ? 'center' : 'left',
     [theme.breakpoints.up('sm')]: {
       color: theme.palette.text.primary,
+      textAlign: center ? 'center' : 'left',
     },
   })
 );

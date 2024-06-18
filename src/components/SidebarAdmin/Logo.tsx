@@ -14,22 +14,21 @@ function Logo({ logoColor }: ILogoProps) {
       sx={{
         display: 'flex',
         alignItems: 'center',
-        marginLeft: '63px',
-        marginTop: '42px',
-        position: 'absolute',
+        marginTop: '10px',
+        padding: '10px',
       }}
     >
       <Box
         sx={{
-          width: '28px',
-          height: '28px',
+          width: '24px',
+          height: '24px',
           backgroundColor: logoColor,
+          marginRight: '5px',
           borderRadius: '50%',
           display: 'inline-block',
-          marginRight: '6.25px',
         }}
       />
-      <Typography variant="h2" sx={{ color: logoColor }}>
+      <Typography variant="h1" sx={{ color: logoColor }}>
         {t('logoTitle')}
       </Typography>
     </Box>

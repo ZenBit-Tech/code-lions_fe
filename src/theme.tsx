@@ -37,13 +37,17 @@ const theme = createTheme({
       main: '#E3EEE2',
       contrastText: '#333333',
     },
+    grey: {
+      800: '#141519',
+      900: '#1C1C1E',
+    },
     background: {
       default: '#ffffff',
       paper: '#EDEAE9',
     },
     text: {
       primary: '#333333',
-      secondary: '#ffffff',
+      secondary: '#9491A1',
       disabled: '#6D6B6B',
     },
     border: {

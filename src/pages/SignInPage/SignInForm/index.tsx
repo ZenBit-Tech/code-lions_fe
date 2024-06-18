@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { Typography, Link } from '@mui/material';
 import { Box } from '@mui/system';
 
+import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import { urls, validations } from 'src/common/constants';
 import LabelText from 'src/components/shared/LabelText';
 import PasswordInput from 'src/components/shared/PasswordInput';
