@@ -9,10 +9,16 @@ export const urls = {
   PRIVACY_POLICY: '/privacy-policy',
   TERMS_OF_USE: '/terms-of-use',
   SIZES_GUIDE: '/sizes-guide',
-  SIGN_IN_ADMIN: '/signin-admin',
+  SIGN_IN_ADMIN: 'admin/signin',
+  ADMIN: '/admin',
+  ADMIN_USERS: 'users',
+  ADMIN_BUYERS: 'buyers',
+  ADMIN_BUYER_PROFILE: 'buyers',
+  ADMIN_BUYER_PROFILE_EDIT: 'buyers/edit',
+  ADMIN_VENDORS: 'vendors',
+  ADMIN_VENDOR_PROFILE: 'vendors',
+  ADMIN_VENDOR_PROFILE_EDIT: 'vendors/edit',
   PROFILE: '/profile',
-  ADMIN_USER_PROFILE: 'admin/user',
-  ADMIN_USER_PROFILE_EDIT: 'admin/user/edit',
 };
 
 export const RTKUrls = {
@@ -59,4 +65,9 @@ export const socialNetworkLinks = {
   EMAIL: 'mailto:codelions@helpseo.net',
 };
 
-export const countryCodes = [{ code: '+62' }, { code: '+38' }];
+export const countryCodes = [{ code: '+1' }, { code: '+38' }];
+
+export const userRoles = {
+  BUYER: 'BUYER',
+  VENDOR: 'VENDOR',
+};

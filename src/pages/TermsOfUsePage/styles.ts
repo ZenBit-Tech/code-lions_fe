@@ -56,6 +56,8 @@ export const TitleStyled = styled(Typography)<TitleStyledProps>(
     [theme.breakpoints.up('sm')]: {
       color: theme.palette.text.primary,
       textAlign: center ? 'center' : 'left',
+      lineHeight: 1.83,
+      letterSpacing: '-0.4px',
     },
   })
 );

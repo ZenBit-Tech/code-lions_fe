@@ -5,6 +5,7 @@ export enum StyleVariants {
   WHITE = 'white',
   GREYISH = 'greyish',
   TRANSPARENT = 'transparent',
+  RED = 'red',
 }
 
 export enum PaddingVariants {
