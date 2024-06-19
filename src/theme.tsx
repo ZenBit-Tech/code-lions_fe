@@ -17,7 +17,7 @@ declare module '@mui/material/styles' {
       primary?: string;
       secondary?: string;
       dark?: string;
-      grey: string;
+      grey?: string;
       light: string;
       error?: string;
     };
@@ -63,7 +63,7 @@ const theme = createTheme({
       primary: 'rgba(0, 0, 0, 0.24)',
       secondary: '#EDEAE9',
       dark: '#333333',
-      grey: 'A0A8B0',
+      grey: '#D1D5DB',
       light: '#cbcbcb',
       error: '#F7392E',
     },

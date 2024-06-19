@@ -7,10 +7,11 @@ import { Box } from '@mui/system';
 import ArrowLeftIcon from 'src/assets/icons/arrow-left.svg';
 import Header from 'src/components/Header';
 import OnboardingHeaderItem from 'src/components/OnboardingHeaderItem';
-import OnboardingInfoForm from 'src/components/OnboardingInfoForm';
+// import OnboardingInfoForm from 'src/components/OnboardingInfoForm';
+import OnboardingRoleForm from 'src/components/OnboardingRoleForm';
 import theme from 'src/theme';
 
-const currentStep = 2;
+const currentStep = 1;
 
 function OnboardingPage() {
   const { t } = useTranslation();
@@ -85,7 +86,7 @@ function OnboardingPage() {
               ))}
             </Box>
           </Box>
-          <OnboardingInfoForm />
+          <OnboardingRoleForm />
         </Box>
       </Box>
     </>
