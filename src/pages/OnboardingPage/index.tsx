@@ -7,9 +7,10 @@ import { Box } from '@mui/system';
 import ArrowLeftIcon from 'src/assets/icons/arrow-left.svg';
 import Header from 'src/components/Header';
 import OnboardingHeaderItem from 'src/components/OnboardingHeaderItem';
+import OnboardingInfoForm from 'src/components/OnboardingInfoForm';
 import theme from 'src/theme';
 
-const currentStep = 5;
+const currentStep = 2;
 
 function OnboardingPage() {
   const { t } = useTranslation();
@@ -32,48 +33,59 @@ function OnboardingPage() {
           backgroundColor: theme.palette.secondary.light,
         }}
       >
-        <Box sx={{ width: '1136px', margin: 'auto', padding: '24px 0' }}>
-          <Box>
+        <Box
+          sx={{
+            width: '1136px',
+            margin: 'auto',
+            boxShadow: theme.shadows[1],
+          }}
+        >
+          <Box sx={{ width: '100%', padding: '24px 0 0' }}>
+            <Box>
+              <Box
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  gap: '12px',
+                  alignItems: 'center',
+                  ml: '0',
+                }}
+              >
+                <Box sx={{ height: '24px', mb: '2px' }}>
+                  <Link to="/">
+                    <ArrowLeftIcon />
+                  </Link>
+                </Box>
+                <Typography variant="h1" sx={{ fontWeight: 700 }}>
+                  {t('onboarding.fillProfile')}
+                </Typography>
+              </Box>
+            </Box>
+
             <Box
+              component="ul"
               sx={{
                 display: 'flex',
                 flexDirection: 'row',
-                gap: '12px',
                 alignItems: 'center',
-                ml: '0',
+                justifyContent: 'center',
+                width: '100%',
+                height: '100%',
+                mt: '24px',
+                padding: 0,
               }}
             >
-              <Link to="/">
-                <ArrowLeftIcon />
-              </Link>
-              <Typography variant="h1" sx={{ fontWeight: 700 }}>
-                {t('onboarding.fillProfile')}
-              </Typography>
+              {onboardingItems.map((item) => (
+                <OnboardingHeaderItem
+                  key={item.itemId}
+                  {...item}
+                  finished={item.itemId < currentStep}
+                  active={item.itemId === currentStep}
+                />
+              ))}
             </Box>
           </Box>
-
-          <Box
-            component="ul"
-            sx={{
-              display: 'flex',
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'center',
-              width: '100%',
-              height: '100%',
-              mt: '24px',
-              padding: 0,
-            }}
-          >
-            {onboardingItems.map((item) => (
-              <OnboardingHeaderItem
-                key={item.itemId}
-                {...item}
-                finished={item.itemId < currentStep}
-                active={item.itemId === currentStep}
-              />
-            ))}
-          </Box>
+          <OnboardingInfoForm />
         </Box>
       </Box>
     </>

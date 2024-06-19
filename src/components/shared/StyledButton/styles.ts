@@ -23,11 +23,18 @@ export const ButtonStyles = {
     color: theme.palette.text.primary,
     border: `1px solid ${theme.palette.common.black}`,
   },
+  [StyleVariants.TRANSPARENT2]: {
+    backgroundColor: 'transparent',
+    color: theme.palette.text.primary,
+    border: `1px solid ${theme.palette.common.black}`,
+    borderRadius: '8px',
+  },
 };
 
 export const ButtonPaddings = {
   [PaddingVariants.XS]: '4px 24px',
   [PaddingVariants.SM]: '8px 24px',
+  [PaddingVariants.SM2]: '8px 16px',
   [PaddingVariants.MD]: '12px 24px',
   [PaddingVariants.LG]: '16px 24px',
   [PaddingVariants.XL]: '18px 24px',

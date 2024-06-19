@@ -1,4 +1,4 @@
-import { createTheme } from '@mui/material/styles';
+import { createTheme, ThemeOptions } from '@mui/material/styles';
 
 declare module '@mui/material/styles' {
   interface Palette {
@@ -6,6 +6,7 @@ declare module '@mui/material/styles' {
       primary: string;
       secondary: string;
       dark: string;
+      grey: string;
       light: string;
       error: string;
     };
@@ -16,11 +17,18 @@ declare module '@mui/material/styles' {
       primary?: string;
       secondary?: string;
       dark?: string;
+      grey: string;
       light: string;
       error?: string;
     };
   }
 }
+
+const defaultTheme = createTheme();
+const shadows: ThemeOptions['shadows'] = [...defaultTheme.shadows];
+
+shadows[1] =
+  '0 -8px 20px 0 rgba(244, 244, 244, 0.25), 0 2px 2px 0 rgba(160, 168, 176, 0.08)';
 
 const theme = createTheme({
   palette: {
@@ -55,6 +63,7 @@ const theme = createTheme({
       primary: 'rgba(0, 0, 0, 0.24)',
       secondary: '#EDEAE9',
       dark: '#333333',
+      grey: 'A0A8B0',
       light: '#cbcbcb',
       error: '#F7392E',
     },
@@ -164,6 +173,7 @@ const theme = createTheme({
       textTransform: 'none',
     },
   },
+  shadows,
 });
 
 export default theme;
