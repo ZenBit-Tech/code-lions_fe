@@ -1,5 +1,7 @@
 import { createTheme, ThemeOptions } from '@mui/material/styles';
 
+import ExpandMoreIcon from 'src/components/shared/StyledSelect/ExpandMoreIcon';
+
 declare module '@mui/material/styles' {
   interface Palette {
     border: {
@@ -174,6 +176,14 @@ const theme = createTheme({
     },
   },
   shadows,
+
+  components: {
+    MuiSelect: {
+      defaultProps: {
+        IconComponent: ExpandMoreIcon,
+      },
+    },
+  },
 });
 
 export default theme;
