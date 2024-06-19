@@ -12,12 +12,14 @@ export const urls = {
   SIGN_IN_ADMIN: 'admin/signin',
   ADMIN: '/admin',
   ADMIN_USERS: 'users',
+  ADMIN_USER_PROFILE: 'users/:userId',
+  ADMIN_USER_PROFILE_EDIT: 'users/edit/:userId',
   ADMIN_BUYERS: 'buyers',
-  ADMIN_BUYER_PROFILE: 'buyers',
-  ADMIN_BUYER_PROFILE_EDIT: 'buyers/edit',
+  ADMIN_BUYER_PROFILE: 'buyers/:userId',
+  ADMIN_BUYER_PROFILE_EDIT: 'buyers/edit/:userId',
   ADMIN_VENDORS: 'vendors',
-  ADMIN_VENDOR_PROFILE: 'vendors',
-  ADMIN_VENDOR_PROFILE_EDIT: 'vendors/edit',
+  ADMIN_VENDOR_PROFILE: 'vendors/:userId',
+  ADMIN_VENDOR_PROFILE_EDIT: 'vendors/edit/:userId',
   PROFILE: '/profile',
 };
 
@@ -70,4 +72,8 @@ export const countryCodes = [{ code: '+1' }, { code: '+38' }];
 export const userRoles = {
   BUYER: 'BUYER',
   VENDOR: 'VENDOR',
+};
+
+export const linkUrls = {
+  ADMIN_USER_PROFILE_EDIT: 'edit',
 };

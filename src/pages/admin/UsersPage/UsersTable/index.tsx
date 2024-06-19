@@ -136,11 +136,7 @@ function UsersTable({ page, handleChange, handleOpen }: IUsersTable) {
               <BodyTableCell align="left">{user.address}</BodyTableCell>
               <BodyTableCell align="left">{user.date}</BodyTableCell>
               <BodyTableCell align="left">
-                <ActionButtons
-                  id={user.id}
-                  role={user.role}
-                  handleOpen={handleOpen}
-                />
+                <ActionButtons userId={user.id} handleOpen={handleOpen} />
               </BodyTableCell>
             </TableRow>
           ))}

@@ -1,7 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom';
 
 import { urls } from 'src/common/constants';
-import AdminPage from 'src/pages/admin/AdminPage';
+import AdminLayout from 'src/pages/admin/AdminLayout';
 import AdminUserProfileEditPage from 'src/pages/admin/AdminUserProfileEditPage';
 import AdminUserProfilePage from 'src/pages/admin/AdminUserProfilePage';
 import SignInAdminPage from 'src/pages/admin/SignInAdminPage';
@@ -40,11 +40,19 @@ const router = createBrowserRouter([
   { path: urls.SIGN_IN_ADMIN, element: <SignInAdminPage /> },
   {
     path: urls.ADMIN,
-    element: <AdminPage />,
+    element: <AdminLayout />,
     children: [
       {
         path: urls.ADMIN_USERS,
         element: <UsersPage />,
+      },
+      {
+        path: urls.ADMIN_USER_PROFILE,
+        element: <AdminUserProfilePage />,
+      },
+      {
+        path: urls.ADMIN_USER_PROFILE_EDIT,
+        element: <AdminUserProfileEditPage />,
       },
       {
         path: urls.ADMIN_BUYERS,
@@ -72,8 +80,6 @@ const router = createBrowserRouter([
       },
     ],
   },
-  // { path: urls.ADMIN_USER_PROFILE, element: <AdminUserProfilePage /> },
-  // { path: urls.ADMIN_USER_PROFILE_EDIT, element: <AdminUserProfileEditPage /> },
   { path: urls.PROFILE, element: <ProfilePage /> },
 ]);
 

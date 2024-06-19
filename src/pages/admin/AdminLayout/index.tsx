@@ -7,7 +7,7 @@ import SideBar from 'src/components/SidebarAdmin';
 
 import MainSection from '../MainSection';
 
-function AdminPage() {
+function AdminLayout() {
   return (
     <Grid container sx={{ height: '100vh' }} columns={5}>
       <Grid item xs={1} padding="15px 24px">
@@ -23,4 +23,4 @@ function AdminPage() {
   );
 }
 
-export default AdminPage;
+export default AdminLayout;
