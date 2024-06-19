@@ -7,14 +7,15 @@ import { Box } from '@mui/system';
 import ArrowLeftIcon from 'src/assets/icons/arrow-left.svg';
 import Header from 'src/components/Header';
 import OnboardingHeaderItem from 'src/components/OnboardingHeaderItem';
-import OnboardingSizeForm from 'src/components/OnboardingSizeForm';
+import OnboardingShippingForm from 'src/components/OnboardingShippingForm';
 import theme from 'src/theme';
 
 // import OnboardingRoleForm from 'src/components/OnboardingRoleForm';
 // import OnboardingInfoForm from 'src/components/OnboardingInfoForm';
 // import OnboardingCreditCardForm from 'src/components/OnboardingCreditCardForm';
+// import OnboardingSizeForm from 'src/components/OnboardingSizeForm';
 
-const currentStep = 5;
+const currentStep = 3;
 
 function OnboardingPage() {
   const { t } = useTranslation();
@@ -89,7 +90,7 @@ function OnboardingPage() {
               ))}
             </Box>
           </Box>
-          <OnboardingSizeForm />
+          <OnboardingShippingForm />
         </Box>
       </Box>
     </>

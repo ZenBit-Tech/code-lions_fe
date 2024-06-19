@@ -54,9 +54,9 @@ export function CustomSelect(props: TCustomSelect) {
       {...rest}
     >
       {options?.length > 0 ? (
-        options.map((opt, index) => (
+        options.map((opt) => (
           <MenuItem
-            key={index}
+            key={opt.value}
             value={opt.value}
             selected={opt.value === value}
           >
