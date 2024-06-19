@@ -23,6 +23,11 @@ export const ButtonStyles = {
     color: theme.palette.text.primary,
     border: `1px solid ${theme.palette.common.black}`,
   },
+  [StyleVariants.RED]: {
+    backgroundColor: theme.palette.error.dark,
+    color: theme.palette.primary.contrastText,
+    border: 'none',
+  },
 };
 
 export const ButtonPaddings = {

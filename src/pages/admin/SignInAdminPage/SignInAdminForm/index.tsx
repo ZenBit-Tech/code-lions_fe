@@ -73,7 +73,7 @@ function SignInAdminForm() {
     try {
       await login({ email, password }).unwrap();
 
-      navigate(urls.HOME);
+      navigate(urls.ADMIN_USERS);
     } catch (err) {
       const error = err as CustomFetchBaseQueryError | SerializedError;
       const errorMessage = appErrors.FAILED_SIGN_IN;
