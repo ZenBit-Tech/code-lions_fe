@@ -2,6 +2,9 @@ import { useTranslation } from 'react-i18next';
 
 import { Table, TableContainer, TableRow, Typography } from '@mui/material';
 
+import formatDateString from 'src/common/formatDateString';
+import { IAdminUser } from 'src/redux/user/types';
+
 import ActionButtons from '../../ActionButtons';
 import StyledPagination from '../../StyledPagination';
 
@@ -15,83 +18,19 @@ import {
 
 export type userRoles = 'BUYER' | 'VENDOR';
 
-function createData(
-  name: string,
-  email: string,
-  address: string[],
-  date: string,
-  id: string,
-  role: userRoles
-) {
-  return { name, email, address, date, id, role };
-}
-
-const users = [
-  createData(
-    'User1',
-    'user1@mergeAlias.com',
-    ['2972 Westheimer Rd.', 'Santa Ana', 'Illinois', '85486'],
-    'May 6, 2023',
-    'User1',
-    'BUYER'
-  ),
-  createData(
-    'User2',
-    'user1@mergeAlias.com',
-    ['2972 Westheimer Rd.', 'Santa Ana', 'Illinois', '85486'],
-    'May 6, 2023',
-    'User2',
-    'BUYER'
-  ),
-  createData(
-    'User3',
-    'user1@mergeAlias.com',
-    ['2972 Westheimer Rd.', 'Santa Ana', 'Illinois', '85486'],
-    'May 6, 2023',
-    'User3',
-    'VENDOR'
-  ),
-  createData(
-    'User4',
-    'user1@mergeAlias.com',
-    ['2972 Westheimer Rd.', 'Santa Ana', 'Illinois', '85486'],
-    'May 6, 2023',
-    'User4',
-    'VENDOR'
-  ),
-  createData(
-    'User5',
-    'user1@mergeAlias.com',
-    ['2972 Westheimer Rd.', 'Santa Ana', 'Illinois', '85486'],
-    'May 6, 2023',
-    'User5',
-    'BUYER'
-  ),
-  createData(
-    'User6',
-    'user1@mergeAlias.com',
-    ['2972 Westheimer Rd.', 'Santa Ana', 'Illinois', '85486'],
-    'May 6, 2023',
-    'User6',
-    'BUYER'
-  ),
-  createData(
-    'User7',
-    'user1@mergeAlias.com',
-    ['2972 Westheimer Rd.', 'Santa Ana', 'Illinois', '85486'],
-    'May 6, 2023',
-    'User7',
-    'BUYER'
-  ),
-];
-
 interface IUsersTable {
-  page: number;
+  users: IAdminUser[];
+  pagesCount: number;
   handleChange: (event: React.ChangeEvent<unknown>, value: number) => void;
   handleOpen: () => void;
 }
 
-function UsersTable({ page, handleChange, handleOpen }: IUsersTable) {
+function UsersTable({
+  users,
+  pagesCount,
+  handleChange,
+  handleOpen,
+}: IUsersTable) {
   const { t } = useTranslation();
 
   return (
@@ -133,8 +72,16 @@ function UsersTable({ page, handleChange, handleOpen }: IUsersTable) {
                 {user.name}
               </BodyTableCell>
               <BodyTableCell align="left">{user.email}</BodyTableCell>
-              <BodyTableCell align="left">{user.address}</BodyTableCell>
-              <BodyTableCell align="left">{user.date}</BodyTableCell>
+              <BodyTableCell align="left">
+                <Typography>{user.addressLine1 || ''}</Typography>
+                <Typography>{user.addressLine2 || ''}</Typography>
+                <Typography>{user.country}</Typography>
+                <Typography>{user.state || ''}</Typography>
+                <Typography>{user.city || ''}</Typography>
+              </BodyTableCell>
+              <BodyTableCell align="left">
+                {formatDateString(user.createdAt)}
+              </BodyTableCell>
               <BodyTableCell align="left">
                 <ActionButtons userId={user.id} handleOpen={handleOpen} />
               </BodyTableCell>
@@ -142,7 +89,7 @@ function UsersTable({ page, handleChange, handleOpen }: IUsersTable) {
           ))}
         </TableBodyStyled>
       </Table>
-      <StyledPagination count={10} page={page} handleChange={handleChange} />
+      <StyledPagination count={pagesCount} handleChange={handleChange} />
     </TableContainer>
   );
 }

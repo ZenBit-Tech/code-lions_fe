@@ -21,6 +21,7 @@ export const urls = {
   ADMIN_VENDORS: 'vendors',
   ADMIN_VENDOR_PROFILE: 'vendors/:userId',
   ADMIN_VENDOR_PROFILE_EDIT: 'vendors/edit/:userId',
+  ADMIN_USERS_FULL: '/admin/users',
   PROFILE: '/profile',
 };
 
@@ -33,6 +34,7 @@ export const RTKUrls = {
   NEW_PASSWORD: 'auth/new-password',
   REGISTER_USER: 'auth/register',
   GOOGLE_AUTH: 'auth/google',
+  ADMIN_USERS: 'users/admin',
 };
 
 export const HttpMethods = {

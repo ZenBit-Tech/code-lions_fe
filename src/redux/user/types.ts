@@ -1,4 +1,4 @@
-export type UserRole = 'BUYER' | 'VENDOR' | 'ADMIN' | null;
+export type UserRole = 'buyer' | 'vendor' | 'admin' | null;
 
 export interface IUser {
   id: string;
@@ -76,4 +76,38 @@ export interface IResetPasswordRequest {
 
 export interface INewPasswordRequest {
   password: string;
+}
+
+export interface IAdminUser {
+  id: string;
+  name: string;
+  email: string;
+  isEmailVerified: boolean;
+  role: UserRole;
+  isAccountActive: boolean;
+  photoUrl: string;
+  phoneNumber: string | null;
+  addressLine1: string | null;
+  addressLine2: string | null;
+  country: string;
+  state: string | null;
+  city: string | null;
+  clothesSize: string | null;
+  jeansSize: string | null;
+  shoesSize: string | null;
+  createdAt: string;
+  lastUpdatedAt: string | null;
+  deletedAt: string | null;
+}
+
+export interface IUserDataResponse {
+  users: IAdminUser[];
+  pagesCount: number;
+}
+
+export interface IAdminUsersRequest {
+  page?: number;
+  order?: 'asc' | 'desc';
+  role?: UserRole;
+  search?: string;
 }

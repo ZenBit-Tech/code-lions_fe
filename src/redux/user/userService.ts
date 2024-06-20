@@ -13,6 +13,8 @@ import {
   IResetPasswordRequest,
   INewPasswordRequest,
   IUser,
+  IUserDataResponse,
+  IAdminUsersRequest,
 } from './types';
 
 export const userApi = createApi({
@@ -87,6 +89,13 @@ export const userApi = createApi({
         body: post,
       }),
     }),
+    getAllUsers: build.query<IUserDataResponse, IAdminUsersRequest>({
+      query: ({ page, order, role, search }) => ({
+        url: RTKUrls.ADMIN_USERS,
+        method: HttpMethods.GET,
+        params: { page, order, role, search },
+      }),
+    }),
   }),
 });
 
@@ -99,4 +108,5 @@ export const {
   useForgotPasswordMutation,
   useResetPasswordMutation,
   useNewPasswordMutation,
+  useGetAllUsersQuery,
 } = userApi;
