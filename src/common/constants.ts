@@ -60,4 +60,13 @@ export const socialNetworkLinks = {
   EMAIL: 'mailto:codelions@helpseo.net',
 };
 
+export const onboardingSteps = {
+  ROLE: 1,
+  INFO: 2,
+  ADDRESS: 3,
+  CARD: 4,
+  SIZES: 5,
+  FINISH: 6,
+};
+
 export const countryCodes = [{ code: '+62' }, { code: '+38' }];

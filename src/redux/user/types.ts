@@ -7,6 +7,7 @@ export interface IUser {
   role: UserRole;
   isEmailVerified: boolean;
   isLoggedIn: boolean;
+  onboardingStep: number;
   accessToken?: string;
   refreshToken?: string;
 }

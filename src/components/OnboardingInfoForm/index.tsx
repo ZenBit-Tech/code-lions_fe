@@ -18,10 +18,24 @@ import {
   OnboardingHeader4,
   OnboardingText,
 } from 'src/pages/OnboardingPage/styles';
+import { useAppDispatch } from 'src/redux/hooks';
+import {
+  increaseOnboardingStep,
+  decreaseOnboardingStep,
+} from 'src/redux/user/userSlice';
 import theme from 'src/theme';
 
 function OnboardingInfoForm() {
   const { t } = useTranslation();
+  const dispatch = useAppDispatch();
+
+  const sendRequest = () => {
+    dispatch(increaseOnboardingStep());
+  };
+
+  const returnBack = () => {
+    dispatch(decreaseOnboardingStep());
+  };
 
   return (
     <Box
@@ -117,6 +131,7 @@ function OnboardingInfoForm() {
           variant="contained"
           fontSize="14px"
           fontFamily={theme.typography.fontFamily}
+          onClick={returnBack}
         >
           {t('onboarding.prev')}
         </StyledButton>
@@ -127,6 +142,7 @@ function OnboardingInfoForm() {
           fontSize="14px"
           fontFamily={theme.typography.fontFamily}
           radius="8px"
+          onClick={sendRequest}
         >
           {t('onboarding.next')}
         </StyledButton>

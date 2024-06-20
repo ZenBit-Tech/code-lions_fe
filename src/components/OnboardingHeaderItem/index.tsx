@@ -5,7 +5,7 @@ import CheckMediumIcon from 'src/assets/icons/check-medium.svg';
 import theme from 'src/theme';
 
 interface OnboardingHeaderItemProps extends BoxProps {
-  itemId: number;
+  stepId: number;
   title: string;
   finished?: boolean;
   active?: boolean;
@@ -14,11 +14,10 @@ interface OnboardingHeaderItemProps extends BoxProps {
 const digitsInNumber = 2;
 
 function OnboardingHeaderItem({
-  itemId,
+  stepId,
   title,
   finished,
   active,
-  ...rest
 }: OnboardingHeaderItemProps) {
   const containerProperties: BoxProps = {
     bgcolor: theme.palette.background.default,
@@ -48,7 +47,6 @@ function OnboardingHeaderItem({
         pl: '24px',
         ...containerProperties,
       }}
-      {...rest}
     >
       <Box
         sx={{
@@ -66,7 +64,7 @@ function OnboardingHeaderItem({
           <CheckMediumIcon />
         ) : (
           <Typography variant="h4" component="div">
-            {itemId.toString().padStart(digitsInNumber, '0')}
+            {stepId.toString().padStart(digitsInNumber, '0')}
           </Typography>
         )}
       </Box>

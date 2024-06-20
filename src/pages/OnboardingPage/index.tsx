@@ -5,27 +5,55 @@ import { Typography } from '@mui/material';
 import { Box } from '@mui/system';
 
 import ArrowLeftIcon from 'src/assets/icons/arrow-left.svg';
+import { onboardingSteps } from 'src/common/constants';
 import Header from 'src/components/Header';
+import OnboardingCreditCardForm from 'src/components/OnboardingCreditCardForm';
 import OnboardingHeaderItem from 'src/components/OnboardingHeaderItem';
+import OnboardingInfoForm from 'src/components/OnboardingInfoForm';
+import OnboardingRoleForm from 'src/components/OnboardingRoleForm';
 import OnboardingShippingForm from 'src/components/OnboardingShippingForm';
+import OnboardingSizeForm from 'src/components/OnboardingSizeForm';
+import { useAppSelector } from 'src/redux/hooks';
+import { selectOnboardingStep } from 'src/redux/user/userSlice';
 import theme from 'src/theme';
 
-// import OnboardingRoleForm from 'src/components/OnboardingRoleForm';
-// import OnboardingInfoForm from 'src/components/OnboardingInfoForm';
-// import OnboardingCreditCardForm from 'src/components/OnboardingCreditCardForm';
-// import OnboardingSizeForm from 'src/components/OnboardingSizeForm';
-
-const currentStep = 3;
+// const currentStep = 1;
 
 function OnboardingPage() {
   const { t } = useTranslation();
-  const onboardingItems = [
-    { itemId: 1, title: t('onboarding.userRole') },
-    { itemId: 2, title: t('onboarding.generalInformation') },
-    { itemId: 3, title: t('onboarding.yourAddress') },
-    { itemId: 4, title: t('onboarding.creditCard') },
-    { itemId: 5, title: t('onboarding.size') },
+  const currentStep = useAppSelector(selectOnboardingStep);
+
+  const onboardingData = [
+    {
+      stepId: onboardingSteps.ROLE,
+      title: t('onboarding.userRole'),
+      component: <OnboardingRoleForm />,
+    },
+    {
+      stepId: onboardingSteps.INFO,
+      title: t('onboarding.generalInformation'),
+      component: <OnboardingInfoForm />,
+    },
+    {
+      stepId: onboardingSteps.ADDRESS,
+      title: t('onboarding.yourAddress'),
+      component: <OnboardingShippingForm />,
+    },
+    {
+      stepId: onboardingSteps.CARD,
+      title: t('onboarding.creditCard'),
+      component: <OnboardingCreditCardForm />,
+    },
+    {
+      stepId: onboardingSteps.SIZES,
+      title: t('onboarding.size'),
+      component: <OnboardingSizeForm />,
+    },
   ];
+
+  const currentStepComponent = onboardingData.find(
+    (step) => step.stepId === currentStep
+  )?.component;
 
   return (
     <>
@@ -80,17 +108,18 @@ function OnboardingPage() {
                 padding: 0,
               }}
             >
-              {onboardingItems.map((item) => (
+              {onboardingData.map((step) => (
                 <OnboardingHeaderItem
-                  key={item.itemId}
-                  {...item}
-                  finished={item.itemId < currentStep}
-                  active={item.itemId === currentStep}
+                  key={step.stepId}
+                  stepId={step.stepId}
+                  title={step.title}
+                  finished={step.stepId < currentStep}
+                  active={step.stepId === currentStep}
                 />
               ))}
             </Box>
           </Box>
-          <OnboardingShippingForm />
+          {currentStepComponent}
         </Box>
       </Box>
     </>

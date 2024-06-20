@@ -20,6 +20,11 @@ import {
   clothesSizeData,
   shoeSizeData,
 } from 'src/pages/SizesGuidePage/tableData';
+import { useAppDispatch } from 'src/redux/hooks';
+import {
+  increaseOnboardingStep,
+  decreaseOnboardingStep,
+} from 'src/redux/user/userSlice';
 import theme from 'src/theme';
 
 const clothesSizes = clothesSizeData.rows.map((row) => ({
@@ -45,10 +50,18 @@ const jeansSizes = [
 
 function OnboardingSizeForm() {
   const { t } = useTranslation();
-
+  const dispatch = useAppDispatch();
   const [value, setValue] = useState(clothesSizes[0].value);
   const [value1, setValue1] = useState(jeansSizes[0].value);
   const [value2, setValue2] = useState(shoesSizes[0].value);
+
+  const sendRequest = () => {
+    dispatch(increaseOnboardingStep());
+  };
+
+  const returnBack = () => {
+    dispatch(decreaseOnboardingStep());
+  };
 
   return (
     <Box
@@ -166,6 +179,7 @@ function OnboardingSizeForm() {
           variant="contained"
           fontSize="14px"
           fontFamily={theme.typography.fontFamily}
+          onClick={returnBack}
         >
           {t('onboarding.prev')}
         </StyledButton>
@@ -176,6 +190,7 @@ function OnboardingSizeForm() {
           fontSize="14px"
           fontFamily={theme.typography.fontFamily}
           radius="8px"
+          onClick={sendRequest}
         >
           {t('onboarding.next')}
         </StyledButton>

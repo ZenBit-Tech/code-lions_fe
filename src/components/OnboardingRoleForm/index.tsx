@@ -14,6 +14,8 @@ import {
   OnboardingHeader4,
   OnboardingText,
 } from 'src/pages/OnboardingPage/styles';
+import { useAppDispatch } from 'src/redux/hooks';
+import { increaseOnboardingStep } from 'src/redux/user/userSlice';
 import theme from 'src/theme';
 
 import { StyledFormControlLabel, StyledRadio } from './styles';
@@ -25,10 +27,15 @@ const Roles = {
 
 function OnboardingRoleForm() {
   const { t } = useTranslation();
-  const [value, setValue] = useState('female');
+  const dispatch = useAppDispatch();
+  const [value, setValue] = useState(Roles.BUYER);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue((event.target as HTMLInputElement).value);
+  };
+
+  const sendRequest = () => {
+    dispatch(increaseOnboardingStep());
   };
 
   return (
@@ -63,7 +70,7 @@ function OnboardingRoleForm() {
           <FormControl>
             <RadioGroup
               row
-              aria-labelledby="demo-controlled-radio-buttons-group"
+              aria-labelledby="controlled-radio-buttons-group"
               name="controlled-radio-buttons-group"
               value={value}
               onChange={handleChange}
@@ -98,6 +105,7 @@ function OnboardingRoleForm() {
           fontSize="14px"
           fontFamily={theme.typography.fontFamily}
           radius="8px"
+          onClick={sendRequest}
         >
           {t('onboarding.next')}
         </StyledButton>
