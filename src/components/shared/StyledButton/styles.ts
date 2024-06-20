@@ -29,6 +29,11 @@ export const ButtonStyles = {
     border: `1px solid ${theme.palette.common.black}`,
     borderRadius: '8px',
   },
+  [StyleVariants.RED]: {
+    backgroundColor: theme.palette.error.dark,
+    color: theme.palette.primary.contrastText,
+    border: 'none',
+  },
 };
 
 export const ButtonPaddings = {

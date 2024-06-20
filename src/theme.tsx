@@ -48,7 +48,16 @@ const theme = createTheme({
       light: '#F6F4F4',
       contrastText: '#333333',
     },
+    error: {
+      main: 'rgba(222, 80, 111, 0.3)',
+      light: '#FFDFE6',
+      dark: '#DE506F',
+    },
     grey: {
+      100: '#F4F5F6',
+      300: 'rgba(237, 234, 233, 0.50)',
+      400: 'rgba(28, 28, 28, 0.54)',
+      500: '#A0A8B0',
       800: '#141519',
       900: '#1C1C1E',
     },
@@ -98,8 +107,6 @@ const theme = createTheme({
       lineHeight: 'normal',
       '@media (min-width:600px)': {
         fontSize: 24,
-        lineHeight: 1.83,
-        letterSpacing: '-0.4px',
       },
     },
     h4: {

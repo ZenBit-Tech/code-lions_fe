@@ -221,5 +221,24 @@
     "buyer": "Buyer",
     "vendor": "Vendor",
     "uploadPhoto": "Upload Photo"
+  },
+  "usersAdmin": {
+    "title": "Users",
+    "subTitle": "User list",
+    "sortButton": "Sort",
+    "option1": "from new to old",
+    "option2": "from old to new",
+    "searchInput": "Search",
+    "name": "Name",
+    "email": "Email",
+    "address": "Address",
+    "date": "Date",
+    "action": "Action"
+  },
+  "modalPopup": {
+    "title": "Are you sure want to delete user’s profile?",
+    "description": "Deleted user will lose the ability to use the application",
+    "cancelButton": "Cancel",
+    "deleteButton": "Delete"
   }
 }
