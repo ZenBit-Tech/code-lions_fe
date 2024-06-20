@@ -21,7 +21,7 @@ function UsersPage() {
   const handleClick = () => console.log('Sort button clicked!');
 
   const [page, setPage] = useState(1);
-  const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
+  const handleChange = (_: React.ChangeEvent<unknown>, value: number) => {
     setPage(value);
   };
   const [showModal, setShowModal] = useState(false);

@@ -1,4 +1,6 @@
-import { createTheme } from '@mui/material/styles';
+import { createTheme, ThemeOptions } from '@mui/material/styles';
+
+import ExpandMoreIcon from 'src/components/shared/StyledSelect/ExpandMoreIcon';
 
 declare module '@mui/material/styles' {
   interface Palette {
@@ -6,6 +8,7 @@ declare module '@mui/material/styles' {
       primary: string;
       secondary: string;
       dark: string;
+      grey: string;
       light: string;
       error: string;
     };
@@ -16,11 +19,18 @@ declare module '@mui/material/styles' {
       primary?: string;
       secondary?: string;
       dark?: string;
+      grey?: string;
       light: string;
       error?: string;
     };
   }
 }
+
+const defaultTheme = createTheme();
+const shadows: ThemeOptions['shadows'] = [...defaultTheme.shadows];
+
+shadows[1] =
+  '0 -8px 20px 0 rgba(244, 244, 244, 0.25), 0 2px 2px 0 rgba(160, 168, 176, 0.08)';
 
 const theme = createTheme({
   palette: {
@@ -35,6 +45,7 @@ const theme = createTheme({
     },
     secondary: {
       main: '#E3EEE2',
+      light: '#F6F4F4',
       contrastText: '#333333',
     },
     error: {
@@ -63,6 +74,7 @@ const theme = createTheme({
       primary: 'rgba(0, 0, 0, 0.24)',
       secondary: '#EDEAE9',
       dark: '#333333',
+      grey: '#D1D5DB',
       light: '#cbcbcb',
       error: '#F7392E',
     },
@@ -168,6 +180,15 @@ const theme = createTheme({
       lineHeight: 1.33,
       letterSpacing: '-0.06px',
       textTransform: 'none',
+    },
+  },
+  shadows,
+
+  components: {
+    MuiSelect: {
+      defaultProps: {
+        IconComponent: ExpandMoreIcon,
+      },
     },
   },
 });

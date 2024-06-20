@@ -18,7 +18,7 @@ import { IconButtonStyled, ButtonTitle, SortIconWrapper } from './styles';
 
 interface ISortButton {
   title: string;
-  onClick: () => void;
+  onClick: (option: string) => void;
 }
 
 function SortButton({ title, onClick }: ISortButton) {
@@ -31,7 +31,7 @@ function SortButton({ title, onClick }: ISortButton) {
   const [rotate, setRotate] = useState(false);
 
   const handleMenuItemClick = (
-    event: React.MouseEvent<HTMLLIElement, MouseEvent>,
+    _: React.MouseEvent<HTMLLIElement, MouseEvent>,
     index: number
   ) => {
     setSelectedIndex(index);

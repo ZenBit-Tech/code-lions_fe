@@ -10,6 +10,7 @@ const initialState: IUser = {
   role: null,
   isEmailVerified: false,
   isLoggedIn: false,
+  onboardingStep: 1,
   accessToken: '',
   refreshToken: '',
 };
@@ -20,6 +21,12 @@ export const userSlice = createSlice({
   reducers: {
     setEmail(state, action) {
       state.email = action.payload;
+    },
+    increaseOnboardingStep(state) {
+      state.onboardingStep += 1;
+    },
+    decreaseOnboardingStep(state) {
+      state.onboardingStep -= 1;
     },
   },
   extraReducers: (builder) => {
@@ -44,7 +51,12 @@ export const userSlice = createSlice({
     builder.addMatcher(
       userApi.endpoints.loginUser.matchFulfilled,
       (state, action) => {
-        return { ...state, ...action.payload, isLoggedIn: true };
+        return {
+          ...state,
+          ...action.payload,
+          isLoggedIn: true,
+          onboardingStep: 1,
+        };
       }
     );
     builder.addMatcher(
@@ -56,8 +68,11 @@ export const userSlice = createSlice({
   },
 });
 
-export const { setEmail } = userSlice.actions;
+export const { setEmail, increaseOnboardingStep, decreaseOnboardingStep } =
+  userSlice.actions;
 
 export const selectUserName = (state: { user: IUser }) => state.user.name;
+export const selectOnboardingStep = (state: { user: IUser }) =>
+  state.user.onboardingStep;
 
 export default userSlice.reducer;

@@ -11,6 +11,7 @@ export const urls = {
   SIZES_GUIDE: '/sizes-guide',
   SIGN_IN_ADMIN: 'admin/signin',
   ADMIN: '/admin',
+  ONBOARDING: '/onboarding',
   ADMIN_USERS: 'users',
   ADMIN_USER_PROFILE: 'users/:userId',
   ADMIN_USER_PROFILE_EDIT: 'users/edit/:userId',
@@ -67,7 +68,16 @@ export const socialNetworkLinks = {
   EMAIL: 'mailto:codelions@helpseo.net',
 };
 
-export const countryCodes = [{ code: '+1' }, { code: '+38' }];
+export const onboardingSteps = {
+  ROLE: 1,
+  INFO: 2,
+  ADDRESS: 3,
+  CARD: 4,
+  SIZES: 5,
+  FINISH: 6,
+};
+
+export const countryCodes = [{ code: '+62' }, { code: '+38' }];
 
 export const userRoles = {
   BUYER: 'BUYER',

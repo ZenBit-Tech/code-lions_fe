@@ -8,6 +8,7 @@ import SignInAdminPage from 'src/pages/admin/SignInAdminPage';
 import UsersPage from 'src/pages/admin/UsersPage';
 import HomePage from 'src/pages/HomePage';
 import NewPasswordPage from 'src/pages/NewPasswordPage';
+import OnboardingPage from 'src/pages/OnboardingPage';
 import PrivacyPolicyPage from 'src/pages/PrivacyPolicyPage';
 import ProfilePage from 'src/pages/ProfilePage';
 import RestorePasswordPage from 'src/pages/RestorePasswordPage';
@@ -80,6 +81,7 @@ const router = createBrowserRouter([
       },
     ],
   },
+  { path: urls.ONBOARDING, element: <OnboardingPage /> },
   { path: urls.PROFILE, element: <ProfilePage /> },
 ]);
 
