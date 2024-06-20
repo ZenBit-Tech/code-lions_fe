@@ -1,3 +1,5 @@
+import { SortOrder } from 'src/redux/user/types';
+
 export const urls = {
   HOME: '/',
   SIGN_UP: '/signup',
@@ -88,4 +90,9 @@ export const userRoles = {
 
 export const linkUrls = {
   ADMIN_USER_PROFILE_EDIT: 'edit',
+};
+
+export const sortOptions: Record<string, SortOrder> = {
+  DESC: 'desc',
+  ASC: 'asc',
 };

@@ -7,8 +7,10 @@ import { Box, CircularProgress } from '@mui/material';
 
 import { SerializedError } from '@reduxjs/toolkit';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
+import { sortOptions } from 'src/common/constants';
 import SearchInput from 'src/components/shared/SearchInput';
 import useToast from 'src/components/shared/toasts/components/ToastProvider/ToastProviderHooks';
+import { SortOrder } from 'src/redux/user/types';
 import { useGetAllUsersQuery } from 'src/redux/user/userService';
 
 import AdminSectionSubTitle from '../AdminSectionSubTitle';
@@ -33,8 +35,6 @@ function UsersPage() {
   const { showToast } = useToast();
   const methods = useForm();
 
-  const handleClick = () => console.log('Sort button clicked!');
-
   const [page, setPage] = useState(1);
   const handleChange = (_: React.ChangeEvent<unknown>, value: number) => {
     setPage(value);
@@ -43,10 +43,15 @@ function UsersPage() {
   const handleOpen = () => setShowModal(true);
   const handleClose = () => setShowModal(false);
   const [search, setSearch] = useState('');
+  const [order, setOrder] = useState<SortOrder>(sortOptions.DESC);
+
+  const handleClick = (value: SortOrder) => {
+    setOrder(value);
+  };
 
   const { data, isLoading, error } = useGetAllUsersQuery({
     page,
-    order: 'desc',
+    order,
     search,
   });
 

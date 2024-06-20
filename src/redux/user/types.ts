@@ -105,9 +105,11 @@ export interface IUserDataResponse {
   pagesCount: number;
 }
 
+export type SortOrder = 'asc' | 'desc';
+
 export interface IAdminUsersRequest {
   page?: number;
-  order?: 'asc' | 'desc';
+  order?: SortOrder;
   role?: UserRole;
   search?: string;
 }
