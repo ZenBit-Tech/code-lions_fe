@@ -22,8 +22,6 @@ import {
   TableRowStyled,
 } from './styles';
 
-export type userRoles = 'BUYER' | 'VENDOR';
-
 interface IUsersTable {
   users: IAdminUser[];
   pagesCount: number;

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { useLocation } from 'react-router-dom';
 
 import { Box, CircularProgress } from '@mui/material';
 
@@ -55,16 +56,18 @@ function UsersPage() {
     setOrder(value);
   };
 
+  const location = useLocation();
+  const { role } = location.state || undefined;
+
   const { data, isLoading, error } = useGetAllUsersQuery({
     page,
     order,
+    role,
     search,
   });
 
   const users = data?.users || [];
   const pagesCount = data?.pagesCount || 1;
-
-  console.log(users);
 
   useEffect(() => {
     const getErrorMessage = (

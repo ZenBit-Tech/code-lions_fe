@@ -84,8 +84,8 @@ export const onboardingSteps = {
 export const countryCodes = [{ code: '+62' }, { code: '+38' }];
 
 export const userRoles = {
-  BUYER: 'BUYER',
-  VENDOR: 'VENDOR',
+  BUYER: 'buyer',
+  VENDOR: 'vendor',
 };
 
 export const linkUrls = {
