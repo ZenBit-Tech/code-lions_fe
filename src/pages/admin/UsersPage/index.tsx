@@ -39,12 +39,18 @@ function UsersPage() {
   const handleChange = (_: React.ChangeEvent<unknown>, value: number) => {
     setPage(value);
   };
+
   const [showModal, setShowModal] = useState(false);
   const handleOpen = () => setShowModal(true);
   const handleClose = () => setShowModal(false);
-  const [search, setSearch] = useState('');
-  const [order, setOrder] = useState<SortOrder>(sortOptions.DESC);
 
+  const [search, setSearch] = useState('');
+  const handleSearchChange = (value: string) => {
+    setSearch(value);
+    setPage(1);
+  };
+
+  const [order, setOrder] = useState<SortOrder>(sortOptions.DESC);
   const handleClick = (value: SortOrder) => {
     setOrder(value);
   };
@@ -58,6 +64,8 @@ function UsersPage() {
   const users = data?.users || [];
   const pagesCount = data?.pagesCount || 1;
 
+  console.log(users);
+
   useEffect(() => {
     const getErrorMessage = (
       queryError: FetchBaseQueryError | SerializedError
@@ -70,7 +78,7 @@ function UsersPage() {
         return (queryError.data as { message: string }).message;
       }
 
-      return t('authErrors.failed');
+      return t('usersAdmin.errorMessage');
     };
 
     if (error) {
@@ -98,10 +106,11 @@ function UsersPage() {
           />
         </Box>
         <FormProvider {...methods}>
-          <SearchInput setSearch={setSearch} />
+          <SearchInput setSearch={handleSearchChange} />
         </FormProvider>
         <UsersTable
           pagesCount={pagesCount}
+          page={page}
           users={users}
           handleChange={handleChange}
           handleOpen={handleOpen}

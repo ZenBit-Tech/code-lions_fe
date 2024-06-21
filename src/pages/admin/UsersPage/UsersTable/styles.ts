@@ -27,4 +27,5 @@ export const TableBodyStyled = styled(TableBody)(({ theme }) => ({
 
 export const BodyTableCell = styled(TableCell)(({ theme }) => ({
   borderColor: theme.palette.grey[100],
+  verticalAlign: 'top',
 }));

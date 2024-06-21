@@ -1,6 +1,12 @@
 import { useTranslation } from 'react-i18next';
 
-import { Table, TableContainer, TableRow, Typography } from '@mui/material';
+import {
+  Box,
+  Table,
+  TableContainer,
+  TableRow,
+  Typography,
+} from '@mui/material';
 
 import formatDateString from 'src/common/formatDateString';
 import { IAdminUser } from 'src/redux/user/types';
@@ -21,6 +27,7 @@ export type userRoles = 'BUYER' | 'VENDOR';
 interface IUsersTable {
   users: IAdminUser[];
   pagesCount: number;
+  page: number;
   handleChange: (event: React.ChangeEvent<unknown>, value: number) => void;
   handleOpen: () => void;
 }
@@ -28,6 +35,7 @@ interface IUsersTable {
 function UsersTable({
   users,
   pagesCount,
+  page,
   handleChange,
   handleOpen,
 }: IUsersTable) {
@@ -73,11 +81,15 @@ function UsersTable({
               </BodyTableCell>
               <BodyTableCell align="left">{user.email}</BodyTableCell>
               <BodyTableCell align="left">
-                <Typography>{user.addressLine1 || ''}</Typography>
-                <Typography>{user.addressLine2 || ''}</Typography>
+                <Box display="flex" gap="4px">
+                  <Typography>{user.addressLine1 || ''}</Typography>
+                  <Typography>{user.addressLine2 || ''}</Typography>
+                </Box>
+                <Box display="flex" gap="4px">
+                  <Typography>{user.state || ''}</Typography>
+                  <Typography>{user.city || ''}</Typography>
+                </Box>
                 <Typography>{user.country}</Typography>
-                <Typography>{user.state || ''}</Typography>
-                <Typography>{user.city || ''}</Typography>
               </BodyTableCell>
               <BodyTableCell align="left">
                 {formatDateString(user.createdAt)}
@@ -89,7 +101,11 @@ function UsersTable({
           ))}
         </TableBodyStyled>
       </Table>
-      <StyledPagination count={pagesCount} handleChange={handleChange} />
+      <StyledPagination
+        count={pagesCount}
+        page={page}
+        handleChange={handleChange}
+      />
     </TableContainer>
   );
 }
