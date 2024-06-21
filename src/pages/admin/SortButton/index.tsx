@@ -12,13 +12,15 @@ import {
 } from '@mui/material';
 
 import SortIcon from 'src/assets/icons/admin/sort.svg';
+import { sortOptions } from 'src/common/constants';
+import { SortOrder } from 'src/redux/user/types';
 import theme from 'src/theme';
 
 import { IconButtonStyled, ButtonTitle, SortIconWrapper } from './styles';
 
 interface ISortButton {
   title: string;
-  onClick: (option: string) => void;
+  onClick: (option: SortOrder) => void;
 }
 
 function SortButton({ title, onClick }: ISortButton) {
@@ -26,17 +28,21 @@ function SortButton({ title, onClick }: ISortButton) {
 
   const [open, setOpen] = useState(false);
   const anchorRef = useRef<HTMLDivElement>(null);
-  const options = [t('usersAdmin.option1'), t('usersAdmin.option2')];
+  const options = [
+    { value: sortOptions.DESC as SortOrder, label: t('usersAdmin.option1') },
+    { value: sortOptions.ASC as SortOrder, label: t('usersAdmin.option2') },
+  ];
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [rotate, setRotate] = useState(false);
 
   const handleMenuItemClick = (
     _: React.MouseEvent<HTMLLIElement, MouseEvent>,
-    index: number
+    index: number,
+    value: SortOrder
   ) => {
     setSelectedIndex(index);
     setOpen(false);
-    onClick(options[index]);
+    onClick(value);
     setRotate((prevRotate) => !prevRotate);
   };
 
@@ -91,12 +97,14 @@ function SortButton({ title, onClick }: ISortButton) {
                 <MenuList id="sort-button-menu" autoFocusItem>
                   {options.map((option, index) => (
                     <MenuItem
-                      key={option}
+                      key={option.value}
                       selected={index === selectedIndex}
-                      onClick={(event) => handleMenuItemClick(event, index)}
+                      onClick={(event) =>
+                        handleMenuItemClick(event, index, option.value)
+                      }
                       sx={{ fontSize: '12px' }}
                     >
-                      {option}
+                      {option.label}
                     </MenuItem>
                   ))}
                 </MenuList>

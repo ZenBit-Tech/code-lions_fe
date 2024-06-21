@@ -1,8 +1,8 @@
 import PaginationStyled from './styles';
 
 interface IStyledPagination {
-  count: number;
-  page: number;
+  count?: number;
+  page?: number;
   handleChange: (event: React.ChangeEvent<unknown>, value: number) => void;
 }
 
@@ -11,8 +11,8 @@ function StyledPagination({ count, page, handleChange }: IStyledPagination) {
     <PaginationStyled
       count={count}
       shape="rounded"
-      page={page}
       onChange={handleChange}
+      page={page}
     />
   );
 }

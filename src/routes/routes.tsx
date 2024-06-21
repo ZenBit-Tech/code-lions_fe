@@ -18,6 +18,7 @@ import SizesGuidePage from 'src/pages/SizesGuidePage';
 import TermsOfUsePage from 'src/pages/TermsOfUsePage';
 import VerifyEmailPage from 'src/pages/VerifyEmailPage';
 
+import AdminPrivateRoute from './AdminPrivateRoute';
 import VerifyPrivateRoute from './VerifyPrivateRoute';
 
 const router = createBrowserRouter([
@@ -41,7 +42,12 @@ const router = createBrowserRouter([
   { path: urls.SIGN_IN_ADMIN, element: <SignInAdminPage /> },
   {
     path: urls.ADMIN,
-    element: <AdminLayout />,
+    element: (
+      <AdminPrivateRoute>
+        <AdminLayout />
+      </AdminPrivateRoute>
+    ),
+
     children: [
       {
         path: urls.ADMIN_USERS,

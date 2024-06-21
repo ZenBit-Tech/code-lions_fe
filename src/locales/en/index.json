@@ -233,7 +233,8 @@
     "email": "Email",
     "address": "Address",
     "date": "Date",
-    "action": "Action"
+    "action": "Action",
+    "errorMessage": "Unable to get list of users, please try again later"
   },
   "modalPopup": {
     "title": "Are you sure want to delete user’s profile?",

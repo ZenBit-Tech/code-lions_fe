@@ -30,7 +30,7 @@ export const ButtonStyles = {
     borderRadius: '8px',
   },
   [StyleVariants.RED]: {
-    backgroundColor: theme.palette.error.dark,
+    backgroundColor: theme.palette.error.main,
     color: theme.palette.primary.contrastText,
     border: 'none',
   },

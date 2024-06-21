@@ -1,3 +1,5 @@
+import { SortOrder } from 'src/redux/user/types';
+
 export const urls = {
   HOME: '/',
   SIGN_UP: '/signup',
@@ -21,6 +23,7 @@ export const urls = {
   ADMIN_VENDORS: 'vendors',
   ADMIN_VENDOR_PROFILE: 'vendors/:userId',
   ADMIN_VENDOR_PROFILE_EDIT: 'vendors/edit/:userId',
+  ADMIN_USERS_FULL: '/admin/users',
   PROFILE: '/profile',
 };
 
@@ -33,6 +36,7 @@ export const RTKUrls = {
   NEW_PASSWORD: 'auth/new-password',
   REGISTER_USER: 'auth/register',
   GOOGLE_AUTH: 'auth/google',
+  ADMIN_USERS: 'users/admin',
 };
 
 export const HttpMethods = {
@@ -80,10 +84,16 @@ export const onboardingSteps = {
 export const countryCodes = [{ code: '+62' }, { code: '+38' }];
 
 export const userRoles = {
-  BUYER: 'BUYER',
-  VENDOR: 'VENDOR',
+  BUYER: 'buyer',
+  VENDOR: 'vendor',
+  ADMIN: 'admin',
 };
 
 export const linkUrls = {
   ADMIN_USER_PROFILE_EDIT: 'edit',
+};
+
+export const sortOptions: Record<string, SortOrder> = {
+  DESC: 'desc',
+  ASC: 'asc',
 };

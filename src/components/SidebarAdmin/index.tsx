@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 
 import {
   Collapse,
@@ -15,6 +16,7 @@ import ChevronDown from 'src/assets/icons/chevron-down.svg';
 import ChevronUp from 'src/assets/icons/chevron-up.svg';
 import ProductsIcon from 'src/assets/icons/products.svg';
 import UsersIcon from 'src/assets/icons/users.svg';
+import { urls, userRoles } from 'src/common/constants';
 import theme from 'src/theme';
 
 import Logo from './Logo';
@@ -40,6 +42,8 @@ function SideBar() {
   const [openProducts, setOpenProducts] = useState(false);
 
   const { t } = useTranslation();
+
+  const navigate = useNavigate();
 
   const handleUsersClick = () => {
     setOpenUsers(!openUsers);
@@ -76,6 +80,9 @@ function SideBar() {
           selected={selectedIndex === listIndexes.users}
           onClick={(event) => {
             handleListItemClick(event, listIndexes.users);
+            navigate(urls.ADMIN_USERS, {
+              state: { role: undefined },
+            });
           }}
         >
           <Box
@@ -133,25 +140,31 @@ function SideBar() {
           >
             <StyledSubListItemButton
               selected={selectedSubIndex === subListIndexes.buyers}
-              onClick={(event) =>
+              onClick={(event) => {
                 handleSubListItemClick(
                   event,
                   subListIndexes.buyers,
                   listIndexes.users
-                )
-              }
+                );
+                navigate(urls.ADMIN_BUYERS, {
+                  state: { role: userRoles.BUYER },
+                });
+              }}
             >
               <Typography variant="h4">{t('sidebar.buyers')}</Typography>
             </StyledSubListItemButton>
             <StyledSubListItemButton
               selected={selectedSubIndex === subListIndexes.vendors}
-              onClick={(event) =>
+              onClick={(event) => {
                 handleSubListItemClick(
                   event,
                   subListIndexes.vendors,
                   listIndexes.users
-                )
-              }
+                );
+                navigate(urls.ADMIN_VENDORS, {
+                  state: { role: userRoles.VENDOR },
+                });
+              }}
             >
               <Typography variant="h4">{t('sidebar.vendors')}</Typography>
             </StyledSubListItemButton>

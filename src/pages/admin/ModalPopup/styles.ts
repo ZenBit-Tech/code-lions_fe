@@ -25,7 +25,7 @@ export const IconBigWrapper = styled(Box)({
 });
 
 export const IconSmallWrapper = styled(Box)({
-  backgroundColor: theme.palette.error.main,
+  backgroundColor: theme.palette.error.dark,
   width: '64px',
   height: '64px',
   borderRadius: '50%',
