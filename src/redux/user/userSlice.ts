@@ -74,5 +74,6 @@ export const { setEmail, increaseOnboardingStep, decreaseOnboardingStep } =
 export const selectUserName = (state: { user: IUser }) => state.user.name;
 export const selectOnboardingStep = (state: { user: IUser }) =>
   state.user.onboardingStep;
+export const selectUserRole = (state: { user: IUser }) => state.user.role;
 
 export default userSlice.reducer;

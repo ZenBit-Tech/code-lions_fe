@@ -1,9 +1,9 @@
-import { MenuItem } from '@mui/material';
-import { Box, styled } from '@mui/system';
+import { Avatar, MenuItem } from '@mui/material';
+import { styled } from '@mui/system';
 
 import theme from 'src/theme';
 
-export const StyledAvatar = styled(Box)({
+export const StyledAvatar = styled(Avatar)({
   backgroundColor: theme.palette.border.primary,
   padding: '10px',
   borderRadius: '50%',

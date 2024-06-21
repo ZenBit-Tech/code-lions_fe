@@ -57,7 +57,12 @@ function UsersPage() {
   };
 
   const location = useLocation();
-  const { role } = location.state || undefined;
+
+  let role;
+
+  if (location && location.state) {
+    role = location.state.role || undefined;
+  }
 
   const { data, isLoading, error } = useGetAllUsersQuery({
     page,

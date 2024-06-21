@@ -86,6 +86,7 @@ export const countryCodes = [{ code: '+62' }, { code: '+38' }];
 export const userRoles = {
   BUYER: 'buyer',
   VENDOR: 'vendor',
+  ADMIN: 'admin',
 };
 
 export const linkUrls = {

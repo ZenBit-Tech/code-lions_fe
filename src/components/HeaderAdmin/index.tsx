@@ -12,6 +12,9 @@ import {
 import ChevronDown from 'src/assets/icons/chevron-down-grey.svg';
 import ChevronUp from 'src/assets/icons/chevron-up-grey.svg';
 import Logout from 'src/assets/icons/logout.svg';
+import getInitials from 'src/common/getInitials';
+import { useAppSelector } from 'src/redux/hooks';
+import { selectUserName } from 'src/redux/user/userSlice';
 import theme from 'src/theme';
 
 import { StyledAvatar, StyledMenuItem } from './styles';
@@ -30,6 +33,9 @@ function HeaderAdmin() {
     setMenuOpen(false);
     setAnchorEl(null);
   };
+
+  const userName = useAppSelector(selectUserName) ?? t('headerAdmin.mockName');
+  const initials = getInitials(userName) ?? t('headerAdmin.mockAvatar');
 
   return (
     <Box
@@ -52,7 +58,7 @@ function HeaderAdmin() {
         <Box display="flex" alignItems="center">
           <StyledAvatar>
             <Typography color={theme.palette.common.white}>
-              {t('headerAdmin.mockAvatar')}
+              {initials}
             </Typography>
           </StyledAvatar>
           <Box display="flex" flexDirection="column" marginRight="30px">
@@ -60,7 +66,7 @@ function HeaderAdmin() {
               variant="subtitle1"
               sx={{ fontSize: '16px', marginBottom: '4px' }}
             >
-              {t('headerAdmin.mockName')}
+              {userName}
             </Typography>
             <Typography
               variant="overline"
