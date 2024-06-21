@@ -3,14 +3,16 @@ import { useLocation } from 'react-router-dom';
 import { IconButton } from '@mui/material';
 
 import ArrowIcon from 'src/assets/icons/arrow-left.svg';
+import NotificationIcon from 'src/assets/icons/profile/notification.svg';
 import Title from 'src/components/shared/Title';
 
-import { StyledLink, TitleWrapper } from './styles';
+import { IconButtonStyled, StyledLink, TitleWrapper } from './styles';
 
 interface ISectionTitle {
   title: string;
   greyBackground?: boolean;
   showBackLink?: boolean;
+  showNotification?: boolean;
   mt?: string;
 }
 
@@ -18,6 +20,7 @@ function SectionTitle({
   title,
   greyBackground = false,
   showBackLink = false,
+  showNotification = false,
   mt,
 }: ISectionTitle) {
   const location = useLocation();
@@ -35,6 +38,11 @@ function SectionTitle({
       <Title variant="h5" component="h1">
         {title}
       </Title>
+      {showNotification && (
+        <IconButtonStyled>
+          <NotificationIcon />
+        </IconButtonStyled>
+      )}
     </TitleWrapper>
   );
 }

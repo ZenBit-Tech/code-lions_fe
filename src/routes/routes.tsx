@@ -10,6 +10,7 @@ import HomePage from 'src/pages/HomePage';
 import NewPasswordPage from 'src/pages/NewPasswordPage';
 import OnboardingPage from 'src/pages/OnboardingPage';
 import PrivacyPolicyPage from 'src/pages/PrivacyPolicyPage';
+import ProfileLayout from 'src/pages/ProfileLayout';
 import ProfilePage from 'src/pages/ProfilePage';
 import RestorePasswordPage from 'src/pages/RestorePasswordPage';
 import SignInPage from 'src/pages/SignInPage';
@@ -22,7 +23,10 @@ import AdminPrivateRoute from './AdminPrivateRoute';
 import VerifyPrivateRoute from './VerifyPrivateRoute';
 
 const router = createBrowserRouter([
-  { path: urls.HOME, element: <HomePage /> },
+  {
+    path: urls.HOME,
+    element: <HomePage />,
+  },
   { path: urls.SIGN_UP, element: <SignUpPage /> },
   {
     path: urls.VERIFY,
@@ -88,7 +92,11 @@ const router = createBrowserRouter([
     ],
   },
   { path: urls.ONBOARDING, element: <OnboardingPage /> },
-  { path: urls.PROFILE, element: <ProfilePage /> },
+  {
+    path: urls.PROFILE,
+    element: <ProfileLayout />,
+    children: [{ path: urls.PROFILE_DETAILS, element: <ProfilePage /> }],
+  },
 ]);
 
 export default router;

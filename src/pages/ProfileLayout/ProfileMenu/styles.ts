@@ -14,6 +14,9 @@ export const ListStyled = styled(List)(({ theme }) => ({
   backgroundColor: theme.palette.background.default,
   padding: '12px',
   boxShadow: '0px 6px 20px 0px rgba(25, 25, 25, 0.06)',
+  [theme.breakpoints.up('sm')]: {
+    width: '312px',
+  },
 }));
 
 export const ListItemStyled = styled(ListItem)({

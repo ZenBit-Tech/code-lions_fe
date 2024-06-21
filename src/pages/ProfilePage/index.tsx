@@ -1,78 +1,59 @@
+import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { useLocation } from 'react-router-dom';
 
-import { Avatar, Typography } from '@mui/material';
-import { Box } from '@mui/system';
+import { Grid, Typography } from '@mui/material';
 
-import NotificationIcon from 'src/assets/icons/profile/notification.svg';
-import Container from 'src/components/shared/Container';
-import SectionTitle from 'src/components/shared/SectionTitle';
-import SimpleSection from 'src/components/shared/SimpleSection';
-import StyledButton from 'src/components/shared/StyledButton';
-import {
-  PaddingVariants,
-  StyleVariants,
-} from 'src/components/shared/StyledButton/types';
-import { useAppSelector } from 'src/redux/hooks';
-import { selectUserName } from 'src/redux/user/userSlice';
+import { urls } from 'src/common/constants';
 
-import ProfileMenu from './ProfileMenu';
-import { IconButtonStyled, NameTitle, SubTitle, TitleWrapper } from './styles';
+import AddressForm from './AddressForm';
+import PersonalInformationForm from './PersonalInformationForm';
+import SizesForm from './SizesFrom';
+import { StyledLink } from './styles';
 
 function ProfilePage() {
+  const methods = useForm();
+  const location = useLocation();
   const { t } = useTranslation();
-  const userName = useAppSelector(selectUserName) ?? t('profile.name');
 
   return (
-    <SimpleSection>
-      <Container>
-        <TitleWrapper>
-          <SectionTitle title={t('profile.title')} />
-          <IconButtonStyled>
-            <NotificationIcon />
-          </IconButtonStyled>
-        </TitleWrapper>
-        <Box
-          display="flex"
-          alignItems="center"
-          justifyContent="center"
-          flexDirection="column"
-          gap="12px"
-          mt="16px"
-          mb="20px"
-        >
-          <Avatar
-            src="src/assets/photos/avatar.jpg"
-            sx={{ width: '120px', height: '120px' }}
-          />
-          <NameTitle variant="subtitle1">{userName}</NameTitle>
-        </Box>
-        <Box
-          display="flex"
-          alignItems="center"
-          justifyContent="space-between"
-          mb="16px"
-        >
-          <SubTitle variant="subtitle1">{t('profile.buyerMode')}</SubTitle>
-          <StyledButton
-            type="button"
-            styles={StyleVariants.BLACK}
-            padding={PaddingVariants.SM}
-          >
-            <Typography
-              variant="subtitle1"
-              sx={{
-                fontWeight: 400,
-                lineHeight: 'normal',
-                letterSpacing: 'normal',
-              }}
-            >
-              {t('profile.goToVendor')}
-            </Typography>
-          </StyledButton>
-        </Box>
-        <ProfileMenu />
-      </Container>
-    </SimpleSection>
+    <FormProvider {...methods}>
+      <Grid container spacing={3}>
+        <Grid item xs={12}>
+          photo
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <PersonalInformationForm />
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <SizesForm />
+        </Grid>
+        <Grid item xs={12}>
+          <StyledLink to={urls.SIZES_GUIDE} state={{ from: location }}>
+            <Typography>{t('profileDetails.sizeGuide')}</Typography>
+          </StyledLink>
+        </Grid>
+        <Grid item xs={12}>
+          <AddressForm />
+        </Grid>
+        <Grid item xs={12}>
+          card
+        </Grid>
+      </Grid>
+      {/* <FormStyled>
+        <FormWrapper>
+          <FormWrapperSmall display="flex" gap="32px">
+            <PersonalInformationForm />
+            <SizesForm />
+          </FormWrapperSmall>
+          <StyledLink to={urls.SIZES_GUIDE} state={{ from: location }}>
+            <Typography>{t('profileDetails.sizeGuide')}</Typography>
+          </StyledLink>
+        </FormWrapper>
+        <AddressForm />
+        <Box></Box>
+      </FormStyled> */}
+    </FormProvider>
   );
 }
 

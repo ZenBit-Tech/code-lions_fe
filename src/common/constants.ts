@@ -25,6 +25,7 @@ export const urls = {
   ADMIN_VENDOR_PROFILE_EDIT: 'vendors/edit/:userId',
   ADMIN_USERS_FULL: '/admin/users',
   PROFILE: '/profile',
+  PROFILE_DETAILS: 'details',
 };
 
 export const RTKUrls = {

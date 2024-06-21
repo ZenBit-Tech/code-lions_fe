@@ -1,30 +1,37 @@
-import { IconButton, Typography } from '@mui/material';
+import { Link } from 'react-router-dom';
+
 import { Box, styled } from '@mui/system';
 
-export const TitleWrapper = styled(Box)({
-  width: '100%',
+export const FormStyled = styled('form')(({ theme }) => ({
   display: 'flex',
-  justifyContent: 'space-between',
-});
-
-export const IconButtonStyled = styled(IconButton)(({ theme }) => ({
-  padding: '0 6px',
-  cursor: 'poiner',
+  flexDirection: 'column',
+  gap: '15px',
   [theme.breakpoints.up('sm')]: {
-    display: 'none',
+    gap: '24px',
   },
 }));
 
-export const NameTitle = styled(Typography)(({ theme }) => ({
-  fontSize: 20,
-  lineHeight: 1.85,
-  letterSpacing: '-0.2px',
-  [theme.breakpoints.up('sm')]: {},
+export const FormWrapper = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '12px',
+  [theme.breakpoints.up('sm')]: {
+    gap: '20px',
+  },
 }));
 
-export const SubTitle = styled(Typography)(({ theme }) => ({
-  fontSize: 16,
-  lineHeight: 2.31,
-  letterSpacing: '-0.16px',
+export const FormWrapperSmall = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '24px',
+  [theme.breakpoints.up('sm')]: {
+    gap: '32px',
+    flexDirection: 'row',
+  },
+}));
+
+export const StyledLink = styled(Link)(({ theme }) => ({
+  textDecorationLine: 'underline',
+  textAlign: 'right',
   [theme.breakpoints.up('sm')]: {},
 }));

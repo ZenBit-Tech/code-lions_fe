@@ -241,5 +241,24 @@
     "description": "Deleted user will lose the ability to use the application",
     "cancelButton": "Cancel",
     "deleteButton": "Delete"
+  },
+  "profileDetails": {
+    "personalInformation": "Personal Information",
+    "name": "Name",
+    "namePlaceholder": "Enter your name",
+    "email": "Email",
+    "emailPlaceholder": "Enter your email",
+    "phone": "Phone",
+    "phonePlaceholder": "Enter your phone",
+    "sizes": "Sizes",
+    "clothesSize": "Clothes Size",
+    "shoesSize": "Shoes Size",
+    "jeansSize": "Jeans Size",
+    "sizeGuide": "Size guide",
+    "address": "Address",
+    "editButton": "Edit",
+    "saveButton": "Save",
+    "paymentMethod": "Payment Method",
+    "card": "Card"
   }
 }
