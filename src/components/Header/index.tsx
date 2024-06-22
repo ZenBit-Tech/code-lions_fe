@@ -9,7 +9,8 @@ import ProfileIcon from 'src/assets/icons/profile.svg';
 import { urls } from 'src/common/constants';
 import { MenuMainLink } from 'src/components/FooterMenu/styles';
 import HeaderLogo from 'src/components/HeaderLogo';
-import { useAppSelector } from 'src/redux/hooks';
+import { useAppSelector, useAppDispatch } from 'src/redux/hooks';
+import { logout } from 'src/redux/user/userSlice';
 import theme from 'src/theme';
 
 import SvgHover from './styles';
@@ -18,7 +19,8 @@ const countInBag = 0;
 
 function Header() {
   const { t } = useTranslation();
-  const userName = useAppSelector((state) => state.user.name);
+  const dispatch = useAppDispatch();
+  const user = useAppSelector((state) => state.user);
 
   return (
     <Box
@@ -80,16 +82,31 @@ function Header() {
             marginTop: '8px',
           }}
         >
-          <Link to={urls.HOME}>
-            <SvgHover>
-              <BellIcon />
-            </SvgHover>
-          </Link>
-          <Link to={urls.PROFILE} title={userName}>
-            <SvgHover>
-              <ProfileIcon />
-            </SvgHover>
-          </Link>
+          {user.isLoggedIn ? (
+            <>
+              <Link to={urls.HOME}>
+                <SvgHover>
+                  <BellIcon />
+                </SvgHover>
+              </Link>
+              <Link to={urls.PROFILE} title={user.name}>
+                <SvgHover>
+                  <ProfileIcon />
+                </SvgHover>
+              </Link>
+              <button
+                onClick={() => {
+                  dispatch(logout());
+                }}
+                type="button"
+              >
+                logout
+              </button>
+            </>
+          ) : (
+            'login'
+          )}
+
           <Link to={urls.HOME}>
             <Box sx={{ position: 'relative' }}>
               <Box sx={{ position: 'relative', top: '0', left: '0' }}>

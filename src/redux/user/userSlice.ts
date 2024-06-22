@@ -28,6 +28,9 @@ export const userSlice = createSlice({
     decreaseOnboardingStep(state) {
       state.onboardingStep -= 1;
     },
+    logout() {
+      return initialState;
+    },
   },
   extraReducers: (builder) => {
     builder.addMatcher(
@@ -68,8 +71,12 @@ export const userSlice = createSlice({
   },
 });
 
-export const { setEmail, increaseOnboardingStep, decreaseOnboardingStep } =
-  userSlice.actions;
+export const {
+  setEmail,
+  increaseOnboardingStep,
+  decreaseOnboardingStep,
+  logout,
+} = userSlice.actions;
 
 export const selectUserName = (state: { user: IUser }) => state.user.name;
 export const selectOnboardingStep = (state: { user: IUser }) =>
