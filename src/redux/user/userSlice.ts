@@ -58,7 +58,6 @@ export const userSlice = createSlice({
           ...state,
           ...action.payload,
           isLoggedIn: true,
-          onboardingStep: 1,
         };
       }
     );

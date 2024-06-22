@@ -20,12 +20,13 @@ import TermsOfUsePage from 'src/pages/TermsOfUsePage';
 import VerifyEmailPage from 'src/pages/VerifyEmailPage';
 
 import AdminPrivateRoute from './AdminPrivateRoute';
+import OnboardingGuard from './OnboardingGuard';
 import VerifyPrivateRoute from './VerifyPrivateRoute';
 
 const router = createBrowserRouter([
   {
     path: urls.HOME,
-    element: <Layout />,
+    element: <OnboardingGuard element={<Layout />} />,
     children: [
       { path: '', element: <HomePage /> },
       { path: urls.SIZES_GUIDE, element: <SizesGuidePage /> },
