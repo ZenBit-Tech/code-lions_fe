@@ -5,9 +5,9 @@ import { onboardingSteps, urls } from 'src/common/constants';
 import { useAppSelector } from 'src/redux/hooks';
 
 function OnboardingGuard({ element }: { element: ReactElement }) {
-  const onboardingStep = useAppSelector((state) => state.user.onboardingStep);
+  const { isLoggedIn, onboardingStep } = useAppSelector((state) => state.user);
 
-  if (onboardingStep && onboardingStep < onboardingSteps.FINISH) {
+  if (isLoggedIn && onboardingStep < onboardingSteps.FINISH) {
     return <Navigate to={urls.ONBOARDING} replace />;
   }
 

@@ -28,7 +28,7 @@ const router = createBrowserRouter([
     path: urls.HOME,
     element: <OnboardingGuard element={<Layout />} />,
     children: [
-      { path: '', element: <HomePage /> },
+      { index: true, element: <HomePage /> },
       { path: urls.SIZES_GUIDE, element: <SizesGuidePage /> },
       { path: urls.PROFILE, element: <ProfilePage /> },
       { path: urls.PRIVACY_POLICY, element: <PrivacyPolicyPage /> },

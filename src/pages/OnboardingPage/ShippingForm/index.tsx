@@ -14,6 +14,7 @@ import {
   InputStyleVariants,
 } from 'src/components/shared/StyledInput/types';
 import { CustomSelect } from 'src/components/shared/StyledSelect';
+import InputLabel from 'src/pages/OnboardingPage/CreditCardForm/styles';
 import {
   OnboardingHeader4,
   OnboardingText,
@@ -24,8 +25,6 @@ import {
   decreaseOnboardingStep,
 } from 'src/redux/user/userSlice';
 import theme from 'src/theme';
-
-import InputLabel from '../OnboardingCreditCardForm/styles';
 
 const countries = [{ label: 'Canada', value: 'Canada' }];
 const states = [
