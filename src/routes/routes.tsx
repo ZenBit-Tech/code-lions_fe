@@ -1,6 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom';
 
 import { urls } from 'src/common/constants';
+import Layout from 'src/components/Layout';
 import AdminLayout from 'src/pages/admin/AdminLayout';
 import AdminUserProfileEditPage from 'src/pages/admin/AdminUserProfileEditPage';
 import AdminUserProfilePage from 'src/pages/admin/AdminUserProfilePage';
@@ -22,7 +23,17 @@ import AdminPrivateRoute from './AdminPrivateRoute';
 import VerifyPrivateRoute from './VerifyPrivateRoute';
 
 const router = createBrowserRouter([
-  { path: urls.HOME, element: <HomePage /> },
+  {
+    path: urls.HOME,
+    element: <Layout />,
+    children: [
+      { path: '', element: <HomePage /> },
+      { path: urls.SIZES_GUIDE, element: <SizesGuidePage /> },
+      { path: urls.PROFILE, element: <ProfilePage /> },
+      { path: urls.PRIVACY_POLICY, element: <PrivacyPolicyPage /> },
+      { path: urls.TERMS_OF_USE, element: <TermsOfUsePage /> },
+    ],
+  },
   { path: urls.SIGN_UP, element: <SignUpPage /> },
   {
     path: urls.VERIFY,
@@ -36,9 +47,7 @@ const router = createBrowserRouter([
   { path: urls.RESTORE_PASSWORD, element: <RestorePasswordPage /> },
   { path: urls.ENTER_CODE, element: <VerifyEmailPage /> },
   { path: urls.NEW_PASSWORD, element: <NewPasswordPage /> },
-  { path: urls.PRIVACY_POLICY, element: <PrivacyPolicyPage /> },
-  { path: urls.TERMS_OF_USE, element: <TermsOfUsePage /> },
-  { path: urls.SIZES_GUIDE, element: <SizesGuidePage /> },
+
   { path: urls.SIGN_IN_ADMIN, element: <SignInAdminPage /> },
   {
     path: urls.ADMIN,
@@ -88,7 +97,6 @@ const router = createBrowserRouter([
     ],
   },
   { path: urls.ONBOARDING, element: <OnboardingPage /> },
-  { path: urls.PROFILE, element: <ProfilePage /> },
 ]);
 
 export default router;

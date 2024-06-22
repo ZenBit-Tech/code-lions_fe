@@ -1,8 +1,8 @@
 import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
-import { Typography, Link } from '@mui/material';
+import { Typography } from '@mui/material';
 import { Box } from '@mui/system';
 
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
@@ -158,7 +158,7 @@ function SignInForm() {
       </TitleInputWrapper>
       <Box display="flex" alignItems="center">
         <TextButton sx={{ padding: '0' }}>
-          <Link href={urls.RESTORE_PASSWORD} underline="none">
+          <Link to={urls.RESTORE_PASSWORD}>
             <LabelText align="right">{t('signin.forgotPassword')}</LabelText>
           </Link>
         </TextButton>

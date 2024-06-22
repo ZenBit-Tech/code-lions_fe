@@ -9,14 +9,16 @@ import ProfileIcon from 'src/assets/icons/profile.svg';
 import { urls } from 'src/common/constants';
 import { MenuMainLink } from 'src/components/FooterMenu/styles';
 import HeaderLogo from 'src/components/HeaderLogo';
+import { useAppSelector } from 'src/redux/hooks';
 import theme from 'src/theme';
 
 import SvgHover from './styles';
 
-const countInBag = 2;
+const countInBag = 0;
 
 function Header() {
   const { t } = useTranslation();
+  const userName = useAppSelector((state) => state.user.name);
 
   return (
     <Box
@@ -83,7 +85,7 @@ function Header() {
               <BellIcon />
             </SvgHover>
           </Link>
-          <Link to={urls.HOME}>
+          <Link to={urls.PROFILE} title={userName}>
             <SvgHover>
               <ProfileIcon />
             </SvgHover>
