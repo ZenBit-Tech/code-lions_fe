@@ -37,6 +37,8 @@ export const RTKUrls = {
   REGISTER_USER: 'auth/register',
   GOOGLE_AUTH: 'auth/google',
   ADMIN_USERS: 'users/admin',
+  USERS: 'users',
+  ROLE: 'role',
 };
 
 export const HttpMethods = {

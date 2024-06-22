@@ -1,4 +1,5 @@
-export type UserRole = 'buyer' | 'vendor' | 'admin' | null;
+export type NonAdminRole = 'buyer' | 'vendor';
+export type UserRole = NonAdminRole | 'admin' | null;
 
 export interface IUser {
   id: string;
@@ -112,4 +113,9 @@ export interface IAdminUsersRequest {
   order?: SortOrder;
   role?: UserRole;
   search?: string;
+}
+
+export interface IUpdateRoleRequest {
+  id: string;
+  role: UserRole;
 }

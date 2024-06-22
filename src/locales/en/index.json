@@ -223,7 +223,8 @@
     "next": "Next",
     "buyer": "Buyer",
     "vendor": "Vendor",
-    "uploadPhoto": "Upload Photo"
+    "uploadPhoto": "Upload Photo",
+    "unknownError": "An unexpected error occurred. Please try again later"
   },
   "usersAdmin": {
     "title": "Users",

@@ -62,6 +62,12 @@ export const userSlice = createSlice({
       }
     );
     builder.addMatcher(
+      userApi.endpoints.updateRole.matchFulfilled,
+      (state, action) => {
+        return { ...state, ...action.payload };
+      }
+    );
+    builder.addMatcher(
       userApi.endpoints.resetPassword.matchFulfilled,
       (state, action) => {
         return { ...state, ...action.payload, isLoggedIn: true };

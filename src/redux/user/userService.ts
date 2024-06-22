@@ -15,6 +15,7 @@ import {
   IUser,
   IUserDataResponse,
   IAdminUsersRequest,
+  IUpdateRoleRequest,
 } from './types';
 
 export const userApi = createApi({
@@ -89,6 +90,13 @@ export const userApi = createApi({
         body: post,
       }),
     }),
+    updateRole: build.mutation<IUser, IUpdateRoleRequest>({
+      query: (user) => ({
+        url: `${RTKUrls.USERS}/${user.id}/${RTKUrls.ROLE}`,
+        method: HttpMethods.PATCH,
+        body: { role: user.role },
+      }),
+    }),
     getAllUsers: build.query<IUserDataResponse, IAdminUsersRequest>({
       query: ({ page, order, role, search }) => ({
         url: RTKUrls.ADMIN_USERS,
@@ -108,5 +116,6 @@ export const {
   useForgotPasswordMutation,
   useResetPasswordMutation,
   useNewPasswordMutation,
+  useUpdateRoleMutation,
   useGetAllUsersQuery,
 } = userApi;
