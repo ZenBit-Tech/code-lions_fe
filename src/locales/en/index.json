@@ -10,7 +10,9 @@
   "header": {
     "shop": "Shop",
     "vendors": "Vendors",
-    "messages": "Messages"
+    "messages": "Messages",
+    "login": "Log in",
+    "signUp": "Sign Up"
   },
   "footer": {
     "someText": "Some text will be here two - three lines",

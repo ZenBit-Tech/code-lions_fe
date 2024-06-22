@@ -9,6 +9,8 @@ import ProfileIcon from 'src/assets/icons/profile.svg';
 import { urls } from 'src/common/constants';
 import { MenuMainLink } from 'src/components/FooterMenu/styles';
 import HeaderLogo from 'src/components/HeaderLogo';
+import StyledButton from 'src/components/shared/StyledButton';
+import { StyleVariants } from 'src/components/shared/StyledButton/types';
 import { useAppSelector, useAppDispatch } from 'src/redux/hooks';
 import { logout } from 'src/redux/user/userSlice';
 import theme from 'src/theme';
@@ -48,13 +50,13 @@ function Header() {
           justifyContent: 'space-between',
           alignItems: 'center',
           width: '100%',
-          height: '30px',
+          height: '32px',
           maxWidth: '1362px',
         }}
       >
         <Box
           sx={{
-            marginTop: '9px',
+            marginTop: '12px',
           }}
         >
           <HeaderLogo />
@@ -78,8 +80,8 @@ function Header() {
           sx={{
             display: 'flex',
             flexDirection: 'row',
-            gap: '20px',
-            marginTop: '8px',
+            alignItems: 'center',
+            gap: '30px',
           }}
         >
           {user.isLoggedIn ? (
@@ -104,12 +106,47 @@ function Header() {
               </button>
             </>
           ) : (
-            'login'
+            <Box sx={{ display: 'flex', flexDirection: 'row', gap: '9px' }}>
+              <Link to={urls.SIGN_IN}>
+                <StyledButton
+                  styles={StyleVariants.BLACK}
+                  variant="contained"
+                  fontSize="14px"
+                  fontFamily={theme.typography.fontFamily}
+                  sx={{
+                    padding: '8px 21px',
+                    fontWeight: '500',
+                    color: theme.palette.common.white,
+                    letterSpacing: '-0.56px',
+                    lineHeight: '16px',
+                  }}
+                >
+                  {t('header.login')}
+                </StyledButton>
+              </Link>
+              <Link to={urls.SIGN_UP}>
+                <StyledButton
+                  styles={StyleVariants.WHITE}
+                  variant="contained"
+                  fontSize="14px"
+                  fontFamily={theme.typography.fontFamily}
+                  sx={{
+                    padding: '8px 15px',
+                    fontWeight: '500',
+                    color: theme.palette.common.black,
+                    letterSpacing: '-0.56px',
+                    lineHeight: '16px',
+                  }}
+                >
+                  {t('header.signUp')}
+                </StyledButton>
+              </Link>
+            </Box>
           )}
 
           <Link to={urls.HOME}>
             <Box sx={{ position: 'relative' }}>
-              <Box sx={{ position: 'relative', top: '0', left: '0' }}>
+              <Box sx={{ position: 'relative', top: '5px', right: '0px' }}>
                 <SvgHover>
                   <BagIcon />
                 </SvgHover>
@@ -118,8 +155,8 @@ function Header() {
                 <Box
                   sx={{
                     position: 'absolute',
-                    top: '-3px',
-                    right: '0',
+                    top: '1px',
+                    right: '-1px',
                     display: 'flex',
                     color: theme.palette.common.white,
                     fontSize: '7px',
