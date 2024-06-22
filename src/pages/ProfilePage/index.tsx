@@ -12,14 +12,15 @@ import {
   PaddingVariants,
   StyleVariants,
 } from 'src/components/shared/StyledButton/types';
-import { useAppSelector } from 'src/redux/hooks';
-import { selectUserName } from 'src/redux/user/userSlice';
+import { useAppSelector, useAppDispatch } from 'src/redux/hooks';
+import { selectUserName, logout } from 'src/redux/user/userSlice';
 
 import ProfileMenu from './ProfileMenu';
 import { IconButtonStyled, NameTitle, SubTitle, TitleWrapper } from './styles';
 
 function ProfilePage() {
   const { t } = useTranslation();
+  const dispatch = useAppDispatch();
   const userName = useAppSelector(selectUserName) ?? t('profile.name');
 
   return (
@@ -71,6 +72,10 @@ function ProfilePage() {
           </StyledButton>
         </Box>
         <ProfileMenu />
+
+        <button type="button" onClick={() => dispatch(logout())}>
+          {t('profile.logout')}
+        </button>
       </Container>
     </SimpleSection>
   );

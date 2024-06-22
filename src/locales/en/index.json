@@ -169,7 +169,8 @@
     "myProfile": "My Profile",
     "buyerMode": "Buyer Mode",
     "goToVendor": "Go to Vendor Mode",
-    "name": "Anna Asol"
+    "name": "Anna Asol",
+    "logout": "Log out"
   },
   "profileMenu": {
     "personalInformation": "Personal Information",

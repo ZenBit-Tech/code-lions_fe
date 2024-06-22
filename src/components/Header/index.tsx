@@ -11,8 +11,7 @@ import { MenuMainLink } from 'src/components/FooterMenu/styles';
 import HeaderLogo from 'src/components/HeaderLogo';
 import StyledButton from 'src/components/shared/StyledButton';
 import { StyleVariants } from 'src/components/shared/StyledButton/types';
-import { useAppSelector, useAppDispatch } from 'src/redux/hooks';
-import { logout } from 'src/redux/user/userSlice';
+import { useAppSelector } from 'src/redux/hooks';
 import theme from 'src/theme';
 
 import SvgHover from './styles';
@@ -21,7 +20,6 @@ const countInBag = 0;
 
 function Header() {
   const { t } = useTranslation();
-  const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.user);
 
   return (
@@ -96,14 +94,6 @@ function Header() {
                   <ProfileIcon />
                 </SvgHover>
               </Link>
-              <button
-                onClick={() => {
-                  dispatch(logout());
-                }}
-                type="button"
-              >
-                logout
-              </button>
             </>
           ) : (
             <Box sx={{ display: 'flex', flexDirection: 'row', gap: '9px' }}>
@@ -146,7 +136,7 @@ function Header() {
 
           <Link to={urls.HOME}>
             <Box sx={{ position: 'relative' }}>
-              <Box sx={{ position: 'relative', top: '5px', right: '0px' }}>
+              <Box sx={{ position: 'relative', top: '2px', right: '1px' }}>
                 <SvgHover>
                   <BagIcon />
                 </SvgHover>
@@ -155,8 +145,8 @@ function Header() {
                 <Box
                   sx={{
                     position: 'absolute',
-                    top: '1px',
-                    right: '-1px',
+                    top: '-2px',
+                    right: '0px',
                     display: 'flex',
                     color: theme.palette.common.white,
                     fontSize: '7px',
