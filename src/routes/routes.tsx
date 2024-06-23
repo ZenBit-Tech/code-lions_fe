@@ -1,6 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom';
 
 import { urls } from 'src/common/constants';
+import Layout from 'src/components/Layout';
 import AdminLayout from 'src/pages/admin/AdminLayout';
 import AdminUserProfileEditPage from 'src/pages/admin/AdminUserProfileEditPage';
 import AdminUserProfilePage from 'src/pages/admin/AdminUserProfilePage';
@@ -21,12 +22,19 @@ import TermsOfUsePage from 'src/pages/TermsOfUsePage';
 import VerifyEmailPage from 'src/pages/VerifyEmailPage';
 
 import AdminPrivateRoute from './AdminPrivateRoute';
+import OnboardingGuard from './OnboardingGuard';
 import VerifyPrivateRoute from './VerifyPrivateRoute';
 
 const router = createBrowserRouter([
   {
     path: urls.HOME,
-    element: <HomePage />,
+    element: <OnboardingGuard element={<Layout />} />,
+    children: [
+      { index: true, element: <HomePage /> },
+      { path: urls.SIZES_GUIDE, element: <SizesGuidePage /> },
+      { path: urls.PRIVACY_POLICY, element: <PrivacyPolicyPage /> },
+      { path: urls.TERMS_OF_USE, element: <TermsOfUsePage /> },
+    ],
   },
   { path: urls.SIGN_UP, element: <SignUpPage /> },
   {
@@ -41,9 +49,7 @@ const router = createBrowserRouter([
   { path: urls.RESTORE_PASSWORD, element: <RestorePasswordPage /> },
   { path: urls.ENTER_CODE, element: <VerifyEmailPage /> },
   { path: urls.NEW_PASSWORD, element: <NewPasswordPage /> },
-  { path: urls.PRIVACY_POLICY, element: <PrivacyPolicyPage /> },
-  { path: urls.TERMS_OF_USE, element: <TermsOfUsePage /> },
-  { path: urls.SIZES_GUIDE, element: <SizesGuidePage /> },
+
   { path: urls.SIGN_IN_ADMIN, element: <SignInAdminPage /> },
   {
     path: urls.ADMIN,

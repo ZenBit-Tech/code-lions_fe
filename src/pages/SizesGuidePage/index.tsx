@@ -2,8 +2,6 @@ import { useTranslation } from 'react-i18next';
 
 import { Box } from '@mui/material';
 
-import Footer from 'src/components/Footer';
-import Header from 'src/components/Header';
 import InfoTable from 'src/components/shared/InfoTable';
 import SectionTitle from 'src/components/shared/SectionTitle';
 
@@ -15,7 +13,6 @@ function SizesGuidePage() {
 
   return (
     <>
-      <Header />
       <SectionTitle title={t('sizesGuide.title')} greyBackground showBackLink />
       <Box component="section" sx={{ width: '100%', padding: '0 18px' }}>
         <Box component="div" sx={{ maxWidth: '920px', margin: '0 auto' }}>
@@ -36,7 +33,6 @@ function SizesGuidePage() {
           <InfoTable tableData={shoeSizeData} />
         </Box>
       </Box>
-      <Footer />
     </>
   );
 }

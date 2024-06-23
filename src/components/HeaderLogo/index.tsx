@@ -42,7 +42,7 @@ function HeaderLogo() {
             textDecoration: 'none',
           }}
         >
-          {t('logoTitle')}{' '}
+          {t('logoTitle')}
         </Typography>
       </Box>
     </Link>
