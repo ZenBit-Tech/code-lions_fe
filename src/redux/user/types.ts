@@ -143,3 +143,12 @@ export interface IUpdatePhoneRequest {
   id: string;
   phone: string;
 }
+
+export interface IUpdateAddressRequest {
+  id: string;
+  addressLine1: string;
+  addressLine2: string;
+  country: string;
+  state: string;
+  city: string;
+}

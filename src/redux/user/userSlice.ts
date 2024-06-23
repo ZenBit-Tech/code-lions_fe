@@ -83,6 +83,10 @@ export const userSlice = createSlice({
       updateState
     );
     builder.addMatcher(
+      userApi.endpoints.updateAddress.matchFulfilled,
+      updateState
+    );
+    builder.addMatcher(
       userApi.endpoints.resetPassword.matchFulfilled,
       (state, action) => {
         return { ...state, ...action.payload, isLoggedIn: true };

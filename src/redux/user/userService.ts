@@ -24,6 +24,7 @@ import {
   IUpdateRoleRequest,
   IUploadPhotoRequest,
   IUpdatePhoneRequest,
+  IUpdateAddressRequest,
 } from './types';
 
 const baseQuery = fetchBaseQuery({
@@ -168,6 +169,14 @@ export const userApi = createApi({
       }),
     }),
 
+    updateAddress: build.mutation<IUser, IUpdateAddressRequest>({
+      query: ({ id, ...rest }) => ({
+        url: `/users/${id}/${RTKUrls.ADDRESS}`,
+        method: 'PATCH',
+        body: rest,
+      }),
+    }),
+
     getAllUsers: build.query<IUserDataResponse, IAdminUsersRequest>({
       query: ({ page, order, role, search }) => ({
         url: RTKUrls.ADMIN_USERS,
@@ -190,5 +199,6 @@ export const {
   useUpdateRoleMutation,
   useUploadPhotoMutation,
   useUpdatePhoneMutation,
+  useUpdateAddressMutation,
   useGetAllUsersQuery,
 } = userApi;

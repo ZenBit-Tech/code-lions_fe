@@ -54,7 +54,7 @@ function OnboardingInfoForm() {
   const {
     control,
     handleSubmit,
-    formState: { isDirty, isValid, errors },
+    formState: { isValid, errors },
   } = useForm<IPhoneForm>({
     defaultValues: {
       phone: user.phoneNumber || '',
@@ -257,7 +257,7 @@ function OnboardingInfoForm() {
           fontFamily={theme.typography.fontFamily}
           radius="8px"
           type="submit"
-          disabled={!isDirty || !isValid || errorsLength > 0 || isLoadingPhone}
+          disabled={!isValid || errorsLength > 0 || isLoadingPhone}
         >
           {t('onboarding.next')}
         </StyledButton>

@@ -1,8 +1,10 @@
 import { useState } from 'react';
+import { useForm, Controller } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
 import { Box } from '@mui/system';
 
+import { yupResolver } from '@hookform/resolvers/yup';
 import StyledButton from 'src/components/shared/StyledButton';
 import {
   PaddingVariants,
@@ -14,17 +16,35 @@ import {
   InputStyleVariants,
 } from 'src/components/shared/StyledInput/types';
 import { CustomSelect } from 'src/components/shared/StyledSelect';
+import useToast from 'src/components/shared/toasts/components/ToastProvider/ToastProviderHooks';
 import InputLabel from 'src/pages/OnboardingPage/CreditCardForm/styles';
 import {
   OnboardingHeader4,
   OnboardingText,
 } from 'src/pages/OnboardingPage/styles';
-import { useAppDispatch } from 'src/redux/hooks';
 import {
-  increaseOnboardingStep,
-  decreaseOnboardingStep,
-} from 'src/redux/user/userSlice';
+  ErrorWrapper,
+  ErrorMessage,
+} from 'src/pages/SignUpPage/SignUpForm/styles';
+import { useAppDispatch, useAppSelector } from 'src/redux/hooks';
+import { useUpdateAddressMutation } from 'src/redux/user/userService';
+import { decreaseOnboardingStep } from 'src/redux/user/userSlice';
 import theme from 'src/theme';
+
+import addressSchema from './schema';
+
+interface IAddressForm {
+  addressLine1: string;
+  addressLine2?: string | null;
+}
+
+interface IAddressFullForm {
+  addressLine1: string;
+  addressLine2: string;
+  country: string;
+  state: string;
+  city: string;
+}
 
 const countries = [{ label: 'Canada', value: 'Canada' }];
 const states = [
@@ -56,20 +76,54 @@ const cities = [
 function OnboardingShippingForm() {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
-  const [country, setCountry] = useState(countries[0].value);
-  const [state, setState] = useState(states[0].value);
-  const [city, setCity] = useState(cities[0].value);
-
-  const sendRequest = () => {
-    dispatch(increaseOnboardingStep());
-  };
+  const user = useAppSelector((state) => state.user);
+  const [country, setCountry] = useState(user.country || countries[0].value);
+  const [state, setState] = useState(user.state || states[0].value);
+  const [city, setCity] = useState(user.city || cities[0].value);
+  const [updateAddress, { isLoading }] = useUpdateAddressMutation();
+  const { showToast } = useToast();
+  const {
+    control,
+    handleSubmit,
+    formState: { isValid, errors },
+  } = useForm<IAddressForm>({
+    defaultValues: {
+      addressLine1: user.addressLine1 || '',
+      addressLine2: user.addressLine2 || '',
+    },
+    resolver: yupResolver(addressSchema),
+    mode: 'onTouched',
+  });
+  const errorsLength: number = Object.keys(errors).length;
 
   const returnBack = () => {
     dispatch(decreaseOnboardingStep());
   };
 
+  const onSubmit = async (form: IAddressForm) => {
+    const addressToSend: IAddressFullForm = {
+      addressLine1: form.addressLine1,
+      addressLine2: form.addressLine2 || '',
+      country,
+      state,
+      city,
+    };
+
+    try {
+      await updateAddress({ id: user.id, ...addressToSend }).unwrap();
+    } catch (err) {
+      if (err instanceof Error) {
+        showToast('error', err.message);
+      } else {
+        showToast('error', t('onboarding.unknownError'));
+      }
+    }
+  };
+
   return (
     <Box
+      component="form"
+      onSubmit={handleSubmit(onSubmit)}
       sx={{
         display: 'flex',
         flexDirection: 'column',
@@ -108,13 +162,32 @@ function OnboardingShippingForm() {
             <InputLabel variant="h2" component="h4">
               {t('onboarding.addressLine1')}
             </InputLabel>
-            <StyledInput
-              fullWidth
-              autoComplete="off"
-              placeholder={t('onboarding.street')}
-              padding={InputPaddingVariants.MD}
-              stylevariant={InputStyleVariants.OUTLINED}
-              width="100%"
+            <Controller
+              name="addressLine1"
+              control={control}
+              render={({ field }) => (
+                <ErrorWrapper>
+                  <StyledInput
+                    {...field}
+                    fullWidth
+                    autoComplete="off"
+                    placeholder={t('onboarding.street')}
+                    padding={InputPaddingVariants.MD}
+                    stylevariant={InputStyleVariants.OUTLINED}
+                    width="100%"
+                    error={!!errors.addressLine1}
+                  />
+                  {errors.addressLine1 && (
+                    <ErrorMessage
+                      variant="subtitle2"
+                      mt={1}
+                      color={theme.palette.error.main}
+                    >
+                      {errors.addressLine1.message}
+                    </ErrorMessage>
+                  )}
+                </ErrorWrapper>
+              )}
             />
           </Box>
 
@@ -122,13 +195,32 @@ function OnboardingShippingForm() {
             <InputLabel variant="h2" component="h4">
               {t('onboarding.addressLine2')}
             </InputLabel>
-            <StyledInput
-              fullWidth
-              autoComplete="off"
-              placeholder={t('onboarding.street')}
-              padding={InputPaddingVariants.MD}
-              stylevariant={InputStyleVariants.OUTLINED}
-              width="100%"
+            <Controller
+              name="addressLine2"
+              control={control}
+              render={({ field }) => (
+                <ErrorWrapper>
+                  <StyledInput
+                    {...field}
+                    fullWidth
+                    autoComplete="off"
+                    placeholder={t('onboarding.street')}
+                    padding={InputPaddingVariants.MD}
+                    stylevariant={InputStyleVariants.OUTLINED}
+                    width="100%"
+                    error={!!errors.addressLine2}
+                  />
+                  {errors.addressLine2 && (
+                    <ErrorMessage
+                      variant="subtitle2"
+                      mt={1}
+                      color={theme.palette.error.main}
+                    >
+                      {errors.addressLine2.message}
+                    </ErrorMessage>
+                  )}
+                </ErrorWrapper>
+              )}
             />
           </Box>
 
@@ -195,7 +287,8 @@ function OnboardingShippingForm() {
           fontSize="14px"
           fontFamily={theme.typography.fontFamily}
           radius="8px"
-          onClick={sendRequest}
+          type="submit"
+          disabled={!isValid || errorsLength > 0 || isLoading}
         >
           {t('onboarding.next')}
         </StyledButton>

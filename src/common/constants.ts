@@ -75,6 +75,7 @@ export const appErrors = {
   INVALID_PHONE: 'Phone number should be in format 12345678901',
   INVALID_LENGTH: 'Invalid length, should be 11',
   REQUIRED: 'Field is required',
+  TOO_LONG: 'Too long, should be less than 100 characters',
 };
 
 export const pathToPhotos = '/assets/photos';
