@@ -17,7 +17,7 @@ const initialState: IUser = {
 };
 
 const updateState = (state: IUser, action: PayloadAction<IUser>): IUser => {
-  return { ...state, ...action.payload };
+  return { ...state, ...action.payload, isLoggedIn: true };
 };
 
 export const userSlice = createSlice({
@@ -44,32 +44,17 @@ export const userSlice = createSlice({
   extraReducers: (builder) => {
     builder.addMatcher(
       userApi.endpoints.verifyEmail.matchFulfilled,
-      (state, action) => {
-        return { ...state, ...action.payload, isLoggedIn: true };
-      }
+      updateState
     );
     builder.addMatcher(
       userApi.endpoints.addUserGoogle.matchFulfilled,
-      (state, action) => {
-        return { ...state, ...action.payload, isLoggedIn: true };
-      }
+      updateState
     );
     builder.addMatcher(
       userApi.endpoints.userSignUp.matchFulfilled,
-      (state, action) => {
-        return { ...state, ...action.payload, isLoggedIn: true };
-      }
+      updateState
     );
-    builder.addMatcher(
-      userApi.endpoints.loginUser.matchFulfilled,
-      (state, action) => {
-        return {
-          ...state,
-          ...action.payload,
-          isLoggedIn: true,
-        };
-      }
-    );
+    builder.addMatcher(userApi.endpoints.loginUser.matchFulfilled, updateState);
     builder.addMatcher(
       userApi.endpoints.updateRole.matchFulfilled,
       updateState
@@ -87,10 +72,12 @@ export const userSlice = createSlice({
       updateState
     );
     builder.addMatcher(
+      userApi.endpoints.updateCreditCard.matchFulfilled,
+      updateState
+    );
+    builder.addMatcher(
       userApi.endpoints.resetPassword.matchFulfilled,
-      (state, action) => {
-        return { ...state, ...action.payload, isLoggedIn: true };
-      }
+      updateState
     );
   },
 });

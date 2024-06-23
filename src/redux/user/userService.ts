@@ -12,7 +12,6 @@ import {
   IVerifyEmailRequest,
   IResendOtpRequest,
   IRegisterUserRequest,
-  IRegisterUserResponse,
   IRegisterGoogleRequest,
   ILoginRequest,
   IForgotPasswordRequest,
@@ -25,6 +24,7 @@ import {
   IUploadPhotoRequest,
   IUpdatePhoneRequest,
   IUpdateAddressRequest,
+  IUpdateCreditCardRequest,
 } from './types';
 
 const baseQuery = fetchBaseQuery({
@@ -96,7 +96,7 @@ export const userApi = createApi({
       }),
     }),
 
-    userSignUp: build.mutation<IRegisterUserResponse, IRegisterUserRequest>({
+    userSignUp: build.mutation<IUser, IRegisterUserRequest>({
       query: (post) => ({
         url: RTKUrls.REGISTER_USER,
         method: HttpMethods.POST,
@@ -177,6 +177,14 @@ export const userApi = createApi({
       }),
     }),
 
+    updateCreditCard: build.mutation<IUser, IUpdateCreditCardRequest>({
+      query: ({ id, ...rest }) => ({
+        url: `/users/${id}/${RTKUrls.CREDIT_CARD}`,
+        method: 'PATCH',
+        body: rest,
+      }),
+    }),
+
     getAllUsers: build.query<IUserDataResponse, IAdminUsersRequest>({
       query: ({ page, order, role, search }) => ({
         url: RTKUrls.ADMIN_USERS,
@@ -200,5 +208,6 @@ export const {
   useUploadPhotoMutation,
   useUpdatePhoneMutation,
   useUpdateAddressMutation,
+  useUpdateCreditCardMutation,
   useGetAllUsersQuery,
 } = userApi;

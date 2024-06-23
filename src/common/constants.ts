@@ -76,6 +76,10 @@ export const appErrors = {
   INVALID_LENGTH: 'Invalid length, should be 11',
   REQUIRED: 'Field is required',
   TOO_LONG: 'Too long, should be less than 100 characters',
+  INVALID_CARD_NUMBER: 'Invalid card number, should be 16 digits',
+  INVALID_EXPIRE_DATE:
+    'Invalid expire date, should be in format MM/YY in the future',
+  INVALID_CVV: 'Invalid CVV, should be 3 digits',
 };
 
 export const pathToPhotos = '/assets/photos';

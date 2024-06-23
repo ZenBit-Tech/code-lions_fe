@@ -63,14 +63,6 @@ export interface IRegisterUserRequest {
   password: string;
 }
 
-export interface IRegisterUserResponse {
-  id: string;
-  name: string;
-  email: string;
-  role: UserRole;
-  isEmailVerified: boolean;
-}
-
 export interface IRegisterGoogleRequest {
   token: string | undefined;
 }
@@ -151,4 +143,11 @@ export interface IUpdateAddressRequest {
   country: string;
   state: string;
   city: string;
+}
+
+export interface IUpdateCreditCardRequest {
+  id: string;
+  cardNumber: string;
+  expireDate: string;
+  cvvCode: string;
 }
