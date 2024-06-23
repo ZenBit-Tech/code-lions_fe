@@ -1,6 +1,12 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { HttpMethods, RTKUrls } from 'src/common/constants';
+import {
+  BaseQueryApi,
+  FetchArgs,
+  createApi,
+  fetchBaseQuery,
+} from '@reduxjs/toolkit/query/react';
+import { HttpMethods, RTKUrls, httpStatusCodes } from 'src/common/constants';
 import { RootState } from 'src/redux/store';
+import { setTokens, logout } from 'src/redux/user/userSlice';
 
 import {
   IVerifyEmailRequest,
@@ -16,22 +22,61 @@ import {
   IUserDataResponse,
   IAdminUsersRequest,
   IUpdateRoleRequest,
+  IUploadPhotoRequest,
 } from './types';
+
+const baseQuery = fetchBaseQuery({
+  baseUrl: import.meta.env.VITE_API_URL,
+  prepareHeaders: (headers, { getState }) => {
+    const { accessToken } = (getState() as RootState).user;
+
+    if (accessToken) {
+      headers.set('Authorization', `Bearer ${accessToken}`);
+    }
+
+    return headers;
+  },
+});
+
+const baseQueryWithReauth = async (
+  args: string | FetchArgs,
+  api: BaseQueryApi,
+  extraOptions: object
+) => {
+  let result = await baseQuery(args, api, extraOptions);
+
+  if (result.error && result.error.status === httpStatusCodes.UNAUTHORIZED) {
+    const state = api.getState() as RootState;
+    const { refreshToken } = state.user;
+
+    if (refreshToken) {
+      const refreshResult = await baseQuery(
+        {
+          url: RTKUrls.REFRESH_TOKEN,
+          method: 'POST',
+          body: { refreshToken },
+        },
+        api,
+        extraOptions
+      );
+
+      if (refreshResult.data) {
+        api.dispatch(setTokens(refreshResult.data));
+        result = await baseQuery(args, api, extraOptions);
+      } else {
+        api.dispatch(logout());
+      }
+    } else {
+      api.dispatch(logout());
+    }
+  }
+
+  return result;
+};
 
 export const userApi = createApi({
   reducerPath: 'userApi',
-  baseQuery: fetchBaseQuery({
-    baseUrl: import.meta.env.VITE_API_URL,
-    prepareHeaders: (headers, { getState }) => {
-      const { accessToken } = (getState() as RootState).user;
-
-      if (accessToken) {
-        headers.set('Authorization', `Bearer ${accessToken}`);
-      }
-
-      return headers;
-    },
-  }),
+  baseQuery: baseQueryWithReauth,
   endpoints: (build) => ({
     verifyEmail: build.mutation<IUser, IVerifyEmailRequest>({
       query: (post) => ({
@@ -97,6 +142,15 @@ export const userApi = createApi({
         body: { role: user.role },
       }),
     }),
+
+    uploadPhoto: build.mutation<IUser, IUploadPhotoRequest>({
+      query: ({ id, photo }) => ({
+        url: `${RTKUrls.USERS}/${id}/${RTKUrls.PHOTO}`,
+        method: HttpMethods.POST,
+        body: photo,
+      }),
+    }),
+
     getAllUsers: build.query<IUserDataResponse, IAdminUsersRequest>({
       query: ({ page, order, role, search }) => ({
         url: RTKUrls.ADMIN_USERS,
@@ -117,5 +171,6 @@ export const {
   useResetPasswordMutation,
   useNewPasswordMutation,
   useUpdateRoleMutation,
+  useUploadPhotoMutation,
   useGetAllUsersQuery,
 } = userApi;

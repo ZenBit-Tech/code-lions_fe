@@ -105,3 +105,7 @@ export const sortOptions: Record<string, SortOrder> = {
   DESC: 'desc',
   ASC: 'asc',
 };
+
+export const httpStatusCodes = {
+  UNAUTHORIZED: 401,
+};
