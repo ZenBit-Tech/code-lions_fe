@@ -12,6 +12,7 @@ import {
   StyleVariants,
 } from 'src/components/shared/StyledButton/types';
 import { CustomSelect } from 'src/components/shared/StyledSelect';
+import useToast from 'src/components/shared/toasts/components/ToastProvider/ToastProviderHooks';
 import {
   OnboardingHeader4,
   OnboardingText,
@@ -20,11 +21,9 @@ import {
   clothesSizeData,
   shoeSizeData,
 } from 'src/pages/SizesGuidePage/tableData';
-import { useAppDispatch } from 'src/redux/hooks';
-import {
-  increaseOnboardingStep,
-  decreaseOnboardingStep,
-} from 'src/redux/user/userSlice';
+import { useAppDispatch, useAppSelector } from 'src/redux/hooks';
+import { useUpdateSizesMutation } from 'src/redux/user/userService';
+import { decreaseOnboardingStep } from 'src/redux/user/userSlice';
 import theme from 'src/theme';
 
 const clothesSizes = clothesSizeData.rows.map((row) => ({
@@ -51,12 +50,29 @@ const jeansSizes = [
 function OnboardingSizeForm() {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
-  const [value, setValue] = useState(clothesSizes[0].value);
-  const [value1, setValue1] = useState(jeansSizes[0].value);
-  const [value2, setValue2] = useState(shoesSizes[0].value);
+  const user = useAppSelector((state) => state.user);
+  const [updateSizes, { isLoading }] = useUpdateSizesMutation();
+  const [clothesSize, setClothesSize] = useState(clothesSizes[0].value);
+  const [jeansSize, setJeansSize] = useState(jeansSizes[0].value);
+  const [shoesSize, setShoesSize] = useState(shoesSizes[0].value);
 
-  const sendRequest = () => {
-    dispatch(increaseOnboardingStep());
+  const { showToast } = useToast();
+  const sendRequest = async () => {
+    try {
+      await updateSizes({
+        id: user.id,
+
+        clothesSize,
+        jeansSize,
+        shoesSize,
+      }).unwrap();
+    } catch (err) {
+      if (err instanceof Error) {
+        showToast('error', err.message);
+      } else {
+        showToast('error', t('onboarding.unknownError'));
+      }
+    }
   };
 
   const returnBack = () => {
@@ -95,8 +111,8 @@ function OnboardingSizeForm() {
           <CustomSelect
             options={clothesSizes}
             displayEmpty
-            value={value}
-            onChange={(v) => setValue(String(v.target.value))}
+            value={clothesSize}
+            onChange={(v) => setClothesSize(String(v.target.value))}
           />
         </Box>
       </Box>
@@ -121,8 +137,8 @@ function OnboardingSizeForm() {
           <CustomSelect
             options={jeansSizes}
             displayEmpty
-            value={value1}
-            onChange={(v) => setValue1(String(v.target.value))}
+            value={jeansSize}
+            onChange={(v) => setJeansSize(String(v.target.value))}
           />
         </Box>
       </Box>
@@ -147,8 +163,8 @@ function OnboardingSizeForm() {
           <CustomSelect
             options={shoesSizes}
             displayEmpty
-            value={value2}
-            onChange={(v) => setValue2(String(v.target.value))}
+            value={shoesSize}
+            onChange={(v) => setShoesSize(String(v.target.value))}
           />
 
           <Typography
@@ -191,6 +207,7 @@ function OnboardingSizeForm() {
           fontFamily={theme.typography.fontFamily}
           radius="8px"
           onClick={sendRequest}
+          disabled={isLoading}
         >
           {t('onboarding.next')}
         </StyledButton>

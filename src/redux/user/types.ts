@@ -151,3 +151,10 @@ export interface IUpdateCreditCardRequest {
   expireDate: string;
   cvvCode: string;
 }
+
+export interface IUpdateSizesRequest {
+  id: string;
+  clothesSize: string;
+  jeansSize: string;
+  shoesSize: string;
+}

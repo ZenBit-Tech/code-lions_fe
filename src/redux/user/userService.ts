@@ -25,6 +25,7 @@ import {
   IUpdatePhoneRequest,
   IUpdateAddressRequest,
   IUpdateCreditCardRequest,
+  IUpdateSizesRequest,
 } from './types';
 
 const baseQuery = fetchBaseQuery({
@@ -185,6 +186,14 @@ export const userApi = createApi({
       }),
     }),
 
+    updateSizes: build.mutation<IUser, IUpdateSizesRequest>({
+      query: ({ id, ...rest }) => ({
+        url: `/users/${id}/${RTKUrls.SIZE}`,
+        method: 'PATCH',
+        body: rest,
+      }),
+    }),
+
     getAllUsers: build.query<IUserDataResponse, IAdminUsersRequest>({
       query: ({ page, order, role, search }) => ({
         url: RTKUrls.ADMIN_USERS,
@@ -209,5 +218,6 @@ export const {
   useUpdatePhoneMutation,
   useUpdateAddressMutation,
   useUpdateCreditCardMutation,
+  useUpdateSizesMutation,
   useGetAllUsersQuery,
 } = userApi;

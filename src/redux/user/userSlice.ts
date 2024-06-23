@@ -76,6 +76,10 @@ export const userSlice = createSlice({
       updateState
     );
     builder.addMatcher(
+      userApi.endpoints.updateSizes.matchFulfilled,
+      updateState
+    );
+    builder.addMatcher(
       userApi.endpoints.resetPassword.matchFulfilled,
       updateState
     );
