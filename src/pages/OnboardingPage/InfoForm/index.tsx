@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import { useForm, Controller } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
 import { Box } from '@mui/system';
 
+import { yupResolver } from '@hookform/resolvers/yup';
 import PhotoIcon from 'src/assets/icons/photo.svg';
 import UserImageIcon from 'src/assets/icons/user-image.svg';
 import StyledButton from 'src/components/shared/StyledButton';
@@ -20,26 +22,47 @@ import {
   OnboardingHeader4,
   OnboardingText,
 } from 'src/pages/OnboardingPage/styles';
+import {
+  ErrorWrapper,
+  ErrorMessage,
+} from 'src/pages/SignUpPage/SignUpForm/styles';
 import { useAppDispatch, useAppSelector } from 'src/redux/hooks';
-import { useUploadPhotoMutation } from 'src/redux/user/userService';
+import {
+  useUploadPhotoMutation,
+  useUpdatePhoneMutation,
+} from 'src/redux/user/userService';
 import { decreaseOnboardingStep } from 'src/redux/user/userSlice';
 import theme from 'src/theme';
 
+import phoneSchema from './schema';
 import VisuallyHiddenInput from './styles';
+
+interface IPhoneForm {
+  phone: string;
+}
 
 function OnboardingInfoForm() {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.user);
   const [uploadPhoto, { isLoading }] = useUploadPhotoMutation();
+  const [updatePhone, { isLoading: isLoadingPhone }] = useUpdatePhoneMutation();
   const [preview, setPreview] = useState<string | null>(
     user.photoUrl ? import.meta.env.VITE_API_URL + user.photoUrl : null
   );
   const { showToast } = useToast();
-
-  const sendRequest = async () => {
-    // dispatch(increaseOnboardingStep());
-  };
+  const {
+    control,
+    handleSubmit,
+    formState: { isDirty, isValid, errors },
+  } = useForm<IPhoneForm>({
+    defaultValues: {
+      phone: user.phoneNumber || '',
+    },
+    resolver: yupResolver(phoneSchema),
+    mode: 'onTouched',
+  });
+  const errorsLength: number = Object.keys(errors).length;
 
   const sendPhotoRequest = async (file: File | null) => {
     try {
@@ -75,8 +98,22 @@ function OnboardingInfoForm() {
     await sendPhotoRequest(file);
   };
 
+  const onSubmit = async (form: IPhoneForm) => {
+    try {
+      await updatePhone({ id: user.id, phone: `+62${form.phone}` }).unwrap();
+    } catch (err) {
+      if (err instanceof Error) {
+        showToast('error', err.message);
+      } else {
+        showToast('error', t('onboarding.unknownError'));
+      }
+    }
+  };
+
   return (
     <Box
+      component="form"
+      onSubmit={handleSubmit(onSubmit)}
       sx={{
         display: 'flex',
         flexDirection: 'column',
@@ -165,13 +202,32 @@ function OnboardingInfoForm() {
           </OnboardingText>
         </Box>
         <Box sx={{ flex: 1 }}>
-          <StyledInput
-            fullWidth
-            autoComplete="off"
-            placeholder=""
-            padding={InputPaddingVariants.MD}
-            stylevariant={InputStyleVariants.OUTLINED}
-            width="100%"
+          <Controller
+            name="phone"
+            control={control}
+            render={({ field }) => (
+              <ErrorWrapper>
+                <StyledInput
+                  {...field}
+                  fullWidth
+                  autoComplete="off"
+                  placeholder=""
+                  padding={InputPaddingVariants.MD}
+                  stylevariant={InputStyleVariants.OUTLINED}
+                  width="100%"
+                  error={!!errors.phone}
+                />
+                {errors.phone && (
+                  <ErrorMessage
+                    variant="subtitle2"
+                    mt={1}
+                    color={theme.palette.error.main}
+                  >
+                    {errors.phone.message}
+                  </ErrorMessage>
+                )}
+              </ErrorWrapper>
+            )}
           />
         </Box>
       </Box>
@@ -200,7 +256,8 @@ function OnboardingInfoForm() {
           fontSize="14px"
           fontFamily={theme.typography.fontFamily}
           radius="8px"
-          onClick={sendRequest}
+          type="submit"
+          disabled={!isDirty || !isValid || errorsLength > 0 || isLoadingPhone}
         >
           {t('onboarding.next')}
         </StyledButton>

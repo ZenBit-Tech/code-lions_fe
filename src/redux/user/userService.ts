@@ -23,6 +23,7 @@ import {
   IAdminUsersRequest,
   IUpdateRoleRequest,
   IUploadPhotoRequest,
+  IUpdatePhoneRequest,
 } from './types';
 
 const baseQuery = fetchBaseQuery({
@@ -85,6 +86,7 @@ export const userApi = createApi({
         body: post,
       }),
     }),
+
     resendOtp: build.mutation<void, IResendOtpRequest>({
       query: (post) => ({
         url: RTKUrls.RESEND_OTP,
@@ -92,6 +94,7 @@ export const userApi = createApi({
         body: post,
       }),
     }),
+
     userSignUp: build.mutation<IRegisterUserResponse, IRegisterUserRequest>({
       query: (post) => ({
         url: RTKUrls.REGISTER_USER,
@@ -99,6 +102,7 @@ export const userApi = createApi({
         body: post,
       }),
     }),
+
     addUserGoogle: build.mutation<IUser, IRegisterGoogleRequest>({
       query: (post) => ({
         url: RTKUrls.GOOGLE_AUTH,
@@ -107,6 +111,7 @@ export const userApi = createApi({
         headers: { 'Access-Control-Allow-Origin': '*' },
       }),
     }),
+
     loginUser: build.mutation<IUser, ILoginRequest>({
       query: (post) => ({
         url: RTKUrls.SIGN_IN,
@@ -114,6 +119,7 @@ export const userApi = createApi({
         body: post,
       }),
     }),
+
     forgotPassword: build.mutation<void, IForgotPasswordRequest>({
       query: (post) => ({
         url: RTKUrls.FORGOT_PASSWORD,
@@ -121,6 +127,7 @@ export const userApi = createApi({
         body: post,
       }),
     }),
+
     resetPassword: build.mutation<IUser, IResetPasswordRequest>({
       query: (post) => ({
         url: RTKUrls.RESET_PASSWORD,
@@ -128,6 +135,7 @@ export const userApi = createApi({
         body: post,
       }),
     }),
+
     newPassword: build.mutation<void, INewPasswordRequest>({
       query: (post) => ({
         url: RTKUrls.NEW_PASSWORD,
@@ -135,6 +143,7 @@ export const userApi = createApi({
         body: post,
       }),
     }),
+
     updateRole: build.mutation<IUser, IUpdateRoleRequest>({
       query: (user) => ({
         url: `${RTKUrls.USERS}/${user.id}/${RTKUrls.ROLE}`,
@@ -148,6 +157,14 @@ export const userApi = createApi({
         url: `${RTKUrls.USERS}/${id}/${RTKUrls.PHOTO}`,
         method: HttpMethods.POST,
         body: photo,
+      }),
+    }),
+
+    updatePhone: build.mutation<IUser, IUpdatePhoneRequest>({
+      query: (user) => ({
+        url: `${RTKUrls.USERS}/${user.id}/${RTKUrls.PHONE}`,
+        method: HttpMethods.PATCH,
+        body: { phoneNumber: user.phone },
       }),
     }),
 
@@ -172,5 +189,6 @@ export const {
   useNewPasswordMutation,
   useUpdateRoleMutation,
   useUploadPhotoMutation,
+  useUpdatePhoneMutation,
   useGetAllUsersQuery,
 } = userApi;

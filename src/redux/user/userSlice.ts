@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { userApi } from 'src/redux/user/userService';
 
 import { IUser } from './types';
@@ -13,6 +13,11 @@ const initialState: IUser = {
   onboardingStep: 1,
   accessToken: '',
   refreshToken: '',
+  isAccountActive: true,
+};
+
+const updateState = (state: IUser, action: PayloadAction<IUser>): IUser => {
+  return { ...state, ...action.payload };
 };
 
 export const userSlice = createSlice({
@@ -67,15 +72,15 @@ export const userSlice = createSlice({
     );
     builder.addMatcher(
       userApi.endpoints.updateRole.matchFulfilled,
-      (state, action) => {
-        return { ...state, ...action.payload };
-      }
+      updateState
     );
     builder.addMatcher(
       userApi.endpoints.uploadPhoto.matchFulfilled,
-      (state, action) => {
-        return { ...state, ...action.payload };
-      }
+      updateState
+    );
+    builder.addMatcher(
+      userApi.endpoints.updatePhone.matchFulfilled,
+      updateState
     );
     builder.addMatcher(
       userApi.endpoints.resetPassword.matchFulfilled,

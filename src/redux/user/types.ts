@@ -8,10 +8,23 @@ export interface IUser {
   role: UserRole;
   isEmailVerified: boolean;
   isLoggedIn: boolean;
-  onboardingStep: number;
+  photoUrl?: string;
+  phoneNumber?: string;
+  addressLine1?: string;
+  addressLine2?: string;
+  country?: string;
+  state?: string;
+  city?: string;
+  clothesSize?: string;
+  jeansSize?: string;
+  shoesSize?: string;
+  isAccountActive: boolean;
+  createdAt?: Date;
+  lastUpdatedAt?: Date;
+  deletedAt?: Date;
   accessToken?: string;
   refreshToken?: string;
-  photoUrl?: string;
+  onboardingStep: number;
 }
 
 export interface IVerifyEmailRequest {
@@ -124,4 +137,9 @@ export interface IUpdateRoleRequest {
 export interface IUploadPhotoRequest {
   id: string;
   photo: FormData;
+}
+
+export interface IUpdatePhoneRequest {
+  id: string;
+  phone: string;
 }

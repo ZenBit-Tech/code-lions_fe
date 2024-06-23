@@ -58,6 +58,8 @@ export const HttpMethods = {
 export const validations = {
   EMAIL_REGEX: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
   PASSWORD_MIN_LENGTH: 8,
+  PHONE_REGEX: /^[1-9][0-9]{0,10}$/,
+  PHONE_LENGTH: 11,
 };
 
 export const appErrors = {
@@ -70,6 +72,9 @@ export const appErrors = {
   PASSWORD_LENGTH: 'Password needs to be at least 8 characters',
   PASSWORD_MATCH:
     'Passwords entered in the "Password" and "Repeat password" fields must match',
+  INVALID_PHONE: 'Phone number should be in format 12345678901',
+  INVALID_LENGTH: 'Invalid length, should be 11',
+  REQUIRED: 'Field is required',
 };
 
 export const pathToPhotos = '/assets/photos';
