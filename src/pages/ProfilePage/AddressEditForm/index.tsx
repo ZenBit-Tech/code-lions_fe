@@ -64,6 +64,8 @@ function AddressEditForm({ setShowEdit }: IAddressEditForm) {
           display: 'flex',
           flexDirection: 'column',
           gap: '20px',
+          mt: '20px',
+          mb: '20px',
         }}
       >
         <TitleInputWrapper>
@@ -77,7 +79,6 @@ function AddressEditForm({ setShowEdit }: IAddressEditForm) {
             width="100%"
           />
         </TitleInputWrapper>
-
         <TitleInputWrapper>
           <LabelText>{t('onboarding.addressLine2')}</LabelText>
           <StyledInput
@@ -89,7 +90,6 @@ function AddressEditForm({ setShowEdit }: IAddressEditForm) {
             width="100%"
           />
         </TitleInputWrapper>
-
         <TitleInputWrapper>
           <LabelText>{t('onboarding.country')}</LabelText>
           <CustomSelect
@@ -99,7 +99,6 @@ function AddressEditForm({ setShowEdit }: IAddressEditForm) {
             onChange={(v) => setCountry(String(v.target.value))}
           />
         </TitleInputWrapper>
-
         <TitleInputWrapper>
           <LabelText>{t('onboarding.state')}</LabelText>
           <CustomSelect
@@ -109,7 +108,6 @@ function AddressEditForm({ setShowEdit }: IAddressEditForm) {
             onChange={(v) => setState(String(v.target.value))}
           />
         </TitleInputWrapper>
-
         <TitleInputWrapper>
           <LabelText>{t('onboarding.city')}</LabelText>
           <CustomSelect

@@ -12,6 +12,7 @@ import OnboardingPage from 'src/pages/OnboardingPage';
 import PrivacyPolicyPage from 'src/pages/PrivacyPolicyPage';
 import ProfileLayout from 'src/pages/ProfileLayout';
 import ProfilePage from 'src/pages/ProfilePage';
+import ProfileComingSoon from 'src/pages/ProfilePage/ProfileComingSoon';
 import RestorePasswordPage from 'src/pages/RestorePasswordPage';
 import SignInPage from 'src/pages/SignInPage';
 import SignUpPage from 'src/pages/SignUpPage';
@@ -95,7 +96,13 @@ const router = createBrowserRouter([
   {
     path: urls.PROFILE,
     element: <ProfileLayout />,
-    children: [{ path: urls.PROFILE_DETAILS, element: <ProfilePage /> }],
+    children: [
+      { path: urls.PROFILE_DETAILS, element: <ProfilePage /> },
+      { path: urls.PROFILE_ORDERS, element: <ProfileComingSoon /> },
+      { path: urls.PROFILE_WISHLIST, element: <ProfileComingSoon /> },
+      { path: urls.PROFILE_SETTINGS, element: <ProfileComingSoon /> },
+      { path: urls.PROFILE_SUPPORT, element: <ProfileComingSoon /> },
+    ],
   },
 ]);
 

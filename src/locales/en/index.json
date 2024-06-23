@@ -259,6 +259,7 @@
     "editButton": "Edit",
     "saveButton": "Save",
     "paymentMethod": "Payment Method",
-    "card": "Card"
+    "card": "Card",
+    "cardNumber": "**** **** **** "
   }
 }

@@ -26,6 +26,10 @@ export const urls = {
   ADMIN_USERS_FULL: '/admin/users',
   PROFILE: '/profile',
   PROFILE_DETAILS: 'details',
+  PROFILE_ORDERS: 'orders',
+  PROFILE_WISHLIST: 'wishlist',
+  PROFILE_SETTINGS: 'settings',
+  PROFILE_SUPPORT: 'support',
 };
 
 export const RTKUrls = {

@@ -14,6 +14,7 @@ interface ISectionTitle {
   showBackLink?: boolean;
   showNotification?: boolean;
   mt?: string;
+  ml?: string;
 }
 
 function SectionTitle({
@@ -22,12 +23,13 @@ function SectionTitle({
   showBackLink = false,
   showNotification = false,
   mt,
+  ml,
 }: ISectionTitle) {
   const location = useLocation();
   const backLinkHref = location.state?.from ?? '/';
 
   return (
-    <TitleWrapper greyBackground={greyBackground} mt={mt}>
+    <TitleWrapper greyBackground={greyBackground} mt={mt} ml={ml}>
       {showBackLink && (
         <StyledLink to={backLinkHref}>
           <IconButton sx={{ padding: 0 }}>

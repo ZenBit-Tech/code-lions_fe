@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { Outlet } from 'react-router-dom';
 
 import { Avatar, Grid } from '@mui/material';
+import { Box } from '@mui/system';
 
 import SectionTitle from 'src/components/shared/SectionTitle';
 import { useAppSelector } from 'src/redux/hooks';
@@ -28,31 +29,47 @@ function ProfileLayout() {
             title={t('profile.title')}
             greyBackground
             showNotification
+            ml="14px"
           />
         </Grid>
-        <SideBarWrapper
-          item
-          xs={4}
-          lg={1}
-          direction="column"
-          justifyContent="flex-start"
-          alignItems="center"
-        >
-          <AvatarWrapper>
-            <Avatar
-              src="src/assets/photos/avatar.jpg"
-              sx={{ width: '120px', height: '120px' }}
-            />
-            <NameTitle variant="subtitle1">{userName}</NameTitle>
-          </AvatarWrapper>
-          <Grid item xs={4} lg={1}>
-            <SubTitle variant="subtitle1">{t('profile.buyerMode')}</SubTitle>
-          </Grid>
-          <Grid item xs={4} lg={1}>
-            <ProfileMenu />
-          </Grid>
-        </SideBarWrapper>
-        <OutletWrapper item xs={4} lg={3} height="100%">
+        <Grid item xs={4} md={1}>
+          <SideBarWrapper>
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'flex-start',
+                alignItems: 'center',
+                height: '100%',
+                flexGrow: 1,
+              }}
+            >
+              <AvatarWrapper>
+                <Avatar
+                  src="src/assets/photos/avatar.jpg"
+                  sx={{ width: '120px', height: '120px' }}
+                />
+                <NameTitle variant="subtitle1">{userName}</NameTitle>
+              </AvatarWrapper>
+              <Box
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'flex-start',
+                  width: '100%',
+                  flexGrow: 1,
+                  flexShrink: 0,
+                }}
+              >
+                <SubTitle variant="subtitle1">
+                  {t('profile.buyerMode')}
+                </SubTitle>
+                <ProfileMenu />
+              </Box>
+            </Box>
+          </SideBarWrapper>
+        </Grid>
+        <OutletWrapper item xs={4} md={3} height="100%">
           <Outlet />
         </OutletWrapper>
       </Grid>
