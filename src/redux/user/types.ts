@@ -1,4 +1,5 @@
-export type UserRole = 'buyer' | 'vendor' | 'admin' | null;
+export type NonAdminRole = 'buyer' | 'vendor';
+export type UserRole = NonAdminRole | 'admin' | null;
 
 export interface IUser {
   id: string;
@@ -7,9 +8,23 @@ export interface IUser {
   role: UserRole;
   isEmailVerified: boolean;
   isLoggedIn: boolean;
-  onboardingStep: number;
+  photoUrl?: string;
+  phoneNumber?: string;
+  addressLine1?: string;
+  addressLine2?: string;
+  country?: string;
+  state?: string;
+  city?: string;
+  clothesSize?: string;
+  jeansSize?: string;
+  shoesSize?: string;
+  isAccountActive: boolean;
+  createdAt?: Date;
+  lastUpdatedAt?: Date;
+  deletedAt?: Date;
   accessToken?: string;
   refreshToken?: string;
+  onboardingStep: number;
 }
 
 export interface IVerifyEmailRequest {
@@ -46,14 +61,6 @@ export interface IRegisterUserRequest {
   name: string;
   email: string;
   password: string;
-}
-
-export interface IRegisterUserResponse {
-  id: string;
-  name: string;
-  email: string;
-  role: UserRole;
-  isEmailVerified: boolean;
 }
 
 export interface IRegisterGoogleRequest {
@@ -112,4 +119,42 @@ export interface IAdminUsersRequest {
   order?: SortOrder;
   role?: UserRole;
   search?: string;
+}
+
+export interface IUpdateRoleRequest {
+  id: string;
+  role: UserRole;
+}
+
+export interface IUploadPhotoRequest {
+  id: string;
+  photo: FormData;
+}
+
+export interface IUpdatePhoneRequest {
+  id: string;
+  phone: string;
+}
+
+export interface IUpdateAddressRequest {
+  id: string;
+  addressLine1: string;
+  addressLine2: string;
+  country: string;
+  state: string;
+  city: string;
+}
+
+export interface IUpdateCreditCardRequest {
+  id: string;
+  cardNumber: string;
+  expireDate: string;
+  cvvCode: string;
+}
+
+export interface IUpdateSizesRequest {
+  id: string;
+  clothesSize: string;
+  jeansSize: string;
+  shoesSize: string;
 }

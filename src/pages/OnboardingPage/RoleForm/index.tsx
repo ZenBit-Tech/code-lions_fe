@@ -10,12 +10,14 @@ import {
   PaddingVariants,
   StyleVariants,
 } from 'src/components/shared/StyledButton/types';
+import useToast from 'src/components/shared/toasts/components/ToastProvider/ToastProviderHooks';
 import {
   OnboardingHeader4,
   OnboardingText,
 } from 'src/pages/OnboardingPage/styles';
-import { useAppDispatch } from 'src/redux/hooks';
-import { increaseOnboardingStep } from 'src/redux/user/userSlice';
+import { useAppSelector } from 'src/redux/hooks';
+import { NonAdminRole, UserRole } from 'src/redux/user/types';
+import { useUpdateRoleMutation } from 'src/redux/user/userService';
 import theme from 'src/theme';
 
 import { StyledFormControlLabel, StyledRadio } from './styles';
@@ -23,19 +25,29 @@ import { StyledFormControlLabel, StyledRadio } from './styles';
 const Roles = {
   BUYER: 'buyer',
   VENDOR: 'vendor',
-};
+} as const;
 
 function OnboardingRoleForm() {
   const { t } = useTranslation();
-  const dispatch = useAppDispatch();
-  const [value, setValue] = useState(Roles.BUYER);
+  const [updateRole, { isLoading }] = useUpdateRoleMutation();
+  const user = useAppSelector((state) => state.user);
+  const [role, setRole] = useState<UserRole>(user.role || Roles.BUYER);
+  const { showToast } = useToast();
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setValue((event.target as HTMLInputElement).value);
+    setRole((event.target as HTMLInputElement).value as NonAdminRole);
   };
 
-  const sendRequest = () => {
-    dispatch(increaseOnboardingStep());
+  const sendRequest = async () => {
+    try {
+      await updateRole({ id: user.id, role }).unwrap();
+    } catch (err) {
+      if (err instanceof Error) {
+        showToast('error', err.message);
+      } else {
+        showToast('error', t('onboarding.unknownError'));
+      }
+    }
   };
 
   return (
@@ -72,7 +84,7 @@ function OnboardingRoleForm() {
               row
               aria-labelledby="controlled-radio-buttons-group"
               name="controlled-radio-buttons-group"
-              value={value}
+              value={role}
               onChange={handleChange}
               sx={{ display: 'flex', gap: '96px' }}
             >
@@ -101,11 +113,13 @@ function OnboardingRoleForm() {
         <StyledButton
           styles={StyleVariants.BLACK}
           padding={PaddingVariants.SM}
+          type="submit"
           variant="contained"
           fontSize="14px"
           fontFamily={theme.typography.fontFamily}
           radius="8px"
           onClick={sendRequest}
+          disabled={isLoading}
         >
           {t('onboarding.next')}
         </StyledButton>
