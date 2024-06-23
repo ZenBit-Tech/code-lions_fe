@@ -31,6 +31,7 @@ export const RTKUrls = {
   VERIFY_OTP: 'auth/verify-otp',
   RESEND_OTP: 'auth/resend-otp',
   SIGN_IN: 'auth/login',
+  REFRESH_TOKEN: 'auth/refresh-token',
   FORGOT_PASSWORD: 'auth/forgot-password',
   RESET_PASSWORD: 'auth/reset-password',
   NEW_PASSWORD: 'auth/new-password',
@@ -39,6 +40,11 @@ export const RTKUrls = {
   ADMIN_USERS: 'users/admin',
   USERS: 'users',
   ROLE: 'role',
+  PHOTO: 'photo',
+  PHONE: 'phone',
+  ADDRESS: 'address',
+  SIZE: 'size',
+  CREDIT_CARD: 'credit-card',
 };
 
 export const HttpMethods = {

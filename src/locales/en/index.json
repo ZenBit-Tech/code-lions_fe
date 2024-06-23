@@ -192,6 +192,7 @@
     "phoneNumber": "Phone Number",
     "enterNumber": "Please enter your phone number",
     "role": "Role",
+    "yourPhoto": "Your photo",
     "chooseTypeOfAccount": "Choose what type of account you want to create",
     "shippingAddress": "Shipping address",
     "addYourShippingAddress": "Add your shipping address",
@@ -224,6 +225,7 @@
     "buyer": "Buyer",
     "vendor": "Vendor",
     "uploadPhoto": "Upload Photo",
+    "changeImage": "Change image",
     "unknownError": "An unexpected error occurred. Please try again later"
   },
   "usersAdmin": {

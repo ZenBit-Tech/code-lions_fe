@@ -28,6 +28,10 @@ export const userSlice = createSlice({
     decreaseOnboardingStep(state) {
       state.onboardingStep -= 1;
     },
+    setTokens(state, action) {
+      state.accessToken = action.payload.accessToken;
+      state.refreshToken = action.payload.refreshToken;
+    },
     logout() {
       return initialState;
     },
@@ -68,6 +72,12 @@ export const userSlice = createSlice({
       }
     );
     builder.addMatcher(
+      userApi.endpoints.uploadPhoto.matchFulfilled,
+      (state, action) => {
+        return { ...state, ...action.payload };
+      }
+    );
+    builder.addMatcher(
       userApi.endpoints.resetPassword.matchFulfilled,
       (state, action) => {
         return { ...state, ...action.payload, isLoggedIn: true };
@@ -80,6 +90,7 @@ export const {
   setEmail,
   increaseOnboardingStep,
   decreaseOnboardingStep,
+  setTokens,
   logout,
 } = userSlice.actions;
 

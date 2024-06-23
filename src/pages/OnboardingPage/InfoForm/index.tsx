@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { Box } from '@mui/system';
@@ -14,27 +15,64 @@ import {
   InputPaddingVariants,
   InputStyleVariants,
 } from 'src/components/shared/StyledInput/types';
+import useToast from 'src/components/shared/toasts/components/ToastProvider/ToastProviderHooks';
 import {
   OnboardingHeader4,
   OnboardingText,
 } from 'src/pages/OnboardingPage/styles';
-import { useAppDispatch } from 'src/redux/hooks';
-import {
-  increaseOnboardingStep,
-  decreaseOnboardingStep,
-} from 'src/redux/user/userSlice';
+import { useAppDispatch, useAppSelector } from 'src/redux/hooks';
+import { useUploadPhotoMutation } from 'src/redux/user/userService';
+import { decreaseOnboardingStep } from 'src/redux/user/userSlice';
 import theme from 'src/theme';
+
+import VisuallyHiddenInput from './styles';
 
 function OnboardingInfoForm() {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
+  const user = useAppSelector((state) => state.user);
+  const [uploadPhoto, { isLoading }] = useUploadPhotoMutation();
+  const [preview, setPreview] = useState<string | null>(
+    user.photoUrl ? import.meta.env.VITE_API_URL + user.photoUrl : null
+  );
+  const { showToast } = useToast();
 
-  const sendRequest = () => {
-    dispatch(increaseOnboardingStep());
+  const sendRequest = async () => {
+    // dispatch(increaseOnboardingStep());
+  };
+
+  const sendPhotoRequest = async (file: File | null) => {
+    try {
+      if (file instanceof File) {
+        const formDataPhoto = new FormData();
+
+        formDataPhoto.append('file', file);
+        await uploadPhoto({ id: user.id, photo: formDataPhoto }).unwrap();
+      }
+    } catch (err) {
+      if (err instanceof Error) {
+        showToast('error', err.message);
+      } else {
+        showToast('error', t('onboarding.unknownError'));
+      }
+    }
   };
 
   const returnBack = () => {
     dispatch(decreaseOnboardingStep());
+  };
+
+  const handleFileChange = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const file = event.target.files?.[0] || null;
+
+    if (file) {
+      const objectUrl = URL.createObjectURL(file);
+
+      setPreview(objectUrl);
+    }
+    await sendPhotoRequest(file);
   };
 
   return (
@@ -73,20 +111,40 @@ function OnboardingInfoForm() {
               height: '120px',
               borderRadius: '50%',
               border: `.75px solid ${theme.palette.secondary.main}`,
+              overflow: 'hidden',
             }}
           >
-            <UserImageIcon />
+            {preview ? (
+              <img
+                src={preview}
+                width="120px"
+                height="120px"
+                alt={t('onboarding.yourPhoto')}
+              />
+            ) : (
+              <UserImageIcon />
+            )}
           </Box>
           <StyledButton
+            component="label"
             styles={StyleVariants.BLACK}
             padding={PaddingVariants.SM2}
             variant="contained"
             fontSize="14px"
+            disabled={isLoading}
           >
+            <VisuallyHiddenInput
+              type="file"
+              accept="image/jpeg, image/png, image/heic"
+              id="upload-photo"
+              onChange={handleFileChange}
+            />
             <Box sx={{ mr: '8px' }}>
               <PhotoIcon />
             </Box>
-            {t('onboarding.uploadPhoto')}
+            {preview
+              ? t('onboarding.changeImage')
+              : t('onboarding.uploadPhoto')}
           </StyledButton>
         </Box>
       </Box>

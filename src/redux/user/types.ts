@@ -11,6 +11,7 @@ export interface IUser {
   onboardingStep: number;
   accessToken?: string;
   refreshToken?: string;
+  photoUrl?: string;
 }
 
 export interface IVerifyEmailRequest {
@@ -118,4 +119,9 @@ export interface IAdminUsersRequest {
 export interface IUpdateRoleRequest {
   id: string;
   role: UserRole;
+}
+
+export interface IUploadPhotoRequest {
+  id: string;
+  photo: FormData;
 }
