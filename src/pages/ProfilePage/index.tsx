@@ -17,9 +17,6 @@ function ProfilePage() {
 
   return (
     <Grid container spacing={3}>
-      <Grid item xs={12}>
-        photo
-      </Grid>
       <Grid item xs={12} md={6}>
         <PersonalInformationForm />
       </Grid>
