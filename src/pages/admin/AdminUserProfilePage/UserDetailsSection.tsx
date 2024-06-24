@@ -1,11 +1,13 @@
 import { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import { Box, IconButton, Typography } from '@mui/material';
 
 import ChevronRight from 'src/assets/icons/chevron-right-grey-small.svg';
 import DeleteTrash from 'src/assets/icons/delete-trash.svg';
 import EditPencil from 'src/assets/icons/edit-pencil.svg';
+import { useDeleteUserByAdminMutation } from 'src/redux/user/userService';
 import theme from 'src/theme';
 
 import AdminSectionSubTitle from '../AdminSectionSubTitle';
@@ -16,10 +18,29 @@ interface IUserDetailsSectionProps {
   sectionHeight: string;
 }
 
+const previousPage: number = -1;
+
 function UserDetailsSection(props: IUserDetailsSectionProps) {
   const { children, sectionHeight } = props;
+  const navigate = useNavigate();
 
   const { t } = useTranslation();
+  const { userId } = useParams<{ userId: string }>();
+
+  const [deleteUserByAdmin] = useDeleteUserByAdminMutation();
+
+  const handleDeleteUser = async (id: string | undefined) => {
+    try {
+      if (id) {
+        await deleteUserByAdmin({ userId: id });
+        navigate(previousPage);
+      }
+
+      return null;
+    } catch (error) {
+      return error;
+    }
+  };
 
   return (
     <Box>
@@ -61,7 +82,7 @@ function UserDetailsSection(props: IUserDetailsSectionProps) {
             <IconButton>
               <EditPencil />
             </IconButton>
-            <IconButton>
+            <IconButton onClick={() => handleDeleteUser(userId)}>
               <DeleteTrash />
             </IconButton>
           </Box>

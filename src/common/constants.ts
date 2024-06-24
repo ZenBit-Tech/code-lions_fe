@@ -37,6 +37,9 @@ export const RTKUrls = {
   REGISTER_USER: 'auth/register',
   GOOGLE_AUTH: 'auth/google',
   ADMIN_USERS: 'users/admin',
+  USERS: 'users',
+  UPDATE_PROFILE_ADMIN: 'update-profile-admin',
+  SOFT_DELETE: 'soft-delete',
 };
 
 export const HttpMethods = {
@@ -81,7 +84,12 @@ export const onboardingSteps = {
   FINISH: 6,
 };
 
-export const countryCodes = [{ code: '+62' }, { code: '+38' }];
+export const countryCodes = [
+  { code: '+62' },
+  { code: '+38' },
+  { code: '+1' },
+  { code: '' },
+];
 
 export const userRoles = {
   BUYER: 'buyer',
@@ -97,3 +105,31 @@ export const sortOptions: Record<string, SortOrder> = {
   DESC: 'desc',
   ASC: 'asc',
 };
+
+export const countries = [{ label: 'Canada', value: 'Canada' }];
+
+export const states = [
+  { label: 'Ontario', value: 'Ontario' },
+  { label: 'Quebec', value: 'Quebec' },
+  { label: 'Nova Scotia', value: 'Nova Scotia' },
+  { label: 'New Brunswick', value: 'New Brunswick' },
+  { label: 'Manitoba', value: 'Manitoba' },
+  { label: 'British Columbia', value: 'British Columbia' },
+  { label: 'Alberta', value: 'Alberta' },
+  { label: 'Saskatchewan', value: 'Saskatchewan' },
+  { label: 'Newfoundland and Labrador', value: 'Newfoundland and Labrador' },
+  { label: 'Prince Edward Island', value: 'Prince Edward Island' },
+];
+
+export const cities = [
+  { label: 'Toronto', value: 'Toronto' },
+  { label: 'Montreal', value: 'Montreal' },
+  { label: 'Vancouver', value: 'Vancouver' },
+  { label: 'Fredericton', value: 'Fredericton' },
+  { label: 'Charlottetown', value: 'Charlottetown' },
+  { label: "St. John's", value: "St. John's" },
+  { label: 'Regina', value: 'Regina' },
+  { label: 'Calgary', value: 'Calgary' },
+  { label: 'Saskatoon', value: 'Saskatoon' },
+  { label: 'Halifax', value: 'Halifax' },
+];

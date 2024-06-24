@@ -2,7 +2,7 @@ import { Box, Typography } from '@mui/material';
 
 interface IProfileFieldProps {
   label: string;
-  value: string;
+  value: string | null;
 }
 
 function ProfileField(props: IProfileFieldProps) {
