@@ -1,12 +1,17 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { HttpMethods, RTKUrls } from 'src/common/constants';
+import {
+  BaseQueryApi,
+  FetchArgs,
+  createApi,
+  fetchBaseQuery,
+} from '@reduxjs/toolkit/query/react';
+import { HttpMethods, RTKUrls, httpStatusCodes } from 'src/common/constants';
 import { RootState } from 'src/redux/store';
+import { setTokens, logout } from 'src/redux/user/userSlice';
 
 import {
   IVerifyEmailRequest,
   IResendOtpRequest,
   IRegisterUserRequest,
-  IRegisterUserResponse,
   IRegisterGoogleRequest,
   ILoginRequest,
   IForgotPasswordRequest,
@@ -17,22 +22,66 @@ import {
   IAdminUsersRequest,
   IAdminUser,
   IUpdateUserByAdminRequest,
+  IUpdateRoleRequest,
+  IUploadPhotoRequest,
+  IUpdatePhoneRequest,
+  IUpdateAddressRequest,
+  IUpdateCreditCardRequest,
+  IUpdateSizesRequest,
 } from './types';
+
+const baseQuery = fetchBaseQuery({
+  baseUrl: import.meta.env.VITE_API_URL,
+  prepareHeaders: (headers, { getState }) => {
+    const { accessToken } = (getState() as RootState).user;
+
+    if (accessToken) {
+      headers.set('Authorization', `Bearer ${accessToken}`);
+    }
+
+    return headers;
+  },
+});
+
+const baseQueryWithReauth = async (
+  args: string | FetchArgs,
+  api: BaseQueryApi,
+  extraOptions: object
+) => {
+  let result = await baseQuery(args, api, extraOptions);
+
+  if (result.error && result.error.status === httpStatusCodes.UNAUTHORIZED) {
+    const state = api.getState() as RootState;
+    const { refreshToken } = state.user;
+
+    if (refreshToken) {
+      const refreshResult = await baseQuery(
+        {
+          url: RTKUrls.REFRESH_TOKEN,
+          method: 'POST',
+          body: { refreshToken },
+        },
+        api,
+        extraOptions
+      );
+
+      if (refreshResult.data) {
+        api.dispatch(setTokens(refreshResult.data));
+        result = await baseQuery(args, api, extraOptions);
+      } else {
+        api.dispatch(logout());
+      }
+    } else {
+      api.dispatch(logout());
+    }
+  }
+
+  return result;
+};
 
 export const userApi = createApi({
   reducerPath: 'userApi',
-  baseQuery: fetchBaseQuery({
-    baseUrl: import.meta.env.VITE_API_URL,
-    prepareHeaders: (headers, { getState }) => {
-      const { accessToken } = (getState() as RootState).user;
-
-      if (accessToken) {
-        headers.set('Authorization', `Bearer ${accessToken}`);
-      }
-
-      return headers;
-    },
-  }),
+  baseQuery: baseQueryWithReauth,
   tagTypes: ['User'],
   endpoints: (build) => ({
     verifyEmail: build.mutation<IUser, IVerifyEmailRequest>({
@@ -42,6 +91,7 @@ export const userApi = createApi({
         body: post,
       }),
     }),
+
     resendOtp: build.mutation<void, IResendOtpRequest>({
       query: (post) => ({
         url: RTKUrls.RESEND_OTP,
@@ -49,13 +99,15 @@ export const userApi = createApi({
         body: post,
       }),
     }),
-    userSignUp: build.mutation<IRegisterUserResponse, IRegisterUserRequest>({
+
+    userSignUp: build.mutation<IUser, IRegisterUserRequest>({
       query: (post) => ({
         url: RTKUrls.REGISTER_USER,
         method: HttpMethods.POST,
         body: post,
       }),
     }),
+
     addUserGoogle: build.mutation<IUser, IRegisterGoogleRequest>({
       query: (post) => ({
         url: RTKUrls.GOOGLE_AUTH,
@@ -64,6 +116,7 @@ export const userApi = createApi({
         headers: { 'Access-Control-Allow-Origin': '*' },
       }),
     }),
+
     loginUser: build.mutation<IUser, ILoginRequest>({
       query: (post) => ({
         url: RTKUrls.SIGN_IN,
@@ -71,6 +124,7 @@ export const userApi = createApi({
         body: post,
       }),
     }),
+
     forgotPassword: build.mutation<void, IForgotPasswordRequest>({
       query: (post) => ({
         url: RTKUrls.FORGOT_PASSWORD,
@@ -78,6 +132,7 @@ export const userApi = createApi({
         body: post,
       }),
     }),
+
     resetPassword: build.mutation<IUser, IResetPasswordRequest>({
       query: (post) => ({
         url: RTKUrls.RESET_PASSWORD,
@@ -85,6 +140,7 @@ export const userApi = createApi({
         body: post,
       }),
     }),
+
     newPassword: build.mutation<void, INewPasswordRequest>({
       query: (post) => ({
         url: RTKUrls.NEW_PASSWORD,
@@ -92,6 +148,55 @@ export const userApi = createApi({
         body: post,
       }),
     }),
+
+    updateRole: build.mutation<IUser, IUpdateRoleRequest>({
+      query: (user) => ({
+        url: `${RTKUrls.USERS}/${user.id}/${RTKUrls.ROLE}`,
+        method: HttpMethods.PATCH,
+        body: { role: user.role },
+      }),
+    }),
+
+    uploadPhoto: build.mutation<IUser, IUploadPhotoRequest>({
+      query: ({ id, photo }) => ({
+        url: `${RTKUrls.USERS}/${id}/${RTKUrls.PHOTO}`,
+        method: HttpMethods.POST,
+        body: photo,
+      }),
+    }),
+
+    updatePhone: build.mutation<IUser, IUpdatePhoneRequest>({
+      query: (user) => ({
+        url: `${RTKUrls.USERS}/${user.id}/${RTKUrls.PHONE}`,
+        method: HttpMethods.PATCH,
+        body: { phoneNumber: user.phone },
+      }),
+    }),
+
+    updateAddress: build.mutation<IUser, IUpdateAddressRequest>({
+      query: ({ id, ...rest }) => ({
+        url: `/users/${id}/${RTKUrls.ADDRESS}`,
+        method: 'PATCH',
+        body: rest,
+      }),
+    }),
+
+    updateCreditCard: build.mutation<IUser, IUpdateCreditCardRequest>({
+      query: ({ id, ...rest }) => ({
+        url: `/users/${id}/${RTKUrls.CREDIT_CARD}`,
+        method: 'PATCH',
+        body: rest,
+      }),
+    }),
+
+    updateSizes: build.mutation<IUser, IUpdateSizesRequest>({
+      query: ({ id, ...rest }) => ({
+        url: `/users/${id}/${RTKUrls.SIZE}`,
+        method: 'PATCH',
+        body: rest,
+      }),
+    }),
+
     getAllUsers: build.query<IUserDataResponse, IAdminUsersRequest>({
       query: ({ page, order, role, search }) => ({
         url: RTKUrls.ADMIN_USERS,
@@ -136,6 +241,12 @@ export const {
   useForgotPasswordMutation,
   useResetPasswordMutation,
   useNewPasswordMutation,
+  useUpdateRoleMutation,
+  useUploadPhotoMutation,
+  useUpdatePhoneMutation,
+  useUpdateAddressMutation,
+  useUpdateCreditCardMutation,
+  useUpdateSizesMutation,
   useGetAllUsersQuery,
   useGetUserByIdQuery,
   useUpdateUserProfileByAdminMutation,

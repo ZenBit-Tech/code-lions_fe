@@ -23,7 +23,6 @@ function Footer() {
         display: 'none',
         width: '100%',
         minHeight: '381px',
-        marginTop: '120px',
         paddingTop: '74px',
         background: theme.palette.background.paper,
         [theme.breakpoints.up('md')]: {

@@ -19,10 +19,10 @@ const StyledButton = styled(LoadingButton)<IStyledButtonProps>(
     borderRadius: props.radius || '12px',
     lineHeight: 1,
     cursor: 'pointer',
-    padding: ButtonPaddings[props.padding],
-    ...ButtonStyles[props.styles],
+    padding: ButtonPaddings[props.padding || 'md'],
+    ...ButtonStyles[props.styles || 'black'],
     '&:hover, &:active, &:focus': {
-      backgroundColor: ButtonStyles[props.styles].backgroundColor,
+      backgroundColor: ButtonStyles[props.styles || 'black'].backgroundColor,
     },
     '&:hover': {
       opacity: theme.palette.action.hoverOpacity,

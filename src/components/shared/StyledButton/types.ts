@@ -23,6 +23,6 @@ export interface IStyledButtonProps extends ButtonProps {
   fontFamily?: string;
   width?: string;
   radius?: string;
-  styles: StyleVariants;
-  padding: PaddingVariants;
+  styles?: StyleVariants;
+  padding?: PaddingVariants;
 }

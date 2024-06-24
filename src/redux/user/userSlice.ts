@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { userApi } from 'src/redux/user/userService';
 
 import { IUser } from './types';
@@ -13,6 +13,11 @@ const initialState: IUser = {
   onboardingStep: 1,
   accessToken: '',
   refreshToken: '',
+  isAccountActive: true,
+};
+
+const updateState = (state: IUser, action: PayloadAction<IUser>): IUser => {
+  return { ...state, ...action.payload, isLoggedIn: true };
 };
 
 export const userSlice = createSlice({
@@ -28,48 +33,66 @@ export const userSlice = createSlice({
     decreaseOnboardingStep(state) {
       state.onboardingStep -= 1;
     },
+    setTokens(state, action) {
+      state.accessToken = action.payload.accessToken;
+      state.refreshToken = action.payload.refreshToken;
+    },
+    logout() {
+      return initialState;
+    },
   },
   extraReducers: (builder) => {
     builder.addMatcher(
       userApi.endpoints.verifyEmail.matchFulfilled,
-      (state, action) => {
-        return { ...state, ...action.payload, isLoggedIn: true };
-      }
+      updateState
     );
     builder.addMatcher(
       userApi.endpoints.addUserGoogle.matchFulfilled,
-      (state, action) => {
-        return { ...state, ...action.payload, isLoggedIn: true };
-      }
+      updateState
     );
     builder.addMatcher(
       userApi.endpoints.userSignUp.matchFulfilled,
-      (state, action) => {
-        return { ...state, ...action.payload, isLoggedIn: true };
-      }
+      updateState
+    );
+    builder.addMatcher(userApi.endpoints.loginUser.matchFulfilled, updateState);
+    builder.addMatcher(
+      userApi.endpoints.updateRole.matchFulfilled,
+      updateState
     );
     builder.addMatcher(
-      userApi.endpoints.loginUser.matchFulfilled,
-      (state, action) => {
-        return {
-          ...state,
-          ...action.payload,
-          isLoggedIn: true,
-          onboardingStep: 1,
-        };
-      }
+      userApi.endpoints.uploadPhoto.matchFulfilled,
+      updateState
+    );
+    builder.addMatcher(
+      userApi.endpoints.updatePhone.matchFulfilled,
+      updateState
+    );
+    builder.addMatcher(
+      userApi.endpoints.updateAddress.matchFulfilled,
+      updateState
+    );
+    builder.addMatcher(
+      userApi.endpoints.updateCreditCard.matchFulfilled,
+      updateState
+    );
+    builder.addMatcher(
+      userApi.endpoints.updateSizes.matchFulfilled,
+      updateState
     );
     builder.addMatcher(
       userApi.endpoints.resetPassword.matchFulfilled,
-      (state, action) => {
-        return { ...state, ...action.payload, isLoggedIn: true };
-      }
+      updateState
     );
   },
 });
 
-export const { setEmail, increaseOnboardingStep, decreaseOnboardingStep } =
-  userSlice.actions;
+export const {
+  setEmail,
+  increaseOnboardingStep,
+  decreaseOnboardingStep,
+  setTokens,
+  logout,
+} = userSlice.actions;
 
 export const selectUserName = (state: { user: IUser }) => state.user.name;
 export const selectOnboardingStep = (state: { user: IUser }) =>

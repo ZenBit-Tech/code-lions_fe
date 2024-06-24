@@ -31,6 +31,7 @@ export const RTKUrls = {
   VERIFY_OTP: 'auth/verify-otp',
   RESEND_OTP: 'auth/resend-otp',
   SIGN_IN: 'auth/login',
+  REFRESH_TOKEN: 'auth/refresh-token',
   FORGOT_PASSWORD: 'auth/forgot-password',
   RESET_PASSWORD: 'auth/reset-password',
   NEW_PASSWORD: 'auth/new-password',
@@ -38,6 +39,12 @@ export const RTKUrls = {
   GOOGLE_AUTH: 'auth/google',
   ADMIN_USERS: 'users/admin',
   USERS: 'users',
+  ROLE: 'role',
+  PHOTO: 'photo',
+  PHONE: 'phone',
+  ADDRESS: 'address',
+  SIZE: 'size',
+  CREDIT_CARD: 'credit-card',
   UPDATE_PROFILE_ADMIN: 'update-profile-admin',
   SOFT_DELETE: 'soft-delete',
 };
@@ -53,6 +60,8 @@ export const HttpMethods = {
 export const validations = {
   EMAIL_REGEX: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
   PASSWORD_MIN_LENGTH: 8,
+  PHONE_REGEX: /^[1-9][0-9]{0,10}$/,
+  PHONE_LENGTH: 11,
 };
 
 export const appErrors = {
@@ -65,6 +74,14 @@ export const appErrors = {
   PASSWORD_LENGTH: 'Password needs to be at least 8 characters',
   PASSWORD_MATCH:
     'Passwords entered in the "Password" and "Repeat password" fields must match',
+  INVALID_PHONE: 'Phone number should be in format 12345678901',
+  INVALID_LENGTH: 'Invalid length, should be 11',
+  REQUIRED: 'Field is required',
+  TOO_LONG: 'Too long, should be less than 100 characters',
+  INVALID_CARD_NUMBER: 'Invalid card number, should be 16 digits',
+  INVALID_EXPIRE_DATE:
+    'Invalid expire date, should be in format MM/YY in the future',
+  INVALID_CVV: 'Invalid CVV, should be 3 digits',
 };
 
 export const pathToPhotos = '/assets/photos';
@@ -133,3 +150,6 @@ export const cities = [
   { label: 'Saskatoon', value: 'Saskatoon' },
   { label: 'Halifax', value: 'Halifax' },
 ];
+export const httpStatusCodes = {
+  UNAUTHORIZED: 401,
+};
