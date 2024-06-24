@@ -5,11 +5,6 @@ import { Typography } from '@mui/material';
 
 import { yupResolver } from '@hookform/resolvers/yup';
 import { phoneCodes } from 'src/common/constants';
-import {
-  getErrorMessage,
-  isFetchBaseQueryError,
-  isSerializedError,
-} from 'src/common/getErrorMessage';
 import LabelText from 'src/components/shared/LabelText';
 import StyledButton from 'src/components/shared/StyledButton';
 import {
@@ -26,6 +21,8 @@ import useToast from 'src/components/shared/toasts/components/ToastProvider/Toas
 import { useAppSelector } from 'src/redux/hooks';
 import { useUpdatePersonalInfoMutation } from 'src/redux/user/userService';
 import { selectUser } from 'src/redux/user/userSlice';
+
+import useErrorHandling from '../useErrorHandlingHook';
 
 import personalInformationSchema from './schema';
 import { ErrorMessage, ErrorWrapper, FormStyled, TitleStyled } from './styles';
@@ -59,6 +56,8 @@ function PersonalInformationForm() {
 
   const errorsLength: number = Object.keys(errors).length;
 
+  const { handleOnSubmitError } = useErrorHandling();
+
   const onSubmit = async ({ name, email, phone }: IPersonalInformationForm) => {
     try {
       await updateInfo({
@@ -73,14 +72,7 @@ function PersonalInformationForm() {
         phone,
       });
     } catch (err) {
-      if (isFetchBaseQueryError(err) || isSerializedError(err)) {
-        showToast(
-          'error',
-          getErrorMessage(err, t('profileDetails.unknownError'))
-        );
-      } else {
-        showToast('error', t('profileDetails.unknownError'));
-      }
+      handleOnSubmitError(err, showToast, t('profileDetails.unknownError'));
     }
   };
 

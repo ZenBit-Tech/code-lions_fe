@@ -6,11 +6,6 @@ import { Box } from '@mui/system';
 
 import { yupResolver } from '@hookform/resolvers/yup';
 import { addSpacesToCardNumber } from 'src/common/formatCardNumber';
-import {
-  getErrorMessage,
-  isFetchBaseQueryError,
-  isSerializedError,
-} from 'src/common/getErrorMessage';
 import LabelText from 'src/components/shared/LabelText';
 import StyledButton from 'src/components/shared/StyledButton';
 import {
@@ -29,6 +24,7 @@ import { useUpdatePersonalInfoMutation } from 'src/redux/user/userService';
 import { selectUserId } from 'src/redux/user/userSlice';
 
 import { ErrorMessage, ErrorWrapper } from '../PersonalInformationForm/styles';
+import useErrorHandling from '../useErrorHandlingHook';
 
 import creditCardSchema from './schema';
 
@@ -70,6 +66,8 @@ function CardEditForm({
 
   const errorsLength: number = Object.keys(errors).length;
 
+  const { handleOnSubmitError } = useErrorHandling();
+
   const onSubmit = async (data: ICreditCardForm) => {
     try {
       await updateCreditCard({
@@ -79,14 +77,7 @@ function CardEditForm({
       refetchCardInfo();
       setShowEdit(false);
     } catch (err) {
-      if (isFetchBaseQueryError(err) || isSerializedError(err)) {
-        showToast(
-          'error',
-          getErrorMessage(err, t('profileDetails.unknownError'))
-        );
-      } else {
-        showToast('error', t('profileDetails.unknownError'));
-      }
+      handleOnSubmitError(err, showToast, t('profileDetails.unknownError'));
     }
   };
 

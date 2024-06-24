@@ -4,6 +4,7 @@ import { Outlet, useLocation } from 'react-router-dom';
 import { Avatar, Grid } from '@mui/material';
 import { Box } from '@mui/system';
 
+import { urls } from 'src/common/constants';
 import SectionTitle from 'src/components/shared/SectionTitle';
 import { useAppSelector } from 'src/redux/hooks';
 import { selectUserAvatar, selectUserName } from 'src/redux/user/userSlice';
@@ -25,7 +26,8 @@ function ProfileLayout() {
   const userName = useAppSelector(selectUserName) ?? t('profile.name');
   const userAvatar = useAppSelector(selectUserAvatar) ?? '';
 
-  const isProfileDetails = location.pathname === '/profile/details';
+  const isProfileDetails =
+    location.pathname === `${urls.PROFILE}/${urls.PROFILE_DETAILS}`;
 
   return (
     <>

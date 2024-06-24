@@ -5,11 +5,6 @@ import { Typography } from '@mui/material';
 import { Box } from '@mui/system';
 
 import { yupResolver } from '@hookform/resolvers/yup';
-import {
-  getErrorMessage,
-  isFetchBaseQueryError,
-  isSerializedError,
-} from 'src/common/getErrorMessage';
 import { cities, countries, states } from 'src/common/selectAdressOptions';
 import LabelText from 'src/components/shared/LabelText';
 import StyledButton from 'src/components/shared/StyledButton';
@@ -30,6 +25,7 @@ import { useUpdatePersonalInfoMutation } from 'src/redux/user/userService';
 import { selectUser } from 'src/redux/user/userSlice';
 
 import { ErrorMessage, ErrorWrapper } from '../PersonalInformationForm/styles';
+import useErrorHandling from '../useErrorHandlingHook';
 
 import addressSchema from './schema';
 
@@ -69,32 +65,17 @@ function AddressEditForm({ setShowEdit }: IAddressEditForm) {
 
   const errorsLength: number = Object.keys(errors).length;
 
-  const onSubmit = async ({
-    addressLine1,
-    addressLine2,
-    country,
-    state,
-    city,
-  }: IAddressFullForm) => {
+  const { handleOnSubmitError } = useErrorHandling();
+
+  const onSubmit = async (data: IAddressFullForm) => {
     try {
       await updateAddress({
         id: user.id,
-        addressLine1,
-        addressLine2,
-        country,
-        state,
-        city,
+        ...data,
       }).unwrap();
       setShowEdit(false);
     } catch (err) {
-      if (isFetchBaseQueryError(err) || isSerializedError(err)) {
-        showToast(
-          'error',
-          getErrorMessage(err, t('profileDetails.unknownError'))
-        );
-      } else {
-        showToast('error', t('profileDetails.unknownError'));
-      }
+      handleOnSubmitError(err, showToast, t('profileDetails.unknownError'));
     }
   };
 
