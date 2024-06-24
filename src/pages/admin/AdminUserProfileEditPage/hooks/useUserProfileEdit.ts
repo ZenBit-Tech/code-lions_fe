@@ -22,6 +22,7 @@ export default function useUserProfileEdit(userId: string | undefined) {
   const { data, refetch } = useGetUserByIdQuery(
     userId ? { userId } : skipToken
   );
+  const [updateUserProfile] = useUpdateUserProfileByAdminMutation();
 
   const [status, setStatus] = useState<string>('');
   const [emailField, setEmailField] = useState<string>('');
@@ -55,7 +56,7 @@ export default function useUserProfileEdit(userId: string | undefined) {
         extractPhoneNumberParts(phoneNumber);
 
       const countryCodeOption = countryCodes.filter(
-        (code) => code.code === countryCode
+        (countryOption) => countryOption.code === countryCode
       );
 
       setValue('phoneNumber.countryCode', countryCodeOption[0].code);
@@ -86,8 +87,6 @@ export default function useUserProfileEdit(userId: string | undefined) {
     setOpen(true);
   };
 
-  const [updateUserProfile] = useUpdateUserProfileByAdminMutation();
-
   const onSubmit = async (formData: IUserProfileFormData) => {
     try {
       if (userId) {
@@ -107,7 +106,7 @@ export default function useUserProfileEdit(userId: string | undefined) {
           isAccountActive,
         };
 
-        const filteredFormData = Object.fromEntries(
+        const changedFields = Object.fromEntries(
           /* eslint-disable @typescript-eslint/no-unused-vars */
           Object.entries(combinedFormData).filter(([_, value]) => value !== '')
           /* eslint-enable @typescript-eslint/no-unused-vars */
@@ -115,7 +114,7 @@ export default function useUserProfileEdit(userId: string | undefined) {
 
         const response = await updateUserProfile({
           userId,
-          updateProfileByAdminDto: filteredFormData,
+          updateProfileByAdminDto: changedFields,
         });
 
         refetch();

@@ -19,7 +19,7 @@ export default function extractPhoneNumberParts(phoneNumber: string | null): {
       countryCode = phoneNumber.slice(0, sliceNumberLong);
       restPhoneNumber = phoneNumber.slice(sliceNumberLong);
     } else if (phoneNumber.startsWith(codeCanada)) {
-      countryCode = phoneNumber.slice(0, sliceNumberLong);
+      countryCode = phoneNumber.slice(0, sliceNumberShort);
       restPhoneNumber = phoneNumber.slice(sliceNumberShort);
     }
   }

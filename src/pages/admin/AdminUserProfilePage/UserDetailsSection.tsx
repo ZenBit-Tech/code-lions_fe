@@ -1,22 +1,20 @@
-import { ReactNode, useState } from 'react';
+import { ReactNode } from 'react';
 import { createPortal } from 'react-dom';
-import { useTranslation } from 'react-i18next';
-import { useLocation, useParams, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import { Box, IconButton, Typography } from '@mui/material';
 
-import { skipToken } from '@reduxjs/toolkit/query';
 import ChevronRight from 'src/assets/icons/chevron-right-grey-small.svg';
 import DeleteTrash from 'src/assets/icons/delete-trash.svg';
 import EditPencil from 'src/assets/icons/edit-pencil.svg';
-import { linkUrls, urlRoles } from 'src/common/constants';
-import { useGetUserByIdQuery } from 'src/redux/user/userService';
 import theme from 'src/theme';
 
 import AdminSectionSubTitle from '../AdminSectionSubTitle';
 import AdminSectionTitle from '../AdminSectionTitle';
 import ModalPopup from '../ModalPopup';
 import StyledBackdrop from '../StyledBackdrop';
+
+import useUserDetails from './hooks/useUserDetails';
 
 interface IUserDetailsSectionProps {
   children?: ReactNode;
@@ -26,36 +24,21 @@ interface IUserDetailsSectionProps {
 function UserDetailsSection(props: IUserDetailsSectionProps) {
   const { children, sectionHeight } = props;
 
-  const { t } = useTranslation();
-  const { userId } = useParams<{ userId: string }>();
-  const location = useLocation();
-
-  const [showModal, setShowModal] = useState<boolean>(false);
-  const handleOpen = () => setShowModal(true);
-  const handleClose = () => {
-    setShowModal(false);
-  };
-
-  const { data } = useGetUserByIdQuery(userId ? { userId } : skipToken);
+  const {
+    userId,
+    data,
+    showModal,
+    handleOpen,
+    handleClose,
+    getTitle,
+    editUrl,
+    isEditPage,
+    name,
+    t,
+    location,
+  } = useUserDetails();
 
   if (!data) return null;
-
-  const { name } = data;
-
-  const basePath = location.pathname.replace(`/${userId}`, '');
-
-  const editUrl = `${basePath}/${linkUrls.ADMIN_USER_PROFILE_EDIT}/${userId}`;
-
-  const getTitle = (path: string) => {
-    if (path.includes(urlRoles.vendors)) return t('userProfileAdmin.vendors');
-    if (path.includes(urlRoles.buyers)) return t('userProfileAdmin.buyers');
-
-    return t('userProfileAdmin.users');
-  };
-
-  const isEditPage = location.pathname.includes(
-    linkUrls.ADMIN_USER_PROFILE_EDIT
-  );
 
   return (
     <Box>

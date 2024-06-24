@@ -50,11 +50,7 @@ function AdminUserProfilePage() {
           />
           <ProfileField
             label={t('userProfileAdmin.status')}
-            value={
-              isAccountActive
-                ? t('userProfileAdmin.mockStatusActive')
-                : t('userProfileAdmin.mockStatusInactive')
-            }
+            value={isAccountActive ? 'Active' : 'Inactive'}
           />
         </Grid>
         <Grid item xs={1}>

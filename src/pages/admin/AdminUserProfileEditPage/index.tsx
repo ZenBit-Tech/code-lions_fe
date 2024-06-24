@@ -19,6 +19,8 @@ import ProfileInputWrapper from './ProfileInputWrapper';
 import { BottomWrapper, StyledAdminPanelInput, StyledMenuItem } from './styles';
 
 function AdminUserProfileEditPage() {
+  const { t } = useTranslation();
+
   const { userId } = useParams<{ userId: string }>();
 
   const {
@@ -41,8 +43,6 @@ function AdminUserProfileEditPage() {
     lastUpdateDate,
     onSubmit,
   } = useUserProfileEdit(userId);
-
-  const { t } = useTranslation();
 
   return (
     <UserDetailsSection sectionHeight="">
