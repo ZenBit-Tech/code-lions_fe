@@ -16,6 +16,7 @@ import { skipToken } from '@reduxjs/toolkit/query';
 import ChevronDown from 'src/assets/icons/chevron-down.svg';
 import Tick from 'src/assets/icons/tick.svg';
 import { countryCodes, countries, states, cities } from 'src/common/constants';
+import formatUpdateDate from 'src/common/formatUpdateDate';
 import {
   useGetUserByIdQuery,
   useUpdateUserProfileByAdminMutation,
@@ -62,6 +63,8 @@ function AdminUserProfileEditPage() {
   const [openCity, setOpenCity] = useState<boolean>(false);
 
   const { handleSubmit, control, setValue } = useForm<UserProfileFormData>();
+
+  const lastUpdateDate: string | null | undefined = data?.lastUpdatedAt;
 
   useEffect(() => {
     if (data) {
@@ -170,7 +173,7 @@ function AdminUserProfileEditPage() {
   };
 
   return (
-    <UserDetailsSection sectionHeight="490px">
+    <UserDetailsSection sectionHeight="">
       <form onSubmit={handleSubmit(onSubmit)}>
         <Grid container columns={2} width="100%">
           <Grid item xs={1}>
@@ -186,6 +189,14 @@ function AdminUserProfileEditPage() {
                     fullWidth
                   />
                 )}
+              />
+            </ProfileInputWrapper>
+            <ProfileInputWrapper label={t('userProfileAdmin.email')}>
+              <StyledAdminPanelInput
+                value={emailField}
+                size="small"
+                fullWidth
+                disabled
               />
             </ProfileInputWrapper>
             <ProfileInputWrapper label={t('userProfileAdmin.phoneNumber')}>
@@ -222,14 +233,6 @@ function AdminUserProfileEditPage() {
             </ProfileInputWrapper>
           </Grid>
           <Grid item xs={1}>
-            <ProfileInputWrapper label={t('userProfileAdmin.email')}>
-              <StyledAdminPanelInput
-                value={emailField}
-                size="small"
-                fullWidth
-                disabled
-              />
-            </ProfileInputWrapper>
             <ProfileInputWrapper label="Address Line 1">
               <Controller
                 name="addressLine1"
@@ -357,26 +360,30 @@ function AdminUserProfileEditPage() {
           </Grid>
           <BottomWrapper>
             <Box display="flex">
-              <Tick />
-              <Typography
-                variant="subtitle1"
-                sx={{
-                  fontWeight: '500',
-                  color: theme.palette.text.disabled,
-                  marginLeft: '5px',
-                }}
-              >
-                {t('userProfileAdmin.lastSaved')}
-              </Typography>
-              <Typography
-                variant="subtitle1"
-                sx={{
-                  fontWeight: '500',
-                  marginLeft: '10px',
-                }}
-              >
-                {data?.lastUpdatedAt}
-              </Typography>
+              {lastUpdateDate && (
+                <>
+                  <Tick />
+                  <Typography
+                    variant="subtitle1"
+                    sx={{
+                      fontWeight: '500',
+                      color: theme.palette.text.disabled,
+                      marginLeft: '5px',
+                    }}
+                  >
+                    {t('userProfileAdmin.lastSaved')}
+                  </Typography>
+                  <Typography
+                    variant="subtitle1"
+                    sx={{
+                      fontWeight: '500',
+                      marginLeft: '10px',
+                    }}
+                  >
+                    {formatUpdateDate(data?.lastUpdatedAt)}
+                  </Typography>
+                </>
+              )}
             </Box>
             <Box>
               <Button

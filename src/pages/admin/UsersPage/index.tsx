@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { createPortal } from 'react-dom';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router-dom';
@@ -16,9 +15,7 @@ import { useGetAllUsersQuery } from 'src/redux/user/userService';
 
 import AdminSectionSubTitle from '../AdminSectionSubTitle';
 import AdminSectionTitle from '../AdminSectionTitle';
-import ModalPopup from '../ModalPopup';
 import SortButton from '../SortButton';
-import StyledBackdrop from '../StyledBackdrop';
 
 import SectionWrapper from './styles';
 import UsersTable from './UsersTable';
@@ -40,10 +37,6 @@ function UsersPage() {
   const handleChange = (_: React.ChangeEvent<unknown>, value: number) => {
     setPage(value);
   };
-
-  const [showModal, setShowModal] = useState(false);
-  const handleOpen = () => setShowModal(true);
-  const handleClose = () => setShowModal(false);
 
   const [search, setSearch] = useState('');
   const handleSearchChange = (value: string) => {
@@ -102,12 +95,21 @@ function UsersPage() {
     return <CircularProgress />;
   }
 
+  const getTitle = (path: string) => {
+    if (path.includes('vendors')) return t('userProfileAdmin.vendors');
+    if (path.includes('buyers')) return t('userProfileAdmin.buyers');
+
+    return t('userProfileAdmin.users');
+  };
+
   return (
     <>
-      <AdminSectionTitle title={t('usersAdmin.title')} fontWeight={600} />
+      <AdminSectionTitle title={getTitle(location.pathname)} fontWeight={600} />
       <SectionWrapper>
         <Box display="flex" justifyContent="space-between" width="100%">
-          <AdminSectionSubTitle title={t('usersAdmin.subTitle')} />
+          <AdminSectionSubTitle
+            title={`${getTitle(location.pathname)} ${t('usersAdmin.subTitle')}`}
+          />
           <SortButton
             title={t('usersAdmin.sortButton')}
             onClick={handleClick}
@@ -121,16 +123,8 @@ function UsersPage() {
           page={page}
           users={users}
           handleChange={handleChange}
-          handleOpen={handleOpen}
         />
       </SectionWrapper>
-      {showModal &&
-        createPortal(
-          <StyledBackdrop showModal={showModal}>
-            <ModalPopup onClose={handleClose} />
-          </StyledBackdrop>,
-          document.body
-        )}
     </>
   );
 }

@@ -52,7 +52,6 @@ function HeaderAdmin() {
         alignItems="center"
         sx={{
           borderLeft: `1px solid ${theme.palette.background.paper}`,
-          width: '200px',
         }}
       >
         <Box display="flex" alignItems="center">

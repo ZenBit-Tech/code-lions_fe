@@ -1,4 +1,5 @@
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 
 import { IconButton, Typography } from '@mui/material';
 import { Box } from '@mui/system';
@@ -10,6 +11,7 @@ import {
   PaddingVariants,
   StyleVariants,
 } from 'src/components/shared/StyledButton/types';
+import { useDeleteUserByAdminMutation } from 'src/redux/user/userService';
 
 import {
   ModalTitle,
@@ -21,10 +23,32 @@ import {
 
 interface IModalPopup {
   onClose: () => void;
+  userId: string | undefined;
 }
 
-function ModalPopup({ onClose }: IModalPopup) {
+const previousPage: number = -1;
+
+function ModalPopup({ onClose, userId }: IModalPopup) {
   const { t } = useTranslation();
+  const navigate = useNavigate();
+
+  const [deleteUserByAdmin] = useDeleteUserByAdminMutation();
+
+  async function handleDeleteUser(id: string | undefined) {
+    try {
+      if (id) {
+        await deleteUserByAdmin({ userId: id });
+        onClose();
+        navigate(previousPage);
+
+        return null;
+      }
+    } catch (error) {
+      return error;
+    }
+
+    return null;
+  }
 
   return (
     <Popup>
@@ -70,6 +94,7 @@ function ModalPopup({ onClose }: IModalPopup) {
           width="200px"
           styles={StyleVariants.RED}
           padding={PaddingVariants.XL}
+          onClick={() => handleDeleteUser(userId)}
         >
           <Typography variant="h4">{t('modalPopup.deleteButton')} </Typography>
         </StyledButton>

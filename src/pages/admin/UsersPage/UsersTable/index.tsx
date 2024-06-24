@@ -1,3 +1,5 @@
+import { useState } from 'react';
+import { createPortal } from 'react-dom';
 import { useTranslation } from 'react-i18next';
 
 import {
@@ -12,6 +14,8 @@ import formatDateString from 'src/common/formatDateString';
 import { IAdminUser } from 'src/redux/user/types';
 
 import ActionButtons from '../../ActionButtons';
+import ModalPopup from '../../ModalPopup';
+import StyledBackdrop from '../../StyledBackdrop';
 import StyledPagination from '../../StyledPagination';
 
 import {
@@ -27,17 +31,14 @@ interface IUsersTable {
   pagesCount: number;
   page: number;
   handleChange: (event: React.ChangeEvent<unknown>, value: number) => void;
-  handleOpen: () => void;
 }
 
-function UsersTable({
-  users,
-  pagesCount,
-  page,
-  handleChange,
-  handleOpen,
-}: IUsersTable) {
+function UsersTable({ users, pagesCount, page, handleChange }: IUsersTable) {
   const { t } = useTranslation();
+
+  const [showModal, setShowModal] = useState<boolean>(false);
+  const handleOpen = () => setShowModal(true);
+  const handleClose = () => setShowModal(false);
 
   return (
     <TableContainer>
@@ -95,6 +96,13 @@ function UsersTable({
               <BodyTableCell align="left">
                 <ActionButtons userId={user.id} handleOpen={handleOpen} />
               </BodyTableCell>
+              {showModal &&
+                createPortal(
+                  <StyledBackdrop showModal={showModal}>
+                    <ModalPopup onClose={handleClose} userId={user.id} />
+                  </StyledBackdrop>,
+                  document.body
+                )}
             </TableRow>
           ))}
         </TableBodyStyled>

@@ -144,9 +144,11 @@
     "logout": "Log out"
   },
   "userProfileAdmin": {
-    "superadmin": "Superadmin",
-    "profile": "Buyer Profile",
+    "admin": "Admin",
+    "profile": "profile",
     "buyers": "Buyers",
+    "users": "Users",
+    "vendors": "Vendors",
     "buyerName": "Buyer Name Profile",
     "name": "Name",
     "phoneNumber": "Phone Number",
@@ -230,7 +232,7 @@
   },
   "usersAdmin": {
     "title": "Users",
-    "subTitle": "User list",
+    "subTitle": "list",
     "sortButton": "Sort",
     "option1": "from new to old",
     "option2": "from old to new",
