@@ -25,7 +25,7 @@ import {
 import TitleInputWrapper from 'src/components/shared/TitleInputWrapper';
 import useToast from 'src/components/shared/toasts/components/ToastProvider/ToastProviderHooks';
 import { useAppSelector } from 'src/redux/hooks';
-import { useUpdateCreditCardMutation } from 'src/redux/user/userService';
+import { useUpdatePersonalInfoMutation } from 'src/redux/user/userService';
 import { selectUserId } from 'src/redux/user/userSlice';
 
 import { ErrorMessage, ErrorWrapper } from '../PersonalInformationForm/styles';
@@ -51,7 +51,7 @@ function CardEditForm({
 }: ICardEditForm) {
   const { t } = useTranslation();
   const id = useAppSelector(selectUserId);
-  const [updateCreditCard, { isLoading }] = useUpdateCreditCardMutation();
+  const [updateCreditCard, { isLoading }] = useUpdatePersonalInfoMutation();
   const { showToast } = useToast();
 
   const {

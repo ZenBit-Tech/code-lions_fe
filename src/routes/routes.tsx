@@ -34,6 +34,17 @@ const router = createBrowserRouter([
       { path: urls.SIZES_GUIDE, element: <SizesGuidePage /> },
       { path: urls.PRIVACY_POLICY, element: <PrivacyPolicyPage /> },
       { path: urls.TERMS_OF_USE, element: <TermsOfUsePage /> },
+      {
+        path: urls.PROFILE,
+        element: <ProfileLayout />,
+        children: [
+          { path: urls.PROFILE_DETAILS, element: <ProfilePage /> },
+          { path: urls.PROFILE_ORDERS, element: <ProfileComingSoon /> },
+          { path: urls.PROFILE_WISHLIST, element: <ProfileComingSoon /> },
+          { path: urls.PROFILE_SETTINGS, element: <ProfileComingSoon /> },
+          { path: urls.PROFILE_SUPPORT, element: <ProfileComingSoon /> },
+        ],
+      },
     ],
   },
   { path: urls.SIGN_UP, element: <SignUpPage /> },

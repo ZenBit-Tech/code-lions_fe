@@ -23,7 +23,7 @@ import { CustomSelect } from 'src/components/shared/StyledSelect';
 import TitleInputWrapper from 'src/components/shared/TitleInputWrapper';
 import useToast from 'src/components/shared/toasts/components/ToastProvider/ToastProviderHooks';
 import { useAppSelector } from 'src/redux/hooks';
-import { useUpdateSizesMutation } from 'src/redux/user/userService';
+import { useUpdatePersonalInfoMutation } from 'src/redux/user/userService';
 import { selectUser } from 'src/redux/user/userSlice';
 
 import { TitleStyled } from '../PersonalInformationForm/styles';
@@ -39,7 +39,7 @@ interface ISizeForm {
 function SizesForm() {
   const { t } = useTranslation();
   const user = useAppSelector(selectUser);
-  const [updateSizes, { isLoading }] = useUpdateSizesMutation();
+  const [updateSizes, { isLoading }] = useUpdatePersonalInfoMutation();
   const { showToast } = useToast();
 
   const {

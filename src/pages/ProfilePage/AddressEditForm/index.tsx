@@ -26,7 +26,7 @@ import { CustomSelect } from 'src/components/shared/StyledSelect';
 import TitleInputWrapper from 'src/components/shared/TitleInputWrapper';
 import useToast from 'src/components/shared/toasts/components/ToastProvider/ToastProviderHooks';
 import { useAppSelector } from 'src/redux/hooks';
-import { useUpdateAddressMutation } from 'src/redux/user/userService';
+import { useUpdatePersonalInfoMutation } from 'src/redux/user/userService';
 import { selectUser } from 'src/redux/user/userSlice';
 
 import { ErrorMessage, ErrorWrapper } from '../PersonalInformationForm/styles';
@@ -48,7 +48,7 @@ interface IAddressFullForm {
 function AddressEditForm({ setShowEdit }: IAddressEditForm) {
   const { t } = useTranslation();
   const user = useAppSelector(selectUser);
-  const [updateAddress, { isLoading }] = useUpdateAddressMutation();
+  const [updateAddress, { isLoading }] = useUpdatePersonalInfoMutation();
   const { showToast } = useToast();
 
   const {

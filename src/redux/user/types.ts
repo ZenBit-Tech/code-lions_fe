@@ -161,9 +161,20 @@ export interface IUpdateSizesRequest {
 
 export interface IUpdatePersonalInfoRequest {
   id: string;
-  name: string;
-  email: string;
-  phoneNumber: string;
+  name?: string;
+  email?: string;
+  phoneNumber?: string;
+  addressLine1?: string;
+  addressLine2?: string;
+  country?: string;
+  state?: string;
+  city?: string;
+  clothesSize?: string;
+  jeansSize?: string;
+  shoesSize?: string;
+  cardNumber?: string;
+  expireDate?: string;
+  cvvCode?: string;
 }
 
 export interface IGetCardInfoRequest {

@@ -1,12 +1,14 @@
 import { useTranslation } from 'react-i18next';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 
 import { Avatar, Grid } from '@mui/material';
 import { Box } from '@mui/system';
 
 import SectionTitle from 'src/components/shared/SectionTitle';
 import { useAppSelector } from 'src/redux/hooks';
-import { selectUserName } from 'src/redux/user/userSlice';
+import { selectUserAvatar, selectUserName } from 'src/redux/user/userSlice';
+
+import PhotoUploadForm from '../ProfilePage/PhotoUploadForm';
 
 import ProfileMenu from './ProfileMenu';
 import {
@@ -19,11 +21,15 @@ import {
 
 function ProfileLayout() {
   const { t } = useTranslation();
+  const location = useLocation();
   const userName = useAppSelector(selectUserName) ?? t('profile.name');
+  const userAvatar = useAppSelector(selectUserAvatar) ?? '';
+
+  const isProfileDetails = location.pathname === '/profile/details';
 
   return (
     <>
-      <Grid container sx={{ height: '90vh' }} columns={4}>
+      <Grid container sx={{ height: '100vh' }} columns={4}>
         <Grid item xs={4} sx={{ display: 'flex', flexDirection: 'column' }}>
           <SectionTitle
             title={t('profile.title')}
@@ -45,10 +51,14 @@ function ProfileLayout() {
               }}
             >
               <AvatarWrapper>
-                <Avatar
-                  src="src/assets/photos/avatar.jpg"
-                  sx={{ width: '120px', height: '120px' }}
-                />
+                {isProfileDetails ? (
+                  <PhotoUploadForm />
+                ) : (
+                  <Avatar
+                    src={`${import.meta.env.VITE_API_URL}${userAvatar}`}
+                    sx={{ width: '120px', height: '120px' }}
+                  />
+                )}
                 <NameTitle variant="subtitle1">{userName}</NameTitle>
               </AvatarWrapper>
               <Box
@@ -73,48 +83,6 @@ function ProfileLayout() {
           <Outlet />
         </OutletWrapper>
       </Grid>
-      {/* <SimpleSection>
-        <Container width="100vw">
-          <SectionTitle
-            title={t('profile.title')}
-            greyBackground
-            showNotification
-          />
-          <Box display="flex" padding="40px 54px" gap="32px">
-            <Box>
-              <AvatarWrapper
-                display="flex"
-                alignItems="center"
-                justifyContent="center"
-                flexDirection="column"
-                gap="12px"
-                mt="16px"
-                mb="20px"
-              >
-                <Avatar
-                  src="src/assets/photos/avatar.jpg"
-                  sx={{ width: '120px', height: '120px' }}
-                />
-                <NameTitle variant="subtitle1">{userName}</NameTitle>
-              </AvatarWrapper>
-              <Box
-                display="flex"
-                alignItems="center"
-                justifyContent="space-between"
-                mb="16px"
-              >
-                <SubTitle variant="subtitle1">
-                  {t('profile.buyerMode')}
-                </SubTitle>
-              </Box>
-              <ProfileMenu />
-            </Box>
-            <Box>
-              <Outlet />
-            </Box>
-          </Box>
-        </Container>
-      </SimpleSection> */}
     </>
   );
 }
