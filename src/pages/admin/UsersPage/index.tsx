@@ -7,7 +7,7 @@ import { Box, CircularProgress } from '@mui/material';
 
 import { SerializedError } from '@reduxjs/toolkit';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
-import { sortOptions } from 'src/common/constants';
+import { sortOptions, urlRoles } from 'src/common/constants';
 import SearchInput from 'src/components/shared/SearchInput';
 import useToast from 'src/components/shared/toasts/components/ToastProvider/ToastProviderHooks';
 import { SortOrder } from 'src/redux/user/types';
@@ -96,8 +96,8 @@ function UsersPage() {
   }
 
   const getTitle = (path: string) => {
-    if (path.includes('vendors')) return t('userProfileAdmin.vendors');
-    if (path.includes('buyers')) return t('userProfileAdmin.buyers');
+    if (path.includes(urlRoles.vendors)) return t('userProfileAdmin.vendors');
+    if (path.includes(urlRoles.buyers)) return t('userProfileAdmin.buyers');
 
     return t('userProfileAdmin.users');
   };

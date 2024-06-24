@@ -153,3 +153,8 @@ export const cities = [
 export const httpStatusCodes = {
   UNAUTHORIZED: 401,
 };
+
+export const urlRoles = {
+  vendors: 'vendors',
+  buyers: 'buyers',
+};

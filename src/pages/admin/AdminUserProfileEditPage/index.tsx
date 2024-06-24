@@ -1,176 +1,48 @@
-import { useState, useEffect, Dispatch, SetStateAction } from 'react';
-import { Controller, useForm } from 'react-hook-form';
+import { Controller } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 
-import {
-  Button,
-  Grid,
-  Select,
-  SelectChangeEvent,
-  Typography,
-} from '@mui/material';
+import { Button, Grid, Select, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 
-import { skipToken } from '@reduxjs/toolkit/query';
 import ChevronDown from 'src/assets/icons/chevron-down.svg';
 import Tick from 'src/assets/icons/tick.svg';
-import { countryCodes, countries, states, cities } from 'src/common/constants';
+import { countries, states, cities } from 'src/common/constants';
 import formatUpdateDate from 'src/common/formatUpdateDate';
-import {
-  useGetUserByIdQuery,
-  useUpdateUserProfileByAdminMutation,
-} from 'src/redux/user/userService';
 import theme from 'src/theme';
 
 import UserDetailsSection from '../AdminUserProfilePage/UserDetailsSection';
 
+import useUserProfileEdit from './hooks/useUserProfileEdit';
 import PhoneInput from './PhoneInput';
 import ProfileInputWrapper from './ProfileInputWrapper';
 import { BottomWrapper, StyledAdminPanelInput, StyledMenuItem } from './styles';
 
-interface UserProfileFormData {
-  name: string;
-  email: string;
-  phoneNumber: {
-    countryCode: string;
-    phoneNumber: string;
-  };
-  isAccountActive: boolean;
-  addressLine1: string;
-  addressLine2: string;
-  country: string;
-  state: string;
-  city: string;
-}
-
-const sliceNumberUkraine: number = 3;
-const sliceNumberCanada: number = 2;
-
 function AdminUserProfileEditPage() {
-  const { t } = useTranslation();
   const { userId } = useParams<{ userId: string }>();
 
-  const { data, refetch } = useGetUserByIdQuery(
-    userId ? { userId } : skipToken
-  );
+  const {
+    data,
+    status,
+    emailField,
+    openStatus,
+    setOpenStatus,
+    openCountry,
+    setOpenCountry,
+    openState,
+    setOpenState,
+    openCity,
+    setOpenCity,
+    handleChange,
+    handleClose,
+    handleOpen,
+    handleSubmit,
+    control,
+    lastUpdateDate,
+    onSubmit,
+  } = useUserProfileEdit(userId);
 
-  const [status, setStatus] = useState<string>('');
-  const [emailField, setEmailField] = useState<string>('');
-  const [openStatus, setOpenStatus] = useState<boolean>(false);
-  const [openCountry, setOpenCountry] = useState<boolean>(false);
-  const [openState, setOpenState] = useState<boolean>(false);
-  const [openCity, setOpenCity] = useState<boolean>(false);
-
-  const { handleSubmit, control, setValue } = useForm<UserProfileFormData>();
-
-  const lastUpdateDate: string | null | undefined = data?.lastUpdatedAt;
-
-  useEffect(() => {
-    if (data) {
-      const {
-        name,
-        phoneNumber,
-        email,
-        isAccountActive,
-        addressLine1,
-        addressLine2,
-        country,
-        state,
-        city,
-      } = data;
-
-      setValue('name', name || '');
-      setEmailField(email);
-      let countryCode = '';
-      let restPhoneNumber = '';
-
-      if (phoneNumber) {
-        if (phoneNumber.startsWith('+38') || phoneNumber.startsWith('+62')) {
-          countryCode = phoneNumber.slice(0, sliceNumberUkraine);
-          restPhoneNumber = phoneNumber.slice(sliceNumberUkraine);
-        } else if (phoneNumber.startsWith('+1')) {
-          countryCode = phoneNumber.slice(0, sliceNumberCanada);
-          restPhoneNumber = phoneNumber.slice(sliceNumberCanada);
-        }
-      }
-
-      const countryCodeOption = countryCodes.filter(
-        (code) => code.code === countryCode
-      );
-
-      setValue('phoneNumber.countryCode', countryCodeOption[0].code);
-      setValue('phoneNumber.phoneNumber', restPhoneNumber);
-      setValue('isAccountActive', isAccountActive);
-      setStatus(
-        isAccountActive
-          ? t('userProfileAdmin.mockStatusActive')
-          : t('userProfileAdmin.mockStatusInactive')
-      );
-      setValue('addressLine1', addressLine1 ?? '');
-      setValue('addressLine2', addressLine2 ?? '');
-      setValue('country', country ?? '');
-      setValue('state', state ?? '');
-      setValue('city', city ?? '');
-    }
-  }, [data, setValue, t]);
-
-  const handleChange = (event: SelectChangeEvent<typeof status>) => {
-    setStatus(event.target.value);
-  };
-
-  type SetStateBoolean = Dispatch<SetStateAction<boolean>>;
-
-  const handleClose = (setOpen: SetStateBoolean) => {
-    setOpen(false);
-  };
-
-  const handleOpen = (setOpen: SetStateBoolean) => {
-    setOpen(true);
-  };
-
-  const [updateUserProfile] = useUpdateUserProfileByAdminMutation();
-
-  const onSubmit = async (formData: UserProfileFormData) => {
-    try {
-      if (userId) {
-        const isAccountActive =
-          status === t('userProfileAdmin.mockStatusActive');
-
-        const phoneNumber =
-          formData.phoneNumber.countryCode + formData.phoneNumber.phoneNumber;
-
-        /* eslint-disable no-unused-vars */
-        const { email, ...formDataWithoutEmail } = formData;
-        /* eslint-enable no-unused-vars */
-
-        const combinedFormData = {
-          ...formDataWithoutEmail,
-          phoneNumber,
-          isAccountActive,
-        };
-
-        const filteredFormData = Object.fromEntries(
-          /* eslint-disable @typescript-eslint/no-unused-vars */
-          Object.entries(combinedFormData).filter(([_, value]) => value !== '')
-          /* eslint-enable @typescript-eslint/no-unused-vars */
-        );
-
-        const response = await updateUserProfile({
-          userId,
-          updateProfileByAdminDto: filteredFormData,
-        });
-
-        refetch();
-
-        return response.data;
-      }
-
-      return null;
-    } catch (error) {
-      return error;
-    }
-  };
+  const { t } = useTranslation();
 
   return (
     <UserDetailsSection sectionHeight="">

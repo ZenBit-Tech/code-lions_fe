@@ -9,7 +9,7 @@ import { skipToken } from '@reduxjs/toolkit/query';
 import ChevronRight from 'src/assets/icons/chevron-right-grey-small.svg';
 import DeleteTrash from 'src/assets/icons/delete-trash.svg';
 import EditPencil from 'src/assets/icons/edit-pencil.svg';
-import { linkUrls } from 'src/common/constants';
+import { linkUrls, urlRoles } from 'src/common/constants';
 import { useGetUserByIdQuery } from 'src/redux/user/userService';
 import theme from 'src/theme';
 
@@ -25,15 +25,16 @@ interface IUserDetailsSectionProps {
 
 function UserDetailsSection(props: IUserDetailsSectionProps) {
   const { children, sectionHeight } = props;
+
+  const { t } = useTranslation();
+  const { userId } = useParams<{ userId: string }>();
   const location = useLocation();
+
   const [showModal, setShowModal] = useState<boolean>(false);
   const handleOpen = () => setShowModal(true);
   const handleClose = () => {
     setShowModal(false);
   };
-
-  const { t } = useTranslation();
-  const { userId } = useParams<{ userId: string }>();
 
   const { data } = useGetUserByIdQuery(userId ? { userId } : skipToken);
 
@@ -46,8 +47,8 @@ function UserDetailsSection(props: IUserDetailsSectionProps) {
   const editUrl = `${basePath}/${linkUrls.ADMIN_USER_PROFILE_EDIT}/${userId}`;
 
   const getTitle = (path: string) => {
-    if (path.includes('vendors')) return t('userProfileAdmin.vendors');
-    if (path.includes('buyers')) return t('userProfileAdmin.buyers');
+    if (path.includes(urlRoles.vendors)) return t('userProfileAdmin.vendors');
+    if (path.includes(urlRoles.buyers)) return t('userProfileAdmin.buyers');
 
     return t('userProfileAdmin.users');
   };
