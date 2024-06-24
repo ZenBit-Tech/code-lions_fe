@@ -100,7 +100,7 @@ function OnboardingInfoForm() {
 
   const onSubmit = async (form: IPhoneForm) => {
     try {
-      await updatePhone({ id: user.id, phone: `+62${form.phone}` }).unwrap();
+      await updatePhone({ id: user.id, phone: `+1${form.phone}` }).unwrap();
     } catch (err) {
       if (err instanceof Error) {
         showToast('error', err.message);

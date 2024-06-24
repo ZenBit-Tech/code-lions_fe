@@ -1,13 +1,15 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 
 import StyledButton from 'src/components/shared/StyledButton';
 import {
   PaddingVariants,
   StyleVariants,
 } from 'src/components/shared/StyledButton/types';
+import { useAppSelector } from 'src/redux/hooks';
+import { selectUser } from 'src/redux/user/userSlice';
 
 import AddressEditForm from '../AddressEditForm';
 import { TitleStyled } from '../PersonalInformationForm/styles';
@@ -17,6 +19,7 @@ import { AddressBox, AddressText } from './styles';
 function AddressForm() {
   const { t } = useTranslation();
   const [showEdit, setShowEdit] = useState(false);
+  const user = useAppSelector(selectUser);
 
   return (
     <>
@@ -25,11 +28,14 @@ function AddressForm() {
       </TitleStyled>
       {!showEdit && (
         <AddressBox>
-          <AddressText variant="subtitle2">street</AddressText>
-          <AddressText variant="subtitle2">City</AddressText>
-          <AddressText variant="subtitle2">State</AddressText>
+          <Box display="flex" gap="4px">
+            <AddressText variant="subtitle2">{user.addressLine1}</AddressText>
+            <AddressText variant="subtitle2">{user.addressLine2}</AddressText>
+          </Box>
+          <AddressText variant="subtitle2">{user.city}</AddressText>
+          <AddressText variant="subtitle2">{user.state}</AddressText>
           <AddressText variant="subtitle2" mb="8px">
-            Canada
+            {user.country}
           </AddressText>
           <StyledButton
             type="button"

@@ -266,6 +266,7 @@
     "saveButton": "Save",
     "paymentMethod": "Payment Method",
     "card": "Card",
-    "cardNumber": "**** **** **** "
+    "cardNumber": "**** **** **** ",
+    "unknownError": "An unexpected error occurred. Please try again later"
   }
 }

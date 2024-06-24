@@ -50,6 +50,8 @@ export const RTKUrls = {
   ADDRESS: 'address',
   SIZE: 'size',
   CREDIT_CARD: 'credit-card',
+  UPDATE_PROFILE: '/update-profile',
+  CARD_DATA: '/card-data',
 };
 
 export const HttpMethods = {
@@ -123,4 +125,8 @@ export const sortOptions: Record<string, SortOrder> = {
 
 export const httpStatusCodes = {
   UNAUTHORIZED: 401,
+};
+
+export const phoneCodes = {
+  CANADA: '+1',
 };

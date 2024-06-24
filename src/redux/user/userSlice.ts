@@ -14,6 +14,16 @@ const initialState: IUser = {
   accessToken: '',
   refreshToken: '',
   isAccountActive: true,
+  photoUrl: '',
+  phoneNumber: '',
+  addressLine1: '',
+  addressLine2: '',
+  country: '',
+  state: '',
+  city: '',
+  clothesSize: '',
+  jeansSize: '',
+  shoesSize: '',
 };
 
 const updateState = (state: IUser, action: PayloadAction<IUser>): IUser => {
@@ -83,6 +93,10 @@ export const userSlice = createSlice({
       userApi.endpoints.resetPassword.matchFulfilled,
       updateState
     );
+    builder.addMatcher(
+      userApi.endpoints.updatePersonalInfo.matchFulfilled,
+      updateState
+    );
   },
 });
 
@@ -98,5 +112,7 @@ export const selectUserName = (state: { user: IUser }) => state.user.name;
 export const selectOnboardingStep = (state: { user: IUser }) =>
   state.user.onboardingStep;
 export const selectUserRole = (state: { user: IUser }) => state.user.role;
+export const selectUser = (state: { user: IUser }) => state.user;
+export const selectUserId = (state: { user: IUser }) => state.user.id;
 
 export default userSlice.reducer;

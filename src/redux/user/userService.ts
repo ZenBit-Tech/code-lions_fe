@@ -26,6 +26,9 @@ import {
   IUpdateAddressRequest,
   IUpdateCreditCardRequest,
   IUpdateSizesRequest,
+  IUpdatePersonalInfoRequest,
+  IGetCardInfoResponse,
+  IGetCardInfoRequest,
 } from './types';
 
 const baseQuery = fetchBaseQuery({
@@ -172,24 +175,24 @@ export const userApi = createApi({
 
     updateAddress: build.mutation<IUser, IUpdateAddressRequest>({
       query: ({ id, ...rest }) => ({
-        url: `/users/${id}/${RTKUrls.ADDRESS}`,
-        method: 'PATCH',
+        url: `${RTKUrls.USERS}/${id}/${RTKUrls.ADDRESS}`,
+        method: HttpMethods.PATCH,
         body: rest,
       }),
     }),
 
     updateCreditCard: build.mutation<IUser, IUpdateCreditCardRequest>({
       query: ({ id, ...rest }) => ({
-        url: `/users/${id}/${RTKUrls.CREDIT_CARD}`,
-        method: 'PATCH',
+        url: `${RTKUrls.USERS}/${id}/${RTKUrls.CREDIT_CARD}`,
+        method: HttpMethods.PATCH,
         body: rest,
       }),
     }),
 
     updateSizes: build.mutation<IUser, IUpdateSizesRequest>({
       query: ({ id, ...rest }) => ({
-        url: `/users/${id}/${RTKUrls.SIZE}`,
-        method: 'PATCH',
+        url: `${RTKUrls.USERS}/${id}/${RTKUrls.SIZE}`,
+        method: HttpMethods.PATCH,
         body: rest,
       }),
     }),
@@ -199,6 +202,20 @@ export const userApi = createApi({
         url: RTKUrls.ADMIN_USERS,
         method: HttpMethods.GET,
         params: { page, order, role, search },
+      }),
+    }),
+
+    updatePersonalInfo: build.mutation<IUser, IUpdatePersonalInfoRequest>({
+      query: ({ id, ...rest }) => ({
+        url: `${RTKUrls.USERS}/${id}${RTKUrls.UPDATE_PROFILE}`,
+        method: HttpMethods.PATCH,
+        body: rest,
+      }),
+    }),
+    getCardInfo: build.query<IGetCardInfoResponse, IGetCardInfoRequest>({
+      query: ({ id }) => ({
+        url: `${RTKUrls.USERS}/${id}${RTKUrls.CARD_DATA}`,
+        method: HttpMethods.GET,
       }),
     }),
   }),
@@ -220,4 +237,6 @@ export const {
   useUpdateCreditCardMutation,
   useUpdateSizesMutation,
   useGetAllUsersQuery,
+  useUpdatePersonalInfoMutation,
+  useGetCardInfoQuery,
 } = userApi;

@@ -1,32 +1,91 @@
-import { Controller, useFormContext } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
+import { Typography } from '@mui/material';
+
+import { yupResolver } from '@hookform/resolvers/yup';
+import { phoneCodes } from 'src/common/constants';
+import {
+  getErrorMessage,
+  isFetchBaseQueryError,
+  isSerializedError,
+} from 'src/common/getErrorMessage';
 import LabelText from 'src/components/shared/LabelText';
+import StyledButton from 'src/components/shared/StyledButton';
+import {
+  PaddingVariants,
+  StyleVariants,
+} from 'src/components/shared/StyledButton/types';
 import StyledInput from 'src/components/shared/StyledInput';
 import {
   InputPaddingVariants,
   InputStyleVariants,
 } from 'src/components/shared/StyledInput/types';
 import TitleInputWrapper from 'src/components/shared/TitleInputWrapper';
+import useToast from 'src/components/shared/toasts/components/ToastProvider/ToastProviderHooks';
+import { useAppSelector } from 'src/redux/hooks';
+import { useUpdatePersonalInfoMutation } from 'src/redux/user/userService';
+import { selectUser } from 'src/redux/user/userSlice';
 
-import { ErrorWrapper, FormStyled, TitleStyled } from './styles';
+import personalInformationSchema from './schema';
+import { ErrorMessage, ErrorWrapper, FormStyled, TitleStyled } from './styles';
 
-// interface IPersonalInformationForm {
-//   name: string;
-//   email: string;
-//   phone: string;
-// }
+interface IPersonalInformationForm {
+  name: string;
+  email: string;
+  phone: string;
+}
 
 function PersonalInformationForm() {
   const { t } = useTranslation();
+  const user = useAppSelector(selectUser);
+  const [updateInfo, { isLoading }] = useUpdatePersonalInfoMutation();
+  const { showToast } = useToast();
 
   const {
     control,
-    formState: { errors },
-  } = useFormContext();
+    handleSubmit,
+    reset,
+    formState: { errors, isDirty, isValid },
+  } = useForm<IPersonalInformationForm>({
+    defaultValues: {
+      name: user.name,
+      email: user.email,
+      phone: user.phoneNumber,
+    },
+    resolver: yupResolver(personalInformationSchema),
+    mode: 'onTouched',
+  });
+
+  const errorsLength: number = Object.keys(errors).length;
+
+  const onSubmit = async ({ name, email, phone }: IPersonalInformationForm) => {
+    try {
+      await updateInfo({
+        id: user.id,
+        name,
+        email,
+        phoneNumber: `${phoneCodes.CANADA}${phone}`,
+      }).unwrap();
+      reset({
+        name,
+        email,
+        phone,
+      });
+    } catch (err) {
+      if (isFetchBaseQueryError(err) || isSerializedError(err)) {
+        showToast(
+          'error',
+          getErrorMessage(err, t('profileDetails.unknownError'))
+        );
+      } else {
+        showToast('error', t('profileDetails.unknownError'));
+      }
+    }
+  };
 
   return (
-    <FormStyled>
+    <FormStyled onSubmit={handleSubmit(onSubmit)}>
       <TitleStyled variant="subtitle1">
         {t('profileDetails.personalInformation')}
       </TitleStyled>
@@ -46,15 +105,11 @@ function PersonalInformationForm() {
                 stylevariant={InputStyleVariants.OUTLINED}
                 error={!!errors.name}
               />
-              {/* {errors.name && (
-                <ErrorMessage
-                  variant="subtitle2"
-                  mt={1}
-                  color={theme.palette.error.main}
-                >
+              {errors.name && (
+                <ErrorMessage variant="subtitle2" mt={1}>
                   {errors.name.message}
                 </ErrorMessage>
-              )} */}
+              )}
             </ErrorWrapper>
           )}
         />
@@ -76,15 +131,11 @@ function PersonalInformationForm() {
                 stylevariant={InputStyleVariants.OUTLINED}
                 error={!!errors.email}
               />
-              {/* {errors.email && (
-                <ErrorMessage
-                  variant="subtitle2"
-                  mt={1}
-                  color={theme.palette.error.main}
-                >
+              {errors.email && (
+                <ErrorMessage variant="subtitle2" mt={1}>
                   {errors.email.message}
                 </ErrorMessage>
-              )} */}
+              )}
             </ErrorWrapper>
           )}
         />
@@ -104,21 +155,28 @@ function PersonalInformationForm() {
                 placeholder={t('profileDetails.phonePlaceholder')}
                 padding={InputPaddingVariants.MD}
                 stylevariant={InputStyleVariants.OUTLINED}
-                error={!!errors.email}
+                error={!!errors.phone}
               />
-              {/* {errors.email && (
-                <ErrorMessage
-                  variant="subtitle2"
-                  mt={1}
-                  color={theme.palette.error.main}
-                >
-                  {errors.email.message}
+              {errors.phone && (
+                <ErrorMessage variant="subtitle2" mt={1}>
+                  {errors.phone.message}
                 </ErrorMessage>
-              )} */}
+              )}
             </ErrorWrapper>
           )}
         />
       </TitleInputWrapper>
+      {isDirty && (
+        <StyledButton
+          type="submit"
+          disabled={!isValid || errorsLength > 0 || isLoading}
+          width="101px"
+          styles={StyleVariants.BLACK}
+          padding={PaddingVariants.SM}
+        >
+          <Typography variant="h4">{t('profileDetails.saveButton')}</Typography>
+        </StyledButton>
+      )}
     </FormStyled>
   );
 }
