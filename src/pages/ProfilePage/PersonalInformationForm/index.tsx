@@ -170,6 +170,7 @@ function PersonalInformationForm() {
                       value={value}
                       variant="outlined"
                       size="small"
+                      error={!!errors.countryCode}
                       IconComponent={(props) => <ChevronDown {...props} />}
                       sx={{
                         '.MuiOutlinedInput-notchedOutline': { border: 0 },
