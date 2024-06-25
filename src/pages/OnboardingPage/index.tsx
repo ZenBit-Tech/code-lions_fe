@@ -5,7 +5,7 @@ import { Typography } from '@mui/material';
 import { Box } from '@mui/system';
 
 import ArrowLeftIcon from 'src/assets/icons/arrow-left.svg';
-import { onboardingSteps } from 'src/common/constants';
+import { onboardingSteps, userRoles } from 'src/common/constants';
 import Header from 'src/components/Header';
 // import OnboardingCreditCardForm from 'src/pages/OnboardingPage/CreditCardForm';
 import OnboardingHeaderItem from 'src/pages/OnboardingPage/HeaderItem';
@@ -22,6 +22,7 @@ import theme from 'src/theme';
 function OnboardingPage() {
   const { t } = useTranslation();
   const currentStep = useAppSelector(selectOnboardingStep);
+  const user = useAppSelector((state) => state.user);
 
   const onboardingData = [
     {
@@ -50,6 +51,10 @@ function OnboardingPage() {
       component: <OnboardingSizeForm />,
     },
   ];
+
+  if (user.role === userRoles.VENDOR) {
+    onboardingData.pop();
+  }
 
   const currentStepComponent = onboardingData.find(
     (step) => step.stepId === currentStep
