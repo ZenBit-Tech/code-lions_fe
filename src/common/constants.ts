@@ -15,6 +15,7 @@ export const urls = {
   ADMIN: '/admin',
   ONBOARDING: '/onboarding',
   ADMIN_USERS: 'users',
+  ADMIN_SIGN_IN: 'signin',
   ADMIN_USER_PROFILE: 'users/:userId',
   ADMIN_USER_PROFILE_EDIT: 'users/edit/:userId',
   ADMIN_BUYERS: 'buyers',

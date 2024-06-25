@@ -1,10 +1,13 @@
 const symbolsNumber: number = 2;
+const ukarineUTC: number = 3;
 
 function formatUpdateDate(
   dateString: string | null | undefined
 ): string | null {
   if (dateString) {
     const date = new Date(dateString);
+
+    date.setUTCHours(date.getUTCHours() + ukarineUTC);
 
     const options: Intl.DateTimeFormatOptions = {
       month: 'short',

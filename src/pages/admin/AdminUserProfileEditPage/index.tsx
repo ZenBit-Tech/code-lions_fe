@@ -1,6 +1,6 @@
 import { Controller } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import { Button, Grid, Select, Typography } from '@mui/material';
 import { Box } from '@mui/system';
@@ -18,8 +18,11 @@ import PhoneInput from './PhoneInput';
 import ProfileInputWrapper from './ProfileInputWrapper';
 import { BottomWrapper, StyledAdminPanelInput, StyledMenuItem } from './styles';
 
+const previousPage: number = -1;
+
 function AdminUserProfileEditPage() {
   const { t } = useTranslation();
+  const navigate = useNavigate();
 
   const { userId } = useParams<{ userId: string }>();
 
@@ -266,6 +269,7 @@ function AdminUserProfileEditPage() {
                   borderRadius: '10px',
                   marginRight: '10px',
                 }}
+                onClick={() => navigate(previousPage)}
               >
                 <Typography
                   variant="button"
