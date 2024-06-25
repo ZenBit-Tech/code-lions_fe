@@ -9,10 +9,12 @@ const personalInformationSchema = Yup.object().shape({
     .email(appErrors.EMAIL_INCORRECT)
     .matches(validations.EMAIL_REGEX, appErrors.EMAIL_INCORRECT)
     .required(appErrors.REQUIRED),
-  phone: Yup.string()
+  restPhoneNumber: Yup.string()
     .max(maxPhoneLength, appErrors.INVALID_LENGTH)
     .matches(validations.PHONE_REGEX, appErrors.INVALID_PHONE)
     .required(appErrors.REQUIRED),
+  countryCode: Yup.string().required(appErrors.REQUIRED),
+  // restPhoneNumber: Yup.string().required(appErrors.REQUIRED),
 });
 
 export default personalInformationSchema;

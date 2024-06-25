@@ -6,7 +6,6 @@ import { Grid, Typography } from '@mui/material';
 import { urls } from 'src/common/constants';
 
 import AddressForm from './AddressForm';
-import CardForm from './CardForm';
 import PersonalInformationForm from './PersonalInformationForm';
 import SizesForm from './SizesFrom';
 import { StyledLink } from './styles';
@@ -17,9 +16,6 @@ function ProfilePage() {
 
   return (
     <Grid container spacing={3}>
-      <Grid item xs={12}>
-        photo
-      </Grid>
       <Grid item xs={12} md={6}>
         <PersonalInformationForm />
       </Grid>
@@ -33,9 +29,6 @@ function ProfilePage() {
       </Grid>
       <Grid item xs={12}>
         <AddressForm />
-      </Grid>
-      <Grid item xs={12}>
-        <CardForm />
       </Grid>
     </Grid>
   );

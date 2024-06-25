@@ -190,13 +190,3 @@ export interface IUpdatePersonalInfoRequest {
   expireDate?: string;
   cvvCode?: string;
 }
-
-export interface IGetCardInfoRequest {
-  id: string;
-}
-
-export interface IGetCardInfoResponse {
-  cardNumber: string;
-  expireDate: string;
-  cvvCode: string;
-}

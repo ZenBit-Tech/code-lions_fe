@@ -4,11 +4,6 @@ import { useTranslation } from 'react-i18next';
 import { Typography } from '@mui/material';
 
 import {
-  getErrorMessage,
-  isFetchBaseQueryError,
-  isSerializedError,
-} from 'src/common/getErrorMessage';
-import {
   clothesSizes,
   jeansSizes,
   shoesSizes,
@@ -27,6 +22,7 @@ import { useUpdatePersonalInfoMutation } from 'src/redux/user/userService';
 import { selectUser } from 'src/redux/user/userSlice';
 
 import { TitleStyled } from '../PersonalInformationForm/styles';
+import useErrorHandling from '../useErrorHandlingHook';
 
 import FormStyled from './styles';
 
@@ -58,11 +54,12 @@ function SizesForm() {
 
   const errorsLength: number = Object.keys(errors).length;
 
+  const { handleOnSubmitError } = useErrorHandling();
+
   const onSubmit = async ({ clothesSize, jeansSize, shoesSize }: ISizeForm) => {
     try {
       await updateSizes({
         id: user.id,
-
         clothesSize,
         jeansSize,
         shoesSize,
@@ -73,14 +70,7 @@ function SizesForm() {
         shoesSize,
       });
     } catch (err) {
-      if (isFetchBaseQueryError(err) || isSerializedError(err)) {
-        showToast(
-          'error',
-          getErrorMessage(err, t('profileDetails.unknownError'))
-        );
-      } else {
-        showToast('error', t('profileDetails.unknownError'));
-      }
+      handleOnSubmitError(err, showToast, t('profileDetails.unknownError'));
     }
   };
 
