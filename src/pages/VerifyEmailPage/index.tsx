@@ -44,8 +44,6 @@ function VerifyEmailPage() {
 
   useEffect(() => {
     if (errorMessages.length > 0) {
-      showToast('error', errorMessages[0]);
-    } else if (errorMessages.length > 1) {
       errorMessages.forEach((error) => {
         showToast('error', error);
       });
