@@ -27,8 +27,6 @@ import {
   IUpdateCreditCardRequest,
   IUpdateSizesRequest,
   IUpdatePersonalInfoRequest,
-  IGetCardInfoResponse,
-  IGetCardInfoRequest,
 } from './types';
 
 const baseQuery = fetchBaseQuery({
@@ -212,12 +210,6 @@ export const userApi = createApi({
         body: rest,
       }),
     }),
-    getCardInfo: build.query<IGetCardInfoResponse, IGetCardInfoRequest>({
-      query: ({ id }) => ({
-        url: `${RTKUrls.USERS}/${id}${RTKUrls.CARD_DATA}`,
-        method: HttpMethods.GET,
-      }),
-    }),
   }),
 });
 
@@ -238,5 +230,4 @@ export const {
   useUpdateSizesMutation,
   useGetAllUsersQuery,
   useUpdatePersonalInfoMutation,
-  useGetCardInfoQuery,
 } = userApi;

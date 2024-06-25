@@ -6,15 +6,12 @@ import { Box } from '@mui/system';
 
 import EditIcon from 'src/assets/icons/edit-white.svg';
 import UserImageIcon from 'src/assets/icons/user-image.svg';
-import {
-  getErrorMessage,
-  isFetchBaseQueryError,
-  isSerializedError,
-} from 'src/common/getErrorMessage';
 import useToast from 'src/components/shared/toasts/components/ToastProvider/ToastProviderHooks';
 import { useAppSelector } from 'src/redux/hooks';
 import { useUploadPhotoMutation } from 'src/redux/user/userService';
 import { selectUser } from 'src/redux/user/userSlice';
+
+import useErrorHandling from '../useErrorHandlingHook';
 
 import { AvatarBackdrop, AvatarPreview, VisuallyHiddenInput } from './styles';
 
@@ -28,6 +25,8 @@ function PhotoUploadForm() {
   );
   const [imageError, setImageError] = useState(false);
 
+  const { handleOnSubmitError } = useErrorHandling();
+
   const sendPhotoRequest = async (file: File | null) => {
     try {
       if (file instanceof File) {
@@ -38,14 +37,7 @@ function PhotoUploadForm() {
         showToast('success', t('profileDetails.successPhotoUpdate'));
       }
     } catch (err) {
-      if (isFetchBaseQueryError(err) || isSerializedError(err)) {
-        showToast(
-          'error',
-          getErrorMessage(err, t('profileDetails.unknownError'))
-        );
-      } else {
-        showToast('error', t('profileDetails.unknownError'));
-      }
+      handleOnSubmitError(err, showToast, t('profileDetails.unknownError'));
     }
   };
 
