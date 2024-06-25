@@ -10,7 +10,9 @@
   "header": {
     "shop": "Shop",
     "vendors": "Vendors",
-    "messages": "Messages"
+    "messages": "Messages",
+    "login": "Log in",
+    "signUp": "Sign Up"
   },
   "footer": {
     "someText": "Some text will be here two - three lines",
@@ -167,7 +169,8 @@
     "myProfile": "My Profile",
     "buyerMode": "Buyer Mode",
     "goToVendor": "Go to Vendor Mode",
-    "name": "Anna Asol"
+    "name": "Anna Asol",
+    "logout": "Log out"
   },
   "profileMenu": {
     "personalInformation": "Personal Information",
@@ -189,6 +192,7 @@
     "phoneNumber": "Phone Number",
     "enterNumber": "Please enter your phone number",
     "role": "Role",
+    "yourPhoto": "Your photo",
     "chooseTypeOfAccount": "Choose what type of account you want to create",
     "shippingAddress": "Shipping address",
     "addYourShippingAddress": "Add your shipping address",
@@ -220,7 +224,9 @@
     "next": "Next",
     "buyer": "Buyer",
     "vendor": "Vendor",
-    "uploadPhoto": "Upload Photo"
+    "uploadPhoto": "Upload Photo",
+    "changeImage": "Change image",
+    "unknownError": "An unexpected error occurred. Please try again later"
   },
   "usersAdmin": {
     "title": "Users",
