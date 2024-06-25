@@ -130,5 +130,7 @@ export const selectUserRole = (state: { user: IUser }) => state.user.role;
 export const selectUser = (state: { user: IUser }) => state.user;
 export const selectUserId = (state: { user: IUser }) => state.user.id;
 export const selectUserAvatar = (state: { user: IUser }) => state.user.photoUrl;
+export const selectUserPhone = (state: { user: IUser }) =>
+  state.user.phoneNumber;
 
 export default userSlice.reducer;

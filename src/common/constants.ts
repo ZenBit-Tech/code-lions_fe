@@ -51,7 +51,6 @@ export const RTKUrls = {
   SIZE: 'size',
   CREDIT_CARD: 'credit-card',
   UPDATE_PROFILE: '/update-profile',
-  CARD_DATA: '/card-data',
 };
 
 export const HttpMethods = {
@@ -106,7 +105,12 @@ export const onboardingSteps = {
   FINISH: 6,
 };
 
-export const countryCodes = [{ code: '+62' }, { code: '+38' }];
+export const countryCodes = [
+  { code: '+62' },
+  { code: '+38' },
+  { code: '+1' },
+  { code: '' },
+];
 
 export const userRoles = {
   BUYER: 'buyer',
