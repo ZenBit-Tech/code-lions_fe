@@ -19,7 +19,7 @@ const comments: Comment[] = [
     avatarUrl: 'src/assets/photos/avatar.jpg',
     rating: 4.9,
     content:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam tincidunt pharetra. Mauris id eleifend tortor.',
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam tincidunt pharetra. Mauris id eleifend tortor. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam tincidunt pharetra. Mauris id eleifend tortor. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam tincidunt pharetra. Mauris id eleifend tortor. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam tincidunt pharetra. Mauris id eleifend tortor. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam tincidunt pharetra. Mauris id eleifend tortor.',
   },
   {
     id: '2',
@@ -34,7 +34,7 @@ const comments: Comment[] = [
 
 function CommentList() {
   return (
-    <Box width="1000px">
+    <Box sx={{ maxWidth: '1000px' }}>
       {comments.map((comment) => (
         <CommentCard key={comment.id} comment={comment} />
       ))}

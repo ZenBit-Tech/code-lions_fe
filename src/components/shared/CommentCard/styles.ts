@@ -9,7 +9,7 @@ export const CommentCardWrapper = styled(Box)(({ theme }) => ({
   marginBottom: '24px',
   borderRadius: '8px',
   border: `1px solid ${theme.palette.border.secondary}`,
-  height: '163px',
+  minHeight: '163px',
   width: '100%',
 }));
 
@@ -21,7 +21,6 @@ export const AuthorName = styled(Typography)(({ theme }) => ({
   fontWeight: 'bold',
   fontSize: theme.typography.h3.fontSize,
   fontFamily: theme.typography.h5.fontFamily,
-  lineHeight: theme.typography.h5.lineHeight,
   letterSpacing: '-0.1px',
 }));
 

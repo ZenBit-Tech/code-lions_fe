@@ -1,40 +1,33 @@
-import { Typography } from '@mui/material';
-import { ThemeProvider } from '@mui/material/styles';
+import { useTranslation } from 'react-i18next';
 
 import Footer from 'src/components/Footer';
 import Header from 'src/components/Header';
 import CommentList from 'src/components/shared/CommentList';
 import Container from 'src/components/shared/Container';
 import ProfileInfo from 'src/pages/VendorProfilePage/ProfileInfo';
-import theme from 'src/theme.tsx';
 
-import { MainContainerWrapper, TabButton, TabsWrapper } from './styles';
+import {
+  MainContainerWrapper,
+  ReviewLabel,
+  TabButton,
+  TabsWrapper,
+} from './styles';
 
 function VendorProfilePage() {
+  const { t } = useTranslation();
+
   return (
     <Container>
       <Header />
       <MainContainerWrapper>
         <ProfileInfo />
-        <Container sx={{ marginLeft: '32px' }}>
+        <Container sx={{ marginLeft: '32px', width: '100%' }}>
           <TabsWrapper>
-            <TabButton active={false}>Products</TabButton>
-            <TabButton active>Reviews (2)</TabButton>
+            <TabButton active={false}>{t('vendorProfile.products')}</TabButton>
+            <TabButton active>{t('vendorProfile.reviews')} (2)</TabButton>
           </TabsWrapper>
-          <Typography
-            sx={{
-              marginBottom: '24px',
-              marginTop: '6px',
-              fontWeight: theme.typography.h2.fontWeight,
-              fontSize: theme.typography.h5.fontSize,
-              fontFamily: theme.typography.h1.fontFamily,
-            }}
-          >
-            Reviews(2)
-          </Typography>
-          <ThemeProvider theme={theme}>
-            <CommentList />
-          </ThemeProvider>
+          <ReviewLabel>{t('vendorProfile.reviews')} (2)</ReviewLabel>
+          <CommentList />
         </Container>
       </MainContainerWrapper>
       <Footer />

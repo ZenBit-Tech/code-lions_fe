@@ -245,6 +245,8 @@
   "vendorProfile": {
     "follow": "Follow",
     "products": "Products",
-    "reviews": "Reviews"
+    "reviews": "Reviews",
+    "readMore": " Read More",
+    "readLess": " Read Less"
   }
 }

@@ -12,8 +12,6 @@ import {
   PaddingVariants,
   StyleVariants,
 } from 'src/components/shared/StyledButton/types';
-import { useAppSelector } from 'src/redux/hooks';
-import { selectUserName } from 'src/redux/user/userSlice';
 import theme from 'src/theme.tsx';
 
 import {
@@ -26,7 +24,7 @@ import {
 
 function ProfilePage() {
   const { t } = useTranslation();
-  const userName = useAppSelector(selectUserName) ?? t('profile.name');
+  const userName = t('profile.name');
 
   return (
     <SimpleSection>

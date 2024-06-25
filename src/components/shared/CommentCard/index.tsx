@@ -1,3 +1,6 @@
+import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+
 import { Box } from '@mui/material';
 
 import StarIcon from 'src/assets/icons/profile/star.svg';
@@ -13,6 +16,8 @@ import {
   CommentText,
 } from './styles';
 
+const numberOfWordsInSentence = 12;
+
 interface Comment {
   id: string;
   author: string;
@@ -27,6 +32,29 @@ interface CommentCardProps {
 }
 
 function CommentCard({ comment }: CommentCardProps) {
+  const { t } = useTranslation();
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  const toggleReadMore = () => {
+    setIsExpanded(!isExpanded);
+  };
+
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLSpanElement>) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      toggleReadMore();
+    }
+  };
+
+  const renderContent = () => {
+    const words = comment.content.split(' ');
+
+    if (words.length <= numberOfWordsInSentence || isExpanded) {
+      return comment.content;
+    } else {
+      return `${words.slice(0, numberOfWordsInSentence).join(' ')}... `;
+    }
+  };
+
   return (
     <CommentCardWrapper>
       <CommentContent>
@@ -47,7 +75,20 @@ function CommentCard({ comment }: CommentCardProps) {
           </RatingWrapper>
         </Box>
         <CommentText variant="body2" sx={{ marginTop: '8px' }}>
-          {comment.content}
+          {renderContent()}
+          {comment.content.split(' ').length > numberOfWordsInSentence && (
+            <span
+              role="button"
+              tabIndex={0}
+              style={{ cursor: 'pointer', textDecoration: 'underline' }}
+              onClick={toggleReadMore}
+              onKeyDown={handleKeyDown}
+            >
+              {isExpanded
+                ? t('vendorProfile.readLess')
+                : t('vendorProfile.readMore')}
+            </span>
+          )}
         </CommentText>
       </CommentContent>
     </CommentCardWrapper>

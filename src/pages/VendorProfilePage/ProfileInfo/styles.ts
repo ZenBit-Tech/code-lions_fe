@@ -40,7 +40,7 @@ export const FollowButtonWrapper = styled(Box)(
 
 export const RatingNumber = styled(Typography)(
   ({ theme }: { theme: Theme }) => ({
-    marginLeft: '2px',
+    marginLeft: '4px',
     fontFamily: theme.typography.h3.fontFamily,
     fontWeight: theme.typography.h2.fontWeight,
     fontSize: theme.typography.h3.fontSize,
