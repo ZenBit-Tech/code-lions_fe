@@ -28,7 +28,6 @@ function AdminLayout() {
           flex: 2,
           minHeight: 0,
           backgroundColor: theme.palette.background.default,
-          paddingBottom: '200px',
         }}
       >
         <Outlet />

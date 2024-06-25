@@ -101,9 +101,9 @@ export const onboardingSteps = {
   ROLE: 1,
   INFO: 2,
   ADDRESS: 3,
-  CARD: 4,
-  SIZES: 5,
-  FINISH: 6,
+  // CARD: 4,
+  SIZES: 4,
+  FINISH: 5,
 };
 
 export type CountryCode = { code: string };

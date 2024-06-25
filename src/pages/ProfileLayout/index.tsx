@@ -29,7 +29,7 @@ function ProfileLayout() {
 
   return (
     <>
-      <Grid container sx={{ height: '100vh' }} columns={4}>
+      <Grid container columns={4}>
         <Grid item xs={4} sx={{ display: 'flex', flexDirection: 'column' }}>
           <SectionTitle
             title={t('profile.title')}
