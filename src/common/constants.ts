@@ -15,6 +15,7 @@ export const urls = {
   ADMIN: '/admin',
   ONBOARDING: '/onboarding',
   ADMIN_USERS: 'users',
+  ADMIN_SIGN_IN: 'signin',
   ADMIN_USER_PROFILE: 'users/:userId',
   ADMIN_USER_PROFILE_EDIT: 'users/edit/:userId',
   ADMIN_BUYERS: 'buyers',
@@ -52,6 +53,8 @@ export const RTKUrls = {
   CREDIT_CARD: 'credit-card',
   UPDATE_PROFILE: '/update-profile',
   CARD_DATA: '/card-data',
+  UPDATE_PROFILE_ADMIN: 'update-profile-admin',
+  SOFT_DELETE: 'soft-delete',
 };
 
 export const HttpMethods = {
@@ -108,7 +111,11 @@ export const onboardingSteps = {
 
 export type CountryCode = { code: string };
 
-export const countryCodes: CountryCode[] = [{ code: '+1' }, { code: '+38' }];
+export const countryCodes: CountryCode[] = [
+  { code: '+38' },
+  { code: '+1' },
+  { code: '' },
+];
 
 export const userRoles = {
   BUYER: 'buyer',
@@ -125,10 +132,42 @@ export const sortOptions: Record<string, SortOrder> = {
   ASC: 'asc',
 };
 
+export const countries = [{ label: 'Canada', value: 'Canada' }];
+
+export const states = [
+  { label: 'Ontario', value: 'Ontario' },
+  { label: 'Quebec', value: 'Quebec' },
+  { label: 'Nova Scotia', value: 'Nova Scotia' },
+  { label: 'New Brunswick', value: 'New Brunswick' },
+  { label: 'Manitoba', value: 'Manitoba' },
+  { label: 'British Columbia', value: 'British Columbia' },
+  { label: 'Alberta', value: 'Alberta' },
+  { label: 'Saskatchewan', value: 'Saskatchewan' },
+  { label: 'Newfoundland and Labrador', value: 'Newfoundland and Labrador' },
+  { label: 'Prince Edward Island', value: 'Prince Edward Island' },
+];
+
+export const cities = [
+  { label: 'Toronto', value: 'Toronto' },
+  { label: 'Montreal', value: 'Montreal' },
+  { label: 'Vancouver', value: 'Vancouver' },
+  { label: 'Fredericton', value: 'Fredericton' },
+  { label: 'Charlottetown', value: 'Charlottetown' },
+  { label: "St. John's", value: "St. John's" },
+  { label: 'Regina', value: 'Regina' },
+  { label: 'Calgary', value: 'Calgary' },
+  { label: 'Saskatoon', value: 'Saskatoon' },
+  { label: 'Halifax', value: 'Halifax' },
+];
 export const httpStatusCodes = {
   UNAUTHORIZED: 401,
 };
 
 export const phoneCodes = {
   CANADA: '+1',
+};
+
+export const urlRoles = {
+  vendors: 'vendors',
+  buyers: 'buyers',
 };

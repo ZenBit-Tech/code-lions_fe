@@ -20,6 +20,8 @@ import {
   IUser,
   IUserDataResponse,
   IAdminUsersRequest,
+  IAdminUser,
+  IUpdateUserByAdminRequest,
   IUpdateRoleRequest,
   IUploadPhotoRequest,
   IUpdatePhoneRequest,
@@ -83,6 +85,7 @@ const baseQueryWithReauth = async (
 export const userApi = createApi({
   reducerPath: 'userApi',
   baseQuery: baseQueryWithReauth,
+  tagTypes: ['User'],
   endpoints: (build) => ({
     verifyEmail: build.mutation<IUser, IVerifyEmailRequest>({
       query: (post) => ({
@@ -203,6 +206,33 @@ export const userApi = createApi({
         method: HttpMethods.GET,
         params: { page, order, role, search },
       }),
+      providesTags: (result) => (result ? [{ type: 'User', id: 'LIST' }] : []),
+    }),
+
+    getUserById: build.query<IAdminUser, { userId: string }>({
+      query: ({ userId }) => ({
+        url: `${RTKUrls.ADMIN_USERS}/${userId}`,
+        method: HttpMethods.GET,
+      }),
+    }),
+
+    updateUserProfileByAdmin: build.mutation<
+      IAdminUser,
+      { userId: string; updateProfileByAdminDto: IUpdateUserByAdminRequest }
+    >({
+      query: ({ userId, updateProfileByAdminDto }) => ({
+        url: `${RTKUrls.USERS}/${userId}/${RTKUrls.UPDATE_PROFILE_ADMIN}`,
+        method: HttpMethods.PATCH,
+        body: updateProfileByAdminDto,
+      }),
+      invalidatesTags: [{ type: 'User', id: 'LIST' }],
+    }),
+    deleteUserByAdmin: build.mutation<void, { userId: string }>({
+      query: ({ userId }) => ({
+        url: `${RTKUrls.USERS}/${userId}/${RTKUrls.SOFT_DELETE}`,
+        method: HttpMethods.DELETE,
+      }),
+      invalidatesTags: [{ type: 'User', id: 'LIST' }],
     }),
 
     updatePersonalInfo: build.mutation<IUser, IUpdatePersonalInfoRequest>({
@@ -239,4 +269,7 @@ export const {
   useGetAllUsersQuery,
   useUpdatePersonalInfoMutation,
   useGetCardInfoQuery,
+  useGetUserByIdQuery,
+  useUpdateUserProfileByAdminMutation,
+  useDeleteUserByAdminMutation,
 } = userApi;

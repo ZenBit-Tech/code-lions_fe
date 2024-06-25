@@ -15,7 +15,7 @@ function AdminPrivateRoute({ children }: AdminPrivateRouteProps) {
   if (user.role === userRoles.ADMIN) {
     return children ? <>{children}</> : <Outlet />;
   } else {
-    return <Navigate to={urls.HOME} />;
+    return <Navigate to={urls.ADMIN_SIGN_IN} />;
   }
 }
 

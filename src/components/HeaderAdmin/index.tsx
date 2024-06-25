@@ -1,5 +1,7 @@
 import { useState, MouseEvent } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 import {
   Typography,
@@ -12,17 +14,26 @@ import {
 import ChevronDown from 'src/assets/icons/chevron-down-grey.svg';
 import ChevronUp from 'src/assets/icons/chevron-up-grey.svg';
 import Logout from 'src/assets/icons/logout.svg';
+import { urls } from 'src/common/constants';
 import getInitials from 'src/common/getInitials';
 import { useAppSelector } from 'src/redux/hooks';
-import { selectUserName } from 'src/redux/user/userSlice';
+import { logout, selectUserName } from 'src/redux/user/userSlice';
 import theme from 'src/theme';
 
 import { StyledAvatar, StyledMenuItem } from './styles';
 
 function HeaderAdmin() {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+
+  const dispatch = useDispatch();
+
+  const handleLogout = () => {
+    dispatch(logout());
+    navigate(urls.ADMIN_SIGN_IN);
+  };
 
   const handleMenuOpen = (event: MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -52,7 +63,6 @@ function HeaderAdmin() {
         alignItems="center"
         sx={{
           borderLeft: `1px solid ${theme.palette.background.paper}`,
-          width: '200px',
         }}
       >
         <Box display="flex" alignItems="center">
@@ -96,7 +106,7 @@ function HeaderAdmin() {
             '.MuiMenu-paper': { backgroundColor: theme.palette.common.white },
           }}
         >
-          <StyledMenuItem>
+          <StyledMenuItem onClick={handleLogout}>
             <ListItemIcon>
               <Logout />
             </ListItemIcon>
