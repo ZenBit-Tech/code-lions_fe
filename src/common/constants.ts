@@ -106,7 +106,9 @@ export const onboardingSteps = {
   FINISH: 6,
 };
 
-export const countryCodes = [{ code: '+62' }, { code: '+38' }];
+export type CountryCode = { code: string };
+
+export const countryCodes: CountryCode[] = [{ code: '+1' }, { code: '+38' }];
 
 export const userRoles = {
   BUYER: 'buyer',
