@@ -14,6 +14,7 @@ import {
 import ChevronDown from 'src/assets/icons/chevron-down-grey.svg';
 import ChevronUp from 'src/assets/icons/chevron-up-grey.svg';
 import Logout from 'src/assets/icons/logout.svg';
+import { urls } from 'src/common/constants';
 import getInitials from 'src/common/getInitials';
 import { useAppSelector } from 'src/redux/hooks';
 import { logout, selectUserName } from 'src/redux/user/userSlice';
@@ -31,7 +32,7 @@ function HeaderAdmin() {
 
   const handleLogout = () => {
     dispatch(logout());
-    navigate('signin');
+    navigate(urls.ADMIN_SIGN_IN);
   };
 
   const handleMenuOpen = (event: MouseEvent<HTMLElement>) => {
