@@ -241,5 +241,10 @@
     "description": "Deleted user will lose the ability to use the application",
     "cancelButton": "Cancel",
     "deleteButton": "Delete"
+  },
+  "vendorProfile": {
+    "follow": "Follow",
+    "products": "Products",
+    "reviews": "Reviews"
   }
 }

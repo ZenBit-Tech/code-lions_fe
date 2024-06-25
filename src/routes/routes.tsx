@@ -6,6 +6,7 @@ import AdminUserProfileEditPage from 'src/pages/admin/AdminUserProfileEditPage';
 import AdminUserProfilePage from 'src/pages/admin/AdminUserProfilePage';
 import SignInAdminPage from 'src/pages/admin/SignInAdminPage';
 import UsersPage from 'src/pages/admin/UsersPage';
+import BuyerProfilePage from 'src/pages/BuyerProfilePage';
 import HomePage from 'src/pages/HomePage';
 import NewPasswordPage from 'src/pages/NewPasswordPage';
 import OnboardingPage from 'src/pages/OnboardingPage';
@@ -16,6 +17,7 @@ import SignInPage from 'src/pages/SignInPage';
 import SignUpPage from 'src/pages/SignUpPage';
 import SizesGuidePage from 'src/pages/SizesGuidePage';
 import TermsOfUsePage from 'src/pages/TermsOfUsePage';
+import VendorProfilePage from 'src/pages/VendorProfilePage';
 import VerifyEmailPage from 'src/pages/VerifyEmailPage';
 
 import AdminPrivateRoute from './AdminPrivateRoute';
@@ -89,6 +91,8 @@ const router = createBrowserRouter([
   },
   { path: urls.ONBOARDING, element: <OnboardingPage /> },
   { path: urls.PROFILE, element: <ProfilePage /> },
+  { path: urls.USER_BUYER_PROFILE, element: <BuyerProfilePage /> },
+  { path: urls.USER_VENDOR_PROFILE, element: <VendorProfilePage /> },
 ]);
 
 export default router;
