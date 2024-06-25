@@ -6,11 +6,18 @@ import { Box } from '@mui/system';
 
 import CloseIcon from 'src/assets/icons/close.svg';
 import DeleteIcon from 'src/assets/icons/delete-trash-red.svg';
+import { urls } from 'src/common/constants';
+import {
+  getErrorMessage,
+  isFetchBaseQueryError,
+  isSerializedError,
+} from 'src/common/hooks/useErrorHandling';
 import StyledButton from 'src/components/shared/StyledButton';
 import {
   PaddingVariants,
   StyleVariants,
 } from 'src/components/shared/StyledButton/types';
+import useToast from 'src/components/shared/toasts/components/ToastProvider/ToastProviderHooks';
 import { useDeleteUserByAdminMutation } from 'src/redux/user/userService';
 
 import {
@@ -26,24 +33,33 @@ interface IModalPopup {
   userId: string | undefined;
 }
 
-const previousPage: number = -1;
-
 function ModalPopup({ onClose, userId }: IModalPopup) {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const { showToast } = useToast();
 
   const [deleteUserByAdmin] = useDeleteUserByAdminMutation();
 
   async function handleDeleteUser(id: string | undefined) {
     try {
       if (id) {
-        await deleteUserByAdmin({ userId: id });
+        await deleteUserByAdmin({ userId: id }).unwrap();
         onClose();
-        navigate(previousPage);
+        showToast('success', t('usersAdmin.deleteUserSuccess'));
+        navigate(urls.ADMIN_USERS_FULL);
 
         return null;
       }
     } catch (error) {
+      if (isFetchBaseQueryError(error) || isSerializedError(error)) {
+        showToast(
+          'error',
+          getErrorMessage(error, t('usersAdmin.deleteUserError'))
+        );
+      } else {
+        showToast('error', t('usersAdmin.deleteUserError'));
+      }
+
       return error;
     }
 

@@ -1,7 +1,8 @@
+import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { Box, IconButton, Typography } from '@mui/material';
+import { Box, IconButton } from '@mui/material';
 
 import ArrowLeftIcon from 'src/assets/icons/arrow-left.svg';
 import { urls } from 'src/common/constants';
@@ -17,7 +18,7 @@ import {
 } from 'src/components/shared/StyledButton/types';
 import TextButton from 'src/components/shared/TextButton';
 import Title from 'src/components/shared/Title';
-import theme from 'src/theme';
+import useToast from 'src/components/shared/toasts/components/ToastProvider/ToastProviderHooks';
 
 import useVerification from './hooks/useVerification';
 import { OtpContainer, TitleContainer, TimerContainer } from './styles';
@@ -26,6 +27,8 @@ function VerifyEmailPage() {
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const { showToast } = useToast();
+
   const {
     otp,
     setOtp,
@@ -33,10 +36,21 @@ function VerifyEmailPage() {
     isLoading,
     formattedTimer,
     isSendAgainButtonDisabled,
+    isVerifyButtonDisabled,
     handleVerify,
     handleSendAgain,
     errorMessages,
   } = useVerification();
+
+  useEffect(() => {
+    if (errorMessages.length > 0) {
+      showToast('error', errorMessages[0]);
+    } else if (errorMessages.length > 1) {
+      errorMessages.forEach((error) => {
+        showToast('error', error);
+      });
+    }
+  }, [errorMessages, showToast]);
 
   const getTitleText = (path: string) => {
     if (path === urls.VERIFY) {
@@ -79,18 +93,7 @@ function VerifyEmailPage() {
           alignItems="flex-start"
           width="100%"
           marginBottom={2}
-        >
-          {errorMessages.length > 0 &&
-            errorMessages.map((msg, index) => (
-              <Typography
-                align="left"
-                key={index}
-                color={theme.palette.error.main}
-              >
-                {msg}
-              </Typography>
-            ))}
-        </Box>
+        />
         <Box sx={{ width: '100%' }}>
           <LabelText align="left">{t('verifyEmail.code')}</LabelText>
         </Box>
@@ -112,7 +115,7 @@ function VerifyEmailPage() {
           styles={StyleVariants.BLACK}
           padding={PaddingVariants.LG}
           variant="contained"
-          disabled={isError}
+          disabled={isVerifyButtonDisabled}
           onClick={handleVerify}
           fullWidth
           loading={isLoading}

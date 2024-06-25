@@ -242,7 +242,12 @@
     "address": "Address",
     "date": "Date",
     "action": "Action",
-    "errorMessage": "Unable to get list of users, please try again later"
+    "errorMessage": "Unable to get list of users, please try again later",
+    "fetchUserError": "Unable to get a user, please try again later",
+    "deleteUserSuccess": "The user was successfully deleted",
+    "deleteUserError": "Error occurred while deleting the user",
+    "updateUserSuccess": "The user data was successfully updated",
+    "updateUserError": "Error occurred while updating the user"
   },
   "modalPopup": {
     "title": "Are you sure want to delete user’s profile?",

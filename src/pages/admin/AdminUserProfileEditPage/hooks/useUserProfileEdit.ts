@@ -8,6 +8,12 @@ import { skipToken } from '@reduxjs/toolkit/query';
 import { countryCodes } from 'src/common/constants';
 import extractPhoneNumberParts from 'src/common/extractPhoneNumberParts';
 import {
+  getErrorMessage,
+  isFetchBaseQueryError,
+  isSerializedError,
+} from 'src/common/hooks/useErrorHandling';
+import useToast from 'src/components/shared/toasts/components/ToastProvider/ToastProviderHooks';
+import {
   useGetUserByIdQuery,
   useUpdateUserProfileByAdminMutation,
 } from 'src/redux/user/userService';
@@ -18,11 +24,13 @@ type SetStateBoolean = Dispatch<SetStateAction<boolean>>;
 
 export default function useUserProfileEdit(userId: string | undefined) {
   const { t } = useTranslation();
+  const { showToast } = useToast();
 
   const { data, refetch } = useGetUserByIdQuery(
     userId ? { userId } : skipToken
   );
-  const [updateUserProfile] = useUpdateUserProfileByAdminMutation();
+  const [updateUserProfile, { error, isLoading }] =
+    useUpdateUserProfileByAdminMutation();
 
   const [status, setStatus] = useState<string>('');
   const [emailField, setEmailField] = useState<string>('');
@@ -75,6 +83,19 @@ export default function useUserProfileEdit(userId: string | undefined) {
     }
   }, [data, setValue, t]);
 
+  useEffect(() => {
+    if (error) {
+      if (isFetchBaseQueryError(error) || isSerializedError(error)) {
+        showToast(
+          'error',
+          getErrorMessage(error, t('usersAdmin.updateUserError'))
+        );
+      } else {
+        showToast('error', t('usersAdmin.updateUserError'));
+      }
+    }
+  }, [error, showToast, t]);
+
   const handleChange = (event: SelectChangeEvent<typeof status>) => {
     setStatus(event.target.value);
   };
@@ -117,19 +138,22 @@ export default function useUserProfileEdit(userId: string | undefined) {
           updateProfileByAdminDto: changedFields,
         });
 
+        showToast('success', t('usersAdmin.updateUserSuccess'));
+
         refetch();
 
         return response.data;
       }
 
       return null;
-    } catch (error) {
-      return error;
+    } catch (err) {
+      return err;
     }
   };
 
   return {
     data,
+    isLoading,
     status,
     emailField,
     openStatus,
