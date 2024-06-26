@@ -37,7 +37,11 @@ function UsersTable({ users, pagesCount, page, handleChange }: IUsersTable) {
   const { t } = useTranslation();
 
   const [showModal, setShowModal] = useState<boolean>(false);
-  const handleOpen = () => setShowModal(true);
+  const [selectedUser, setSelectedUser] = useState<string>('');
+  const handleOpen = (userId: string) => {
+    setShowModal(true);
+    setSelectedUser(userId);
+  };
   const handleClose = () => setShowModal(false);
 
   return (
@@ -94,9 +98,13 @@ function UsersTable({ users, pagesCount, page, handleChange }: IUsersTable) {
                 {formatDateString(user.createdAt)}
               </BodyTableCell>
               <BodyTableCell align="left">
-                <ActionButtons userId={user.id} handleOpen={handleOpen} />
+                <ActionButtons
+                  userId={user.id}
+                  handleOpen={() => handleOpen(user.id)}
+                />
               </BodyTableCell>
               {showModal &&
+                user.id === selectedUser &&
                 createPortal(
                   <StyledBackdrop showModal={showModal}>
                     <ModalPopup onClose={handleClose} userId={user.id} />

@@ -60,8 +60,9 @@ export default function useUserProfileEdit(userId: string | undefined) {
       setValue('name', name || '');
       setEmailField(email);
 
-      const { countryCode, restPhoneNumber } =
-        extractPhoneNumberParts(phoneNumber);
+      const { countryCode, restPhoneNumber } = extractPhoneNumberParts(
+        phoneNumber || ''
+      );
 
       const countryCodeOption = countryCodes.filter(
         (countryOption) => countryOption.code === countryCode
