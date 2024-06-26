@@ -8,7 +8,7 @@ import { Box } from '@mui/system';
 import ChevronDown from 'src/assets/icons/chevron-down.svg';
 import Tick from 'src/assets/icons/tick.svg';
 import { countries, states, cities } from 'src/common/constants';
-import formatUpdateDate from 'src/common/formatUpdateDate';
+import formatUpdateDate from 'src/common/utils/formatUpdateDate';
 import theme from 'src/theme';
 
 import UserDetailsSection from '../AdminUserProfilePage/UserDetailsSection';

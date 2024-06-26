@@ -40,7 +40,7 @@ function ModalPopup({ onClose, userId }: IModalPopup) {
 
   const [deleteUserByAdmin] = useDeleteUserByAdminMutation();
 
-  async function handleDeleteUser(id: string | undefined) {
+  async function handleDeleteUser(id?: string) {
     try {
       if (id) {
         await deleteUserByAdmin({ userId: id }).unwrap();

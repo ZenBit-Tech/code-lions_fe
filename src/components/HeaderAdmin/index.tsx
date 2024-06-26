@@ -15,7 +15,7 @@ import ChevronDown from 'src/assets/icons/chevron-down-grey.svg';
 import ChevronUp from 'src/assets/icons/chevron-up-grey.svg';
 import Logout from 'src/assets/icons/logout.svg';
 import { urls } from 'src/common/constants';
-import getInitials from 'src/common/getInitials';
+import getInitials from 'src/common/utils/getInitials';
 import { useAppSelector } from 'src/redux/hooks';
 import { logout, selectUserName } from 'src/redux/user/userSlice';
 import theme from 'src/theme';

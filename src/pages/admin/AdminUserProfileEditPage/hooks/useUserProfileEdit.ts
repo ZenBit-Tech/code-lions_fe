@@ -6,12 +6,12 @@ import { SelectChangeEvent } from '@mui/material';
 
 import { skipToken } from '@reduxjs/toolkit/query';
 import { countryCodes } from 'src/common/constants';
-import extractPhoneNumberParts from 'src/common/extractPhoneNumberParts';
 import {
   getErrorMessage,
   isFetchBaseQueryError,
   isSerializedError,
 } from 'src/common/hooks/useErrorHandling';
+import extractPhoneNumberParts from 'src/common/utils/extractPhoneNumberParts';
 import useToast from 'src/components/shared/toasts/components/ToastProvider/ToastProviderHooks';
 import {
   useGetUserByIdQuery,

@@ -40,7 +40,7 @@ const useUserDetails = () => {
     }
   }, [error, showToast, t]);
 
-  const getTitle = (path: string) => {
+  const getTitle = (path: string): string => {
     if (path.includes(urlRoles.vendors)) return t('userProfileAdmin.vendors');
     if (path.includes(urlRoles.buyers)) return t('userProfileAdmin.buyers');
 
