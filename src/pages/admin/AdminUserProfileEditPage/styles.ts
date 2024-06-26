@@ -1,7 +1,7 @@
 import { FormControl, InputBase, TextField, MenuItem } from '@mui/material';
 import { Box, styled } from '@mui/system';
 
-import hexToRgba from 'src/common/hexToRgba';
+import hexToRgba from 'src/common/utils/hexToRgba';
 import theme from 'src/theme';
 
 const topShadowOpacity: number = 0.2;
