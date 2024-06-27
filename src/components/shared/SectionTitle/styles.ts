@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 
+import { IconButton } from '@mui/material';
 import { Box, styled } from '@mui/system';
 
 interface ITitleWrapperProps {
@@ -24,6 +25,15 @@ export const TitleWrapper = styled(Box, {
 
 export const StyledLink = styled(Link)(({ theme }) => ({
   textDecoration: 'none',
+  [theme.breakpoints.up('sm')]: {
+    display: 'none',
+  },
+}));
+
+export const IconButtonStyled = styled(IconButton)(({ theme }) => ({
+  padding: '0 6px',
+  cursor: 'poiner',
+  marginLeft: 'auto',
   [theme.breakpoints.up('sm')]: {
     display: 'none',
   },

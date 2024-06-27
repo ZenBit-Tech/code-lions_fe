@@ -27,6 +27,13 @@ export const urls = {
   ADMIN_USERS_FULL: '/admin/users',
   PROFILE: '/profile',
   PRODUCT: '/product',
+  USER_BUYER_PROFILE: 'buyer/:userId',
+  USER_VENDOR_PROFILE: 'vendor/:userId',
+  PROFILE_DETAILS: 'details',
+  PROFILE_ORDERS: 'orders',
+  PROFILE_WISHLIST: 'wishlist',
+  PROFILE_SETTINGS: 'settings',
+  PROFILE_SUPPORT: 'support',
 };
 
 export const RTKUrls = {
@@ -47,6 +54,7 @@ export const RTKUrls = {
   ADDRESS: 'address',
   SIZE: 'size',
   CREDIT_CARD: 'credit-card',
+  UPDATE_PROFILE: '/update-profile',
   UPDATE_PROFILE_ADMIN: 'update-profile-admin',
   SOFT_DELETE: 'soft-delete',
 };
@@ -155,7 +163,6 @@ export const cities = [
 export const httpStatusCodes = {
   UNAUTHORIZED: 401,
 };
-
 export const urlRoles = {
   vendors: 'vendors',
   buyers: 'buyers',

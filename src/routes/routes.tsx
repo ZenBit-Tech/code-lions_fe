@@ -7,17 +7,21 @@ import AdminUserProfileEditPage from 'src/pages/admin/AdminUserProfileEditPage';
 import AdminUserProfilePage from 'src/pages/admin/AdminUserProfilePage';
 import SignInAdminPage from 'src/pages/admin/SignInAdminPage';
 import UsersPage from 'src/pages/admin/UsersPage';
+import BuyerProfilePage from 'src/pages/BuyerProfilePage';
 import HomePage from 'src/pages/HomePage';
 import NewPasswordPage from 'src/pages/NewPasswordPage';
 import OnboardingPage from 'src/pages/OnboardingPage';
 import PrivacyPolicyPage from 'src/pages/PrivacyPolicyPage';
 import ProductPage from 'src/pages/ProductPage';
+import ProfileLayout from 'src/pages/ProfileLayout';
 import ProfilePage from 'src/pages/ProfilePage';
+import ProfileComingSoon from 'src/pages/ProfilePage/ProfileComingSoon';
 import RestorePasswordPage from 'src/pages/RestorePasswordPage';
 import SignInPage from 'src/pages/SignInPage';
 import SignUpPage from 'src/pages/SignUpPage';
 import SizesGuidePage from 'src/pages/SizesGuidePage';
 import TermsOfUsePage from 'src/pages/TermsOfUsePage';
+import VendorProfilePage from 'src/pages/VendorProfilePage';
 import VerifyEmailPage from 'src/pages/VerifyEmailPage';
 
 import AdminPrivateRoute from './AdminPrivateRoute';
@@ -31,9 +35,19 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <HomePage /> },
       { path: urls.SIZES_GUIDE, element: <SizesGuidePage /> },
-      { path: urls.PROFILE, element: <ProfilePage /> },
       { path: urls.PRIVACY_POLICY, element: <PrivacyPolicyPage /> },
       { path: urls.TERMS_OF_USE, element: <TermsOfUsePage /> },
+      {
+        path: urls.PROFILE,
+        element: <ProfileLayout />,
+        children: [
+          { path: urls.PROFILE_DETAILS, element: <ProfilePage /> },
+          { path: urls.PROFILE_ORDERS, element: <ProfileComingSoon /> },
+          { path: urls.PROFILE_WISHLIST, element: <ProfileComingSoon /> },
+          { path: urls.PROFILE_SETTINGS, element: <ProfileComingSoon /> },
+          { path: urls.PROFILE_SUPPORT, element: <ProfileComingSoon /> },
+        ],
+      },
     ],
   },
   { path: urls.SIGN_UP, element: <SignUpPage /> },
@@ -99,6 +113,20 @@ const router = createBrowserRouter([
     ],
   },
   { path: urls.ONBOARDING, element: <OnboardingPage /> },
+  { path: urls.PROFILE, element: <ProfilePage /> },
+  { path: urls.USER_BUYER_PROFILE, element: <BuyerProfilePage /> },
+  { path: urls.USER_VENDOR_PROFILE, element: <VendorProfilePage /> },
+  {
+    path: urls.PROFILE,
+    element: <ProfileLayout />,
+    children: [
+      { path: urls.PROFILE_DETAILS, element: <ProfilePage /> },
+      { path: urls.PROFILE_ORDERS, element: <ProfileComingSoon /> },
+      { path: urls.PROFILE_WISHLIST, element: <ProfileComingSoon /> },
+      { path: urls.PROFILE_SETTINGS, element: <ProfileComingSoon /> },
+      { path: urls.PROFILE_SUPPORT, element: <ProfileComingSoon /> },
+    ],
+  },
   { path: urls.PRODUCT, element: <ProductPage /> },
 ]);
 
