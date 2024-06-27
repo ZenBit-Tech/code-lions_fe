@@ -255,6 +255,13 @@
     "cancelButton": "Cancel",
     "deleteButton": "Delete"
   },
+  "vendorProfile": {
+    "follow": "Follow",
+    "products": "Products",
+    "reviews": "Reviews",
+    "readMore": " Read More",
+    "readLess": " Read Less"
+  },
   "profileDetails": {
     "personalInformation": "Personal Information",
     "name": "Name",
