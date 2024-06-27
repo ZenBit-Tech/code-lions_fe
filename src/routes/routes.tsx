@@ -12,6 +12,7 @@ import HomePage from 'src/pages/HomePage';
 import NewPasswordPage from 'src/pages/NewPasswordPage';
 import OnboardingPage from 'src/pages/OnboardingPage';
 import PrivacyPolicyPage from 'src/pages/PrivacyPolicyPage';
+import ProductPage from 'src/pages/ProductPage';
 import ProfileLayout from 'src/pages/ProfileLayout';
 import ProfilePage from 'src/pages/ProfilePage';
 import ProfileComingSoon from 'src/pages/ProfilePage/ProfileComingSoon';
@@ -144,6 +145,7 @@ const router = createBrowserRouter([
       },
     ],
   },
+  { path: urls.PRODUCT, element: <ProductPage /> },
 ]);
 
 export default router;

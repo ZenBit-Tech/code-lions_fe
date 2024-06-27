@@ -1,5 +1,5 @@
 function BuyerProfilePage() {
-  return <div>BuyerProfilePage</div>;
+  return <div>Buyer Profile Page</div>;
 }
 
 export default BuyerProfilePage;
