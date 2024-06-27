@@ -7,7 +7,7 @@ import theme from 'src/theme';
 import itemData from './mockData';
 
 function ImagesSection() {
-  const [selectedImage, setSelectedImage] = useState(itemData[0].img);
+  const [selectedImage, setSelectedImage] = useState<string>(itemData[0].img);
 
   const handleImageClick = (src: string) => {
     setSelectedImage(src);

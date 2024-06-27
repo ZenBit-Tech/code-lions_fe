@@ -23,15 +23,16 @@ import RadioLabel from './RadioLabel';
 import { StyledMenuItem, StyledRadioWrapper } from './styles';
 
 const mockImageUrl: string = 'src/assets/photos/mockPhoto1.png';
+const radioValue: string = 'rent';
 
 function ProductSection() {
   const { t } = useTranslation();
 
-  const [openSize, setOpenSize] = useState(false);
+  const [openSize, setOpenSize] = useState<boolean>(false);
   const [selectedSize, setSelectedSize] = useState<string>(
     t('product.mockSize')
   );
-  const [value, setValue] = useState('rent');
+  const [value, setValue] = useState<string>(radioValue);
 
   const handleSizeChange = (event: SelectChangeEvent<string>) => {
     setSelectedSize(event.target.value as string);
@@ -147,7 +148,7 @@ function ProductSection() {
           <StyledRadioWrapper>
             <RadioGroup value={value} onChange={handleRadioChange}>
               <FormControlLabel
-                value="rent"
+                value={radioValue}
                 labelPlacement="end"
                 control={
                   <Radio
