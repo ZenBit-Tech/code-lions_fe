@@ -17,18 +17,22 @@ function ActionButtons({ userId, handleOpen }: IActionButtons) {
   const location = useLocation();
 
   return (
-    <Box display="flex" gap="16px" alignItems="flex-start">
+    <Box display="flex" gap="16px" alignItems="center">
       <Link
         to={`${linkUrls.ADMIN_USER_PROFILE_EDIT}/${userId}`}
         state={{ from: location }}
       >
-        <EditIcon />
+        <IconButton sx={{ padding: 0 }}>
+          <EditIcon />
+        </IconButton>
       </Link>
       <IconButton sx={{ padding: 0 }} onClick={handleOpen}>
         <DeleteIcon />
       </IconButton>
       <Link to={`${userId}`} state={{ from: location }}>
-        <LookIcon />
+        <IconButton sx={{ padding: 0 }}>
+          <LookIcon />
+        </IconButton>
       </Link>
     </Box>
   );

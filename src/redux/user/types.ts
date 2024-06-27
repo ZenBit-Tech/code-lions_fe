@@ -105,6 +105,9 @@ export interface IAdminUser {
   createdAt: string;
   lastUpdatedAt: string | null;
   deletedAt: string | null;
+  orders: number | null;
+  rating: string;
+  onboardingSteps: number;
 }
 
 export interface IUserDataResponse {
@@ -119,6 +122,17 @@ export interface IAdminUsersRequest {
   order?: SortOrder;
   role?: UserRole;
   search?: string;
+}
+
+export interface IUpdateUserByAdminRequest {
+  name?: string;
+  phoneNumber?: string;
+  isAccountActive?: boolean;
+  addressLine1?: string;
+  addressLine2?: string;
+  country?: string;
+  state?: string;
+  city?: string;
 }
 
 export interface IUpdateRoleRequest {
