@@ -34,7 +34,7 @@ const comments: Comment[] = [
 
 function CommentList() {
   return (
-    <Box sx={{ maxWidth: '1000px' }}>
+    <Box sx={{ maxWidth: '1000px', marginBottom: '236px' }}>
       {comments.map((comment) => (
         <CommentCard key={comment.id} comment={comment} />
       ))}
