@@ -260,7 +260,7 @@
     "products": "Products",
     "reviews": "Reviews",
     "readMore": " Read More",
-    "readLess": " Read Less",
+    "readLess": " Read Less"
   },
   "profileDetails": {
     "personalInformation": "Personal Information",
@@ -282,6 +282,29 @@
     "card": "Card",
     "cardNumber": "**** **** **** ",
     "unknownError": "An unexpected error occurred. Please try again later",
-    "successPhotoUpdate": "Your photo was updated successfully",
+    "successPhotoUpdate": "Your photo was updated successfully"
+  },
+  "product": {
+    "name": "Product Name",
+    "mockDesc": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt et dolore",
+    "home": "Home",
+    "category": "Product Category",
+    "mockPrice": "$86.00",
+    "mockOldPrice": "$104.00",
+    "chooseSize": "Choose Size",
+    "mockSize": "M",
+    "oneTimeRental": "One Time Rental",
+    "reserve": "Reserve an item for 7 or 14 days",
+    "mockPriceRadio": "$215",
+    "addToCart": "Add To Cart",
+    "wishlist": "Wishlist",
+    "messenger": "Messenger",
+    "description": "Description",
+    "descriptionFull": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam cursus tortor non diam elementum, ac porttitor tortor lobortis. Etiam et pulvinar elit. Duis sed leo massa. Cras condimentum eu ipsum quis suscipit. Suspendisse facilisis nunc in aliquet scelerisque. Curabitur rhoncus est a rhoncus consequat. Maecenas eu dictum lectus, eget faucibus sapien. Sed lobortis mi lectus, a hendrerit sapien fermentum non. Interdum et malesuada fames ac ante ipsum primis in faucibus. Quisque imperdiet diam eu odio lacinia luctus. Cras pretium bibendum semper. Suspendisse ut aliquam dolor. Phasellus vehicula pharetra dolor non aliquet. Nam metus est, posuere eu metus consectetur, aliquam auctor metus. Cras ut massa sodales, rhoncus nibh ut, imperdiet mi. Praesent ornare eget arcu ac rutrum. Morbi vel tellus felis. Nunc a vulputate nibh, et aliquam tortor. Nunc ipsum neque, blandit vitae nibh nec, mollis porta lectus. Cras tincidunt neque ipsum, at tempus metus sagittis a. In at ornare dui. Fusce convallis, ligula ut vehicula condimentum, risus augue facilisis ante, a pellentesque lacus tortor vel lorem. Morbi vehicula eu mauris quis lobortis. Aenean pharetra diam vitae mi ultrices posuere. Vestibulum dignissim enim vitae ante gravida faucibus. Ut rhoncus neque lacinia enim elementum, eget dapibus ipsum vestibulum. Duis a accumsan ligula. Donec faucibus non dui in sollicitudin.",
+    "size": "SIZE",
+    "color": "COLOR",
+    "mockColor": "Pink",
+    "height": "HEIGHT",
+    "mockHeight": "64 inch"
   }
 }
