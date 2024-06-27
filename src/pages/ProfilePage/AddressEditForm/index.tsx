@@ -5,6 +5,7 @@ import { Typography } from '@mui/material';
 import { Box } from '@mui/system';
 
 import { yupResolver } from '@hookform/resolvers/yup';
+import useErrorHandling from 'src/common/hooks/useErrorHandlingHook';
 import { cities, countries, states } from 'src/common/selectAdressOptions';
 import LabelText from 'src/components/shared/LabelText';
 import StyledButton from 'src/components/shared/StyledButton';
@@ -25,7 +26,6 @@ import { useUpdatePersonalInfoMutation } from 'src/redux/user/userService';
 import { selectUser } from 'src/redux/user/userSlice';
 
 import { ErrorMessage, ErrorWrapper } from '../PersonalInformationForm/styles';
-import useErrorHandling from '../useErrorHandlingHook';
 
 import addressSchema from './schema';
 

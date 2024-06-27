@@ -31,6 +31,13 @@ export const urls = {
   PROFILE_WISHLIST: 'wishlist',
   PROFILE_SETTINGS: 'settings',
   PROFILE_SUPPORT: 'support',
+  VENDOR: '/vendor',
+  VENDOR_ADD_PRODUCT: 'add-product',
+  VENDOR_DASHBOARD: 'dashboard',
+  VENDOR_PRODUCTS: 'products',
+  VENDOR_ORDERS: 'orders',
+  VENDOR_CHATS: 'chats',
+  VENDOR_PROFILE: 'profile',
 };
 
 export const RTKUrls = {

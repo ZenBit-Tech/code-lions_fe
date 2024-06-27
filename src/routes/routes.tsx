@@ -19,10 +19,13 @@ import SignInPage from 'src/pages/SignInPage';
 import SignUpPage from 'src/pages/SignUpPage';
 import SizesGuidePage from 'src/pages/SizesGuidePage';
 import TermsOfUsePage from 'src/pages/TermsOfUsePage';
+import VendorDashboard from 'src/pages/vendor/VendorDashboard';
+import VendorLayout from 'src/pages/vendor/VendorLayout';
 import VerifyEmailPage from 'src/pages/VerifyEmailPage';
 
 import AdminPrivateRoute from './AdminPrivateRoute';
 import OnboardingGuard from './OnboardingGuard';
+import VendorPrivateRoute from './VendorPrivateRoute';
 import VerifyPrivateRoute from './VerifyPrivateRoute';
 
 const router = createBrowserRouter([
@@ -30,7 +33,14 @@ const router = createBrowserRouter([
     path: urls.HOME,
     element: <OnboardingGuard element={<Layout />} />,
     children: [
-      { index: true, element: <HomePage /> },
+      {
+        index: true,
+        element: (
+          <VendorPrivateRoute>
+            <HomePage />
+          </VendorPrivateRoute>
+        ),
+      },
       { path: urls.SIZES_GUIDE, element: <SizesGuidePage /> },
       { path: urls.PRIVACY_POLICY, element: <PrivacyPolicyPage /> },
       { path: urls.TERMS_OF_USE, element: <TermsOfUsePage /> },
@@ -111,14 +121,23 @@ const router = createBrowserRouter([
   },
   { path: urls.ONBOARDING, element: <OnboardingPage /> },
   {
-    path: urls.PROFILE,
-    element: <ProfileLayout />,
+    path: urls.VENDOR,
+    element: <VendorLayout />,
     children: [
-      { path: urls.PROFILE_DETAILS, element: <ProfilePage /> },
-      { path: urls.PROFILE_ORDERS, element: <ProfileComingSoon /> },
-      { path: urls.PROFILE_WISHLIST, element: <ProfileComingSoon /> },
-      { path: urls.PROFILE_SETTINGS, element: <ProfileComingSoon /> },
-      { path: urls.PROFILE_SUPPORT, element: <ProfileComingSoon /> },
+      { path: urls.VENDOR_DASHBOARD, element: <VendorDashboard /> },
+      { path: urls.VENDOR_ADD_PRODUCT, element: <ProfileComingSoon /> },
+      { path: urls.VENDOR_PRODUCTS, element: <ProfileComingSoon /> },
+      { path: urls.VENDOR_ORDERS, element: <ProfileComingSoon /> },
+      { path: urls.VENDOR_CHATS, element: <ProfileComingSoon /> },
+      {
+        path: urls.VENDOR_PROFILE,
+        element: <ProfileLayout />,
+        children: [
+          { path: urls.PROFILE_DETAILS, element: <ProfilePage /> },
+          { path: urls.PROFILE_SETTINGS, element: <ProfileComingSoon /> },
+          { path: urls.PROFILE_SUPPORT, element: <ProfileComingSoon /> },
+        ],
+      },
     ],
   },
 ]);

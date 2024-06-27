@@ -2,18 +2,19 @@ import { Outlet } from 'react-router-dom';
 
 import { Grid } from '@mui/material';
 
-import HeaderAdmin from 'src/components/HeaderAdmin';
 import MainSection from 'src/components/shared/MainSection';
-import SideBar from 'src/components/SidebarAdmin';
 
-function AdminLayout() {
+import VendorHeader from './VendorHeader';
+import VendorSideBar from './VendorSideBar';
+
+function VendorLayout() {
   return (
     <Grid container sx={{ minHeight: '100vh' }} columns={5}>
       <Grid item xs={1} padding="15px 24px">
-        <SideBar />
+        <VendorSideBar />
       </Grid>
       <Grid item xs={4}>
-        <HeaderAdmin />
+        <VendorHeader />
         <MainSection>
           <Outlet />
         </MainSection>
@@ -22,4 +23,4 @@ function AdminLayout() {
   );
 }
 
-export default AdminLayout;
+export default VendorLayout;

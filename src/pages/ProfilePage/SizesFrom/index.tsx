@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 
 import { Typography } from '@mui/material';
 
+import useErrorHandling from 'src/common/hooks/useErrorHandlingHook';
 import {
   clothesSizes,
   jeansSizes,
@@ -22,7 +23,6 @@ import { useUpdatePersonalInfoMutation } from 'src/redux/user/userService';
 import { selectUser } from 'src/redux/user/userSlice';
 
 import { TitleStyled } from '../PersonalInformationForm/styles';
-import useErrorHandling from '../useErrorHandlingHook';
 
 import FormStyled from './styles';
 

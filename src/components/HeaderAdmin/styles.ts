@@ -4,8 +4,6 @@ import { styled } from '@mui/system';
 import theme from 'src/theme';
 
 export const StyledAvatar = styled(Avatar)({
-  backgroundColor: theme.palette.border.primary,
-  padding: '10px',
   borderRadius: '50%',
   marginRight: '10px',
   marginLeft: '20px',

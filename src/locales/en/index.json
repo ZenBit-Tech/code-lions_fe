@@ -276,5 +276,13 @@
     "cardNumber": "**** **** **** ",
     "unknownError": "An unexpected error occurred. Please try again later",
     "successPhotoUpdate": "Your photo was updated successfully"
+  },
+  "vendorSidebar": {
+    "addProduct": "Add Product",
+    "dashboard": "Dashboard",
+    "products": "Products",
+    "orders": "My Orders",
+    "chats": "Chats",
+    "profile": "Your Profile"
   }
 }

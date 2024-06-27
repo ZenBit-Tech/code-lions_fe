@@ -6,12 +6,11 @@ import { Box } from '@mui/system';
 
 import EditIcon from 'src/assets/icons/edit-white.svg';
 import UserImageIcon from 'src/assets/icons/user-image.svg';
+import useErrorHandling from 'src/common/hooks/useErrorHandlingHook';
 import useToast from 'src/components/shared/toasts/components/ToastProvider/ToastProviderHooks';
 import { useAppSelector } from 'src/redux/hooks';
 import { useUploadPhotoMutation } from 'src/redux/user/userService';
 import { selectUser } from 'src/redux/user/userSlice';
-
-import useErrorHandling from '../useErrorHandlingHook';
 
 import { AvatarBackdrop, AvatarPreview, VisuallyHiddenInput } from './styles';
 
