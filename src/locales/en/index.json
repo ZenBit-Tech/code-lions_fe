@@ -255,6 +255,13 @@
     "cancelButton": "Cancel",
     "deleteButton": "Delete"
   },
+  "vendorProfile": {
+    "follow": "Follow",
+    "products": "Products",
+    "reviews": "Reviews",
+    "readMore": " Read More",
+    "readLess": " Read Less",
+  },
   "profileDetails": {
     "personalInformation": "Personal Information",
     "name": "Name",
@@ -275,6 +282,6 @@
     "card": "Card",
     "cardNumber": "**** **** **** ",
     "unknownError": "An unexpected error occurred. Please try again later",
-    "successPhotoUpdate": "Your photo was updated successfully"
+    "successPhotoUpdate": "Your photo was updated successfully",
   }
 }
