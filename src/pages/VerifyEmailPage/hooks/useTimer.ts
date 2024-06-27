@@ -12,6 +12,9 @@ const useTimer = (initialTime: number, intervalStep: number) => {
 
   useEffect(() => {
     localStorage.setItem('timer', timer.toString());
+    if (timer === 0) {
+      localStorage.removeItem('timer');
+    }
   }, [timer]);
 
   useEffect(() => {
@@ -36,9 +39,8 @@ const useTimer = (initialTime: number, intervalStep: number) => {
     () => timer.toString().padStart(padStart, '0'),
     [timer]
   );
-  const isSendAgainButtonDisabled = useMemo(() => timer > timerMin, [timer]);
 
-  return { timer, setTimer, formattedTimer, isSendAgainButtonDisabled };
+  return { timer, setTimer, formattedTimer };
 };
 
 export default useTimer;

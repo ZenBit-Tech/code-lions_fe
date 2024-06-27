@@ -1,5 +1,6 @@
 import { ReactNode } from 'react';
-import { useTranslation } from 'react-i18next';
+import { createPortal } from 'react-dom';
+import { Link } from 'react-router-dom';
 
 import { Box, IconButton, Typography } from '@mui/material';
 
@@ -10,6 +11,10 @@ import theme from 'src/theme';
 
 import AdminSectionSubTitle from '../AdminSectionSubTitle';
 import AdminSectionTitle from '../AdminSectionTitle';
+import ModalPopup from '../ModalPopup';
+import StyledBackdrop from '../StyledBackdrop';
+
+import useUserDetails from './hooks/useUserDetails';
 
 interface IUserDetailsSectionProps {
   children?: ReactNode;
@@ -19,7 +24,21 @@ interface IUserDetailsSectionProps {
 function UserDetailsSection(props: IUserDetailsSectionProps) {
   const { children, sectionHeight } = props;
 
-  const { t } = useTranslation();
+  const {
+    userId,
+    data,
+    showModal,
+    handleOpen,
+    handleClose,
+    getTitle,
+    editUrl,
+    isEditPage,
+    name,
+    t,
+    location,
+  } = useUserDetails();
+
+  if (!data) return null;
 
   return (
     <Box>
@@ -28,7 +47,7 @@ function UserDetailsSection(props: IUserDetailsSectionProps) {
           variant="overline"
           sx={{ color: theme.palette.text.disabled, marginRight: '5px' }}
         >
-          {t('userProfileAdmin.superadmin')}
+          {t('userProfileAdmin.admin')}
         </Typography>
         <ChevronRight />
         <Typography
@@ -39,11 +58,11 @@ function UserDetailsSection(props: IUserDetailsSectionProps) {
             fontSize: '13px',
           }}
         >
-          {t('userProfileAdmin.profile')}
+          {`${name} ${t('userProfileAdmin.profile')}`}
         </Typography>
       </Box>
       <AdminSectionTitle
-        title={t('userProfileAdmin.buyers')}
+        title={getTitle(location.pathname)}
         fontWeight={700}
         showBackLink
       />
@@ -56,14 +75,27 @@ function UserDetailsSection(props: IUserDetailsSectionProps) {
         }}
       >
         <Box display="flex" justifyContent="space-between" width="100%">
-          <AdminSectionSubTitle title={t('userProfileAdmin.buyerName')} />
+          <AdminSectionSubTitle
+            title={`${name} ${t('userProfileAdmin.profile')}`}
+          />
           <Box display="flex" justifyContent="space-between" width="64px">
-            <IconButton>
-              <EditPencil />
-            </IconButton>
-            <IconButton>
+            {!isEditPage && (
+              <Link to={editUrl} state={{ from: location }}>
+                <IconButton sx={{ padding: 0 }}>
+                  <EditPencil />
+                </IconButton>
+              </Link>
+            )}
+            <IconButton sx={{ padding: 0 }} onClick={handleOpen}>
               <DeleteTrash />
             </IconButton>
+            {showModal &&
+              createPortal(
+                <StyledBackdrop showModal={showModal}>
+                  <ModalPopup onClose={handleClose} userId={userId} />
+                </StyledBackdrop>,
+                document.body
+              )}
           </Box>
         </Box>
         {children}

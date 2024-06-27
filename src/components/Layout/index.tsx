@@ -19,18 +19,29 @@ function AdminLayout() {
     >
       <Header />
       <Box
+        component="section"
         sx={{
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'center',
           width: '100%',
-          flex: 1,
-          backgroundColor: theme.palette.secondary.light,
+          flex: 2,
+          minHeight: 0,
+          backgroundColor: theme.palette.background.default,
         }}
       >
         <Outlet />
       </Box>
-      <Footer />
+      <Box
+        component="footer"
+        sx={{
+          position: 'relative',
+          width: '100%',
+          mt: 'auto',
+        }}
+      >
+        <Footer />
+      </Box>
     </Box>
   );
 }

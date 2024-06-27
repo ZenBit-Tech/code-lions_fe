@@ -3,7 +3,6 @@ import { useState, useEffect } from 'react';
 import { FetchBaseQueryError, SerializedError } from 'src/redux/user/types';
 
 const otpLengthMin: number = 0;
-const otpLengthMax: number = 6;
 const timerMin: number = 0;
 
 const useOtp = (
@@ -14,11 +13,7 @@ const useOtp = (
   const [isError, setIsError] = useState<boolean>(false);
 
   useEffect(() => {
-    if (
-      (otp.length > otpLengthMin && otp.length < otpLengthMax) ||
-      (timer === timerMin && otp.length === otpLengthMin) ||
-      (otp.length === otpLengthMin && error)
-    ) {
+    if (timer === timerMin && otp.length === otpLengthMin) {
       setIsError(true);
     } else {
       setIsError(false);

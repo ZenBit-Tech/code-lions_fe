@@ -105,6 +105,9 @@ export interface IAdminUser {
   createdAt: string;
   lastUpdatedAt: string | null;
   deletedAt: string | null;
+  orders: number | null;
+  rating: string;
+  onboardingSteps: number;
 }
 
 export interface IUserDataResponse {
@@ -119,6 +122,17 @@ export interface IAdminUsersRequest {
   order?: SortOrder;
   role?: UserRole;
   search?: string;
+}
+
+export interface IUpdateUserByAdminRequest {
+  name?: string;
+  phoneNumber?: string;
+  isAccountActive?: boolean;
+  addressLine1?: string;
+  addressLine2?: string;
+  country?: string;
+  state?: string;
+  city?: string;
 }
 
 export interface IUpdateRoleRequest {
@@ -139,7 +153,7 @@ export interface IUpdatePhoneRequest {
 export interface IUpdateAddressRequest {
   id: string;
   addressLine1: string;
-  addressLine2: string;
+  addressLine2?: string;
   country: string;
   state: string;
   city: string;
@@ -157,4 +171,22 @@ export interface IUpdateSizesRequest {
   clothesSize: string;
   jeansSize: string;
   shoesSize: string;
+}
+
+export interface IUpdatePersonalInfoRequest {
+  id: string;
+  name?: string;
+  email?: string;
+  phoneNumber?: string;
+  addressLine1?: string;
+  addressLine2?: string;
+  country?: string;
+  state?: string;
+  city?: string;
+  clothesSize?: string;
+  jeansSize?: string;
+  shoesSize?: string;
+  cardNumber?: string;
+  expireDate?: string;
+  cvvCode?: string;
 }

@@ -1,3 +1,5 @@
+import { useState } from 'react';
+import { createPortal } from 'react-dom';
 import { useTranslation } from 'react-i18next';
 
 import {
@@ -8,11 +10,12 @@ import {
   Typography,
 } from '@mui/material';
 
-import formatDateString from 'src/common/formatDateString';
+import formatDateString from 'src/common/utils/formatDateString';
+import ActionButtons from 'src/pages/admin/ActionButtons';
+import ModalPopup from 'src/pages/admin/ModalPopup';
+import StyledBackdrop from 'src/pages/admin/StyledBackdrop';
+import StyledPagination from 'src/pages/admin/StyledPagination';
 import { IAdminUser } from 'src/redux/user/types';
-
-import ActionButtons from '../../ActionButtons';
-import StyledPagination from '../../StyledPagination';
 
 import {
   BodyTableCell,
@@ -27,17 +30,18 @@ interface IUsersTable {
   pagesCount: number;
   page: number;
   handleChange: (event: React.ChangeEvent<unknown>, value: number) => void;
-  handleOpen: () => void;
 }
 
-function UsersTable({
-  users,
-  pagesCount,
-  page,
-  handleChange,
-  handleOpen,
-}: IUsersTable) {
+function UsersTable({ users, pagesCount, page, handleChange }: IUsersTable) {
   const { t } = useTranslation();
+
+  const [showModal, setShowModal] = useState<boolean>(false);
+  const [selectedUser, setSelectedUser] = useState<string>('');
+  const handleOpen = (userId: string) => {
+    setShowModal(true);
+    setSelectedUser(userId);
+  };
+  const handleClose = () => setShowModal(false);
 
   return (
     <TableContainer>
@@ -93,8 +97,19 @@ function UsersTable({
                 {formatDateString(user.createdAt)}
               </BodyTableCell>
               <BodyTableCell align="left">
-                <ActionButtons userId={user.id} handleOpen={handleOpen} />
+                <ActionButtons
+                  userId={user.id}
+                  handleOpen={() => handleOpen(user.id)}
+                />
               </BodyTableCell>
+              {showModal &&
+                user.id === selectedUser &&
+                createPortal(
+                  <StyledBackdrop showModal={showModal}>
+                    <ModalPopup onClose={handleClose} userId={user.id} />
+                  </StyledBackdrop>,
+                  document.body
+                )}
             </TableRow>
           ))}
         </TableBodyStyled>

@@ -12,7 +12,9 @@ import HomePage from 'src/pages/HomePage';
 import NewPasswordPage from 'src/pages/NewPasswordPage';
 import OnboardingPage from 'src/pages/OnboardingPage';
 import PrivacyPolicyPage from 'src/pages/PrivacyPolicyPage';
+import ProfileLayout from 'src/pages/ProfileLayout';
 import ProfilePage from 'src/pages/ProfilePage';
+import ProfileComingSoon from 'src/pages/ProfilePage/ProfileComingSoon';
 import RestorePasswordPage from 'src/pages/RestorePasswordPage';
 import SignInPage from 'src/pages/SignInPage';
 import SignUpPage from 'src/pages/SignUpPage';
@@ -32,9 +34,19 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <HomePage /> },
       { path: urls.SIZES_GUIDE, element: <SizesGuidePage /> },
-      { path: urls.PROFILE, element: <ProfilePage /> },
       { path: urls.PRIVACY_POLICY, element: <PrivacyPolicyPage /> },
       { path: urls.TERMS_OF_USE, element: <TermsOfUsePage /> },
+      {
+        path: urls.PROFILE,
+        element: <ProfileLayout />,
+        children: [
+          { path: urls.PROFILE_DETAILS, element: <ProfilePage /> },
+          { path: urls.PROFILE_ORDERS, element: <ProfileComingSoon /> },
+          { path: urls.PROFILE_WISHLIST, element: <ProfileComingSoon /> },
+          { path: urls.PROFILE_SETTINGS, element: <ProfileComingSoon /> },
+          { path: urls.PROFILE_SUPPORT, element: <ProfileComingSoon /> },
+        ],
+      },
     ],
   },
   { path: urls.SIGN_UP, element: <SignUpPage /> },
@@ -103,6 +115,17 @@ const router = createBrowserRouter([
   { path: urls.PROFILE, element: <ProfilePage /> },
   { path: urls.USER_BUYER_PROFILE, element: <BuyerProfilePage /> },
   { path: urls.USER_VENDOR_PROFILE, element: <VendorProfilePage /> },
+  {
+    path: urls.PROFILE,
+    element: <ProfileLayout />,
+    children: [
+      { path: urls.PROFILE_DETAILS, element: <ProfilePage /> },
+      { path: urls.PROFILE_ORDERS, element: <ProfileComingSoon /> },
+      { path: urls.PROFILE_WISHLIST, element: <ProfileComingSoon /> },
+      { path: urls.PROFILE_SETTINGS, element: <ProfileComingSoon /> },
+      { path: urls.PROFILE_SUPPORT, element: <ProfileComingSoon /> },
+    ],
+  },
 ]);
 
 export default router;

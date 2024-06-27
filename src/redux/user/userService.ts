@@ -20,12 +20,15 @@ import {
   IUser,
   IUserDataResponse,
   IAdminUsersRequest,
+  IAdminUser,
+  IUpdateUserByAdminRequest,
   IUpdateRoleRequest,
   IUploadPhotoRequest,
   IUpdatePhoneRequest,
   IUpdateAddressRequest,
   IUpdateCreditCardRequest,
   IUpdateSizesRequest,
+  IUpdatePersonalInfoRequest,
 } from './types';
 
 const baseQuery = fetchBaseQuery({
@@ -80,6 +83,7 @@ const baseQueryWithReauth = async (
 export const userApi = createApi({
   reducerPath: 'userApi',
   baseQuery: baseQueryWithReauth,
+  tagTypes: ['User'],
   endpoints: (build) => ({
     verifyEmail: build.mutation<IUser, IVerifyEmailRequest>({
       query: (post) => ({
@@ -172,24 +176,24 @@ export const userApi = createApi({
 
     updateAddress: build.mutation<IUser, IUpdateAddressRequest>({
       query: ({ id, ...rest }) => ({
-        url: `/users/${id}/${RTKUrls.ADDRESS}`,
-        method: 'PATCH',
+        url: `${RTKUrls.USERS}/${id}/${RTKUrls.ADDRESS}`,
+        method: HttpMethods.PATCH,
         body: rest,
       }),
     }),
 
     updateCreditCard: build.mutation<IUser, IUpdateCreditCardRequest>({
       query: ({ id, ...rest }) => ({
-        url: `/users/${id}/${RTKUrls.CREDIT_CARD}`,
-        method: 'PATCH',
+        url: `${RTKUrls.USERS}/${id}/${RTKUrls.CREDIT_CARD}`,
+        method: HttpMethods.PATCH,
         body: rest,
       }),
     }),
 
     updateSizes: build.mutation<IUser, IUpdateSizesRequest>({
       query: ({ id, ...rest }) => ({
-        url: `/users/${id}/${RTKUrls.SIZE}`,
-        method: 'PATCH',
+        url: `${RTKUrls.USERS}/${id}/${RTKUrls.SIZE}`,
+        method: HttpMethods.PATCH,
         body: rest,
       }),
     }),
@@ -199,6 +203,39 @@ export const userApi = createApi({
         url: RTKUrls.ADMIN_USERS,
         method: HttpMethods.GET,
         params: { page, order, role, search },
+      }),
+      providesTags: (result) => (result ? [{ type: 'User', id: 'LIST' }] : []),
+    }),
+    getUserById: build.query<IAdminUser, { userId: string }>({
+      query: ({ userId }) => ({
+        url: `${RTKUrls.ADMIN_USERS}/${userId}`,
+        method: HttpMethods.GET,
+      }),
+    }),
+    updateUserProfileByAdmin: build.mutation<
+      IAdminUser,
+      { userId: string; updateProfileByAdminDto: IUpdateUserByAdminRequest }
+    >({
+      query: ({ userId, updateProfileByAdminDto }) => ({
+        url: `${RTKUrls.USERS}/${userId}/${RTKUrls.UPDATE_PROFILE_ADMIN}`,
+        method: HttpMethods.PATCH,
+        body: updateProfileByAdminDto,
+      }),
+      invalidatesTags: [{ type: 'User', id: 'LIST' }],
+    }),
+    deleteUserByAdmin: build.mutation<void, { userId: string }>({
+      query: ({ userId }) => ({
+        url: `${RTKUrls.USERS}/${userId}/${RTKUrls.SOFT_DELETE}`,
+        method: HttpMethods.DELETE,
+      }),
+      invalidatesTags: [{ type: 'User', id: 'LIST' }],
+    }),
+
+    updatePersonalInfo: build.mutation<IUser, IUpdatePersonalInfoRequest>({
+      query: ({ id, ...rest }) => ({
+        url: `${RTKUrls.USERS}/${id}${RTKUrls.UPDATE_PROFILE}`,
+        method: HttpMethods.PATCH,
+        body: rest,
       }),
     }),
   }),
@@ -220,4 +257,8 @@ export const {
   useUpdateCreditCardMutation,
   useUpdateSizesMutation,
   useGetAllUsersQuery,
+  useGetUserByIdQuery,
+  useUpdateUserProfileByAdminMutation,
+  useDeleteUserByAdminMutation,
+  useUpdatePersonalInfoMutation,
 } = userApi;

@@ -144,9 +144,11 @@
     "logout": "Log out"
   },
   "userProfileAdmin": {
-    "superadmin": "Superadmin",
-    "profile": "Buyer Profile",
+    "admin": "Admin",
+    "profile": "profile",
     "buyers": "Buyers",
+    "users": "Users",
+    "vendors": "Vendors",
     "buyerName": "Buyer Name Profile",
     "name": "Name",
     "phoneNumber": "Phone Number",
@@ -230,7 +232,7 @@
   },
   "usersAdmin": {
     "title": "Users",
-    "subTitle": "User list",
+    "subTitle": "list",
     "sortButton": "Sort",
     "option1": "from new to old",
     "option2": "from old to new",
@@ -240,7 +242,12 @@
     "address": "Address",
     "date": "Date",
     "action": "Action",
-    "errorMessage": "Unable to get list of users, please try again later"
+    "errorMessage": "Unable to get list of users, please try again later",
+    "fetchUserError": "Unable to get a user, please try again later",
+    "deleteUserSuccess": "The user was successfully deleted",
+    "deleteUserError": "Error occurred while deleting the user",
+    "updateUserSuccess": "The user data was successfully updated",
+    "updateUserError": "Error occurred while updating the user"
   },
   "modalPopup": {
     "title": "Are you sure want to delete user’s profile?",
@@ -253,6 +260,28 @@
     "products": "Products",
     "reviews": "Reviews",
     "readMore": " Read More",
-    "readLess": " Read Less"
+    "readLess": " Read Less",
+  },
+  "profileDetails": {
+    "personalInformation": "Personal Information",
+    "name": "Name",
+    "namePlaceholder": "Enter your name",
+    "email": "Email",
+    "emailPlaceholder": "Enter your email",
+    "phone": "Phone",
+    "phonePlaceholder": "Enter your phone",
+    "sizes": "Sizes",
+    "clothesSize": "Clothes Size",
+    "shoesSize": "Shoes Size",
+    "jeansSize": "Jeans Size",
+    "sizeGuide": "Size guide",
+    "address": "Address",
+    "editButton": "Edit",
+    "saveButton": "Save",
+    "paymentMethod": "Payment Method",
+    "card": "Card",
+    "cardNumber": "**** **** **** ",
+    "unknownError": "An unexpected error occurred. Please try again later",
+    "successPhotoUpdate": "Your photo was updated successfully",
   }
 }
