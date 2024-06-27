@@ -1,3 +1,5 @@
+import { NavLink } from 'react-router-dom';
+
 import {
   Avatar,
   Divider,
@@ -9,17 +11,37 @@ import {
 import { styled } from '@mui/system';
 
 export const ListStyled = styled(List)(({ theme }) => ({
-  width: '343px',
+  minWidth: '330px',
+  maxWidth: '343px',
   borderRadius: '16px',
   backgroundColor: theme.palette.background.default,
   padding: '12px',
   boxShadow: '0px 6px 20px 0px rgba(25, 25, 25, 0.06)',
+  [theme.breakpoints.up('sm')]: {
+    maxWidth: '312px',
+    minWidth: '100%',
+  },
 }));
 
 export const ListItemStyled = styled(ListItem)({
   width: '100%',
   padding: '12px 0',
 });
+
+export const LinkStyled = styled(NavLink, {
+  shouldForwardProp: (prop) => prop !== 'even',
+})<{ even?: boolean }>(({ theme, even }) => ({
+  padding: '4px',
+  borderRadius: '8px',
+  width: '100%',
+  display: 'flex',
+  alignItems: 'center',
+  '&.active': {
+    backgroundColor: even
+      ? theme.palette.secondary.main
+      : theme.palette.primary.light,
+  },
+}));
 
 export const ListItemTextStyled = styled(ListItemText)({
   lineHeight: '2.31',

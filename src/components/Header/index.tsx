@@ -89,7 +89,10 @@ function Header() {
                   <BellIcon />
                 </SvgHover>
               </Link>
-              <Link to={urls.PROFILE} title={user.name}>
+              <Link
+                to={`${urls.PROFILE}/${urls.PROFILE_DETAILS}`}
+                title={user.name}
+              >
                 <SvgHover>
                   <ProfileIcon />
                 </SvgHover>
