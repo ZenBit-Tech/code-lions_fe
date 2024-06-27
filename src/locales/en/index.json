@@ -261,6 +261,8 @@
     "reviews": "Reviews",
     "readMore": " Read More",
     "readLess": " Read Less",
+    "errorLoadingProfile": "Error loading vendor's information",
+    "errorLoadingReviews": "Error loading reviews"
   },
   "profileDetails": {
     "personalInformation": "Personal Information",
@@ -282,6 +284,6 @@
     "card": "Card",
     "cardNumber": "**** **** **** ",
     "unknownError": "An unexpected error occurred. Please try again later",
-    "successPhotoUpdate": "Your photo was updated successfully",
+    "successPhotoUpdate": "Your photo was updated successfully"
   }
 }

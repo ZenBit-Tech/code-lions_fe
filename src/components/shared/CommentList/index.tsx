@@ -1,41 +1,16 @@
 import { Box } from '@mui/material';
 
+import { IGetUserReviewsResponse } from 'redux/user/types';
+
 import CommentCard from '../CommentCard';
 
-interface Comment {
-  id: string;
-  author: string;
-  date: string;
-  avatarUrl: string;
-  rating: number;
-  content: string;
+interface Comments {
+  comments: IGetUserReviewsResponse;
 }
-
-const comments: Comment[] = [
-  {
-    id: '1',
-    author: 'Anna Asol',
-    date: 'Sep 12, 2023',
-    avatarUrl: 'src/assets/photos/avatar.jpg',
-    rating: 4.9,
-    content:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam tincidunt pharetra. Mauris id eleifend tortor. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam tincidunt pharetra. Mauris id eleifend tortor. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam tincidunt pharetra. Mauris id eleifend tortor. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam tincidunt pharetra. Mauris id eleifend tortor. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam tincidunt pharetra. Mauris id eleifend tortor.',
-  },
-  {
-    id: '2',
-    author: 'Anna Asol',
-    date: 'Sep 12, 2023',
-    avatarUrl: 'src/assets/photos/avatar.jpg',
-    rating: 4.9,
-    content:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam tincidunt pharetra. Mauris id eleifend tortor.',
-  },
-];
-
-function CommentList() {
+function CommentList({ comments }: Comments) {
   return (
     <Box sx={{ maxWidth: '1000px', marginBottom: '236px' }}>
-      {comments.map((comment) => (
+      {comments.reviews.map((comment) => (
         <CommentCard key={comment.id} comment={comment} />
       ))}
     </Box>

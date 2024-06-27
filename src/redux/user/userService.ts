@@ -29,6 +29,8 @@ import {
   IUpdateCreditCardRequest,
   IUpdateSizesRequest,
   IUpdatePersonalInfoRequest,
+  IGetUserReviewsResponse,
+  IPublicUser,
 } from './types';
 
 const baseQuery = fetchBaseQuery({
@@ -206,12 +208,14 @@ export const userApi = createApi({
       }),
       providesTags: (result) => (result ? [{ type: 'User', id: 'LIST' }] : []),
     }),
+
     getUserById: build.query<IAdminUser, { userId: string }>({
       query: ({ userId }) => ({
         url: `${RTKUrls.ADMIN_USERS}/${userId}`,
         method: HttpMethods.GET,
       }),
     }),
+
     updateUserProfileByAdmin: build.mutation<
       IAdminUser,
       { userId: string; updateProfileByAdminDto: IUpdateUserByAdminRequest }
@@ -223,6 +227,7 @@ export const userApi = createApi({
       }),
       invalidatesTags: [{ type: 'User', id: 'LIST' }],
     }),
+
     deleteUserByAdmin: build.mutation<void, { userId: string }>({
       query: ({ userId }) => ({
         url: `${RTKUrls.USERS}/${userId}/${RTKUrls.SOFT_DELETE}`,
@@ -236,6 +241,20 @@ export const userApi = createApi({
         url: `${RTKUrls.USERS}/${id}${RTKUrls.UPDATE_PROFILE}`,
         method: HttpMethods.PATCH,
         body: rest,
+      }),
+    }),
+
+    getPublicUserById: build.query<IPublicUser, string>({
+      query: (id) => ({
+        url: `${RTKUrls.USERS}/${id}`,
+        method: HttpMethods.GET,
+      }),
+    }),
+
+    getUserReviews: build.query<IGetUserReviewsResponse, string>({
+      query: (id) => ({
+        url: `${RTKUrls.USER_REVIEWS}/${id}`,
+        method: HttpMethods.GET,
       }),
     }),
   }),
@@ -261,4 +280,6 @@ export const {
   useUpdateUserProfileByAdminMutation,
   useDeleteUserByAdminMutation,
   useUpdatePersonalInfoMutation,
+  useGetUserReviewsQuery,
+  useGetPublicUserByIdQuery,
 } = userApi;
