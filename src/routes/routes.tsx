@@ -11,6 +11,7 @@ import HomePage from 'src/pages/HomePage';
 import NewPasswordPage from 'src/pages/NewPasswordPage';
 import OnboardingPage from 'src/pages/OnboardingPage';
 import PrivacyPolicyPage from 'src/pages/PrivacyPolicyPage';
+import ProductPage from 'src/pages/ProductPage';
 import ProfilePage from 'src/pages/ProfilePage';
 import RestorePasswordPage from 'src/pages/RestorePasswordPage';
 import SignInPage from 'src/pages/SignInPage';
@@ -98,6 +99,7 @@ const router = createBrowserRouter([
     ],
   },
   { path: urls.ONBOARDING, element: <OnboardingPage /> },
+  { path: urls.PRODUCT, element: <ProductPage /> },
 ]);
 
 export default router;
