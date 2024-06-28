@@ -29,8 +29,8 @@ import {
   IUpdateCreditCardRequest,
   IUpdateSizesRequest,
   IUpdatePersonalInfoRequest,
-  IGetUserReviewsResponse,
   IPublicUser,
+  IReview,
 } from './types';
 
 const baseQuery = fetchBaseQuery({
@@ -251,7 +251,7 @@ export const userApi = createApi({
       }),
     }),
 
-    getUserReviews: build.query<IGetUserReviewsResponse, string>({
+    getUserReviews: build.query<IReview[], string>({
       query: (id) => ({
         url: `${RTKUrls.USER_REVIEWS}/${id}`,
         method: HttpMethods.GET,

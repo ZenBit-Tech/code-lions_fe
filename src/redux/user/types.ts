@@ -203,14 +203,10 @@ export interface IReview {
   text: string;
   rating: number;
   userId: string;
+  reviewerId: string;
   reviewerName: string;
   reviewerAvatar: string;
-  reviewerId: string;
   createdAt: string;
-}
-
-export interface IGetUserReviewsResponse {
-  reviews: IReview[];
 }
 
 export interface IUpdatePersonalInfoRequest {

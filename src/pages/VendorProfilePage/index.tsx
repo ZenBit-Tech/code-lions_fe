@@ -11,7 +11,7 @@ import CommentList from 'src/components/shared/CommentList';
 import Container from 'src/components/shared/Container';
 import useToast from 'src/components/shared/toasts/components/ToastProvider/ToastProviderHooks';
 import ProfileInfo from 'src/pages/VendorProfilePage/ProfileInfo';
-import { IGetUserReviewsResponse } from 'src/redux/user/types.ts';
+import { IReview } from 'src/redux/user/types';
 import {
   useGetPublicUserByIdQuery,
   useGetUserReviewsQuery,
@@ -52,13 +52,11 @@ function VendorProfilePage() {
   const userName = user.name || '';
   const userAvatar = user.photoUrl || '';
   const userRating = user.rating || 0;
-  const reviewCount = reviewsData.reviews.length || 0;
+  const reviewCount = reviewsData.length || 0;
 
-  const formattedReviews: IGetUserReviewsResponse = {
-    reviews: reviewsData.reviews.map((review) => ({
-      ...review,
-    })),
-  };
+  const formattedReviews: IReview[] = reviewsData.map((review: IReview) => ({
+    ...review,
+  }));
 
   return (
     <Container>
@@ -75,7 +73,11 @@ function VendorProfilePage() {
           <ReviewLabel>
             {t('vendorProfile.reviews')} ({reviewCount})
           </ReviewLabel>
-          <CommentList comments={formattedReviews} />
+          {reviewCount > 0 ? (
+            <CommentList comments={formattedReviews} />
+          ) : (
+            <div>{t('vendorProfile.noReviews')}</div>
+          )}
         </Container>
       </MainContainerWrapper>
       <Footer />
