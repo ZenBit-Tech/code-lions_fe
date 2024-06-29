@@ -2,21 +2,20 @@ import React, { useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
+import { MenuItem, Select } from '@mui/material';
 import { Box } from '@mui/system';
 
 import { yupResolver } from '@hookform/resolvers/yup';
+import ChevronDown from 'src/assets/icons/chevron-down.svg';
 import PhotoIcon from 'src/assets/icons/photo.svg';
 import UserImageIcon from 'src/assets/icons/user-image.svg';
+import { countryCodes } from 'src/common/constants';
+import splitPhoneNumber from 'src/common/splitPhoneNumber';
 import StyledButton from 'src/components/shared/StyledButton';
 import {
   PaddingVariants,
   StyleVariants,
 } from 'src/components/shared/StyledButton/types';
-import StyledInput from 'src/components/shared/StyledInput';
-import {
-  InputPaddingVariants,
-  InputStyleVariants,
-} from 'src/components/shared/StyledInput/types';
 import useToast from 'src/components/shared/toasts/components/ToastProvider/ToastProviderHooks';
 import {
   OnboardingHeader4,
@@ -35,7 +34,12 @@ import { decreaseOnboardingStep } from 'src/redux/user/userSlice';
 import theme from 'src/theme';
 
 import phoneSchema from './schema';
-import VisuallyHiddenInput from './styles';
+import {
+  VisuallyHiddenInput,
+  StyledFormControl,
+  StyledPhoneInput,
+  StyledPhoneWrapper,
+} from './styles';
 
 interface IPhoneForm {
   phone: string;
@@ -45,6 +49,11 @@ function OnboardingInfoForm() {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.user);
+  const { countryCode: countryCodeValue, number: phoneNumberValue } =
+    splitPhoneNumber(user.phoneNumber || '', countryCodes);
+
+  const [countryCode, setCountryCode] = useState<string>(countryCodeValue);
+
   const [uploadPhoto, { isLoading }] = useUploadPhotoMutation();
   const [updatePhone, { isLoading: isLoadingPhone }] = useUpdatePhoneMutation();
   const [preview, setPreview] = useState<string | null>(
@@ -57,7 +66,7 @@ function OnboardingInfoForm() {
     formState: { isValid, errors },
   } = useForm<IPhoneForm>({
     defaultValues: {
-      phone: user.phoneNumber || '',
+      phone: phoneNumberValue || '',
     },
     resolver: yupResolver(phoneSchema),
     mode: 'onTouched',
@@ -100,7 +109,10 @@ function OnboardingInfoForm() {
 
   const onSubmit = async (form: IPhoneForm) => {
     try {
-      await updatePhone({ id: user.id, phone: `+1${form.phone}` }).unwrap();
+      await updatePhone({
+        id: user.id,
+        phone: `${countryCode}${form.phone}`,
+      }).unwrap();
     } catch (err) {
       if (err instanceof Error) {
         showToast('error', err.message);
@@ -157,6 +169,7 @@ function OnboardingInfoForm() {
                 width="120px"
                 height="120px"
                 alt={t('onboarding.yourPhoto')}
+                onError={() => setPreview(null)}
               />
             ) : (
               <UserImageIcon />
@@ -207,16 +220,42 @@ function OnboardingInfoForm() {
             control={control}
             render={({ field }) => (
               <ErrorWrapper>
-                <StyledInput
-                  {...field}
-                  fullWidth
-                  autoComplete="off"
-                  placeholder=""
-                  padding={InputPaddingVariants.MD}
-                  stylevariant={InputStyleVariants.OUTLINED}
-                  width="100%"
-                  error={!!errors.phone}
-                />
+                <StyledPhoneWrapper>
+                  <StyledFormControl>
+                    <Select
+                      variant="outlined"
+                      value={countryCode}
+                      onChange={(e) => setCountryCode(e.target.value)}
+                      size="small"
+                      IconComponent={(props) => <ChevronDown {...props} />}
+                      sx={{
+                        '.MuiOutlinedInput-notchedOutline': { border: 0 },
+                        backgroundColor: theme.palette.secondary.main,
+                        '.MuiSelect-select': {
+                          padding: '3px 6px',
+                          borderRadius: '6px',
+                        },
+                        '.MuiSelect-icon': {
+                          width: '20px',
+                          height: '20px',
+                          top: 4,
+                        },
+                      }}
+                    >
+                      {countryCodes.map((option) => (
+                        <MenuItem key={option.code} value={option.code}>
+                          {option.code}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </StyledFormControl>
+                  <StyledPhoneInput
+                    {...field}
+                    autoComplete="off"
+                    error={!!errors.phone}
+                  />
+                </StyledPhoneWrapper>
+
                 {errors.phone && (
                   <ErrorMessage
                     variant="subtitle2"

@@ -25,6 +25,7 @@ import VendorProfilePage from 'src/pages/VendorProfilePage';
 import VerifyEmailPage from 'src/pages/VerifyEmailPage';
 
 import AdminPrivateRoute from './AdminPrivateRoute';
+import FinishedOnboardingGuard from './FinishedOnboardingGuard';
 import OnboardingGuard from './OnboardingGuard';
 import VerifyPrivateRoute from './VerifyPrivateRoute';
 
@@ -34,7 +35,6 @@ const router = createBrowserRouter([
     element: <OnboardingGuard element={<Layout />} />,
     children: [
       { index: true, element: <HomePage /> },
-      { path: urls.SIZES_GUIDE, element: <SizesGuidePage /> },
       { path: urls.PRIVACY_POLICY, element: <PrivacyPolicyPage /> },
       { path: urls.TERMS_OF_USE, element: <TermsOfUsePage /> },
       {
@@ -50,6 +50,11 @@ const router = createBrowserRouter([
       },
     ],
   },
+  {
+    path: urls.SIZES_GUIDE,
+    element: <Layout />,
+    children: [{ index: true, element: <SizesGuidePage /> }],
+  },
   { path: urls.SIGN_UP, element: <SignUpPage /> },
   {
     path: urls.VERIFY,
@@ -63,7 +68,6 @@ const router = createBrowserRouter([
   { path: urls.RESTORE_PASSWORD, element: <RestorePasswordPage /> },
   { path: urls.ENTER_CODE, element: <VerifyEmailPage /> },
   { path: urls.NEW_PASSWORD, element: <NewPasswordPage /> },
-
   { path: urls.SIGN_IN_ADMIN, element: <SignInAdminPage /> },
   {
     path: urls.ADMIN,
@@ -112,10 +116,10 @@ const router = createBrowserRouter([
       },
     ],
   },
-  { path: urls.ONBOARDING, element: <OnboardingPage /> },
-  { path: urls.PROFILE, element: <ProfilePage /> },
-  { path: urls.USER_BUYER_PROFILE, element: <BuyerProfilePage /> },
-  { path: urls.USER_VENDOR_PROFILE, element: <VendorProfilePage /> },
+  {
+    path: urls.ONBOARDING,
+    element: <FinishedOnboardingGuard element={<OnboardingPage />} />,
+  },
   {
     path: urls.PROFILE,
     element: <ProfileLayout />,
@@ -127,6 +131,8 @@ const router = createBrowserRouter([
       { path: urls.PROFILE_SUPPORT, element: <ProfileComingSoon /> },
     ],
   },
+  { path: urls.USER_BUYER_PROFILE, element: <BuyerProfilePage /> },
+  { path: urls.USER_VENDOR_PROFILE, element: <VendorProfilePage /> },
   { path: urls.PRODUCT, element: <ProductPage /> },
 ]);
 

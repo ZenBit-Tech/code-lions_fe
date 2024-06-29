@@ -206,12 +206,14 @@ export const userApi = createApi({
       }),
       providesTags: (result) => (result ? [{ type: 'User', id: 'LIST' }] : []),
     }),
+
     getUserById: build.query<IAdminUser, { userId: string }>({
       query: ({ userId }) => ({
         url: `${RTKUrls.ADMIN_USERS}/${userId}`,
         method: HttpMethods.GET,
       }),
     }),
+
     updateUserProfileByAdmin: build.mutation<
       IAdminUser,
       { userId: string; updateProfileByAdminDto: IUpdateUserByAdminRequest }
@@ -257,8 +259,8 @@ export const {
   useUpdateCreditCardMutation,
   useUpdateSizesMutation,
   useGetAllUsersQuery,
+  useUpdatePersonalInfoMutation,
   useGetUserByIdQuery,
   useUpdateUserProfileByAdminMutation,
   useDeleteUserByAdminMutation,
-  useUpdatePersonalInfoMutation,
 } = userApi;

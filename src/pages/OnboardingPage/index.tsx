@@ -5,9 +5,9 @@ import { Typography } from '@mui/material';
 import { Box } from '@mui/system';
 
 import ArrowLeftIcon from 'src/assets/icons/arrow-left.svg';
-import { onboardingSteps } from 'src/common/constants';
+import { onboardingSteps, userRoles } from 'src/common/constants';
 import Header from 'src/components/Header';
-import OnboardingCreditCardForm from 'src/pages/OnboardingPage/CreditCardForm';
+// import OnboardingCreditCardForm from 'src/pages/OnboardingPage/CreditCardForm';
 import OnboardingHeaderItem from 'src/pages/OnboardingPage/HeaderItem';
 import OnboardingInfoForm from 'src/pages/OnboardingPage/InfoForm';
 import OnboardingRoleForm from 'src/pages/OnboardingPage/RoleForm';
@@ -22,6 +22,7 @@ import theme from 'src/theme';
 function OnboardingPage() {
   const { t } = useTranslation();
   const currentStep = useAppSelector(selectOnboardingStep);
+  const user = useAppSelector((state) => state.user);
 
   const onboardingData = [
     {
@@ -38,18 +39,22 @@ function OnboardingPage() {
       stepId: onboardingSteps.ADDRESS,
       title: t('onboarding.yourAddress'),
       component: <OnboardingShippingForm />,
-    },
+    } /*
     {
       stepId: onboardingSteps.CARD,
       title: t('onboarding.creditCard'),
       component: <OnboardingCreditCardForm />,
-    },
+    },*/,
     {
       stepId: onboardingSteps.SIZES,
       title: t('onboarding.size'),
       component: <OnboardingSizeForm />,
     },
   ];
+
+  if (user.role === userRoles.VENDOR) {
+    onboardingData.pop();
+  }
 
   const currentStepComponent = onboardingData.find(
     (step) => step.stepId === currentStep

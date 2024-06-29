@@ -55,6 +55,7 @@ export const RTKUrls = {
   SIZE: 'size',
   CREDIT_CARD: 'credit-card',
   UPDATE_PROFILE: '/update-profile',
+  CARD_DATA: '/card-data',
   UPDATE_PROFILE_ADMIN: 'update-profile-admin',
   SOFT_DELETE: 'soft-delete',
 };
@@ -70,7 +71,7 @@ export const HttpMethods = {
 export const validations = {
   EMAIL_REGEX: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
   PASSWORD_MIN_LENGTH: 8,
-  PHONE_REGEX: /^[1-9][0-9]{0,10}$/,
+  PHONE_REGEX: /^[0-9]{10,11}$/,
   PHONE_LENGTH: 11,
 };
 
@@ -84,7 +85,7 @@ export const appErrors = {
   PASSWORD_LENGTH: 'Password needs to be at least 8 characters',
   PASSWORD_MATCH:
     'Passwords entered in the "Password" and "Repeat password" fields must match',
-  INVALID_PHONE: 'Phone number should be in format 12345678901',
+  INVALID_PHONE: 'Phone number should contain digits only',
   INVALID_LENGTH: 'Invalid length, should be 11',
   REQUIRED: 'Field is required',
   TOO_LONG: 'Too long, should be less than 100 characters',
@@ -106,13 +107,14 @@ export const onboardingSteps = {
   ROLE: 1,
   INFO: 2,
   ADDRESS: 3,
-  CARD: 4,
-  SIZES: 5,
-  FINISH: 6,
+  // CARD: 4,
+  SIZES: 4,
+  FINISH: 5,
 };
 
-export const countryCodes = [
-  { code: '+62' },
+export type CountryCode = { code: string };
+
+export const countryCodes: CountryCode[] = [
   { code: '+38' },
   { code: '+1' },
   { code: '' },
@@ -163,6 +165,11 @@ export const cities = [
 export const httpStatusCodes = {
   UNAUTHORIZED: 401,
 };
+
+export const phoneCodes = {
+  CANADA: '+1',
+};
+
 export const urlRoles = {
   vendors: 'vendors',
   buyers: 'buyers',
