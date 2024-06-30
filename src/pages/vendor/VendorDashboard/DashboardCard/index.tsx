@@ -8,7 +8,7 @@ import { Card, SubTitleSuccess, SubTitleWarning } from './styles';
 
 interface IDashboardCardProps {
   title: string;
-  amount: number;
+  amount: string | number;
   change: number;
 }
 
@@ -23,7 +23,7 @@ function DashboardCard({ title, amount, change }: IDashboardCardProps) {
           variant="h3"
           sx={{ fontWeight: 600, lineHeight: 1.4, letterSpacing: '-0.72px' }}
         >
-          ${amount}
+          {amount}
         </Typography>
         {change >= 0 ? (
           <SubTitleSuccess variant="subtitle2">

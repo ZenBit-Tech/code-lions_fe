@@ -23,12 +23,12 @@ function VendorDashboard() {
   const tabData = [
     {
       title: t('vendorDashboard.salesTotal'),
-      amount: salesTotal,
+      amount: `$${salesTotal}`,
       change: salesTotalChange,
     },
     {
       title: t('vendorDashboard.averageOrderValue'),
-      amount: averageOrderValue,
+      amount: `$${averageOrderValue}`,
       change: averageOrderValueChange,
     },
     {
