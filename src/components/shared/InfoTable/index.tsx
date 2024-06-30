@@ -19,7 +19,7 @@ interface IInfoTableProps {
   tableData: ITableData;
   lastLine?: string;
 }
-
+/* eslint-disable react/no-array-index-key */
 function InfoTable({ tableData, lastLine }: IInfoTableProps) {
   return (
     <TableContainer

@@ -29,6 +29,7 @@ import {
   IUpdateCreditCardRequest,
   IUpdateSizesRequest,
   IUpdatePersonalInfoRequest,
+  IRefreshTokenResponse,
 } from './types';
 
 const baseQuery = fetchBaseQuery({
@@ -67,7 +68,7 @@ const baseQueryWithReauth = async (
       );
 
       if (refreshResult.data) {
-        api.dispatch(setTokens(refreshResult.data));
+        api.dispatch(setTokens(refreshResult.data as IRefreshTokenResponse));
         result = await baseQuery(args, api, extraOptions);
       } else {
         api.dispatch(logout());

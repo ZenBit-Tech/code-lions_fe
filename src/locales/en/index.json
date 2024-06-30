@@ -306,5 +306,8 @@
     "mockColor": "Pink",
     "height": "HEIGHT",
     "mockHeight": "64 inch"
+  },
+  "products": {
+    "title": "Products"
   }
 }

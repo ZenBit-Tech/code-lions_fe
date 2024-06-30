@@ -12,6 +12,7 @@ import HomePage from 'src/pages/HomePage';
 import NewPasswordPage from 'src/pages/NewPasswordPage';
 import OnboardingPage from 'src/pages/OnboardingPage';
 import PrivacyPolicyPage from 'src/pages/PrivacyPolicyPage';
+import ProductFeedPage from 'src/pages/ProductFeedPage';
 import ProductPage from 'src/pages/ProductPage';
 import ProfileLayout from 'src/pages/ProfileLayout';
 import ProfilePage from 'src/pages/ProfilePage';
@@ -35,6 +36,7 @@ const router = createBrowserRouter([
     element: <OnboardingGuard element={<Layout />} />,
     children: [
       { index: true, element: <HomePage /> },
+      { path: urls.PRODUCT_FEED, element: <ProductFeedPage /> },
       { path: urls.PRIVACY_POLICY, element: <PrivacyPolicyPage /> },
       { path: urls.TERMS_OF_USE, element: <TermsOfUsePage /> },
       {

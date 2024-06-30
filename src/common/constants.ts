@@ -27,6 +27,7 @@ export const urls = {
   ADMIN_USERS_FULL: '/admin/users',
   PROFILE: '/profile',
   PRODUCT: '/product',
+  PRODUCT_FEED: '/products',
   USER_BUYER_PROFILE: 'buyer/:userId',
   USER_VENDOR_PROFILE: 'vendor/:userId',
   PROFILE_DETAILS: 'details',
@@ -58,6 +59,7 @@ export const RTKUrls = {
   CARD_DATA: '/card-data',
   UPDATE_PROFILE_ADMIN: 'update-profile-admin',
   SOFT_DELETE: 'soft-delete',
+  PRODUCTS: 'products',
 };
 
 export const HttpMethods = {
