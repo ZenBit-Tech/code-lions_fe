@@ -19,6 +19,8 @@ interface IProductCardProps {
   };
 }
 
+const initialSlideIndex: number = 0;
+
 function ProductCard({ item }: IProductCardProps) {
   const { images, productName, vendorName, price } = item;
 
@@ -33,6 +35,7 @@ function ProductCard({ item }: IProductCardProps) {
         open={open}
         handleClose={handleClose}
         images={images}
+        initialSlideIndex={initialSlideIndex}
       />
       <Box sx={style.cardWrapper}>
         <Box

@@ -18,8 +18,8 @@ const style = {
   },
   closeButton: {
     position: 'absolute' as const,
-    top: '15px',
-    right: '15px',
+    top: '10px',
+    right: '10px',
     padding: '3px',
   },
   slideWrapper: {

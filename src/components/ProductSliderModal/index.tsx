@@ -13,12 +13,14 @@ interface IProductSliderModalProps {
   open: boolean;
   handleClose: () => void;
   images: string[];
+  initialSlideIndex: number;
 }
 
 function ProductSliderModal({
   open,
   handleClose,
   images,
+  initialSlideIndex,
 }: IProductSliderModalProps) {
   return (
     <Modal open={open} onClose={handleClose}>
@@ -26,7 +28,12 @@ function ProductSliderModal({
         <IconButton sx={style.closeButton} onClick={handleClose}>
           <CloseIcon />
         </IconButton>
-        <Swiper navigation modules={[Navigation]} className="swiper-wrapper">
+        <Swiper
+          navigation
+          modules={[Navigation]}
+          initialSlide={initialSlideIndex}
+          className="swiper-wrapper"
+        >
           {images.map((image, index) => (
             <SwiperSlide className="swiper-slide" key={index}>
               <Box
