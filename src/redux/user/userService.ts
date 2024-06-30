@@ -5,7 +5,7 @@ import {
   fetchBaseQuery,
 } from '@reduxjs/toolkit/query/react';
 import { HttpMethods, RTKUrls, httpStatusCodes } from 'src/common/constants.ts';
-import { config } from 'src/config/config';
+import config from 'src/config/config';
 import { RootState } from 'src/redux/store';
 import { setTokens, logout } from 'src/redux/user/userSlice';
 

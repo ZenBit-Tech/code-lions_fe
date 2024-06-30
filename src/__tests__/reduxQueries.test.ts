@@ -1,14 +1,16 @@
-import { setupServer } from 'msw/node';
-import { rest } from 'msw';
-import { renderHook } from '@testing-library/react-hooks';
 import { waitFor } from '@testing-library/dom';
 import { act } from '@testing-library/react';
-import { userApi } from '../redux/user/userService';
-import { IPublicUser, IReview } from '../redux/user/types';
-import ReduxProvider from './reduxProvider';
+import { renderHook } from '@testing-library/react-hooks';
 import { RTKUrls } from 'common/constants';
+import { rest } from 'msw';
+import { setupServer } from 'msw/node';
 
-jest.mock("../config/config", () => ({
+import { IPublicUser, IReview } from '../redux/user/types';
+import { userApi } from '../redux/user/userService';
+
+import ReduxProvider from './reduxProvider';
+
+jest.mock('../config/config', () => ({
   config: {
     apiUrl: 'http://localhost:3000:mock',
   },
