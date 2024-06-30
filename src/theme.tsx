@@ -53,6 +53,12 @@ const theme = createTheme({
       light: '#FFDFE6',
       dark: 'rgba(222, 80, 111, 0.3)',
     },
+    success: {
+      main: '#088B3A',
+    },
+    warning: {
+      main: '#ED6C3C',
+    },
     grey: {
       100: '#F4F5F6',
       200: 'rgba(0, 0, 0, 0.31)',

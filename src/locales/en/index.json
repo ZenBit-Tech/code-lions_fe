@@ -314,5 +314,11 @@
     "orders": "My Orders",
     "chats": "Chats",
     "profile": "Your Profile"
+  },
+  "vendorDashboard": {
+    "title": "Dashboard",
+    "salesTotal": "Sales total",
+    "averageOrderValue": "Average order value",
+    "totalOrders": "Total orders"
   }
 }
