@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { userApi } from 'src/redux/user/userService';
+import { userApi } from './userService';
 
 import { IUser } from './types';
 

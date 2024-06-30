@@ -4,9 +4,10 @@ import {
   createApi,
   fetchBaseQuery,
 } from '@reduxjs/toolkit/query/react';
-import { HttpMethods, RTKUrls, httpStatusCodes } from 'src/common/constants';
+import { config } from "config/config";
 import { RootState } from 'src/redux/store';
-import { setTokens, logout } from 'src/redux/user/userSlice';
+import { HttpMethods, RTKUrls, httpStatusCodes } from "common/constants.ts";
+import { setTokens, logout } from './userSlice';
 
 import {
   IVerifyEmailRequest,
@@ -33,8 +34,10 @@ import {
   IReview,
 } from './types';
 
+const { apiUrl } = config;
+
 const baseQuery = fetchBaseQuery({
-  baseUrl: import.meta.env.VITE_API_URL,
+  baseUrl: apiUrl,
   prepareHeaders: (headers, { getState }) => {
     const { accessToken } = (getState() as RootState).user;
 
