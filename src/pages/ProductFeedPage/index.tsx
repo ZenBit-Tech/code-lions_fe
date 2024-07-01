@@ -12,19 +12,46 @@ function ProductFeedPage() {
   return (
     <>
       <Box component="section" sx={{ width: '100%', padding: '0 18px' }}>
-        <h2> {t('products.title')}</h2>
-        {products?.map((product) => (
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'row',
+            maxWidth: '1440px',
+            margin: '0 auto',
+            border: '1px solid pink',
+          }}
+        >
           <Box
-            key={product.id}
-            component="div"
-            sx={{ maxWidth: '920px', margin: '0 auto' }}
+            sx={{ width: '310px', padding: '24px', border: '1px solid red' }}
           >
-            <h3>{product.name}</h3>
-            <p>{product.description}</p>
-            <p>{product.slug}</p>
-            <img src={product.images[0]} alt={product.name} />
+            filters
           </Box>
-        ))}
+          <Box sx={{ flex: 1, border: '1px solid blue' }}>
+            <h2> {t('products.title')}</h2>
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: 'row',
+                flexWrap: 'wrap',
+                gap: '56px 20px',
+                border: '1px solid green',
+              }}
+            >
+              {products?.map((product) => (
+                <Box
+                  key={product.id}
+                  component="div"
+                  sx={{ width: '300px', border: '1px solid grey' }}
+                >
+                  <h3>{product.name}</h3>
+                  <p>{product.description}</p>
+                  <p>{product.slug}</p>
+                  <img src={product.images[1]} alt={product.name} />
+                </Box>
+              ))}
+            </Box>
+          </Box>
+        </Box>
       </Box>
     </>
   );
