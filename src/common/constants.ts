@@ -26,15 +26,16 @@ export const urls = {
   ADMIN_VENDOR_PROFILE_EDIT: 'vendors/edit/:userId',
   ADMIN_USERS_FULL: '/admin/users',
   PROFILE: '/profile',
-  PRODUCT: '/product',
-  PRODUCT_FEED: '/products',
-  USER_BUYER_PROFILE: 'buyer/:userId',
-  USER_VENDOR_PROFILE: 'vendor/:userId',
   PROFILE_DETAILS: 'details',
   PROFILE_ORDERS: 'orders',
   PROFILE_WISHLIST: 'wishlist',
   PROFILE_SETTINGS: 'settings',
   PROFILE_SUPPORT: 'support',
+  PRODUCT: '/product',
+  PRODUCT_FEED: '/products',
+  USER_BUYER_PROFILE: 'buyer/:userId',
+  USER_VENDOR_PROFILE: 'vendor/:userId',
+  VENDOR: '/vendor',
 };
 
 export const RTKUrls = {

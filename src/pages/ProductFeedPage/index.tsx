@@ -2,7 +2,9 @@ import { useTranslation } from 'react-i18next';
 
 import { Box } from '@mui/material';
 
+import ProductCard from 'src/components/ProductCard';
 import { useGetProductsQuery } from 'src/redux/product/productService';
+import theme from 'src/theme';
 
 function ProductFeedPage() {
   const { t } = useTranslation();
@@ -11,42 +13,47 @@ function ProductFeedPage() {
 
   return (
     <>
-      <Box component="section" sx={{ width: '100%', padding: '0 18px' }}>
+      <Box sx={{ width: '100%', padding: '0 18px' }}>
         <Box
           sx={{
             display: 'flex',
             flexDirection: 'row',
             maxWidth: '1440px',
             margin: '0 auto',
-            border: '1px solid pink',
           }}
         >
-          <Box
-            sx={{ width: '310px', padding: '24px', border: '1px solid red' }}
-          >
-            filters
-          </Box>
-          <Box sx={{ flex: 1, border: '1px solid blue' }}>
+          <Box sx={{ width: '310px', padding: '24px' }}>filters</Box>
+          <Box sx={{ flex: 1 }}>
             <h2> {t('products.title')}</h2>
             <Box
               sx={{
                 display: 'flex',
                 flexDirection: 'row',
                 flexWrap: 'wrap',
-                gap: '56px 20px',
-                border: '1px solid green',
+                gap: '24px',
+                mb: '40px',
               }}
             >
               {products?.map((product) => (
                 <Box
                   key={product.id}
                   component="div"
-                  sx={{ width: '300px', border: '1px solid grey' }}
+                  sx={{
+                    width: '100%',
+                    [theme.breakpoints.up('sm')]: {
+                      width: 'calc(50% - 20px)',
+                    },
+
+                    [theme.breakpoints.up('md')]: {
+                      width: 'calc(33% - 19px)',
+                    },
+
+                    [theme.breakpoints.up('xl')]: {
+                      width: 'calc(25% - 18px)',
+                    },
+                  }}
                 >
-                  <h3>{product.name}</h3>
-                  <p>{product.description}</p>
-                  <p>{product.slug}</p>
-                  <img src={product.images[1]} alt={product.name} />
+                  <ProductCard key={product.id} item={product} />
                 </Box>
               ))}
             </Box>
