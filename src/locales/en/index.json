@@ -308,6 +308,7 @@
     "mockHeight": "64 inch"
   },
   "products": {
+    "filters": "filters",
     "title": "134 products"
   }
 }

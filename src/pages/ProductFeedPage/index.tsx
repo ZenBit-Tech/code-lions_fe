@@ -29,14 +29,15 @@ function ProductFeedPage() {
             margin: '0 auto',
           }}
         >
-          <Box sx={{ width: '310px', padding: '24px' }}>filters</Box>
+          <Box sx={{ width: '310px', padding: '24px' }}>
+            {t('products.filters')}
+          </Box>
           <Box sx={{ flex: 1 }}>
             <FormProvider {...methods}>
               <SearchInput setSearch={handleSearchChange} />
             </FormProvider>
 
-            <Box sx={{ padding: '24px', color: theme.palette.grey[700] }}>
-              {' '}
+            <Box sx={{ padding: '19px 0', color: theme.palette.grey[700] }}>
               <Typography variant="interBody">{t('products.title')}</Typography>
             </Box>
             <Box
