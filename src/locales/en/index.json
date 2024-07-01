@@ -305,6 +305,7 @@
     "color": "COLOR",
     "mockColor": "Pink",
     "height": "HEIGHT",
-    "mockHeight": "64 inch"
+    "mockHeight": "64 inch",
+    "vendorName": "Vendor Name"
   }
 }

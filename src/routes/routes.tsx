@@ -23,6 +23,7 @@ import SizesGuidePage from 'src/pages/SizesGuidePage';
 import TermsOfUsePage from 'src/pages/TermsOfUsePage';
 import VendorProfilePage from 'src/pages/VendorProfilePage';
 import VerifyEmailPage from 'src/pages/VerifyEmailPage';
+import WishlistPage from 'src/pages/WishlistPage';
 
 import AdminPrivateRoute from './AdminPrivateRoute';
 import OnboardingGuard from './OnboardingGuard';
@@ -43,7 +44,7 @@ const router = createBrowserRouter([
         children: [
           { path: urls.PROFILE_DETAILS, element: <ProfilePage /> },
           { path: urls.PROFILE_ORDERS, element: <ProfileComingSoon /> },
-          { path: urls.PROFILE_WISHLIST, element: <ProfileComingSoon /> },
+          { path: urls.PROFILE_WISHLIST, element: <WishlistPage /> },
           { path: urls.PROFILE_SETTINGS, element: <ProfileComingSoon /> },
           { path: urls.PROFILE_SUPPORT, element: <ProfileComingSoon /> },
         ],
@@ -122,7 +123,7 @@ const router = createBrowserRouter([
     children: [
       { path: urls.PROFILE_DETAILS, element: <ProfilePage /> },
       { path: urls.PROFILE_ORDERS, element: <ProfileComingSoon /> },
-      { path: urls.PROFILE_WISHLIST, element: <ProfileComingSoon /> },
+      { path: urls.PROFILE_WISHLIST, element: <WishlistPage /> },
       { path: urls.PROFILE_SETTINGS, element: <ProfileComingSoon /> },
       { path: urls.PROFILE_SUPPORT, element: <ProfileComingSoon /> },
     ],
