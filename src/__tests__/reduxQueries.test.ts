@@ -16,8 +16,11 @@ jest.mock('../config/config', () => ({
   },
 }));
 
+const userUrl = `${RTKUrls.USERS}/:id`;
+const userReviewsUrl = `${RTKUrls.USER_REVIEWS}/:id`;
+
 const server = setupServer(
-  rest.get(`${RTKUrls.USERS}/:id`, (req, res, ctx) => {
+  rest.get(userUrl, (req, res, ctx) => {
     return res(
       ctx.json({
         id: req.params.id as string,
@@ -45,7 +48,7 @@ const server = setupServer(
       } as IPublicUser)
     );
   }),
-  rest.get(`${RTKUrls.USER_REVIEWS}/:id`, (req, res, ctx) => {
+  rest.get(userReviewsUrl, (req, res, ctx) => {
     return res(
       ctx.json([
         {
