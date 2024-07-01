@@ -36,12 +36,12 @@ export const TabButton = styled(Button, {
   },
 }));
 
-export const MainContainerWrapper = styled(Box)({
+export const MainContainerWrapper = styled(Box)(() => ({
   display: 'flex',
   marginLeft: '54px',
   marginRight: '54px',
   alignItems: 'flex-start',
-});
+}));
 
 export const ReviewLabel = styled(Typography)(() => ({
   marginBottom: '24px',

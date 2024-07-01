@@ -24,7 +24,8 @@
 
     "paths": {
       "src/*": ["./src/*"],
-      "*": ["./src/*"]
+      "*": ["./src/*"],
+      "@testing-library/dom": ["node_modules/@testing-library/dom"]
     }
   },
   "include": ["vite.config.ts", ".eslintrc.cjs", "src", "**/*.ts", "**/*.tsx"],

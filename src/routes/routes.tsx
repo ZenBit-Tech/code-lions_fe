@@ -129,6 +129,7 @@ const router = createBrowserRouter([
     path: urls.VENDOR,
     element: <VendorLayout />,
     children: [
+      { path: urls.USER_BUYER_PROFILE, element: <BuyerProfilePage /> },
       { path: urls.VENDOR_DASHBOARD, element: <VendorDashboard /> },
       { path: urls.VENDOR_ADD_PRODUCT, element: <ProfileComingSoon /> },
       { path: urls.VENDOR_PRODUCTS, element: <ProfileComingSoon /> },
