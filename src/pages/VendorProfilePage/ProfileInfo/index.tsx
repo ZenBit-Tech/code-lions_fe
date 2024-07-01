@@ -22,9 +22,14 @@ import {
   RatingNumber,
 } from './styles';
 
-function ProfilePage() {
+interface ProfileInfoProps {
+  name: string;
+  rating: number;
+  avatar: string;
+}
+
+function ProfileInfo({ name, rating, avatar }: ProfileInfoProps) {
   const { t } = useTranslation();
-  const userName = t('profile.name');
 
   return (
     <SimpleSection>
@@ -43,16 +48,13 @@ function ProfilePage() {
           mt="16px"
           mb="20px"
         >
-          <Avatar
-            src="src/assets/photos/avatar.jpg"
-            sx={{ width: '120px', height: '120px' }}
-          />
+          <Avatar src={avatar} sx={{ width: '120px', height: '120px' }} />
           <NameTitle variant="subtitle1" theme={theme}>
-            {userName}
+            {name}
           </NameTitle>
           <Box display="flex" alignItems="center" marginBottom="20px">
             <StarIcon />
-            <RatingNumber theme={theme}>5.0</RatingNumber>
+            <RatingNumber theme={theme}>{rating}</RatingNumber>
           </Box>
         </Box>
         <FollowButtonWrapper theme={theme}>
@@ -81,4 +83,4 @@ function ProfilePage() {
   );
 }
 
-export default ProfilePage;
+export default ProfileInfo;
