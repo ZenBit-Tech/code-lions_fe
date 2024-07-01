@@ -27,8 +27,8 @@ export const urls = {
   ADMIN_USERS_FULL: '/admin/users',
   PROFILE: '/profile',
   PRODUCT: '/product',
-  USER_BUYER_PROFILE: 'buyer/:id',
-  USER_VENDOR_PROFILE: '/vendor/:id',
+  USER_BUYER_PROFILE: 'buyer/:userId',
+  USER_VENDOR_PROFILE: 'vendor/:userId',
   PROFILE_DETAILS: 'details',
   PROFILE_ORDERS: 'orders',
   PROFILE_WISHLIST: 'wishlist',
@@ -61,7 +61,6 @@ export const RTKUrls = {
   ADDRESS: 'address',
   SIZE: 'size',
   CREDIT_CARD: 'credit-card',
-  USER_REVIEWS: 'reviews/user',
   UPDATE_PROFILE: '/update-profile',
   UPDATE_PROFILE_ADMIN: 'update-profile-admin',
   SOFT_DELETE: 'soft-delete',
@@ -103,8 +102,6 @@ export const appErrors = {
 };
 
 export const pathToPhotos = '/assets/photos';
-
-export const pathToServer = 'https://code-lions-be.onrender.com';
 
 export const socialNetworkLinks = {
   FACEBOOK: 'https://www.facebook.com/',
@@ -176,8 +173,4 @@ export const httpStatusCodes = {
 export const urlRoles = {
   vendors: 'vendors',
   buyers: 'buyers',
-};
-export const profilePathsFor = {
-  vendor: 'vendor/buyer',
-  buyer: 'vendor',
 };

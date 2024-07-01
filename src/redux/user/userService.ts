@@ -4,8 +4,7 @@ import {
   createApi,
   fetchBaseQuery,
 } from '@reduxjs/toolkit/query/react';
-import { HttpMethods, RTKUrls, httpStatusCodes } from 'src/common/constants.ts';
-import config from 'src/config/config';
+import { HttpMethods, RTKUrls, httpStatusCodes } from 'src/common/constants';
 import { RootState } from 'src/redux/store';
 import { setTokens, logout } from 'src/redux/user/userSlice';
 
@@ -30,14 +29,10 @@ import {
   IUpdateCreditCardRequest,
   IUpdateSizesRequest,
   IUpdatePersonalInfoRequest,
-  IPublicUser,
-  IReview,
 } from './types';
 
-const { apiUrl } = config;
-
 const baseQuery = fetchBaseQuery({
-  baseUrl: apiUrl,
+  baseUrl: import.meta.env.VITE_API_URL,
   prepareHeaders: (headers, { getState }) => {
     const { accessToken } = (getState() as RootState).user;
 
@@ -211,14 +206,12 @@ export const userApi = createApi({
       }),
       providesTags: (result) => (result ? [{ type: 'User', id: 'LIST' }] : []),
     }),
-
     getUserById: build.query<IAdminUser, { userId: string }>({
       query: ({ userId }) => ({
         url: `${RTKUrls.ADMIN_USERS}/${userId}`,
         method: HttpMethods.GET,
       }),
     }),
-
     updateUserProfileByAdmin: build.mutation<
       IAdminUser,
       { userId: string; updateProfileByAdminDto: IUpdateUserByAdminRequest }
@@ -230,7 +223,6 @@ export const userApi = createApi({
       }),
       invalidatesTags: [{ type: 'User', id: 'LIST' }],
     }),
-
     deleteUserByAdmin: build.mutation<void, { userId: string }>({
       query: ({ userId }) => ({
         url: `${RTKUrls.USERS}/${userId}/${RTKUrls.SOFT_DELETE}`,
@@ -244,20 +236,6 @@ export const userApi = createApi({
         url: `${RTKUrls.USERS}/${id}${RTKUrls.UPDATE_PROFILE}`,
         method: HttpMethods.PATCH,
         body: rest,
-      }),
-    }),
-
-    getPublicUserById: build.query<IPublicUser, string>({
-      query: (id) => ({
-        url: `${RTKUrls.USERS}/${id}`,
-        method: HttpMethods.GET,
-      }),
-    }),
-
-    getUserReviews: build.query<IReview[], string>({
-      query: (id) => ({
-        url: `${RTKUrls.USER_REVIEWS}/${id}`,
-        method: HttpMethods.GET,
       }),
     }),
   }),
@@ -283,6 +261,4 @@ export const {
   useUpdateUserProfileByAdminMutation,
   useDeleteUserByAdminMutation,
   useUpdatePersonalInfoMutation,
-  useGetUserReviewsQuery,
-  useGetPublicUserByIdQuery,
 } = userApi;
