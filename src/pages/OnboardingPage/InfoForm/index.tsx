@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
-import { MenuItem, Select } from '@mui/material';
+import { Avatar, MenuItem, Select } from '@mui/material';
 import { Box } from '@mui/system';
 
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -164,10 +164,9 @@ function OnboardingInfoForm() {
             }}
           >
             {preview ? (
-              <img
+              <Avatar
                 src={preview}
-                width="120px"
-                height="120px"
+                sx={{ width: '120px', height: '120px' }}
                 alt={t('onboarding.yourPhoto')}
                 onError={() => setPreview(null)}
               />
