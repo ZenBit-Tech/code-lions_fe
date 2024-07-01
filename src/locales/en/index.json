@@ -319,6 +319,14 @@
     "title": "Dashboard",
     "salesTotal": "Sales total",
     "averageOrderValue": "Average order value",
-    "totalOrders": "Total orders"
+    "totalOrders": "Total orders",
+    "revenueAnalytics": "Revenue Analytics",
+    "yearly": "Yearly",
+    "salesByCategories": "Sales by categories",
+    "byWeek": "By week",
+    "source": "Source",
+    "orders": "Orders",
+    "amount": "Amount",
+    "resentOrders": "Resent Orders"
   }
 }

@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import getDateNDaysAgo from 'src/common/utils/getDateNDaysAgo';
 import isLeapYear from 'src/common/utils/isALeapYear';
 
-import { Order } from './types';
+import { Category, Order } from './types';
 
 interface SalesData {
   salesTotal: number;
@@ -12,6 +12,13 @@ interface SalesData {
   averageOrderValueChange: number;
   totalOrders: number;
   totalOrdersChange: number;
+  dataset: { month: string; amount: number }[];
+  categoryData: {
+    id: Category;
+    category: Category;
+    orders: number;
+    value: number;
+  }[];
 }
 
 const numberOfDays = {
@@ -37,6 +44,12 @@ function useSalesData(orders: Order[]): SalesData {
     useState<number>(0);
   const [totalOrders, setTotalOrders] = useState<number>(0);
   const [totalOrdersChange, setTotalOrdersChange] = useState<number>(0);
+  const [dataset, setDataset] = useState<{ month: string; amount: number }[]>(
+    []
+  );
+  const [categoryData, setCategoryData] = useState<
+    { id: Category; category: Category; orders: number; value: number }[]
+  >([]);
 
   useEffect(() => {
     if (orders.length === 0) {
@@ -46,6 +59,8 @@ function useSalesData(orders: Order[]): SalesData {
       setAverageOrderValueChange(0);
       setTotalOrders(0);
       setTotalOrdersChange(0);
+      setDataset([]);
+      setCategoryData([]);
 
       return;
     }
@@ -80,6 +95,105 @@ function useSalesData(orders: Order[]): SalesData {
         totalOrderCount > 0 ? totalSales / totalOrderCount : 0;
 
       return { totalSales, avgOrderValue, totalOrderCount };
+    };
+
+    // Function to calculate sales per month dataset
+    const calculateSalesPerMonthDataset = (
+      ordersEachMonth: Order[]
+    ): {
+      month: string;
+      amount: number;
+    }[] => {
+      const salesPerMonth: { [key: string]: { year: number; amount: number } } =
+        {};
+
+      ordersEachMonth.forEach((order) => {
+        const orderDate = new Date(order.datePlaced);
+        const month = orderDate.toLocaleString('en-US', { month: 'short' });
+        const year = orderDate.getFullYear();
+        const monthYearKey = `${year}-${month}`;
+
+        if (salesPerMonth[monthYearKey]) {
+          salesPerMonth[monthYearKey].amount += order.amount;
+        } else {
+          salesPerMonth[monthYearKey] = { year, amount: order.amount };
+        }
+      });
+
+      const monthlyData = Object.keys(salesPerMonth)
+        .map((key) => {
+          const [year, month] = key.split('-');
+
+          return {
+            month,
+            amount: salesPerMonth[key].amount,
+            year: parseInt(year, 10),
+          };
+        })
+        .sort(
+          (a, b) =>
+            a.year - b.year ||
+            new Date(`${a.month} 1`).getMonth() -
+              new Date(`${b.month} 1`).getMonth()
+        )
+        .map(({ month, amount }) => ({
+          month,
+          amount,
+        }));
+
+      return monthlyData;
+    };
+
+    // Function to calculate sales per category for a given number of days
+    const calculateSalesPerCategory = (
+      days: number,
+      today: Date
+    ): {
+      id: Category;
+      category: Category;
+      orders: number;
+      value: number;
+    }[] => {
+      const salesPerCategory: {
+        [key in Category]: { orders: number; value: number };
+      } = {
+        Clothing: { orders: 0, value: 0 },
+        Shoes: { orders: 0, value: 0 },
+        Bags: { orders: 0, value: 0 },
+        Accessories: { orders: 0, value: 0 },
+      };
+
+      // Calculate the date `days` ago from `today`
+      const startDate = getDateNDaysAgo(days, today);
+
+      // Filter orders within the specified date range
+      const filteredOrders = orders.filter((order) => {
+        const orderDate = new Date(order.datePlaced);
+
+        return orderDate >= startDate && orderDate <= today;
+      });
+
+      // Iterate through filtered orders and update sales per category
+      filteredOrders.forEach((order) => {
+        order.items.forEach((item) => {
+          const { category, price, quantity } = item;
+
+          salesPerCategory[category].orders += quantity;
+          salesPerCategory[category].value += price * quantity;
+        });
+      });
+
+      // Format the data into an array of objects
+      const dataForCategories = Object.keys(salesPerCategory).map(
+        (category) => ({
+          id: category as Category,
+          category: category as Category,
+          orders: salesPerCategory[category as Category].orders,
+          value: salesPerCategory[category as Category].value,
+        })
+      );
+
+      return dataForCategories;
     };
 
     // Get today's date
@@ -170,6 +284,19 @@ function useSalesData(orders: Order[]): SalesData {
         changePercentage.HUNDRED;
     }
     setTotalOrdersChange(parseFloat(ordersChange.toFixed(decimalNumbers.TWO)));
+
+    // Calculate sales per month dataset
+    const salesPerMonthDataset = calculateSalesPerMonthDataset(orders);
+
+    setDataset(salesPerMonthDataset);
+
+    // Calculate sales per category for the last 7 days
+    const salesPerCategory = calculateSalesPerCategory(
+      numberOfDays.SEVEN,
+      today
+    );
+
+    setCategoryData(salesPerCategory);
   }, [orders]);
 
   return {
@@ -179,6 +306,8 @@ function useSalesData(orders: Order[]): SalesData {
     averageOrderValueChange,
     totalOrders,
     totalOrdersChange,
+    dataset,
+    categoryData,
   };
 }
 

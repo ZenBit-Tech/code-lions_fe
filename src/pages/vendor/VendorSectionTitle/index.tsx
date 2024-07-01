@@ -6,7 +6,7 @@ interface IVendorSectionTitleProps {
 
 function VendorSectionTitle({ title }: IVendorSectionTitleProps) {
   return (
-    <Box mb="24px">
+    <Box>
       <Typography
         variant="h3"
         component="h1"

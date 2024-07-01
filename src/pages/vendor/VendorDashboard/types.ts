@@ -16,3 +16,26 @@ export interface OrderItem {
   price: number;
   quantity: number;
 }
+
+export interface PieChartData {
+  id: Category;
+  category: Category;
+  orders: number;
+  value: number;
+}
+
+export interface IVendorPieChartProps {
+  data: PieChartData[];
+}
+
+export interface PieChartColoredData {
+  id: Category;
+  category: Category;
+  orders: number;
+  value: number;
+  color: string;
+}
+
+export interface IVendorPieChartLegendProps {
+  data: PieChartColoredData[];
+}

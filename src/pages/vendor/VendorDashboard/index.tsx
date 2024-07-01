@@ -1,12 +1,14 @@
 import { useTranslation } from 'react-i18next';
 
-import { Box } from '@mui/system';
+import { Grid } from '@mui/material';
 
 import VendorSectionTitle from '../VendorSectionTitle';
 
 import DashboardCard from './DashboardCard';
 import { orders } from './mockOrderData';
 import useSalesData from './useSalesDataHook';
+import VendorBarChart from './VendorBarChart';
+import VendorPieChart from './VendorPieChart';
 
 function VendorDashboard() {
   const {
@@ -16,6 +18,8 @@ function VendorDashboard() {
     averageOrderValueChange,
     totalOrders,
     totalOrdersChange,
+    dataset,
+    categoryData,
   } = useSalesData(orders);
 
   const { t } = useTranslation();
@@ -39,25 +43,29 @@ function VendorDashboard() {
   ];
 
   return (
-    <div>
-      <VendorSectionTitle title={t('vendorDashboard.title')} />
-      <Box display="flex" gap="25px" justifyContent="space-between">
-        {tabData.map((data) => (
+    <Grid container columns={6} spacing={3}>
+      <Grid item xs={6}>
+        <VendorSectionTitle title={t('vendorDashboard.title')} />
+      </Grid>
+      {tabData.map((data) => (
+        <Grid item xs={2} key={data.title}>
           <DashboardCard
-            key={data.title}
             title={data.title}
             amount={data.amount}
             change={data.change}
           />
-        ))}
-      </Box>
-      <p>Total Sales: ${salesTotal}</p>
-      <p>Sales Change Last 7 Days: {salesTotalChange}%</p>
-      <p>Average Order Value: ${averageOrderValue}</p>
-      <p>Average Order Value Change Last 7 Days: {averageOrderValueChange}%</p>
-      <p>Total Orders: {totalOrders}</p>
-      <p>Total Orders Change Last 7 Days: {totalOrdersChange}%</p>
-    </div>
+        </Grid>
+      ))}
+      <Grid item xs={4}>
+        <VendorBarChart dataset={dataset} />
+      </Grid>
+      <Grid item xs={2}>
+        <VendorPieChart data={categoryData} />
+      </Grid>
+      <Grid item xs={6}>
+        <VendorSectionTitle title={t('vendorDashboard.resentOrders')} />
+      </Grid>
+    </Grid>
   );
 }
 
