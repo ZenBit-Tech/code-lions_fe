@@ -31,6 +31,9 @@ const shadows: ThemeOptions['shadows'] = [...defaultTheme.shadows];
 
 shadows[1] =
   '0 -8px 20px 0 rgba(244, 244, 244, 0.25), 0 2px 2px 0 rgba(160, 168, 176, 0.08)';
+shadows[2] =
+  '0 2px 8px 0 rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(0, 0, 0, 0.12)';
+shadows[3] = '0px 5px 8px 0px rgba(0, 0, 0, 0.5)';
 
 const theme = createTheme({
   palette: {

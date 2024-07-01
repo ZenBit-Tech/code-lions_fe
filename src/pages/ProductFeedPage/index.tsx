@@ -4,7 +4,6 @@ import { Box } from '@mui/material';
 
 import ProductCard from 'src/components/ProductCard';
 import { useGetProductsQuery } from 'src/redux/product/productService';
-import theme from 'src/theme';
 
 function ProductFeedPage() {
   const { t } = useTranslation();
@@ -39,17 +38,11 @@ function ProductFeedPage() {
                   key={product.id}
                   component="div"
                   sx={{
-                    width: '100%',
-                    [theme.breakpoints.up('sm')]: {
-                      width: 'calc(50% - 20px)',
-                    },
-
-                    [theme.breakpoints.up('md')]: {
-                      width: 'calc(33% - 19px)',
-                    },
-
-                    [theme.breakpoints.up('xl')]: {
-                      width: 'calc(25% - 18px)',
+                    width: {
+                      xs: '100%',
+                      md: 'calc(50% - 20px)',
+                      lg: 'calc(33% - 19px)',
+                      xl: 'calc(25% - 18px)',
                     },
                   }}
                 >

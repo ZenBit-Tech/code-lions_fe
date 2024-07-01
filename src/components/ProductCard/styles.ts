@@ -15,7 +15,7 @@ const style = {
     overflow: 'hidden',
     position: 'relative',
     '&:hover': {
-      scale: '1.02',
+      boxShadow: theme.shadows[3],
     },
   },
   imgContainer: {
