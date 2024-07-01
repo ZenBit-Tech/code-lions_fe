@@ -5,10 +5,12 @@ import { useParams } from 'react-router-dom';
 import { CircularProgress } from '@mui/material';
 
 import { skipToken } from '@reduxjs/toolkit/query';
+import { profilePathsFor } from 'src/common/constants';
 import Footer from 'src/components/Footer';
 import Header from 'src/components/Header';
 import CommentList from 'src/components/shared/CommentList';
 import Container from 'src/components/shared/Container';
+import RegularText from 'src/components/shared/RegularText';
 import useToast from 'src/components/shared/toasts/components/ToastProvider/ToastProviderHooks';
 import ProfileInfo from 'src/pages/VendorProfilePage/ProfileInfo';
 import { IReview } from 'src/redux/user/types';
@@ -74,9 +76,12 @@ function VendorProfilePage() {
             {t('vendorProfile.reviews')} ({reviewCount})
           </ReviewLabel>
           {reviewCount > 0 ? (
-            <CommentList comments={formattedReviews} />
+            <CommentList
+              comments={formattedReviews}
+              path={profilePathsFor.buyer}
+            />
           ) : (
-            <div>{t('vendorProfile.noReviews')}</div>
+            <RegularText>{t('vendorProfile.noReviews')}</RegularText>
           )}
         </Container>
       </MainContainerWrapper>

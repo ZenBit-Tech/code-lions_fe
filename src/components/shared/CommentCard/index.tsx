@@ -5,7 +5,7 @@ import { Box } from '@mui/material';
 
 import { format } from 'date-fns';
 import StarIcon from 'src/assets/icons/profile/star.svg';
-import { pathToServer } from 'src/common/constants';
+import { pathToServer, profilePathsFor } from 'src/common/constants';
 import { IReview } from 'src/redux/user/types';
 
 import {
@@ -19,13 +19,14 @@ import {
   CommentText,
 } from './styles';
 
-const numberOfWordsInSentence = 12;
+const numberOfWordsInSentence = 15;
 
 interface CommentCardProps {
   comment: IReview;
+  path: string;
 }
 
-function CommentCard({ comment }: CommentCardProps) {
+function CommentCard({ comment, path }: CommentCardProps) {
   const { t } = useTranslation();
   const [isExpanded, setIsExpanded] = useState(false);
 
@@ -49,15 +50,20 @@ function CommentCard({ comment }: CommentCardProps) {
     }
   };
 
+  function StarRating({ rating }: { rating: number }) {
+    return (
+      <Box display="flex" alignItems="center" gap="5px">
+        {Array.from({ length: rating }, (_, index) => (
+          <StarIcon key={index} />
+        ))}
+      </Box>
+    );
+  }
+
   return (
     <CommentCardWrapper>
       <CommentContent>
-        <Box
-          width="100%"
-          display="flex"
-          alignItems="top"
-          justifyContent="space-between"
-        >
+        <Box width="100%" display="flex" alignItems="top">
           <ProfileAvatar
             src={`${pathToServer}${comment.reviewerAvatar.slice(1)}`}
             alt={comment.reviewerName}
@@ -67,11 +73,13 @@ function CommentCard({ comment }: CommentCardProps) {
             <CommentDate variant="body2">
               {format(new Date(comment.createdAt), 'PP')}
             </CommentDate>
+            {path.startsWith(profilePathsFor.vendor) && (
+              <RatingWrapper>
+                <StarRating rating={comment.rating} />
+                <RatingNumber>{comment.rating}</RatingNumber>
+              </RatingWrapper>
+            )}
           </Box>
-          <RatingWrapper>
-            <StarIcon />
-            <RatingNumber>{comment.rating}</RatingNumber>
-          </RatingWrapper>
         </Box>
         <CommentText variant="body2" sx={{ marginTop: '8px' }}>
           {renderContent()}

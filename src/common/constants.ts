@@ -26,13 +26,21 @@ export const urls = {
   ADMIN_VENDOR_PROFILE_EDIT: 'vendors/edit/:userId',
   ADMIN_USERS_FULL: '/admin/users',
   PROFILE: '/profile',
-  USER_BUYER_PROFILE: '/buyer/:id',
+  PRODUCT: '/product',
+  USER_BUYER_PROFILE: 'buyer/:id',
   USER_VENDOR_PROFILE: '/vendor/:id',
   PROFILE_DETAILS: 'details',
   PROFILE_ORDERS: 'orders',
   PROFILE_WISHLIST: 'wishlist',
   PROFILE_SETTINGS: 'settings',
   PROFILE_SUPPORT: 'support',
+  VENDOR: '/vendor',
+  VENDOR_ADD_PRODUCT: 'add-product',
+  VENDOR_DASHBOARD: 'dashboard',
+  VENDOR_PRODUCTS: 'products',
+  VENDOR_ORDERS: 'orders',
+  VENDOR_CHATS: 'chats',
+  VENDOR_PROFILE: 'profile',
 };
 
 export const RTKUrls = {
@@ -168,4 +176,8 @@ export const httpStatusCodes = {
 export const urlRoles = {
   vendors: 'vendors',
   buyers: 'buyers',
+};
+export const profilePathsFor = {
+  vendor: 'vendor/buyer',
+  buyer: 'vendor',
 };

@@ -262,7 +262,12 @@
     "readMore": " Read More",
     "readLess": " Read Less",
     "errorLoadingProfile": "Error loading vendor's information",
-    "errorLoadingReviews": "Error loading reviews"
+    "errorLoadingReviews": "Error loading reviews",
+    "noReviews": "This vendor has no comments"
+  },
+  "buyerProfile": {
+    "noReviews": "This buyer has no comments",
+    "buyerProfile": "Buyer Profile"
   },
   "profileDetails": {
     "personalInformation": "Personal Information",
@@ -285,5 +290,19 @@
     "cardNumber": "**** **** **** ",
     "unknownError": "An unexpected error occurred. Please try again later",
     "successPhotoUpdate": "Your photo was updated successfully"
+  },
+  "vendorSidebar": {
+    "addProduct": "Add Product",
+    "dashboard": "Dashboard",
+    "products": "Products",
+    "orders": "My Orders",
+    "chats": "Chats",
+    "profile": "Your Profile"
+  },
+  "vendorDashboard": {
+    "title": "Dashboard",
+    "salesTotal": "Sales total",
+    "averageOrderValue": "Average order value",
+    "totalOrders": "Total orders"
   }
 }
