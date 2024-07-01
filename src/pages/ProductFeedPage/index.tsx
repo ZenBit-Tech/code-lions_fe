@@ -1,12 +1,20 @@
+import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 
 import ProductCard from 'src/components/ProductCard';
+import SearchInput from 'src/components/shared/SearchInput';
 import { useGetProductsQuery } from 'src/redux/product/productService';
+import theme from 'src/theme';
 
 function ProductFeedPage() {
   const { t } = useTranslation();
+  const methods = useForm();
+
+  const handleSearchChange = (value: string) => {
+    console.log(value);
+  };
 
   const { data: products } = useGetProductsQuery();
 
@@ -23,7 +31,14 @@ function ProductFeedPage() {
         >
           <Box sx={{ width: '310px', padding: '24px' }}>filters</Box>
           <Box sx={{ flex: 1 }}>
-            <h2> {t('products.title')}</h2>
+            <FormProvider {...methods}>
+              <SearchInput setSearch={handleSearchChange} />
+            </FormProvider>
+
+            <Box sx={{ padding: '24px', color: theme.palette.grey[700] }}>
+              {' '}
+              <Typography variant="interBody">{t('products.title')}</Typography>
+            </Box>
             <Box
               sx={{
                 display: 'flex',

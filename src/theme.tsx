@@ -24,6 +24,20 @@ declare module '@mui/material/styles' {
       error?: string;
     };
   }
+
+  interface TypographyVariants {
+    interBody: React.CSSProperties;
+  }
+
+  interface TypographyVariantsOptions {
+    interBody?: React.CSSProperties;
+  }
+}
+
+declare module '@mui/material/Typography' {
+  interface TypographyPropsVariantOverrides {
+    interBody: true;
+  }
 }
 
 const defaultTheme = createTheme();
@@ -62,6 +76,7 @@ const theme = createTheme({
       300: 'rgba(237, 234, 233, 0.50)',
       400: 'rgba(28, 28, 28, 0.54)',
       500: '#A0A8B0',
+      700: '#605f5f',
       800: '#141519',
       900: '#1C1C1E',
     },
@@ -90,6 +105,14 @@ const theme = createTheme({
     fontFamily: 'DM Sans, Arial, sans-serif',
     fontSize: 16,
     fontWeightRegular: 400,
+
+    interBody: {
+      fontFamily: 'Inter, sans-serif',
+      fontSize: '16px',
+      lineHeight: '1.62',
+      fontWeight: 400,
+    },
+
     h1: {
       fontFamily: 'Playfair Display, Arial, sans-serif',
       fontSize: 28,
