@@ -26,16 +26,22 @@ export const urls = {
   ADMIN_VENDOR_PROFILE_EDIT: 'vendors/edit/:userId',
   ADMIN_USERS_FULL: '/admin/users',
   PROFILE: '/profile',
+  PRODUCT: '/product',
   PROFILE_DETAILS: 'details',
   PROFILE_ORDERS: 'orders',
   PROFILE_WISHLIST: 'wishlist',
   PROFILE_SETTINGS: 'settings',
   PROFILE_SUPPORT: 'support',
-  PRODUCT: '/product',
   PRODUCT_FEED: '/products',
   USER_BUYER_PROFILE: 'buyer/:userId',
   USER_VENDOR_PROFILE: 'vendor/:userId',
   VENDOR: '/vendor',
+  VENDOR_ADD_PRODUCT: 'add-product',
+  VENDOR_DASHBOARD: 'dashboard',
+  VENDOR_PRODUCTS: 'products',
+  VENDOR_ORDERS: 'orders',
+  VENDOR_CHATS: 'chats',
+  VENDOR_PROFILE: 'profile',
 };
 
 export const RTKUrls = {
@@ -56,6 +62,7 @@ export const RTKUrls = {
   ADDRESS: 'address',
   SIZE: 'size',
   CREDIT_CARD: 'credit-card',
+  USER_REVIEWS: 'reviews/user',
   UPDATE_PROFILE: '/update-profile',
   CARD_DATA: '/card-data',
   UPDATE_PROFILE_ADMIN: 'update-profile-admin',
@@ -99,6 +106,8 @@ export const appErrors = {
 };
 
 export const pathToPhotos = '/assets/photos';
+
+export const pathToServer = 'https://code-lions-be.onrender.com';
 
 export const socialNetworkLinks = {
   FACEBOOK: 'https://www.facebook.com/',
@@ -176,4 +185,8 @@ export const phoneCodes = {
 export const urlRoles = {
   vendors: 'vendors',
   buyers: 'buyers',
+};
+export const profilePathsFor = {
+  vendor: 'vendor/buyer',
+  buyer: 'vendor',
 };

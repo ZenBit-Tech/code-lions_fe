@@ -4,7 +4,8 @@ import {
   createApi,
   fetchBaseQuery,
 } from '@reduxjs/toolkit/query/react';
-import { HttpMethods, RTKUrls, httpStatusCodes } from 'src/common/constants';
+import { HttpMethods, RTKUrls, httpStatusCodes } from 'src/common/constants.ts';
+import config from 'src/config/config';
 import { RootState } from 'src/redux/store';
 import { setTokens, logout } from 'src/redux/user/userSlice';
 
@@ -30,10 +31,14 @@ import {
   IUpdateSizesRequest,
   IUpdatePersonalInfoRequest,
   IRefreshTokenResponse,
+  IPublicUser,
+  IReview,
 } from './types';
 
+const { apiUrl } = config;
+
 const baseQuery = fetchBaseQuery({
-  baseUrl: import.meta.env.VITE_API_URL,
+  baseUrl: apiUrl,
   prepareHeaders: (headers, { getState }) => {
     const { accessToken } = (getState() as RootState).user;
 
@@ -226,6 +231,7 @@ export const userApi = createApi({
       }),
       invalidatesTags: [{ type: 'User', id: 'LIST' }],
     }),
+
     deleteUserByAdmin: build.mutation<void, { userId: string }>({
       query: ({ userId }) => ({
         url: `${RTKUrls.USERS}/${userId}/${RTKUrls.SOFT_DELETE}`,
@@ -239,6 +245,20 @@ export const userApi = createApi({
         url: `${RTKUrls.USERS}/${id}${RTKUrls.UPDATE_PROFILE}`,
         method: HttpMethods.PATCH,
         body: rest,
+      }),
+    }),
+
+    getPublicUserById: build.query<IPublicUser, string>({
+      query: (id) => ({
+        url: `${RTKUrls.USERS}/${id}`,
+        method: HttpMethods.GET,
+      }),
+    }),
+
+    getUserReviews: build.query<IReview[], string>({
+      query: (id) => ({
+        url: `${RTKUrls.USER_REVIEWS}/${id}`,
+        method: HttpMethods.GET,
       }),
     }),
   }),
@@ -260,8 +280,10 @@ export const {
   useUpdateCreditCardMutation,
   useUpdateSizesMutation,
   useGetAllUsersQuery,
-  useUpdatePersonalInfoMutation,
   useGetUserByIdQuery,
   useUpdateUserProfileByAdminMutation,
   useDeleteUserByAdminMutation,
+  useUpdatePersonalInfoMutation,
+  useGetUserReviewsQuery,
+  useGetPublicUserByIdQuery,
 } = userApi;
