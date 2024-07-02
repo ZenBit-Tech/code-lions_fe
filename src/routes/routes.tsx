@@ -24,6 +24,7 @@ import SizesGuidePage from 'src/pages/SizesGuidePage';
 import TermsOfUsePage from 'src/pages/TermsOfUsePage';
 import VendorProfilePage from 'src/pages/VendorProfilePage';
 import VerifyEmailPage from 'src/pages/VerifyEmailPage';
+import WishlistPage from 'src/pages/WishlistPage';
 
 import AdminPrivateRoute from './AdminPrivateRoute';
 import FinishedOnboardingGuard from './FinishedOnboardingGuard';
@@ -45,7 +46,7 @@ const router = createBrowserRouter([
         children: [
           { path: urls.PROFILE_DETAILS, element: <ProfilePage /> },
           { path: urls.PROFILE_ORDERS, element: <ProfileComingSoon /> },
-          { path: urls.PROFILE_WISHLIST, element: <ProfileComingSoon /> },
+          { path: urls.PROFILE_WISHLIST, element: <WishlistPage /> },
           { path: urls.PROFILE_SETTINGS, element: <ProfileComingSoon /> },
           { path: urls.PROFILE_SUPPORT, element: <ProfileComingSoon /> },
         ],
@@ -122,15 +123,27 @@ const router = createBrowserRouter([
     path: urls.ONBOARDING,
     element: <FinishedOnboardingGuard element={<OnboardingPage />} />,
   },
+  { path: urls.PROFILE, element: <ProfilePage /> },
+  { path: urls.USER_BUYER_PROFILE, element: <BuyerProfilePage /> },
+  { path: urls.USER_VENDOR_PROFILE, element: <VendorProfilePage /> },
   {
-    path: urls.PROFILE,
-    element: <ProfileLayout />,
+    path: urls.VENDOR,
     children: [
-      { path: urls.PROFILE_DETAILS, element: <ProfilePage /> },
-      { path: urls.PROFILE_ORDERS, element: <ProfileComingSoon /> },
-      { path: urls.PROFILE_WISHLIST, element: <ProfileComingSoon /> },
-      { path: urls.PROFILE_SETTINGS, element: <ProfileComingSoon /> },
-      { path: urls.PROFILE_SUPPORT, element: <ProfileComingSoon /> },
+      { path: urls.USER_BUYER_PROFILE, element: <BuyerProfilePage /> },
+      { path: urls.VENDOR_DASHBOARD, element: <ProfileComingSoon /> },
+      { path: urls.VENDOR_ADD_PRODUCT, element: <ProfileComingSoon /> },
+      { path: urls.VENDOR_PRODUCTS, element: <ProfileComingSoon /> },
+      { path: urls.VENDOR_ORDERS, element: <ProfileComingSoon /> },
+      { path: urls.VENDOR_CHATS, element: <ProfileComingSoon /> },
+      {
+        path: urls.VENDOR_PROFILE,
+        element: <ProfileLayout />,
+        children: [
+          { path: urls.PROFILE_DETAILS, element: <ProfileComingSoon /> },
+          { path: urls.PROFILE_SETTINGS, element: <ProfileComingSoon /> },
+          { path: urls.PROFILE_SUPPORT, element: <ProfileComingSoon /> },
+        ],
+      },
     ],
   },
   { path: urls.USER_BUYER_PROFILE, element: <BuyerProfilePage /> },
