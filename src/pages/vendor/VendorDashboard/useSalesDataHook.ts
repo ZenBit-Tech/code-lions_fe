@@ -19,9 +19,11 @@ interface SalesData {
     orders: number;
     value: number;
   }[];
+  ordersPlacedThreeDaysAgo: Order[];
 }
 
 const numberOfDays = {
+  THREE: 3,
   SEVEN: 7,
   FOURTEEN: 14,
   YEAR: 365,
@@ -50,6 +52,9 @@ function useSalesData(orders: Order[]): SalesData {
   const [categoryData, setCategoryData] = useState<
     { id: Category; category: Category; orders: number; value: number }[]
   >([]);
+  const [ordersPlacedThreeDaysAgo, setOrdersPlacedThreeDaysAgo] = useState<
+    Order[]
+  >([]);
 
   useEffect(() => {
     if (orders.length === 0) {
@@ -61,6 +66,7 @@ function useSalesData(orders: Order[]): SalesData {
       setTotalOrdersChange(0);
       setDataset([]);
       setCategoryData([]);
+      setOrdersPlacedThreeDaysAgo([]);
 
       return;
     }
@@ -297,6 +303,31 @@ function useSalesData(orders: Order[]): SalesData {
     );
 
     setCategoryData(salesPerCategory);
+
+    // Calculate orders placed exactly three days ago
+    const threeDaysAgo = getDateNDaysAgo(numberOfDays.THREE, today);
+    // const startOfDayThreeDaysAgo = new Date(
+    //   threeDaysAgo.getFullYear(),
+    //   threeDaysAgo.getMonth(),
+    //   threeDaysAgo.getDate()
+    // );
+    // const endOfDayThreeDaysAgo = new Date(
+    //   threeDaysAgo.getFullYear(),
+    //   threeDaysAgo.getMonth(),
+    //   threeDaysAgo.getDate(),
+    //   23,
+    //   59,
+    //   59,
+    //   999
+    // );
+
+    const ordersThreeDaysAgo = orders.filter((order) => {
+      const orderDate = new Date(order.datePlaced);
+
+      return orderDate >= threeDaysAgo && orderDate <= today;
+    });
+
+    setOrdersPlacedThreeDaysAgo(ordersThreeDaysAgo);
   }, [orders]);
 
   return {
@@ -308,6 +339,7 @@ function useSalesData(orders: Order[]): SalesData {
     totalOrdersChange,
     dataset,
     categoryData,
+    ordersPlacedThreeDaysAgo,
   };
 }
 

@@ -16,7 +16,6 @@ export default function generateMockOrders(): Order[] {
     'New order',
     'Sent',
     'Delivered',
-    'Received',
     'Waiting for returning',
     'Returned',
   ];

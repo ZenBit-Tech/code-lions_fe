@@ -327,6 +327,14 @@
     "source": "Source",
     "orders": "Orders",
     "amount": "Amount",
-    "resentOrders": "Resent Orders"
+    "resentOrders": "Resent Orders",
+    "id": "Id",
+    "product": "Product",
+    "price": "Price",
+    "status": "Status",
+    "action": "Action",
+    "size": "Size:",
+    "openOrder": "Open Order",
+    "noOrders": "You have no orders"
   }
 }

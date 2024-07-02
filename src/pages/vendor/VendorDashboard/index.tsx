@@ -1,11 +1,12 @@
 import { useTranslation } from 'react-i18next';
 
-import { Grid } from '@mui/material';
+import { Grid, Typography } from '@mui/material';
 
 import VendorSectionTitle from '../VendorSectionTitle';
 
 import DashboardCard from './DashboardCard';
 import { orders } from './mockOrderData';
+import OrdersTable from './OrdersTable';
 import useSalesData from './useSalesDataHook';
 import VendorBarChart from './VendorBarChart';
 import VendorPieChart from './VendorPieChart';
@@ -20,6 +21,7 @@ function VendorDashboard() {
     totalOrdersChange,
     dataset,
     categoryData,
+    ordersPlacedThreeDaysAgo,
   } = useSalesData(orders);
 
   const { t } = useTranslation();
@@ -65,6 +67,15 @@ function VendorDashboard() {
       <Grid item xs={6}>
         <VendorSectionTitle title={t('vendorDashboard.resentOrders')} />
       </Grid>
+      {ordersPlacedThreeDaysAgo.length > 0 ? (
+        <Grid item xs={6}>
+          <OrdersTable data={ordersPlacedThreeDaysAgo} />
+        </Grid>
+      ) : (
+        <Grid item xs={6}>
+          <Typography>{t('vendorDashboard.noOrders')}</Typography>
+        </Grid>
+      )}
     </Grid>
   );
 }
