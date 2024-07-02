@@ -21,6 +21,7 @@ import SignInPage from 'src/pages/SignInPage';
 import SignUpPage from 'src/pages/SignUpPage';
 import SizesGuidePage from 'src/pages/SizesGuidePage';
 import TermsOfUsePage from 'src/pages/TermsOfUsePage';
+import VendorLayout from 'src/pages/vendor/VendorLayout';
 import VendorProfilePage from 'src/pages/VendorProfilePage';
 import VerifyEmailPage from 'src/pages/VerifyEmailPage';
 import WishlistPage from 'src/pages/WishlistPage';
@@ -115,7 +116,6 @@ const router = createBrowserRouter([
   },
   { path: urls.ONBOARDING, element: <OnboardingPage /> },
   { path: urls.PROFILE, element: <ProfilePage /> },
-  { path: urls.USER_BUYER_PROFILE, element: <BuyerProfilePage /> },
   { path: urls.USER_VENDOR_PROFILE, element: <VendorProfilePage /> },
   {
     path: urls.VENDOR,
