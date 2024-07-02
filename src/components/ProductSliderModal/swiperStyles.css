@@ -1,0 +1,34 @@
+:root {
+  --swiper-navigation-color: ${theme.palette.common.black};
+}
+
+.swiper-wrapper {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.swiper-wrapper > .swiper-slide {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+  color: var(--swiper-navigation-color);
+}
+
+.swiper-button-next::after,
+.swiper-button-prev::after {
+  font-size: 20px;
+}
+
+.swiper-button-next {
+  right: 10px;
+}
+
+.swiper-button-prev {
+  left: 10px;
+}

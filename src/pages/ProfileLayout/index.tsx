@@ -11,6 +11,7 @@ import { selectUserAvatar, selectUserName } from 'src/redux/user/userSlice';
 
 import PhotoUploadForm from '../ProfilePage/PhotoUploadForm';
 
+import useProfileTitle from './hooks/useProfileTitle';
 import ProfileMenu from './ProfileMenu';
 import {
   AvatarWrapper,
@@ -23,6 +24,7 @@ import {
 function ProfileLayout() {
   const { t } = useTranslation();
   const location = useLocation();
+  const title = useProfileTitle();
   const userName = useAppSelector(selectUserName) ?? t('profile.name');
   const userAvatar = useAppSelector(selectUserAvatar) ?? '';
 
@@ -34,7 +36,7 @@ function ProfileLayout() {
       <Grid container columns={4}>
         <Grid item xs={4} sx={{ display: 'flex', flexDirection: 'column' }}>
           <SectionTitle
-            title={t('profile.title')}
+            title={title}
             greyBackground
             showNotification
             ml="14px"

@@ -24,6 +24,7 @@ import TermsOfUsePage from 'src/pages/TermsOfUsePage';
 import VendorLayout from 'src/pages/vendor/VendorLayout';
 import VendorProfilePage from 'src/pages/VendorProfilePage';
 import VerifyEmailPage from 'src/pages/VerifyEmailPage';
+import WishlistPage from 'src/pages/WishlistPage';
 
 import AdminPrivateRoute from './AdminPrivateRoute';
 import OnboardingGuard from './OnboardingGuard';
@@ -44,7 +45,7 @@ const router = createBrowserRouter([
         children: [
           { path: urls.PROFILE_DETAILS, element: <ProfilePage /> },
           { path: urls.PROFILE_ORDERS, element: <ProfileComingSoon /> },
-          { path: urls.PROFILE_WISHLIST, element: <ProfileComingSoon /> },
+          { path: urls.PROFILE_WISHLIST, element: <WishlistPage /> },
           { path: urls.PROFILE_SETTINGS, element: <ProfileComingSoon /> },
           { path: urls.PROFILE_SUPPORT, element: <ProfileComingSoon /> },
         ],
@@ -118,7 +119,7 @@ const router = createBrowserRouter([
   { path: urls.USER_VENDOR_PROFILE, element: <VendorProfilePage /> },
   {
     path: urls.VENDOR,
-    element: <VendorLayout />,
+    // element: <VendorLayout />,
     children: [
       { path: urls.USER_BUYER_PROFILE, element: <BuyerProfilePage /> },
       { path: urls.VENDOR_DASHBOARD, element: <ProfileComingSoon /> },
