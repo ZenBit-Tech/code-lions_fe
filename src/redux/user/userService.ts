@@ -4,7 +4,12 @@ import {
   createApi,
   fetchBaseQuery,
 } from '@reduxjs/toolkit/query/react';
-import { HttpMethods, RTKUrls, httpStatusCodes } from 'src/common/constants.ts';
+import {
+  apiUrl,
+  HttpMethods,
+  RTKUrls,
+  httpStatusCodes,
+} from 'src/common/constants.ts';
 import { RootState } from 'src/redux/store';
 import { setTokens, logout } from 'src/redux/user/userSlice';
 
@@ -33,8 +38,6 @@ import {
   IPublicUser,
   IReview,
 } from './types';
-
-const apiUrl = import.meta.env.VITE_APP_URL;
 
 const baseQuery = fetchBaseQuery({
   baseUrl: apiUrl,

@@ -10,6 +10,7 @@ import ChevronDown from 'src/assets/icons/chevron-down.svg';
 import PhotoIcon from 'src/assets/icons/photo.svg';
 import UserImageIcon from 'src/assets/icons/user-image.svg';
 import { countryCodes } from 'src/common/constants';
+import { apiUrl } from 'src/common/constants.ts';
 import splitPhoneNumber from 'src/common/splitPhoneNumber';
 import StyledButton from 'src/components/shared/StyledButton';
 import {
@@ -57,7 +58,7 @@ function OnboardingInfoForm() {
   const [uploadPhoto, { isLoading }] = useUploadPhotoMutation();
   const [updatePhone, { isLoading: isLoadingPhone }] = useUpdatePhoneMutation();
   const [preview, setPreview] = useState<string | null>(
-    user.photoUrl ? import.meta.env.VITE_API_URL + user.photoUrl : null
+    user.photoUrl ? apiUrl + user.photoUrl : null
   );
   const { showToast } = useToast();
   const {

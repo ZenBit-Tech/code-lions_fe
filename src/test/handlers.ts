@@ -1,8 +1,7 @@
 import { http, HttpResponse } from 'msw';
 import { RTKUrls } from 'src/common/constants';
+import { apiUrl } from 'src/common/constants.ts';
 import allProducts from 'src/test/mocks/allproducts';
-
-const apiUrl = import.meta.env.VITE_API_URL;
 
 const handlers = [
   http.get(`${apiUrl}${RTKUrls.PRODUCTS}`, () => {

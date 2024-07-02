@@ -1,8 +1,7 @@
 import { Box } from '@mui/material';
 
 import ProductCard from 'src/components/ProductCard';
-
-import mockData from './mockData';
+import mockData from 'src/test/mocks/allproducts';
 
 function WishlistPage() {
   return (

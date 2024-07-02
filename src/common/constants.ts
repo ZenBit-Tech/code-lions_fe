@@ -1,5 +1,7 @@
 import { SortOrder } from 'src/redux/user/types';
 
+export const apiUrl = import.meta.env.VITE_API_URL;
+
 export const urls = {
   HOME: '/',
   SIGN_UP: '/signup',
@@ -119,7 +121,6 @@ export const onboardingSteps = {
   ROLE: 1,
   INFO: 2,
   ADDRESS: 3,
-  // CARD: 4,
   SIZES: 4,
   FINISH: 5,
 };
