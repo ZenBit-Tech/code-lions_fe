@@ -15,6 +15,6 @@ export interface IProduct {
     name: string;
     photoUrl: string;
   };
-  createdAt: Date;
-  lastUpdatedAt: Date;
+  createdAt: string;
+  lastUpdatedAt: string;
 }

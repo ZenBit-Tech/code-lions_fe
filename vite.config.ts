@@ -1,4 +1,5 @@
-/* eslint-disable import/no-extraneous-dependencies */
+/// <reference types="vitest" />
+/// <reference types="vite/client" />
 
 import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vite';
@@ -7,7 +8,9 @@ import svgr from 'vite-plugin-svgr';
 
 export default defineConfig({
   plugins: [
-    react(),
+    react({
+      jsxImportSource: 'react',
+    }),
     svgr({
       svgrOptions: {
         exportType: 'default',
@@ -26,6 +29,14 @@ export default defineConfig({
       ],
     }),
   ],
+  test: {
+    globals: true,
+    environment: 'jsdom',
+    setupFiles: './src/test/setup.ts',
+    coverage: {
+      provider: 'v8',
+    },
+  },
   resolve: {
     alias: {
       src: '/src',
