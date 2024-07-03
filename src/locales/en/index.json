@@ -260,7 +260,14 @@
     "products": "Products",
     "reviews": "Reviews",
     "readMore": " Read More",
-    "readLess": " Read Less"
+    "readLess": " Read Less",
+    "errorLoadingProfile": "Error loading vendor's information",
+    "errorLoadingReviews": "Error loading reviews",
+    "noReviews": "This vendor has no comments"
+  },
+  "buyerProfile": {
+    "noReviews": "This buyer has no comments",
+    "buyerProfile": "Buyer Profile"
   },
   "profileDetails": {
     "personalInformation": "Personal Information",
@@ -306,6 +313,10 @@
     "mockColor": "Pink",
     "height": "HEIGHT",
     "mockHeight": "64 inch"
+  },
+  "products": {
+    "filters": "filters",
+    "title": "134 products"
   },
   "vendorSidebar": {
     "addProduct": "Add Product",

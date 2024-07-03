@@ -1,5 +1,7 @@
 import { SortOrder } from 'src/redux/user/types';
 
+export const apiUrl = import.meta.env.VITE_API_URL;
+
 export const urls = {
   HOME: '/',
   SIGN_UP: '/signup',
@@ -27,13 +29,14 @@ export const urls = {
   ADMIN_USERS_FULL: '/admin/users',
   PROFILE: '/profile',
   PRODUCT: '/product',
-  USER_BUYER_PROFILE: 'buyer/:userId',
-  USER_VENDOR_PROFILE: 'vendor/:userId',
+  USER_BUYER_PROFILE: 'buyer/:id',
+  USER_VENDOR_PROFILE: '/vendor/:id',
   PROFILE_DETAILS: 'details',
   PROFILE_ORDERS: 'orders',
   PROFILE_WISHLIST: 'wishlist',
   PROFILE_SETTINGS: 'settings',
   PROFILE_SUPPORT: 'support',
+  PRODUCT_FEED: '/products',
   VENDOR: '/vendor',
   VENDOR_ADD_PRODUCT: 'add-product',
   VENDOR_DASHBOARD: 'dashboard',
@@ -63,8 +66,10 @@ export const RTKUrls = {
   SIZE: 'size',
   CREDIT_CARD: 'credit-card',
   UPDATE_PROFILE: '/update-profile',
+  CARD_DATA: '/card-data',
   UPDATE_PROFILE_ADMIN: 'update-profile-admin',
   SOFT_DELETE: 'soft-delete',
+  PRODUCTS: 'products',
 };
 
 export const HttpMethods = {
@@ -78,7 +83,7 @@ export const HttpMethods = {
 export const validations = {
   EMAIL_REGEX: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
   PASSWORD_MIN_LENGTH: 8,
-  PHONE_REGEX: /^[1-9][0-9]{0,10}$/,
+  PHONE_REGEX: /^[0-9]{10,11}$/,
   PHONE_LENGTH: 11,
 };
 
@@ -92,7 +97,7 @@ export const appErrors = {
   PASSWORD_LENGTH: 'Password needs to be at least 8 characters',
   PASSWORD_MATCH:
     'Passwords entered in the "Password" and "Repeat password" fields must match',
-  INVALID_PHONE: 'Phone number should be in format 12345678901',
+  INVALID_PHONE: 'Phone number should contain digits only',
   INVALID_LENGTH: 'Invalid length, should be 11',
   REQUIRED: 'Field is required',
   TOO_LONG: 'Too long, should be less than 100 characters',
@@ -104,6 +109,8 @@ export const appErrors = {
 
 export const pathToPhotos = '/assets/photos';
 
+export const pathToServer = 'https://code-lions-be.onrender.com';
+
 export const socialNetworkLinks = {
   FACEBOOK: 'https://www.facebook.com/',
   INSTAGRAM: 'https://www.instagram.com/',
@@ -114,13 +121,13 @@ export const onboardingSteps = {
   ROLE: 1,
   INFO: 2,
   ADDRESS: 3,
-  CARD: 4,
-  SIZES: 5,
-  FINISH: 6,
+  SIZES: 4,
+  FINISH: 5,
 };
 
-export const countryCodes = [
-  { code: '+62' },
+export type CountryCode = { code: string };
+
+export const countryCodes: CountryCode[] = [
   { code: '+38' },
   { code: '+1' },
   { code: '' },
@@ -171,6 +178,11 @@ export const cities = [
 export const httpStatusCodes = {
   UNAUTHORIZED: 401,
 };
+
+export const phoneCodes = {
+  CANADA: '+1',
+};
+
 export const urlRoles = {
   vendors: 'vendors',
   buyers: 'buyers',

@@ -4,7 +4,12 @@ import {
   createApi,
   fetchBaseQuery,
 } from '@reduxjs/toolkit/query/react';
-import { HttpMethods, RTKUrls, httpStatusCodes } from 'src/common/constants';
+import {
+  apiUrl,
+  HttpMethods,
+  RTKUrls,
+  httpStatusCodes,
+} from 'src/common/constants.ts';
 import { RootState } from 'src/redux/store';
 import { setTokens, logout } from 'src/redux/user/userSlice';
 
@@ -29,10 +34,13 @@ import {
   IUpdateCreditCardRequest,
   IUpdateSizesRequest,
   IUpdatePersonalInfoRequest,
+  IRefreshTokenResponse,
+  IPublicUser,
+  IReview,
 } from './types';
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: import.meta.env.VITE_API_URL,
+  baseUrl: apiUrl,
   prepareHeaders: (headers, { getState }) => {
     const { accessToken } = (getState() as RootState).user;
 
@@ -67,7 +75,7 @@ const baseQueryWithReauth = async (
       );
 
       if (refreshResult.data) {
-        api.dispatch(setTokens(refreshResult.data));
+        api.dispatch(setTokens(refreshResult.data as IRefreshTokenResponse));
         result = await baseQuery(args, api, extraOptions);
       } else {
         api.dispatch(logout());
@@ -206,12 +214,14 @@ export const userApi = createApi({
       }),
       providesTags: (result) => (result ? [{ type: 'User', id: 'LIST' }] : []),
     }),
+
     getUserById: build.query<IAdminUser, { userId: string }>({
       query: ({ userId }) => ({
         url: `${RTKUrls.ADMIN_USERS}/${userId}`,
         method: HttpMethods.GET,
       }),
     }),
+
     updateUserProfileByAdmin: build.mutation<
       IAdminUser,
       { userId: string; updateProfileByAdminDto: IUpdateUserByAdminRequest }
@@ -223,6 +233,7 @@ export const userApi = createApi({
       }),
       invalidatesTags: [{ type: 'User', id: 'LIST' }],
     }),
+
     deleteUserByAdmin: build.mutation<void, { userId: string }>({
       query: ({ userId }) => ({
         url: `${RTKUrls.USERS}/${userId}/${RTKUrls.SOFT_DELETE}`,
@@ -236,6 +247,20 @@ export const userApi = createApi({
         url: `${RTKUrls.USERS}/${id}${RTKUrls.UPDATE_PROFILE}`,
         method: HttpMethods.PATCH,
         body: rest,
+      }),
+    }),
+
+    getPublicUserById: build.query<IPublicUser, string>({
+      query: (id) => ({
+        url: `${RTKUrls.USERS}/${id}`,
+        method: HttpMethods.GET,
+      }),
+    }),
+
+    getUserReviews: build.query<IReview[], string>({
+      query: (id) => ({
+        url: `${RTKUrls.USER_REVIEWS}/${id}`,
+        method: HttpMethods.GET,
       }),
     }),
   }),
@@ -261,4 +286,6 @@ export const {
   useUpdateUserProfileByAdminMutation,
   useDeleteUserByAdminMutation,
   useUpdatePersonalInfoMutation,
+  useGetUserReviewsQuery,
+  useGetPublicUserByIdQuery,
 } = userApi;

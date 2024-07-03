@@ -13,6 +13,7 @@ import HomePage from 'src/pages/HomePage';
 import NewPasswordPage from 'src/pages/NewPasswordPage';
 import OnboardingPage from 'src/pages/OnboardingPage';
 import PrivacyPolicyPage from 'src/pages/PrivacyPolicyPage';
+import ProductFeedPage from 'src/pages/ProductFeedPage';
 import ProductPage from 'src/pages/ProductPage';
 import ProfileLayout from 'src/pages/ProfileLayout';
 import ProfilePage from 'src/pages/ProfilePage';
@@ -26,8 +27,10 @@ import VendorDashboard from 'src/pages/vendor/VendorDashboard';
 import VendorLayout from 'src/pages/vendor/VendorLayout';
 import VendorProfilePage from 'src/pages/VendorProfilePage';
 import VerifyEmailPage from 'src/pages/VerifyEmailPage';
+import WishlistPage from 'src/pages/WishlistPage';
 
 import AdminPrivateRoute from './AdminPrivateRoute';
+import FinishedOnboardingGuard from './FinishedOnboardingGuard';
 import OnboardingGuard from './OnboardingGuard';
 import VendorPrivateRoute from './VendorPrivateRoute';
 import VerifyPrivateRoute from './VerifyPrivateRoute';
@@ -45,7 +48,7 @@ const router = createBrowserRouter([
           </VendorPrivateRoute>
         ),
       },
-      { path: urls.SIZES_GUIDE, element: <SizesGuidePage /> },
+      { path: urls.PRODUCT_FEED, element: <ProductFeedPage /> },
       { path: urls.PRIVACY_POLICY, element: <PrivacyPolicyPage /> },
       { path: urls.TERMS_OF_USE, element: <TermsOfUsePage /> },
       {
@@ -54,13 +57,18 @@ const router = createBrowserRouter([
         children: [
           { path: urls.PROFILE_DETAILS, element: <ProfilePage /> },
           { path: urls.PROFILE_ORDERS, element: <ProfileComingSoon /> },
-          { path: urls.PROFILE_WISHLIST, element: <ProfileComingSoon /> },
+          { path: urls.PROFILE_WISHLIST, element: <WishlistPage /> },
           { path: urls.PROFILE_SETTINGS, element: <ProfileComingSoon /> },
           { path: urls.PROFILE_SUPPORT, element: <ProfileComingSoon /> },
         ],
       },
       { path: urls.CART, element: <CartPage /> },
     ],
+  },
+  {
+    path: urls.SIZES_GUIDE,
+    element: <Layout />,
+    children: [{ index: true, element: <SizesGuidePage /> }],
   },
   { path: urls.SIGN_UP, element: <SignUpPage /> },
   {
@@ -75,7 +83,6 @@ const router = createBrowserRouter([
   { path: urls.RESTORE_PASSWORD, element: <RestorePasswordPage /> },
   { path: urls.ENTER_CODE, element: <VerifyEmailPage /> },
   { path: urls.NEW_PASSWORD, element: <NewPasswordPage /> },
-
   { path: urls.SIGN_IN_ADMIN, element: <SignInAdminPage /> },
   {
     path: urls.ADMIN,
@@ -124,13 +131,18 @@ const router = createBrowserRouter([
       },
     ],
   },
-  { path: urls.ONBOARDING, element: <OnboardingPage /> },
+  {
+    path: urls.ONBOARDING,
+    element: <FinishedOnboardingGuard element={<OnboardingPage />} />,
+  },
+  { path: urls.PROFILE, element: <ProfilePage /> },
   { path: urls.USER_BUYER_PROFILE, element: <BuyerProfilePage /> },
   { path: urls.USER_VENDOR_PROFILE, element: <VendorProfilePage /> },
   {
     path: urls.VENDOR,
     element: <VendorLayout />,
     children: [
+      { path: urls.USER_BUYER_PROFILE, element: <BuyerProfilePage /> },
       { path: urls.VENDOR_DASHBOARD, element: <VendorDashboard /> },
       { path: urls.VENDOR_ADD_PRODUCT, element: <ProfileComingSoon /> },
       { path: urls.VENDOR_PRODUCTS, element: <ProfileComingSoon /> },
@@ -147,6 +159,8 @@ const router = createBrowserRouter([
       },
     ],
   },
+  { path: urls.USER_BUYER_PROFILE, element: <BuyerProfilePage /> },
+  { path: urls.USER_VENDOR_PROFILE, element: <VendorProfilePage /> },
   { path: urls.PRODUCT, element: <ProductPage /> },
 ]);
 

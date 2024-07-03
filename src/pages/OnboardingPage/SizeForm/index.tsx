@@ -172,7 +172,7 @@ function OnboardingSizeForm() {
             sx={{
               display: 'flex',
               justifyContent: 'flex-end',
-              fontSize: '14px',
+              fontSize: theme.typography.h4.fontSize,
               margin: '40px 12px 0 0',
             }}
           >
@@ -193,7 +193,7 @@ function OnboardingSizeForm() {
           styles={StyleVariants.TRANSPARENT2}
           padding={PaddingVariants.SM}
           variant="contained"
-          fontSize="14px"
+          fontSize={String(theme.typography.h4.fontSize)}
           fontFamily={theme.typography.fontFamily}
           onClick={returnBack}
         >
@@ -203,7 +203,7 @@ function OnboardingSizeForm() {
           styles={StyleVariants.BLACK}
           padding={PaddingVariants.SM}
           variant="contained"
-          fontSize="14px"
+          fontSize={String(theme.typography.h4.fontSize)}
           fontFamily={theme.typography.fontFamily}
           radius="8px"
           onClick={sendRequest}

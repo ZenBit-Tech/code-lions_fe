@@ -37,7 +37,7 @@ export const IconSmallWrapper = styled(Box)({
 export const ModalTitle = styled(Typography)({
   color: theme.palette.text.primary,
   fontSize: '36px',
-  fontWeight: 700,
+  fontWeight: theme.typography.bold.fontWeight,
   lineHeight: 1.22,
   letterSpacing: '-0.36px',
   textAlign: 'center',

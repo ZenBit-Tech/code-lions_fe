@@ -2,6 +2,8 @@ import { useTranslation } from 'react-i18next';
 
 import { Box, Typography } from '@mui/material';
 
+import theme from 'src/theme';
+
 function RadioLabel() {
   const { t } = useTranslation();
 
@@ -11,7 +13,10 @@ function RadioLabel() {
       <Typography variant="h4" sx={{ letterSpacing: '-1px' }}>
         {t('product.reserve')}
       </Typography>
-      <Typography variant="body1" sx={{ fontWeight: 500, lineHeight: '21px' }}>
+      <Typography
+        variant="body1"
+        sx={{ fontWeight: theme.typography.h4.fontWeight, lineHeight: '21px' }}
+      >
         {t('product.mockPriceRadio')}
       </Typography>
     </Box>
