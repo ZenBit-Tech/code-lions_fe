@@ -28,15 +28,15 @@ export const urls = {
   ADMIN_VENDOR_PROFILE_EDIT: 'vendors/edit/:userId',
   ADMIN_USERS_FULL: '/admin/users',
   PROFILE: '/profile',
+  USER_BUYER_PROFILE: 'buyer/:id',
+  USER_VENDOR_PROFILE: '/vendor/:id',
   PROFILE_DETAILS: 'details',
   PROFILE_ORDERS: 'orders',
   PROFILE_WISHLIST: 'wishlist/:userId',
   PROFILE_SETTINGS: 'settings',
   PROFILE_SUPPORT: 'support',
   PRODUCT_FEED: '/products',
-  PRODUCT: '/product/:productId',
-  USER_BUYER_PROFILE: 'buyer/:userId',
-  USER_VENDOR_PROFILE: 'vendor/:userId',
+  PRODUCT: '/products/:productId',
   VENDOR: '/vendor',
   VENDOR_ADD_PRODUCT: 'add-product',
   VENDOR_DASHBOARD: 'dashboard',
@@ -64,7 +64,6 @@ export const RTKUrls = {
   ADDRESS: 'address',
   SIZE: 'size',
   CREDIT_CARD: 'credit-card',
-  USER_REVIEWS: 'reviews/user',
   UPDATE_PROFILE: '/update-profile',
   CARD_DATA: '/card-data',
   UPDATE_PROFILE_ADMIN: 'update-profile-admin',
@@ -186,8 +185,4 @@ export const phoneCodes = {
 export const urlRoles = {
   vendors: 'vendors',
   buyers: 'buyers',
-};
-export const profilePathsFor = {
-  vendor: 'vendor/buyer',
-  buyer: 'vendor',
 };

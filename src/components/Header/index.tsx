@@ -104,7 +104,7 @@ function Header() {
                 <StyledButton
                   styles={StyleVariants.BLACK}
                   variant="contained"
-                  fontSize="14px"
+                  fontSize={String(theme.typography.h4.fontSize)}
                   fontFamily={theme.typography.fontFamily}
                   sx={{
                     padding: '8px 21px',
@@ -121,7 +121,7 @@ function Header() {
                 <StyledButton
                   styles={StyleVariants.WHITE}
                   variant="contained"
-                  fontSize="14px"
+                  fontSize={String(theme.typography.h4.fontSize)}
                   fontFamily={theme.typography.fontFamily}
                   sx={{
                     padding: '8px 15px',

@@ -45,12 +45,22 @@ module.exports = {
         ],
         pathGroups: [
           {
-            pattern: 'react*',
+            pattern: '{@testing-library/**,vitest,msw}',
             group: 'external',
             position: 'before',
           },
           {
-            pattern: '@mui/**',
+            pattern: '{react*/**,react*}',
+            group: 'external',
+            position: 'before',
+          },
+          {
+            pattern: '{@redux*,redux-persist/**}',
+            group: 'external',
+            position: 'before',
+          },
+          {
+            pattern: '{@mui/**,@emotion/**}',
             group: 'external',
             position: 'before',
           },

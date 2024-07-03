@@ -1,6 +1,7 @@
 import { Typography, Box } from '@mui/material';
 
 import OvalIcon from 'src/assets/icons/admin/oval.svg';
+import theme from 'src/theme';
 
 interface IAdminSectionSubTitle {
   title: string;
@@ -12,7 +13,7 @@ function AdminSectionSubTitle({ title }: IAdminSectionSubTitle) {
       <OvalIcon />
       <Typography
         variant="subtitle1"
-        sx={{ fontSize: '20px', marginLeft: '12px' }}
+        sx={{ fontSize: theme.typography.h5.fontSize, marginLeft: '12px' }}
       >
         {title}
       </Typography>

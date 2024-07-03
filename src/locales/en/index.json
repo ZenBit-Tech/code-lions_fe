@@ -291,20 +291,6 @@
     "unknownError": "An unexpected error occurred. Please try again later",
     "successPhotoUpdate": "Your photo was updated successfully"
   },
-  "vendorSidebar": {
-    "addProduct": "Add Product",
-    "dashboard": "Dashboard",
-    "products": "Products",
-    "orders": "My Orders",
-    "chats": "Chats",
-    "profile": "Your Profile"
-  },
-  "vendorDashboard": {
-    "title": "Dashboard",
-    "salesTotal": "Sales total",
-    "averageOrderValue": "Average order value",
-    "totalOrders": "Total orders"
-  },
   "product": {
     "name": "Product Name",
     "mockDesc": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt et dolore",
@@ -331,5 +317,35 @@
   "products": {
     "filters": "filters",
     "title": "134 products"
+  },
+  "vendorSidebar": {
+    "addProduct": "Add Product",
+    "dashboard": "Dashboard",
+    "products": "Products",
+    "orders": "My Orders",
+    "chats": "Chats",
+    "profile": "Your Profile"
+  },
+  "vendorDashboard": {
+    "title": "Dashboard",
+    "salesTotal": "Sales total",
+    "averageOrderValue": "Average order value",
+    "totalOrders": "Total orders",
+    "revenueAnalytics": "Revenue Analytics",
+    "yearly": "Yearly",
+    "salesByCategories": "Sales by categories",
+    "byWeek": "By week",
+    "source": "Source",
+    "orders": "Orders",
+    "amount": "Amount",
+    "resentOrders": "Resent Orders",
+    "id": "Id",
+    "product": "Product",
+    "price": "Price",
+    "status": "Status",
+    "action": "Action",
+    "size": "Size:",
+    "openOrder": "Open Order",
+    "noOrders": "You have no orders"
   }
 }

@@ -1,4 +1,5 @@
 import { screen } from '@testing-library/react';
+
 import renderWithProviders from 'src/test/renderWithProviders';
 
 import SizesGuidePage from './index';

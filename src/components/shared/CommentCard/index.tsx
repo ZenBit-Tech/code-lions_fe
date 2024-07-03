@@ -3,10 +3,7 @@ import { useTranslation } from 'react-i18next';
 
 import { Box } from '@mui/material';
 
-import { format } from 'date-fns';
 import StarIcon from 'src/assets/icons/profile/star.svg';
-import { pathToServer, profilePathsFor } from 'src/common/constants';
-import { IReview } from 'src/redux/user/types';
 
 import {
   CommentCardWrapper,
@@ -19,14 +16,22 @@ import {
   CommentText,
 } from './styles';
 
-const numberOfWordsInSentence = 15;
+const numberOfWordsInSentence = 12;
 
-interface CommentCardProps {
-  comment: IReview;
-  path: string;
+interface Comment {
+  id: string;
+  author: string;
+  date: string;
+  avatarUrl: string;
+  rating: number;
+  content: string;
 }
 
-function CommentCard({ comment, path }: CommentCardProps) {
+interface CommentCardProps {
+  comment: Comment;
+}
+
+function CommentCard({ comment }: CommentCardProps) {
   const { t } = useTranslation();
   const [isExpanded, setIsExpanded] = useState(false);
 
@@ -41,49 +46,37 @@ function CommentCard({ comment, path }: CommentCardProps) {
   };
 
   const renderContent = () => {
-    const words = comment.text.split(' ');
+    const words = comment.content.split(' ');
 
     if (words.length <= numberOfWordsInSentence || isExpanded) {
-      return comment.text;
+      return comment.content;
     } else {
       return `${words.slice(0, numberOfWordsInSentence).join(' ')}... `;
     }
   };
 
-  function StarRating({ rating }: { rating: number }) {
-    return (
-      <Box display="flex" alignItems="center" gap="5px">
-        {Array.from({ length: rating }, (_, index) => (
-          <StarIcon key={index} />
-        ))}
-      </Box>
-    );
-  }
-
   return (
     <CommentCardWrapper>
       <CommentContent>
-        <Box width="100%" display="flex" alignItems="top">
-          <ProfileAvatar
-            src={`${pathToServer}${comment.reviewerAvatar.slice(1)}`}
-            alt={comment.reviewerName}
-          />
+        <Box
+          width="100%"
+          display="flex"
+          alignItems="top"
+          justifyContent="space-between"
+        >
+          <ProfileAvatar src={comment.avatarUrl} alt={comment.author} />
           <Box marginLeft="16px">
-            <AuthorName variant="subtitle1">{comment.reviewerName}</AuthorName>
-            <CommentDate variant="body2">
-              {format(new Date(comment.createdAt), 'PP')}
-            </CommentDate>
-            {path.startsWith(profilePathsFor.vendor) && (
-              <RatingWrapper>
-                <StarRating rating={comment.rating} />
-                <RatingNumber>{comment.rating}</RatingNumber>
-              </RatingWrapper>
-            )}
+            <AuthorName variant="subtitle1">{comment.author}</AuthorName>
+            <CommentDate variant="body2">{comment.date}</CommentDate>
           </Box>
+          <RatingWrapper>
+            <StarIcon />
+            <RatingNumber>{comment.rating}</RatingNumber>
+          </RatingWrapper>
         </Box>
         <CommentText variant="body2" sx={{ marginTop: '8px' }}>
           {renderContent()}
-          {comment.text.split(' ').length > numberOfWordsInSentence && (
+          {comment.content.split(' ').length > numberOfWordsInSentence && (
             <span
               role="button"
               tabIndex={0}

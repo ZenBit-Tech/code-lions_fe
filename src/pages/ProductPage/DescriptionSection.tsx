@@ -18,7 +18,11 @@ function DescriptionSection({ product }: ProductSectionProps) {
     <Box padding="0 166px 52px 166px">
       <Typography
         variant="button"
-        sx={{ fontWeight: 700, fontSize: '20px', lineHeight: 1.75 }}
+        sx={{
+          fontWeight: theme.typography.bold.fontWeight,
+          fontSize: theme.typography.h5.fontSize,
+          lineHeight: 1.75,
+        }}
       >
         {t('product.description')}
       </Typography>
@@ -34,7 +38,7 @@ function DescriptionSection({ product }: ProductSectionProps) {
           <Grid item xs={1}>
             <StyledTypography
               sx={{
-                fontWeight: 700,
+                fontWeight: theme.typography.bold.fontWeight,
                 paddingBottom: '20px',
               }}
             >
@@ -42,7 +46,7 @@ function DescriptionSection({ product }: ProductSectionProps) {
             </StyledTypography>
             <StyledTypography
               sx={{
-                fontWeight: 700,
+                fontWeight: theme.typography.bold.fontWeight,
                 paddingBottom: '20px',
               }}
             >
@@ -50,7 +54,7 @@ function DescriptionSection({ product }: ProductSectionProps) {
             </StyledTypography>
             <StyledTypography
               sx={{
-                fontWeight: 700,
+                fontWeight: theme.typography.bold.fontWeight,
               }}
             >
               {t('product.height')}

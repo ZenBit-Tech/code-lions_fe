@@ -1,6 +1,7 @@
+import { renderHook, waitFor } from '@testing-library/react';
+
 import { Provider } from 'react-redux';
 
-import { renderHook, waitFor } from '@testing-library/react';
 import store from 'src/redux/store';
 import allProducts from 'src/test/mocks/allproducts';
 

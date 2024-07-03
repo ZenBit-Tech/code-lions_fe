@@ -42,7 +42,4 @@ export default defineConfig({
       src: '/src',
     },
   },
-  define: {
-    'import.meta.env': process.env,
-  },
 });

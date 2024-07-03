@@ -1,3 +1,5 @@
+import storage from 'redux-persist/lib/storage';
+
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { setupListeners } from '@reduxjs/toolkit/query';
 import {
@@ -10,7 +12,6 @@ import {
   PURGE,
   REGISTER,
 } from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
 
 import { productApi } from './product/productService';
 import productReducer from './product/productSlice';
