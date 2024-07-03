@@ -22,6 +22,8 @@ import SignInPage from 'src/pages/SignInPage';
 import SignUpPage from 'src/pages/SignUpPage';
 import SizesGuidePage from 'src/pages/SizesGuidePage';
 import TermsOfUsePage from 'src/pages/TermsOfUsePage';
+import VendorDashboard from 'src/pages/vendor/VendorDashboard';
+import VendorLayout from 'src/pages/vendor/VendorLayout';
 import VendorProfilePage from 'src/pages/VendorProfilePage';
 import VerifyEmailPage from 'src/pages/VerifyEmailPage';
 import WishlistPage from 'src/pages/WishlistPage';
@@ -29,6 +31,7 @@ import WishlistPage from 'src/pages/WishlistPage';
 import AdminPrivateRoute from './AdminPrivateRoute';
 import FinishedOnboardingGuard from './FinishedOnboardingGuard';
 import OnboardingGuard from './OnboardingGuard';
+import VendorPrivateRoute from './VendorPrivateRoute';
 import VerifyPrivateRoute from './VerifyPrivateRoute';
 
 const router = createBrowserRouter([
@@ -36,7 +39,14 @@ const router = createBrowserRouter([
     path: urls.HOME,
     element: <OnboardingGuard element={<Layout />} />,
     children: [
-      { index: true, element: <HomePage /> },
+      {
+        index: true,
+        element: (
+          <VendorPrivateRoute>
+            <HomePage />
+          </VendorPrivateRoute>
+        ),
+      },
       { path: urls.PRODUCT_FEED, element: <ProductFeedPage /> },
       { path: urls.PRIVACY_POLICY, element: <PrivacyPolicyPage /> },
       { path: urls.TERMS_OF_USE, element: <TermsOfUsePage /> },
@@ -128,9 +138,10 @@ const router = createBrowserRouter([
   { path: urls.USER_VENDOR_PROFILE, element: <VendorProfilePage /> },
   {
     path: urls.VENDOR,
+    element: <VendorLayout />,
     children: [
       { path: urls.USER_BUYER_PROFILE, element: <BuyerProfilePage /> },
-      { path: urls.VENDOR_DASHBOARD, element: <ProfileComingSoon /> },
+      { path: urls.VENDOR_DASHBOARD, element: <VendorDashboard /> },
       { path: urls.VENDOR_ADD_PRODUCT, element: <ProfileComingSoon /> },
       { path: urls.VENDOR_PRODUCTS, element: <ProfileComingSoon /> },
       { path: urls.VENDOR_ORDERS, element: <ProfileComingSoon /> },
@@ -139,7 +150,7 @@ const router = createBrowserRouter([
         path: urls.VENDOR_PROFILE,
         element: <ProfileLayout />,
         children: [
-          { path: urls.PROFILE_DETAILS, element: <ProfileComingSoon /> },
+          { path: urls.PROFILE_DETAILS, element: <ProfilePage /> },
           { path: urls.PROFILE_SETTINGS, element: <ProfileComingSoon /> },
           { path: urls.PROFILE_SUPPORT, element: <ProfileComingSoon /> },
         ],

@@ -6,7 +6,8 @@ import { Typography, Select, MenuItem } from '@mui/material';
 import { yupResolver } from '@hookform/resolvers/yup';
 import ChevronDown from 'src/assets/icons/chevron-down.svg';
 import { countryCodes } from 'src/common/constants';
-import extractPhoneNumberParts from 'src/common/extractPhoneNumberParts';
+import useErrorHandling from 'src/common/hooks/useErrorHandlingHook';
+import dividePhoneNumber from 'src/common/utils/dividePhoneNumber';
 import LabelText from 'src/components/shared/LabelText';
 import StyledButton from 'src/components/shared/StyledButton';
 import {
@@ -24,8 +25,6 @@ import { useAppSelector } from 'src/redux/hooks';
 import { useUpdatePersonalInfoMutation } from 'src/redux/user/userService';
 import { selectUser, selectUserPhone } from 'src/redux/user/userSlice';
 import theme from 'src/theme';
-
-import useErrorHandling from '../useErrorHandlingHook';
 
 import personalInformationSchema from './schema';
 import {
@@ -52,7 +51,7 @@ function PersonalInformationForm() {
   const [updateInfo, { isLoading }] = useUpdatePersonalInfoMutation();
   const { showToast } = useToast();
   const { countryCode: userCountryCode, restPhoneNumber: userRestPhoneNumber } =
-    extractPhoneNumberParts(userPhone);
+    dividePhoneNumber(userPhone);
 
   const {
     control,
