@@ -331,5 +331,18 @@
   "products": {
     "filters": "filters",
     "title": "134 products"
+  },
+  "filters": {
+    "title": "Filter",
+    "price": "Price",
+    "color": "COLOR",
+    "size": "SIZE",
+    "style": "STYLE",
+    "dollar": "$"
+  },
+  "bestVendors": {
+    "title": "Best Vendors",
+    "name": "Vendor Name",
+    "follow": "Follow"
   }
 }
