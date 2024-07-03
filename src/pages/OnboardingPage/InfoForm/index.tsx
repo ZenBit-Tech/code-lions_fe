@@ -251,6 +251,10 @@ function OnboardingInfoForm() {
                   </StyledFormControl>
                   <StyledPhoneInput
                     {...field}
+                    sx={{
+                      fontFamily: theme.typography.h4.fontFamily,
+                      fontSize: theme.typography.h3.fontSize,
+                    }}
                     autoComplete="off"
                     error={!!errors.phone}
                   />

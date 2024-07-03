@@ -1,5 +1,4 @@
 import { Grid, Typography } from '@mui/material';
-import { Theme } from '@mui/material/styles';
 import { Box, styled } from '@mui/system';
 
 export const AvatarWrapper = styled(Box)(({ theme }) => ({
@@ -25,21 +24,15 @@ export const SideBarWrapper = styled(Grid)(({ theme }) => ({
   },
 }));
 
-export const NameTitle = styled(Typography)(({ theme }: { theme: Theme }) => ({
-  fontSize: theme.typography.h5.fontSize,
+export const NameTitle = styled(Typography)(({ theme }) => ({
   lineHeight: 1.85,
   letterSpacing: '-0.2px',
   [theme.breakpoints.up('sm')]: {},
 }));
 
-export const SubTitle = styled(Typography)(({ theme }: { theme: Theme }) => ({
-  fontSize: theme.typography.h3.fontSize,
+export const SubTitle = styled(Typography)(() => ({
   lineHeight: 2.31,
   letterSpacing: '-0.16px',
-  [theme.breakpoints.up('sm')]: {
-    fontSize: theme.typography.h5.fontSize,
-    lineHeight: 1.85,
-  },
 }));
 
 export const OutletWrapper = styled(Grid)(({ theme }) => ({
