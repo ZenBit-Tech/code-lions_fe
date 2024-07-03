@@ -115,7 +115,7 @@ function OnboardingRoleForm() {
           padding={PaddingVariants.SM}
           type="submit"
           variant="contained"
-          fontSize="14px"
+          fontSize={String(theme.typography.h4.fontSize)}
           fontFamily={theme.typography.fontFamily}
           radius="8px"
           onClick={sendRequest}

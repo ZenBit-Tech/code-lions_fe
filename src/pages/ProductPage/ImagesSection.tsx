@@ -1,16 +1,38 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
-import { ImageList, ImageListItem, Box } from '@mui/material';
+import {
+  ImageList,
+  ImageListItem,
+  Box,
+  Typography,
+  IconButton,
+} from '@mui/material';
 
+import LikeIcon from 'src/assets/icons/profile/heart-outlined.svg';
+import ProductSliderModal from 'src/components/ProductSliderModal';
 import theme from 'src/theme';
 
 import itemData from './mockData';
 
-function ImagesSection() {
-  const [selectedImage, setSelectedImage] = useState<string>(itemData[0].img);
+const sliderImages: string[] = itemData.map((item) => item.img);
 
-  const handleImageClick = (src: string) => {
+function ImagesSection() {
+  const { t } = useTranslation();
+  const [selectedImage, setSelectedImage] = useState<string>(itemData[0].img);
+  const [open, setOpen] = useState<boolean>(false);
+  const [initialSlideIndex, setInitialSlideIndex] = useState<number>(0);
+
+  const handleOpen = (index: number) => {
+    setInitialSlideIndex(index);
+    setOpen(true);
+  };
+
+  const handleClose = () => setOpen(false);
+
+  const handleImageClick = (src: string, index: number) => {
     setSelectedImage(src);
+    setInitialSlideIndex(index);
   };
 
   return (
@@ -20,10 +42,10 @@ function ImagesSection() {
         cols={1}
         rowHeight={102}
       >
-        {itemData.map((item) => (
+        {itemData.map((item, index) => (
           <ImageListItem
             key={item.id}
-            onClick={() => handleImageClick(item.img)}
+            onClick={() => handleImageClick(item.img, index)}
             sx={{
               border:
                 item.img === selectedImage
@@ -41,12 +63,34 @@ function ImagesSection() {
           </ImageListItem>
         ))}
       </ImageList>
-      <Box mb={2}>
-        <img
-          src={selectedImage}
-          alt="Selected"
-          style={{ width: '473px', height: '630px' }}
+      <Box mb={2} position="relative">
+        <ProductSliderModal
+          open={open}
+          handleClose={handleClose}
+          images={sliderImages}
+          initialSlideIndex={initialSlideIndex}
         />
+        <Box onClick={() => handleOpen(initialSlideIndex)}>
+          <img
+            src={selectedImage}
+            alt="Selected"
+            style={{ width: '473px', height: '630px' }}
+          />
+        </Box>
+        <IconButton
+          sx={{
+            position: 'absolute',
+            top: 15,
+            right: 15,
+          }}
+        >
+          <LikeIcon />
+        </IconButton>
+        <Box sx={{ margin: '30px 0' }}>
+          <Typography sx={{ color: theme.palette.text.disabled }}>
+            {t('product.vendorName')}
+          </Typography>
+        </Box>
       </Box>
     </Box>
   );

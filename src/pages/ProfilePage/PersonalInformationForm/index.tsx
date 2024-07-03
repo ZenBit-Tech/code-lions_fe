@@ -199,6 +199,10 @@ function PersonalInformationForm() {
                 control={control}
                 render={({ field: { onChange, value } }) => (
                   <StyledPhoneInput
+                    sx={{
+                      fontFamily: theme.typography.h4.fontFamily,
+                      fontSize: theme.typography.h3.fontSize,
+                    }}
                     onChange={onChange}
                     value={value}
                     fullWidth

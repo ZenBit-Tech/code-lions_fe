@@ -25,20 +25,14 @@ export const SideBarWrapper = styled(Grid)(({ theme }) => ({
 }));
 
 export const NameTitle = styled(Typography)(({ theme }) => ({
-  fontSize: 20,
   lineHeight: 1.85,
   letterSpacing: '-0.2px',
   [theme.breakpoints.up('sm')]: {},
 }));
 
-export const SubTitle = styled(Typography)(({ theme }) => ({
-  fontSize: 16,
+export const SubTitle = styled(Typography)(() => ({
   lineHeight: 2.31,
   letterSpacing: '-0.16px',
-  [theme.breakpoints.up('sm')]: {
-    fontSize: 20,
-    lineHeight: 1.85,
-  },
 }));
 
 export const OutletWrapper = styled(Grid)(({ theme }) => ({

@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { userApi } from 'src/redux/user/userService';
 
-import { IUser } from './types';
+import { IRefreshTokenResponse, IUser } from './types';
 
 const initialState: IUser = {
   id: '',
@@ -43,7 +43,7 @@ export const userSlice = createSlice({
     decreaseOnboardingStep(state) {
       state.onboardingStep -= 1;
     },
-    setTokens(state, action) {
+    setTokens(state, action: PayloadAction<IRefreshTokenResponse>) {
       state.accessToken = action.payload.accessToken;
       state.refreshToken = action.payload.refreshToken;
     },

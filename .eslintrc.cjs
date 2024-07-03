@@ -9,7 +9,14 @@ module.exports = {
     'plugin:react-hooks/recommended',
     'plugin:prettier/recommended',
   ],
-  ignorePatterns: ['dist', '.eslintrc.cjs', 'node_modules/**', 'vite-env.d.ts'],
+  ignorePatterns: [
+    'dist',
+    '.eslintrc.cjs',
+    'node_modules/**',
+    'vite-env.d.ts',
+    'vite.config.ts',
+    'coverage',
+  ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
     project: './tsconfig.json',
@@ -38,12 +45,22 @@ module.exports = {
         ],
         pathGroups: [
           {
-            pattern: 'react*',
+            pattern: '{@testing-library/**,vitest,msw}',
             group: 'external',
             position: 'before',
           },
           {
-            pattern: '@mui/**',
+            pattern: '{react*/**,react*}',
+            group: 'external',
+            position: 'before',
+          },
+          {
+            pattern: '{@redux*,redux-persist/**}',
+            group: 'external',
+            position: 'before',
+          },
+          {
+            pattern: '{@mui/**,@emotion/**}',
             group: 'external',
             position: 'before',
           },

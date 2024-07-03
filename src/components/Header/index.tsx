@@ -69,7 +69,7 @@ function Header() {
             width: '316px',
           }}
         >
-          <MenuMainLink to={urls.HOME}>{t('header.shop')}</MenuMainLink>
+          <MenuMainLink to={urls.PRODUCT_FEED}>{t('header.shop')}</MenuMainLink>
           <MenuMainLink to={urls.HOME}>{t('header.vendors')}</MenuMainLink>
           <MenuMainLink to={urls.HOME}>{t('header.messages')}</MenuMainLink>
         </Box>
@@ -104,7 +104,7 @@ function Header() {
                 <StyledButton
                   styles={StyleVariants.BLACK}
                   variant="contained"
-                  fontSize="14px"
+                  fontSize={String(theme.typography.h4.fontSize)}
                   fontFamily={theme.typography.fontFamily}
                   sx={{
                     padding: '8px 21px',
@@ -121,7 +121,7 @@ function Header() {
                 <StyledButton
                   styles={StyleVariants.WHITE}
                   variant="contained"
-                  fontSize="14px"
+                  fontSize={String(theme.typography.h4.fontSize)}
                   fontFamily={theme.typography.fontFamily}
                   sx={{
                     padding: '8px 15px',
