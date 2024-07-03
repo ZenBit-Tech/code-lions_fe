@@ -11,9 +11,9 @@ export const MenuColumn = styled(Box)(() => ({
 }));
 
 export const MenuLink = styled(Link)(({ theme }) => ({
-  fontWeight: 400,
+  fontWeight: theme.typography.body1.fontWeight,
   fontFamily: theme.typography.h4.fontFamily,
-  fontSize: 14,
+  fontSize: theme.typography.h4.fontSize,
   lineHeight: 1.51,
   color: theme.palette.common.black,
   textDecoration: 'none',
@@ -23,9 +23,9 @@ export const MenuLink = styled(Link)(({ theme }) => ({
 }));
 
 export const MenuMainLink = styled(Link)(({ theme }) => ({
-  fontWeight: 700,
+  fontWeight: theme.typography.bold.fontWeight,
   fontFamily: theme.typography.h2.fontFamily,
-  fontSize: 14,
+  fontSize: theme.typography.h4.fontSize,
   lineHeight: 1.71,
   color: theme.palette.common.black,
   textDecoration: 'none',

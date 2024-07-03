@@ -60,7 +60,7 @@ module.exports = {
             position: 'before',
           },
           {
-            pattern: '@mui/**',
+            pattern: '{@mui/**,@emotion/**}',
             group: 'external',
             position: 'before',
           },

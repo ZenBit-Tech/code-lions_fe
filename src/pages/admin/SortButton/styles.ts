@@ -1,4 +1,5 @@
 import { IconButton, Typography } from '@mui/material';
+import { Theme } from '@mui/material/styles';
 import { Box, styled } from '@mui/system';
 
 export const IconButtonStyled = styled(IconButton)(({ theme }) => ({
@@ -7,11 +8,13 @@ export const IconButtonStyled = styled(IconButton)(({ theme }) => ({
   padding: '12px 17px',
 }));
 
-export const ButtonTitle = styled(Typography)(({ theme }) => ({
-  fontWeight: 700,
-  color: theme.palette.text.primary,
-  marginRight: '27px',
-}));
+export const ButtonTitle = styled(Typography)(
+  ({ theme }: { theme: Theme }) => ({
+    fontWeight: theme.typography.bold.fontWeight,
+    color: theme.palette.text.primary,
+    marginRight: '27px',
+  })
+);
 
 export const SortIconWrapper = styled(Box)({
   display: 'flex',

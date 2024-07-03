@@ -1,4 +1,4 @@
-import { createTheme, ThemeOptions } from '@mui/material/styles';
+import { createTheme, Theme, ThemeOptions } from '@mui/material/styles';
 
 import ExpandMoreIcon from 'src/components/shared/StyledSelect/ExpandMoreIcon';
 
@@ -27,10 +27,12 @@ declare module '@mui/material/styles' {
 
   interface TypographyVariants {
     interBody: React.CSSProperties;
+    bold: React.CSSProperties;
   }
 
   interface TypographyVariantsOptions {
     interBody?: React.CSSProperties;
+    bold?: React.CSSProperties;
   }
 }
 
@@ -49,7 +51,7 @@ shadows[2] =
   '0 2px 8px 0 rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(0, 0, 0, 0.12)';
 shadows[3] = '0px 5px 8px 0px rgba(0, 0, 0, 0.5)';
 
-const theme = createTheme({
+const theme: Theme = createTheme({
   palette: {
     common: {
       black: '#000000',
@@ -111,6 +113,10 @@ const theme = createTheme({
       fontSize: '16px',
       lineHeight: '1.62',
       fontWeight: 400,
+    },
+
+    bold: {
+      fontWeight: 700,
     },
 
     h1: {

@@ -94,7 +94,10 @@ function OnboardingPage() {
                     <ArrowLeftIcon />
                   </Link>
                 </Box>
-                <Typography variant="h1" sx={{ fontWeight: 700 }}>
+                <Typography
+                  variant="h1"
+                  sx={{ fontWeight: theme.typography.bold.fontWeight }}
+                >
                   {t('onboarding.fillProfile')}
                 </Typography>
               </Box>

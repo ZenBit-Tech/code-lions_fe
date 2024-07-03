@@ -274,7 +274,7 @@ function OnboardingShippingForm() {
           styles={StyleVariants.TRANSPARENT2}
           padding={PaddingVariants.SM}
           variant="contained"
-          fontSize="14px"
+          fontSize={String(theme.typography.h4.fontSize)}
           fontFamily={theme.typography.fontFamily}
           onClick={returnBack}
         >
@@ -284,7 +284,7 @@ function OnboardingShippingForm() {
           styles={StyleVariants.BLACK}
           padding={PaddingVariants.SM}
           variant="contained"
-          fontSize="14px"
+          fontSize={String(theme.typography.h4.fontSize)}
           fontFamily={theme.typography.fontFamily}
           radius="8px"
           type="submit"

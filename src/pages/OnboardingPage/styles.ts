@@ -6,8 +6,8 @@ import theme from 'src/theme';
 export const OnboardingHeader4 = styled(Typography)<TypographyProps>(() => ({
   marginBottom: 8,
   fontFamily: theme.typography.h3.fontFamily,
-  fontWeight: 700,
-  fontSize: 16,
+  fontWeight: theme.typography.bold.fontWeight,
+  fontSize: theme.typography.h3.fontSize,
   lineHeight: 1.37,
   letterSpacing: 0,
 }));

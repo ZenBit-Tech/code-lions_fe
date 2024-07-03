@@ -25,8 +25,8 @@ export const StyledPhoneWrapper = styled(Box)({
 });
 
 export const StyledPhoneInput = styled(InputBase)({
-  fontFamily: 'DM Sans, Arial, sans-serif',
-  fontSize: 16,
+  fontFamily: theme.typography.fontFamily,
+  fontSize: theme.typography.h3.fontSize,
   fontWeightRegular: 400,
   lineHeight: 1.43,
   letterSpacing: '-0.21px',
