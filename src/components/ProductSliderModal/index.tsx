@@ -23,9 +23,9 @@ function ProductSliderModal({
   initialSlideIndex,
 }: IProductSliderModalProps) {
   return (
-    <Modal open={open} onClose={handleClose}>
+    <Modal open={open} onClose={handleClose} role="dialog">
       <Box sx={style.modalContentWrapper} onClick={(e) => e.stopPropagation()}>
-        <IconButton sx={style.closeButton} onClick={handleClose}>
+        <IconButton sx={style.closeButton} onClick={handleClose} role="button">
           <CloseIcon />
         </IconButton>
         <Swiper
