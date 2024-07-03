@@ -4,7 +4,7 @@ const codeCanada: string = '+1';
 const codeUkraine: string = '+38';
 const codeCountry: string = '+62';
 
-export default function dividePhoneNumber(phoneNumber: string | undefined): {
+export default function dividePhoneNumber(phoneNumber?: string): {
   countryCode: string;
   restPhoneNumber: string;
 } {

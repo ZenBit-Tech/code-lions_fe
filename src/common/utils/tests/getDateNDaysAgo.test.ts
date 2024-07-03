@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 
-import getDateNDaysAgo from './getDateNDaysAgo';
+import getDateNDaysAgo from '../getDateNDaysAgo';
 
 describe('getDateNDaysAgo', () => {
   it('should return the correct date for n days ago', () => {
