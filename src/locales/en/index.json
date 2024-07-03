@@ -336,5 +336,17 @@
     "size": "Size:",
     "openOrder": "Open Order",
     "noOrders": "You have no orders"
+  },
+  "cartPage": {
+    "title": "Cart",
+    "product": "Product",
+    "color": "Color",
+    "rentDuration": "Rent Duration",
+    "price": "Price",
+    "action": "Action",
+    "size": "Size: ",
+    "colorDisplay": "Color: ",
+    "days": "7 days",
+    "nextButton": "Next Step"
   }
 }

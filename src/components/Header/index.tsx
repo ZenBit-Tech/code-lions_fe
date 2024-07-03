@@ -137,7 +137,7 @@ function Header() {
             </Box>
           )}
 
-          <Link to={urls.HOME}>
+          <Link to={urls.CART}>
             <Box sx={{ position: 'relative' }}>
               <Box sx={{ position: 'relative', top: '2px', right: '1px' }}>
                 <SvgHover>

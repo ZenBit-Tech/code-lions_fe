@@ -8,6 +8,7 @@ import AdminUserProfilePage from 'src/pages/admin/AdminUserProfilePage';
 import SignInAdminPage from 'src/pages/admin/SignInAdminPage';
 import UsersPage from 'src/pages/admin/UsersPage';
 import BuyerProfilePage from 'src/pages/BuyerProfilePage';
+import CartPage from 'src/pages/CartPage';
 import HomePage from 'src/pages/HomePage';
 import NewPasswordPage from 'src/pages/NewPasswordPage';
 import OnboardingPage from 'src/pages/OnboardingPage';
@@ -58,6 +59,7 @@ const router = createBrowserRouter([
           { path: urls.PROFILE_SUPPORT, element: <ProfileComingSoon /> },
         ],
       },
+      { path: urls.CART, element: <CartPage /> },
     ],
   },
   { path: urls.SIGN_UP, element: <SignUpPage /> },
