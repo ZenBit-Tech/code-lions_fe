@@ -5,9 +5,11 @@ import { Avatar, Grid } from '@mui/material';
 import { Box } from '@mui/system';
 
 import { urls } from 'src/common/constants';
+import { apiUrl } from 'src/common/constants.ts';
 import SectionTitle from 'src/components/shared/SectionTitle';
 import { useAppSelector } from 'src/redux/hooks';
 import { selectUserAvatar, selectUserName } from 'src/redux/user/userSlice';
+import theme from 'src/theme';
 
 import PhotoUploadForm from '../ProfilePage/PhotoUploadForm';
 
@@ -59,11 +61,16 @@ function ProfileLayout() {
                   <PhotoUploadForm />
                 ) : (
                   <Avatar
-                    src={`${import.meta.env.VITE_API_URL}${userAvatar}`}
+                    src={`${apiUrl}${userAvatar}`}
                     sx={{ width: '120px', height: '120px' }}
                   />
                 )}
-                <NameTitle variant="subtitle1">{userName}</NameTitle>
+                <NameTitle
+                  variant="subtitle1"
+                  sx={{ fontSize: theme.typography.h5.fontSize }}
+                >
+                  {userName}
+                </NameTitle>
               </AvatarWrapper>
               <Box
                 sx={{
@@ -75,7 +82,16 @@ function ProfileLayout() {
                   flexShrink: 0,
                 }}
               >
-                <SubTitle variant="subtitle1">
+                <SubTitle
+                  variant="subtitle1"
+                  sx={{
+                    fontSize: theme.typography.h3.fontSize,
+                    [theme.breakpoints.up('sm')]: {
+                      fontSize: theme.typography.h5.fontSize,
+                      lineHeight: 1.85,
+                    },
+                  }}
+                >
                   {t('profile.buyerMode')}
                 </SubTitle>
                 <ProfileMenu />

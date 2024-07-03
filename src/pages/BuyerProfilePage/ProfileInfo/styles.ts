@@ -19,7 +19,7 @@ export const IconButtonStyled = styled(IconButton)(
 );
 
 export const NameTitle = styled(Typography)(({ theme }: { theme: Theme }) => ({
-  fontSize: 20,
+  fontSize: theme.typography.h5.fontSize,
   lineHeight: 1.85,
   letterSpacing: '-0.2px',
   [theme.breakpoints.up('sm')]: {},

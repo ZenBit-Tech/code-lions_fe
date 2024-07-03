@@ -12,6 +12,7 @@ import HomePage from 'src/pages/HomePage';
 import NewPasswordPage from 'src/pages/NewPasswordPage';
 import OnboardingPage from 'src/pages/OnboardingPage';
 import PrivacyPolicyPage from 'src/pages/PrivacyPolicyPage';
+import ProductFeedPage from 'src/pages/ProductFeedPage';
 import ProductPage from 'src/pages/ProductPage';
 import ProfileLayout from 'src/pages/ProfileLayout';
 import ProfilePage from 'src/pages/ProfilePage';
@@ -21,12 +22,12 @@ import SignInPage from 'src/pages/SignInPage';
 import SignUpPage from 'src/pages/SignUpPage';
 import SizesGuidePage from 'src/pages/SizesGuidePage';
 import TermsOfUsePage from 'src/pages/TermsOfUsePage';
-import VendorLayout from 'src/pages/vendor/VendorLayout';
 import VendorProfilePage from 'src/pages/VendorProfilePage';
 import VerifyEmailPage from 'src/pages/VerifyEmailPage';
 import WishlistPage from 'src/pages/WishlistPage';
 
 import AdminPrivateRoute from './AdminPrivateRoute';
+import FinishedOnboardingGuard from './FinishedOnboardingGuard';
 import OnboardingGuard from './OnboardingGuard';
 import VerifyPrivateRoute from './VerifyPrivateRoute';
 
@@ -36,7 +37,7 @@ const router = createBrowserRouter([
     element: <OnboardingGuard element={<Layout />} />,
     children: [
       { index: true, element: <HomePage /> },
-      { path: urls.SIZES_GUIDE, element: <SizesGuidePage /> },
+      { path: urls.PRODUCT_FEED, element: <ProductFeedPage /> },
       { path: urls.PRIVACY_POLICY, element: <PrivacyPolicyPage /> },
       { path: urls.TERMS_OF_USE, element: <TermsOfUsePage /> },
       {
@@ -52,6 +53,11 @@ const router = createBrowserRouter([
       },
     ],
   },
+  {
+    path: urls.SIZES_GUIDE,
+    element: <Layout />,
+    children: [{ index: true, element: <SizesGuidePage /> }],
+  },
   { path: urls.SIGN_UP, element: <SignUpPage /> },
   {
     path: urls.VERIFY,
@@ -65,7 +71,6 @@ const router = createBrowserRouter([
   { path: urls.RESTORE_PASSWORD, element: <RestorePasswordPage /> },
   { path: urls.ENTER_CODE, element: <VerifyEmailPage /> },
   { path: urls.NEW_PASSWORD, element: <NewPasswordPage /> },
-
   { path: urls.SIGN_IN_ADMIN, element: <SignInAdminPage /> },
   {
     path: urls.ADMIN,
@@ -114,12 +119,15 @@ const router = createBrowserRouter([
       },
     ],
   },
-  { path: urls.ONBOARDING, element: <OnboardingPage /> },
+  {
+    path: urls.ONBOARDING,
+    element: <FinishedOnboardingGuard element={<OnboardingPage />} />,
+  },
   { path: urls.PROFILE, element: <ProfilePage /> },
+  { path: urls.USER_BUYER_PROFILE, element: <BuyerProfilePage /> },
   { path: urls.USER_VENDOR_PROFILE, element: <VendorProfilePage /> },
   {
     path: urls.VENDOR,
-    // element: <VendorLayout />,
     children: [
       { path: urls.USER_BUYER_PROFILE, element: <BuyerProfilePage /> },
       { path: urls.VENDOR_DASHBOARD, element: <ProfileComingSoon /> },
@@ -138,6 +146,8 @@ const router = createBrowserRouter([
       },
     ],
   },
+  { path: urls.USER_BUYER_PROFILE, element: <BuyerProfilePage /> },
+  { path: urls.USER_VENDOR_PROFILE, element: <VendorProfilePage /> },
   { path: urls.PRODUCT, element: <ProductPage /> },
 ]);
 

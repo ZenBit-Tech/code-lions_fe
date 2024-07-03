@@ -69,7 +69,7 @@ function ProfileInfo({ name, rating, avatar }: ProfileInfoProps) {
             <Typography
               variant="subtitle1"
               sx={{
-                fontWeight: 400,
+                fontWeight: theme.typography.body1.fontWeight,
                 lineHeight: 'normal',
                 letterSpacing: 'normal',
               }}

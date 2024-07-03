@@ -2,7 +2,6 @@ import { Typography, FormControl, InputBase } from '@mui/material';
 import { Box, styled } from '@mui/system';
 
 export const TitleStyled = styled(Typography)(({ theme }) => ({
-  fontSize: 20,
   lineHeight: 1.85,
   letterSpacing: '-0.2px',
   [theme.breakpoints.up('sm')]: {},
@@ -37,8 +36,6 @@ export const StyledPhoneWrapper = styled(Box)(({ theme }) => ({
 }));
 
 export const StyledPhoneInput = styled(InputBase)(({ theme }) => ({
-  fontFamily: 'DM Sans, Arial, sans-serif',
-  fontSize: 16,
   fontWeightRegular: 400,
   lineHeight: 1.43,
   letterSpacing: '-0.21px',

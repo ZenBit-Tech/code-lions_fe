@@ -4,8 +4,12 @@ import {
   createApi,
   fetchBaseQuery,
 } from '@reduxjs/toolkit/query/react';
-import { HttpMethods, RTKUrls, httpStatusCodes } from 'src/common/constants.ts';
-import config from 'src/config/config';
+import {
+  apiUrl,
+  HttpMethods,
+  RTKUrls,
+  httpStatusCodes,
+} from 'src/common/constants.ts';
 import { RootState } from 'src/redux/store';
 import { setTokens, logout } from 'src/redux/user/userSlice';
 
@@ -30,11 +34,10 @@ import {
   IUpdateCreditCardRequest,
   IUpdateSizesRequest,
   IUpdatePersonalInfoRequest,
+  IRefreshTokenResponse,
   IPublicUser,
   IReview,
 } from './types';
-
-const { apiUrl } = config;
 
 const baseQuery = fetchBaseQuery({
   baseUrl: apiUrl,
@@ -72,7 +75,7 @@ const baseQueryWithReauth = async (
       );
 
       if (refreshResult.data) {
-        api.dispatch(setTokens(refreshResult.data));
+        api.dispatch(setTokens(refreshResult.data as IRefreshTokenResponse));
         result = await baseQuery(args, api, extraOptions);
       } else {
         api.dispatch(logout());

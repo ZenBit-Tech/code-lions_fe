@@ -37,7 +37,7 @@ function HeaderLogo() {
           variant="h1"
           sx={{
             margin: '-3px 0 0 4px',
-            fontSize: '20px',
+            fontSize: theme.typography.h5.fontSize,
             letterSpacing: '-0.2px',
             textDecoration: 'none',
           }}

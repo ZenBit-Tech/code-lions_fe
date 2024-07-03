@@ -154,7 +154,7 @@ function ProductSection() {
                   <Radio
                     sx={{
                       '& .MuiSvgIcon-root': {
-                        fontSize: 16,
+                        fontSize: theme.typography.h3.fontSize,
                       },
                     }}
                   />
@@ -182,7 +182,10 @@ function ProductSection() {
         >
           <Typography
             variant="button"
-            sx={{ fontWeight: 400, fontSize: '20px' }}
+            sx={{
+              fontWeight: theme.typography.body1.fontWeight,
+              fontSize: theme.typography.h5.fontSize,
+            }}
           >
             {t('product.addToCart')}
           </Typography>
@@ -193,7 +196,7 @@ function ProductSection() {
           <Typography
             variant="button"
             sx={{
-              fontWeight: 700,
+              fontWeight: theme.typography.bold.fontWeight,
               lineHeight: 1.75,
               marginRight: '20px',
             }}
@@ -204,7 +207,10 @@ function ProductSection() {
         <Button startIcon={<ChatDots />}>
           <Typography
             variant="button"
-            sx={{ fontWeight: 700, lineHeight: 1.75 }}
+            sx={{
+              fontWeight: theme.typography.bold.fontWeight,
+              lineHeight: 1.75,
+            }}
           >
             {t('product.messenger')}
           </Typography>

@@ -1,4 +1,4 @@
-import { createTheme, ThemeOptions } from '@mui/material/styles';
+import { createTheme, Theme, ThemeOptions } from '@mui/material/styles';
 
 import ExpandMoreIcon from 'src/components/shared/StyledSelect/ExpandMoreIcon';
 
@@ -24,6 +24,22 @@ declare module '@mui/material/styles' {
       error?: string;
     };
   }
+
+  interface TypographyVariants {
+    interBody: React.CSSProperties;
+    bold: React.CSSProperties;
+  }
+
+  interface TypographyVariantsOptions {
+    interBody?: React.CSSProperties;
+    bold?: React.CSSProperties;
+  }
+}
+
+declare module '@mui/material/Typography' {
+  interface TypographyPropsVariantOverrides {
+    interBody: true;
+  }
 }
 
 const defaultTheme = createTheme();
@@ -31,9 +47,11 @@ const shadows: ThemeOptions['shadows'] = [...defaultTheme.shadows];
 
 shadows[1] =
   '0 -8px 20px 0 rgba(244, 244, 244, 0.25), 0 2px 2px 0 rgba(160, 168, 176, 0.08)';
-shadows[2] = '4px 4px 24px 0px #0000000A';
+shadows[2] =
+  '0 2px 8px 0 rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(0, 0, 0, 0.12)';
+shadows[3] = '0px 5px 8px 0px rgba(0, 0, 0, 0.5)';
 
-const theme = createTheme({
+const theme: Theme = createTheme({
   palette: {
     common: {
       black: '#000000',
@@ -60,6 +78,7 @@ const theme = createTheme({
       300: 'rgba(237, 234, 233, 0.50)',
       400: 'rgba(28, 28, 28, 0.54)',
       500: '#A0A8B0',
+      700: '#605f5f',
       800: '#141519',
       900: '#1C1C1E',
     },
@@ -88,6 +107,18 @@ const theme = createTheme({
     fontFamily: 'DM Sans, Arial, sans-serif',
     fontSize: 16,
     fontWeightRegular: 400,
+
+    interBody: {
+      fontFamily: 'Inter, sans-serif',
+      fontSize: '16px',
+      lineHeight: '1.62',
+      fontWeight: 400,
+    },
+
+    bold: {
+      fontWeight: 700,
+    },
+
     h1: {
       fontFamily: 'Playfair Display, Arial, sans-serif',
       fontSize: 28,

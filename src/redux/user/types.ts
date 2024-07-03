@@ -226,3 +226,8 @@ export interface IUpdatePersonalInfoRequest {
   expireDate?: string;
   cvvCode?: string;
 }
+
+export interface IRefreshTokenResponse {
+  accessToken: string;
+  refreshToken: string;
+}

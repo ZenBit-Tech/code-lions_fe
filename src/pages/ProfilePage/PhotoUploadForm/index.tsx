@@ -6,6 +6,7 @@ import { Box } from '@mui/system';
 
 import EditIcon from 'src/assets/icons/edit-white.svg';
 import UserImageIcon from 'src/assets/icons/user-image.svg';
+import { apiUrl } from 'src/common/constants.ts';
 import useToast from 'src/components/shared/toasts/components/ToastProvider/ToastProviderHooks';
 import { useAppSelector } from 'src/redux/hooks';
 import { useUploadPhotoMutation } from 'src/redux/user/userService';
@@ -21,7 +22,7 @@ function PhotoUploadForm() {
   const user = useAppSelector(selectUser);
   const [uploadPhoto] = useUploadPhotoMutation();
   const [preview, setPreview] = useState<string | null>(
-    user.photoUrl ? import.meta.env.VITE_API_URL + user.photoUrl : null
+    user.photoUrl ? apiUrl + user.photoUrl : null
   );
   const [imageError, setImageError] = useState(false);
 
@@ -86,7 +87,7 @@ function PhotoUploadForm() {
             </Avatar>
           ) : (
             <Avatar
-              src={`${import.meta.env.VITE_API_URL}${user.photoUrl}`}
+              src={`${apiUrl}${user.photoUrl}`}
               sx={{ width: '120px', height: '120px', position: 'absolute' }}
               onError={() => setImageError(true)}
             />
