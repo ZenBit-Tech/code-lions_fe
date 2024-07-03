@@ -45,7 +45,17 @@ module.exports = {
         ],
         pathGroups: [
           {
-            pattern: 'react*',
+            pattern: '{@testing-library/**,vitest,msw}',
+            group: 'external',
+            position: 'before',
+          },
+          {
+            pattern: '{react*/**,react*}',
+            group: 'external',
+            position: 'before',
+          },
+          {
+            pattern: '{@redux*,redux-persist/**}',
             group: 'external',
             position: 'before',
           },

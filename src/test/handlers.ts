@@ -1,4 +1,5 @@
 import { http, HttpResponse } from 'msw';
+
 import { RTKUrls } from 'src/common/constants';
 import { apiUrl } from 'src/common/constants.ts';
 import allProducts from 'src/test/mocks/allproducts';

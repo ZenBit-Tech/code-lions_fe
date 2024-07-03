@@ -1,12 +1,14 @@
+import { render, RenderOptions } from '@testing-library/react';
+
 import { ReactElement, ReactNode } from 'react';
 import { I18nextProvider } from 'react-i18next';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
 
+import { PersistGate } from 'redux-persist/integration/react';
+
 import { ThemeProvider } from '@mui/material/styles';
 
-import { render, RenderOptions } from '@testing-library/react';
-import { PersistGate } from 'redux-persist/integration/react';
 import GoogleAuthProvider from 'src/components/GoogleAuthProvider';
 import ToastProvider from 'src/components/shared/toasts/components/ToastProvider';
 import i18n from 'src/locales/i18n';

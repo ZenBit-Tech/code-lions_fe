@@ -2,8 +2,9 @@ import '@testing-library/jest-dom';
 
 import * as matchers from '@testing-library/jest-dom/matchers';
 import { cleanup } from '@testing-library/react';
-import serviceWorker from 'src/test/worker';
 import { expect, afterEach, beforeAll, afterAll } from 'vitest';
+
+import serviceWorker from 'src/test/worker';
 
 expect.extend(matchers);
 
