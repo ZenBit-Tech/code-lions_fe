@@ -17,21 +17,23 @@ import ChatDots from 'src/assets/icons/chat-dots.svg';
 import ChevronDown from 'src/assets/icons/chevron-down-grey.svg';
 import ChevronRight from 'src/assets/icons/chevron-right-grey-small.svg';
 import Heart from 'src/assets/icons/heart.svg';
+import { IProduct } from 'src/redux/product/types';
 import theme from 'src/theme';
 
 import RadioLabel from './RadioLabel';
 import { StyledMenuItem, StyledRadioWrapper } from './styles';
 
-const mockImageUrl: string = 'src/assets/photos/mockPhoto1.png';
 const radioValue: string = 'rent';
 
-function ProductSection() {
+interface ProductSectionProps {
+  product: IProduct;
+}
+
+function ProductSection({ product }: ProductSectionProps) {
   const { t } = useTranslation();
 
   const [openSize, setOpenSize] = useState<boolean>(false);
-  const [selectedSize, setSelectedSize] = useState<string>(
-    t('product.mockSize')
-  );
+  const [selectedSize, setSelectedSize] = useState<string>(product.size);
   const [value, setValue] = useState<string>(radioValue);
 
   const handleSizeChange = (event: SelectChangeEvent<string>) => {
@@ -66,7 +68,7 @@ function ProductSection() {
               margin: '0 5px',
             }}
           >
-            {t('product.category')}
+            {product.categories[0]}
           </Typography>
           <ChevronRight />
           <Typography
@@ -76,7 +78,7 @@ function ProductSection() {
               margin: '0 5px',
             }}
           >
-            {t('product.name')}
+            {product.name}
           </Typography>
         </Box>
         <Typography
@@ -87,10 +89,10 @@ function ProductSection() {
             letterSpacing: '-0.6px',
           }}
         >
-          {t('product.name')}
+          {product.name}
         </Typography>
         <Typography variant="subtitle2" padding="15px 0">
-          {t('product.mockDesc')}
+          {product.description}
         </Typography>
         <Box display="flex" alignItems="center">
           <Typography
@@ -101,16 +103,7 @@ function ProductSection() {
               marginRight: '10px',
             }}
           >
-            {t('product.mockPrice')}
-          </Typography>
-          <Typography
-            sx={{
-              lineHeight: '40px',
-              color: theme.palette.text.disabled,
-              textDecoration: 'line-through',
-            }}
-          >
-            {t('product.mockOldPrice')}
+            {`$${product.price}`}
           </Typography>
         </Box>
       </Box>
@@ -142,7 +135,7 @@ function ProductSection() {
             }}
           >
             <StyledMenuItem value={t('product.mockSize')}>
-              {t('product.mockSize')}
+              {product.size}
             </StyledMenuItem>
           </Select>
           <StyledRadioWrapper>
@@ -164,7 +157,7 @@ function ProductSection() {
             </RadioGroup>
             <Box
               sx={{
-                backgroundImage: `url(${mockImageUrl})`,
+                backgroundImage: `url(${product.images[0]})`,
                 height: '72px',
                 width: '72px',
                 borderRadius: '8px',

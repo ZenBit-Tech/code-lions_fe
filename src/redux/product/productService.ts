@@ -17,7 +17,25 @@ export const productApi = createApi({
       }),
       providesTags: ['Product'],
     }),
+    getProductById: build.query<IProduct, { productId: string }>({
+      query: ({ productId }) => ({
+        url: `${RTKUrls.PRODUCTS}/item/${productId}`,
+        method: HttpMethods.GET,
+        params: { id: productId },
+      }),
+    }),
+    getWishlistById: build.query<IProduct[], { userId: string }>({
+      query: ({ userId }) => ({
+        url: `wishlist/${userId}`,
+        method: HttpMethods.GET,
+        params: { id: userId },
+      }),
+    }),
   }),
 });
 
-export const { useGetProductsQuery } = productApi;
+export const {
+  useGetProductsQuery,
+  useGetProductByIdQuery,
+  useGetWishlistByIdQuery,
+} = productApi;

@@ -1,23 +1,50 @@
-import { Box } from '@mui/material';
+import { useParams } from 'react-router-dom';
 
+import { Box, CircularProgress } from '@mui/material';
+
+import { skipToken } from '@reduxjs/toolkit/query';
 import Footer from 'src/components/Footer';
 import Header from 'src/components/Header';
+import { useGetProductByIdQuery } from 'src/redux/product/productService';
 
 import DescriptionSection from './DescriptionSection';
 import ImagesSection from './ImagesSection';
 import ProductSection from './ProductSection';
 
 function ProductPage() {
+  const { productId } = useParams();
+  const { data, isLoading } = useGetProductByIdQuery(
+    productId ? { productId } : skipToken
+  );
+
+  console.log(data);
+
+  if (isLoading || !data) {
+    return (
+      <Box
+        width="100vw"
+        height="100vh"
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+      >
+        <CircularProgress sx={{ color: 'black' }} />
+      </Box>
+    );
+  }
+
+  const { images, vendor } = data;
+
   return (
     <Box width="100%">
       <Header />
       <Box padding="0 166px">
         <Box padding="52px 0" display="flex">
-          <ImagesSection />
-          <ProductSection />
+          <ImagesSection images={images} vendorName={vendor.name} />
+          <ProductSection product={data} />
         </Box>
       </Box>
-      <DescriptionSection />
+      <DescriptionSection product={data} />
       <Footer />
     </Box>
   );

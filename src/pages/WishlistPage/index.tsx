@@ -1,13 +1,48 @@
-import { Box } from '@mui/material';
+import { useParams } from 'react-router-dom';
 
+import { Box, CircularProgress } from '@mui/material';
+
+import { skipToken } from '@reduxjs/toolkit/query';
 import ProductCard from 'src/components/ProductCard';
-import mockData from 'src/test/mocks/allproducts';
+import { useGetWishlistByIdQuery } from 'src/redux/product/productService';
+import theme from 'src/theme';
 
 function WishlistPage() {
+  const { userId } = useParams();
+  const { data, isLoading } = useGetWishlistByIdQuery(
+    userId ? { userId } : skipToken
+  );
+
+  if (isLoading || !data) {
+    return <CircularProgress sx={{ color: theme.palette.common.black }} />;
+  }
+
   return (
-    <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: '30px' }}>
-      {mockData.map((item) => (
-        <ProductCard key={item.id} item={item} />
+    // <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: '30px' }}>
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        gap: '24px',
+        mb: '40px',
+      }}
+    >
+      {data.map((item) => (
+        <Box
+          key={item.id}
+          component="div"
+          sx={{
+            width: {
+              xs: '100%',
+              md: 'calc(50% - 20px)',
+              lg: 'calc(33% - 19px)',
+              xl: 'calc(25% - 18px)',
+            },
+          }}
+        >
+          <ProductCard key={item.id} item={item} />
+        </Box>
       ))}
     </Box>
   );

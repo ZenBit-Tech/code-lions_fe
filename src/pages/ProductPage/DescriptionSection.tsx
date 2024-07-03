@@ -2,11 +2,16 @@ import { useTranslation } from 'react-i18next';
 
 import { Grid, Box, Typography } from '@mui/material';
 
+import { IProduct } from 'src/redux/product/types';
 import theme from 'src/theme';
 
 import { StyledTypography } from './styles';
 
-function DescriptionSection() {
+interface ProductSectionProps {
+  product: IProduct;
+}
+
+function DescriptionSection({ product }: ProductSectionProps) {
   const { t } = useTranslation();
 
   return (
@@ -23,7 +28,7 @@ function DescriptionSection() {
         marginTop="5px"
       >
         <Typography variant="subtitle2" sx={{ lineHeight: 1.57 }}>
-          {t('product.descriptionFull')}
+          {product.description}
         </Typography>
         <Grid container columns={2} width="20%" marginTop="30px">
           <Grid item xs={1}>
@@ -33,7 +38,7 @@ function DescriptionSection() {
                 paddingBottom: '20px',
               }}
             >
-              {t('product.size')}
+              {product.size}
             </StyledTypography>
             <StyledTypography
               sx={{
@@ -64,9 +69,9 @@ function DescriptionSection() {
                 paddingBottom: '20px',
               }}
             >
-              {t('product.mockColor')}
+              {product.colors[0]}
             </StyledTypography>
-            <StyledTypography>{t('product.mockHeight')}</StyledTypography>
+            <StyledTypography>{product.style}</StyledTypography>
           </Grid>
         </Grid>
       </Box>
