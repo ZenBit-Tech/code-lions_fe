@@ -3,17 +3,16 @@ import { useTranslation } from 'react-i18next';
 
 import {
   Box,
-  Slider,
   Typography,
   Button,
   Select,
-  MenuItem,
   SelectChangeEvent,
 } from '@mui/material';
 
+import checkImg from 'src/assets/photos/check-filters.png';
 import theme from 'src/theme';
 
-import { ColorButton } from './styles';
+import { CustomizedSlider } from './styles';
 
 const min = 0;
 const max = 80;
@@ -39,17 +38,30 @@ const colors = [
 
 const sizes = ['XS', 'S', 'M', 'L', 'XL'];
 
-const styles = ['Style 1', 'Style 2', 'Style 3'];
+const styles = [
+  'Style 1',
+  'Style 2',
+  'Style 3',
+  'Style 4',
+  'Style 5',
+  'Style 6',
+  'Style 7',
+];
 
 function ProductFilters() {
   const { t } = useTranslation();
   const [price, setPrice] = useState<number>(min);
   const [selectedColor, setSelectedColor] = useState<string>('');
   const [selectedSize, setSelectedSize] = useState<string>('');
-  const [selectedStyle, setSelectedStyle] = useState<string>(styles[0]);
-
+  const [selectedStyle, setSelectedStyle] = useState<string[]>([]);
   const handleChange = (_: Event, newValue: number | number[]) => {
     setPrice(newValue as number);
+  };
+
+  const handleChangeMultiple = (event: SelectChangeEvent<string[]>) => {
+    const value = event.target.value as string[];
+
+    setSelectedStyle(value);
   };
 
   return (
@@ -61,7 +73,7 @@ function ProductFilters() {
         {t('filters.price')}
       </Typography>
       <Box sx={{ width: 262 }}>
-        <Slider
+        <CustomizedSlider
           marks={marks}
           value={price}
           valueLabelDisplay="auto"
@@ -114,16 +126,34 @@ function ProductFilters() {
         <Typography variant="h2" sx={{ mb: '24px' }}>
           {t('filters.color')}
         </Typography>
-        <Box sx={{ display: 'flex', gap: '14px', flexWrap: 'wrap' }}>
+        <Box sx={{ display: 'flex', gap: '14px' }}>
           {colors.map((color) => (
-            <ColorButton
+            <Box
               key={color.name}
-              selected={color.name === selectedColor}
-              buttoncolor={color.hex}
               onClick={() => setSelectedColor(color.name)}
+              sx={{ cursor: 'pointer' }}
             >
-              {}
-            </ColorButton>
+              {color.name === selectedColor ? (
+                <img src={checkImg} alt="check" />
+              ) : (
+                <Box
+                  sx={{
+                    width: '34px',
+                    height: '34px',
+                    backgroundColor: color.hex,
+                    borderRadius: '50%',
+                    display: 'inline-block',
+                    transition: 'box-shadow 0.3s linear',
+                    '&:hover': {
+                      boxShadow: `0 2px 8px 0 ${theme.palette.common.black}`,
+                    },
+                    '&:focus': {
+                      boxShadow: `0 2px 8px 0 ${theme.palette.common.black}`,
+                    },
+                  }}
+                />
+              )}
+            </Box>
           ))}
         </Box>
       </Box>
@@ -131,16 +161,19 @@ function ProductFilters() {
         <Typography variant="h2" sx={{ mb: '24px' }}>
           {t('filters.size')}{' '}
         </Typography>
-        <Box sx={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+        <Box sx={{ display: 'flex', gap: '10px' }}>
           {sizes.map((size) => (
             <Button
               key={size}
               variant={size === selectedSize ? 'contained' : 'outlined'}
               onClick={() => setSelectedSize(size)}
               sx={{
+                minWidth: '34px',
                 border: '0.75px, solid',
                 borderRadius: '6px',
                 borderColor: theme.palette.grey[200],
+                padding: '8px',
+                fontSize: '11px',
               }}
             >
               {size}
@@ -152,15 +185,17 @@ function ProductFilters() {
         <Typography variant="h2" sx={{ mb: '16px' }}>
           {t('filters.style')}
         </Typography>
-        <Select
+        <Select<string[]>
+          multiple
+          native
           value={selectedStyle}
-          onChange={(e: SelectChangeEvent) => setSelectedStyle(e.target.value)}
+          onChange={handleChangeMultiple}
           fullWidth
         >
           {styles.map((style) => (
-            <MenuItem key={style} value={style}>
+            <option key={style} value={style}>
               {style}
-            </MenuItem>
+            </option>
           ))}
         </Select>
       </Box>
