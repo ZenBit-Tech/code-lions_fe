@@ -44,6 +44,7 @@ export const urls = {
   VENDOR_ORDERS: 'orders',
   VENDOR_CHATS: 'chats',
   VENDOR_PROFILE: 'profile',
+  BEST_VENDORS: '/best-vendors',
 };
 
 export const RTKUrls = {

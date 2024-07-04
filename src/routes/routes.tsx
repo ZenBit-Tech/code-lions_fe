@@ -7,6 +7,7 @@ import AdminUserProfileEditPage from 'src/pages/admin/AdminUserProfileEditPage';
 import AdminUserProfilePage from 'src/pages/admin/AdminUserProfilePage';
 import SignInAdminPage from 'src/pages/admin/SignInAdminPage';
 import UsersPage from 'src/pages/admin/UsersPage';
+import BestVendorsPage from 'src/pages/BestVendorsPage';
 import BuyerProfilePage from 'src/pages/BuyerProfilePage';
 import HomePage from 'src/pages/HomePage';
 import NewPasswordPage from 'src/pages/NewPasswordPage';
@@ -50,6 +51,7 @@ const router = createBrowserRouter([
       { path: urls.PRODUCT_FEED, element: <ProductFeedPage /> },
       { path: urls.PRIVACY_POLICY, element: <PrivacyPolicyPage /> },
       { path: urls.TERMS_OF_USE, element: <TermsOfUsePage /> },
+      { path: urls.BEST_VENDORS, element: <BestVendorsPage /> },
       {
         path: urls.PROFILE,
         element: <ProfileLayout />,
