@@ -35,8 +35,8 @@ export const urls = {
   PROFILE_SETTINGS: 'settings',
   PROFILE_SUPPORT: 'support',
   PRODUCT_FEED: '/products',
-  USER_BUYER_PROFILE: 'buyer/:userId',
-  USER_VENDOR_PROFILE: 'vendor/:userId',
+  USER_BUYER_PROFILE: 'buyer/:id',
+  USER_VENDOR_PROFILE: 'vendor/:id',
   VENDOR: '/vendor',
   VENDOR_ADD_PRODUCT: 'add-product',
   VENDOR_DASHBOARD: 'dashboard',
@@ -190,4 +190,10 @@ export const urlRoles = {
 export const profilePathsFor = {
   vendor: 'vendor/buyer',
   buyer: 'vendor',
+};
+
+export const homeProductsSorting = {
+  JUST_IN: 'justin',
+  RECOMMENDED: 'recommended',
+  YOUR_SIZE: 'yoursize',
 };

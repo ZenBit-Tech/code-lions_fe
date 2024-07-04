@@ -124,7 +124,6 @@ const router = createBrowserRouter([
     element: <FinishedOnboardingGuard element={<OnboardingPage />} />,
   },
   { path: urls.PROFILE, element: <ProfilePage /> },
-  { path: urls.USER_BUYER_PROFILE, element: <BuyerProfilePage /> },
   { path: urls.USER_VENDOR_PROFILE, element: <VendorProfilePage /> },
   {
     path: urls.VENDOR,
@@ -146,8 +145,6 @@ const router = createBrowserRouter([
       },
     ],
   },
-  { path: urls.USER_BUYER_PROFILE, element: <BuyerProfilePage /> },
-  { path: urls.USER_VENDOR_PROFILE, element: <VendorProfilePage /> },
   { path: urls.PRODUCT, element: <ProductPage /> },
 ]);
 

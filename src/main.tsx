@@ -3,6 +3,8 @@ import { I18nextProvider } from 'react-i18next';
 import { Provider } from 'react-redux';
 
 import { ThemeProvider } from '@mui/material/styles';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 
 import ReactDOM from 'react-dom/client';
 import { PersistGate } from 'redux-persist/integration/react';

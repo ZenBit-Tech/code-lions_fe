@@ -64,10 +64,14 @@ function CommentCard({ comment, path }: CommentCardProps) {
     <CommentCardWrapper>
       <CommentContent>
         <Box width="100%" display="flex" alignItems="top">
-          <ProfileAvatar
-            src={`${pathToServer}${comment.reviewerAvatar.slice(1)}`}
-            alt={comment.reviewerName}
-          />
+          {comment.reviewerAvatar ? (
+            <ProfileAvatar
+              src={`${pathToServer}${comment.reviewerAvatar.slice(1)}`}
+              alt={comment.reviewerName}
+            />
+          ) : (
+            <ProfileAvatar alt={comment.reviewerName} />
+          )}
           <Box marginLeft="16px">
             <AuthorName variant="subtitle1">{comment.reviewerName}</AuthorName>
             <CommentDate variant="body2">
