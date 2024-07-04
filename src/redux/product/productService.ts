@@ -24,18 +24,7 @@ export const productApi = createApi({
         params: { id: productId },
       }),
     }),
-    getWishlistById: build.query<IProduct[], { userId: string }>({
-      query: ({ userId }) => ({
-        url: `wishlist/${userId}`,
-        method: HttpMethods.GET,
-        params: { id: userId },
-      }),
-    }),
   }),
 });
 
-export const {
-  useGetProductsQuery,
-  useGetProductByIdQuery,
-  useGetWishlistByIdQuery,
-} = productApi;
+export const { useGetProductsQuery, useGetProductByIdQuery } = productApi;

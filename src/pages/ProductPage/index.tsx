@@ -17,8 +17,6 @@ function ProductPage() {
     productId ? { productId } : skipToken
   );
 
-  console.log(data);
-
   if (isLoading || !data) {
     return (
       <Box
@@ -33,14 +31,18 @@ function ProductPage() {
     );
   }
 
-  const { images, vendor } = data;
+  const { images, vendor, id } = data;
 
   return (
     <Box width="100%">
       <Header />
       <Box padding="0 166px">
         <Box padding="52px 0" display="flex">
-          <ImagesSection images={images} vendorName={vendor.name} />
+          <ImagesSection
+            images={images}
+            vendorName={vendor.name}
+            productId={id}
+          />
           <ProductSection product={data} />
         </Box>
       </Box>

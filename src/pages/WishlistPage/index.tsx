@@ -4,7 +4,7 @@ import { Box, CircularProgress } from '@mui/material';
 
 import { skipToken } from '@reduxjs/toolkit/query';
 import ProductCard from 'src/components/ProductCard';
-import { useGetWishlistByIdQuery } from 'src/redux/product/productService';
+import { useGetWishlistByIdQuery } from 'src/redux/wishlist/wishlistService';
 import theme from 'src/theme';
 
 function WishlistPage() {
@@ -18,7 +18,6 @@ function WishlistPage() {
   }
 
   return (
-    // <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: '30px' }}>
     <Box
       sx={{
         display: 'flex',

@@ -1,5 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
 
 import LogoutIcon from 'src/assets/icons/profile/logout.svg';
 import OrdersIcon from 'src/assets/icons/profile/orders.svg';
@@ -9,7 +10,7 @@ import SupportIcon from 'src/assets/icons/profile/support.svg';
 import WishlistIcon from 'src/assets/icons/profile/wishlist.svg';
 import { urls } from 'src/common/constants';
 import { useAppDispatch } from 'src/redux/hooks';
-import { logout } from 'src/redux/user/userSlice';
+import { logout, selectUserId } from 'src/redux/user/userSlice';
 
 import {
   AvatarStyled,
@@ -30,6 +31,8 @@ function ProfileMenu() {
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
 
+  const userId = useSelector(selectUserId);
+
   const handleLogout = () => {
     dispatch(logout());
   };
@@ -48,7 +51,7 @@ function ProfileMenu() {
     {
       icon: <WishlistIcon />,
       textKey: 'profileMenu.wishlist',
-      to: urls.PROFILE_WISHLIST,
+      to: `${urls.WISHLIST}/${userId}`,
     },
     {
       icon: <SettingsIcon />,

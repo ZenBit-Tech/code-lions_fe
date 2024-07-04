@@ -17,12 +17,16 @@ import { productApi } from './product/productService';
 import productReducer from './product/productSlice';
 import { userApi } from './user/userService';
 import userReducer from './user/userSlice';
+import { wishlistApi } from './wishlist/wishlistService';
+import wishlistReducer from './wishlist/wishlistSlice';
 
 const rootReducer = combineReducers({
   user: userReducer,
   product: productReducer,
+  wishlist: wishlistReducer,
   [userApi.reducerPath]: userApi.reducer,
   [productApi.reducerPath]: productApi.reducer,
+  [wishlistApi.reducerPath]: wishlistApi.reducer,
 });
 
 const persistConfig = {
@@ -40,7 +44,11 @@ const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }).concat(userApi.middleware, productApi.middleware),
+    }).concat(
+      userApi.middleware,
+      productApi.middleware,
+      wishlistApi.middleware
+    ),
 });
 
 setupListeners(store.dispatch);

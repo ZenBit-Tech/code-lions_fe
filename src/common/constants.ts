@@ -33,6 +33,7 @@ export const urls = {
   PROFILE_DETAILS: 'details',
   PROFILE_ORDERS: 'orders',
   PROFILE_WISHLIST: 'wishlist/:userId',
+  WISHLIST: 'wishlist',
   PROFILE_SETTINGS: 'settings',
   PROFILE_SUPPORT: 'support',
   PRODUCT_FEED: '/products',
@@ -69,6 +70,7 @@ export const RTKUrls = {
   UPDATE_PROFILE_ADMIN: 'update-profile-admin',
   SOFT_DELETE: 'soft-delete',
   PRODUCTS: 'products',
+  WISHLIST: 'wishlist',
 };
 
 export const HttpMethods = {
