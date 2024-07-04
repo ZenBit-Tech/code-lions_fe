@@ -347,5 +347,18 @@
     "size": "Size:",
     "openOrder": "Open Order",
     "noOrders": "You have no orders"
+  },
+  "filters": {
+    "title": "Filter",
+    "price": "Price",
+    "color": "COLOR",
+    "size": "SIZE",
+    "style": "STYLE",
+    "dollar": "$"
+  },
+  "bestVendors": {
+    "title": "Best Vendors",
+    "name": "Vendor Name",
+    "follow": "Follow"
   }
 }
