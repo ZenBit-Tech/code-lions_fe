@@ -17,6 +17,12 @@ function WishlistPage() {
     return <CircularProgress sx={{ color: theme.palette.common.black }} />;
   }
 
+  const products =
+    data.map((item) => ({
+      ...item,
+      images: item.images.slice().reverse(),
+    })) || [];
+
   return (
     <Box
       sx={{
@@ -27,7 +33,7 @@ function WishlistPage() {
         mb: '40px',
       }}
     >
-      {data.map((item) => (
+      {products.map((item) => (
         <Box
           key={item.id}
           component="div"

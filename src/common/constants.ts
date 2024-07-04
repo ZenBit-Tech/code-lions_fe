@@ -71,6 +71,7 @@ export const RTKUrls = {
   SOFT_DELETE: 'soft-delete',
   PRODUCTS: 'products',
   WISHLIST: 'wishlist',
+  CART: 'cart',
 };
 
 export const HttpMethods = {

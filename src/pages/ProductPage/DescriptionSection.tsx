@@ -42,7 +42,7 @@ function DescriptionSection({ product }: ProductSectionProps) {
                 paddingBottom: '20px',
               }}
             >
-              {product.size}
+              {t('product.size')}
             </StyledTypography>
             <StyledTypography
               sx={{
@@ -57,7 +57,7 @@ function DescriptionSection({ product }: ProductSectionProps) {
                 fontWeight: theme.typography.bold.fontWeight,
               }}
             >
-              {t('product.height')}
+              {t('product.style')}
             </StyledTypography>
           </Grid>
           <Grid item xs={1}>
@@ -66,7 +66,7 @@ function DescriptionSection({ product }: ProductSectionProps) {
                 paddingBottom: '20px',
               }}
             >
-              {t('product.mockSize')}
+              {product.size}
             </StyledTypography>
             <StyledTypography
               sx={{

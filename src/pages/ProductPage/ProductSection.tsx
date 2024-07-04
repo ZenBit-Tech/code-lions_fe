@@ -1,29 +1,32 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import {
   Button,
   FormControlLabel,
   Radio,
   RadioGroup,
-  Select,
   Box,
-  SelectChangeEvent,
   Typography,
 } from '@mui/material';
 
 import BagCheckIcon from 'src/assets/icons/bag-check.svg';
 import ChatDots from 'src/assets/icons/chat-dots.svg';
-import ChevronDown from 'src/assets/icons/chevron-down-grey.svg';
 import ChevronRight from 'src/assets/icons/chevron-right-grey-small.svg';
 import Heart from 'src/assets/icons/heart.svg';
+import { urls } from 'src/common/constants';
+import { useAddToCartMutation } from 'src/redux/cart/cartService';
 import { IProduct } from 'src/redux/product/types';
+import { selectUserId } from 'src/redux/user/userSlice';
 import theme from 'src/theme';
 
 import RadioLabel from './RadioLabel';
-import { StyledMenuItem, StyledRadioWrapper } from './styles';
+import { StyledInput, StyledRadioWrapper } from './styles';
 
 const radioValue: string = 'rent';
+const rentDuration: number = 7;
 
 interface ProductSectionProps {
   product: IProduct;
@@ -32,24 +35,34 @@ interface ProductSectionProps {
 function ProductSection({ product }: ProductSectionProps) {
   const { t } = useTranslation();
 
-  const [openSize, setOpenSize] = useState<boolean>(false);
-  const [selectedSize, setSelectedSize] = useState<string>(product.size);
+  const userId = useSelector(selectUserId);
+  const [selectedSize] = useState<string>(product.size);
   const [value, setValue] = useState<string>(radioValue);
+  const [addToCart, { isLoading }] = useAddToCartMutation();
 
-  const handleSizeChange = (event: SelectChangeEvent<string>) => {
-    setSelectedSize(event.target.value as string);
-  };
+  const radioImage = product.images.slice().reverse()[0];
 
   const handleRadioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue((event.target as HTMLInputElement).value);
   };
 
-  const handleOpen = () => setOpenSize(true);
-  const handleClose = () => setOpenSize(false);
+  const handleAddToCart = async () => {
+    try {
+      await addToCart({
+        userId,
+        productId: product.id,
+        duration: rentDuration,
+      }).unwrap();
+
+      return true;
+    } catch (error) {
+      return error;
+    }
+  };
 
   return (
     <Box width="456px">
-      <Box height="202px" paddingBottom="24px" marginBottom="24px">
+      <Box height="120px" paddingBottom="24px" marginBottom="24px">
         <Box display="flex" alignItems="center" mb="12px">
           <Typography
             variant="overline"
@@ -91,9 +104,6 @@ function ProductSection({ product }: ProductSectionProps) {
         >
           {product.name}
         </Typography>
-        <Typography variant="subtitle2" padding="15px 0">
-          {product.description}
-        </Typography>
         <Box display="flex" alignItems="center">
           <Typography
             variant="h4"
@@ -101,6 +111,7 @@ function ProductSection({ product }: ProductSectionProps) {
               fontSize: '26px',
               lineHeight: '40px',
               marginRight: '10px',
+              marginTop: '20px',
             }}
           >
             {`$${product.price}`}
@@ -116,28 +127,7 @@ function ProductSection({ product }: ProductSectionProps) {
           <Typography variant="subtitle1" sx={{ fontWeight: '500' }}>
             {t('product.chooseSize')}
           </Typography>
-          <Select
-            onChange={handleSizeChange}
-            value={selectedSize}
-            open={openSize}
-            onClose={handleClose}
-            onOpen={handleOpen}
-            fullWidth
-            IconComponent={(props) => <ChevronDown {...props} />}
-            size="small"
-            sx={{
-              border: `1px solid ${theme.palette.border.secondary}`,
-              '.MuiSelect-icon': {
-                width: '20px',
-                height: '20px',
-                top: 10,
-              },
-            }}
-          >
-            <StyledMenuItem value={t('product.mockSize')}>
-              {product.size}
-            </StyledMenuItem>
-          </Select>
+          <StyledInput value={selectedSize} size="small" fullWidth disabled />
           <StyledRadioWrapper>
             <RadioGroup value={value} onChange={handleRadioChange}>
               <FormControlLabel
@@ -157,7 +147,9 @@ function ProductSection({ product }: ProductSectionProps) {
             </RadioGroup>
             <Box
               sx={{
-                backgroundImage: `url(${product.images[0]})`,
+                backgroundImage: `url(${radioImage})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
                 height: '72px',
                 width: '72px',
                 borderRadius: '8px',
@@ -171,6 +163,8 @@ function ProductSection({ product }: ProductSectionProps) {
           fullWidth
           variant="contained"
           startIcon={<BagCheckIcon />}
+          onClick={handleAddToCart}
+          disabled={isLoading}
           sx={{ borderRadius: '12px', padding: '16px 24px' }}
         >
           <Typography
@@ -186,16 +180,18 @@ function ProductSection({ product }: ProductSectionProps) {
       </Box>
       <Box display="flex" marginTop="12px">
         <Button startIcon={<Heart />} sx={{}}>
-          <Typography
-            variant="button"
-            sx={{
-              fontWeight: theme.typography.bold.fontWeight,
-              lineHeight: 1.75,
-              marginRight: '20px',
-            }}
-          >
-            {t('product.wishlist')}
-          </Typography>
+          <Link to={`/${urls.PROFILE}/${urls.WISHLIST}/${userId}`}>
+            <Typography
+              variant="button"
+              sx={{
+                fontWeight: theme.typography.bold.fontWeight,
+                lineHeight: 1.75,
+                marginRight: '20px',
+              }}
+            >
+              {t('product.wishlist')}
+            </Typography>
+          </Link>
         </Button>
         <Button startIcon={<ChatDots />}>
           <Typography

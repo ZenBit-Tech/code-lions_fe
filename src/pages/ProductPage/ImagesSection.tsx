@@ -28,7 +28,9 @@ interface ImagesSectionProps {
 }
 
 function ImagesSection({ images, vendorName, productId }: ImagesSectionProps) {
-  const [selectedImage, setSelectedImage] = useState<string>(images[0]);
+  const sliderImages = images.slice().reverse();
+
+  const [selectedImage, setSelectedImage] = useState<string>(sliderImages[0]);
   const [open, setOpen] = useState<boolean>(false);
   const [initialSlideIndex, setInitialSlideIndex] = useState<number>(0);
   const [isInWishlist, setIsInWishlist] = useState<boolean>(false);
@@ -82,7 +84,7 @@ function ImagesSection({ images, vendorName, productId }: ImagesSectionProps) {
         cols={1}
         rowHeight={102}
       >
-        {images.map((item, index) => (
+        {sliderImages.map((item, index) => (
           <ImageListItem
             key={index}
             onClick={() => handleImageClick(item, index)}
@@ -107,7 +109,7 @@ function ImagesSection({ images, vendorName, productId }: ImagesSectionProps) {
         <ProductSliderModal
           open={open}
           handleClose={handleClose}
-          images={images}
+          images={sliderImages}
           initialSlideIndex={initialSlideIndex}
         />
         <Box onClick={() => handleOpen(initialSlideIndex)}>
