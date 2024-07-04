@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 
 import { Box } from '@mui/system';
 
+import { skipToken } from '@reduxjs/toolkit/query';
 import BagIcon from 'src/assets/icons/bag.svg';
 import BellIcon from 'src/assets/icons/bell.svg';
 import ProfileIcon from 'src/assets/icons/profile.svg';
@@ -11,16 +12,21 @@ import { MenuMainLink } from 'src/components/FooterMenu/styles';
 import HeaderLogo from 'src/components/HeaderLogo';
 import StyledButton from 'src/components/shared/StyledButton';
 import { StyleVariants } from 'src/components/shared/StyledButton/types';
+import { useGetCartByIdQuery } from 'src/redux/cart/cartService';
 import { useAppSelector } from 'src/redux/hooks';
 import theme from 'src/theme';
 
 import SvgHover from './styles';
 
-const countInBag = 0;
-
 function Header() {
   const { t } = useTranslation();
   const user = useAppSelector((state) => state.user);
+
+  const { data: cartData } = useGetCartByIdQuery(
+    user.id ? { userId: user.id } : skipToken
+  );
+
+  const cartItemCount = cartData ? cartData.length : 0;
 
   return (
     <Box
@@ -144,7 +150,7 @@ function Header() {
                   <BagIcon />
                 </SvgHover>
               </Box>
-              {countInBag > 0 && (
+              {cartItemCount > 0 && (
                 <Box
                   sx={{
                     position: 'absolute',
@@ -161,7 +167,7 @@ function Header() {
                     alignItems: 'center',
                   }}
                 >
-                  {countInBag}
+                  {cartItemCount}
                 </Box>
               )}
             </Box>

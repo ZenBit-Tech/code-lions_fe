@@ -1,6 +1,7 @@
+import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 
-import { Box, CircularProgress } from '@mui/material';
+import { Box, CircularProgress, Typography } from '@mui/material';
 
 import { skipToken } from '@reduxjs/toolkit/query';
 import ProductCard from 'src/components/ProductCard';
@@ -8,6 +9,7 @@ import { useGetWishlistByIdQuery } from 'src/redux/wishlist/wishlistService';
 import theme from 'src/theme';
 
 function WishlistPage() {
+  const { t } = useTranslation();
   const { userId } = useParams();
   const { data, isLoading } = useGetWishlistByIdQuery(
     userId ? { userId } : skipToken
@@ -22,6 +24,14 @@ function WishlistPage() {
       ...item,
       images: item.images.slice().reverse(),
     })) || [];
+
+  if (products.length === 0) {
+    return (
+      <Typography variant="h4" sx={{ mt: 4, fontSize: '20px' }}>
+        {t('profile.emptyWishlist')}
+      </Typography>
+    );
+  }
 
   return (
     <Box

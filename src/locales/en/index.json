@@ -172,7 +172,8 @@
     "buyerMode": "Buyer Mode",
     "goToVendor": "Go to Vendor Mode",
     "name": "Anna Asol",
-    "logout": "Log out"
+    "logout": "Log out",
+    "emptyWishlist": "No products in your wishlist"
   },
   "profileMenu": {
     "personalInformation": "Personal Information",
@@ -300,6 +301,7 @@
     "reserve": "Reserve an item for 7 days",
     "mockPriceRadio": "$215",
     "addToCart": "Add To Cart",
+    "removeFromCart": "Remove From Cart",
     "wishlist": "Wishlist",
     "messenger": "Messenger",
     "description": "Description",

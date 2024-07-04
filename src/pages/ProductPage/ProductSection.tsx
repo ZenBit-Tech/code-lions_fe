@@ -12,12 +12,17 @@ import {
   Typography,
 } from '@mui/material';
 
+import { skipToken } from '@reduxjs/toolkit/query';
 import BagCheckIcon from 'src/assets/icons/bag-check.svg';
 import ChatDots from 'src/assets/icons/chat-dots.svg';
 import ChevronRight from 'src/assets/icons/chevron-right-grey-small.svg';
 import Heart from 'src/assets/icons/heart.svg';
 import { urls } from 'src/common/constants';
-import { useAddToCartMutation } from 'src/redux/cart/cartService';
+import {
+  useGetCartByIdQuery,
+  useAddToCartMutation,
+  useRemoveFromCartMutation,
+} from 'src/redux/cart/cartService';
 import { IProduct } from 'src/redux/product/types';
 import { selectUserId } from 'src/redux/user/userSlice';
 import theme from 'src/theme';
@@ -34,13 +39,20 @@ interface ProductSectionProps {
 
 function ProductSection({ product }: ProductSectionProps) {
   const { t } = useTranslation();
-
   const userId = useSelector(selectUserId);
   const [selectedSize] = useState<string>(product.size);
   const [value, setValue] = useState<string>(radioValue);
-  const [addToCart, { isLoading }] = useAddToCartMutation();
 
-  const radioImage = product.images.slice().reverse()[0];
+  const { data: cartData } = useGetCartByIdQuery(
+    userId ? { userId } : skipToken
+  );
+  const [addToCart, { isLoading: isAddingToCart }] = useAddToCartMutation();
+  const [removeFromCart, { isLoading: isRemovingFromCart }] =
+    useRemoveFromCartMutation();
+
+  const isProductInCart = cartData?.some(
+    (item) => item.productId === product.id
+  );
 
   const handleRadioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue((event.target as HTMLInputElement).value);
@@ -59,6 +71,21 @@ function ProductSection({ product }: ProductSectionProps) {
       return error;
     }
   };
+
+  const handleRemoveFromCart = async () => {
+    try {
+      await removeFromCart({
+        userId,
+        productId: product.id,
+      }).unwrap();
+
+      return true;
+    } catch (error) {
+      return error;
+    }
+  };
+
+  const radioImage = product.images.slice().reverse()[0];
 
   return (
     <Box width="456px">
@@ -142,7 +169,7 @@ function ProductSection({ product }: ProductSectionProps) {
                     }}
                   />
                 }
-                label={<RadioLabel />}
+                label={<RadioLabel price={product.price} />}
               />
             </RadioGroup>
             <Box
@@ -159,28 +186,49 @@ function ProductSection({ product }: ProductSectionProps) {
         </Box>
       </Box>
       <Box marginTop="120px">
-        <Button
-          fullWidth
-          variant="contained"
-          startIcon={<BagCheckIcon />}
-          onClick={handleAddToCart}
-          disabled={isLoading}
-          sx={{ borderRadius: '12px', padding: '16px 24px' }}
-        >
-          <Typography
-            variant="button"
-            sx={{
-              fontWeight: theme.typography.body1.fontWeight,
-              fontSize: theme.typography.h5.fontSize,
-            }}
+        {isProductInCart ? (
+          <Button
+            fullWidth
+            variant="contained"
+            startIcon={<BagCheckIcon />}
+            onClick={handleRemoveFromCart}
+            disabled={isRemovingFromCart}
+            sx={{ borderRadius: '12px', padding: '16px 24px' }}
           >
-            {t('product.addToCart')}
-          </Typography>
-        </Button>
+            <Typography
+              variant="button"
+              sx={{
+                fontWeight: theme.typography.body1.fontWeight,
+                fontSize: theme.typography.h5.fontSize,
+              }}
+            >
+              {t('product.removeFromCart')}
+            </Typography>
+          </Button>
+        ) : (
+          <Button
+            fullWidth
+            variant="contained"
+            startIcon={<BagCheckIcon />}
+            onClick={handleAddToCart}
+            disabled={isAddingToCart}
+            sx={{ borderRadius: '12px', padding: '16px 24px' }}
+          >
+            <Typography
+              variant="button"
+              sx={{
+                fontWeight: theme.typography.body1.fontWeight,
+                fontSize: theme.typography.h5.fontSize,
+              }}
+            >
+              {t('product.addToCart')}
+            </Typography>
+          </Button>
+        )}
       </Box>
       <Box display="flex" marginTop="12px">
         <Button startIcon={<Heart />} sx={{}}>
-          <Link to={`/${urls.PROFILE}/${urls.WISHLIST}/${userId}`}>
+          <Link to={`${urls.PROFILE}/${urls.WISHLIST}/${userId}`}>
             <Typography
               variant="button"
               sx={{

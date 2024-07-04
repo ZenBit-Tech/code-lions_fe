@@ -4,7 +4,11 @@ import { Box, Typography } from '@mui/material';
 
 import theme from 'src/theme';
 
-function RadioLabel() {
+interface IRadioLabelProps {
+  price: number;
+}
+
+function RadioLabel({ price }: IRadioLabelProps) {
   const { t } = useTranslation();
 
   return (
@@ -17,7 +21,7 @@ function RadioLabel() {
         variant="body1"
         sx={{ fontWeight: theme.typography.h4.fontWeight, lineHeight: '21px' }}
       >
-        {t('product.mockPriceRadio')}
+        {`$${price}`}
       </Typography>
     </Box>
   );

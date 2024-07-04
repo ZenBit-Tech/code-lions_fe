@@ -42,6 +42,7 @@ function ProductPage() {
             images={images}
             vendorName={vendor.name}
             productId={id}
+            vendorId={vendor.id}
           />
           <ProductSection product={data} />
         </Box>

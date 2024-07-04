@@ -10,7 +10,7 @@ const useProfileTitle = () => {
   const pathTitleMap: Record<string, string> = {
     [urls.PROFILE_DETAILS]: t('profile.title'),
     [urls.PROFILE_ORDERS]: t('profileMenu.myOrders'),
-    [urls.PROFILE_WISHLIST]: t('profileMenu.wishlist'),
+    [`${urls.PROFILE}/${urls.WISHLIST}`]: t('profileMenu.wishlist'),
     [urls.PROFILE_SETTINGS]: t('profileMenu.settings'),
     [urls.PROFILE_SUPPORT]: t('profileMenu.support'),
   };

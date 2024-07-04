@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import {
   ImageList,
@@ -12,6 +13,7 @@ import {
 import { skipToken } from '@reduxjs/toolkit/query';
 import BlackHeartIcon from 'src/assets/icons/profile/heart-black.svg';
 import RedHeartIcon from 'src/assets/icons/profile/heart-red.svg';
+import { urls } from 'src/common/constants';
 import ProductSliderModal from 'src/components/ProductSliderModal';
 import { selectUserId } from 'src/redux/user/userSlice';
 import {
@@ -25,9 +27,15 @@ interface ImagesSectionProps {
   images: string[];
   vendorName: string;
   productId: string;
+  vendorId: string;
 }
 
-function ImagesSection({ images, vendorName, productId }: ImagesSectionProps) {
+function ImagesSection({
+  images,
+  vendorName,
+  productId,
+  vendorId,
+}: ImagesSectionProps) {
   const sliderImages = images.slice().reverse();
 
   const [selectedImage, setSelectedImage] = useState<string>(sliderImages[0]);
@@ -137,9 +145,11 @@ function ImagesSection({ images, vendorName, productId }: ImagesSectionProps) {
           </IconButton>
         )}
         <Box sx={{ margin: '30px 0' }}>
-          <Typography sx={{ color: theme.palette.text.disabled }}>
-            {vendorName}
-          </Typography>
+          <Link to={`${urls.VENDOR}/${vendorId}`}>
+            <Typography sx={{ color: theme.palette.text.disabled }}>
+              {vendorName}
+            </Typography>
+          </Link>
         </Box>
       </Box>
     </Box>
