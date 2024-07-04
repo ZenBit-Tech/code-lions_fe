@@ -22,7 +22,7 @@ const products: IProduct[] = [
     style: 'Style1',
     type: 'Type1',
     size: 'Size1',
-    images: ['image1.jpg'],
+    images: ['src/assets/photos/image2.jpg'],
     colors: ['Red', 'Blue'],
     vendor: {
       id: 'vendor1',
@@ -42,7 +42,7 @@ const products: IProduct[] = [
     style: 'Style2',
     type: 'Type2',
     size: 'Size2',
-    images: ['image2.jpg'],
+    images: ['src/assets/photos/image2.jpg'],
     colors: ['Green', 'Yellow'],
     vendor: {
       id: 'vendor2',
@@ -62,7 +62,7 @@ const products: IProduct[] = [
     style: 'Style2',
     type: 'Type2',
     size: 'Size2',
-    images: ['image2.jpg'],
+    images: ['src/assets/photos/image2.jpg'],
     colors: ['Green', 'Yellow'],
     vendor: {
       id: 'vendor2',
@@ -82,7 +82,7 @@ const products: IProduct[] = [
     style: 'Style2',
     type: 'Type2',
     size: 'Size2',
-    images: ['image2.jpg'],
+    images: ['src/assets/photos/image2.jpg'],
     colors: ['Green', 'Yellow'],
     vendor: {
       id: 'vendor2',
@@ -102,7 +102,7 @@ const products: IProduct[] = [
     style: 'Style2',
     type: 'Type2',
     size: 'Size2',
-    images: ['image2.jpg'],
+    images: ['src/assets/photos/image2.jpg'],
     colors: ['Green', 'Yellow'],
     vendor: {
       id: 'vendor2',
@@ -122,7 +122,7 @@ const products: IProduct[] = [
     style: 'Style2',
     type: 'Type2',
     size: 'Size2',
-    images: ['image2.jpg'],
+    images: ['src/assets/photos/image2.jpg'],
     colors: ['Green', 'Yellow'],
     vendor: {
       id: 'vendor2',
@@ -142,7 +142,7 @@ const products: IProduct[] = [
     style: 'Style2',
     type: 'Type2',
     size: 'Size2',
-    images: ['image2.jpg'],
+    images: ['src/assets/photos/image2.jpg'],
     colors: ['Green', 'Yellow'],
     vendor: {
       id: 'vendor2',
@@ -162,7 +162,7 @@ const products: IProduct[] = [
     style: 'Style2',
     type: 'Type2',
     size: 'Size2',
-    images: ['image2.jpg'],
+    images: ['src/assets/photos/image2.jpg'],
     colors: ['Green', 'Yellow'],
     vendor: {
       id: 'vendor2',
@@ -182,7 +182,7 @@ const products: IProduct[] = [
     style: 'Style2',
     type: 'Type2',
     size: 'Size2',
-    images: ['image2.jpg'],
+    images: ['src/assets/photos/image2.jpg'],
     colors: ['Green', 'Yellow'],
     vendor: {
       id: 'vendor2',
@@ -202,7 +202,7 @@ const products: IProduct[] = [
     style: 'Style2',
     type: 'Type2',
     size: 'Size1',
-    images: ['image2.jpg'],
+    images: ['src/assets/photos/image2.jpg'],
     colors: ['Green', 'Yellow'],
     vendor: {
       id: 'vendor2',
@@ -222,7 +222,7 @@ const products: IProduct[] = [
     style: 'Style2',
     type: 'Type2',
     size: 'Size1',
-    images: ['image2.jpg'],
+    images: ['src/assets/photos/image2.jpg'],
     colors: ['Green', 'Yellow'],
     vendor: {
       id: 'vendor2',
@@ -242,7 +242,7 @@ const products: IProduct[] = [
     style: 'Style2',
     type: 'Type2',
     size: 'Size2',
-    images: ['image2.jpg'],
+    images: ['src/assets/photos/image2.jpg'],
     colors: ['Green', 'Yellow'],
     vendor: {
       id: 'vendor2',
@@ -262,7 +262,7 @@ const products: IProduct[] = [
     style: 'Style2',
     type: 'Type2',
     size: 'Size2',
-    images: ['image2.jpg'],
+    images: ['src/assets/photos/image2.jpg'],
     colors: ['Green', 'Yellow'],
     vendor: {
       id: 'vendor2',
