@@ -1,35 +1,38 @@
 import { useTranslation } from 'react-i18next';
 
+import { Typography } from '@mui/material';
+
 import Container from 'src/components/shared/Container';
 import SectionTitle from 'src/components/shared/SectionTitle';
+import StyledButton from 'src/components/shared/StyledButton';
+import { useGetCartByIdQuery } from 'src/redux/cart/cartService';
+import { useAppSelector } from 'src/redux/hooks';
+import { selectUserId } from 'src/redux/user/userSlice';
 
 import CartTable from './CartTable';
-import { TableWrapper } from './CartTable/styles';
+import TableWrapper from './styles';
 
 function CartPage() {
   const { t } = useTranslation();
 
+  const userId = useAppSelector(selectUserId);
+  const { data } = useGetCartByIdQuery({ userId });
+
   return (
     <Container>
       <SectionTitle title={t('cartPage.title')} showBackLink mt="12px" />
-      <TableWrapper margin="0 166px">
-        <CartTable />
+      <TableWrapper>
+        {data && data.length > 0 ? (
+          <>
+            <CartTable data={data} />
+            <StyledButton width="489px">
+              <Typography>{t('cartPage.nextButton')}</Typography>
+            </StyledButton>
+          </>
+        ) : (
+          <Typography>{t('cartPage.noOrders')}</Typography>
+        )}
       </TableWrapper>
-
-      {/* <SectionWrapper>
-          <TextWrapper>
-            {articles.map(({ id, title, text }, index) => (
-              <ArticleWrapper key={id}>
-                <TitleStyled variant="h3" center={index === 0}>
-                  {t(title)}
-                </TitleStyled>
-                <Typography variant="body2" color={theme.palette.text.disabled}>
-                  {t(text)}
-                </Typography>
-              </ArticleWrapper>
-            ))}
-          </TextWrapper>
-        </SectionWrapper> */}
     </Container>
   );
 }

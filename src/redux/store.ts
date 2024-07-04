@@ -13,6 +13,8 @@ import {
   REGISTER,
 } from 'redux-persist';
 
+import { cartApi } from './cart/cartService';
+import cartReducer from './cart/cartSlice';
 import { productApi } from './product/productService';
 import productReducer from './product/productSlice';
 import { userApi } from './user/userService';
@@ -21,14 +23,15 @@ import userReducer from './user/userSlice';
 const rootReducer = combineReducers({
   user: userReducer,
   product: productReducer,
+  cart: cartReducer,
   [userApi.reducerPath]: userApi.reducer,
   [productApi.reducerPath]: productApi.reducer,
+  [cartApi.reducerPath]: cartApi.reducer,
 });
 
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['user'],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -40,7 +43,7 @@ const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }).concat(userApi.middleware, productApi.middleware),
+    }).concat(userApi.middleware, productApi.middleware, cartApi.middleware),
 });
 
 setupListeners(store.dispatch);

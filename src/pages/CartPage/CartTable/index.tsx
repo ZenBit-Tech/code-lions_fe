@@ -8,21 +8,34 @@ import {
   Typography,
   TableCell,
   TableHead,
+  IconButton,
 } from '@mui/material';
 
-// import { urls } from 'src/common/constants';
+import TrashIcon from 'src/assets/icons/trash-bin.svg';
+import { useRemoveFromCartMutation } from 'src/redux/cart/cartService';
+import { ICartItem } from 'src/redux/cart/types';
+import theme from 'src/theme';
 
-// import { Order } from '../types';
+import {
+  BodyTableCell,
+  ImageWrapper,
+  TableBodyStyled,
+  Image,
+  Circle,
+} from './styles';
 
-import data from './data';
-import { BodyTableCell, ImageWrapper, TableBodyStyled } from './styles';
+interface ICartTableProps {
+  data: ICartItem[];
+}
 
-// interface IOrdersTable {
-//   data: Order[];
-// }
-
-function CartTable() {
+function CartTable({ data }: ICartTableProps) {
   const { t } = useTranslation();
+
+  const [removeFromCart] = useRemoveFromCartMutation();
+
+  const handleRemove = (userId: string, productId: string) => {
+    removeFromCart({ userId, productId });
+  };
 
   return (
     <TableContainer>
@@ -30,23 +43,27 @@ function CartTable() {
         <TableHead>
           <TableRow>
             <TableCell align="left">
-              <Typography variant="subtitle1">
+              <Typography variant="button" component="p">
                 {t('cartPage.product')}
               </Typography>
             </TableCell>
             <TableCell align="center">
-              <Typography variant="subtitle1">{t('cartPage.color')}</Typography>
+              <Typography variant="button" component="p">
+                {t('cartPage.color')}
+              </Typography>
             </TableCell>
             <TableCell align="center">
-              <Typography variant="subtitle1">
+              <Typography variant="button" component="p">
                 {t('cartPage.rentDuration')}
               </Typography>
             </TableCell>
             <TableCell align="center">
-              <Typography variant="subtitle1">{t('cartPage.price')}</Typography>
+              <Typography variant="button" component="p">
+                {t('cartPage.price')}
+              </Typography>
             </TableCell>
             <TableCell align="center">
-              <Typography variant="subtitle1">
+              <Typography variant="button" component="p">
                 {t('cartPage.action')}
               </Typography>
             </TableCell>
@@ -56,38 +73,70 @@ function CartTable() {
           {data.map((item) => (
             <TableRow key={item.id}>
               <BodyTableCell component="th" scope="row" align="left">
-                <Box>
+                <Box display="flex" gap="16px">
                   <ImageWrapper>
-                    <img
+                    <Image
                       width="52px"
                       height="67px"
-                      src={item.images[0]}
-                      alt={item.name}
+                      src={item.productUrl}
+                      alt={item.productUrl}
                     />
                   </ImageWrapper>
-                  {/* <Box></Box> */}
+                  <Box width="223px">
+                    <Typography variant="button" component="p">
+                      {t('cartPage.productName')}
+                    </Typography>
+                    <Typography variant="button" component="p">
+                      {item.name || ''}
+                    </Typography>
+                    <Box display="flex" gap="3px">
+                      <Typography
+                        variant="h4"
+                        component="p"
+                        sx={{
+                          color: theme.palette.text.disabled,
+                          fontWeight: theme.typography.fontWeightBold,
+                        }}
+                      >
+                        {t('cartPage.size')}
+                      </Typography>
+                      <Typography
+                        variant="h4"
+                        component="p"
+                        sx={{ fontWeight: theme.typography.fontWeightBold }}
+                      >
+                        {item.size}
+                      </Typography>
+                    </Box>
+                  </Box>
                 </Box>
               </BodyTableCell>
-              {/* <BodyTableCell align="left">
-                {order.items.map((item) => (
-                  <Box display="flex" gap="4px" key={item.name}>
-                    <Typography>{item.name || ''}</Typography>
-                    <Typography>
-                      {t('vendorDashboard.size')} {item.size || ''}
-                    </Typography>
-                  </Box>
-                ))}
-              </BodyTableCell> */}
-              <BodyTableCell align="left">${item.price}</BodyTableCell>
-              {/* <BodyTableCell align="left">
-                <Status label={item.status} status={order.status} />
-              </BodyTableCell> */}
               <BodyTableCell align="center">
-                {/* <StyledLink
-                  to={`${urls.VENDOR}/${urls.VENDOR_ORDERS}/:${item.id}`}
-                >
-                  <Typography>{t('vendorDashboard.openOrder')} </Typography>
-                </StyledLink> */}
+                <Box display="flex" gap="4px" justifyContent="center">
+                  <Typography
+                    variant="h4"
+                    component="p"
+                    sx={{
+                      color: theme.palette.text.disabled,
+                      fontWeight: theme.typography.fontWeightBold,
+                    }}
+                  >
+                    {t('cartPage.colorDisplay')}
+                  </Typography>
+                  <Circle color={item.color} />
+                </Box>
+              </BodyTableCell>
+              <BodyTableCell align="center">
+                <Typography>
+                  {item.duration}
+                  {t('cartPage.days')}
+                </Typography>
+              </BodyTableCell>
+              <BodyTableCell align="center">${item.price}</BodyTableCell>
+              <BodyTableCell align="center">
+                <IconButton onClick={() => handleRemove(item.userId, item.id)}>
+                  <TrashIcon />
+                </IconButton>
               </BodyTableCell>
             </TableRow>
           ))}

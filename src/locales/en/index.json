@@ -357,7 +357,9 @@
     "action": "Action",
     "size": "Size: ",
     "colorDisplay": "Color: ",
-    "days": "7 days",
-    "nextButton": "Next Step"
+    "days": " days",
+    "nextButton": "Next Step",
+    "noOrders": "You have not added any products",
+    "productName": "Product Name:"
   }
 }
