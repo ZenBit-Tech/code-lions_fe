@@ -10,11 +10,11 @@ import CommentList from 'src/components/shared/CommentList';
 import Container from 'src/components/shared/Container';
 import RegularText from 'src/components/shared/RegularText';
 import Title from 'src/components/shared/Title';
-import ProfileInfo from 'src/pages/BuyerProfilePage/ProfileInfo';
 
+import ProfileInfo from './ProfileInfo';
 import { MainContainerWrapper, ReviewLabel } from './styles';
 
-function BuyerProfilePage() {
+function BuyerPublicProfilePage() {
   const { t } = useTranslation();
   const {
     userName,
@@ -61,4 +61,4 @@ function BuyerProfilePage() {
   );
 }
 
-export default BuyerProfilePage;
+export default BuyerPublicProfilePage;

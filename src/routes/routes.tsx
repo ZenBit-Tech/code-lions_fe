@@ -7,7 +7,7 @@ import AdminUserProfileEditPage from 'src/pages/admin/AdminUserProfileEditPage';
 import AdminUserProfilePage from 'src/pages/admin/AdminUserProfilePage';
 import SignInAdminPage from 'src/pages/admin/SignInAdminPage';
 import UsersPage from 'src/pages/admin/UsersPage';
-import BuyerProfilePage from 'src/pages/BuyerProfilePage';
+import BuyerPublicProfilePage from 'src/pages/BuyerPublicProfilePage';
 import HomePage from 'src/pages/HomePage';
 import NewPasswordPage from 'src/pages/NewPasswordPage';
 import OnboardingPage from 'src/pages/OnboardingPage';
@@ -22,7 +22,8 @@ import SignInPage from 'src/pages/SignInPage';
 import SignUpPage from 'src/pages/SignUpPage';
 import SizesGuidePage from 'src/pages/SizesGuidePage';
 import TermsOfUsePage from 'src/pages/TermsOfUsePage';
-import VendorProfilePage from 'src/pages/VendorProfilePage';
+import VendorLayout from 'src/pages/vendor/VendorLayout';
+import VendorPublicProfilePage from 'src/pages/vendor/VendorPublicProfilePage';
 import VerifyEmailPage from 'src/pages/VerifyEmailPage';
 import WishlistPage from 'src/pages/WishlistPage';
 
@@ -124,12 +125,12 @@ const router = createBrowserRouter([
     element: <FinishedOnboardingGuard element={<OnboardingPage />} />,
   },
   { path: urls.PROFILE, element: <ProfilePage /> },
-  { path: urls.USER_VENDOR_PROFILE, element: <VendorProfilePage /> },
+  { path: urls.USER_VENDOR_PROFILE, element: <VendorPublicProfilePage /> },
   {
     path: urls.VENDOR,
+    element: <VendorLayout />,
     children: [
-      { path: urls.USER_BUYER_PROFILE, element: <BuyerProfilePage /> },
-      { path: urls.VENDOR_DASHBOARD, element: <ProfileComingSoon /> },
+      { path: urls.USER_BUYER_PROFILE, element: <BuyerPublicProfilePage /> },
       { path: urls.VENDOR_ADD_PRODUCT, element: <ProfileComingSoon /> },
       { path: urls.VENDOR_PRODUCTS, element: <ProfileComingSoon /> },
       { path: urls.VENDOR_ORDERS, element: <ProfileComingSoon /> },
@@ -138,7 +139,7 @@ const router = createBrowserRouter([
         path: urls.VENDOR_PROFILE,
         element: <ProfileLayout />,
         children: [
-          { path: urls.PROFILE_DETAILS, element: <ProfileComingSoon /> },
+          { path: urls.PROFILE_DETAILS, element: <ProfilePage /> },
           { path: urls.PROFILE_SETTINGS, element: <ProfileComingSoon /> },
           { path: urls.PROFILE_SUPPORT, element: <ProfileComingSoon /> },
         ],

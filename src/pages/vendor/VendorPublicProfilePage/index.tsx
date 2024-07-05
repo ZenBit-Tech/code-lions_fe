@@ -9,8 +9,8 @@ import Header from 'src/components/Header';
 import CommentList from 'src/components/shared/CommentList';
 import Container from 'src/components/shared/Container';
 import RegularText from 'src/components/shared/RegularText';
-import ProfileInfo from 'src/pages/VendorProfilePage/ProfileInfo';
 
+import ProfileInfo from './ProfileInfo';
 import {
   MainContainerWrapper,
   ReviewLabel,
@@ -18,7 +18,7 @@ import {
   TabsWrapper,
 } from './styles';
 
-function VendorProfilePage() {
+function VendorPublicProfilePage() {
   const { t } = useTranslation();
   const { userName, userAvatar, userRating, reviewCount, formattedReviews } =
     useUserProfileData();
@@ -57,4 +57,4 @@ function VendorProfilePage() {
   );
 }
 
-export default VendorProfilePage;
+export default VendorPublicProfilePage;

@@ -75,7 +75,7 @@ function CategoriesSlider() {
         {categories.map((category) => (
           <CategoryWrapper key={category.name}>
             <CategoryImage src={category.image} alt={category.name} />
-            <CategoryTitile>{t(category.name)}</CategoryTitile>
+            <CategoryTitile>{category.name}</CategoryTitile>
           </CategoryWrapper>
         ))}
       </Slider>
