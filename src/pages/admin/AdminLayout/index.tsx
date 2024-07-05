@@ -3,9 +3,8 @@ import { Outlet } from 'react-router-dom';
 import { Grid } from '@mui/material';
 
 import HeaderAdmin from 'src/components/HeaderAdmin';
+import MainSection from 'src/components/shared/MainSection';
 import SideBar from 'src/components/SidebarAdmin';
-
-import MainSection from '../MainSection';
 
 function AdminLayout() {
   return (

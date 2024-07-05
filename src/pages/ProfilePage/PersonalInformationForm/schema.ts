@@ -14,7 +14,6 @@ const personalInformationSchema = Yup.object().shape({
     .matches(validations.PHONE_REGEX, appErrors.INVALID_PHONE)
     .required(appErrors.REQUIRED),
   countryCode: Yup.string().required(appErrors.REQUIRED),
-  // restPhoneNumber: Yup.string().required(appErrors.REQUIRED),
 });
 
 export default personalInformationSchema;

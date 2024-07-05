@@ -11,7 +11,6 @@ export const CommentCardWrapper = styled(Box)(({ theme }) => ({
   border: `1px solid ${theme.palette.border.secondary}`,
   minHeight: '163px',
   width: '100%',
-  backgroundColor: theme.palette.common.white,
 }));
 
 export const CommentContent = styled(Box)(() => ({
@@ -39,7 +38,6 @@ export const RatingWrapper = styled(Box)(() => ({
 
 export const RatingNumber = styled(Typography)(({ theme }) => ({
   marginLeft: '4px',
-  paddingBottom: '6px',
   fontWeight: 'bold',
   color: theme.palette.grey[800],
   fontFamily: theme.typography.h3.fontFamily,

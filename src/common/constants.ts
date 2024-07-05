@@ -29,14 +29,14 @@ export const urls = {
   ADMIN_USERS_FULL: '/admin/users',
   PROFILE: '/profile',
   PRODUCT: '/product',
+  USER_BUYER_PROFILE: 'buyer/:id',
+  USER_VENDOR_PROFILE: 'vendor/:id',
   PROFILE_DETAILS: 'details',
   PROFILE_ORDERS: 'orders',
   PROFILE_WISHLIST: 'wishlist',
   PROFILE_SETTINGS: 'settings',
   PROFILE_SUPPORT: 'support',
   PRODUCT_FEED: '/products',
-  USER_BUYER_PROFILE: 'buyer/:id',
-  USER_VENDOR_PROFILE: 'vendor/:id',
   VENDOR: '/vendor',
   VENDOR_ADD_PRODUCT: 'add-product',
   VENDOR_DASHBOARD: 'dashboard',
@@ -44,6 +44,7 @@ export const urls = {
   VENDOR_ORDERS: 'orders',
   VENDOR_CHATS: 'chats',
   VENDOR_PROFILE: 'profile',
+  BEST_VENDORS: '/best-vendors',
 };
 
 export const RTKUrls = {
@@ -64,7 +65,6 @@ export const RTKUrls = {
   ADDRESS: 'address',
   SIZE: 'size',
   CREDIT_CARD: 'credit-card',
-  USER_REVIEWS: 'reviews/user',
   UPDATE_PROFILE: '/update-profile',
   CARD_DATA: '/card-data',
   UPDATE_PROFILE_ADMIN: 'update-profile-admin',
@@ -187,6 +187,7 @@ export const urlRoles = {
   vendors: 'vendors',
   buyers: 'buyers',
 };
+
 export const profilePathsFor = {
   vendor: 'vendor/buyer',
   buyer: 'vendor',

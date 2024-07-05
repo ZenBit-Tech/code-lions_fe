@@ -10,6 +10,7 @@ import {
 } from 'src/components/shared/StyledButton/types';
 import { useAppSelector } from 'src/redux/hooks';
 import { selectUser } from 'src/redux/user/userSlice';
+import theme from 'src/theme';
 
 import AddressEditForm from '../AddressEditForm';
 import { TitleStyled } from '../PersonalInformationForm/styles';
@@ -23,7 +24,10 @@ function AddressForm() {
 
   return (
     <>
-      <TitleStyled variant="subtitle1">
+      <TitleStyled
+        variant="subtitle1"
+        sx={{ fontSize: theme.typography.h5.fontSize }}
+      >
         {t('profileDetails.address')}
       </TitleStyled>
       {!showEdit && (

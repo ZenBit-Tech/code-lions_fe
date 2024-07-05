@@ -1,5 +1,5 @@
 :root {
-  --swiper-navigation-color: ${theme.palette.common.black};
+  --swiper-navigation-color: black;
 }
 
 .swiper-wrapper {

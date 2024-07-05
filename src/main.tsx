@@ -1,19 +1,20 @@
 import React from 'react';
+import ReactDOM from 'react-dom/client';
 import { I18nextProvider } from 'react-i18next';
 import { Provider } from 'react-redux';
+
+import { PersistGate } from 'redux-persist/integration/react';
 
 import { ThemeProvider } from '@mui/material/styles';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
-import ReactDOM from 'react-dom/client';
-import { PersistGate } from 'redux-persist/integration/react';
+import GoogleAuthProvider from 'src/components/GoogleAuthProvider';
+import ToastProvider from 'src/components/shared/toasts/components/ToastProvider';
+import i18n from 'src/locales/i18n';
 import store, { persistor } from 'src/redux/store';
 
 import App from './App';
-import GoogleAuthProvider from './components/GoogleAuthProvider';
-import ToastProvider from './components/shared/toasts/components/ToastProvider';
-import i18n from './locales/i18n';
 import './index.css';
 import theme from './theme';
 

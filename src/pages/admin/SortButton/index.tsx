@@ -64,7 +64,9 @@ function SortButton({ title, onClick }: ISortButton) {
     <>
       <ButtonGroup ref={anchorRef} aria-label="sort button with menu">
         <IconButtonStyled onClick={handleToggle}>
-          <ButtonTitle>{title}</ButtonTitle>
+          <ButtonTitle sx={{ fontWeight: theme.typography.bold.fontWeight }}>
+            {title}
+          </ButtonTitle>
           <SortIconWrapper
             sx={{
               transform: rotate ? 'rotate(180deg)' : 'rotate(0deg)',

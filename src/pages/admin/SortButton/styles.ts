@@ -8,7 +8,6 @@ export const IconButtonStyled = styled(IconButton)(({ theme }) => ({
 }));
 
 export const ButtonTitle = styled(Typography)(({ theme }) => ({
-  fontWeight: 700,
   color: theme.palette.text.primary,
   marginRight: '27px',
 }));

@@ -173,42 +173,6 @@ export interface IUpdateSizesRequest {
   shoesSize: string;
 }
 
-export interface IPublicUser {
-  id: string;
-  name: string;
-  email: string;
-  role: UserRole;
-  isEmailVerified: boolean;
-  photoUrl?: string;
-  phoneNumber?: string;
-  addressLine1?: string;
-  addressLine2?: string;
-  country?: string;
-  state?: string;
-  city?: string;
-  clothesSize?: string;
-  jeansSize?: string;
-  shoesSize?: string;
-  isAccountActive: boolean;
-  rating: number;
-  orders: number;
-  createdAt?: Date;
-  lastUpdatedAt?: Date;
-  deletedAt?: Date;
-  onboardingStep: number;
-}
-
-export interface IReview {
-  id: string;
-  text: string;
-  rating: number;
-  userId: string;
-  reviewerId: string;
-  reviewerName: string;
-  reviewerAvatar: string;
-  createdAt: string;
-}
-
 export interface IUpdatePersonalInfoRequest {
   id: string;
   name?: string;
