@@ -9,6 +9,7 @@ import SignInAdminPage from 'src/pages/admin/SignInAdminPage';
 import UsersPage from 'src/pages/admin/UsersPage';
 import BuyerProfilePage from 'src/pages/BuyerProfilePage';
 import CartPage from 'src/pages/CartPage';
+import CheckoutPage from 'src/pages/CheckoutPage';
 import HomePage from 'src/pages/HomePage';
 import NewPasswordPage from 'src/pages/NewPasswordPage';
 import OnboardingPage from 'src/pages/OnboardingPage';
@@ -63,6 +64,7 @@ const router = createBrowserRouter([
         ],
       },
       { path: urls.CART, element: <CartPage /> },
+      { path: urls.CHECKOUT, element: <CheckoutPage /> },
     ],
   },
   {

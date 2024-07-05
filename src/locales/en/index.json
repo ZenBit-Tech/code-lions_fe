@@ -361,5 +361,17 @@
     "nextButton": "Next Step",
     "noOrders": "You have not added any products",
     "productName": "Product Name:"
+  },
+  "checkoutPage": {
+    "title": "Checkout",
+    "address": "Address",
+    "editButton": "Edit",
+    "cartSummary": "Cart summary",
+    "freeShipping": "Free shipping",
+    "freePrice": "0.00",
+    "expressShipping": "Express shipping",
+    "subtotal": "Subtotal",
+    "totalRenting": "Total Renting",
+    "payButton": "Pay"
   }
 }
