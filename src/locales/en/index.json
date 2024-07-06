@@ -318,6 +318,14 @@
     "filters": "filters",
     "title": "134 products"
   },
+  "home": {
+    "categories": "Categories",
+    "announcementTitle": "Free shipping on all orders today.",
+    "announcementText": "For orders start from $200",
+    "recommended": "Recommended",
+    "justIn": "Just In",
+    "yourSize": "Your Size"
+  },
   "vendorSidebar": {
     "addProduct": "Add Product",
     "dashboard": "Dashboard",

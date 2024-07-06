@@ -30,7 +30,7 @@ export const urls = {
   PROFILE: '/profile',
   PRODUCT: '/product',
   USER_BUYER_PROFILE: 'buyer/:id',
-  USER_VENDOR_PROFILE: '/vendor/:id',
+  USER_VENDOR_PROFILE: 'vendor/:id',
   PROFILE_DETAILS: 'details',
   PROFILE_ORDERS: 'orders',
   PROFILE_WISHLIST: 'wishlist',
@@ -186,4 +186,15 @@ export const phoneCodes = {
 export const urlRoles = {
   vendors: 'vendors',
   buyers: 'buyers',
+};
+
+export const profilePathsFor = {
+  vendor: 'vendor/buyer',
+  buyer: 'vendor',
+};
+
+export const homeProductsSorting = {
+  JUST_IN: 'justin',
+  RECOMMENDED: 'recommended',
+  YOUR_SIZE: 'yoursize',
 };
