@@ -78,17 +78,19 @@ export const cartApi = createApi({
       }),
       providesTags: ['Cart'],
     }),
+
     addToCart: build.mutation<
       void,
-      { userId: string; productId: string; duration: number }
+      { userId: string; productId: string; duration: number; price: number }
     >({
-      query: ({ userId, productId, duration }) => ({
+      query: ({ userId, productId, duration, price }) => ({
         url: `${RTKUrls.CART}/${userId}`,
         method: HttpMethods.POST,
-        body: { productId, duration },
+        body: { productId, duration, price },
       }),
       invalidatesTags: ['Cart'],
     }),
+
     removeFromCart: build.mutation<void, { userId: string; productId: string }>(
       {
         query: ({ userId, productId }) => ({

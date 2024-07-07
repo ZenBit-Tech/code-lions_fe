@@ -42,7 +42,7 @@ function DescriptionSection({ product }: ProductSectionProps) {
                 paddingBottom: '20px',
               }}
             >
-              {t('product.size')}
+              {t('product.color')}
             </StyledTypography>
             <StyledTypography
               sx={{
@@ -50,14 +50,14 @@ function DescriptionSection({ product }: ProductSectionProps) {
                 paddingBottom: '20px',
               }}
             >
-              {t('product.color')}
+              {t('product.style')}
             </StyledTypography>
             <StyledTypography
               sx={{
                 fontWeight: theme.typography.bold.fontWeight,
               }}
             >
-              {t('product.style')}
+              {t('product.type')}
             </StyledTypography>
           </Grid>
           <Grid item xs={1}>
@@ -66,16 +66,16 @@ function DescriptionSection({ product }: ProductSectionProps) {
                 paddingBottom: '20px',
               }}
             >
-              {product.size}
+              {product.colors[0]}
             </StyledTypography>
             <StyledTypography
               sx={{
                 paddingBottom: '20px',
               }}
             >
-              {product.colors[0]}
+              {product.style}
             </StyledTypography>
-            <StyledTypography>{product.style}</StyledTypography>
+            <StyledTypography>{product.type}</StyledTypography>
           </Grid>
         </Grid>
       </Box>
