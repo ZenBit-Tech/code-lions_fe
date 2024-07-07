@@ -6,7 +6,6 @@ import { Box } from '@mui/system';
 
 import EditIcon from 'src/assets/icons/edit-white.svg';
 import UserImageIcon from 'src/assets/icons/user-image.svg';
-import { apiUrl } from 'src/common/constants.ts';
 import useErrorHandling from 'src/common/hooks/useErrorHandlingHook';
 import useToast from 'src/components/shared/toasts/components/ToastProvider/ToastProviderHooks';
 import { useAppSelector } from 'src/redux/hooks';
@@ -20,9 +19,7 @@ function PhotoUploadForm() {
   const { showToast } = useToast();
   const user = useAppSelector(selectUser);
   const [uploadPhoto] = useUploadPhotoMutation();
-  const [preview, setPreview] = useState<string | null>(
-    user.photoUrl ? apiUrl + user.photoUrl : null
-  );
+  const [preview, setPreview] = useState<string | null>(user.photoUrl || null);
   const [imageError, setImageError] = useState(false);
 
   const { handleOnSubmitError } = useErrorHandling();
@@ -86,7 +83,7 @@ function PhotoUploadForm() {
             </Avatar>
           ) : (
             <Avatar
-              src={`${apiUrl}${user.photoUrl}`}
+              src={user.photoUrl}
               sx={{ width: '120px', height: '120px', position: 'absolute' }}
               onError={() => setImageError(true)}
             />
