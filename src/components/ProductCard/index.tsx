@@ -10,6 +10,11 @@ import BlackHeartIcon from 'src/assets/icons/profile/heart-black.svg';
 import RedHeartIcon from 'src/assets/icons/profile/heart-red.svg';
 import { urls } from 'src/common/constants';
 import ProductSliderModal from 'src/components/ProductSliderModal';
+import {
+  useAddToCartMutation,
+  useRemoveFromCartMutation,
+  useGetCartByIdQuery,
+} from 'src/redux/cart/cartService';
 import { IProduct } from 'src/redux/product/types';
 import { selectUserId } from 'src/redux/user/userSlice';
 import {
@@ -33,10 +38,18 @@ function ProductCard({ item }: IProductCardProps) {
   const userId = useSelector(selectUserId);
   const [open, setOpen] = useState<boolean>(false);
   const [isInWishlist, setIsInWishlist] = useState<boolean>(false);
+  const [isInCart, setIsInCart] = useState<boolean>(false);
+
   const [addToWishlist] = useAddToWishlistMutation();
   const [removeFromWishlist] = useRemoveFromWishlistMutation();
+  const [addToCart] = useAddToCartMutation();
+  const [removeFromCart] = useRemoveFromCartMutation();
 
   const { data: wishlistData } = useGetWishlistByIdQuery(
+    userId ? { userId } : skipToken
+  );
+
+  const { data: cartData } = useGetCartByIdQuery(
     userId ? { userId } : skipToken
   );
 
@@ -50,18 +63,44 @@ function ProductCard({ item }: IProductCardProps) {
     }
   }, [wishlistData, item.id]);
 
+  useEffect(() => {
+    if (cartData) {
+      const isCartItem = cartData.some(
+        (cartItem: { productId: string }) => cartItem.productId === item.id
+      );
+
+      setIsInCart(isCartItem);
+    }
+  }, [cartData, item.id]);
+
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
   const handleAddToWishlist = async () => {
     if (userId) {
       await addToWishlist({ userId, productId: item.id }).unwrap();
+      setIsInWishlist(true);
     }
   };
 
   const handleRemoveFromWishlist = async () => {
     if (userId) {
       await removeFromWishlist({ userId, productId: item.id }).unwrap();
+      setIsInWishlist(false);
+    }
+  };
+
+  const handleAddToCart = async () => {
+    if (userId) {
+      await addToCart({ userId, productId: item.id, duration: 7 }).unwrap();
+      setIsInCart(true);
+    }
+  };
+
+  const handleRemoveFromCart = async () => {
+    if (userId) {
+      await removeFromCart({ userId, productId: item.id }).unwrap();
+      setIsInCart(false);
     }
   };
 
@@ -136,12 +175,35 @@ function ProductCard({ item }: IProductCardProps) {
                   </Typography>
                 </Box>
                 <Box sx={style.bagIconWrapper}>
-                  <IconButton
-                    sx={{ backgroundColor: theme.palette.common.black }}
-                    onClick={handleAddToWishlist}
-                  >
-                    <BagIcon />
-                  </IconButton>
+                  {isInCart ? (
+                    <IconButton
+                      sx={{
+                        backgroundColor: theme.palette.common.black,
+                        opacity: 0.3,
+                        '.css-y47paa-MuiButtonBase-root-MuiIconButton-root:hover':
+                          {
+                            backgroundColor: theme.palette.common.black,
+                            opacity: 0.3,
+                          },
+                      }}
+                      onClick={handleRemoveFromCart}
+                    >
+                      <BagIcon />
+                    </IconButton>
+                  ) : (
+                    <IconButton
+                      sx={{
+                        backgroundColor: theme.palette.common.black,
+                        '.css-y47paa-MuiButtonBase-root-MuiIconButton-root:hover':
+                          {
+                            backgroundColor: theme.palette.common.black,
+                          },
+                      }}
+                      onClick={handleAddToCart}
+                    >
+                      <BagIcon />
+                    </IconButton>
+                  )}
                 </Box>
               </Box>
             </Box>
