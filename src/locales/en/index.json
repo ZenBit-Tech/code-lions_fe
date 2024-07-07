@@ -354,11 +354,14 @@
     "color": "COLOR",
     "size": "SIZE",
     "style": "STYLE",
-    "dollar": "$"
+    "dollar": "$",
+    "apply": "Apply",
+    "clear": "Clear"
   },
   "bestVendors": {
     "title": "Best Vendors",
     "name": "Vendor Name",
-    "follow": "Follow"
+    "follow": "Follow",
+    "emptyFiltersResult": "There is no products matching current filters value"
   }
 }

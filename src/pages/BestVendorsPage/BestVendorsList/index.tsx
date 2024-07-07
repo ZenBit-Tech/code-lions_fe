@@ -9,6 +9,7 @@ import {
   PaddingVariants,
   StyleVariants,
 } from 'src/components/shared/StyledButton/types';
+import { useAppSelector } from 'src/redux/hooks';
 import { IProduct } from 'src/redux/product/types';
 
 const mockProducts: IProduct[] = [
@@ -25,7 +26,7 @@ const mockProducts: IProduct[] = [
     slug: 'product-1',
     description: 'Description of Product 1',
     categories: ['Category 1'],
-    style: 'Style 1',
+    style: 'Casual',
     type: 'Type 1',
     size: 'M',
     colors: ['red', 'blue'],
@@ -41,11 +42,11 @@ const mockProducts: IProduct[] = [
       name: 'Vendor Name',
       photoUrl: '/static/images/vendor2.jpg',
     },
-    price: 200,
+    price: 800,
     slug: 'product-2',
     description: 'Description of Product 2',
     categories: ['Category 2'],
-    style: 'Style 2',
+    style: 'Premium',
     type: 'Type 2',
     size: 'L',
     colors: ['green', 'yellow'],
@@ -61,11 +62,11 @@ const mockProducts: IProduct[] = [
       name: 'Vendor Name',
       photoUrl: '/static/images/vendor3.jpg',
     },
-    price: 300,
+    price: 400,
     slug: 'product-3',
     description: 'Description of Product 3',
     categories: ['Category 3'],
-    style: 'Style 3',
+    style: 'Fancy',
     type: 'Type 3',
     size: 'S',
     colors: ['black', 'white'],
@@ -85,7 +86,7 @@ const mockProducts: IProduct[] = [
     slug: 'product-4',
     description: 'Description of Product 4',
     categories: ['Category 4'],
-    style: 'Style 4',
+    style: 'Fancy',
     type: 'Type 4',
     size: 'XL',
     colors: ['pink', 'purple'],
@@ -96,6 +97,24 @@ const mockProducts: IProduct[] = [
 
 function BestVendorsList() {
   const { t } = useTranslation();
+  const filters = useAppSelector((state) => state.filters);
+
+  const isFilterApplied =
+    filters.selectedPrice ||
+    filters.selectedColor ||
+    filters.selectedSize ||
+    filters.selectedStyle;
+
+  const filteredProducts = mockProducts.filter(
+    (product) =>
+      (!filters.selectedPrice || product.price === filters.selectedPrice) &&
+      (!filters.selectedColor ||
+        product.colors.includes(filters.selectedColor.toLowerCase())) &&
+      (!filters.selectedSize || product.size === filters.selectedSize) &&
+      (!filters.selectedStyle || product.style === filters.selectedStyle)
+  );
+
+  const productsToDisplay = isFilterApplied ? filteredProducts : mockProducts;
 
   return (
     <>
@@ -143,15 +162,35 @@ function BestVendorsList() {
                 </Typography>
               </StyledButton>
             </Box>
-            <Box component="div" sx={{ display: 'flex', gap: '32px' }}>
-              {mockProducts.map((product) => (
-                <Box
-                  key={product.id}
-                  sx={{ flexBasis: 'calc(100% - 32px * 3 / 4)' }}
-                >
-                  <ProductCard item={product} />
-                </Box>
-              ))}
+            <Box
+              component="div"
+              sx={{
+                display: 'flex',
+                flexWrap: 'wrap',
+                gap: '24px',
+              }}
+            >
+              {productsToDisplay.length > 0 ? (
+                productsToDisplay.map((product) => (
+                  <Box
+                    key={product.id}
+                    sx={{
+                      width: {
+                        xs: '100%',
+                        sm: 'calc(50% - 20px)',
+                        md: 'calc(50% - 20px)',
+                        lg: 'calc(25% - 18px)',
+                      },
+                    }}
+                  >
+                    <ProductCard item={product} />
+                  </Box>
+                ))
+              ) : (
+                <Typography variant="h3">
+                  {t('bestVendors.emptyFiltersResult')}
+                </Typography>
+              )}
             </Box>
           </Box>
         ))}

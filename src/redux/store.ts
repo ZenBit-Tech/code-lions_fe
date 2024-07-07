@@ -13,6 +13,7 @@ import {
   REGISTER,
 } from 'redux-persist';
 
+import filtersReducer from './filters/filtersSlice';
 import { productApi } from './product/productService';
 import productReducer from './product/productSlice';
 import { userApi } from './user/userService';
@@ -21,6 +22,7 @@ import userReducer from './user/userSlice';
 const rootReducer = combineReducers({
   user: userReducer,
   product: productReducer,
+  filters: filtersReducer,
   [userApi.reducerPath]: userApi.reducer,
   [productApi.reducerPath]: productApi.reducer,
 });
@@ -28,7 +30,7 @@ const rootReducer = combineReducers({
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['user'],
+  whitelist: ['user', 'filters'],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

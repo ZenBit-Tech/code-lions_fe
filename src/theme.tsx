@@ -12,6 +12,10 @@ declare module '@mui/material/styles' {
       light: string;
       error: string;
     };
+    scroll: {
+      lightGrey: string;
+      darkGrey: string;
+    };
   }
 
   interface PaletteOptions {
@@ -22,6 +26,11 @@ declare module '@mui/material/styles' {
       grey?: string;
       light: string;
       error?: string;
+    };
+
+    scroll?: {
+      lightGrey?: string;
+      darkGrey?: string;
     };
   }
 
@@ -104,6 +113,10 @@ const theme: Theme = createTheme({
       grey: '#D1D5DB',
       light: '#cbcbcb',
       error: '#F7392E',
+    },
+    scroll: {
+      lightGrey: '#eaeaea',
+      darkGrey: '#a7a7a7',
     },
     action: {
       hoverOpacity: 0.3,
