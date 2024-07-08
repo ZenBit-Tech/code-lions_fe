@@ -16,15 +16,16 @@
   },
   "footer": {
     "someText": "Some text will be here two - three lines",
-    "copyright": "© 2023 Black Circle"
+    "copyright": "© 2024 Black Circle"
   },
   "menu": {
     "shop": "Shop",
     "login": "Login",
+    "signUp": "Sign Up",
     "wishlist": "Wishlist",
     "cart": "Cart",
     "company": "Company",
-    "aboutUs": "About US",
+    "aboutUs": "About Us",
     "terms": "Terms & Conditions",
     "privacy": "Privacy Policy",
     "contact": "Contact Us",

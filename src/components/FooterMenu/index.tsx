@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next';
 
 import { Box } from '@mui/material';
 
+import { useAppSelector } from 'src/redux/hooks';
 import theme from 'src/theme';
 
 import createMenuData from './menuData';
@@ -9,7 +10,10 @@ import { MenuColumn, MenuLink, MenuMainLink } from './styles';
 
 function FooterMenu() {
   const { t } = useTranslation();
-  const menuData = createMenuData(t);
+  const user = useAppSelector((state) => state.user);
+  const { role } = user;
+
+  const menuData = createMenuData(t, role);
 
   return (
     <Box

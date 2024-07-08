@@ -45,6 +45,13 @@ export const urls = {
   VENDOR_CHATS: 'chats',
   VENDOR_PROFILE: 'profile',
   BEST_VENDORS: '/best-vendors',
+  CART: '/cart',
+  COMPANY: '/company',
+  ABOUT_US: '/about-us',
+  CONTACT: '/contact',
+  FAQ: '/faq',
+  SHIPPING: '/shipping',
+  RENT: '/rent',
 };
 
 export const RTKUrls = {
