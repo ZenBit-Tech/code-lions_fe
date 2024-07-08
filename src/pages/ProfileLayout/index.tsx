@@ -5,7 +5,6 @@ import { Avatar, Grid } from '@mui/material';
 import { Box } from '@mui/system';
 
 import { urls } from 'src/common/constants';
-import { apiUrl } from 'src/common/constants.ts';
 import SectionTitle from 'src/components/shared/SectionTitle';
 import { useAppSelector } from 'src/redux/hooks';
 import { selectUserAvatar, selectUserName } from 'src/redux/user/userSlice';
@@ -61,7 +60,7 @@ function ProfileLayout() {
                   <PhotoUploadForm />
                 ) : (
                   <Avatar
-                    src={`${apiUrl}${userAvatar}`}
+                    src={userAvatar}
                     sx={{ width: '120px', height: '120px' }}
                   />
                 )}
