@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next';
 
 import { Grid, Box, Typography } from '@mui/material';
 
+import capitalizeAndTruncate from 'src/common/utils/capitalizeAndTruncate';
 import { IProduct } from 'src/redux/product/types';
 import theme from 'src/theme';
 
@@ -66,16 +67,18 @@ function DescriptionSection({ product }: ProductSectionProps) {
                 paddingBottom: '20px',
               }}
             >
-              {product.colors[0]}
+              {capitalizeAndTruncate(product.colors[0])}
             </StyledTypography>
             <StyledTypography
               sx={{
                 paddingBottom: '20px',
               }}
             >
-              {product.style}
+              {capitalizeAndTruncate(product.style)}
             </StyledTypography>
-            <StyledTypography>{product.type}</StyledTypography>
+            <StyledTypography>
+              {capitalizeAndTruncate(product.type)}
+            </StyledTypography>
           </Grid>
         </Grid>
       </Box>

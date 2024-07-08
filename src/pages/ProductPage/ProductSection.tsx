@@ -1,17 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import {
-  Button,
-  FormControlLabel,
-  Radio,
-  RadioGroup,
-  Box,
-  Typography,
-  styled,
-} from '@mui/material';
+import { Button, Radio, RadioGroup, Box, Typography } from '@mui/material';
 
 import { skipToken } from '@reduxjs/toolkit/query';
 import BagCheckIcon from 'src/assets/icons/bag-check.svg';
@@ -19,6 +11,7 @@ import ChatDots from 'src/assets/icons/chat-dots.svg';
 import ChevronRight from 'src/assets/icons/chevron-right-grey-small.svg';
 import Heart from 'src/assets/icons/heart.svg';
 import { urls } from 'src/common/constants';
+import capitalizeAndTruncate from 'src/common/utils/capitalizeAndTruncate';
 import {
   useGetCartByIdQuery,
   useAddToCartMutation,
@@ -29,7 +22,7 @@ import { selectUserId } from 'src/redux/user/userSlice';
 import theme from 'src/theme';
 
 import RadioLabel from './RadioLabel';
-import { StyledInput } from './styles';
+import { StyledInput, StyledFormControlLabel } from './styles';
 
 const durations = [
   { duration: 7, price: 0 },
@@ -37,27 +30,17 @@ const durations = [
 ];
 
 const weeksCount: number = 2;
+const stringLimit: number = 30;
 
 interface ProductSectionProps {
   product: IProduct;
 }
 
-const StyledFormControlLabel = styled(FormControlLabel)(({ checked }) => ({
-  backgroundColor: checked ? theme.palette.secondary.main : 'transparent',
-  display: 'flex',
-  alignItems: 'center',
-  borderRadius: '12px',
-  border: `1px solid ${theme.palette.border.secondary}`,
-  padding: '16px 25px 16px 8px',
-  margin: '12px 0',
-  transition: 'background-color 0.3s',
-}));
-
 function ProductSection({ product }: ProductSectionProps) {
   const { t } = useTranslation();
   const userId = useSelector(selectUserId);
   const [selectedSize] = useState<string>(product.size);
-  const [value, setValue] = useState<string>('');
+  const [value, setValue] = useState<string>(durations[0]?.duration.toString());
 
   durations[0].price = product.price;
   durations[1].price = product.price * weeksCount;
@@ -69,25 +52,9 @@ function ProductSection({ product }: ProductSectionProps) {
   const [removeFromCart, { isLoading: isRemovingFromCart }] =
     useRemoveFromCartMutation();
 
-  const isProductInCart = cartData?.filter(
+  const isProductInCart = cartData?.some(
     (item) => item.productId === product.id
-  )[0];
-
-  useEffect(() => {
-    if (isProductInCart) {
-      const defaultOption = durations.find(
-        (opt) =>
-          opt.duration === isProductInCart.duration &&
-          opt.price === Number(isProductInCart.price)
-      );
-
-      if (defaultOption) {
-        setValue(defaultOption.duration.toString());
-      }
-    } else {
-      setValue(durations[0]?.duration.toString() || '');
-    }
-  }, [isProductInCart, isProductInCart?.duration, product.price]);
+  );
 
   const handleRadioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue((event.target as HTMLInputElement).value);
@@ -117,6 +84,7 @@ function ProductSection({ product }: ProductSectionProps) {
       return false;
     }
   };
+
   const handleRemoveFromCart = async () => {
     try {
       await removeFromCart({
@@ -153,7 +121,7 @@ function ProductSection({ product }: ProductSectionProps) {
               margin: '0 5px',
             }}
           >
-            {product.categories[0]}
+            {capitalizeAndTruncate(product.categories[0])}
           </Typography>
           <ChevronRight />
           <Typography
@@ -163,7 +131,7 @@ function ProductSection({ product }: ProductSectionProps) {
               margin: '0 5px',
             }}
           >
-            {product.name}
+            {capitalizeAndTruncate(product.name, stringLimit)}
           </Typography>
         </Box>
         <Typography
@@ -201,40 +169,42 @@ function ProductSection({ product }: ProductSectionProps) {
           </Typography>
           <StyledInput value={selectedSize} size="small" fullWidth disabled />
 
-          <RadioGroup value={value} onChange={handleRadioChange}>
-            {durations.map(({ duration, price }) => (
-              <Box sx={{ position: 'relative' }} key={duration}>
-                <StyledFormControlLabel
-                  value={duration.toString()}
-                  labelPlacement="end"
-                  control={
-                    <Radio
-                      sx={{
-                        '& .MuiSvgIcon-root': {
-                          fontSize: theme.typography.h3.fontSize,
-                        },
-                      }}
-                    />
-                  }
-                  label={<RadioLabel duration={duration} price={price} />}
-                  checked={value === duration.toString()}
-                />
-                <Box
-                  sx={{
-                    position: 'absolute',
-                    top: '30px',
-                    right: '20px',
-                    backgroundImage: `url(${radioImage})`,
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center',
-                    height: '72px',
-                    width: '72px',
-                    borderRadius: '8px',
-                  }}
-                />
-              </Box>
-            ))}
-          </RadioGroup>
+          {!isProductInCart && (
+            <RadioGroup value={value} onChange={handleRadioChange}>
+              {durations.map(({ duration, price }) => (
+                <Box sx={{ position: 'relative' }} key={duration}>
+                  <StyledFormControlLabel
+                    value={duration.toString()}
+                    labelPlacement="end"
+                    control={
+                      <Radio
+                        sx={{
+                          '& .MuiSvgIcon-root': {
+                            fontSize: theme.typography.h3.fontSize,
+                          },
+                        }}
+                      />
+                    }
+                    label={<RadioLabel duration={duration} price={price} />}
+                    checked={value === duration.toString()}
+                  />
+                  <Box
+                    sx={{
+                      position: 'absolute',
+                      top: '30px',
+                      right: '20px',
+                      backgroundImage: `url(${radioImage})`,
+                      backgroundSize: 'cover',
+                      backgroundPosition: 'center',
+                      height: '72px',
+                      width: '72px',
+                      borderRadius: '8px',
+                    }}
+                  />
+                </Box>
+              ))}
+            </RadioGroup>
+          )}
         </Box>
       </Box>
       <Box>

@@ -3,8 +3,6 @@ import { useParams } from 'react-router-dom';
 import { Box, CircularProgress } from '@mui/material';
 
 import { skipToken } from '@reduxjs/toolkit/query';
-import Footer from 'src/components/Footer';
-import Header from 'src/components/Header';
 import { useGetProductByIdQuery } from 'src/redux/product/productService';
 
 import DescriptionSection from './DescriptionSection';
@@ -35,7 +33,6 @@ function ProductPage() {
 
   return (
     <Box width="100%">
-      <Header />
       <Box padding="0 166px">
         <Box padding="52px 0" display="flex">
           <ImagesSection
@@ -48,7 +45,6 @@ function ProductPage() {
         </Box>
       </Box>
       <DescriptionSection product={data} />
-      <Footer />
     </Box>
   );
 }
