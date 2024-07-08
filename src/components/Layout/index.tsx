@@ -4,46 +4,50 @@ import { Box } from '@mui/system';
 
 import Footer from 'src/components/Footer';
 import Header from 'src/components/Header';
+import ScrollToTop from 'src/components/ScrollToTop';
 import theme from 'src/theme';
 
-function AdminLayout() {
+function Layout() {
   return (
-    <Box
-      component="main"
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        width: '100%',
-        minHeight: '100svh',
-      }}
-    >
-      <Header />
+    <>
+      <ScrollToTop />
       <Box
-        component="section"
+        component="main"
         sx={{
           display: 'flex',
           flexDirection: 'column',
-          justifyContent: 'center',
           width: '100%',
-          flex: 2,
-          minHeight: 0,
-          backgroundColor: theme.palette.background.default,
+          minHeight: '100svh',
         }}
       >
-        <Outlet />
+        <Header />
+        <Box
+          component="section"
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            width: '100%',
+            flex: 2,
+            minHeight: 0,
+            backgroundColor: theme.palette.background.default,
+          }}
+        >
+          <Outlet />
+        </Box>
+        <Box
+          component="footer"
+          sx={{
+            position: 'relative',
+            width: '100%',
+            mt: 'auto',
+          }}
+        >
+          <Footer />
+        </Box>
       </Box>
-      <Box
-        component="footer"
-        sx={{
-          position: 'relative',
-          width: '100%',
-          mt: 'auto',
-        }}
-      >
-        <Footer />
-      </Box>
-    </Box>
+    </>
   );
 }
 
-export default AdminLayout;
+export default Layout;
