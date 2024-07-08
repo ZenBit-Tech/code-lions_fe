@@ -1,12 +1,16 @@
 import { urls } from 'src/common/constants';
 
-const createMenuData = (t: (key: string) => string) => [
+const createMenuData = (t: (key: string) => string, userId: string | null) => [
   {
     id: 'shop',
     mainLink: { to: '#', label: t('menu.shop') },
     links: [
       { id: 'login', to: urls.SIGN_IN, label: t('menu.login') },
-      { id: 'wishlist', to: '#', label: t('menu.wishlist') },
+      {
+        id: 'wishlist',
+        to: `${urls.PROFILE}/${urls.WISHLIST}/${userId}`,
+        label: t('menu.wishlist'),
+      },
       { id: 'cart', to: '#', label: t('menu.cart') },
     ],
   },
