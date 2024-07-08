@@ -93,6 +93,7 @@ function PersonalInformationForm() {
         countryCode,
         restPhoneNumber,
       });
+      showToast('success', t('profileDetails.successInfoUpdate'));
     } catch (err) {
       handleOnSubmitError(err, showToast, t('profileDetails.unknownError'));
     }
