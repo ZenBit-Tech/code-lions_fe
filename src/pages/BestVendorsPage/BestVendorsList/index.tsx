@@ -9,118 +9,38 @@ import {
   PaddingVariants,
   StyleVariants,
 } from 'src/components/shared/StyledButton/types';
-import { useAppSelector } from 'src/redux/hooks';
-import { IProduct } from 'src/redux/product/types';
-
-const mockProducts: IProduct[] = [
-  {
-    id: '1',
-    images: ['src/assets/photos/mockPhoto3.png'],
-    name: 'Product Name',
-    vendor: {
-      id: 'vendor1',
-      name: 'Vendor Name',
-      photoUrl: '/static/images/vendor1.jpg',
-    },
-    price: 100,
-    slug: 'product-1',
-    description: 'Description of Product 1',
-    categories: ['Category 1'],
-    style: 'Casual',
-    type: 'Type 1',
-    size: 'M',
-    colors: ['red', 'blue'],
-    createdAt: 'createdAt',
-    lastUpdatedAt: 'lastUpdatedAt',
-  },
-  {
-    id: '2',
-    images: ['src/assets/photos/mockPhoto3.png'],
-    name: 'Product Name',
-    vendor: {
-      id: 'vendor2',
-      name: 'Vendor Name',
-      photoUrl: '/static/images/vendor2.jpg',
-    },
-    price: 800,
-    slug: 'product-2',
-    description: 'Description of Product 2',
-    categories: ['Category 2'],
-    style: 'Premium',
-    type: 'Type 2',
-    size: 'L',
-    colors: ['green', 'yellow'],
-    createdAt: 'createdAt',
-    lastUpdatedAt: 'lastUpdatedAt',
-  },
-  {
-    id: '3',
-    images: ['src/assets/photos/mockPhoto3.png'],
-    name: 'Product Name',
-    vendor: {
-      id: 'vendor3',
-      name: 'Vendor Name',
-      photoUrl: '/static/images/vendor3.jpg',
-    },
-    price: 400,
-    slug: 'product-3',
-    description: 'Description of Product 3',
-    categories: ['Category 3'],
-    style: 'Fancy',
-    type: 'Type 3',
-    size: 'S',
-    colors: ['black', 'white'],
-    createdAt: 'createdAt',
-    lastUpdatedAt: 'lastUpdatedAt',
-  },
-  {
-    id: '4',
-    images: ['src/assets/photos/mockPhoto3.png'],
-    name: 'Product Name',
-    vendor: {
-      id: 'vendor4',
-      name: 'Vendor Name',
-      photoUrl: '/static/images/vendor4.jpg',
-    },
-    price: 400,
-    slug: 'product-4',
-    description: 'Description of Product 4',
-    categories: ['Category 4'],
-    style: 'Fancy',
-    type: 'Type 4',
-    size: 'XL',
-    colors: ['pink', 'purple'],
-    createdAt: 'createdAt',
-    lastUpdatedAt: 'lastUpdatedAt',
-  },
-];
+import { useGetBestVendorsQuery } from 'src/redux/bestVendors/bestVendorsService';
 
 function BestVendorsList() {
   const { t } = useTranslation();
-  const filters = useAppSelector((state) => state.filters);
+  const { data: bestVendors } = useGetBestVendorsQuery();
 
-  const isFilterApplied =
-    filters.selectedPrice ||
-    filters.selectedColor ||
-    filters.selectedSize ||
-    filters.selectedStyle;
+  console.log(bestVendors);
 
-  const filteredProducts = mockProducts.filter(
-    (product) =>
-      (!filters.selectedPrice || product.price === filters.selectedPrice) &&
-      (!filters.selectedColor ||
-        product.colors.includes(filters.selectedColor.toLowerCase())) &&
-      (!filters.selectedSize || product.size === filters.selectedSize) &&
-      (!filters.selectedStyle || product.style === filters.selectedStyle)
-  );
+  // const filters = useAppSelector((state) => state.filters);
 
-  const productsToDisplay = isFilterApplied ? filteredProducts : mockProducts;
+  // const isFilterApplied =
+  //   filters.selectedPrice ||
+  //   filters.selectedColor ||
+  //   filters.selectedSize ||
+  //   filters.selectedStyle;
+
+  // const filteredProducts = mockProducts.filter(
+  //   (product) =>
+  //     (!filters.selectedPrice || product.price === filters.selectedPrice) &&
+  //     (!filters.selectedColor ||
+  //       product.colors.includes(filters.selectedColor.toLowerCase())) &&
+  //     (!filters.selectedSize || product.size === filters.selectedSize) &&
+  //     (!filters.selectedStyle || product.style === filters.selectedStyle)
+  // );
+
+  // const productsToDisplay = isFilterApplied ? filteredProducts : mockProducts;
 
   return (
     <>
       <Box sx={{ mt: '40px', mb: '49px' }}>
-        {Array.from({ length: 4 }).map((_, index) => (
-          <Box key={index} component="div" sx={{ mt: '24px' }}>
+        {bestVendors?.map(({ vendorId, vendorName, photoUrl, products }) => (
+          <Box key={vendorId} component="div" sx={{ mt: '24px' }}>
             <Box
               component="div"
               sx={{
@@ -137,9 +57,9 @@ function BestVendorsList() {
                   gap: '24px',
                 }}
               >
-                <Avatar alt="vendor-avatar" src={mockAvatar} />
+                <Avatar alt="vendor-avatar" src={photoUrl || mockAvatar} />
                 <Typography variant="subtitle1" sx={{ fontWeight: 500 }}>
-                  {t('bestVendors.name')}
+                  {vendorName}
                 </Typography>
               </Box>
               <StyledButton
@@ -170,27 +90,21 @@ function BestVendorsList() {
                 gap: '24px',
               }}
             >
-              {productsToDisplay.length > 0 ? (
-                productsToDisplay.map((product) => (
-                  <Box
-                    key={product.id}
-                    sx={{
-                      width: {
-                        xs: '100%',
-                        sm: 'calc(50% - 20px)',
-                        md: 'calc(50% - 20px)',
-                        lg: 'calc(25% - 18px)',
-                      },
-                    }}
-                  >
-                    <ProductCard item={product} />
-                  </Box>
-                ))
-              ) : (
-                <Typography variant="h3">
-                  {t('bestVendors.emptyFiltersResult')}
-                </Typography>
-              )}
+              {products?.map((product) => (
+                <Box
+                  key={product.id}
+                  sx={{
+                    width: {
+                      xs: '100%',
+                      sm: 'calc(50% - 20px)',
+                      md: 'calc(50% - 20px)',
+                      lg: 'calc(25% - 18px)',
+                    },
+                  }}
+                >
+                  <ProductCard item={product} />
+                </Box>
+              ))}
             </Box>
           </Box>
         ))}

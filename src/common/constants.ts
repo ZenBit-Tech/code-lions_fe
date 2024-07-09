@@ -70,6 +70,7 @@ export const RTKUrls = {
   UPDATE_PROFILE_ADMIN: 'update-profile-admin',
   SOFT_DELETE: 'soft-delete',
   PRODUCTS: 'products',
+  BEST_VENDORS: 'best-vendors',
 };
 
 export const HttpMethods = {

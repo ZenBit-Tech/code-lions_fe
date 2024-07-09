@@ -13,6 +13,8 @@ import {
   REGISTER,
 } from 'redux-persist';
 
+import { bestVendorsApi } from './bestVendors/bestVendorsService';
+import bestVendorsReducer from './bestVendors/bestVendorsSlice';
 import filtersReducer from './filters/filtersSlice';
 import { productApi } from './product/productService';
 import productReducer from './product/productSlice';
@@ -23,8 +25,10 @@ const rootReducer = combineReducers({
   user: userReducer,
   product: productReducer,
   filters: filtersReducer,
+  bestVendors: bestVendorsReducer,
   [userApi.reducerPath]: userApi.reducer,
   [productApi.reducerPath]: productApi.reducer,
+  [bestVendorsApi.reducerPath]: bestVendorsApi.reducer,
 });
 
 const persistConfig = {
@@ -42,7 +46,11 @@ const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }).concat(userApi.middleware, productApi.middleware),
+    }).concat(
+      userApi.middleware,
+      productApi.middleware,
+      bestVendorsApi.middleware
+    ),
 });
 
 setupListeners(store.dispatch);
