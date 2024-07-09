@@ -360,12 +360,14 @@
     "noOrders": "You have no orders"
   },
   "filters": {
-    "title": "Filter",
-    "price": "Price",
+    "title": "Filters",
+    "price": "PRICE",
     "color": "COLOR",
     "size": "SIZE",
     "style": "STYLE",
-    "dollar": "$"
+    "dollar": "$",
+    "apply": "Apply",
+    "clear": "Clear"
   },
   "bestVendors": {
     "title": "Best Vendors",

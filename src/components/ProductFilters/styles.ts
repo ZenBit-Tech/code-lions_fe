@@ -48,3 +48,13 @@ export const CustomizedSlider = styled(Slider)`
     background-color: transparent;
   }
 `;
+
+export const style = {
+  subTitle: {
+    width: '100%',
+    margin: '16px 0',
+    textAlign: 'center',
+    fontSize: `${theme.typography.h4.fontSize}px`,
+    letterSpacing: '0.6px',
+  },
+};
