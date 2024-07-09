@@ -9,7 +9,7 @@ import AvatarUploader from './AvatarUploader';
 import GeneralInformationForm from './GeneralInformationForm';
 import { TitleStyled } from './styles';
 
-function VendorProfile() {
+function VendorProfilePage() {
   const { t } = useTranslation();
 
   return (
@@ -35,4 +35,4 @@ function VendorProfile() {
   );
 }
 
-export default VendorProfile;
+export default VendorProfilePage;

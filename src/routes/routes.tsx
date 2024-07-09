@@ -25,8 +25,8 @@ import SizesGuidePage from 'src/pages/SizesGuidePage';
 import TermsOfUsePage from 'src/pages/TermsOfUsePage';
 import VendorDashboard from 'src/pages/vendor/VendorDashboard';
 import VendorLayout from 'src/pages/vendor/VendorLayout';
-import VendorProfile from 'src/pages/vendor/VendorProfile';
 import VendorProfileLayout from 'src/pages/vendor/VendorProfileLayout';
+import VendorProfilePage from 'src/pages/vendor/VendorProfilePage';
 import VendorPublicProfilePage from 'src/pages/vendor/VendorPublicProfilePage';
 import VerifyEmailPage from 'src/pages/VerifyEmailPage';
 import WishlistPage from 'src/pages/WishlistPage';
@@ -153,7 +153,7 @@ const router = createBrowserRouter([
         path: urls.VENDOR_PROFILE,
         element: <VendorProfileLayout />,
         children: [
-          { path: urls.PROFILE_DETAILS, element: <VendorProfile /> },
+          { path: urls.PROFILE_DETAILS, element: <VendorProfilePage /> },
           { path: urls.PROFILE_SETTINGS, element: <ProfileComingSoon /> },
           { path: urls.PROFILE_SUPPORT, element: <ProfileComingSoon /> },
         ],
