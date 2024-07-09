@@ -69,6 +69,7 @@ function SizesForm() {
         jeansSize,
         shoesSize,
       });
+      showToast('success', t('profileDetails.successInfoUpdate'));
     } catch (err) {
       handleOnSubmitError(err, showToast, t('profileDetails.unknownError'));
     }
