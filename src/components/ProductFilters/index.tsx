@@ -1,23 +1,17 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import {
-  Box,
-  Typography,
-  Button,
-  List,
-  ListItem,
-  ListItemText,
-} from '@mui/material';
+import { Box, Typography, Button, List } from '@mui/material';
+import ListItemButton from '@mui/material/ListItemButton';
 
-import checkImg from 'src/assets/photos/check-filters.png';
-import { productStyles } from 'src/common/constants';
 import theme from 'src/theme';
+
+import StyledButton from '../shared/StyledButton';
 
 import { CustomizedSlider } from './styles';
 
 const min = 0;
-const max = 80;
+const max = 1000;
 
 const marks = [
   {
@@ -35,35 +29,38 @@ const colors = [
   { name: 'pink', hex: '#F178B6' },
   { name: 'yellow', hex: '#F2C94C' },
   { name: 'red', hex: '#EB5757' },
-  { name: 'violet', hex: '#7879F1' },
+  { name: 'purple', hex: '#7879F1' },
+  { name: 'black', hex: '#000000' },
+  { name: 'blue', hex: '#6aa9dd' },
+  { name: 'brown', hex: 'rgba(170, 66, 88, 0.3)' },
+  { name: 'grey', hex: '#6D6B6B' },
+  { name: 'orange', hex: '#ED6C3C' },
 ];
 
-const styles = Object.values(productStyles);
 const sizes = ['XS', 'S', 'M', 'L', 'XL'];
+
+const styles = ['Casual', 'Premium', 'Fancy'];
 
 function ProductFilters() {
   const { t } = useTranslation();
-  const [price, setPrice] = useState<number>(min);
+  const [selectedPrice, setSelectedPrice] = useState<number>(min);
   const [selectedColor, setSelectedColor] = useState<string>('');
   const [selectedSize, setSelectedSize] = useState<string>('');
-  const [selectedStyles, setSelectedStyles] = useState<string[]>([]);
+  const [selectedStyle, setSelectedStyle] = useState<string>('');
 
-  const handleChange = (_: Event, newValue: number | number[]) => {
-    setPrice(newValue as number);
+  const handleChange = (_: Event, newValue: number | number[]): void => {
+    setSelectedPrice(newValue as number);
   };
 
-  const handleToggle = (style: string) => {
-    const currentIndex = selectedStyles.indexOf(style);
-    const newChecked = [...selectedStyles];
-    const absent = -1;
+  const handleApplyFilters = () => {
+    // TODO: connect with backend
+  };
 
-    if (currentIndex === absent) {
-      newChecked.push(style);
-    } else {
-      newChecked.splice(currentIndex, 1);
-    }
-
-    setSelectedStyles(newChecked);
+  const handleClearFilters = (): void => {
+    setSelectedPrice(min);
+    setSelectedColor('');
+    setSelectedSize('');
+    setSelectedStyle('');
   };
 
   return (
@@ -77,7 +74,8 @@ function ProductFilters() {
       <Box sx={{ width: 262 }}>
         <CustomizedSlider
           marks={marks}
-          value={price}
+          step={5}
+          value={selectedPrice}
           valueLabelDisplay="auto"
           min={min}
           max={max}
@@ -92,7 +90,7 @@ function ProductFilters() {
         >
           <Typography
             variant="body2"
-            onClick={() => setPrice(min)}
+            onClick={() => setSelectedPrice(min)}
             sx={{
               cursor: 'pointer',
               paddingTop: '6px',
@@ -108,7 +106,7 @@ function ProductFilters() {
           </Typography>
           <Typography
             variant="body2"
-            onClick={() => setPrice(max)}
+            onClick={() => setSelectedPrice(max)}
             sx={{
               cursor: 'pointer',
               paddingTop: '6px',
@@ -128,33 +126,33 @@ function ProductFilters() {
         <Typography variant="h2" sx={{ mb: '24px' }}>
           {t('filters.color')}
         </Typography>
-        <Box sx={{ display: 'flex', gap: '14px' }}>
+        <Box sx={{ display: 'flex', gap: '14px', flexWrap: 'wrap' }}>
           {colors.map((color) => (
             <Box
               key={color.name}
               onClick={() => setSelectedColor(color.name)}
               sx={{ cursor: 'pointer' }}
             >
-              {color.name === selectedColor ? (
-                <img src={checkImg} alt="check" />
-              ) : (
-                <Box
-                  sx={{
-                    width: '34px',
-                    height: '34px',
-                    backgroundColor: color.hex,
-                    borderRadius: '50%',
-                    display: 'inline-block',
-                    transition: 'box-shadow 0.3s linear',
-                    '&:hover': {
-                      boxShadow: `0 2px 8px 0 ${theme.palette.common.black}`,
-                    },
-                    '&:focus': {
-                      boxShadow: `0 2px 8px 0 ${theme.palette.common.black}`,
-                    },
-                  }}
-                />
-              )}
+              <Box
+                sx={{
+                  width: '34px',
+                  height: '34px',
+                  backgroundColor: color.hex,
+                  borderRadius: '50%',
+                  display: 'inline-block',
+                  boxShadow:
+                    color.name === selectedColor
+                      ? `0 2px 8px 0 ${theme.palette.common.black}`
+                      : 'none',
+                  transition: 'box-shadow 0.3s linear',
+                  '&:hover': {
+                    boxShadow: `0 2px 8px 0 ${theme.palette.common.black}`,
+                  },
+                  '&:focus': {
+                    boxShadow: `0 2px 8px 0 ${theme.palette.common.black}`,
+                  },
+                }}
+              />
             </Box>
           ))}
         </Box>
@@ -187,26 +185,57 @@ function ProductFilters() {
         <Typography variant="h2" sx={{ mb: '16px' }}>
           {t('filters.style')}
         </Typography>
-        <List>
+        <List
+          sx={{
+            width: '100%',
+            marginBottom: '40px',
+            height: '123px',
+            overflow: 'auto',
+            paddingTop: 0,
+            paddingBottom: 0,
+          }}
+        >
           {styles.map((style) => (
-            <ListItem key={style} onClick={() => handleToggle(style)}>
-              <ListItemText
-                primary={
-                  <Typography
-                    variant="body1"
-                    sx={{
-                      fontWeight: selectedStyles.includes(style)
-                        ? 'bold'
-                        : 'normal',
-                    }}
-                  >
-                    {style}
-                  </Typography>
-                }
-              />
-            </ListItem>
+            <ListItemButton
+              key={style}
+              selected={style === selectedStyle}
+              onClick={() => setSelectedStyle(style)}
+              sx={{
+                color: theme.palette.text.disabled,
+                fontWeight: 500,
+                lineHeight: 1.57,
+              }}
+            >
+              {style}
+            </ListItemButton>
           ))}
         </List>
+        <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+          <StyledButton
+            onClick={handleApplyFilters}
+            sx={{
+              paddingTop: '15px',
+              paddingBottom: '15px',
+              paddingLeft: '40px',
+              paddingRight: '40px',
+              borderRadius: '6px',
+            }}
+          >
+            {t('filters.apply')}
+          </StyledButton>
+          <StyledButton
+            onClick={handleClearFilters}
+            sx={{
+              paddingTop: '15px',
+              paddingBottom: '15px',
+              paddingLeft: '40px',
+              paddingRight: '40px',
+              borderRadius: '6px',
+            }}
+          >
+            {t('filters.clear')}
+          </StyledButton>
+        </Box>
       </Box>
     </Box>
   );
