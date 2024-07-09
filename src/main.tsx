@@ -6,6 +6,8 @@ import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 
 import { ThemeProvider } from '@mui/material/styles';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 
 import GoogleAuthProvider from 'src/components/GoogleAuthProvider';
 import ToastProvider from 'src/components/shared/toasts/components/ToastProvider';

@@ -319,6 +319,14 @@
     "filters": "filters",
     "title": "134 products"
   },
+  "home": {
+    "categories": "Categories",
+    "announcementTitle": "Free shipping on all orders today.",
+    "announcementText": "For orders start from $200",
+    "recommended": "Recommended",
+    "justIn": "Just In",
+    "yourSize": "Your Size"
+  },
   "vendorSidebar": {
     "addProduct": "Add Product",
     "dashboard": "Dashboard",
@@ -354,5 +362,18 @@
     "avatar": "Avatar",
     "avatarRequirements": "Only *.png, *.jpg and *.jpeg image files are accepted",
     "changePhoto": "Change Photo"
+  },
+  "filters": {
+    "title": "Filter",
+    "price": "Price",
+    "color": "COLOR",
+    "size": "SIZE",
+    "style": "STYLE",
+    "dollar": "$"
+  },
+  "bestVendors": {
+    "title": "Best Vendors",
+    "name": "Vendor Name",
+    "follow": "Follow"
   }
 }

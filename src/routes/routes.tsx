@@ -7,7 +7,8 @@ import AdminUserProfileEditPage from 'src/pages/admin/AdminUserProfileEditPage';
 import AdminUserProfilePage from 'src/pages/admin/AdminUserProfilePage';
 import SignInAdminPage from 'src/pages/admin/SignInAdminPage';
 import UsersPage from 'src/pages/admin/UsersPage';
-import BuyerProfilePage from 'src/pages/BuyerProfilePage';
+import BestVendorsPage from 'src/pages/BestVendorsPage';
+import BuyerPublicProfilePage from 'src/pages/BuyerPublicProfilePage';
 import HomePage from 'src/pages/HomePage';
 import NewPasswordPage from 'src/pages/NewPasswordPage';
 import OnboardingPage from 'src/pages/OnboardingPage';
@@ -26,7 +27,7 @@ import VendorDashboard from 'src/pages/vendor/VendorDashboard';
 import VendorLayout from 'src/pages/vendor/VendorLayout';
 import VendorProfile from 'src/pages/vendor/VendorProfile';
 import VendorProfileLayout from 'src/pages/vendor/VendorProfileLayout';
-import VendorProfilePage from 'src/pages/VendorProfilePage';
+import VendorPublicProfilePage from 'src/pages/vendor/VendorPublicProfilePage';
 import VerifyEmailPage from 'src/pages/VerifyEmailPage';
 import WishlistPage from 'src/pages/WishlistPage';
 
@@ -52,6 +53,7 @@ const router = createBrowserRouter([
       { path: urls.PRODUCT_FEED, element: <ProductFeedPage /> },
       { path: urls.PRIVACY_POLICY, element: <PrivacyPolicyPage /> },
       { path: urls.TERMS_OF_USE, element: <TermsOfUsePage /> },
+      { path: urls.BEST_VENDORS, element: <BestVendorsPage /> },
       {
         path: urls.PROFILE,
         element: <ProfileLayout />,
@@ -136,13 +138,12 @@ const router = createBrowserRouter([
     element: <FinishedOnboardingGuard element={<OnboardingPage />} />,
   },
   { path: urls.PROFILE, element: <ProfilePage /> },
-  { path: urls.USER_BUYER_PROFILE, element: <BuyerProfilePage /> },
-  { path: urls.USER_VENDOR_PROFILE, element: <VendorProfilePage /> },
+  { path: urls.USER_VENDOR_PROFILE, element: <VendorPublicProfilePage /> },
   {
     path: urls.VENDOR,
     element: <VendorLayout />,
     children: [
-      { path: urls.USER_BUYER_PROFILE, element: <BuyerProfilePage /> },
+      { path: urls.USER_BUYER_PROFILE, element: <BuyerPublicProfilePage /> },
       { path: urls.VENDOR_DASHBOARD, element: <VendorDashboard /> },
       { path: urls.VENDOR_ADD_PRODUCT, element: <ProfileComingSoon /> },
       { path: urls.VENDOR_PRODUCTS, element: <ProfileComingSoon /> },
@@ -159,8 +160,6 @@ const router = createBrowserRouter([
       },
     ],
   },
-  { path: urls.USER_BUYER_PROFILE, element: <BuyerProfilePage /> },
-  { path: urls.USER_VENDOR_PROFILE, element: <VendorProfilePage /> },
   { path: urls.PRODUCT, element: <ProductPage /> },
 ]);
 
