@@ -8,6 +8,7 @@ import { Box, Typography, CircularProgress } from '@mui/material';
 import { urls, productsOnPage } from 'src/common/constants';
 import createNavigationLink from 'src/common/utils/createNavigationLink';
 import ProductCard from 'src/components/ProductCard';
+import ProductFilters from 'src/components/ProductFilters';
 import SearchInput from 'src/components/shared/SearchInput';
 import useToast from 'src/components/shared/toasts/components/ToastProvider/ToastProviderHooks';
 import StyledPagination from 'src/pages/admin/StyledPagination';
@@ -68,13 +69,16 @@ function ProductFeedPage() {
         <Box
           sx={{
             display: 'flex',
-            flexDirection: 'row',
+            flexDirection: {
+              xs: 'column',
+              sm: 'row',
+            },
             maxWidth: '1440px',
             margin: '0 auto',
           }}
         >
-          <Box sx={{ width: '310px', padding: '24px' }}>
-            {t('products.filters')}
+          <Box sx={{ width: '310px', paddingRight: '24px' }}>
+            <ProductFilters />
           </Box>
           <Box sx={{ flex: 1 }}>
             <FormProvider {...methods}>

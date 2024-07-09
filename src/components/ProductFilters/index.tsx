@@ -5,11 +5,13 @@ import {
   Box,
   Typography,
   Button,
-  Select,
-  SelectChangeEvent,
+  List,
+  ListItem,
+  ListItemText,
 } from '@mui/material';
 
 import checkImg from 'src/assets/photos/check-filters.png';
+import { productStyles } from 'src/common/constants';
 import theme from 'src/theme';
 
 import { CustomizedSlider } from './styles';
@@ -36,32 +38,32 @@ const colors = [
   { name: 'violet', hex: '#7879F1' },
 ];
 
+const styles = Object.values(productStyles);
 const sizes = ['XS', 'S', 'M', 'L', 'XL'];
-
-const styles = [
-  'Style 1',
-  'Style 2',
-  'Style 3',
-  'Style 4',
-  'Style 5',
-  'Style 6',
-  'Style 7',
-];
 
 function ProductFilters() {
   const { t } = useTranslation();
   const [price, setPrice] = useState<number>(min);
   const [selectedColor, setSelectedColor] = useState<string>('');
   const [selectedSize, setSelectedSize] = useState<string>('');
-  const [selectedStyle, setSelectedStyle] = useState<string[]>([]);
+  const [selectedStyles, setSelectedStyles] = useState<string[]>([]);
+
   const handleChange = (_: Event, newValue: number | number[]) => {
     setPrice(newValue as number);
   };
 
-  const handleChangeMultiple = (event: SelectChangeEvent<string[]>) => {
-    const value = event.target.value as string[];
+  const handleToggle = (style: string) => {
+    const currentIndex = selectedStyles.indexOf(style);
+    const newChecked = [...selectedStyles];
+    const absent = -1;
 
-    setSelectedStyle(value);
+    if (currentIndex === absent) {
+      newChecked.push(style);
+    } else {
+      newChecked.splice(currentIndex, 1);
+    }
+
+    setSelectedStyles(newChecked);
   };
 
   return (
@@ -185,19 +187,26 @@ function ProductFilters() {
         <Typography variant="h2" sx={{ mb: '16px' }}>
           {t('filters.style')}
         </Typography>
-        <Select<string[]>
-          multiple
-          native
-          value={selectedStyle}
-          onChange={handleChangeMultiple}
-          fullWidth
-        >
+        <List>
           {styles.map((style) => (
-            <option key={style} value={style}>
-              {style}
-            </option>
+            <ListItem key={style} onClick={() => handleToggle(style)}>
+              <ListItemText
+                primary={
+                  <Typography
+                    variant="body1"
+                    sx={{
+                      fontWeight: selectedStyles.includes(style)
+                        ? 'bold'
+                        : 'normal',
+                    }}
+                  >
+                    {style}
+                  </Typography>
+                }
+              />
+            </ListItem>
           ))}
-        </Select>
+        </List>
       </Box>
     </Box>
   );

@@ -208,3 +208,9 @@ export const homeProductsSorting = {
   RECOMMENDED: 'recommended',
   YOUR_SIZE: 'yoursize',
 };
+
+export const productStyles = {
+  CASUAL: 'casual',
+  PREMIUM: 'premium',
+  FANCY: 'fancy',
+};
