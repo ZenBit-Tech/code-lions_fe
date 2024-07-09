@@ -6,7 +6,7 @@ import ListItemButton from '@mui/material/ListItemButton';
 
 import TickGreyIcon from 'src/assets/icons/tick-grey.svg';
 import TickWhiteIcon from 'src/assets/icons/tick-white.svg';
-import { productStyles } from 'src/common/constants';
+import { productStyles, maxProductPrice } from 'src/common/constants';
 import StyledButton from 'src/components/shared/StyledButton';
 import {
   PaddingVariants,
@@ -14,21 +14,8 @@ import {
 } from 'src/components/shared/StyledButton/types';
 import theme from 'src/theme';
 
-import { CustomizedSlider, style } from './styles';
-
-const min = 0;
-const max = 1000;
-
-const marks = [
-  {
-    value: min,
-    label: '',
-  },
-  {
-    value: max,
-    label: '',
-  },
-];
+import PriceFilter from './PriceFilter';
+import { style } from './styles';
 
 const colors = [
   { name: 'black', hex: '#000000' },
@@ -50,13 +37,15 @@ const styles = Object.values(productStyles);
 
 function ProductFilters() {
   const { t } = useTranslation();
-  const [selectedPrice, setSelectedPrice] = useState<number>(min);
+  const [minPrice, setMinPrice] = useState(0);
+  const [maxPrice, setMaxPrice] = useState(maxProductPrice);
   const [selectedColor, setSelectedColor] = useState<string>('');
   const [selectedSize, setSelectedSize] = useState<string>('');
   const [selectedStyle, setSelectedStyle] = useState<string>('');
 
-  const handleChange = (_: Event, newValue: number | number[]): void => {
-    setSelectedPrice(newValue as number);
+  const handlePriceChange = (min: number, max: number) => {
+    setMinPrice(min);
+    setMaxPrice(max);
   };
 
   const handleApplyFilters = () => {
@@ -64,7 +53,8 @@ function ProductFilters() {
   };
 
   const handleClearFilters = (): void => {
-    setSelectedPrice(min);
+    setMinPrice(0);
+    setMaxPrice(maxProductPrice);
     setSelectedColor('');
     setSelectedSize('');
     setSelectedStyle('');
@@ -82,54 +72,12 @@ function ProductFilters() {
         {t('filters.price')}
       </Typography>
       <Box sx={{ width: 262 }}>
-        <CustomizedSlider
-          marks={marks}
-          step={5}
-          value={selectedPrice}
-          valueLabelDisplay="auto"
-          min={min}
-          max={max}
-          onChange={handleChange}
-        />
-        <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            marginBottom: '10px',
-          }}
-        >
-          <Typography
-            variant="body2"
-            onClick={() => setSelectedPrice(min)}
-            sx={{
-              cursor: 'pointer',
-              paddingTop: '6px',
-              paddingBottom: '6px',
-              paddingLeft: '35px',
-              paddingRight: '35px',
-              border: '0.75px, solid',
-              borderRadius: '6px',
-              borderColor: theme.palette.grey[200],
-            }}
-          >
-            {min} {t('filters.dollar')}
-          </Typography>
-          <Typography
-            variant="body2"
-            onClick={() => setSelectedPrice(max)}
-            sx={{
-              cursor: 'pointer',
-              paddingTop: '6px',
-              paddingBottom: '6px',
-              paddingLeft: '35px',
-              paddingRight: '35px',
-              border: '0.75px, solid',
-              borderRadius: '6px',
-              borderColor: theme.palette.grey[200],
-            }}
-          >
-            {max} {t('filters.dollar')}
-          </Typography>
+        <Box>
+          <PriceFilter
+            onPriceChange={handlePriceChange}
+            minPrice={minPrice}
+            maxPrice={maxPrice}
+          />
         </Box>
       </Box>
       <Box sx={{ mt: '40px', maxWidth: '100%' }}>

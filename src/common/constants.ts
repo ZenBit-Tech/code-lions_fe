@@ -214,3 +214,5 @@ export const productStyles = {
   PREMIUM: 'premium',
   FANCY: 'fancy',
 };
+
+export const maxProductPrice = 500;
