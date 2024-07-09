@@ -174,7 +174,14 @@ function ProductCard({ item }: IProductCardProps) {
                   ${price}
                 </Typography>
                 <Typography variant="subtitle2">
-                  <Link to={`${urls.VENDOR}/${vendor.id}`}>{vendor.name}</Link>
+                  <Link
+                    to={`${urls.VENDOR}/${vendor.id}`}
+                    onClick={(event: React.MouseEvent<HTMLAnchorElement>) =>
+                      event.stopPropagation()
+                    }
+                  >
+                    {vendor.name}
+                  </Link>
                 </Typography>
               </Box>
               <Box sx={style.bagIconWrapper}>

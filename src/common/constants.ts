@@ -29,7 +29,7 @@ export const urls = {
   ADMIN_USERS_FULL: '/admin/users',
   PROFILE: '/profile',
   USER_BUYER_PROFILE: 'buyer/:id',
-  USER_VENDOR_PROFILE: '/vendor/:id',
+  USER_VENDOR_PROFILE: 'vendor/:id',
   PROFILE_DETAILS: 'details',
   PROFILE_ORDERS: 'orders',
   PROFILE_WISHLIST: 'wishlist/:userId',
@@ -45,6 +45,7 @@ export const urls = {
   VENDOR_ORDERS: 'orders',
   VENDOR_CHATS: 'chats',
   VENDOR_PROFILE: 'profile',
+  BEST_VENDORS: '/best-vendors',
 };
 
 export const RTKUrls = {
@@ -72,6 +73,7 @@ export const RTKUrls = {
   PRODUCTS: 'products',
   WISHLIST: 'wishlist',
   CART: 'cart',
+  USER_REVIEWS: 'reviews/user',
 };
 
 export const HttpMethods = {
@@ -188,4 +190,15 @@ export const phoneCodes = {
 export const urlRoles = {
   vendors: 'vendors',
   buyers: 'buyers',
+};
+
+export const profilePathsFor = {
+  vendor: 'vendor/buyer',
+  buyer: 'vendor',
+};
+
+export const homeProductsSorting = {
+  JUST_IN: 'justin',
+  RECOMMENDED: 'recommended',
+  YOUR_SIZE: 'yoursize',
 };
