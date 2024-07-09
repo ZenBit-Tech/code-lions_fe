@@ -26,7 +26,8 @@ function Layout() {
           sx={{
             display: 'flex',
             flexDirection: 'column',
-            justifyContent: 'center',
+            justifyContent: 'flex-start',
+            pt: '64px',
             width: '100%',
             flex: 2,
             minHeight: 0,

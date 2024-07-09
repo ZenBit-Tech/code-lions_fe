@@ -2,6 +2,8 @@ import { SortOrder } from 'src/redux/user/types';
 
 export const apiUrl = import.meta.env.VITE_API_URL;
 
+export const productsOnPage = 8;
+
 export const urls = {
   HOME: '/',
   SIGN_UP: '/signup',

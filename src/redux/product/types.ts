@@ -18,3 +18,14 @@ export interface IProduct {
   createdAt: string;
   lastUpdatedAt: string;
 }
+
+export interface IProductResponse {
+  products: IProduct[];
+  count: number;
+}
+
+export interface IProductRequest {
+  page?: number;
+  limit?: number;
+  search?: string;
+}

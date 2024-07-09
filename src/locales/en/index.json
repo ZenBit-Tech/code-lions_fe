@@ -317,7 +317,9 @@
   },
   "products": {
     "filters": "filters",
-    "title": "134 products"
+    "counter": "products",
+    "noProducts": "No products found",
+    "error": "An unexpected error occurred. Please try again later"
   },
   "home": {
     "categories": "Categories",
