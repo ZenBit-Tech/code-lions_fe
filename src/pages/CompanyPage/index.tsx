@@ -4,41 +4,37 @@ import { Typography } from '@mui/material';
 
 import SectionTitle from 'src/components/shared/SectionTitle';
 import SimpleSection from 'src/components/shared/SimpleSection';
-import theme from 'src/theme';
-
-import articles from './articles';
 import {
   ArticleWrapper,
   Container,
   SectionWrapper,
   TextWrapper,
   TitleStyled,
-} from './styles';
+} from 'src/pages/PrivacyPolicyPage/styles';
+import theme from 'src/theme';
 
-function PrivacyPolicyPage() {
+function CompanyPage() {
   const { t } = useTranslation();
 
   return (
     <SimpleSection>
       <Container>
         <SectionTitle
-          title={t('privacyPolicy.title')}
+          title={t('company.title')}
           greyBackground
           showBackLink
           mt="12px"
         />
         <SectionWrapper>
           <TextWrapper>
-            {articles.map(({ id, title, text }, index) => (
-              <ArticleWrapper key={id}>
-                <TitleStyled variant="h3" center={index === 0}>
-                  {t(title)}
-                </TitleStyled>
-                <Typography variant="body2" color={theme.palette.text.disabled}>
-                  {t(text)}
-                </Typography>
-              </ArticleWrapper>
-            ))}
+            <ArticleWrapper>
+              <TitleStyled variant="h3" center>
+                {t('company.subtitle')}
+              </TitleStyled>
+              <Typography variant="body2" color={theme.palette.text.disabled}>
+                {t('company.text')}
+              </Typography>
+            </ArticleWrapper>
           </TextWrapper>
         </SectionWrapper>
       </Container>
@@ -46,4 +42,4 @@ function PrivacyPolicyPage() {
   );
 }
 
-export default PrivacyPolicyPage;
+export default CompanyPage;

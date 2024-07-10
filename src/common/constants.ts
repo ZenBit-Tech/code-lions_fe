@@ -54,6 +54,7 @@ export const urls = {
   FAQ: '/faq',
   SHIPPING: '/shipping',
   RENT: '/rent',
+  HELP: '/help',
 };
 
 export const RTKUrls = {

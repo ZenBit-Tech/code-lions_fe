@@ -19,7 +19,7 @@ const createMenuData = (t: (key: string) => string, role: string | null) => {
     },
     {
       id: 'help',
-      mainLink: { to: '#', label: t('menu.help') },
+      mainLink: { to: urls.HELP, label: t('menu.help') },
       links: [
         { id: 'faqs', to: urls.FAQ, label: t('menu.faqs') },
         { id: 'shipping', to: urls.SHIPPING, label: t('menu.shipping') },

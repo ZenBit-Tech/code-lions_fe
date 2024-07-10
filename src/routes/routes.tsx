@@ -2,6 +2,7 @@ import { createBrowserRouter } from 'react-router-dom';
 
 import { urls } from 'src/common/constants';
 import Layout from 'src/components/Layout';
+import AboutUsPage from 'src/pages/AboutUsPage';
 import AdminLayout from 'src/pages/admin/AdminLayout';
 import AdminUserProfileEditPage from 'src/pages/admin/AdminUserProfileEditPage';
 import AdminUserProfilePage from 'src/pages/admin/AdminUserProfilePage';
@@ -9,6 +10,10 @@ import SignInAdminPage from 'src/pages/admin/SignInAdminPage';
 import UsersPage from 'src/pages/admin/UsersPage';
 import BestVendorsPage from 'src/pages/BestVendorsPage';
 import BuyerPublicProfilePage from 'src/pages/BuyerPublicProfilePage';
+import CompanyPage from 'src/pages/CompanyPage';
+import ContactPage from 'src/pages/ContactPage';
+import FaqPage from 'src/pages/FaqPage';
+import HelpPage from 'src/pages/HelpPage';
 import HomePage from 'src/pages/HomePage';
 import NewPasswordPage from 'src/pages/NewPasswordPage';
 import OnboardingPage from 'src/pages/OnboardingPage';
@@ -18,7 +23,9 @@ import ProductPage from 'src/pages/ProductPage';
 import ProfileLayout from 'src/pages/ProfileLayout';
 import ProfilePage from 'src/pages/ProfilePage';
 import ProfileComingSoon from 'src/pages/ProfilePage/ProfileComingSoon';
+import RentPage from 'src/pages/RentPage';
 import RestorePasswordPage from 'src/pages/RestorePasswordPage';
+import ShippingPage from 'src/pages/ShippingPage';
 import SignInPage from 'src/pages/SignInPage';
 import SignUpPage from 'src/pages/SignUpPage';
 import SizesGuidePage from 'src/pages/SizesGuidePage';
@@ -50,6 +57,13 @@ const router = createBrowserRouter([
       },
       { path: urls.PRODUCT_FEED, element: <ProductFeedPage /> },
       { path: urls.PRIVACY_POLICY, element: <PrivacyPolicyPage /> },
+      { path: urls.ABOUT_US, element: <AboutUsPage /> },
+      { path: urls.COMPANY, element: <CompanyPage /> },
+      { path: urls.CONTACT, element: <ContactPage /> },
+      { path: urls.FAQ, element: <FaqPage /> },
+      { path: urls.SHIPPING, element: <ShippingPage /> },
+      { path: urls.RENT, element: <RentPage /> },
+      { path: urls.HELP, element: <HelpPage /> },
       { path: urls.TERMS_OF_USE, element: <TermsOfUsePage /> },
       { path: urls.BEST_VENDORS, element: <BestVendorsPage /> },
       {
