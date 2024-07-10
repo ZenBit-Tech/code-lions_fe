@@ -18,3 +18,8 @@ export interface IProduct {
   createdAt: string;
   lastUpdatedAt: string;
 }
+
+export interface IProducts {
+  products: IProduct[];
+  count: number;
+}
