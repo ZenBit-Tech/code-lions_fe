@@ -4,7 +4,6 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import { Box, IconButton, Typography } from '@mui/material';
 
-import { skipToken } from '@reduxjs/toolkit/query';
 import BagIcon from 'src/assets/icons/profile/bag-duotone.svg';
 import BlackHeartIcon from 'src/assets/icons/profile/heart-black.svg';
 import RedHeartIcon from 'src/assets/icons/profile/heart-red.svg';
@@ -12,13 +11,12 @@ import { urls } from 'src/common/constants';
 import {
   useAddToCartMutation,
   useRemoveFromCartMutation,
-  useGetCartByIdQuery,
 } from 'src/redux/cart/cartService';
+import { useAppSelector } from 'src/redux/hooks';
 import { IProduct } from 'src/redux/product/types';
 import { selectUserId } from 'src/redux/user/userSlice';
 import {
   useAddToWishlistMutation,
-  useGetWishlistByIdQuery,
   useRemoveFromWishlistMutation,
 } from 'src/redux/wishlist/wishlistService';
 import theme from 'src/theme';
@@ -46,13 +44,9 @@ function ProductCard({ item }: IProductCardProps) {
   const [addToCart] = useAddToCartMutation();
   const [removeFromCart] = useRemoveFromCartMutation();
 
-  const { data: wishlistData } = useGetWishlistByIdQuery(
-    userId ? { userId } : skipToken
-  );
+  const wishlistData = useAppSelector((state) => state.wishlist);
 
-  const { data: cartData } = useGetCartByIdQuery(
-    userId ? { userId } : skipToken
-  );
+  const cartData = useAppSelector((state) => state.cart);
 
   useEffect(() => {
     if (wishlistData) {
@@ -190,11 +184,10 @@ function ProductCard({ item }: IProductCardProps) {
                     sx={{
                       backgroundColor: theme.palette.common.black,
                       opacity: 0.3,
-                      '.css-y47paa-MuiButtonBase-root-MuiIconButton-root:hover':
-                        {
-                          backgroundColor: theme.palette.common.black,
-                          opacity: 0.3,
-                        },
+                      '&:hover': {
+                        backgroundColor: theme.palette.common.black,
+                        opacity: 0.3,
+                      },
                     }}
                     onClick={handleRemoveFromCart}
                   >
@@ -204,10 +197,9 @@ function ProductCard({ item }: IProductCardProps) {
                   <IconButton
                     sx={{
                       backgroundColor: theme.palette.common.black,
-                      '.css-y47paa-MuiButtonBase-root-MuiIconButton-root:hover':
-                        {
-                          backgroundColor: theme.palette.common.black,
-                        },
+                      '&:hover': {
+                        backgroundColor: theme.palette.common.black,
+                      },
                     }}
                     onClick={handleAddToCart}
                   >

@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 
 import { Button, Radio, RadioGroup, Box, Typography } from '@mui/material';
 
-import { skipToken } from '@reduxjs/toolkit/query';
 import BagCheckIcon from 'src/assets/icons/bag-check.svg';
 import ChatDots from 'src/assets/icons/chat-dots.svg';
 import ChevronRight from 'src/assets/icons/chevron-right-grey-small.svg';
@@ -13,10 +12,10 @@ import Heart from 'src/assets/icons/heart.svg';
 import { urls } from 'src/common/constants';
 import capitalizeAndTruncate from 'src/common/utils/capitalizeAndTruncate';
 import {
-  useGetCartByIdQuery,
   useAddToCartMutation,
   useRemoveFromCartMutation,
 } from 'src/redux/cart/cartService';
+import { useAppSelector } from 'src/redux/hooks';
 import { IProduct } from 'src/redux/product/types';
 import { selectUserId } from 'src/redux/user/userSlice';
 import theme from 'src/theme';
@@ -45,9 +44,8 @@ function ProductSection({ product }: ProductSectionProps) {
   durations[0].price = product.price;
   durations[1].price = product.price * weeksCount;
 
-  const { data: cartData } = useGetCartByIdQuery(
-    userId ? { userId } : skipToken
-  );
+  const cartData = useAppSelector((state) => state.cart);
+
   const [addToCart, { isLoading: isAddingToCart }] = useAddToCartMutation();
   const [removeFromCart, { isLoading: isRemovingFromCart }] =
     useRemoveFromCartMutation();
@@ -79,8 +77,6 @@ function ProductSection({ product }: ProductSectionProps) {
 
       return true;
     } catch (error) {
-      console.error('Error adding to cart:', error);
-
       return false;
     }
   };
@@ -98,7 +94,7 @@ function ProductSection({ product }: ProductSectionProps) {
     }
   };
 
-  const radioImage = product.images.slice().reverse()[0];
+  const radioImage = product.images[0];
 
   return (
     <Box width="456px">

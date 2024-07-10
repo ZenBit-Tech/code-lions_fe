@@ -4,6 +4,7 @@ import { Box, CircularProgress } from '@mui/material';
 
 import { skipToken } from '@reduxjs/toolkit/query';
 import { useGetProductByIdQuery } from 'src/redux/product/productService';
+import theme from 'src/theme';
 
 import DescriptionSection from './DescriptionSection';
 import ImagesSection from './ImagesSection';
@@ -24,7 +25,7 @@ function ProductPage() {
         justifyContent="center"
         alignItems="center"
       >
-        <CircularProgress sx={{ color: 'black' }} />
+        <CircularProgress sx={{ color: theme.palette.common.black }} />
       </Box>
     );
   }

@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
@@ -14,6 +15,7 @@ import StyledButton from 'src/components/shared/StyledButton';
 import { StyleVariants } from 'src/components/shared/StyledButton/types';
 import { useGetCartByIdQuery } from 'src/redux/cart/cartService';
 import { useAppSelector } from 'src/redux/hooks';
+import { useGetWishlistByIdQuery } from 'src/redux/wishlist/wishlistService';
 import theme from 'src/theme';
 
 import SvgHover from './styles';
@@ -22,9 +24,18 @@ function Header() {
   const { t } = useTranslation();
   const user = useAppSelector((state) => state.user);
 
-  const { data: cartData } = useGetCartByIdQuery(
+  const { data: cartData, refetch: cartRefetch } = useGetCartByIdQuery(
     user.id ? { userId: user.id } : skipToken
   );
+
+  const { refetch: wishlistRefetch } = useGetWishlistByIdQuery(
+    user.id ? { userId: user.id } : skipToken
+  );
+
+  useEffect(() => {
+    wishlistRefetch();
+    cartRefetch();
+  }, []);
 
   const cartItemCount = cartData ? cartData.length : 0;
 

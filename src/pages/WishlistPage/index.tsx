@@ -1,21 +1,17 @@
 import { useTranslation } from 'react-i18next';
-import { useParams } from 'react-router-dom';
 
 import { Box, CircularProgress, Typography } from '@mui/material';
 
-import { skipToken } from '@reduxjs/toolkit/query';
 import ProductCard from 'src/components/ProductCard';
-import { useGetWishlistByIdQuery } from 'src/redux/wishlist/wishlistService';
+import { useAppSelector } from 'src/redux/hooks';
 import theme from 'src/theme';
 
 function WishlistPage() {
   const { t } = useTranslation();
-  const { userId } = useParams();
-  const { data, isLoading } = useGetWishlistByIdQuery(
-    userId ? { userId } : skipToken
-  );
 
-  if (isLoading || !data) {
+  const data = useAppSelector((state) => state.wishlist);
+
+  if (!data) {
     return <CircularProgress sx={{ color: theme.palette.common.black }} />;
   }
 

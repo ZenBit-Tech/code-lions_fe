@@ -10,15 +10,14 @@ import {
   IconButton,
 } from '@mui/material';
 
-import { skipToken } from '@reduxjs/toolkit/query';
 import BlackHeartIcon from 'src/assets/icons/profile/heart-black.svg';
 import RedHeartIcon from 'src/assets/icons/profile/heart-red.svg';
 import { urls } from 'src/common/constants';
 import ProductSliderModal from 'src/components/ProductSliderModal';
+import { useAppSelector } from 'src/redux/hooks';
 import { selectUserId } from 'src/redux/user/userSlice';
 import {
   useAddToWishlistMutation,
-  useGetWishlistByIdQuery,
   useRemoveFromWishlistMutation,
 } from 'src/redux/wishlist/wishlistService';
 import theme from 'src/theme';
@@ -36,9 +35,7 @@ function ImagesSection({
   productId,
   vendorId,
 }: ImagesSectionProps) {
-  const sliderImages = images.slice().reverse();
-
-  const [selectedImage, setSelectedImage] = useState<string>(sliderImages[0]);
+  const [selectedImage, setSelectedImage] = useState<string>(images[0]);
   const [open, setOpen] = useState<boolean>(false);
   const [initialSlideIndex, setInitialSlideIndex] = useState<number>(0);
   const [isInWishlist, setIsInWishlist] = useState<boolean>(false);
@@ -47,9 +44,7 @@ function ImagesSection({
   const [addToWishlist] = useAddToWishlistMutation();
   const [removeFromWishlist] = useRemoveFromWishlistMutation();
 
-  const { data: wishlistData } = useGetWishlistByIdQuery(
-    userId ? { userId } : skipToken
-  );
+  const wishlistData = useAppSelector((state) => state.wishlist);
 
   useEffect(() => {
     if (wishlistData) {
@@ -92,7 +87,7 @@ function ImagesSection({
         cols={1}
         rowHeight={102}
       >
-        {sliderImages.map((item, index) => (
+        {images.map((item, index) => (
           <ImageListItem
             key={index}
             onClick={() => handleImageClick(item, index)}
@@ -117,7 +112,7 @@ function ImagesSection({
         <ProductSliderModal
           open={open}
           handleClose={handleClose}
-          images={sliderImages}
+          images={images}
           initialSlideIndex={initialSlideIndex}
         />
         <Box onClick={() => handleOpen(initialSlideIndex)}>

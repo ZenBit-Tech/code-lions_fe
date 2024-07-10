@@ -67,7 +67,7 @@ function DescriptionSection({ product }: ProductSectionProps) {
                 paddingBottom: '20px',
               }}
             >
-              {capitalizeAndTruncate(product.colors[0])}
+              {capitalizeAndTruncate(product.colors[0].color)}
             </StyledTypography>
             <StyledTypography
               sx={{

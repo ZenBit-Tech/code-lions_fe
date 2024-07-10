@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { HttpMethods, RTKUrls, apiUrl } from 'src/common/constants';
 
-import { IProduct } from './types';
+import { IProduct, IProducts } from './types';
 
 export const productApi = createApi({
   reducerPath: 'productApi',
@@ -10,7 +10,7 @@ export const productApi = createApi({
   }),
   tagTypes: ['Product'],
   endpoints: (build) => ({
-    getProducts: build.query<IProduct[], void>({
+    getProducts: build.query<IProducts, void>({
       query: () => ({
         url: RTKUrls.PRODUCTS,
         method: HttpMethods.GET,

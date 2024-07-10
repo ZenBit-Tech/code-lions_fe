@@ -8,6 +8,8 @@ import SearchInput from 'src/components/shared/SearchInput';
 import { useGetProductsQuery } from 'src/redux/product/productService';
 import theme from 'src/theme';
 
+import { IProduct } from '../../redux/product/types';
+
 function ProductFeedPage() {
   const { t } = useTranslation();
   const methods = useForm();
@@ -16,7 +18,9 @@ function ProductFeedPage() {
     console.log(value);
   };
 
-  const { data: products } = useGetProductsQuery();
+  const { data } = useGetProductsQuery();
+
+  const products: IProduct[] | undefined = data?.products;
 
   return (
     <>
