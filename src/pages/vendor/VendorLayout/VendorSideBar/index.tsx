@@ -221,7 +221,7 @@ function VendorSideBar() {
             selected={selectedIndex === listIndexes.profile}
             onClick={(event) => {
               handleListItemClick(event, listIndexes.profile);
-              navigate(urls.VENDOR_PROFILE);
+              navigate(`${urls.VENDOR_PROFILE}/${urls.PROFILE_DETAILS}`);
             }}
           >
             <Box

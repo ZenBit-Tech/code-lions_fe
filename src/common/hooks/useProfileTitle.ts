@@ -8,7 +8,7 @@ const useProfileTitle = () => {
   const location = useLocation();
 
   const pathTitleMap: Record<string, string> = {
-    [urls.PROFILE_DETAILS]: t('profile.title'),
+    [urls.PROFILE_DETAILS]: t('profile.myProfile'),
     [urls.PROFILE_ORDERS]: t('profileMenu.myOrders'),
     [`${urls.PROFILE}/${urls.WISHLIST}`]: t('profileMenu.wishlist'),
     [urls.PROFILE_SETTINGS]: t('profileMenu.settings'),

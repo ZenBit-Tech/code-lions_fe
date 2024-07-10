@@ -87,7 +87,9 @@ function Header() {
           }}
         >
           <MenuMainLink to={urls.PRODUCT_FEED}>{t('header.shop')}</MenuMainLink>
-          <MenuMainLink to={urls.HOME}>{t('header.vendors')}</MenuMainLink>
+          <MenuMainLink to={urls.BEST_VENDORS}>
+            {t('header.vendors')}
+          </MenuMainLink>
           <MenuMainLink to={urls.HOME}>{t('header.messages')}</MenuMainLink>
         </Box>
 

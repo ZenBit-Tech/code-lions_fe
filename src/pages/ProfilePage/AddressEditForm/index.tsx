@@ -74,6 +74,7 @@ function AddressEditForm({ setShowEdit }: IAddressEditForm) {
         ...data,
       }).unwrap();
       setShowEdit(false);
+      showToast('success', t('profileDetails.successInfoUpdate'));
     } catch (err) {
       handleOnSubmitError(err, showToast, t('profileDetails.unknownError'));
     }

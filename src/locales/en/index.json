@@ -170,7 +170,7 @@
     "title": "Your Profile",
     "myProfile": "My Profile",
     "buyerMode": "Buyer Mode",
-    "goToVendor": "Go to Vendor Mode",
+    "vendorMode": "Vendor Mode",
     "name": "Anna Asol",
     "logout": "Log out",
     "emptyWishlist": "No products in your wishlist"
@@ -290,7 +290,8 @@
     "card": "Card",
     "cardNumber": "**** **** **** ",
     "unknownError": "An unexpected error occurred. Please try again later",
-    "successPhotoUpdate": "Your photo was updated successfully"
+    "successPhotoUpdate": "Your photo was updated successfully",
+    "successInfoUpdate": "Your information was updated successfully"
   },
   "product": {
     "name": "Product Name",
@@ -352,13 +353,21 @@
     "openOrder": "Open Order",
     "noOrders": "You have no orders"
   },
+  "vendorPersonalInfo": {
+    "title": "General Information",
+    "avatar": "Avatar",
+    "avatarRequirements": "Only *.png, *.jpg and *.jpeg image files are accepted",
+    "changePhoto": "Change Photo"
+  },
   "filters": {
     "title": "Filter",
     "price": "Price",
     "color": "COLOR",
     "size": "SIZE",
     "style": "STYLE",
-    "dollar": "$"
+    "dollar": "$",
+    "apply": "Apply",
+    "clear": "Clear"
   },
   "bestVendors": {
     "title": "Best Vendors",
