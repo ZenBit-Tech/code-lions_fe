@@ -12,10 +12,15 @@ import {
   PaddingVariants,
   StyleVariants,
 } from 'src/components/shared/StyledButton/types';
+import { IProductFilters } from 'src/redux/product/types';
 import theme from 'src/theme';
 
 import PriceFilter from './PriceFilter';
 import { style } from './styles';
+
+interface IProductFilterProps {
+  onFilterChange: (filters: IProductFilters) => void;
+}
 
 const colors = [
   { name: 'black', hex: '#000000' },
@@ -24,10 +29,10 @@ const colors = [
   { name: 'green', hex: '#008000' },
   { name: 'pink', hex: '#F178B6' },
   { name: 'yellow', hex: '#F2C94C' },
-  { name: 'purple', hex: '#7879F1' },
-  { name: 'blue', hex: '#6aa9dd' },
+  { name: 'purple', hex: '#7700C8' },
+  { name: 'blue', hex: '#0990FF' },
   { name: 'grey', hex: '#6D6B6B' },
-  { name: 'orange', hex: '#ED6C3C' },
+  { name: 'brown', hex: '#955539' },
 ];
 const white = 'white';
 
@@ -35,7 +40,7 @@ const sizes = ['XS', 'S', 'M', 'L', 'XL'];
 
 const styles = Object.values(productStyles);
 
-function ProductFilters() {
+function ProductFilters({ onFilterChange }: IProductFilterProps) {
   const { t } = useTranslation();
   const [minPrice, setMinPrice] = useState(0);
   const [maxPrice, setMaxPrice] = useState(maxProductPrice);
@@ -48,8 +53,31 @@ function ProductFilters() {
     setMaxPrice(max);
   };
 
-  const handleApplyFilters = () => {
-    // TODO: connect with backend
+  const handleApplyFilters = (noFilter: boolean = false): void => {
+    const filters: IProductFilters = {};
+
+    if (noFilter) {
+      onFilterChange(filters);
+
+      return;
+    }
+
+    if (minPrice !== 0) {
+      filters.minPrice = minPrice;
+    }
+    if (maxPrice !== maxProductPrice) {
+      filters.maxPrice = maxPrice;
+    }
+    if (selectedColor) {
+      filters.color = selectedColor;
+    }
+    if (selectedSize) {
+      filters.size = selectedSize;
+    }
+    if (selectedStyle) {
+      filters.style = selectedStyle;
+    }
+    onFilterChange(filters);
   };
 
   const handleClearFilters = (): void => {
@@ -58,6 +86,7 @@ function ProductFilters() {
     setSelectedColor('');
     setSelectedSize('');
     setSelectedStyle('');
+    handleApplyFilters(true);
   };
 
   return (
@@ -201,7 +230,7 @@ function ProductFilters() {
         </List>
         <Box sx={{ display: 'flex', justifyContent: 'center', gap: '16px' }}>
           <StyledButton
-            onClick={handleApplyFilters}
+            onClick={() => handleApplyFilters(false)}
             styles={StyleVariants.BLACK}
             padding={PaddingVariants.MD}
             fontSize={String(theme.typography.h4.fontSize)}

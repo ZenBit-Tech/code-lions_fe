@@ -28,4 +28,13 @@ export interface IProductRequest {
   page?: number;
   limit?: number;
   search?: string;
+  filters?: IProductFilters;
+}
+
+export interface IProductFilters {
+  minPrice?: number;
+  maxPrice?: number;
+  color?: string;
+  style?: string;
+  size?: string;
 }

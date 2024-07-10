@@ -13,6 +13,7 @@ import SearchInput from 'src/components/shared/SearchInput';
 import useToast from 'src/components/shared/toasts/components/ToastProvider/ToastProviderHooks';
 import StyledPagination from 'src/pages/admin/StyledPagination';
 import { useGetProductsQuery } from 'src/redux/product/productService';
+import { IProductFilters } from 'src/redux/product/types';
 import theme from 'src/theme';
 
 function ProductFeedPage() {
@@ -26,6 +27,7 @@ function ProductFeedPage() {
   const page = pageParam ? parseInt(pageParam, 10) : 1;
   const search = queryParams.get('search')?.trim();
   const [searchQuery, setSearchQuery] = useState(search);
+  const [filters, setFilters] = useState<IProductFilters>({});
   const handleSearchChange = (searchTerm: string) => {
     setSearchQuery(search);
     const requestParams: Record<string, string> = { search: searchTerm };
@@ -47,17 +49,30 @@ function ProductFeedPage() {
     navigate(link);
   };
 
+  const handleFiltersChange = (currentFilters: IProductFilters) => {
+    const requestParams: Record<string, string> = {};
+
+    if (searchQuery) {
+      requestParams.search = searchQuery;
+    }
+    const link = createNavigationLink(urls.PRODUCT_FEED, requestParams);
+
+    navigate(link);
+    setFilters(currentFilters);
+  };
+
   const { data, isLoading, isFetching, isError } = useGetProductsQuery({
     page,
     limit: productsOnPage,
     search,
+    filters,
   });
   const productsCount = data?.count || 0;
 
   useEffect(() => {
     setSearchQuery(search);
     methods.setValue('search', search);
-  }, [search]);
+  }, [search, methods]);
 
   if (isError) {
     showToast('error', t('products.error'));
@@ -78,7 +93,7 @@ function ProductFeedPage() {
           }}
         >
           <Box sx={{ width: '310px', paddingRight: '24px' }}>
-            <ProductFilters />
+            <ProductFilters onFilterChange={handleFiltersChange} />
           </Box>
           <Box sx={{ flex: 1 }}>
             <FormProvider {...methods}>
