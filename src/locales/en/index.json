@@ -85,6 +85,7 @@
     "title": "Sizes Guide",
     "clothesSizeTable": "Clothes Size Table",
     "shoeSizeTable": "Shoe Size Table",
+    "jeansSizeTable": "Jeans Size Table",
     "oneSize": "One Size"
   },
   "restorePassword": {
@@ -209,7 +210,9 @@
     "city": "City",
     "toronto": "Toronto",
     "clothesSize": "Clothes Size",
-    "sizesDescription": "Here will be text with sizes description",
+    "clothesDescription": "International Standard Size",
+    "jeansDescription": "Waist (W) Size",
+    "shoesDescription": "European Shoes Standard Size",
     "jeansSize": "Jeans Size",
     "shoesSize": "Shoes Size",
     "sizeAndFit": "Size & Fit",
