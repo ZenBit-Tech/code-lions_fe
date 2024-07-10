@@ -375,5 +375,14 @@
     "title": "Best Vendors",
     "name": "Vendor Name",
     "follow": "Follow"
+  },
+  "addProduct": {
+    "title": "Add Product",
+    "category": "Category",
+    "categorySubtitle": "Please select your product category from the list provided",
+    "type": "Type",
+    "typeSubtitle": "Please select product Type",
+    "style": "Style",
+    "styleSubtitle": "Please select product Style"
   }
 }
