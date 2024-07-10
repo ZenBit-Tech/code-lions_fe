@@ -8,19 +8,17 @@ import SearchInput from 'src/components/shared/SearchInput';
 import { useGetProductsQuery } from 'src/redux/product/productService';
 import theme from 'src/theme';
 
-import { IProduct } from '../../redux/product/types';
-
 function ProductFeedPage() {
   const { t } = useTranslation();
   const methods = useForm();
 
   const handleSearchChange = (value: string) => {
-    console.log(value);
+    return value;
   };
 
   const { data } = useGetProductsQuery();
 
-  const products: IProduct[] | undefined = data?.products;
+  const products = data?.products ?? [];
 
   return (
     <>
@@ -53,7 +51,7 @@ function ProductFeedPage() {
                 mb: '40px',
               }}
             >
-              {products?.map((product) => (
+              {products.map((product) => (
                 <Box
                   key={product.id}
                   component="div"

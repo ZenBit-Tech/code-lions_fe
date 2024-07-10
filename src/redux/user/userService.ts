@@ -52,7 +52,7 @@ const baseQuery = fetchBaseQuery({
   },
 });
 
-const baseQueryWithReauth = async (
+export const baseQueryWithReauth = async (
   args: string | FetchArgs,
   api: BaseQueryApi,
   extraOptions: object

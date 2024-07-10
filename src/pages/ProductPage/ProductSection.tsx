@@ -1,6 +1,4 @@
-import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useSelector } from 'react-redux';
 
 import {
   Button,
@@ -17,103 +15,35 @@ import ChevronRight from 'src/assets/icons/chevron-right-grey-small.svg';
 import Heart from 'src/assets/icons/heart.svg';
 import { urls } from 'src/common/constants';
 import capitalizeAndTruncate from 'src/common/utils/capitalizeAndTruncate';
-import useToast from 'src/components/shared/toasts/components/ToastProvider/ToastProviderHooks';
-import {
-  useAddToCartMutation,
-  useRemoveFromCartMutation,
-} from 'src/redux/cart/cartService';
-import { ICartItem } from 'src/redux/cart/types';
-import { useAppSelector } from 'src/redux/hooks';
 import { IProduct } from 'src/redux/product/types';
-import { selectUserId } from 'src/redux/user/userSlice';
 import theme from 'src/theme';
 
+import useProductSection from './hooks/useProductSection';
 import RadioLabel from './RadioLabel';
 import { StyledInput, StyledFormControlLabel } from './styles';
 
-const durations = [
-  { duration: 7, price: 0 },
-  { duration: 14, price: 0 },
-];
-
-const weeksCount: number = 2;
-const stringLimit: number = 30;
+const stringLimit = 30;
 
 interface ProductSectionProps {
   product: IProduct;
 }
 
 function ProductSection({ product }: ProductSectionProps) {
+  const {
+    userId,
+    selectedSize,
+    value,
+    handleRadioChange,
+    handleAddToCart,
+    handleRemoveFromCart,
+    handleCartClick,
+    isProductInCart,
+    isAddingToCart,
+    isRemovingFromCart,
+    durations,
+  } = useProductSection(product);
+
   const { t } = useTranslation();
-  const { showToast } = useToast();
-
-  const userId = useSelector(selectUserId);
-
-  const [selectedSize] = useState<string>(product.size);
-  const [value, setValue] = useState<string>(durations[0]?.duration.toString());
-
-  durations[0].price = product.price;
-  durations[1].price = product.price * weeksCount;
-
-  const cartData = useAppSelector((state) => state.cart);
-
-  const [addToCart, { isLoading: isAddingToCart }] = useAddToCartMutation();
-  const [removeFromCart, { isLoading: isRemovingFromCart }] =
-    useRemoveFromCartMutation();
-
-  const isProductInCart = cartData?.some(
-    (item: ICartItem) => item.productId === product.id
-  );
-
-  const handleRadioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setValue((event.target as HTMLInputElement).value);
-  };
-
-  const handleAddToCart = async () => {
-    const selectedDuration = durations.find(
-      (d) => d.duration.toString() === value
-    );
-
-    if (!selectedDuration) {
-      return false;
-    }
-
-    try {
-      await addToCart({
-        userId,
-        productId: product.id,
-        duration: selectedDuration.duration,
-        price: selectedDuration.price,
-      }).unwrap();
-      showToast('success', t('cart.productAdded'));
-
-      return true;
-    } catch (error) {
-      return false;
-    }
-  };
-
-  const handleRemoveFromCart = async () => {
-    try {
-      await removeFromCart({
-        userId,
-        productId: product.id,
-      }).unwrap();
-      showToast('success', t('cart.productRemoved'));
-
-      return true;
-    } catch (error) {
-      return error;
-    }
-  };
-
-  const handleCartClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.stopPropagation();
-    if (!userId) {
-      showToast('warning', t('cart.addWarning'));
-    }
-  };
-
   const radioImage = product.images[0];
 
   return (

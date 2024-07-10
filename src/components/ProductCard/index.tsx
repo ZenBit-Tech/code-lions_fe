@@ -1,7 +1,4 @@
-import { useState, useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
-import { useSelector } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import { Box, IconButton, Typography } from '@mui/material';
 
@@ -9,118 +6,28 @@ import BagIcon from 'src/assets/icons/profile/bag-duotone.svg';
 import BlackHeartIcon from 'src/assets/icons/profile/heart-black.svg';
 import RedHeartIcon from 'src/assets/icons/profile/heart-red.svg';
 import { urls } from 'src/common/constants';
-import useToast from 'src/components/shared/toasts/components/ToastProvider/ToastProviderHooks';
-import {
-  useAddToCartMutation,
-  useRemoveFromCartMutation,
-} from 'src/redux/cart/cartService';
-import { useAppSelector } from 'src/redux/hooks';
 import { IProduct } from 'src/redux/product/types';
-import { selectUserId } from 'src/redux/user/userSlice';
-import {
-  useAddToWishlistMutation,
-  useRemoveFromWishlistMutation,
-} from 'src/redux/wishlist/wishlistService';
 import theme from 'src/theme';
 
 import style from './styles';
+import useProductCard from './useProductCard';
 
 interface IProductCardProps {
   item: IProduct;
 }
 
-const duration: number = 7;
-
 function ProductCard({ item }: IProductCardProps) {
-  const { images, name, vendor, price } = item;
-
-  const { t } = useTranslation();
-  const { showToast } = useToast();
-
-  const userId = useSelector(selectUserId);
-
-  const navigate = useNavigate();
-
-  const [isInWishlist, setIsInWishlist] = useState<boolean>(false);
-  const [isInCart, setIsInCart] = useState<boolean>(false);
-
-  const [addToWishlist] = useAddToWishlistMutation();
-  const [removeFromWishlist] = useRemoveFromWishlistMutation();
-  const [addToCart] = useAddToCartMutation();
-  const [removeFromCart] = useRemoveFromCartMutation();
-
-  const wishlistData = useAppSelector((state) => state.wishlist);
-
-  const cartData = useAppSelector((state) => state.cart);
-
-  useEffect(() => {
-    if (wishlistData) {
-      const isWishlistItem = wishlistData.some(
-        (wishlistItem: { id: string }) => wishlistItem.id === item.id
-      );
-
-      setIsInWishlist(isWishlistItem);
-    }
-  }, [wishlistData, item.id]);
-
-  useEffect(() => {
-    if (cartData) {
-      const isCartItem = cartData.some(
-        (cartItem: { productId: string }) => cartItem.productId === item.id
-      );
-
-      setIsInCart(isCartItem);
-    }
-  }, [cartData, item.id]);
-
-  const handleAddToWishlist = async (
-    event: React.MouseEvent<HTMLButtonElement>
-  ) => {
-    event.stopPropagation();
-    if (userId) {
-      await addToWishlist({ userId, productId: item.id }).unwrap();
-      setIsInWishlist(true);
-    }
-  };
-
-  const handleRemoveFromWishlist = async (
-    event: React.MouseEvent<HTMLButtonElement>
-  ) => {
-    event.stopPropagation();
-    if (userId) {
-      await removeFromWishlist({ userId, productId: item.id }).unwrap();
-      setIsInWishlist(false);
-    }
-  };
-
-  const handleAddToCart = async (
-    event: React.MouseEvent<HTMLButtonElement>
-  ) => {
-    event.stopPropagation();
-    if (userId) {
-      await addToCart({ userId, productId: item.id, duration, price }).unwrap();
-      setIsInCart(true);
-      showToast('success', t('cart.productAdded'));
-    }
-  };
-
-  const handleRemoveFromCart = async (
-    event: React.MouseEvent<HTMLButtonElement>
-  ) => {
-    event.stopPropagation();
-    if (userId) {
-      await removeFromCart({ userId, productId: item.id }).unwrap();
-      setIsInCart(false);
-      showToast('success', t('cart.productRemoved'));
-    }
-  };
-
-  const handleCartClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.stopPropagation();
-    if (!userId) {
-      showToast('warning', t('cart.addWarning'));
-    }
-  };
+  const {
+    userId,
+    isInWishlist,
+    isInCart,
+    handleAddToWishlist,
+    handleRemoveFromWishlist,
+    handleAddToCart,
+    handleRemoveFromCart,
+    handleCartClick,
+    navigate,
+  } = useProductCard(item);
 
   return (
     <Box
@@ -132,7 +39,7 @@ function ProductCard({ item }: IProductCardProps) {
           <Box sx={style.imgLink}>
             <Box
               component="img"
-              src={images[0]}
+              src={item.images[0]}
               alt="product"
               sx={style.imgWrapper}
             />
@@ -168,7 +75,7 @@ function ProductCard({ item }: IProductCardProps) {
                 textOverflow: 'ellipsis',
               }}
             >
-              <Link to={`${urls.PRODUCT_FEED}/${item.id}`}>{name}</Link>
+              <Link to={`${urls.PRODUCT_FEED}/${item.id}`}>{item.name}</Link>
             </Typography>
             <Box sx={style.productInfo}>
               <Box>
@@ -179,16 +86,16 @@ function ProductCard({ item }: IProductCardProps) {
                     lineHeight: '22px',
                   }}
                 >
-                  ${price}
+                  ${item.price}
                 </Typography>
                 <Typography variant="subtitle2">
                   <Link
-                    to={`${urls.VENDOR}/${vendor.id}`}
+                    to={`${urls.VENDOR}/${item.vendor.id}`}
                     onClick={(event: React.MouseEvent<HTMLAnchorElement>) =>
                       event.stopPropagation()
                     }
                   >
-                    {vendor.name}
+                    {item.vendor.name}
                   </Link>
                 </Typography>
               </Box>

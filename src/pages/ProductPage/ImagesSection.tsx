@@ -1,5 +1,3 @@
-import { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import {
@@ -14,13 +12,9 @@ import BlackHeartIcon from 'src/assets/icons/profile/heart-black.svg';
 import RedHeartIcon from 'src/assets/icons/profile/heart-red.svg';
 import { urls } from 'src/common/constants';
 import ProductSliderModal from 'src/components/ProductSliderModal';
-import { useAppSelector } from 'src/redux/hooks';
-import { selectUserId } from 'src/redux/user/userSlice';
-import {
-  useAddToWishlistMutation,
-  useRemoveFromWishlistMutation,
-} from 'src/redux/wishlist/wishlistService';
 import theme from 'src/theme';
+
+import useImagesSection from './hooks/useImageSection';
 
 interface ImagesSectionProps {
   images: string[];
@@ -35,50 +29,18 @@ function ImagesSection({
   productId,
   vendorId,
 }: ImagesSectionProps) {
-  const [selectedImage, setSelectedImage] = useState<string>(images[0]);
-  const [open, setOpen] = useState<boolean>(false);
-  const [initialSlideIndex, setInitialSlideIndex] = useState<number>(0);
-  const [isInWishlist, setIsInWishlist] = useState<boolean>(false);
-
-  const userId = useSelector(selectUserId);
-  const [addToWishlist] = useAddToWishlistMutation();
-  const [removeFromWishlist] = useRemoveFromWishlistMutation();
-
-  const wishlistData = useAppSelector((state) => state.wishlist);
-
-  useEffect(() => {
-    if (wishlistData) {
-      const isWishlistItem = wishlistData.some(
-        (wishlistItem: { id: string }) => wishlistItem.id === productId
-      );
-
-      setIsInWishlist(isWishlistItem);
-    }
-  }, [wishlistData, productId]);
-
-  const handleOpen = (index: number) => {
-    setInitialSlideIndex(index);
-    setOpen(true);
-  };
-
-  const handleClose = () => setOpen(false);
-
-  const handleImageClick = (src: string, index: number) => {
-    setSelectedImage(src);
-    setInitialSlideIndex(index);
-  };
-
-  const handleAddToWishlist = async () => {
-    if (userId) {
-      await addToWishlist({ userId, productId }).unwrap();
-    }
-  };
-
-  const handleRemoveFromWishlist = async () => {
-    if (userId) {
-      await removeFromWishlist({ userId, productId }).unwrap();
-    }
-  };
+  const {
+    userId,
+    selectedImage,
+    open,
+    initialSlideIndex,
+    isInWishlist,
+    handleOpen,
+    handleClose,
+    handleImageClick,
+    handleAddToWishlist,
+    handleRemoveFromWishlist,
+  } = useImagesSection(productId, images);
 
   return (
     <Box width="570px" display="flex" marginRight="80px">
