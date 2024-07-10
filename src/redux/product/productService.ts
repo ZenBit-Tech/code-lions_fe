@@ -17,6 +17,7 @@ export const productApi = createApi({
       }),
       providesTags: ['Product'],
     }),
+
     getProductById: build.query<IProduct, { productId: string }>({
       query: ({ productId }) => ({
         url: `${RTKUrls.PRODUCTS}/item/${productId}`,

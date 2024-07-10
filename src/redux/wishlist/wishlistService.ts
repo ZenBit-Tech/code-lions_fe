@@ -77,6 +77,7 @@ export const wishlistApi = createApi({
       }),
       providesTags: ['Wishlist'],
     }),
+
     addToWishlist: build.mutation<void, { userId: string; productId: string }>({
       query: ({ userId, productId }) => ({
         url: `${RTKUrls.WISHLIST}/${userId}`,
@@ -85,6 +86,7 @@ export const wishlistApi = createApi({
       }),
       invalidatesTags: ['Wishlist'],
     }),
+
     removeFromWishlist: build.mutation<
       void,
       { userId: string; productId: string }

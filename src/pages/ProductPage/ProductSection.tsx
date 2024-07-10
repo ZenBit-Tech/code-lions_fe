@@ -1,9 +1,15 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
 
-import { Button, Radio, RadioGroup, Box, Typography } from '@mui/material';
+import {
+  Button,
+  Radio,
+  RadioGroup,
+  Box,
+  Typography,
+  Link,
+} from '@mui/material';
 
 import BagCheckIcon from 'src/assets/icons/bag-check.svg';
 import ChatDots from 'src/assets/icons/chat-dots.svg';
@@ -11,10 +17,12 @@ import ChevronRight from 'src/assets/icons/chevron-right-grey-small.svg';
 import Heart from 'src/assets/icons/heart.svg';
 import { urls } from 'src/common/constants';
 import capitalizeAndTruncate from 'src/common/utils/capitalizeAndTruncate';
+import useToast from 'src/components/shared/toasts/components/ToastProvider/ToastProviderHooks';
 import {
   useAddToCartMutation,
   useRemoveFromCartMutation,
 } from 'src/redux/cart/cartService';
+import { ICartItem } from 'src/redux/cart/types';
 import { useAppSelector } from 'src/redux/hooks';
 import { IProduct } from 'src/redux/product/types';
 import { selectUserId } from 'src/redux/user/userSlice';
@@ -37,7 +45,10 @@ interface ProductSectionProps {
 
 function ProductSection({ product }: ProductSectionProps) {
   const { t } = useTranslation();
+  const { showToast } = useToast();
+
   const userId = useSelector(selectUserId);
+
   const [selectedSize] = useState<string>(product.size);
   const [value, setValue] = useState<string>(durations[0]?.duration.toString());
 
@@ -51,7 +62,7 @@ function ProductSection({ product }: ProductSectionProps) {
     useRemoveFromCartMutation();
 
   const isProductInCart = cartData?.some(
-    (item) => item.productId === product.id
+    (item: ICartItem) => item.productId === product.id
   );
 
   const handleRadioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -74,6 +85,7 @@ function ProductSection({ product }: ProductSectionProps) {
         duration: selectedDuration.duration,
         price: selectedDuration.price,
       }).unwrap();
+      showToast('success', t('cart.productAdded'));
 
       return true;
     } catch (error) {
@@ -87,10 +99,18 @@ function ProductSection({ product }: ProductSectionProps) {
         userId,
         productId: product.id,
       }).unwrap();
+      showToast('success', t('cart.productRemoved'));
 
       return true;
     } catch (error) {
       return error;
+    }
+  };
+
+  const handleCartClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.stopPropagation();
+    if (!userId) {
+      showToast('warning', t('cart.addWarning'));
     }
   };
 
@@ -100,15 +120,27 @@ function ProductSection({ product }: ProductSectionProps) {
     <Box width="456px">
       <Box paddingBottom="24px" marginBottom="24px">
         <Box display="flex" alignItems="center" mb="12px">
-          <Typography
-            variant="overline"
+          <Link
+            href={urls.HOME}
             sx={{
-              color: theme.palette.text.disabled,
-              marginRight: '5px',
+              textDecoration: 'none',
+              lineHeight: 0.8,
+              '&:hover': {
+                textDecoration: 'underline',
+                textDecorationColor: theme.palette.text.disabled,
+              },
             }}
           >
-            {t('product.home')}
-          </Typography>
+            <Typography
+              variant="overline"
+              sx={{
+                color: theme.palette.text.disabled,
+                marginRight: '5px',
+              }}
+            >
+              {t('product.home')}
+            </Typography>
+          </Link>
           <ChevronRight />
           <Typography
             variant="overline"
@@ -228,7 +260,7 @@ function ProductSection({ product }: ProductSectionProps) {
             fullWidth
             variant="contained"
             startIcon={<BagCheckIcon />}
-            onClick={handleAddToCart}
+            onClick={userId ? handleAddToCart : handleCartClick}
             disabled={isAddingToCart}
             sx={{ borderRadius: '12px', padding: '16px 24px' }}
           >
@@ -246,7 +278,16 @@ function ProductSection({ product }: ProductSectionProps) {
       </Box>
       <Box display="flex" marginTop="12px">
         <Button startIcon={<Heart />} sx={{}}>
-          <Link to={`${urls.PROFILE}/${urls.WISHLIST}/${userId}`}>
+          <Link
+            href={
+              userId
+                ? `${urls.PROFILE}/${urls.WISHLIST}/${userId}`
+                : urls.SIGN_IN
+            }
+            sx={{
+              textDecoration: 'none',
+            }}
+          >
             <Typography
               variant="button"
               sx={{

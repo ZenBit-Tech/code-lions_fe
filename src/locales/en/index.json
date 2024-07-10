@@ -373,5 +373,11 @@
     "title": "Best Vendors",
     "name": "Vendor Name",
     "follow": "Follow"
+  },
+  "cart": {
+    "viewWarning": "Please, sign in to view your cart",
+    "addWarning": "Please, sign in to add a product to your cart",
+    "productAdded": "Product is added to your cart",
+    "productRemoved": "Product is removed from your cart"
   }
 }

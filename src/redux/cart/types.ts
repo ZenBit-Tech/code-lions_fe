@@ -3,6 +3,7 @@ export interface ICartItem {
   userId: string;
   productId: string;
   vendorId: string;
+  name: string;
   productUrl: string;
   size: string;
   color: string;

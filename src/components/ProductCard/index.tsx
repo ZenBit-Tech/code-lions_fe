@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -8,6 +9,7 @@ import BagIcon from 'src/assets/icons/profile/bag-duotone.svg';
 import BlackHeartIcon from 'src/assets/icons/profile/heart-black.svg';
 import RedHeartIcon from 'src/assets/icons/profile/heart-red.svg';
 import { urls } from 'src/common/constants';
+import useToast from 'src/components/shared/toasts/components/ToastProvider/ToastProviderHooks';
 import {
   useAddToCartMutation,
   useRemoveFromCartMutation,
@@ -31,6 +33,9 @@ const duration: number = 7;
 
 function ProductCard({ item }: IProductCardProps) {
   const { images, name, vendor, price } = item;
+
+  const { t } = useTranslation();
+  const { showToast } = useToast();
 
   const userId = useSelector(selectUserId);
 
@@ -95,6 +100,7 @@ function ProductCard({ item }: IProductCardProps) {
     if (userId) {
       await addToCart({ userId, productId: item.id, duration, price }).unwrap();
       setIsInCart(true);
+      showToast('success', t('cart.productAdded'));
     }
   };
 
@@ -105,6 +111,14 @@ function ProductCard({ item }: IProductCardProps) {
     if (userId) {
       await removeFromCart({ userId, productId: item.id }).unwrap();
       setIsInCart(false);
+      showToast('success', t('cart.productRemoved'));
+    }
+  };
+
+  const handleCartClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.stopPropagation();
+    if (!userId) {
+      showToast('warning', t('cart.addWarning'));
     }
   };
 
@@ -201,7 +215,7 @@ function ProductCard({ item }: IProductCardProps) {
                         backgroundColor: theme.palette.common.black,
                       },
                     }}
-                    onClick={handleAddToCart}
+                    onClick={userId ? handleAddToCart : handleCartClick}
                   >
                     <BagIcon />
                   </IconButton>

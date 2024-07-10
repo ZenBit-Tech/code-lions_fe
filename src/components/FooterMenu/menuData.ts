@@ -8,7 +8,9 @@ const createMenuData = (t: (key: string) => string, userId: string | null) => [
       { id: 'login', to: urls.SIGN_IN, label: t('menu.login') },
       {
         id: 'wishlist',
-        to: `${urls.PROFILE}/${urls.WISHLIST}/${userId}`,
+        to: userId
+          ? `${urls.PROFILE}/${urls.WISHLIST}/${userId}`
+          : urls.SIGN_IN,
         label: t('menu.wishlist'),
       },
       { id: 'cart', to: '#', label: t('menu.cart') },

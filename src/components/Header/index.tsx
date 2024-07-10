@@ -13,6 +13,7 @@ import { MenuMainLink } from 'src/components/FooterMenu/styles';
 import HeaderLogo from 'src/components/HeaderLogo';
 import StyledButton from 'src/components/shared/StyledButton';
 import { StyleVariants } from 'src/components/shared/StyledButton/types';
+import useToast from 'src/components/shared/toasts/components/ToastProvider/ToastProviderHooks';
 import { useGetCartByIdQuery } from 'src/redux/cart/cartService';
 import { useAppSelector } from 'src/redux/hooks';
 import { useGetWishlistByIdQuery } from 'src/redux/wishlist/wishlistService';
@@ -22,6 +23,7 @@ import SvgHover from './styles';
 
 function Header() {
   const { t } = useTranslation();
+  const { showToast } = useToast();
   const user = useAppSelector((state) => state.user);
 
   const { data: cartData, refetch: cartRefetch } = useGetCartByIdQuery(
@@ -33,11 +35,19 @@ function Header() {
   );
 
   useEffect(() => {
-    wishlistRefetch();
-    cartRefetch();
+    if (user.id) {
+      wishlistRefetch();
+      cartRefetch();
+    }
   }, []);
 
   const cartItemCount = cartData ? cartData.length : 0;
+
+  const handleCartClick = () => {
+    if (!user.id) {
+      showToast('warning', t('cart.viewWarning'));
+    }
+  };
 
   return (
     <Box
@@ -156,35 +166,33 @@ function Header() {
             </Box>
           )}
 
-          <Link to={urls.HOME}>
-            <Box sx={{ position: 'relative' }}>
-              <Box sx={{ position: 'relative', top: '2px', right: '1px' }}>
-                <SvgHover>
-                  <BagIcon />
-                </SvgHover>
-              </Box>
-              {cartItemCount > 0 && (
-                <Box
-                  sx={{
-                    position: 'absolute',
-                    top: '-2px',
-                    right: '0px',
-                    display: 'flex',
-                    color: theme.palette.common.white,
-                    fontSize: '7px',
-                    minWidth: '12px',
-                    height: '12px',
-                    borderRadius: '50%',
-                    backgroundColor: theme.palette.common.black,
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                  }}
-                >
-                  {cartItemCount}
-                </Box>
-              )}
+          <Box sx={{ position: 'relative' }} onClick={handleCartClick}>
+            <Box sx={{ position: 'relative', top: '2px', right: '1px' }}>
+              <SvgHover>
+                <BagIcon />
+              </SvgHover>
             </Box>
-          </Link>
+            {cartItemCount > 0 && (
+              <Box
+                sx={{
+                  position: 'absolute',
+                  top: '-2px',
+                  right: '0px',
+                  display: 'flex',
+                  color: theme.palette.common.white,
+                  fontSize: '7px',
+                  minWidth: '12px',
+                  height: '12px',
+                  borderRadius: '50%',
+                  backgroundColor: theme.palette.common.black,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}
+              >
+                {cartItemCount}
+              </Box>
+            )}
+          </Box>
         </Box>
       </Box>
     </Box>
