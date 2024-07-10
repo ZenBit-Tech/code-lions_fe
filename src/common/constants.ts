@@ -143,6 +143,8 @@ export const countryCodes: CountryCode[] = [
   { code: '' },
 ];
 
+export const defaultCountryCode = '+1';
+
 export const userRoles = {
   BUYER: 'buyer',
   VENDOR: 'vendor',
