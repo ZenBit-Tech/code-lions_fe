@@ -320,6 +320,7 @@
     "mockHeight": "64 inch"
   },
   "products": {
+    "title": "Products",
     "filters": "filters",
     "counter": "products",
     "noProducts": "No products found",

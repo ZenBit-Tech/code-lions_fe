@@ -10,6 +10,7 @@ import createNavigationLink from 'src/common/utils/createNavigationLink';
 import ProductCard from 'src/components/ProductCard';
 import ProductFilters from 'src/components/ProductFilters';
 import SearchInput from 'src/components/shared/SearchInput';
+import SectionTitle from 'src/components/shared/SectionTitle';
 import useToast from 'src/components/shared/toasts/components/ToastProvider/ToastProviderHooks';
 import StyledPagination from 'src/pages/admin/StyledPagination';
 import { useGetProductsQuery } from 'src/redux/product/productService';
@@ -80,7 +81,8 @@ function ProductFeedPage() {
 
   return (
     <>
-      <Box sx={{ width: '100%', padding: '0 18px' }}>
+      <SectionTitle title={t('products.title')} greyBackground showBackLink />
+      <Box sx={{ width: '100%', padding: '0 18px', marginTop: '32px' }}>
         <Box
           sx={{
             display: 'flex',
