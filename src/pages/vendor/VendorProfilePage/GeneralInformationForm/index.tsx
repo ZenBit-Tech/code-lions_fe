@@ -31,7 +31,6 @@ import {
   ErrorMessage,
   ErrorWrapper,
   FormStyled,
-  TitleStyled,
   StyledFormControl,
   StyledPhoneInput,
   StyledPhoneWrapper,
@@ -44,7 +43,7 @@ interface IPersonalInformationForm {
   restPhoneNumber: string;
 }
 
-function PersonalInformationForm() {
+function GeneralInformationForm() {
   const { t } = useTranslation();
   const user = useAppSelector(selectUser);
   const userPhone = useAppSelector(selectUserPhone);
@@ -102,9 +101,6 @@ function PersonalInformationForm() {
   return (
     <FormProvider {...methods}>
       <FormStyled onSubmit={handleSubmit(onSubmit)}>
-        <TitleStyled variant="subtitle1">
-          {t('profileDetails.personalInformation')}
-        </TitleStyled>
         <TitleInputWrapper>
           <LabelText> {t('profileDetails.name')} </LabelText>
           <Controller
@@ -238,4 +234,4 @@ function PersonalInformationForm() {
   );
 }
 
-export default PersonalInformationForm;
+export default GeneralInformationForm;
