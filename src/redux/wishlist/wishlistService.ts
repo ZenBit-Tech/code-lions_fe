@@ -12,7 +12,6 @@ export const wishlistApi = createApi({
       query: ({ userId }) => ({
         url: `${RTKUrls.WISHLIST}/${userId}`,
         method: HttpMethods.GET,
-        params: { id: userId },
       }),
       providesTags: ['Wishlist'],
     }),

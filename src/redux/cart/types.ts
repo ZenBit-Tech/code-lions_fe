@@ -9,5 +9,5 @@ export interface ICartItem {
   color: string;
   duration: number;
   price: number;
-  createdAt: Date;
+  createdAt: string;
 }

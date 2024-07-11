@@ -13,7 +13,6 @@ export const cartApi = createApi({
       query: ({ userId }) => ({
         url: `${RTKUrls.CART}/${userId}`,
         method: HttpMethods.GET,
-        params: { id: userId },
       }),
       providesTags: ['Cart'],
     }),

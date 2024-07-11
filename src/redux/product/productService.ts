@@ -22,7 +22,6 @@ export const productApi = createApi({
       query: ({ productId }) => ({
         url: `${RTKUrls.PRODUCTS}/item/${productId}`,
         method: HttpMethods.GET,
-        params: { id: productId },
       }),
     }),
   }),
