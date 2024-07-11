@@ -9,6 +9,7 @@ import { urls, productsOnPage } from 'src/common/constants';
 import createNavigationLink from 'src/common/utils/createNavigationLink';
 import ProductCard from 'src/components/ProductCard';
 import ProductFilters from 'src/components/ProductFilters';
+import OrderSelector from 'src/components/shared/OrderSelector';
 import SearchInput from 'src/components/shared/SearchInput';
 import SectionTitle from 'src/components/shared/SectionTitle';
 import useToast from 'src/components/shared/toasts/components/ToastProvider/ToastProviderHooks';
@@ -116,19 +117,34 @@ function ProductFeedPage() {
               <>
                 {productsCount > 0 && (
                   <Box
-                    sx={{ padding: '19px 0', color: theme.palette.grey[700] }}
+                    sx={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      padding: '19px 0',
+                      color: theme.palette.grey[700],
+                    }}
                   >
-                    <Typography variant="interBody" data-testid="products">
-                      {productsCount} {t('products.counter')}
-                    </Typography>
+                    <Box>
+                      <Typography variant="interBody" data-testid="products">
+                        {productsCount} {t('products.counter')}
+                      </Typography>
+                    </Box>
+                    <Box>
+                      <OrderSelector
+                        onSortChange={(sortBy, sortOrder) => {
+                          console.log(sortBy, sortOrder);
+                        }}
+                      />
+                    </Box>
                   </Box>
                 )}
                 <Box
                   sx={{
                     display: 'flex',
                     flexDirection: 'row',
+                    justifyContent: 'space-between',
                     flexWrap: 'wrap',
-                    gap: '24px',
+                    rowGap: '24px',
                     mb: '40px',
                   }}
                 >
