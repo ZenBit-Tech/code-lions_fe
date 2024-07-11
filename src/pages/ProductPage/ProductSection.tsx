@@ -1,62 +1,85 @@
-import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import {
   Button,
-  FormControlLabel,
   Radio,
   RadioGroup,
-  Select,
   Box,
-  SelectChangeEvent,
   Typography,
+  Link,
 } from '@mui/material';
 
 import BagCheckIcon from 'src/assets/icons/bag-check.svg';
 import ChatDots from 'src/assets/icons/chat-dots.svg';
-import ChevronDown from 'src/assets/icons/chevron-down-grey.svg';
 import ChevronRight from 'src/assets/icons/chevron-right-grey-small.svg';
 import Heart from 'src/assets/icons/heart.svg';
+import { urls } from 'src/common/constants';
+import capitalizeAndTruncate from 'src/common/utils/capitalizeAndTruncate';
+import { IProduct } from 'src/redux/product/types';
 import theme from 'src/theme';
 
+import useProductSection from './hooks/useProductSection';
 import RadioLabel from './RadioLabel';
-import { StyledMenuItem, StyledRadioWrapper } from './styles';
+import { StyledInput, StyledFormControlLabel } from './styles';
 
-const mockImageUrl: string = 'src/assets/photos/mockPhoto1.png';
-const radioValue: string = 'rent';
+const stringLimit = 30;
 
-function ProductSection() {
+interface ProductSectionProps {
+  product: IProduct;
+}
+
+function ProductSection({ product }: ProductSectionProps) {
+  const {
+    userId,
+    selectedSize,
+    value,
+    handleRadioChange,
+    handleAddToCart,
+    handleRemoveFromCart,
+    handleCartClick,
+    isProductInCart,
+    isAddingToCart,
+    isRemovingFromCart,
+    durations,
+  } = useProductSection(product);
+
   const { t } = useTranslation();
-
-  const [openSize, setOpenSize] = useState<boolean>(false);
-  const [selectedSize, setSelectedSize] = useState<string>(
-    t('product.mockSize')
-  );
-  const [value, setValue] = useState<string>(radioValue);
-
-  const handleSizeChange = (event: SelectChangeEvent<string>) => {
-    setSelectedSize(event.target.value as string);
-  };
-
-  const handleRadioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setValue((event.target as HTMLInputElement).value);
-  };
-
-  const handleOpen = () => setOpenSize(true);
-  const handleClose = () => setOpenSize(false);
+  const radioImage = product.images[0];
 
   return (
     <Box width="456px">
-      <Box height="202px" paddingBottom="24px" marginBottom="24px">
+      <Box paddingBottom="24px" marginBottom="24px">
         <Box display="flex" alignItems="center" mb="12px">
+          <Link
+            href={urls.HOME}
+            sx={{
+              textDecoration: 'none',
+              lineHeight: 0.8,
+              '&:hover': {
+                textDecoration: 'underline',
+                textDecorationColor: theme.palette.text.disabled,
+              },
+            }}
+          >
+            <Typography
+              variant="overline"
+              sx={{
+                color: theme.palette.text.disabled,
+                marginRight: '5px',
+              }}
+            >
+              {t('product.home')}
+            </Typography>
+          </Link>
+          <ChevronRight />
           <Typography
             variant="overline"
             sx={{
               color: theme.palette.text.disabled,
-              marginRight: '5px',
+              margin: '0 5px',
             }}
           >
-            {t('product.home')}
+            {capitalizeAndTruncate(product.categories[0])}
           </Typography>
           <ChevronRight />
           <Typography
@@ -66,17 +89,7 @@ function ProductSection() {
               margin: '0 5px',
             }}
           >
-            {t('product.category')}
-          </Typography>
-          <ChevronRight />
-          <Typography
-            variant="overline"
-            sx={{
-              color: theme.palette.text.disabled,
-              margin: '0 5px',
-            }}
-          >
-            {t('product.name')}
+            {capitalizeAndTruncate(product.name, stringLimit)}
           </Typography>
         </Box>
         <Typography
@@ -87,10 +100,7 @@ function ProductSection() {
             letterSpacing: '-0.6px',
           }}
         >
-          {t('product.name')}
-        </Typography>
-        <Typography variant="subtitle2" padding="15px 0">
-          {t('product.mockDesc')}
+          {product.name}
         </Typography>
         <Box display="flex" alignItems="center">
           <Typography
@@ -99,18 +109,10 @@ function ProductSection() {
               fontSize: '26px',
               lineHeight: '40px',
               marginRight: '10px',
+              marginTop: '20px',
             }}
           >
-            {t('product.mockPrice')}
-          </Typography>
-          <Typography
-            sx={{
-              lineHeight: '40px',
-              color: theme.palette.text.disabled,
-              textDecoration: 'line-through',
-            }}
-          >
-            {t('product.mockOldPrice')}
+            {`$${product.price}`}
           </Typography>
         </Box>
       </Box>
@@ -119,90 +121,114 @@ function ProductSection() {
         padding="24px 0"
         gap="24px"
       >
-        <Box display="flex" flexDirection="column" height="76px" gap="8px">
+        <Box display="flex" flexDirection="column" gap="8px">
           <Typography variant="subtitle1" sx={{ fontWeight: '500' }}>
             {t('product.chooseSize')}
           </Typography>
-          <Select
-            onChange={handleSizeChange}
-            value={selectedSize}
-            open={openSize}
-            onClose={handleClose}
-            onOpen={handleOpen}
-            fullWidth
-            IconComponent={(props) => <ChevronDown {...props} />}
-            size="small"
-            sx={{
-              border: `1px solid ${theme.palette.border.secondary}`,
-              '.MuiSelect-icon': {
-                width: '20px',
-                height: '20px',
-                top: 10,
-              },
-            }}
-          >
-            <StyledMenuItem value={t('product.mockSize')}>
-              {t('product.mockSize')}
-            </StyledMenuItem>
-          </Select>
-          <StyledRadioWrapper>
+          <StyledInput value={selectedSize} size="small" fullWidth disabled />
+
+          {!isProductInCart && (
             <RadioGroup value={value} onChange={handleRadioChange}>
-              <FormControlLabel
-                value={radioValue}
-                labelPlacement="end"
-                control={
-                  <Radio
+              {durations.map(({ duration, price }) => (
+                <Box sx={{ position: 'relative' }} key={duration}>
+                  <StyledFormControlLabel
+                    value={duration.toString()}
+                    labelPlacement="end"
+                    control={
+                      <Radio
+                        sx={{
+                          '& .MuiSvgIcon-root': {
+                            fontSize: theme.typography.h3.fontSize,
+                          },
+                        }}
+                      />
+                    }
+                    label={<RadioLabel duration={duration} price={price} />}
+                    checked={value === duration.toString()}
+                  />
+                  <Box
                     sx={{
-                      '& .MuiSvgIcon-root': {
-                        fontSize: theme.typography.h3.fontSize,
-                      },
+                      position: 'absolute',
+                      top: '30px',
+                      right: '20px',
+                      backgroundImage: `url(${radioImage})`,
+                      backgroundSize: 'cover',
+                      backgroundPosition: 'center',
+                      height: '72px',
+                      width: '72px',
+                      borderRadius: '8px',
                     }}
                   />
-                }
-                label={<RadioLabel />}
-              />
+                </Box>
+              ))}
             </RadioGroup>
-            <Box
-              sx={{
-                backgroundImage: `url(${mockImageUrl})`,
-                height: '72px',
-                width: '72px',
-                borderRadius: '8px',
-              }}
-            />
-          </StyledRadioWrapper>
+          )}
         </Box>
       </Box>
-      <Box marginTop="120px">
-        <Button
-          fullWidth
-          variant="contained"
-          startIcon={<BagCheckIcon />}
-          sx={{ borderRadius: '12px', padding: '16px 24px' }}
-        >
-          <Typography
-            variant="button"
-            sx={{
-              fontWeight: theme.typography.body1.fontWeight,
-              fontSize: theme.typography.h5.fontSize,
-            }}
+      <Box>
+        {isProductInCart ? (
+          <Button
+            fullWidth
+            variant="contained"
+            startIcon={<BagCheckIcon />}
+            onClick={handleRemoveFromCart}
+            disabled={isRemovingFromCart}
+            sx={{ borderRadius: '12px', padding: '16px 24px' }}
           >
-            {t('product.addToCart')}
-          </Typography>
-        </Button>
+            <Typography
+              variant="button"
+              sx={{
+                fontWeight: theme.typography.body1.fontWeight,
+                fontSize: theme.typography.h5.fontSize,
+              }}
+            >
+              {t('product.removeFromCart')}
+            </Typography>
+          </Button>
+        ) : (
+          <Button
+            fullWidth
+            variant="contained"
+            startIcon={<BagCheckIcon />}
+            onClick={userId ? handleAddToCart : handleCartClick}
+            disabled={isAddingToCart}
+            sx={{ borderRadius: '12px', padding: '16px 24px' }}
+          >
+            <Typography
+              variant="button"
+              sx={{
+                fontWeight: theme.typography.body1.fontWeight,
+                fontSize: theme.typography.h5.fontSize,
+              }}
+            >
+              {t('product.addToCart')}
+            </Typography>
+          </Button>
+        )}
       </Box>
       <Box display="flex" marginTop="12px">
         <Button startIcon={<Heart />} sx={{}}>
-          <Typography
-            variant="button"
+          <Link
+            href={
+              userId
+                ? `${urls.PROFILE}/${urls.WISHLIST}/${userId}`
+                : urls.SIGN_IN
+            }
             sx={{
-              fontWeight: theme.typography.bold.fontWeight,
-              lineHeight: 1.75,
-              marginRight: '20px',
+              textDecoration: 'none',
             }}
           >
-            {t('product.wishlist')}
-          </Typography>
+            <Typography
+              variant="button"
+              sx={{
+                fontWeight: theme.typography.bold.fontWeight,
+                lineHeight: 1.75,
+                marginRight: '20px',
+              }}
+            >
+              {t('product.wishlist')}
+            </Typography>
+          </Link>
         </Button>
         <Button startIcon={<ChatDots />}>
           <Typography

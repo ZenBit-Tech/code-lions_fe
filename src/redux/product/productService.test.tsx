@@ -8,7 +8,7 @@ import allProducts from 'src/test/mocks/allproducts';
 import { productApi } from './productService';
 
 describe('productApi', () => {
-  const { useGetProductsQuery } = productApi;
+  const { useGetProductsQuery, useGetProductByIdQuery } = productApi;
 
   it('fetches products successfully', async () => {
     const { result } = renderHook(() => useGetProductsQuery(), {
@@ -16,5 +16,14 @@ describe('productApi', () => {
     });
 
     await waitFor(() => expect(result.current.data).toEqual(allProducts));
+  });
+
+  it('fetches a product by ID successfully', async () => {
+    const productId = allProducts[0].id;
+    const { result } = renderHook(() => useGetProductByIdQuery({ productId }), {
+      wrapper: ({ children }) => <Provider store={store}>{children}</Provider>,
+    });
+
+    await waitFor(() => expect(result.current.data).toEqual(allProducts[0]));
   });
 });
