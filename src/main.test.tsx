@@ -36,5 +36,7 @@ test('renders App component, show Log in and Sign Up buttons', async () => {
   });
 
   expect(screen.getByText('Log in')).toBeInTheDocument();
-  expect(screen.getByText('Sign Up')).toBeInTheDocument();
+  const signUpButtons = screen.queryAllByText('Sign Up');
+
+  expect(signUpButtons.length).toBeGreaterThan(0);
 });

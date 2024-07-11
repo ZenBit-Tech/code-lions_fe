@@ -118,7 +118,7 @@ function ProductFeedPage() {
                   <Box
                     sx={{ padding: '19px 0', color: theme.palette.grey[700] }}
                   >
-                    <Typography variant="interBody">
+                    <Typography variant="interBody" data-testid="products">
                       {productsCount} {t('products.counter')}
                     </Typography>
                   </Box>

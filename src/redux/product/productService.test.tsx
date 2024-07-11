@@ -11,10 +11,12 @@ describe('productApi', () => {
   const { useGetProductsQuery } = productApi;
 
   it('fetches products successfully', async () => {
-    const { result } = renderHook(() => useGetProductsQuery(), {
+    const { result } = renderHook(() => useGetProductsQuery({}), {
       wrapper: ({ children }) => <Provider store={store}>{children}</Provider>,
     });
 
-    await waitFor(() => expect(result.current.data).toEqual(allProducts));
+    await waitFor(() =>
+      expect(result.current.data?.products).toEqual(allProducts)
+    );
   });
 });
