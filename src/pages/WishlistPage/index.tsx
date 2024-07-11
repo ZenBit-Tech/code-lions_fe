@@ -18,7 +18,7 @@ function WishlistPage() {
   const products =
     data.map((item) => ({
       ...item,
-      images: item.images.slice().reverse(),
+      images: item.images.map((image) => image).sort(),
     })) || [];
 
   if (products.length === 0) {

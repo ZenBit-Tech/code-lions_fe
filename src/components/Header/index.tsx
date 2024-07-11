@@ -41,7 +41,7 @@ function Header() {
     }
   }, []);
 
-  const cartItemCount = cartData ? cartData.length : 0;
+  const cartItemCount = cartData?.length || 0;
 
   const handleCartClick = () => {
     if (!user.id) {
