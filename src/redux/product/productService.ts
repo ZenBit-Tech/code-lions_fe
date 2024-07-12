@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { HttpMethods, RTKUrls, apiUrl } from 'src/common/constants';
 
-import { IProduct, IProducts } from './types';
+import { IProducts, IProduct } from './types';
 
 export const productApi = createApi({
   reducerPath: 'productApi',
@@ -17,14 +17,36 @@ export const productApi = createApi({
       }),
       providesTags: ['Product'],
     }),
-
     getProductById: build.query<IProduct, { productId: string }>({
       query: ({ productId }) => ({
         url: `${RTKUrls.PRODUCTS}/item/${productId}`,
         method: HttpMethods.GET,
       }),
     }),
+    getProductsBySizes: build.query<
+      IProducts,
+      { clothesSize: string; jeansSize: string; shoesSize: string }
+    >({
+      query: ({ clothesSize, jeansSize, shoesSize }) => ({
+        url: `${RTKUrls.PRODUCTS}/${RTKUrls.SIZES}`,
+        method: HttpMethods.GET,
+        params: { clothesSize, jeansSize, shoesSize },
+      }),
+      providesTags: ['Product'],
+    }),
+    getLatestProducts: build.query<IProducts, void>({
+      query: () => ({
+        url: `${RTKUrls.PRODUCTS}/${RTKUrls.LATEST}`,
+        method: HttpMethods.GET,
+      }),
+      providesTags: ['Product'],
+    }),
   }),
 });
 
-export const { useGetProductsQuery, useGetProductByIdQuery } = productApi;
+export const {
+  useGetProductsQuery,
+  useGetProductsBySizesQuery,
+  useGetLatestProductsQuery,
+  useGetProductByIdQuery
+} = productApi;
