@@ -27,23 +27,11 @@ export const Image = styled('img')({
   objectPosition: 'center',
 });
 
-// const colors = {
-//   black: 'black',
-//   blue: 'blue',
-//   brown: 3,
-//   green: 4,
-//   grey: 5,
-//   orange: 6,
-//   pink: 7,
-//   purple: 8,
-//   red: 9,
-//   white: 10,
-//   yellow: 11,
-// };
-
-export const Circle = styled(Box)<{ color: string }>(({ color }) => ({
+export const Circle = styled(Box)<{ color: string }>(({ color, theme }) => ({
   borderRadius: '50%',
   width: '16px',
   height: '16px',
   backgroundColor: color,
+  border:
+    color === 'white' ? `1px solid ${theme.palette.common.black}` : 'none',
 }));

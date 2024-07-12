@@ -409,6 +409,7 @@
     "freeShipping": "Free shipping",
     "freePrice": "0.00",
     "expressShipping": "Express shipping",
+    "expressPrice": "15.00",
     "subtotal": "Subtotal",
     "totalRenting": "Total Renting",
     "payButton": "Pay"

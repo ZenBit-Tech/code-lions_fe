@@ -168,6 +168,12 @@ const theme: Theme = createTheme({
         letterSpacing: '-1px',
       },
     },
+    h6: {
+      fontFamily: 'DM Sans, Arial, sans-serif',
+      fontSize: 18,
+      fontWeight: 500,
+      lineHeight: 1.67,
+    },
     subtitle1: {
       fontFamily: 'Playfair Display, Arial, sans-serif',
       fontSize: 14,

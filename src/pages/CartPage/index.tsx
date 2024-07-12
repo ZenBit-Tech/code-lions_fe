@@ -1,39 +1,49 @@
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 
-import { Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 
+import { urls } from 'src/common/constants';
 import Container from 'src/components/shared/Container';
 import SectionTitle from 'src/components/shared/SectionTitle';
 import StyledButton from 'src/components/shared/StyledButton';
-import { useGetCartByIdQuery } from 'src/redux/cart/cartService';
+import { selectCart } from 'src/redux/cart/cartSlice';
 import { useAppSelector } from 'src/redux/hooks';
-import { selectUserId } from 'src/redux/user/userSlice';
 
 import CartTable from './CartTable';
 import TableWrapper from './styles';
 
 function CartPage() {
   const { t } = useTranslation();
-
-  const userId = useAppSelector(selectUserId);
-  const { data } = useGetCartByIdQuery({ userId });
+  const navigate = useNavigate();
+  const cartItems = useAppSelector(selectCart);
 
   return (
-    <Container>
-      <SectionTitle title={t('cartPage.title')} showBackLink mt="12px" />
-      <TableWrapper>
-        {data && data.length > 0 ? (
-          <>
-            <CartTable data={data} />
-            <StyledButton width="489px">
-              <Typography>{t('cartPage.nextButton')}</Typography>
-            </StyledButton>
-          </>
-        ) : (
-          <Typography>{t('cartPage.noOrders')}</Typography>
-        )}
-      </TableWrapper>
-    </Container>
+    <Box
+      display="flex"
+      justifyContent="flex-start"
+      flexDirection="column"
+      flex="2"
+    >
+      <Container>
+        <SectionTitle title={t('cartPage.title')} showBackLink mt="12px" />
+        <TableWrapper>
+          {cartItems && cartItems.length > 0 ? (
+            <>
+              <CartTable data={cartItems} />
+              <StyledButton
+                width="489px"
+                onClick={() => navigate(`/${urls.CHECKOUT}`)}
+              >
+                <Typography>{t('cartPage.nextButton')}</Typography>
+              </StyledButton>
+            </>
+          ) : (
+            <Typography>{t('cartPage.noOrders')}</Typography>
+          )}
+        </TableWrapper>
+      </Container>
+    </Box>
   );
 }
 

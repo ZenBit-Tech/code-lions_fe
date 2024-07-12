@@ -12,6 +12,8 @@ import {
 } from '@mui/material';
 
 import TrashIcon from 'src/assets/icons/trash-bin.svg';
+import useErrorHandling from 'src/common/hooks/useErrorHandlingHook';
+import useToast from 'src/components/shared/toasts/components/ToastProvider/ToastProviderHooks';
 import { useRemoveFromCartMutation } from 'src/redux/cart/cartService';
 import { ICartItem } from 'src/redux/cart/types';
 import theme from 'src/theme';
@@ -30,11 +32,16 @@ interface ICartTableProps {
 
 function CartTable({ data }: ICartTableProps) {
   const { t } = useTranslation();
-
+  const { showToast } = useToast();
+  const { handleOnSubmitError } = useErrorHandling();
   const [removeFromCart] = useRemoveFromCartMutation();
 
-  const handleRemove = (userId: string, productId: string) => {
-    removeFromCart({ userId, productId });
+  const handleRemove = async (userId: string, productId: string) => {
+    try {
+      await removeFromCart({ userId, productId }).unwrap();
+    } catch (err) {
+      handleOnSubmitError(err, showToast, t('profileDetails.unknownError'));
+    }
   };
 
   return (
@@ -84,9 +91,6 @@ function CartTable({ data }: ICartTableProps) {
                   </ImageWrapper>
                   <Box width="223px">
                     <Typography variant="button" component="p">
-                      {t('cartPage.productName')}
-                    </Typography>
-                    <Typography variant="button" component="p">
                       {item.name || ''}
                     </Typography>
                     <Box display="flex" gap="3px">
@@ -134,7 +138,9 @@ function CartTable({ data }: ICartTableProps) {
               </BodyTableCell>
               <BodyTableCell align="center">${item.price}</BodyTableCell>
               <BodyTableCell align="center">
-                <IconButton onClick={() => handleRemove(item.userId, item.id)}>
+                <IconButton
+                  onClick={() => handleRemove(item.userId, item.productId)}
+                >
                   <TrashIcon />
                 </IconButton>
               </BodyTableCell>

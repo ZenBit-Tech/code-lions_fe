@@ -1,38 +1,48 @@
 import { useTranslation } from 'react-i18next';
 
-import { Typography } from '@mui/material';
+import { Box } from '@mui/material';
 
 import Container from 'src/components/shared/Container';
 import SectionTitle from 'src/components/shared/SectionTitle';
-import StyledButton from 'src/components/shared/StyledButton';
 import CartTable from 'src/pages/CartPage/CartTable';
 import TableWrapper from 'src/pages/CartPage/styles';
-import { useGetCartByIdQuery } from 'src/redux/cart/cartService';
+import { selectCart } from 'src/redux/cart/cartSlice';
 import { useAppSelector } from 'src/redux/hooks';
-import { selectUserId } from 'src/redux/user/userSlice';
+
+import AddressForm from '../ProfilePage/AddressForm';
+
+import CartSummary from './CartSummary';
 
 function CheckoutPage() {
   const { t } = useTranslation();
 
-  const userId = useAppSelector(selectUserId);
-  const { data } = useGetCartByIdQuery({ userId });
+  const cartItems = useAppSelector(selectCart);
 
   return (
-    <Container>
-      <SectionTitle title={t('cartPage.title')} showBackLink mt="12px" />
-      <TableWrapper>
-        {data && data.length > 0 ? (
-          <>
-            <CartTable data={data} />
-            <StyledButton width="489px">
-              <Typography>{t('cartPage.nextButton')}</Typography>
-            </StyledButton>
-          </>
-        ) : (
-          <Typography>{t('cartPage.noOrders')}</Typography>
-        )}
-      </TableWrapper>
-    </Container>
+    <Box
+      display="flex"
+      justifyContent="flex-start"
+      flexDirection="column"
+      flex="2"
+    >
+      <Container>
+        <SectionTitle title={t('checkoutPage.title')} showBackLink mt="12px" />
+        <TableWrapper>
+          <CartTable data={cartItems} />
+        </TableWrapper>
+        <Box
+          display="flex"
+          flexDirection="column"
+          margin="0 166px 110px 166px"
+          gap="110px"
+        >
+          <Box>
+            <AddressForm />
+          </Box>
+          <CartSummary />
+        </Box>
+      </Container>
+    </Box>
   );
 }
 
