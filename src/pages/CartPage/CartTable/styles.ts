@@ -26,6 +26,7 @@ export const Image = styled('img')({
   objectFit: 'cover',
   objectPosition: 'center',
 });
+const whiteColor = 'white';
 
 export const Circle = styled(Box)<{ color: string }>(({ color, theme }) => ({
   borderRadius: '50%',
@@ -33,5 +34,5 @@ export const Circle = styled(Box)<{ color: string }>(({ color, theme }) => ({
   height: '16px',
   backgroundColor: color,
   border:
-    color === 'white' ? `1px solid ${theme.palette.common.black}` : 'none',
+    color === whiteColor ? `1px solid ${theme.palette.common.black}` : 'none',
 }));

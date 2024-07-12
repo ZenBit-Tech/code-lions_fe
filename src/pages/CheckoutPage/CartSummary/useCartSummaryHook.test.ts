@@ -1,10 +1,12 @@
-/* eslint-disable no-magic-numbers */
 import { renderHook } from '@testing-library/react';
 import { vi, describe, it, expect } from 'vitest';
 
 import { ICartItem } from 'src/redux/cart/types';
 
 import useCartSummary from './useCartSummaryHook';
+
+const FREESHIP = 50;
+const EXPRESSSHIP = 65;
 
 // Mock useTranslation hook
 vi.mock('react-i18next', () => ({
@@ -65,12 +67,12 @@ describe('useCartSummary', () => {
       }
     );
 
-    expect(result.current.subtotal).toBe(50);
-    expect(result.current.total).toBe(50);
+    expect(result.current.subtotal).toBe(FREESHIP);
+    expect(result.current.total).toBe(FREESHIP);
 
     rerender({ items: testCartItems, shipping: 'Express Shipping' });
 
-    expect(result.current.subtotal).toBe(50);
-    expect(result.current.total).toBe(65);
+    expect(result.current.subtotal).toBe(FREESHIP);
+    expect(result.current.total).toBe(EXPRESSSHIP);
   });
 });

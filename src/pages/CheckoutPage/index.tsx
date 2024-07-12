@@ -1,7 +1,10 @@
+import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 
 import { Box } from '@mui/material';
 
+import { urls } from 'src/common/constants';
 import Container from 'src/components/shared/Container';
 import SectionTitle from 'src/components/shared/SectionTitle';
 import CartTable from 'src/pages/CartPage/CartTable';
@@ -17,6 +20,13 @@ function CheckoutPage() {
   const { t } = useTranslation();
 
   const cartItems = useAppSelector(selectCart);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (cartItems.length === 0) {
+      navigate(`/${urls.CART}`);
+    }
+  }, [cartItems, navigate]);
 
   return (
     <Box
