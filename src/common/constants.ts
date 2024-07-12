@@ -78,7 +78,6 @@ export const RTKUrls = {
   USER_REVIEWS: 'reviews/user',
   LATEST: 'latest',
   SIZES: 'sizes',
-  CART: 'cart',
 };
 
 export const HttpMethods = {
