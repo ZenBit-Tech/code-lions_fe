@@ -55,13 +55,8 @@ const style = {
     top: '5px',
     right: '5px',
     padding: '3px',
-    opacity: '0.25',
+    opacity: '0.5',
     transition: 'all 0.3s ease',
-    '&:hover': {
-      opacity: '1',
-      filter:
-        'invert(44%) sepia(22%) saturate(5129%) hue-rotate(319deg) brightness(95%) contrast(83%)',
-    },
   },
   productInfoWrapper: {
     display: 'flex',

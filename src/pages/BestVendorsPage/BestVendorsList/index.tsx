@@ -143,11 +143,21 @@ function BestVendorsList() {
                 </Typography>
               </StyledButton>
             </Box>
-            <Box component="div" sx={{ display: 'flex', gap: '32px' }}>
+            <Box
+              component="div"
+              sx={{ display: 'flex', flexWrap: 'wrap', gap: '24px' }}
+            >
               {mockProducts.map((product) => (
                 <Box
                   key={product.id}
-                  sx={{ flexBasis: 'calc(100% - 32px * 3 / 4)' }}
+                  sx={{
+                    width: {
+                      xs: '100%',
+                      sm: 'calc(50% - 20px)',
+                      md: 'calc(50% - 20px)',
+                      lg: 'calc(25% - 18px)',
+                    },
+                  }}
                 >
                   <ProductCard item={product} />
                 </Box>

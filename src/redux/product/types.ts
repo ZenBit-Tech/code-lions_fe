@@ -1,3 +1,8 @@
+interface IColor {
+  id: number;
+  color: string;
+}
+
 export interface IProduct {
   id: string;
   name: string;
@@ -9,7 +14,7 @@ export interface IProduct {
   type: string;
   size: string;
   images: string[];
-  colors: string[];
+  colors: IColor[];
   vendor: {
     id: string;
     name: string;

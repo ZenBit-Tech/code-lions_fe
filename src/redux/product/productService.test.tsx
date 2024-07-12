@@ -14,6 +14,7 @@ describe('productApi', () => {
     useGetProductsQuery,
     useGetProductsBySizesQuery,
     useGetLatestProductsQuery,
+    useGetProductByIdQuery
   } = productApi;
 
   it('fetches products successfully', async () => {
@@ -22,6 +23,15 @@ describe('productApi', () => {
     });
 
     await waitFor(() => expect(result.current.data).toEqual(allProducts));
+  });
+
+  it('fetches a product by ID successfully', async () => {
+    const productId = allProducts[0].id;
+    const { result } = renderHook(() => useGetProductByIdQuery({ productId }), {
+      wrapper: ({ children }) => <Provider store={store}>{children}</Provider>,
+    });
+
+    await waitFor(() => expect(result.current.data).toEqual(allProducts[0]));
   });
 
   it('fetches products by sizes successfully', async () => {

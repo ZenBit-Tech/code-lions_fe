@@ -1,8 +1,10 @@
+import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
 import { Box } from '@mui/system';
 
+import { skipToken } from '@reduxjs/toolkit/query';
 import BagIcon from 'src/assets/icons/bag.svg';
 import BellIcon from 'src/assets/icons/bell.svg';
 import ProfileIcon from 'src/assets/icons/profile.svg';
@@ -11,16 +13,41 @@ import { MenuMainLink } from 'src/components/FooterMenu/styles';
 import HeaderLogo from 'src/components/HeaderLogo';
 import StyledButton from 'src/components/shared/StyledButton';
 import { StyleVariants } from 'src/components/shared/StyledButton/types';
+import useToast from 'src/components/shared/toasts/components/ToastProvider/ToastProviderHooks';
+import { useGetCartByIdQuery } from 'src/redux/cart/cartService';
 import { useAppSelector } from 'src/redux/hooks';
+import { useGetWishlistByIdQuery } from 'src/redux/wishlist/wishlistService';
 import theme from 'src/theme';
 
 import SvgHover from './styles';
 
-const countInBag = 0;
-
 function Header() {
   const { t } = useTranslation();
+  const { showToast } = useToast();
   const user = useAppSelector((state) => state.user);
+
+  const { data: cartData, refetch: cartRefetch } = useGetCartByIdQuery(
+    user.id ? { userId: user.id } : skipToken
+  );
+
+  const { refetch: wishlistRefetch } = useGetWishlistByIdQuery(
+    user.id ? { userId: user.id } : skipToken
+  );
+
+  useEffect(() => {
+    if (user.id) {
+      wishlistRefetch();
+      cartRefetch();
+    }
+  }, []);
+
+  const cartItemCount = cartData?.length || 0;
+
+  const handleCartClick = () => {
+    if (!user.id) {
+      showToast('warning', t('cart.viewWarning'));
+    }
+  };
 
   return (
     <Box
@@ -70,7 +97,9 @@ function Header() {
           }}
         >
           <MenuMainLink to={urls.PRODUCT_FEED}>{t('header.shop')}</MenuMainLink>
-          <MenuMainLink to={urls.HOME}>{t('header.vendors')}</MenuMainLink>
+          <MenuMainLink to={urls.BEST_VENDORS}>
+            {t('header.vendors')}
+          </MenuMainLink>
           <MenuMainLink to={urls.HOME}>{t('header.messages')}</MenuMainLink>
         </Box>
 
@@ -137,35 +166,33 @@ function Header() {
             </Box>
           )}
 
-          <Link to={urls.HOME}>
-            <Box sx={{ position: 'relative' }}>
-              <Box sx={{ position: 'relative', top: '2px', right: '1px' }}>
-                <SvgHover>
-                  <BagIcon />
-                </SvgHover>
-              </Box>
-              {countInBag > 0 && (
-                <Box
-                  sx={{
-                    position: 'absolute',
-                    top: '-2px',
-                    right: '0px',
-                    display: 'flex',
-                    color: theme.palette.common.white,
-                    fontSize: '7px',
-                    minWidth: '12px',
-                    height: '12px',
-                    borderRadius: '50%',
-                    backgroundColor: theme.palette.common.black,
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                  }}
-                >
-                  {countInBag}
-                </Box>
-              )}
+          <Box sx={{ position: 'relative' }} onClick={handleCartClick}>
+            <Box sx={{ position: 'relative', top: '2px', right: '1px' }}>
+              <SvgHover>
+                <BagIcon />
+              </SvgHover>
             </Box>
-          </Link>
+            {cartItemCount > 0 && (
+              <Box
+                sx={{
+                  position: 'absolute',
+                  top: '-2px',
+                  right: '0px',
+                  display: 'flex',
+                  color: theme.palette.common.white,
+                  fontSize: '7px',
+                  minWidth: '12px',
+                  height: '12px',
+                  borderRadius: '50%',
+                  backgroundColor: theme.palette.common.black,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}
+              >
+                {cartItemCount}
+              </Box>
+            )}
+          </Box>
         </Box>
       </Box>
     </Box>

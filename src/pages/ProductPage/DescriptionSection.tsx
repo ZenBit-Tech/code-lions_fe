@@ -2,11 +2,17 @@ import { useTranslation } from 'react-i18next';
 
 import { Grid, Box, Typography } from '@mui/material';
 
+import capitalizeAndTruncate from 'src/common/utils/capitalizeAndTruncate';
+import { IProduct } from 'src/redux/product/types';
 import theme from 'src/theme';
 
 import { StyledTypography } from './styles';
 
-function DescriptionSection() {
+interface ProductSectionProps {
+  product: IProduct;
+}
+
+function DescriptionSection({ product }: ProductSectionProps) {
   const { t } = useTranslation();
 
   return (
@@ -27,18 +33,10 @@ function DescriptionSection() {
         marginTop="5px"
       >
         <Typography variant="subtitle2" sx={{ lineHeight: 1.57 }}>
-          {t('product.descriptionFull')}
+          {product.description}
         </Typography>
         <Grid container columns={2} width="20%" marginTop="30px">
           <Grid item xs={1}>
-            <StyledTypography
-              sx={{
-                fontWeight: theme.typography.bold.fontWeight,
-                paddingBottom: '20px',
-              }}
-            >
-              {t('product.size')}
-            </StyledTypography>
             <StyledTypography
               sx={{
                 fontWeight: theme.typography.bold.fontWeight,
@@ -50,9 +48,17 @@ function DescriptionSection() {
             <StyledTypography
               sx={{
                 fontWeight: theme.typography.bold.fontWeight,
+                paddingBottom: '20px',
               }}
             >
-              {t('product.height')}
+              {t('product.style')}
+            </StyledTypography>
+            <StyledTypography
+              sx={{
+                fontWeight: theme.typography.bold.fontWeight,
+              }}
+            >
+              {t('product.type')}
             </StyledTypography>
           </Grid>
           <Grid item xs={1}>
@@ -61,16 +67,18 @@ function DescriptionSection() {
                 paddingBottom: '20px',
               }}
             >
-              {t('product.mockSize')}
+              {capitalizeAndTruncate(product.colors[0].color)}
             </StyledTypography>
             <StyledTypography
               sx={{
                 paddingBottom: '20px',
               }}
             >
-              {t('product.mockColor')}
+              {capitalizeAndTruncate(product.style)}
             </StyledTypography>
-            <StyledTypography>{t('product.mockHeight')}</StyledTypography>
+            <StyledTypography>
+              {capitalizeAndTruncate(product.type)}
+            </StyledTypography>
           </Grid>
         </Grid>
       </Box>
