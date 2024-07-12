@@ -9,7 +9,10 @@ import { urls, productsOnPage } from 'src/common/constants';
 import createNavigationLink from 'src/common/utils/createNavigationLink';
 import ProductCard from 'src/components/ProductCard';
 import ProductFilters from 'src/components/ProductFilters';
-import OrderSelector from 'src/components/shared/OrderSelector';
+import OrderSelector, {
+  SortOrder,
+  SortParameter,
+} from 'src/components/shared/OrderSelector';
 import SearchInput from 'src/components/shared/SearchInput';
 import SectionTitle from 'src/components/shared/SectionTitle';
 import useToast from 'src/components/shared/toasts/components/ToastProvider/ToastProviderHooks';
@@ -30,6 +33,8 @@ function ProductFeedPage() {
   const search = queryParams.get('search')?.trim();
   const [searchQuery, setSearchQuery] = useState(search);
   const [filters, setFilters] = useState<IProductFilters>({});
+  const [sortBy, setSortBy] = useState<SortParameter | undefined>(undefined);
+  const [sortOrder, setSortOrder] = useState<SortOrder | undefined>(undefined);
   const handleSearchChange = (searchTerm: string) => {
     setSearchQuery(search);
     const requestParams: Record<string, string> = { search: searchTerm };
@@ -63,11 +68,21 @@ function ProductFeedPage() {
     setFilters(currentFilters);
   };
 
+  const handleSortChange = (
+    newSortBy?: SortParameter,
+    newSortOrder?: SortOrder
+  ) => {
+    setSortBy(newSortBy);
+    setSortOrder(newSortOrder);
+  };
+
   const { data, isLoading, isFetching, isError } = useGetProductsQuery({
     page,
     limit: productsOnPage,
     search,
     filters,
+    sortBy,
+    sortOrder,
   });
   const productsCount = data?.count || 0;
 
@@ -131,9 +146,9 @@ function ProductFeedPage() {
                     </Box>
                     <Box>
                       <OrderSelector
-                        onSortChange={(sortBy, sortOrder) => {
-                          console.log(sortBy, sortOrder);
-                        }}
+                        sortBy={sortBy}
+                        sortOrder={sortOrder}
+                        onSortChange={handleSortChange}
                       />
                     </Box>
                   </Box>
@@ -142,9 +157,8 @@ function ProductFeedPage() {
                   sx={{
                     display: 'flex',
                     flexDirection: 'row',
-                    justifyContent: 'space-between',
                     flexWrap: 'wrap',
-                    rowGap: '24px',
+                    gap: '24px',
                     mb: '40px',
                   }}
                 >
@@ -156,8 +170,8 @@ function ProductFeedPage() {
                         sx={{
                           width: {
                             xs: '100%',
-                            md: 'calc(50% - 20px)',
-                            lg: 'calc(33% - 19px)',
+                            md: 'calc(50% - 12px)',
+                            lg: 'calc(33.33% - 16px)',
                             xl: 'calc(25% - 18px)',
                           },
                         }}

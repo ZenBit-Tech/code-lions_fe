@@ -1,3 +1,5 @@
+import { SortOrder, SortParameter } from 'src/components/shared/OrderSelector';
+
 export interface IProduct {
   id: string;
   name: string;
@@ -29,6 +31,8 @@ export interface IProductRequest {
   limit?: number;
   search?: string;
   filters?: IProductFilters;
+  sortBy?: SortParameter;
+  sortOrder?: SortOrder;
 }
 
 export interface IProductFilters {

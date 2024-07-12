@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import {
@@ -10,17 +9,51 @@ import {
 
 import theme from 'src/theme';
 
-type SortParameter = 'price' | 'name' | 'date';
-type SortOrder = 'asc' | 'desc';
+export type SortParameter = 'price' | 'name' | 'createdAt';
+export type SortOrder = 'ASC' | 'DESC';
 
 interface SortProps {
+  sortBy?: SortParameter;
+  sortOrder?: SortOrder;
   onSortChange: (sortBy?: SortParameter, sortOrder?: SortOrder) => void;
 }
 
-function OrderSelector({ onSortChange }: SortProps) {
+const options = [
+  { value: 'none', labelKey: 'orderSelect.noSort' },
+  {
+    value: 'price:ASC',
+    labelKey: 'orderSelect.price',
+    orderKey: 'orderSelect.ascending',
+  },
+  {
+    value: 'price:DESC',
+    labelKey: 'orderSelect.price',
+    orderKey: 'orderSelect.descending',
+  },
+  {
+    value: 'createdAt:ASC',
+    labelKey: 'orderSelect.date',
+    orderKey: 'orderSelect.ascending',
+  },
+  {
+    value: 'createdAt:DESC',
+    labelKey: 'orderSelect.date',
+    orderKey: 'orderSelect.descending',
+  },
+  {
+    value: 'name:ASC',
+    labelKey: 'orderSelect.name',
+    orderKey: 'orderSelect.ascending',
+  },
+  {
+    value: 'name:DESC',
+    labelKey: 'orderSelect.name',
+    orderKey: 'orderSelect.descending',
+  },
+];
+
+function OrderSelector({ sortBy, sortOrder, onSortChange }: SortProps) {
   const { t } = useTranslation();
-  const [sortBy, setSortBy] = useState<SortParameter | undefined>(undefined);
-  const [sortOrder, setSortOrder] = useState<SortOrder | undefined>(undefined);
 
   const handleSortChange = (event: SelectChangeEvent<string>) => {
     const { value } = event.target;
@@ -30,14 +63,12 @@ function OrderSelector({ onSortChange }: SortProps) {
       value === 'none' ? undefined : (value.split(':')[1] as SortOrder);
 
     onSortChange(newSortBy, newSortOrder);
-    setSortBy(newSortBy);
-    setSortOrder(newSortOrder);
   };
 
   return (
     <FormControl sx={{ width: '220px' }}>
       <Select
-        value={sortBy && sortOrder ? `${sortBy}:${sortOrder}` : 'none'}
+        value={sortBy ? `${sortBy}:${sortOrder}` : 'none'}
         onChange={handleSortChange}
         sx={{
           width: '100%',
@@ -58,26 +89,23 @@ function OrderSelector({ onSortChange }: SortProps) {
           fontFamily: theme.typography.fontFamily,
           fontSize: theme.typography.h4.fontSize,
         }}
+        MenuProps={{
+          PaperProps: {
+            sx: {
+              '& .MuiMenuItem-root': {
+                fontSize: theme.typography.h4.fontSize,
+              },
+            },
+          },
+        }}
       >
-        <MenuItem value="none">{t('orderSelect.noSort')}</MenuItem>
-        <MenuItem value="price:asc">
-          {t('orderSelect.price')} - {t('orderSelect.ascending')}
-        </MenuItem>
-        <MenuItem value="price:desc">
-          {t('orderSelect.price')} - {t('orderSelect.descending')}
-        </MenuItem>
-        <MenuItem value="date:asc">
-          {t('orderSelect.date')} - {t('orderSelect.ascending')}
-        </MenuItem>
-        <MenuItem value="date:desc">
-          {t('orderSelect.date')} - {t('orderSelect.descending')}
-        </MenuItem>
-        <MenuItem value="name:asc">
-          {t('orderSelect.name')} - {t('orderSelect.ascending')}
-        </MenuItem>
-        <MenuItem value="name:desc">
-          {t('orderSelect.name')} - {t('orderSelect.descending')}
-        </MenuItem>
+        {options.map((opt) => (
+          <MenuItem key={opt.value} value={opt.value}>
+            {opt.orderKey
+              ? `${t(opt.labelKey)} - ${t(opt.orderKey)}`
+              : t(opt.labelKey)}
+          </MenuItem>
+        ))}
       </Select>
     </FormControl>
   );
