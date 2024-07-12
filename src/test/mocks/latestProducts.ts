@@ -1,0 +1,66 @@
+import { IProduct } from 'src/redux/product/types';
+
+const latestProducts: IProduct[] = [
+  {
+    id: '1',
+    name: 'Product 3',
+    slug: 'product-3',
+    price: 39.99,
+    description: 'Description for Product 3',
+    categories: ['Category 5', 'Category 6'],
+    style: 'Style 3',
+    type: 'Type 3',
+    size: 'S',
+    images: ['image5.jpg', 'image6.jpg'],
+    colors: ['Purple', 'Pink'],
+    vendor: {
+      id: 'vendor3',
+      name: 'Vendor 3',
+      photoUrl: 'vendor3.jpg',
+    },
+    createdAt: '2024-07-07T10:00:00Z',
+    lastUpdatedAt: '2024-07-07T10:00:00Z',
+  },
+  {
+    id: '2',
+    name: 'Product 4',
+    slug: 'product-4',
+    price: 49.99,
+    description: 'Description for Product 4',
+    categories: ['Category 7', 'Category 8'],
+    style: 'Style 4',
+    type: 'Type 4',
+    size: 'XL',
+    images: ['image7.jpg', 'image8.jpg'],
+    colors: ['Orange', 'Black'],
+    vendor: {
+      id: 'vendor4',
+      name: 'Vendor 4',
+      photoUrl: 'vendor4.jpg',
+    },
+    createdAt: '2024-07-07T10:00:00Z',
+    lastUpdatedAt: '2024-07-07T10:00:00Z',
+  },
+  {
+    id: '3',
+    name: 'Product 5',
+    slug: 'product-5',
+    price: 59.99,
+    description: 'Description for Product 5',
+    categories: ['Category 9', 'Category 10'],
+    style: 'Style',
+    type: 'Type 5',
+    size: 'L',
+    images: ['image5.jpg', 'image6.jpg'],
+    colors: ['Purple', 'Pink'],
+    vendor: {
+      id: 'vendor3',
+      name: 'Vendor 3',
+      photoUrl: 'vendor3.jpg',
+    },
+    createdAt: '2024-07-07T10:00:00Z',
+    lastUpdatedAt: '2024-07-07T10:00:00Z',
+  },
+];
+
+export default latestProducts;

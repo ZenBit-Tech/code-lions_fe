@@ -328,7 +328,8 @@
     "announcementText": "For orders start from $200",
     "recommended": "Recommended",
     "justIn": "Just In",
-    "yourSize": "Your Size"
+    "yourSize": "Your Size",
+    "noProductsFound": "Unfortunately, now there is no such products"
   },
   "vendorSidebar": {
     "addProduct": "Add Product",

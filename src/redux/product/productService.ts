@@ -19,11 +19,11 @@ export const productApi = createApi({
       providesTags: (result) =>
         result?.products
           ? [
-            ...result.products.map(
-              ({ id }) => ({ type: 'Product', id }) as const
-            ),
-            { type: 'Product', id: 'LIST' },
-          ]
+              ...result.products.map(
+                ({ id }) => ({ type: 'Product', id }) as const
+              ),
+              { type: 'Product', id: 'LIST' },
+            ]
           : [{ type: 'Product', id: 'LIST' }],
       transformResponse: (response: {
         products: IProduct[];
@@ -42,7 +42,30 @@ export const productApi = createApi({
         method: HttpMethods.GET,
       }),
     }),
+    getProductsBySizes: build.query<
+      IProductResponse,
+      { clothesSize: string; jeansSize: string; shoesSize: string }
+    >({
+      query: ({ clothesSize, jeansSize, shoesSize }) => ({
+        url: `${RTKUrls.PRODUCTS}/${RTKUrls.SIZES}`,
+        method: HttpMethods.GET,
+        params: { clothesSize, jeansSize, shoesSize },
+      }),
+      providesTags: ['Product'],
+    }),
+    getLatestProducts: build.query<IProductResponse, void>({
+      query: () => ({
+        url: `${RTKUrls.PRODUCTS}/${RTKUrls.LATEST}`,
+        method: HttpMethods.GET,
+      }),
+      providesTags: ['Product'],
+    }),
   }),
 });
 
-export const { useGetProductsQuery, useGetProductByIdQuery } = productApi;
+export const {
+  useGetProductsQuery,
+  useGetProductsBySizesQuery,
+  useGetLatestProductsQuery,
+  useGetProductByIdQuery,
+} = productApi;

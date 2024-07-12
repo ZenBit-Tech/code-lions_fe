@@ -84,6 +84,8 @@ export const RTKUrls = {
   WISHLIST: 'wishlist',
   CART: 'cart',
   USER_REVIEWS: 'reviews/user',
+  LATEST: 'latest',
+  SIZES: 'sizes',
 };
 
 export const HttpMethods = {
