@@ -5,7 +5,7 @@ import { Avatar, Grid } from '@mui/material';
 import { Box } from '@mui/system';
 
 import { apiUrl } from 'src/common/constants.ts';
-import useProfileTitle from 'src/pages/ProfileLayout/hooks/useProfileTitle';
+import useProfileTitle from 'src/common/hooks/useProfileTitle';
 import { useAppSelector } from 'src/redux/hooks';
 import { selectUserAvatar, selectUserName } from 'src/redux/user/userSlice';
 import theme from 'src/theme';

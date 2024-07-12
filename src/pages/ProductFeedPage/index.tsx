@@ -13,10 +13,12 @@ function ProductFeedPage() {
   const methods = useForm();
 
   const handleSearchChange = (value: string) => {
-    console.log(value);
+    return value;
   };
 
-  const { data: products } = useGetProductsQuery();
+  const { data } = useGetProductsQuery();
+
+  const products = data?.products ?? [];
 
   return (
     <>
@@ -49,7 +51,7 @@ function ProductFeedPage() {
                 mb: '40px',
               }}
             >
-              {products?.map((product) => (
+              {products.map((product) => (
                 <Box
                   key={product.id}
                   component="div"

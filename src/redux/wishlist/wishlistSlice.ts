@@ -1,18 +1,18 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { IProduct } from 'src/redux/product/types';
 import { logout } from 'src/redux/user/userSlice';
 
-import { cartApi } from './cartService';
-import { ICartItem } from './types';
+import { wishlistApi } from './wishlistService';
 
-const initialState: ICartItem[] = [];
+const initialState: IProduct[] = [];
 
-export const cartSlice = createSlice({
-  name: 'cart',
+export const wishlistSlice = createSlice({
+  name: 'wishlist',
   initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder.addMatcher(
-      cartApi.endpoints.getCartById.matchFulfilled,
+      wishlistApi.endpoints.getWishlistById.matchFulfilled,
       (_state, action) => {
         return action.payload;
       }
@@ -24,4 +24,4 @@ export const cartSlice = createSlice({
   },
 });
 
-export default cartSlice.reducer;
+export default wishlistSlice.reducer;

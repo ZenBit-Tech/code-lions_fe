@@ -132,5 +132,11 @@ export const selectUserId = (state: { user: IUser }) => state.user.id;
 export const selectUserAvatar = (state: { user: IUser }) => state.user.photoUrl;
 export const selectUserPhone = (state: { user: IUser }) =>
   state.user.phoneNumber;
+export const selectUserClothesSize = (state: { user: IUser }) =>
+  state.user.clothesSize;
+export const selectUserJeansSize = (state: { user: IUser }) =>
+  state.user.jeansSize;
+export const selectUserShoesSize = (state: { user: IUser }) =>
+  state.user.shoesSize;
 
 export default userSlice.reducer;

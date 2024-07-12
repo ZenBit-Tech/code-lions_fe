@@ -5,6 +5,7 @@ import { Avatar, Grid } from '@mui/material';
 import { Box } from '@mui/system';
 
 import { urls } from 'src/common/constants';
+import useProfileTitle from 'src/common/hooks/useProfileTitle';
 import SectionTitle from 'src/components/shared/SectionTitle';
 import { useAppSelector } from 'src/redux/hooks';
 import { selectUserAvatar, selectUserName } from 'src/redux/user/userSlice';
@@ -12,7 +13,6 @@ import theme from 'src/theme';
 
 import PhotoUploadForm from '../ProfilePage/PhotoUploadForm';
 
-import useProfileTitle from './hooks/useProfileTitle';
 import ProfileMenu from './ProfileMenu';
 import {
   AvatarWrapper,
