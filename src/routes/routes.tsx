@@ -58,6 +58,7 @@ const router = createBrowserRouter([
         ),
       },
       { path: urls.PRODUCT_FEED, element: <ProductFeedPage /> },
+      { path: urls.PRODUCT, element: <ProductPage /> },
       { path: urls.PRIVACY_POLICY, element: <PrivacyPolicyPage /> },
       { path: urls.ABOUT_US, element: <AboutUsPage /> },
       { path: urls.COMPANY, element: <CompanyPage /> },
@@ -174,7 +175,6 @@ const router = createBrowserRouter([
       },
     ],
   },
-  { path: urls.PRODUCT, element: <ProductPage /> },
 ]);
 
 export default router;

@@ -1,5 +1,4 @@
-import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 
 import {
   ImageList,
@@ -9,31 +8,39 @@ import {
   IconButton,
 } from '@mui/material';
 
-import LikeIcon from 'src/assets/icons/profile/heart-outlined.svg';
+import BlackHeartIcon from 'src/assets/icons/profile/heart-black.svg';
+import RedHeartIcon from 'src/assets/icons/profile/heart-red.svg';
+import { urls } from 'src/common/constants';
 import ProductSliderModal from 'src/components/ProductSliderModal';
 import theme from 'src/theme';
 
-import itemData from './mockData';
+import useImagesSection from './hooks/useImageSection';
 
-const sliderImages: string[] = itemData.map((item) => item.img);
+interface ImagesSectionProps {
+  images: string[];
+  vendorName: string;
+  productId: string;
+  vendorId: string;
+}
 
-function ImagesSection() {
-  const { t } = useTranslation();
-  const [selectedImage, setSelectedImage] = useState<string>(itemData[0].img);
-  const [open, setOpen] = useState<boolean>(false);
-  const [initialSlideIndex, setInitialSlideIndex] = useState<number>(0);
-
-  const handleOpen = (index: number) => {
-    setInitialSlideIndex(index);
-    setOpen(true);
-  };
-
-  const handleClose = () => setOpen(false);
-
-  const handleImageClick = (src: string, index: number) => {
-    setSelectedImage(src);
-    setInitialSlideIndex(index);
-  };
+function ImagesSection({
+  images,
+  vendorName,
+  productId,
+  vendorId,
+}: ImagesSectionProps) {
+  const {
+    userId,
+    selectedImage,
+    open,
+    initialSlideIndex,
+    isInWishlist,
+    handleOpen,
+    handleClose,
+    handleImageClick,
+    handleAddToWishlist,
+    handleRemoveFromWishlist,
+  } = useImagesSection(productId, images);
 
   return (
     <Box width="570px" display="flex" marginRight="80px">
@@ -42,22 +49,22 @@ function ImagesSection() {
         cols={1}
         rowHeight={102}
       >
-        {itemData.map((item, index) => (
+        {images.map((item, index) => (
           <ImageListItem
-            key={item.id}
-            onClick={() => handleImageClick(item.img, index)}
+            key={index}
+            onClick={() => handleImageClick(item, index)}
             sx={{
               border:
-                item.img === selectedImage
+                item === selectedImage
                   ? `1px solid ${theme.palette.common.black}`
                   : 'none',
               cursor: 'pointer',
             }}
           >
             <img
-              srcSet={`${item.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
-              src={`${item.img}?w=164&h=164&fit=crop&auto=format`}
-              alt={item.title}
+              srcSet={`${item}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+              src={`${item}?w=164&h=164&fit=crop&auto=format`}
+              alt={`product${index}`}
               loading="lazy"
             />
           </ImageListItem>
@@ -67,7 +74,7 @@ function ImagesSection() {
         <ProductSliderModal
           open={open}
           handleClose={handleClose}
-          images={sliderImages}
+          images={images}
           initialSlideIndex={initialSlideIndex}
         />
         <Box onClick={() => handleOpen(initialSlideIndex)}>
@@ -77,19 +84,29 @@ function ImagesSection() {
             style={{ width: '473px', height: '630px' }}
           />
         </Box>
-        <IconButton
-          sx={{
-            position: 'absolute',
-            top: 15,
-            right: 15,
-          }}
-        >
-          <LikeIcon />
-        </IconButton>
+        {userId && (
+          <IconButton
+            sx={{
+              position: 'absolute',
+              top: 15,
+              right: 15,
+              padding: '3px',
+              opacity: '0.5',
+              transition: 'all 0.3s ease',
+            }}
+            onClick={
+              isInWishlist ? handleRemoveFromWishlist : handleAddToWishlist
+            }
+          >
+            {isInWishlist ? <RedHeartIcon /> : <BlackHeartIcon />}
+          </IconButton>
+        )}
         <Box sx={{ margin: '30px 0' }}>
-          <Typography sx={{ color: theme.palette.text.disabled }}>
-            {t('product.vendorName')}
-          </Typography>
+          <Link to={`${urls.VENDOR}/${vendorId}`}>
+            <Typography sx={{ color: theme.palette.text.disabled }}>
+              {vendorName}
+            </Typography>
+          </Link>
         </Box>
       </Box>
     </Box>

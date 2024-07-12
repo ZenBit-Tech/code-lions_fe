@@ -19,11 +19,11 @@ export const productApi = createApi({
       providesTags: (result) =>
         result?.products
           ? [
-              ...result.products.map(
-                ({ id }) => ({ type: 'Product', id }) as const
-              ),
-              { type: 'Product', id: 'LIST' },
-            ]
+            ...result.products.map(
+              ({ id }) => ({ type: 'Product', id }) as const
+            ),
+            { type: 'Product', id: 'LIST' },
+          ]
           : [{ type: 'Product', id: 'LIST' }],
       transformResponse: (response: {
         products: IProduct[];
@@ -35,7 +35,14 @@ export const productApi = createApi({
         };
       },
     }),
+
+    getProductById: build.query<IProduct, { productId: string }>({
+      query: ({ productId }) => ({
+        url: `${RTKUrls.PRODUCTS}/item/${productId}`,
+        method: HttpMethods.GET,
+      }),
+    }),
   }),
 });
 
-export const { useGetProductsQuery } = productApi;
+export const { useGetProductsQuery, useGetProductByIdQuery } = productApi;

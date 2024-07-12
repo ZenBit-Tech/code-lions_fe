@@ -1,6 +1,10 @@
 import { urls, userRoles } from 'src/common/constants';
 
-const createMenuData = (t: (key: string) => string, role: string | null) => {
+const createMenuData = (
+  t: (key: string) => string,
+  role: string | null,
+  userId?: string
+) => {
   const menuData = [
     {
       id: 'shop',
@@ -39,7 +43,7 @@ const createMenuData = (t: (key: string) => string, role: string | null) => {
     menuData[0].links = [
       {
         id: 'wishlist',
-        to: `${urls.PROFILE}/${urls.PROFILE_WISHLIST}`,
+        to: `${urls.PROFILE}/${urls.WISHLIST}/${userId}`,
         label: t('menu.wishlist'),
       },
       { id: 'cart', to: urls.CART, label: t('menu.cart') },

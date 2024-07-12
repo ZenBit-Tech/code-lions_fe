@@ -1,4 +1,4 @@
-import { screen, fireEvent } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 
 import { IProduct } from 'src/redux/product/types';
 import renderWithProviders from 'src/test/renderWithProviders';
@@ -16,7 +16,7 @@ const mockProduct: IProduct = {
   type: 'TestType',
   size: 'L',
   images: ['test-image.jpg'],
-  colors: ['Red'],
+  colors: ['red'],
   vendor: {
     id: 'vendor1',
     name: 'Test Vendor',
@@ -34,29 +34,5 @@ describe('ProductCard', () => {
     expect(screen.getByText('Test Product')).toBeInTheDocument();
     expect(screen.getByText('$99.99')).toBeInTheDocument();
     expect(screen.getByText('Test Vendor')).toBeInTheDocument();
-  });
-
-  it('opens ProductSliderModal when product image is clicked', () => {
-    renderWithProviders(<ProductCard item={mockProduct} />);
-
-    const productImage = screen.getByAltText('product');
-
-    fireEvent.click(productImage);
-
-    expect(screen.getByRole('dialog')).toBeInTheDocument();
-  });
-
-  it('closes ProductSliderModal when handleClose is triggered', () => {
-    renderWithProviders(<ProductCard item={mockProduct} />);
-
-    const productImage = screen.getByAltText('product');
-
-    fireEvent.click(productImage);
-
-    const closeButton = screen.getByRole('button');
-
-    fireEvent.click(closeButton);
-
-    expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
   });
 });

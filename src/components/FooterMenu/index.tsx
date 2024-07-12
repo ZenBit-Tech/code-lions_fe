@@ -11,9 +11,9 @@ import { MenuColumn, MenuLink, MenuMainLink } from './styles';
 function FooterMenu() {
   const { t } = useTranslation();
   const user = useAppSelector((state) => state.user);
-  const { role } = user;
+  const { role, id: userId } = user;
 
-  const menuData = createMenuData(t, role);
+  const menuData = createMenuData(t, role, userId);
 
   return (
     <Box
