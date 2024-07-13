@@ -1,7 +1,9 @@
 import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
 
 import { Box } from '@mui/material';
 
+import { selectUserId } from 'src/redux/user/userSlice';
 import theme from 'src/theme';
 
 import createMenuData from './menuData';
@@ -9,7 +11,9 @@ import { MenuColumn, MenuLink, MenuMainLink } from './styles';
 
 function FooterMenu() {
   const { t } = useTranslation();
-  const menuData = createMenuData(t);
+  const userId = useSelector(selectUserId);
+
+  const menuData = createMenuData(t, userId);
 
   return (
     <Box

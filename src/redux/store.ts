@@ -15,24 +15,32 @@ import {
 
 import { bestVendorsApi } from './bestVendors/bestVendorsService';
 import bestVendorsReducer from './bestVendors/bestVendorsSlice';
+import { cartApi } from './cart/cartService';
+import cartReducer from './cart/cartSlice';
 import { productApi } from './product/productService';
 import productReducer from './product/productSlice';
 import { userApi } from './user/userService';
 import userReducer from './user/userSlice';
+import { wishlistApi } from './wishlist/wishlistService';
+import wishlistReducer from './wishlist/wishlistSlice';
 
 const rootReducer = combineReducers({
   user: userReducer,
   product: productReducer,
   bestVendors: bestVendorsReducer,
+  wishlist: wishlistReducer,
+  cart: cartReducer,
   [userApi.reducerPath]: userApi.reducer,
   [productApi.reducerPath]: productApi.reducer,
   [bestVendorsApi.reducerPath]: bestVendorsApi.reducer,
+  [wishlistApi.reducerPath]: wishlistApi.reducer,
+  [cartApi.reducerPath]: cartApi.reducer,
 });
 
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['user'],
+  whitelist: ['user', 'wishlist', 'cart'],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -47,7 +55,9 @@ const store = configureStore({
     }).concat(
       userApi.middleware,
       productApi.middleware,
-      bestVendorsApi.middleware
+      bestVendorsApi.middleware,
+      wishlistApi.middleware,
+      cartApi.middleware
     ),
 });
 
