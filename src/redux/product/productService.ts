@@ -48,5 +48,5 @@ export const {
   useGetProductsQuery,
   useGetProductsBySizesQuery,
   useGetLatestProductsQuery,
-  useGetProductByIdQuery
+  useGetProductByIdQuery,
 } = productApi;

@@ -14,7 +14,7 @@ describe('productApi', () => {
     useGetProductsQuery,
     useGetProductsBySizesQuery,
     useGetLatestProductsQuery,
-    useGetProductByIdQuery
+    useGetProductByIdQuery,
   } = productApi;
 
   it('fetches products successfully', async () => {
