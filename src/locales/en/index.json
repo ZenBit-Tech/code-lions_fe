@@ -386,5 +386,16 @@
   "wishlist": {
     "addError": "Error occured while adding product to wishlist",
     "removeError": "Error occured while removing the product from wishlist"
+  },
+  "vendorProductList": {
+    "title": "Categories",
+    "subTitle": "Product List",
+    "product": "Product",
+    "category": "Category",
+    "status": "Status",
+    "stock": "Stock",
+    "price": "Price",
+    "action": "Action",
+    "size": "Size"
   }
 }

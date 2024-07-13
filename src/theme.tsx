@@ -74,6 +74,8 @@ const theme: Theme = createTheme({
     },
     success: {
       main: '#088B3A',
+      light: '#D7F0E580',
+      dark: '#36B37E',
     },
     warning: {
       main: '#ED6C3C',

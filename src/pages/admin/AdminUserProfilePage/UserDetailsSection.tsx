@@ -9,10 +9,10 @@ import DeleteTrash from 'src/assets/icons/delete-trash.svg';
 import EditPencil from 'src/assets/icons/edit-pencil.svg';
 import theme from 'src/theme';
 
+import StyledBackdrop from '../../../components/shared/StyledBackdrop';
 import AdminSectionSubTitle from '../AdminSectionSubTitle';
 import AdminSectionTitle from '../AdminSectionTitle';
 import ModalPopup from '../ModalPopup';
-import StyledBackdrop from '../StyledBackdrop';
 
 import useUserDetails from './hooks/useUserDetails';
 
