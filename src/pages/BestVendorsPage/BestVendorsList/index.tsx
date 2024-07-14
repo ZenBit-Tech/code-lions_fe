@@ -145,7 +145,12 @@ function BestVendorsList() {
             </Box>
             <Box
               component="div"
-              sx={{ display: 'flex', flexWrap: 'wrap', gap: '24px' }}
+              sx={{
+                display: 'flex',
+                flexDirection: 'row',
+                flexWrap: 'wrap',
+                gap: '24px',
+              }}
             >
               {mockProducts.map((product) => (
                 <Box
@@ -153,8 +158,7 @@ function BestVendorsList() {
                   sx={{
                     width: {
                       xs: '100%',
-                      sm: 'calc(50% - 20px)',
-                      md: 'calc(50% - 20px)',
+                      sm: 'calc(50% - 12px)',
                       lg: 'calc(25% - 18px)',
                     },
                   }}
