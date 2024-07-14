@@ -16,6 +16,7 @@ import FaqPage from 'src/pages/FaqPage';
 import HelpPage from 'src/pages/HelpPage';
 import HomePage from 'src/pages/HomePage';
 import NewPasswordPage from 'src/pages/NewPasswordPage';
+import NotFoundPage from 'src/pages/NotFoundPage';
 import OnboardingPage from 'src/pages/OnboardingPage';
 import PrivacyPolicyPage from 'src/pages/PrivacyPolicyPage';
 import ProductFeedPage from 'src/pages/ProductFeedPage';
@@ -57,7 +58,9 @@ const router = createBrowserRouter([
           </VendorPrivateRoute>
         ),
       },
+      { path: '*', element: <NotFoundPage /> },
       { path: urls.PRODUCT_FEED, element: <ProductFeedPage /> },
+      { path: urls.PRODUCT_CATEGORY, element: <ProductFeedPage /> },
       { path: urls.PRODUCT, element: <ProductPage /> },
       { path: urls.PRIVACY_POLICY, element: <PrivacyPolicyPage /> },
       { path: urls.ABOUT_US, element: <AboutUsPage /> },

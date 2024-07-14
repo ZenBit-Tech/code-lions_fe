@@ -39,6 +39,8 @@ export const urls = {
   PROFILE_SETTINGS: 'settings',
   PROFILE_SUPPORT: 'support',
   PRODUCT_FEED: '/products',
+  PRODUCT_CATEGORY: '/products/category/:category',
+  PRODUCT_CATEGORY_URL: '/products/category',
   PRODUCT: '/products/:productId',
   VENDOR: '/vendor',
   VENDOR_ADD_PRODUCT: 'add-product',
@@ -224,3 +226,11 @@ export const productStyles = {
 };
 
 export const maxProductPrice = 500;
+
+export const productCategories = [
+  'bags',
+  'shoes',
+  'clothing',
+  'designers',
+  'accessories',
+];

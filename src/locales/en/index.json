@@ -319,6 +319,11 @@
     "title": "Products",
     "filters": "filters",
     "counter": "products",
+    "bags": "Bags",
+    "shoes": "Shoes",
+    "clothing": "Clothing",
+    "designers": "Designers",
+    "accessories": "Accessories",
     "noProducts": "No products found",
     "error": "An unexpected error occurred. Please try again later"
   },
@@ -436,5 +441,10 @@
   "wishlist": {
     "addError": "Error occured while adding product to wishlist",
     "removeError": "Error occured while removing the product from wishlist"
+  },
+  "notFound": {
+    "title": "Page not found",
+    "text": "Oops! Page not found",
+    "back": "Back to home"
   }
 }

@@ -11,10 +11,26 @@ export const productApi = createApi({
   tagTypes: ['Product'],
   endpoints: (build) => ({
     getProducts: build.query<IProductResponse, IProductRequest>({
-      query: ({ page, limit, search, filters, sortBy, sortOrder }) => ({
+      query: ({
+        category,
+        page,
+        limit,
+        search,
+        filters,
+        sortBy,
+        sortOrder,
+      }) => ({
         url: RTKUrls.PRODUCTS,
         method: HttpMethods.GET,
-        params: { page, limit, search, ...filters, sortBy, sortOrder },
+        params: {
+          category,
+          page,
+          limit,
+          search,
+          ...filters,
+          sortBy,
+          sortOrder,
+        },
       }),
       providesTags: (result) =>
         result?.products

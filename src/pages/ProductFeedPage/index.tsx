@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation, useParams } from 'react-router-dom';
 
 import { Box, Typography, CircularProgress } from '@mui/material';
 
-import { urls, productsOnPage } from 'src/common/constants';
+import { urls, productsOnPage, productCategories } from 'src/common/constants';
 import createNavigationLink from 'src/common/utils/createNavigationLink';
 import ProductCard from 'src/components/ProductCard';
 import ProductFilters from 'src/components/ProductFilters';
@@ -21,8 +21,16 @@ import { useGetProductsQuery } from 'src/redux/product/productService';
 import { IProductFilters } from 'src/redux/product/types';
 import theme from 'src/theme';
 
+import NotFoundPage from '../NotFoundPage';
+
 function ProductFeedPage() {
   const { t } = useTranslation();
+  const { category } = useParams<{ category?: string }>();
+
+  const baseUrl = category
+    ? `${urls.PRODUCT_CATEGORY_URL}/${category}`
+    : urls.PRODUCT_FEED;
+
   const methods = useForm();
   const { showToast } = useToast();
   const navigate = useNavigate();
@@ -38,7 +46,7 @@ function ProductFeedPage() {
   const handleSearchChange = (searchTerm: string) => {
     setSearchQuery(search);
     const requestParams: Record<string, string> = { search: searchTerm };
-    const link = createNavigationLink(urls.PRODUCT_FEED, requestParams);
+    const link = createNavigationLink(baseUrl, requestParams);
 
     navigate(link);
   };
@@ -51,7 +59,7 @@ function ProductFeedPage() {
     if (searchQuery) {
       requestParams.search = searchQuery;
     }
-    const link = createNavigationLink(urls.PRODUCT_FEED, requestParams);
+    const link = createNavigationLink(baseUrl, requestParams);
 
     navigate(link);
   };
@@ -62,7 +70,7 @@ function ProductFeedPage() {
     if (searchQuery) {
       requestParams.search = searchQuery;
     }
-    const link = createNavigationLink(urls.PRODUCT_FEED, requestParams);
+    const link = createNavigationLink(baseUrl, requestParams);
 
     navigate(link);
     setFilters(currentFilters);
@@ -77,6 +85,7 @@ function ProductFeedPage() {
   };
 
   const { data, isLoading, isFetching, isError } = useGetProductsQuery({
+    category,
     page,
     limit: productsOnPage,
     search,
@@ -95,9 +104,17 @@ function ProductFeedPage() {
     showToast('error', t('products.error'));
   }
 
+  if (category && !productCategories.includes(category)) {
+    return <NotFoundPage />;
+  }
+
   return (
     <>
-      <SectionTitle title={t('products.title')} greyBackground showBackLink />
+      <SectionTitle
+        title={category ? t(`products.${category}`) : t('products.title')}
+        greyBackground
+        showBackLink
+      />
       <Box sx={{ width: '100%', padding: '0 18px', marginTop: '32px' }}>
         <Box
           sx={{

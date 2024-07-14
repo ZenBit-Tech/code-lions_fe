@@ -27,6 +27,7 @@ export interface IProductResponse {
 }
 
 export interface IProductRequest {
+  category?: string;
   page?: number;
   limit?: number;
   search?: string;
