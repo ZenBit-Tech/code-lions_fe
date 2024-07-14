@@ -1,4 +1,5 @@
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 import Slider, { CustomArrowProps } from 'react-slick';
 
 import { Box } from '@mui/material';
@@ -10,6 +11,7 @@ import bagsImg from 'src/assets/photos/categories/bag.jpg';
 import clothingImg from 'src/assets/photos/categories/clothing.jpg';
 import designersImg from 'src/assets/photos/categories/designers.jpg';
 import shoesImg from 'src/assets/photos/categories/shoes.jpg';
+import { urls } from 'src/common/constants';
 
 import {
   CategoryWrapper,
@@ -51,11 +53,11 @@ const settings = {
 };
 
 const categories = [
-  { name: 'Accessories', image: accessoriesImg },
-  { name: 'Bags', image: bagsImg },
-  { name: 'Clothing', image: clothingImg },
-  { name: 'Shoes', image: shoesImg },
-  { name: 'Designers', image: designersImg },
+  { name: 'Accessories', image: accessoriesImg, slug: 'accessories' },
+  { name: 'Bags', image: bagsImg, slug: 'bags' },
+  { name: 'Clothing', image: clothingImg, slug: 'clothing' },
+  { name: 'Shoes', image: shoesImg, slug: 'shoes' },
+  { name: 'Designers', image: designersImg, slug: 'designers' },
 ];
 
 function CategoriesSlider() {
@@ -74,8 +76,12 @@ function CategoriesSlider() {
       <Slider {...settings}>
         {categories.map((category) => (
           <CategoryWrapper key={category.name}>
-            <CategoryImage src={category.image} alt={category.name} />
-            <CategoryTitile>{category.name}</CategoryTitile>
+            <Link to={`${urls.PRODUCT_CATEGORY_URL}/${category.slug}`}>
+              <CategoryImage src={category.image} alt={category.name} />
+            </Link>
+            <Link to={`${urls.PRODUCT_CATEGORY_URL}/${category.slug}`}>
+              <CategoryTitile>{category.name}</CategoryTitile>
+            </Link>
           </CategoryWrapper>
         ))}
       </Slider>
