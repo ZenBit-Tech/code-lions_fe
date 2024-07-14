@@ -2,14 +2,18 @@ import { useTranslation } from 'react-i18next';
 
 import { Box } from '@mui/material';
 
+import ImageForm from 'src/components/shared/ImageForm';
 import StyledButton from 'src/components/shared/StyledButton';
 import {
   PaddingVariants,
   StyleVariants,
 } from 'src/components/shared/StyledButton/types';
+import VideoForm from 'src/components/shared/VideoForm';
 import { useAppDispatch } from 'src/redux/hooks';
 import { increaseOnboardingStep } from 'src/redux/user/userSlice';
 import theme from 'src/theme';
+
+import { AddProductHeader4, AddProductText } from './styles';
 
 function ImagesForm() {
   const { t } = useTranslation();
@@ -27,22 +31,80 @@ function ImagesForm() {
         borderRadius: '0 0 8px 8px',
       }}
     >
-      <StyledButton
-        styles={StyleVariants.BLACK}
-        padding={PaddingVariants.SM}
-        variant="contained"
-        fontSize={String(theme.typography.h4.fontSize)}
-        fontFamily={theme.typography.fontFamily}
-        radius="8px"
-        onClick={goToNextStep}
+      <Box
         sx={{
-          display: 'block',
-          marginLeft: 'auto',
+          display: 'flex',
+          gap: '40px',
+          alignItems: 'center',
+        }}
+      >
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            width: '150px',
+          }}
+        >
+          <AddProductHeader4 component="h4">
+            {t('addProduct.photo')}
+          </AddProductHeader4>
+          <AddProductText variant="subtitle2">
+            {t('addProduct.photoSubtitle')}
+          </AddProductText>
+        </Box>
+        <Box sx={{ flex: 1 }}>
+          <ImageForm />
+        </Box>
+      </Box>
+
+      <Box
+        sx={{
+          display: 'flex',
+          gap: '40px',
+          alignItems: 'top',
+        }}
+      >
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            width: '150px',
+          }}
+        >
+          <AddProductHeader4 component="h4">
+            {t('addProduct.video')}
+          </AddProductHeader4>
+          <AddProductText variant="subtitle2">
+            {t('addProduct.videoSubtitle')}
+          </AddProductText>
+        </Box>
+        <Box sx={{ flex: 1 }}>
+          <VideoForm />
+        </Box>
+      </Box>
+
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'flex-end',
+          gap: '10px',
           marginTop: '24px',
         }}
       >
-        {t('onboarding.next')}
-      </StyledButton>
+        <StyledButton
+          styles={StyleVariants.BLACK}
+          padding={PaddingVariants.SM}
+          variant="contained"
+          fontSize={String(theme.typography.h4.fontSize)}
+          fontFamily={theme.typography.fontFamily}
+          radius="8px"
+          onClick={goToNextStep}
+        >
+          {t('onboarding.next')}
+        </StyledButton>
+      </Box>
     </Box>
   );
 }

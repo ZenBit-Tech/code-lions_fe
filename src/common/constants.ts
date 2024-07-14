@@ -199,3 +199,8 @@ export const homeProductsSorting = {
   RECOMMENDED: 'recommended',
   YOUR_SIZE: 'yoursize',
 };
+
+export const cardTypes = {
+  VIDEO: 'video',
+  IMAGE: 'image',
+};
