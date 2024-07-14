@@ -4,12 +4,14 @@ import { useTranslation } from 'react-i18next';
 
 import { Table, TableContainer, TableRow, Typography } from '@mui/material';
 
+import formatToTwoDecimalPlaces from 'src/common/utils/formatToTwoDecimalPlaces';
 import ProductTableCard from 'src/components/ProductTableCard';
 import StyledBackdrop from 'src/components/shared/StyledBackdrop';
-import ActionButtons from 'src/pages/admin/ActionButtons';
-import ModalPopup from 'src/pages/admin/ModalPopup';
 import StyledPagination from 'src/pages/admin/StyledPagination';
 import { IProductVendor } from 'src/redux/product/types';
+
+import ActionButtons from '../ActionButtons';
+import ModalPopup from '../ModalPopup';
 
 import {
   BodyTableCell,
@@ -105,10 +107,12 @@ function ProductsTable({
                 <Status label={product.status} status={product.status} />
               </BodyTableCell>
               <BodyTableCell align="center">{product.stock}</BodyTableCell>
-              <BodyTableCell align="center">${product.price}</BodyTableCell>
+              <BodyTableCell align="center">
+                ${formatToTwoDecimalPlaces(product.price)}
+              </BodyTableCell>
               <BodyTableCell align="center">
                 <ActionButtons
-                  userId={product.id}
+                  productId={product.id}
                   handleOpen={() => handleOpen(product.id)}
                 />
               </BodyTableCell>
@@ -116,7 +120,7 @@ function ProductsTable({
                 product.id === selectedUser &&
                 createPortal(
                   <StyledBackdrop showModal={showModal}>
-                    <ModalPopup onClose={handleClose} userId={product.id} />
+                    <ModalPopup onClose={handleClose} productId={product.id} />
                   </StyledBackdrop>,
                   document.body
                 )}

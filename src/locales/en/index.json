@@ -396,6 +396,10 @@
     "stock": "Stock",
     "price": "Price",
     "action": "Action",
-    "size": "Size"
+    "size": "Size",
+    "popup": "Are you sure want to delete this product?",
+    "details": "The product will no longer be available in the search, but information about it will be available to customers in the order",
+    "yes": "Yes",
+    "no": "No"
   }
 }
