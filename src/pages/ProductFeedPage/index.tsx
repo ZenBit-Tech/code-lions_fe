@@ -9,6 +9,7 @@ import { urls, productsOnPage, productCategories } from 'src/common/constants';
 import createNavigationLink from 'src/common/utils/createNavigationLink';
 import ProductCard from 'src/components/ProductCard';
 import ProductFilters from 'src/components/ProductFilters';
+import SelectedFilters from 'src/components/SelectedFilters';
 import OrderSelector, {
   SortOrder,
   SortParameter,
@@ -76,6 +77,13 @@ function ProductFeedPage() {
     setFilters(currentFilters);
   };
 
+  const handleResetFilter = (key: keyof IProductFilters) => {
+    const newFilters = { ...filters };
+
+    delete newFilters[key];
+    setFilters(newFilters);
+  };
+
   const handleSortChange = (
     newSortBy?: SortParameter,
     newSortOrder?: SortOrder
@@ -128,7 +136,10 @@ function ProductFeedPage() {
           }}
         >
           <Box sx={{ width: '310px', paddingRight: '24px' }}>
-            <ProductFilters onFilterChange={handleFiltersChange} />
+            <ProductFilters
+              filters={filters}
+              onFilterChange={handleFiltersChange}
+            />
           </Box>
           <Box sx={{ flex: 1 }}>
             <FormProvider {...methods}>
@@ -156,10 +167,25 @@ function ProductFeedPage() {
                       color: theme.palette.grey[700],
                     }}
                   >
-                    <Box>
-                      <Typography variant="interBody" data-testid="products">
-                        {productsCount} {t('products.counter')}
-                      </Typography>
+                    <Box
+                      sx={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: '10px',
+                      }}
+                    >
+                      <Box>
+                        <Typography variant="interBody" data-testid="products">
+                          {productsCount} {t('products.counter')}
+                        </Typography>
+                      </Box>
+                      <Box>
+                        <SelectedFilters
+                          filters={filters}
+                          onResetFilter={(key) => handleResetFilter(key)}
+                          onResetAllFilters={() => setFilters({})}
+                        />
+                      </Box>
                     </Box>
                     <Box>
                       <OrderSelector
@@ -217,11 +243,19 @@ function ProductFeedPage() {
                   <Box
                     sx={{
                       display: 'flex',
+                      flexDirection: 'column',
                       justifyContent: 'center',
                       alignItems: 'center',
-                      mb: '40px',
+                      gap: '30px',
                     }}
                   >
+                    <Box>
+                      <SelectedFilters
+                        filters={filters}
+                        onResetFilter={(key) => handleResetFilter(key)}
+                        onResetAllFilters={() => setFilters({})}
+                      />
+                    </Box>
                     {t('products.noProducts')}
                   </Box>
                 )}

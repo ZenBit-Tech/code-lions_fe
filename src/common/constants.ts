@@ -2,7 +2,7 @@ import { SortOrder } from 'src/redux/user/types';
 
 export const apiUrl = import.meta.env.VITE_API_URL;
 
-export const productsOnPage = 8;
+export const productsOnPage = 12;
 
 export const urls = {
   HOME: '/',
@@ -233,4 +233,17 @@ export const productCategories = [
   'clothing',
   'designers',
   'accessories',
+];
+
+export const colors = [
+  { name: 'black', hex: '#000000' },
+  { name: 'red', hex: '#EB5757' },
+  { name: 'white', hex: '#FFFFFF' },
+  { name: 'green', hex: '#008000' },
+  { name: 'pink', hex: '#F178B6' },
+  { name: 'yellow', hex: '#F2C94C' },
+  { name: 'purple', hex: '#7700C8' },
+  { name: 'blue', hex: '#0990FF' },
+  { name: 'grey', hex: '#6D6B6B' },
+  { name: 'brown', hex: '#955539' },
 ];

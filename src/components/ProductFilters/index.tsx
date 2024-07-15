@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { Box, Typography, Button, List } from '@mui/material';
@@ -6,12 +5,7 @@ import ListItemButton from '@mui/material/ListItemButton';
 
 import TickGreyIcon from 'src/assets/icons/tick-grey.svg';
 import TickWhiteIcon from 'src/assets/icons/tick-white.svg';
-import { productStyles, maxProductPrice } from 'src/common/constants';
-import StyledButton from 'src/components/shared/StyledButton';
-import {
-  PaddingVariants,
-  StyleVariants,
-} from 'src/components/shared/StyledButton/types';
+import { productStyles, maxProductPrice, colors } from 'src/common/constants';
 import { IProductFilters } from 'src/redux/product/types';
 import theme from 'src/theme';
 
@@ -19,74 +13,41 @@ import PriceFilter from './PriceFilter';
 import { style } from './styles';
 
 interface IProductFilterProps {
+  filters: IProductFilters;
   onFilterChange: (filters: IProductFilters) => void;
 }
 
-const colors = [
-  { name: 'black', hex: '#000000' },
-  { name: 'red', hex: '#EB5757' },
-  { name: 'white', hex: '#FFFFFF' },
-  { name: 'green', hex: '#008000' },
-  { name: 'pink', hex: '#F178B6' },
-  { name: 'yellow', hex: '#F2C94C' },
-  { name: 'purple', hex: '#7700C8' },
-  { name: 'blue', hex: '#0990FF' },
-  { name: 'grey', hex: '#6D6B6B' },
-  { name: 'brown', hex: '#955539' },
-];
-const white = 'white';
+const whiteColor = 'white';
 
 const sizes = ['XS', 'S', 'M', 'L', 'XL'];
 
 const styles = Object.values(productStyles);
 
-function ProductFilters({ onFilterChange }: IProductFilterProps) {
+function ProductFilters({ filters, onFilterChange }: IProductFilterProps) {
   const { t } = useTranslation();
-  const [minPrice, setMinPrice] = useState(0);
-  const [maxPrice, setMaxPrice] = useState(maxProductPrice);
-  const [selectedColor, setSelectedColor] = useState<string>('');
-  const [selectedSize, setSelectedSize] = useState<string>('');
-  const [selectedStyle, setSelectedStyle] = useState<string>('');
 
   const handlePriceChange = (min: number, max: number) => {
-    setMinPrice(min);
-    setMaxPrice(max);
+    const newFilters = { ...filters };
+
+    if (min !== 0) {
+      newFilters.minPrice = min;
+    }
+    if (max !== maxProductPrice) {
+      newFilters.maxPrice = max;
+    }
+    onFilterChange(newFilters);
   };
 
-  const handleApplyFilters = (noFilter: boolean = false): void => {
-    const filters: IProductFilters = {};
+  const handleFilterChange = (key: keyof IProductFilters, value: string) => {
+    let newFilters = { ...filters };
 
-    if (noFilter) {
-      onFilterChange(filters);
-
-      return;
+    if (value === filters[key]) {
+      delete newFilters[key];
+    } else {
+      newFilters = { ...newFilters, [key]: value };
     }
 
-    if (minPrice !== 0) {
-      filters.minPrice = minPrice;
-    }
-    if (maxPrice !== maxProductPrice) {
-      filters.maxPrice = maxPrice;
-    }
-    if (selectedColor) {
-      filters.color = selectedColor;
-    }
-    if (selectedSize) {
-      filters.size = selectedSize;
-    }
-    if (selectedStyle) {
-      filters.style = selectedStyle;
-    }
-    onFilterChange(filters);
-  };
-
-  const handleClearFilters = (): void => {
-    setMinPrice(0);
-    setMaxPrice(maxProductPrice);
-    setSelectedColor('');
-    setSelectedSize('');
-    setSelectedStyle('');
-    handleApplyFilters(true);
+    onFilterChange(newFilters);
   };
 
   return (
@@ -104,8 +65,8 @@ function ProductFilters({ onFilterChange }: IProductFilterProps) {
         <Box>
           <PriceFilter
             onPriceChange={handlePriceChange}
-            minPrice={minPrice}
-            maxPrice={maxPrice}
+            minPrice={filters.minPrice || 0}
+            maxPrice={filters.maxPrice || maxProductPrice}
           />
         </Box>
       </Box>
@@ -124,7 +85,7 @@ function ProductFilters({ onFilterChange }: IProductFilterProps) {
           {colors.map((color) => (
             <Box
               key={color.name}
-              onClick={() => setSelectedColor(color.name)}
+              onClick={() => handleFilterChange('color', color.name)}
               sx={{ cursor: 'pointer' }}
             >
               <Box
@@ -137,7 +98,7 @@ function ProductFilters({ onFilterChange }: IProductFilterProps) {
                   justifyContent: 'center',
                   alignItems: 'center',
                   boxShadow:
-                    color.name === selectedColor
+                    color.name === filters.color
                       ? `0 2px 8px 0 ${theme.palette.common.black}`
                       : theme.shadows[2],
                   transition: 'box-shadow 0.3s linear',
@@ -151,14 +112,18 @@ function ProductFilters({ onFilterChange }: IProductFilterProps) {
               >
                 <Box
                   sx={{
-                    display: color.name === selectedColor ? 'flex' : 'none',
+                    display: color.name === filters.color ? 'flex' : 'none',
                     justifyContent: 'center',
                     alignItems: 'center',
                     height: '100%',
                     width: '100%',
                   }}
                 >
-                  {color.name === white ? <TickGreyIcon /> : <TickWhiteIcon />}
+                  {color.name === whiteColor ? (
+                    <TickGreyIcon />
+                  ) : (
+                    <TickWhiteIcon />
+                  )}
                 </Box>
               </Box>
             </Box>
@@ -173,8 +138,8 @@ function ProductFilters({ onFilterChange }: IProductFilterProps) {
           {sizes.map((size) => (
             <Button
               key={size}
-              variant={size === selectedSize ? 'contained' : 'outlined'}
-              onClick={() => setSelectedSize(size)}
+              variant={size === filters.size ? 'contained' : 'outlined'}
+              onClick={() => handleFilterChange('size', size)}
               sx={{
                 minWidth: '34px',
                 border: '0.75px, solid',
@@ -206,17 +171,17 @@ function ProductFilters({ onFilterChange }: IProductFilterProps) {
           {styles.map((productStyle) => (
             <ListItemButton
               key={productStyle}
-              selected={productStyle === selectedStyle}
-              onClick={() => setSelectedStyle(productStyle)}
+              selected={productStyle === filters.style}
+              onClick={() => handleFilterChange('style', productStyle)}
             >
               <Box
                 component="span"
                 sx={{
                   color:
-                    productStyle === selectedStyle
+                    productStyle === filters.style
                       ? theme.palette.common.black
                       : theme.palette.text.disabled,
-                  fontWeight: 500,
+                  fontWeight: theme.typography.h4.fontWeight,
                   lineHeight: 1.57,
                   '&::first-letter': {
                     textTransform: 'uppercase',
@@ -228,26 +193,6 @@ function ProductFilters({ onFilterChange }: IProductFilterProps) {
             </ListItemButton>
           ))}
         </List>
-        <Box sx={{ display: 'flex', justifyContent: 'center', gap: '16px' }}>
-          <StyledButton
-            onClick={() => handleApplyFilters(false)}
-            styles={StyleVariants.BLACK}
-            padding={PaddingVariants.MD}
-            fontSize={String(theme.typography.h4.fontSize)}
-            radius="8px"
-          >
-            {t('filters.apply')}
-          </StyledButton>
-          <StyledButton
-            onClick={handleClearFilters}
-            styles={StyleVariants.BLACK}
-            padding={PaddingVariants.MD}
-            fontSize={String(theme.typography.h4.fontSize)}
-            radius="8px"
-          >
-            {t('filters.clear')}
-          </StyledButton>
-        </Box>
       </Box>
     </Box>
   );

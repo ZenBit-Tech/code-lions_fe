@@ -446,5 +446,22 @@
     "title": "Page not found",
     "text": "Oops! Page not found",
     "back": "Back to home"
+  },
+  "colors": {
+    "black": "Black",
+    "red": "Red",
+    "white": "White",
+    "green": "Green",
+    "pink": "Pink",
+    "yellow": "Yellow",
+    "purple": "Purple",
+    "blue": "Blue",
+    "grey": "Grey",
+    "brown": "Brown"
+  },
+  "selectedFilters": {
+    "clearAll": "Clear All",
+    "from": "From",
+    "to": "To"
   }
 }
