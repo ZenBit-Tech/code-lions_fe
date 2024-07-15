@@ -13,6 +13,11 @@ import {
   OnboardingHeader4,
   OnboardingText,
 } from 'src/pages/OnboardingPage/styles';
+import {
+  setCategory,
+  setStyle,
+  setType,
+} from 'src/redux/addProduct/addProductSlice';
 import { useAppDispatch } from 'src/redux/hooks';
 import {
   decreaseOnboardingStep,
@@ -21,15 +26,17 @@ import {
 import theme from 'src/theme';
 
 const categories = [
+  { label: 'Select category', value: 'Select category' },
   { label: 'Accessories', value: 'Accessories' },
   { label: 'Bags', value: 'Bags' },
   { label: 'Clothing', value: 'Clothing' },
   { label: 'Shoes', value: 'Shoes' },
   { label: 'Designers', value: 'Designers' },
-  { label: 'Evental Rent', value: 'Evental' },
+  { label: 'Evental Rent', value: 'Evental Rent' },
 ];
 
 const clothesTypes = [
+  { label: 'Select type', value: 'Select type' },
   { label: 'Shoes', value: 'Shoes' },
   { label: 'Dress', value: 'Dress' },
   { label: 'Bag', value: 'Bag' },
@@ -38,6 +45,7 @@ const clothesTypes = [
 ];
 
 const styles = [
+  { label: 'Select style', value: 'Select style' },
   { label: 'Casual', value: 'Casual' },
   { label: 'Premium', value: 'Premium' },
   { label: 'Fancy', value: 'Fancy' },
@@ -46,15 +54,19 @@ const styles = [
 function CategoriesForm() {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
-  const [category, setCategory] = useState(categories[0].value);
+
+  const [clothesCategory, setClothesCategory] = useState(categories[0].value);
   const [clothesType, setClothesType] = useState(clothesTypes[0].value);
-  const [style, setStyle] = useState(styles[0].value);
+  const [clothesStyle, setClothesStyle] = useState(styles[0].value);
 
   const returnBack = () => {
     dispatch(decreaseOnboardingStep());
   };
 
   const goToNextStep = () => {
+    dispatch(setCategory(clothesCategory));
+    dispatch(setType(clothesType));
+    dispatch(setStyle(clothesStyle));
     dispatch(increaseOnboardingStep());
   };
 
@@ -95,8 +107,8 @@ function CategoriesForm() {
           <CustomSelect
             options={categories}
             displayEmpty
-            value={category}
-            onChange={(v) => setCategory(String(v.target.value))}
+            value={clothesCategory}
+            onChange={(v) => setClothesCategory(String(v.target.value))}
           />
         </Box>
       </Box>
@@ -159,8 +171,9 @@ function CategoriesForm() {
           <CustomSelect
             options={styles}
             displayEmpty
-            value={style}
-            onChange={(v) => setStyle(String(v.target.value))}
+            placeholder="Select style"
+            value={clothesStyle}
+            onChange={(v) => setClothesStyle(String(v.target.value))}
           />
         </Box>
       </Box>
@@ -191,6 +204,11 @@ function CategoriesForm() {
           fontFamily={theme.typography.fontFamily}
           radius="8px"
           onClick={goToNextStep}
+          disabled={
+            clothesCategory === categories[0].value ||
+            clothesType === clothesTypes[0].value ||
+            clothesStyle === styles[0].value
+          }
         >
           {t('onboarding.next')}
         </StyledButton>

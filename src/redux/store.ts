@@ -13,6 +13,7 @@ import {
   REGISTER,
 } from 'redux-persist';
 
+import addProductReducer from './addProduct/addProductSlice';
 import { bestVendorsApi } from './bestVendors/bestVendorsService';
 import bestVendorsReducer from './bestVendors/bestVendorsSlice';
 import { cartApi } from './cart/cartService';
@@ -30,6 +31,7 @@ const rootReducer = combineReducers({
   bestVendors: bestVendorsReducer,
   wishlist: wishlistReducer,
   cart: cartReducer,
+  addProduct: addProductReducer,
   [userApi.reducerPath]: userApi.reducer,
   [productApi.reducerPath]: productApi.reducer,
   [bestVendorsApi.reducerPath]: bestVendorsApi.reducer,
@@ -40,7 +42,7 @@ const rootReducer = combineReducers({
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['user', 'wishlist', 'cart'],
+  whitelist: ['user', 'wishlist', 'cart', 'addProduct'],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
