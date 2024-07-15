@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { Box } from '@mui/system';
 
@@ -25,6 +25,7 @@ function Header() {
   const { t } = useTranslation();
   const { showToast } = useToast();
   const user = useAppSelector((state) => state.user);
+  const navigate = useNavigate();
 
   const { data: cartData, refetch: cartRefetch } = useGetCartByIdQuery(
     user.id ? { userId: user.id } : skipToken
@@ -46,6 +47,8 @@ function Header() {
   const handleCartClick = () => {
     if (!user.id) {
       showToast('warning', t('cart.viewWarning'));
+    } else {
+      navigate(urls.CART);
     }
   };
 
