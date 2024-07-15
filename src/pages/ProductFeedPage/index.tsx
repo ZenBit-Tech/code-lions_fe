@@ -1,112 +1,43 @@
-import { useEffect, useState } from 'react';
-import { FormProvider, useForm } from 'react-hook-form';
+import { FormProvider } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { useNavigate, useLocation, useParams } from 'react-router-dom';
 
 import { Box, Typography, CircularProgress } from '@mui/material';
 
-import { urls, productsOnPage, productCategories } from 'src/common/constants';
-import createNavigationLink from 'src/common/utils/createNavigationLink';
+import { productCategories, productsOnPage } from 'src/common/constants';
 import ProductCard from 'src/components/ProductCard';
 import ProductFilters from 'src/components/ProductFilters';
 import SelectedFilters from 'src/components/SelectedFilters';
-import OrderSelector, {
-  SortOrder,
-  SortParameter,
-} from 'src/components/shared/OrderSelector';
+import OrderSelector from 'src/components/shared/OrderSelector';
 import SearchInput from 'src/components/shared/SearchInput';
 import SectionTitle from 'src/components/shared/SectionTitle';
 import useToast from 'src/components/shared/toasts/components/ToastProvider/ToastProviderHooks';
 import StyledPagination from 'src/pages/admin/StyledPagination';
-import { useGetProductsQuery } from 'src/redux/product/productService';
-import { IProductFilters } from 'src/redux/product/types';
+import NotFoundPage from 'src/pages/NotFoundPage';
 import theme from 'src/theme';
 
-import NotFoundPage from '../NotFoundPage';
+import useProductFeed from './useProductFeed';
 
 function ProductFeedPage() {
   const { t } = useTranslation();
-  const { category } = useParams<{ category?: string }>();
-
-  const baseUrl = category
-    ? `${urls.PRODUCT_CATEGORY_URL}/${category}`
-    : urls.PRODUCT_FEED;
-
-  const methods = useForm();
   const { showToast } = useToast();
-  const navigate = useNavigate();
-  const location = useLocation();
-  const queryParams = new URLSearchParams(location.search);
-  const pageParam = queryParams.get('page');
-  const page = pageParam ? parseInt(pageParam, 10) : 1;
-  const search = queryParams.get('search')?.trim();
-  const [searchQuery, setSearchQuery] = useState(search);
-  const [filters, setFilters] = useState<IProductFilters>({});
-  const [sortBy, setSortBy] = useState<SortParameter | undefined>(undefined);
-  const [sortOrder, setSortOrder] = useState<SortOrder | undefined>(undefined);
-  const handleSearchChange = (searchTerm: string) => {
-    setSearchQuery(search);
-    const requestParams: Record<string, string> = { search: searchTerm };
-    const link = createNavigationLink(baseUrl, requestParams);
-
-    navigate(link);
-  };
-  const handlePageChange = (
-    _: React.ChangeEvent<unknown>,
-    pageNumber: number
-  ) => {
-    const requestParams: Record<string, string> = { page: String(pageNumber) };
-
-    if (searchQuery) {
-      requestParams.search = searchQuery;
-    }
-    const link = createNavigationLink(baseUrl, requestParams);
-
-    navigate(link);
-  };
-
-  const handleFiltersChange = (currentFilters: IProductFilters) => {
-    const requestParams: Record<string, string> = {};
-
-    if (searchQuery) {
-      requestParams.search = searchQuery;
-    }
-    const link = createNavigationLink(baseUrl, requestParams);
-
-    navigate(link);
-    setFilters(currentFilters);
-  };
-
-  const handleResetFilter = (key: keyof IProductFilters) => {
-    const newFilters = { ...filters };
-
-    delete newFilters[key];
-    setFilters(newFilters);
-  };
-
-  const handleSortChange = (
-    newSortBy?: SortParameter,
-    newSortOrder?: SortOrder
-  ) => {
-    setSortBy(newSortBy);
-    setSortOrder(newSortOrder);
-  };
-
-  const { data, isLoading, isFetching, isError } = useGetProductsQuery({
+  const {
+    methods,
     category,
-    page,
-    limit: productsOnPage,
-    search,
     filters,
     sortBy,
     sortOrder,
-  });
-  const productsCount = data?.count || 0;
-
-  useEffect(() => {
-    setSearchQuery(search);
-    methods.setValue('search', search);
-  }, [search, methods]);
+    data,
+    isLoading,
+    isFetching,
+    isError,
+    page,
+    handleSearchChange,
+    handlePageChange,
+    handleFiltersChange,
+    handleResetFilter,
+    handleResetAllFilters,
+    handleSortChange,
+  } = useProductFeed();
 
   if (isError) {
     showToast('error', t('products.error'));
@@ -115,6 +46,8 @@ function ProductFeedPage() {
   if (category && !productCategories.includes(category)) {
     return <NotFoundPage />;
   }
+
+  const productsCount = data?.count || 0;
 
   return (
     <>
@@ -183,7 +116,7 @@ function ProductFeedPage() {
                         <SelectedFilters
                           filters={filters}
                           onResetFilter={(key) => handleResetFilter(key)}
-                          onResetAllFilters={() => setFilters({})}
+                          onResetAllFilters={handleResetAllFilters}
                         />
                       </Box>
                     </Box>
@@ -253,7 +186,7 @@ function ProductFeedPage() {
                       <SelectedFilters
                         filters={filters}
                         onResetFilter={(key) => handleResetFilter(key)}
-                        onResetAllFilters={() => setFilters({})}
+                        onResetAllFilters={handleResetAllFilters}
                       />
                     </Box>
                     {t('products.noProducts')}

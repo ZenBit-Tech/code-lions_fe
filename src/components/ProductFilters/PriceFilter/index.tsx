@@ -18,10 +18,6 @@ function PriceFilter({
   minPrice: number;
   maxPrice: number;
 }) {
-  const handleSliderChange = (values: number[]) => {
-    onPriceChange(values[0], values[1]);
-  };
-
   const handleMinInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = Math.min(
       Math.max(0, parseInt(e.target.value, 10)),
@@ -40,6 +36,14 @@ function PriceFilter({
     onPriceChange(minPrice, newValue);
   };
 
+  const handleSliderChange = (values: number | number[]) => {
+    if (Array.isArray(values)) {
+      const [newMinValue, newMaxValue] = values;
+
+      onPriceChange(newMinValue, newMaxValue);
+    }
+  };
+
   return (
     <Box className="slider">
       <Slider
@@ -48,13 +52,7 @@ function PriceFilter({
         max={maxProductPrice}
         allowCross={false}
         value={[minPrice, maxPrice]}
-        onChange={(values: number | number[]) => {
-          if (Array.isArray(values)) {
-            const [newMinValue, newMaxValue] = values;
-
-            handleSliderChange([newMinValue, newMaxValue]);
-          }
-        }}
+        onChange={handleSliderChange}
       />
       <Box
         sx={{
