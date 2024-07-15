@@ -9,6 +9,7 @@ import {
   Typography,
 } from '@mui/material';
 
+import { shippingOption } from 'src/common/constants';
 import StyledButton from 'src/components/shared/StyledButton';
 import { selectCart } from 'src/redux/cart/cartSlice';
 import { useAppSelector } from 'src/redux/hooks';
@@ -19,9 +20,7 @@ import useCartSummary from './useCartSummaryHook';
 function CartSummary() {
   const { t } = useTranslation();
   const cartItems = useAppSelector(selectCart);
-  const [shipping, setShipping] = useState<string>(
-    t('checkoutPage.freeShipping')
-  );
+  const [shipping, setShipping] = useState<string>(shippingOption.FREE);
 
   const { subtotal, total } = useCartSummary(cartItems, shipping);
 

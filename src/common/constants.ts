@@ -206,3 +206,13 @@ export const homeProductsSorting = {
   RECOMMENDED: 'recommended',
   YOUR_SIZE: 'yoursize',
 };
+
+export const shippingOption = {
+  FREE: 'Free shipping',
+  EXPRESS: 'Express shipping',
+};
+
+export const shippingFee = {
+  FREE: 0,
+  EXPRESS: 15,
+};

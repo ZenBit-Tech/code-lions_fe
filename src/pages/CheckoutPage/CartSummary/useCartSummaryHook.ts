@@ -1,10 +1,9 @@
 import { useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
 
+import { shippingFee, shippingOption } from 'src/common/constants';
 import { ICartItem } from 'src/redux/cart/types';
 
 const useCartSummary = (cartItems: ICartItem[], shipping: string) => {
-  const { t } = useTranslation();
   const [shippingPrice, setShippingPrice] = useState<number>(0);
   const [subtotal, setSubtotal] = useState<number>(0);
   const [total, setTotal] = useState<number>(0);
@@ -16,14 +15,14 @@ const useCartSummary = (cartItems: ICartItem[], shipping: string) => {
 
     setSubtotal(itemsSubtotal);
 
-    if (shipping === t('checkoutPage.freeShipping')) {
-      setShippingPrice(0);
-    } else if (shipping === t('checkoutPage.expressShipping')) {
-      setShippingPrice(Number(t('checkoutPage.expressPrice')));
+    if (shipping === shippingOption.FREE) {
+      setShippingPrice(shippingFee.FREE);
+    } else if (shipping === shippingOption.EXPRESS) {
+      setShippingPrice(shippingFee.EXPRESS);
     }
 
     setTotal(itemsSubtotal + shippingPrice);
-  }, [cartItems, shipping, shippingPrice, t]);
+  }, [cartItems, shipping, shippingPrice]);
 
   return { subtotal, total };
 };

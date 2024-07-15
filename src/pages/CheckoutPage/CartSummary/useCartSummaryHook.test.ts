@@ -1,6 +1,7 @@
 import { renderHook } from '@testing-library/react';
-import { vi, describe, it, expect } from 'vitest';
+import { describe, it, expect } from 'vitest';
 
+import { shippingOption } from 'src/common/constants';
 import { ICartItem } from 'src/redux/cart/types';
 
 import useCartSummary from './useCartSummaryHook';
@@ -8,71 +9,71 @@ import useCartSummary from './useCartSummaryHook';
 const FREESHIP = 50;
 const EXPRESSSHIP = 65;
 
-// Mock useTranslation hook
-vi.mock('react-i18next', () => ({
-  useTranslation: () => ({
-    t: (key: string) => {
-      switch (key) {
-        case 'checkoutPage.freeShipping':
-          return 'Free Shipping';
-
-        case 'checkoutPage.expressShipping':
-          return 'Express Shipping';
-
-        case 'checkoutPage.expressPrice':
-          return '15';
-
-        default:
-          return key;
-      }
-    },
-  }),
-}));
-
 describe('useCartSummary', () => {
-  it('should calculate subtotal, shipping price, and total correctly', () => {
-    const testCartItems: ICartItem[] = [
-      {
-        id: '1',
-        price: 20,
-        productUrl: '',
-        name: '',
-        size: '',
-        color: '',
-        duration: 0,
-        userId: '',
-        productId: '',
-        vendorId: '',
-        createdAt: '',
-      },
-      {
-        id: '2',
-        price: 30,
-        productUrl: '',
-        name: '',
-        size: '',
-        color: '',
-        duration: 0,
-        userId: '',
-        productId: '',
-        vendorId: '',
-        createdAt: '',
-      },
-    ];
+  const testCartItems: ICartItem[] = [
+    {
+      id: '1',
+      price: 20,
+      productUrl: '',
+      name: '',
+      size: '',
+      color: '',
+      duration: 0,
+      userId: '',
+      productId: '',
+      vendorId: '',
+      createdAt: '',
+    },
+    {
+      id: '2',
+      price: 30,
+      productUrl: '',
+      name: '',
+      size: '',
+      color: '',
+      duration: 0,
+      userId: '',
+      productId: '',
+      vendorId: '',
+      createdAt: '',
+    },
+  ];
 
+  it('should calculate subtotal and total correctly with free shipping', () => {
     const { result, rerender } = renderHook(
-      ({ items, shipping }) => useCartSummary(items, shipping),
+      ({ cartItems, shipping }) => useCartSummary(cartItems, shipping),
       {
-        initialProps: { items: testCartItems, shipping: 'Free Shipping' },
+        initialProps: {
+          cartItems: testCartItems,
+          shipping: shippingOption.FREE,
+        },
       }
     );
 
     expect(result.current.subtotal).toBe(FREESHIP);
     expect(result.current.total).toBe(FREESHIP);
 
-    rerender({ items: testCartItems, shipping: 'Express Shipping' });
+    rerender({ cartItems: testCartItems, shipping: shippingOption.EXPRESS });
 
     expect(result.current.subtotal).toBe(FREESHIP);
+    expect(result.current.total).toBe(EXPRESSSHIP);
+  });
+
+  it('should update total when shipping option changes', () => {
+    const { result, rerender } = renderHook(
+      ({ cartItems, shipping }) => useCartSummary(cartItems, shipping),
+      {
+        initialProps: {
+          cartItems: testCartItems,
+          shipping: shippingOption.FREE,
+        },
+      }
+    );
+
+    expect(result.current.total).toBe(FREESHIP);
+
+    rerender({ cartItems: testCartItems, shipping: shippingOption.EXPRESS });
+
     expect(result.current.total).toBe(EXPRESSSHIP);
   });
 });
