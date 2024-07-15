@@ -15,21 +15,16 @@ function ProductTableCard({ images, size, name }: PartialProduct) {
   return (
     <Box display="flex" gap="16px" alignItems="center">
       <ImageWrapper>
-        {images && images.length > 0 ? (
-          <Image
-            width="52px"
-            height="67px"
-            src={images[0]}
-            alt={name || 'Product image'}
-          />
-        ) : (
-          <Image
-            width="52px"
-            height="67px"
-            src="src/assets/photos/no-image.jpg"
-            alt="Default image"
-          />
-        )}
+        <Image
+          width="52px"
+          height="67px"
+          src={
+            images && images.length > 0
+              ? images[0]
+              : 'src/assets/photos/no-image.jpg'
+          }
+          alt={name || 'Product image'}
+        />
       </ImageWrapper>
       <Box width="223px">
         <Typography variant="button" component="p">
