@@ -9,6 +9,8 @@ import SignInAdminPage from 'src/pages/admin/SignInAdminPage';
 import UsersPage from 'src/pages/admin/UsersPage';
 import BestVendorsPage from 'src/pages/BestVendorsPage';
 import BuyerPublicProfilePage from 'src/pages/BuyerPublicProfilePage';
+import CartPage from 'src/pages/CartPage';
+import CheckoutPage from 'src/pages/CheckoutPage';
 import HomePage from 'src/pages/HomePage';
 import NewPasswordPage from 'src/pages/NewPasswordPage';
 import OnboardingPage from 'src/pages/OnboardingPage';
@@ -66,6 +68,8 @@ const router = createBrowserRouter([
           { path: urls.PROFILE_SUPPORT, element: <ProfileComingSoon /> },
         ],
       },
+      { path: urls.CART, element: <CartPage /> },
+      { path: urls.CHECKOUT, element: <CheckoutPage /> },
     ],
   },
   {

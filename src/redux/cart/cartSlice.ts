@@ -24,4 +24,6 @@ export const cartSlice = createSlice({
   },
 });
 
+export const selectCart = (state: { cart: ICartItem[] }) => state.cart;
+
 export default cartSlice.reducer;

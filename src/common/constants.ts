@@ -46,6 +46,8 @@ export const urls = {
   VENDOR_CHATS: 'chats',
   VENDOR_PROFILE: 'profile',
   BEST_VENDORS: '/best-vendors',
+  CART: 'cart',
+  CHECKOUT: 'checkout',
 };
 
 export const RTKUrls = {
@@ -204,4 +206,14 @@ export const homeProductsSorting = {
   JUST_IN: 'justin',
   RECOMMENDED: 'recommended',
   YOUR_SIZE: 'yoursize',
+};
+
+export const shippingOption = {
+  FREE: 'Free shipping',
+  EXPRESS: 'Express shipping',
+};
+
+export const shippingFee = {
+  FREE: 0,
+  EXPRESS: 15,
 };
