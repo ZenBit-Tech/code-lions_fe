@@ -19,7 +19,7 @@ function ActionButtons({ productId, handleOpen }: IActionButtons) {
   return (
     <Box display="flex" gap="16px" alignItems="center">
       <Link
-        to={`${linkUrls.ADMIN_USER_PROFILE_EDIT}/${productId}`}
+        to={`/${linkUrls.VENDOR_EDIT_PRODUCT}/${productId}`}
         state={{ from: location }}
       >
         <IconButton sx={{ padding: 0 }}>

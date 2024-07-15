@@ -148,7 +148,9 @@ const router = createBrowserRouter([
       { path: urls.USER_BUYER_PROFILE, element: <BuyerPublicProfilePage /> },
       { path: urls.VENDOR_DASHBOARD, element: <VendorDashboard /> },
       { path: urls.VENDOR_ADD_PRODUCT, element: <ProfileComingSoon /> },
+      { path: urls.VENDOR_EDIT_PRODUCT, element: <ProfileComingSoon /> },
       { path: urls.VENDOR_PRODUCTS, element: <VendorProductPage /> },
+      { path: urls.VENDOR_PRODUCT, element: <ProfileComingSoon /> },
       { path: urls.VENDOR_ORDERS, element: <ProfileComingSoon /> },
       { path: urls.VENDOR_CHATS, element: <ProfileComingSoon /> },
       {
