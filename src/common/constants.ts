@@ -76,6 +76,7 @@ export const RTKUrls = {
   WISHLIST: 'wishlist',
   CART: 'cart',
   USER_REVIEWS: 'reviews/user',
+  BEST_VENDORS: 'best-vendors',
   LATEST: 'latest',
   SIZES: 'sizes',
 };
