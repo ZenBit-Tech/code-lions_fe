@@ -392,6 +392,12 @@
     "addImage": "Add Image",
     "dropImage": "Or Drop Image To Upload",
     "addVideo": "Add Video",
-    "dropVideo": "Or Drop Video To Upload"
+    "dropVideo": "Or Drop Video To Upload",
+    "productPrice": "Product Price",
+    "price": "Price",
+    "priceDescription": "It's price for the product",
+    "inputPrice": "Input the price of the product here",
+    "priceRequired": "Price cannot be empty",
+    "priceInvalid": "Price must be a number"
   }
 }

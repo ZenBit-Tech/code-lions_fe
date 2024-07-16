@@ -1,0 +1,164 @@
+import { Controller, useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
+
+import { Box } from '@mui/system';
+
+import Oval from 'src/assets/icons/addProduct/oval.svg';
+import StyledButton from 'src/components/shared/StyledButton';
+import {
+  PaddingVariants,
+  StyleVariants,
+} from 'src/components/shared/StyledButton/types';
+import StyledInput from 'src/components/shared/StyledInput';
+import {
+  InputPaddingVariants,
+  InputStyleVariants,
+} from 'src/components/shared/StyledInput/types';
+import {
+  OnboardingHeader4,
+  OnboardingText,
+} from 'src/pages/OnboardingPage/styles';
+import { useAppDispatch } from 'src/redux/hooks';
+import {
+  decreaseOnboardingStep,
+  increaseOnboardingStep,
+} from 'src/redux/user/userSlice';
+import theme from 'src/theme';
+
+import OnboardingHeader3 from './styles';
+
+function FinishForm() {
+  const { t } = useTranslation();
+
+  const dispatch = useAppDispatch();
+
+  interface IFinishCardForm {
+    price: string;
+  }
+
+  const {
+    control,
+    handleSubmit,
+    formState: { isValid, errors },
+  } = useForm<IFinishCardForm>({
+    defaultValues: {
+      price: '',
+    },
+    mode: 'onChange',
+  });
+
+  const returnBack = () => {
+    dispatch(decreaseOnboardingStep());
+  };
+
+  const goToNextStep = () => {
+    dispatch(increaseOnboardingStep());
+  };
+
+  return (
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '24px',
+        bgcolor: theme.palette.background.default,
+        padding: '24px',
+        borderRadius: '0 0 8px 8px',
+      }}
+    >
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'row',
+          alignItems: 'center',
+          marginBottom: '24px',
+          gap: '10px',
+        }}
+      >
+        <Oval />
+        <OnboardingHeader3>{t('addProduct.productPrice')}</OnboardingHeader3>
+      </Box>
+      <Box
+        sx={{
+          display: 'flex',
+          gap: '40px',
+          alignItems: 'top',
+        }}
+      >
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            width: '150px',
+          }}
+        >
+          <OnboardingHeader4 component="h4">
+            {t('addProduct.price')}
+          </OnboardingHeader4>
+          <OnboardingText variant="subtitle2">
+            {t('addProduct.priceDescription')}
+          </OnboardingText>
+        </Box>
+        <Controller
+          name="price"
+          control={control}
+          rules={{
+            required: t('addProduct.priceRequired'),
+            pattern: {
+              value: /^[0-9]+(\.[0-9]{1,2})?$/,
+              message: t('addProduct.priceInvalid'),
+            },
+          }}
+          render={({ field }) => (
+            <StyledInput
+              {...field}
+              fullWidth
+              autoComplete="off"
+              placeholder={t('addProduct.inputPrice')}
+              padding={InputPaddingVariants.MD}
+              stylevariant={InputStyleVariants.OUTLINED}
+              width="100%"
+              error={!!errors.price}
+              helperText={errors.price ? errors.price.message : ''}
+            />
+          )}
+        />
+      </Box>
+
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'flex-end',
+          gap: '10px',
+          marginTop: '24px',
+        }}
+      >
+        <StyledButton
+          styles={StyleVariants.TRANSPARENT2}
+          padding={PaddingVariants.SM}
+          variant="contained"
+          fontSize={String(theme.typography.h4.fontSize)}
+          fontFamily={theme.typography.fontFamily}
+          onClick={returnBack}
+        >
+          {t('onboarding.prev')}
+        </StyledButton>
+        <StyledButton
+          styles={StyleVariants.BLACK}
+          padding={PaddingVariants.SM}
+          variant="contained"
+          fontSize={String(theme.typography.h4.fontSize)}
+          fontFamily={theme.typography.fontFamily}
+          radius="8px"
+          onClick={handleSubmit(goToNextStep)}
+          disabled={!isValid}
+        >
+          {t('onboarding.next')}
+        </StyledButton>
+      </Box>
+    </Box>
+  );
+}
+
+export default FinishForm;
