@@ -11,8 +11,8 @@ const productId: string = allProducts[0].id;
 const userId: string = '1';
 
 export const unknownSearch = 'unknownSearch';
-export const productsForSecondPage = 13;
-const secondPage = '2';
+export const productsForTheRequestedPage = 13;
+const pageRequestedFromTheTest = '2';
 
 const handlers = [
   http.get(`${apiUrl}${RTKUrls.PRODUCTS}`, ({ request }) => {
@@ -26,9 +26,9 @@ const handlers = [
         products: [],
       });
     }
-    if (page === secondPage) {
+    if (page === pageRequestedFromTheTest) {
       return HttpResponse.json({
-        count: productsForSecondPage,
+        count: productsForTheRequestedPage,
         products: allProducts,
       });
     }

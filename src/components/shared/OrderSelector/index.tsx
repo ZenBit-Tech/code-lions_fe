@@ -18,37 +18,50 @@ interface SortProps {
   onSortChange: (sortBy?: SortParameter, sortOrder?: SortOrder) => void;
 }
 
-const options = [
-  { value: 'none', labelKey: 'orderSelect.noSort' },
+interface Options {
+  value: string;
+  label: string;
+  sortBy?: SortParameter;
+  sortOrder?: SortOrder;
+}
+
+const options: Options[] = [
+  { value: 'none', label: 'orderSelect.noSort' },
   {
     value: 'price:ASC',
-    labelKey: 'orderSelect.price',
-    orderKey: 'orderSelect.ascending',
+    label: 'orderSelect.priceAsc',
+    sortBy: 'price',
+    sortOrder: 'ASC',
   },
   {
     value: 'price:DESC',
-    labelKey: 'orderSelect.price',
-    orderKey: 'orderSelect.descending',
+    label: 'orderSelect.priceDesc',
+    sortBy: 'price',
+    sortOrder: 'DESC',
   },
   {
     value: 'createdAt:ASC',
-    labelKey: 'orderSelect.date',
-    orderKey: 'orderSelect.ascending',
+    label: 'orderSelect.dateAsc',
+    sortBy: 'createdAt',
+    sortOrder: 'ASC',
   },
   {
     value: 'createdAt:DESC',
-    labelKey: 'orderSelect.date',
-    orderKey: 'orderSelect.descending',
+    label: 'orderSelect.dateDesc',
+    sortBy: 'createdAt',
+    sortOrder: 'DESC',
   },
   {
     value: 'name:ASC',
-    labelKey: 'orderSelect.name',
-    orderKey: 'orderSelect.ascending',
+    label: 'orderSelect.nameAsc',
+    sortBy: 'name',
+    sortOrder: 'ASC',
   },
   {
     value: 'name:DESC',
-    labelKey: 'orderSelect.name',
-    orderKey: 'orderSelect.descending',
+    label: 'orderSelect.nameDesc',
+    sortBy: 'name',
+    sortOrder: 'DESC',
   },
 ];
 
@@ -57,10 +70,10 @@ function OrderSelector({ sortBy, sortOrder, onSortChange }: SortProps) {
 
   const handleSortChange = (event: SelectChangeEvent<string>) => {
     const { value } = event.target;
-    const newSortBy =
-      value === 'none' ? undefined : (value.split(':')[0] as SortParameter);
-    const newSortOrder =
-      value === 'none' ? undefined : (value.split(':')[1] as SortOrder);
+    const selectedOption = options.filter(
+      (option) => option.value === value
+    )[0];
+    const { sortBy: newSortBy, sortOrder: newSortOrder } = selectedOption;
 
     onSortChange(newSortBy, newSortOrder);
   };
@@ -101,9 +114,7 @@ function OrderSelector({ sortBy, sortOrder, onSortChange }: SortProps) {
       >
         {options.map((opt) => (
           <MenuItem key={opt.value} value={opt.value}>
-            {opt.orderKey
-              ? `${t(opt.labelKey)} - ${t(opt.orderKey)}`
-              : t(opt.labelKey)}
+            {t(opt.label)}
           </MenuItem>
         ))}
       </Select>

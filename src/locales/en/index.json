@@ -423,12 +423,13 @@
     "text": "Renting from Black Circle is simple and convenient. Browse our extensive catalog of fashion items, select your desired products, and choose your rental period. Our platform provides clear pricing and rental terms, ensuring a transparent and user-friendly experience. Enjoy the flexibility of wearing high-quality fashion pieces without the commitment of buying. Embrace sustainable fashion with Black Circle today."
   },
   "orderSelect": {
-    "price": "Price",
-    "date": "Date",
-    "name": "Name",
-    "noSort": "No Sort",
-    "ascending": "Ascending",
-    "descending": "Descending"
+    "priceAsc": "Price - Ascending",
+    "priceDesc": "Price - Descending",
+    "dateAsc": "Date - Ascending",
+    "dateDesc": "Date - Descending",
+    "nameAsc": "Name - Ascending",
+    "nameDesc": "Name - Descending",
+    "noSort": "No Sort"
   },
   "cart": {
     "viewWarning": "Please, sign in to view your cart",
