@@ -6,7 +6,6 @@ import { Box } from '@mui/system';
 
 import EditIcon from 'src/assets/icons/edit-white.svg';
 import UserImageIcon from 'src/assets/icons/user-image.svg';
-import { apiUrl } from 'src/common/constants.ts';
 import useErrorHandling from 'src/common/hooks/useErrorHandlingHook';
 import useToast from 'src/components/shared/toasts/components/ToastProvider/ToastProviderHooks';
 import { useAppSelector } from 'src/redux/hooks';
@@ -21,7 +20,7 @@ function PhotoUploadForm() {
   const user = useAppSelector(selectUser);
   const [uploadPhoto] = useUploadPhotoMutation();
   const [preview, setPreview] = useState<string | null>(
-    user.photoUrl ? apiUrl + user.photoUrl : null
+    user.photoUrl ? user.photoUrl : null
   );
   const [imageError, setImageError] = useState(false);
 
@@ -35,9 +34,11 @@ function PhotoUploadForm() {
         formDataPhoto.append('file', file);
         await uploadPhoto({ id: user.id, photo: formDataPhoto }).unwrap();
         showToast('success', t('profileDetails.successPhotoUpdate'));
+        setImageError(false);
       }
     } catch (err) {
       handleOnSubmitError(err, showToast, t('profileDetails.unknownError'));
+      setImageError(true);
     }
   };
 
@@ -86,7 +87,7 @@ function PhotoUploadForm() {
             </Avatar>
           ) : (
             <Avatar
-              src={`${apiUrl}${user.photoUrl}`}
+              src={user.photoUrl}
               sx={{ width: '120px', height: '120px', position: 'absolute' }}
               onError={() => setImageError(true)}
             />
