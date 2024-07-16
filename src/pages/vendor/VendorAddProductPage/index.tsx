@@ -30,11 +30,6 @@ const addProductData = [
   },
   {
     stepId: 4,
-    title: 'Offer Type',
-    component: '',
-  },
-  {
-    stepId: 5,
     title: 'Finish & Publish',
     component: '',
   },

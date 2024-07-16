@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { Box } from '@mui/material';
@@ -77,7 +77,33 @@ const colors = [
   { label: 'white', value: 'white' },
 ];
 
-const materials = [{ label: 'Select material', value: 'Select material' }];
+const materials = [
+  { label: 'Select material', value: 'Select material' },
+  { label: 'Chiffon', value: 'Chiffon' },
+  { label: 'Cotton', value: 'Cotton' },
+  { label: 'Crepe', value: 'Crepe' },
+  { label: 'Denim', value: 'Denim' },
+  { label: 'Lace', value: 'Lace' },
+  { label: 'Leather', value: 'Leather' },
+  { label: 'Linen', value: 'Linen' },
+  { label: 'Satin', value: 'Satin' },
+  { label: 'Silk', value: 'Silk' },
+  { label: 'Nylon', value: 'Nylon' },
+  { label: 'Polyester', value: 'Polyester' },
+  { label: 'Spandex', value: 'Spandex' },
+  { label: 'Velvet', value: 'Velvet' },
+  { label: 'Wool', value: 'Wool' },
+];
+
+const shoesMaterials = [
+  { label: 'Select material', value: 'Select material' },
+  { label: 'leather', value: 'leather' },
+  { label: 'textile', value: 'textile' },
+  { label: 'synthetic', value: 'synthetic' },
+  { label: 'rubber', value: 'rubber' },
+  { label: 'foam', value: 'foam' },
+  { label: 'plastic', value: 'plastic' },
+];
 
 const shoesCategory = 'Shoes';
 
@@ -95,10 +121,15 @@ function ProductDescriptionForm() {
   const [productMaterial, setProductMaterial] = useState<string>(
     materials[0].value
   );
-  const [selectedFile, setSelectedFile] = useState<File>();
+  const [shoesMaterial, setShoesMaterial] = useState<string>(
+    shoesMaterials[0].value
+  );
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
-  const handleFileChange = (event) => {
-    setSelectedFile(event.target.files[0]);
+  const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files && event.target.files.length > 0) {
+      setSelectedFile(event.target.files[0]);
+    }
   };
 
   const handleUpload = () => {
@@ -335,10 +366,20 @@ function ProductDescriptionForm() {
         </Box>
         <Box sx={{ flex: 1 }}>
           <CustomSelect
-            options={materials}
+            options={
+              selectedCategory === shoesCategory ? shoesMaterials : materials
+            }
             displayEmpty
-            value={productMaterial}
-            onChange={(v) => setProductMaterial(String(v.target.value))}
+            value={
+              selectedCategory === shoesCategory
+                ? shoesMaterial
+                : productMaterial
+            }
+            onChange={
+              selectedCategory === shoesCategory
+                ? (v) => setShoesMaterial(String(v.target.value))
+                : (v) => setProductMaterial(String(v.target.value))
+            }
           />
         </Box>
       </Box>
