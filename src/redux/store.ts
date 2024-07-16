@@ -13,6 +13,8 @@ import {
   REGISTER,
 } from 'redux-persist';
 
+import { bestVendorsApi } from './bestVendors/bestVendorsService';
+import bestVendorsReducer from './bestVendors/bestVendorsSlice';
 import { cartApi } from './cart/cartService';
 import cartReducer from './cart/cartSlice';
 import { productApi } from './product/productService';
@@ -25,10 +27,12 @@ import wishlistReducer from './wishlist/wishlistSlice';
 const rootReducer = combineReducers({
   user: userReducer,
   product: productReducer,
+  bestVendors: bestVendorsReducer,
   wishlist: wishlistReducer,
   cart: cartReducer,
   [userApi.reducerPath]: userApi.reducer,
   [productApi.reducerPath]: productApi.reducer,
+  [bestVendorsApi.reducerPath]: bestVendorsApi.reducer,
   [wishlistApi.reducerPath]: wishlistApi.reducer,
   [cartApi.reducerPath]: cartApi.reducer,
 });
@@ -51,6 +55,7 @@ const store = configureStore({
     }).concat(
       userApi.middleware,
       productApi.middleware,
+      bestVendorsApi.middleware,
       wishlistApi.middleware,
       cartApi.middleware
     ),

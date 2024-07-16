@@ -10,6 +10,8 @@ import SignInAdminPage from 'src/pages/admin/SignInAdminPage';
 import UsersPage from 'src/pages/admin/UsersPage';
 import BestVendorsPage from 'src/pages/BestVendorsPage';
 import BuyerPublicProfilePage from 'src/pages/BuyerPublicProfilePage';
+import CartPage from 'src/pages/CartPage';
+import CheckoutPage from 'src/pages/CheckoutPage';
 import CompanyPage from 'src/pages/CompanyPage';
 import ContactPage from 'src/pages/ContactPage';
 import FaqPage from 'src/pages/FaqPage';
@@ -83,6 +85,8 @@ const router = createBrowserRouter([
           { path: urls.PROFILE_SUPPORT, element: <ProfileComingSoon /> },
         ],
       },
+      { path: urls.CART, element: <CartPage /> },
+      { path: urls.CHECKOUT, element: <CheckoutPage /> },
     ],
   },
   {

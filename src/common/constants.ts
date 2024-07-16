@@ -50,7 +50,6 @@ export const urls = {
   VENDOR_CHATS: 'chats',
   VENDOR_PROFILE: 'profile',
   BEST_VENDORS: '/best-vendors',
-  CART: '/cart',
   COMPANY: '/company',
   ABOUT_US: '/about-us',
   CONTACT: '/contact',
@@ -58,6 +57,8 @@ export const urls = {
   SHIPPING: '/shipping',
   RENT: '/rent',
   HELP: '/help',
+  CART: 'cart',
+  CHECKOUT: 'checkout',
 };
 
 export const RTKUrls = {
@@ -86,6 +87,7 @@ export const RTKUrls = {
   WISHLIST: 'wishlist',
   CART: 'cart',
   USER_REVIEWS: 'reviews/user',
+  BEST_VENDORS: 'best-vendors',
   LATEST: 'latest',
   SIZES: 'sizes',
 };
@@ -247,3 +249,13 @@ export const colors = [
   { name: 'grey', hex: '#6D6B6B' },
   { name: 'brown', hex: '#955539' },
 ];
+
+export const shippingOption = {
+  FREE: 'Free shipping',
+  EXPRESS: 'Express shipping',
+};
+
+export const shippingFee = {
+  FREE: 0,
+  EXPRESS: 15,
+};

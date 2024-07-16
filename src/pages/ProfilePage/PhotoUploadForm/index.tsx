@@ -32,9 +32,11 @@ function PhotoUploadForm() {
         formDataPhoto.append('file', file);
         await uploadPhoto({ id: user.id, photo: formDataPhoto }).unwrap();
         showToast('success', t('profileDetails.successPhotoUpdate'));
+        setImageError(false);
       }
     } catch (err) {
       handleOnSubmitError(err, showToast, t('profileDetails.unknownError'));
+      setImageError(true);
     }
   };
 

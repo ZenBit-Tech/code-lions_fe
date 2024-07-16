@@ -464,5 +464,32 @@
     "clearAll": "Clear All",
     "from": "From",
     "to": "To"
+  },
+  "cartPage": {
+    "title": "Cart",
+    "product": "Product",
+    "color": "Color",
+    "rentDuration": "Rent Duration",
+    "price": "Price",
+    "action": "Action",
+    "size": "Size: ",
+    "colorDisplay": "Color: ",
+    "days": " days",
+    "nextButton": "Next Step",
+    "noOrders": "You have not added any products",
+    "productName": "Product Name:"
+  },
+  "checkoutPage": {
+    "title": "Checkout",
+    "address": "Address",
+    "editButton": "Edit",
+    "cartSummary": "Cart summary",
+    "freeShipping": "Free shipping",
+    "freePrice": "0.00",
+    "expressShipping": "Express shipping",
+    "expressPrice": "15.00",
+    "subtotal": "Subtotal",
+    "totalRenting": "Total Renting",
+    "payButton": "Pay"
   }
 }
