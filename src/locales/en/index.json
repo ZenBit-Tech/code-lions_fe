@@ -414,6 +414,21 @@
     "totalRenting": "Total Renting",
     "payButton": "Pay"
   },
+  "vendorProductList": {
+    "title": "Categories",
+    "subTitle": "Product List",
+    "product": "Product",
+    "category": "Category",
+    "status": "Status",
+    "stock": "Stock",
+    "price": "Price",
+    "action": "Action",
+    "size": "Size",
+    "popup": "Are you sure want to delete this product?",
+    "details": "The product will no longer be available in the search, but information about it will be available to customers in the order",
+    "yes": "Yes",
+    "no": "No"
+  },
   "productsAdmin": {
     "title": "Products",
     "subTitle": "Product List",

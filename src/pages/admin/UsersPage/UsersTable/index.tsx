@@ -11,9 +11,9 @@ import {
 } from '@mui/material';
 
 import formatDateString from 'src/common/utils/formatDateString';
+import StyledBackdrop from 'src/components/shared/StyledBackdrop';
 import ActionButtons from 'src/pages/admin/ActionButtons';
 import ModalPopup from 'src/pages/admin/ModalPopup';
-import StyledBackdrop from 'src/pages/admin/StyledBackdrop';
 import StyledPagination from 'src/pages/admin/StyledPagination';
 import { IAdminUser } from 'src/redux/user/types';
 
