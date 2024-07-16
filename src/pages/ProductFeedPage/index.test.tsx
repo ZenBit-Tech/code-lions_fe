@@ -7,7 +7,7 @@ import {
 
 import { createMemoryRouter, RouterProvider } from 'react-router-dom';
 
-import { unknownSearch, productsForSecondPage } from 'src/test/handlers';
+import { unknownSearch, productsForTheRequestedPage } from 'src/test/handlers';
 import renderWithoutRouter from 'src/test/renderWithoutRouter';
 import renderWithProviders from 'src/test/renderWithProviders';
 
@@ -27,7 +27,7 @@ describe('renders ProductFeedPage component', () => {
     expect(screen.getByRole('progressbar')).toBeInTheDocument();
   });
 
-  it(`shows ${productsForSecondPage} products on the second page`, async () => {
+  it(`shows ${productsForTheRequestedPage} products on the second page`, async () => {
     const router = createMemoryRouter(routes, {
       initialEntries: ['/products?page=2'],
     });
@@ -47,7 +47,7 @@ describe('renders ProductFeedPage component', () => {
 
       expect(productsCounter).toBeInTheDocument();
       expect(productsCounter).toHaveTextContent(
-        `${productsForSecondPage} products`
+        `${productsForTheRequestedPage} products`
       );
     });
   });
