@@ -1,0 +1,88 @@
+import { useState } from 'react';
+import { FormProvider, useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
+import { NavLink } from 'react-router-dom';
+
+import { Box } from '@mui/material';
+
+import { sortOptions, urls } from 'src/common/constants';
+import SearchInput from 'src/components/shared/SearchInput';
+import { SortOrder } from 'src/redux/user/types';
+import theme from 'src/theme';
+
+import AdminSectionSubTitle from '../AdminSectionSubTitle';
+import AdminSectionTitle from '../AdminSectionTitle';
+import SortButton from '../SortButton';
+
+import {
+  SectionWrapper,
+  StyledListItemButton,
+  StyledTypography,
+} from './styles';
+
+function ProductLayout() {
+  const { t } = useTranslation();
+  const methods = useForm();
+
+  const [, setOrder] = useState<SortOrder>(sortOptions.DESC);
+  const handleClick = (value: SortOrder) => {
+    setOrder(value);
+  };
+
+  const [, setPage] = useState(1);
+  // const handleChange = (_: React.ChangeEvent<unknown>, value: number) => {
+  //   setPage(value);
+  // };
+
+  const [, setSearch] = useState('');
+  const handleSearchChange = (value: string) => {
+    setSearch(value);
+    setPage(1);
+  };
+
+  return (
+    <>
+      <AdminSectionTitle title={t('productsAdmin.title')} fontWeight={600} />
+      <SectionWrapper>
+        <Box display="flex" justifyContent="space-between" width="100%">
+          <AdminSectionSubTitle title={t('productsAdmin.subTitle')} />
+          <SortButton
+            title={t('usersAdmin.sortButton')}
+            onClick={handleClick}
+          />
+        </Box>
+        <Box display="flex" gap="32px">
+          <NavLink to={urls.ADMIN_PRODUCT_REQUEST}>
+            {({ isActive }) => (
+              <StyledListItemButton selected={isActive}>
+                <StyledTypography theme={theme} isActive={isActive}>
+                  {t('productsAdmin.requests')}
+                </StyledTypography>
+              </StyledListItemButton>
+            )}
+          </NavLink>
+          <NavLink to={urls.ADMIN_PRODUCT_LIST}>
+            {({ isActive }) => (
+              <StyledListItemButton selected={isActive}>
+                <StyledTypography theme={theme} isActive={isActive}>
+                  {t('productsAdmin.productsList')}
+                </StyledTypography>
+              </StyledListItemButton>
+            )}
+          </NavLink>
+        </Box>
+        <FormProvider {...methods}>
+          <SearchInput setSearch={handleSearchChange} />
+        </FormProvider>
+        {/* <UsersTable
+          pagesCount={pagesCount}
+          page={page}
+          users={users}
+          handleChange={handleChange}
+        /> */}
+      </SectionWrapper>
+    </>
+  );
+}
+
+export default ProductLayout;

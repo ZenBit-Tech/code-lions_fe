@@ -413,5 +413,17 @@
     "subtotal": "Subtotal",
     "totalRenting": "Total Renting",
     "payButton": "Pay"
+  },
+  "productsAdmin": {
+    "title": "Products",
+    "subTitle": "Product List",
+    "requests": "Requests",
+    "productsList": "Products List",
+    "product": "Product",
+    "category": "Category",
+    "status": "Status",
+    "quantity": "Q-ty",
+    "price": "Price",
+    "action": "Action"
   }
 }
