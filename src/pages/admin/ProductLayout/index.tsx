@@ -7,6 +7,7 @@ import { Box } from '@mui/material';
 
 import { sortOptions, urls } from 'src/common/constants';
 import SearchInput from 'src/components/shared/SearchInput';
+import products from 'src/pages/vendor/VendorProductsPage/ProductsTable/productsMock';
 import { SortOrder } from 'src/redux/user/types';
 import theme from 'src/theme';
 
@@ -14,6 +15,7 @@ import AdminSectionSubTitle from '../AdminSectionSubTitle';
 import AdminSectionTitle from '../AdminSectionTitle';
 import SortButton from '../SortButton';
 
+import ProductsTable from './ProductsTable';
 import {
   SectionWrapper,
   StyledListItemButton,
@@ -29,10 +31,10 @@ function ProductLayout() {
     setOrder(value);
   };
 
-  const [, setPage] = useState(1);
-  // const handleChange = (_: React.ChangeEvent<unknown>, value: number) => {
-  //   setPage(value);
-  // };
+  const [page, setPage] = useState(1);
+  const handleChange = (_: React.ChangeEvent<unknown>, value: number) => {
+    setPage(value);
+  };
 
   const [, setSearch] = useState('');
   const handleSearchChange = (value: string) => {
@@ -74,12 +76,12 @@ function ProductLayout() {
         <FormProvider {...methods}>
           <SearchInput setSearch={handleSearchChange} />
         </FormProvider>
-        {/* <UsersTable
-          pagesCount={pagesCount}
+        <ProductsTable
+          // pagesCount={pagesCount}
           page={page}
-          users={users}
+          products={products}
           handleChange={handleChange}
-        /> */}
+        />
       </SectionWrapper>
     </>
   );
