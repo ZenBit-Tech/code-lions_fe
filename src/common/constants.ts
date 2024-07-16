@@ -40,8 +40,10 @@ export const urls = {
   PRODUCT: '/products/:productId',
   VENDOR: '/vendor',
   VENDOR_ADD_PRODUCT: 'add-product',
+  VENDOR_EDIT_PRODUCT: 'edit-product/:productId',
   VENDOR_DASHBOARD: 'dashboard',
   VENDOR_PRODUCTS: 'products',
+  VENDOR_PRODUCT: 'products/:productId',
   VENDOR_ORDERS: 'orders',
   VENDOR_CHATS: 'chats',
   VENDOR_PROFILE: 'profile',
@@ -150,6 +152,7 @@ export const userRoles = {
 
 export const linkUrls = {
   ADMIN_USER_PROFILE_EDIT: 'edit',
+  VENDOR_EDIT_PRODUCT: 'vendor/edit-product',
 };
 
 export const sortOptions: Record<string, SortOrder> = {
