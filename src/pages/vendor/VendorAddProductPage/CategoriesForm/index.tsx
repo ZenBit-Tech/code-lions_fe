@@ -39,6 +39,7 @@ const clothesTypes = [
   { label: 'Select type', value: 'Select type' },
   { label: 'Shoes', value: 'Shoes' },
   { label: 'Dress', value: 'Dress' },
+  { label: 'Jeans', value: 'Jeans' },
   { label: 'Bag', value: 'Bag' },
   { label: 'Accessory', value: 'Accessory' },
   { label: 'Other', value: 'Other' },
