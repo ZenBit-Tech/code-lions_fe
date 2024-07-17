@@ -25,7 +25,7 @@ const StyledButton = styled(LoadingButton)<IStyledButtonProps>(
       backgroundColor: ButtonStyles[props.styles || 'black'].backgroundColor,
     },
     '&:hover': {
-      opacity: theme.palette.action.hoverOpacity,
+      filter: 'contrast(200%)',
     },
     '&:disabled': {
       cursor: 'not-allowed',

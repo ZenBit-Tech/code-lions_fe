@@ -6,7 +6,7 @@ import InfoTable from 'src/components/shared/InfoTable';
 import SectionTitle from 'src/components/shared/SectionTitle';
 
 import StyledHeader3 from './styles';
-import { clothesSizeData, shoeSizeData } from './tableData';
+import { clothesSizeData, shoeSizeData, jeansSizeData } from './tableData';
 
 function SizesGuidePage() {
   const { t } = useTranslation();
@@ -14,7 +14,7 @@ function SizesGuidePage() {
   return (
     <>
       <SectionTitle title={t('sizesGuide.title')} greyBackground showBackLink />
-      <Box component="section" sx={{ width: '100%', padding: '0 18px' }}>
+      <Box component="section" sx={{ width: '100%', padding: '0 18px 30px' }}>
         <Box component="div" sx={{ maxWidth: '920px', margin: '0 auto' }}>
           <StyledHeader3 component="h3">
             {t('sizesGuide.clothesSizeTable')}
@@ -24,9 +24,9 @@ function SizesGuidePage() {
             lastLine={t('sizesGuide.oneSize')}
           />
           <StyledHeader3 component="h3">
-            {t('sizesGuide.shoeSizeTable')}
+            {t('sizesGuide.jeansSizeTable')}
           </StyledHeader3>
-          <InfoTable tableData={shoeSizeData} />
+          <InfoTable tableData={jeansSizeData} />
           <StyledHeader3 component="h3">
             {t('sizesGuide.shoeSizeTable')}
           </StyledHeader3>

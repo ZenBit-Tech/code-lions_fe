@@ -1,7 +1,4 @@
-interface IColor {
-  id: number;
-  color: string;
-}
+import { SortOrder, SortParameter } from 'src/components/shared/OrderSelector';
 
 export interface IProduct {
   id: string;
@@ -14,35 +11,7 @@ export interface IProduct {
   type: string;
   size: string;
   images: string[];
-  colors: IColor[];
-  vendor: {
-    id: string;
-    name: string;
-    photoUrl: string;
-  };
-  createdAt: string;
-  lastUpdatedAt: string;
-}
-
-export interface IProducts {
-  products: IProduct[];
-  count: number;
-}
-
-export type ProductStatus = 'published' | 'inactive';
-
-export interface IProductVendor {
-  id: string;
-  name: string;
-  slug: string;
-  price: number;
-  description: string;
-  categories: string[];
-  style: string;
-  type: string;
-  size: string;
-  images: string[];
-  colors: IColor[];
+  colors: string[];
   vendor: {
     id: string;
     name: string;
@@ -53,3 +22,27 @@ export interface IProductVendor {
   createdAt: string;
   lastUpdatedAt: string;
 }
+export interface IProductResponse {
+  products: IProduct[];
+  count: number;
+}
+
+export interface IProductRequest {
+  category?: string;
+  page?: number;
+  limit?: number;
+  search?: string;
+  filters?: IProductFilters;
+  sortBy?: SortParameter;
+  sortOrder?: SortOrder;
+}
+
+export interface IProductFilters {
+  minPrice?: number;
+  maxPrice?: number;
+  color?: string;
+  style?: string;
+  size?: string;
+}
+
+export type ProductStatus = 'published' | 'inactive';

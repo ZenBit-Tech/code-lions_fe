@@ -6,6 +6,11 @@ import { Typography } from '@mui/material';
 import { Box } from '@mui/system';
 
 import { urls } from 'src/common/constants';
+import {
+  clothesSizes,
+  jeansSizes,
+  shoesSizes,
+} from 'src/common/selectSizeOptions';
 import StyledButton from 'src/components/shared/StyledButton';
 import {
   PaddingVariants,
@@ -17,35 +22,10 @@ import {
   OnboardingHeader4,
   OnboardingText,
 } from 'src/pages/OnboardingPage/styles';
-import {
-  clothesSizeData,
-  shoeSizeData,
-} from 'src/pages/SizesGuidePage/tableData';
 import { useAppDispatch, useAppSelector } from 'src/redux/hooks';
 import { useUpdateSizesMutation } from 'src/redux/user/userService';
 import { decreaseOnboardingStep } from 'src/redux/user/userSlice';
 import theme from 'src/theme';
-
-const clothesSizes = clothesSizeData.rows.map((row) => ({
-  label: row[3],
-  value: row[4],
-}));
-const shoesSizes = shoeSizeData.rows.map((row) => ({
-  label: row[0],
-  value: row[1],
-}));
-const jeansSizes = [
-  { label: 'W 27 H 33', value: 'W 27 H 33' },
-  { label: 'W 28 H 34', value: 'W 28 H 34' },
-  { label: 'W 26 H 35', value: 'W 26 H 35' },
-  { label: 'W 25 H 36', value: 'W 25 H 36' },
-  { label: 'W 30 H 38', value: 'W 30 H 38' },
-  { label: 'W 32 H 40', value: 'W 32 H 40' },
-  { label: 'W 28 H 37', value: 'W 28 H 37' },
-  { label: 'W 27 H 32', value: 'W 27 H 32' },
-  { label: 'W 31 H 39', value: 'W 31 H 39' },
-  { label: 'W 29 H 35', value: 'W 29 H 35' },
-];
 
 function OnboardingSizeForm() {
   const { t } = useTranslation();
@@ -104,7 +84,7 @@ function OnboardingSizeForm() {
             {t('onboarding.clothesSize')}
           </OnboardingHeader4>
           <OnboardingText variant="subtitle2">
-            {t('onboarding.sizesDescription')}
+            {t('onboarding.clothesDescription')}
           </OnboardingText>
         </Box>
         <Box sx={{ flex: 1 }}>
@@ -130,7 +110,7 @@ function OnboardingSizeForm() {
             {t('onboarding.jeansSize')}
           </OnboardingHeader4>
           <OnboardingText variant="subtitle2">
-            {t('onboarding.sizesDescription')}
+            {t('onboarding.jeansDescription')}
           </OnboardingText>
         </Box>
         <Box sx={{ flex: 1 }}>
@@ -148,7 +128,7 @@ function OnboardingSizeForm() {
           sx={{
             display: 'flex',
             flexDirection: 'column',
-            justifyContent: 'center',
+            justifyContent: 'flex-start',
             width: '250px',
           }}
         >
@@ -156,7 +136,7 @@ function OnboardingSizeForm() {
             {t('onboarding.shoesSize')}
           </OnboardingHeader4>
           <OnboardingText variant="subtitle2">
-            {t('onboarding.sizesDescription')}
+            {t('onboarding.shoesDescription')}
           </OnboardingText>
         </Box>
         <Box sx={{ flex: 1 }}>

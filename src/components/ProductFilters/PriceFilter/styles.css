@@ -1,0 +1,49 @@
+.slider .rc-slider-rail {
+  border: 1.49px solid #e3eee2;
+  width: 100%;
+  height: 1px;
+}
+
+.slider .rc-slider-handle {
+  width: 14px;
+  height: 12px;
+  border-radius: 100%;
+  border: 0;
+  background-color: #e3eee2;
+  box-shadow:
+    0 2px 8px 0 rgba(0, 0, 0, 0.2),
+    0 2px 2px 0 rgba(0, 0, 0, 0.14),
+    0 1px 3px 0 rgba(0, 0, 0, 0.12);
+  opacity: 1;
+}
+
+.slider .rc-slider-handle:hover {
+  box-shadow: 0px 0px 0px 8px rgba(51, 51, 51, 0.16);
+}
+
+.slider .rc-slider-track {
+  width: 100%;
+  border: 1.49px solid #000000;
+  width: 100%;
+  height: 1px;
+}
+
+.slider .rc-slider-handle-1 {
+  border: 0;
+  background-color: #e3eee2;
+}
+
+.slider .rc-slider-handle-2 {
+  border: 0;
+  background-color: #e3eee2;
+}
+
+.slider .rc-slider-handle:hover {
+  border-color: #e3eee2;
+}
+
+.slider .rc-slider-handle:active {
+  border-color: #e3eee2;
+  box-shadow: 0 0 5px #e3eee2;
+  cursor: grabbing;
+}

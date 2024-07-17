@@ -16,7 +16,7 @@ const mockProduct: IProduct = {
   type: 'TestType',
   size: 'L',
   images: ['test-image.jpg'],
-  colors: [{ id: 1, color: 'Red' }],
+  colors: ['red'],
   vendor: {
     id: 'vendor1',
     name: 'Test Vendor',
