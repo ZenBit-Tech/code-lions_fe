@@ -106,7 +106,7 @@ function ProductsTable({
               <BodyTableCell align="center">
                 <Status label={product.status} status={product.status} />
               </BodyTableCell>
-              <BodyTableCell align="center">{product.stock}</BodyTableCell>
+              <BodyTableCell align="center">1</BodyTableCell>
               <BodyTableCell align="center">
                 ${formatToTwoDecimalPlaces(product.price)}
               </BodyTableCell>
