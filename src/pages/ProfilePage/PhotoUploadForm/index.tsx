@@ -19,9 +19,7 @@ function PhotoUploadForm() {
   const { showToast } = useToast();
   const user = useAppSelector(selectUser);
   const [uploadPhoto] = useUploadPhotoMutation();
-  const [preview, setPreview] = useState<string | null>(
-    user.photoUrl ? user.photoUrl : null
-  );
+  const [preview, setPreview] = useState<string | null>(user.photoUrl || null);
   const [imageError, setImageError] = useState(false);
 
   const { handleOnSubmitError } = useErrorHandling();

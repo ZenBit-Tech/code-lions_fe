@@ -15,7 +15,7 @@ import {
   TitleStyled,
 } from './styles';
 
-function NewPasswordPage() {
+function PrivacyPolicyPage() {
   const { t } = useTranslation();
 
   return (
@@ -46,4 +46,4 @@ function NewPasswordPage() {
   );
 }
 
-export default NewPasswordPage;
+export default PrivacyPolicyPage;

@@ -1,6 +1,6 @@
-import { IProductVendor } from 'src/redux/product/types';
+import { IProduct } from 'src/redux/product/types';
 
-const products: IProductVendor[] = [
+const products: IProduct[] = [
   {
     id: '1rm07r7r-t98p-5q9q-8p59-33sq0p8s3219',
     name: 'Cool product',
@@ -16,10 +16,7 @@ const products: IProductVendor[] = [
       'https://example.com/images/big/408793385.jpg',
       'https://example.com/images/big/408793386.jpg',
     ],
-    colors: [
-      { id: 1, color: '#000000' },
-      { id: 2, color: '#FFFFFF' },
-    ],
+    colors: ['black', 'white'],
     vendor: {
       id: '2rm07r7r-t98p-5q9q-8p59-33sq0p8s3219',
       name: 'Oscar Perez',
@@ -45,10 +42,7 @@ const products: IProductVendor[] = [
       'https://example.com/images/big/408793385.jpg',
       'https://example.com/images/big/408793386.jpg',
     ],
-    colors: [
-      { id: 1, color: '#000000' },
-      { id: 2, color: '#FFFFFF' },
-    ],
+    colors: ['white', 'yellow'],
     vendor: {
       id: '2rm07r7r-t98p-5q9q-8p59-33sq0p8s3219',
       name: 'Oscar Perez',

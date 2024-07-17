@@ -15,16 +15,17 @@
     "signUp": "Sign Up"
   },
   "footer": {
-    "someText": "Some text will be here two - three lines",
-    "copyright": "© 2023 Black Circle"
+    "someText": "Rent. Wear. Shine.",
+    "copyright": "© 2024 Black Circle"
   },
   "menu": {
     "shop": "Shop",
     "login": "Login",
+    "signUp": "Sign Up",
     "wishlist": "Wishlist",
     "cart": "Cart",
     "company": "Company",
-    "aboutUs": "About US",
+    "aboutUs": "About Us",
     "terms": "Terms & Conditions",
     "privacy": "Privacy Policy",
     "contact": "Contact Us",
@@ -84,6 +85,7 @@
     "title": "Sizes Guide",
     "clothesSizeTable": "Clothes Size Table",
     "shoeSizeTable": "Shoe Size Table",
+    "jeansSizeTable": "Jeans Size Table",
     "oneSize": "One Size"
   },
   "restorePassword": {
@@ -209,7 +211,9 @@
     "city": "City",
     "toronto": "Toronto",
     "clothesSize": "Clothes Size",
-    "sizesDescription": "Here will be text with sizes description",
+    "clothesDescription": "International Standard Size",
+    "jeansDescription": "Waist (W) Size",
+    "shoesDescription": "European Shoes Standard Size",
     "jeansSize": "Jeans Size",
     "shoesSize": "Shoes Size",
     "sizeAndFit": "Size & Fit",
@@ -312,8 +316,16 @@
     "style": "STYLE"
   },
   "products": {
+    "title": "Products",
     "filters": "filters",
-    "title": "134 products"
+    "counter": "products",
+    "bags": "Bags",
+    "shoes": "Shoes",
+    "clothing": "Clothing",
+    "designers": "Designers",
+    "accessories": "Accessories",
+    "noProducts": "No products found",
+    "error": "An unexpected error occurred. Please try again later"
   },
   "home": {
     "categories": "Categories",
@@ -361,8 +373,8 @@
     "changePhoto": "Change Photo"
   },
   "filters": {
-    "title": "Filter",
-    "price": "Price",
+    "title": "Filters",
+    "price": "PRICE",
     "color": "COLOR",
     "size": "SIZE",
     "style": "STYLE",
@@ -375,6 +387,50 @@
     "name": "Vendor Name",
     "follow": "Follow"
   },
+  "aboutUs": {
+    "title": "About Us",
+    "subtitle": "Information about our site",
+    "text": "Welcome to Black Circle - your ultimate destination for renting fashion items. Explore our extensive collection of clothing, shoes, and accessories available for rent from top vendors. Our platform allows you to browse, select, and rent high-quality items effortlessly. Enjoy flexible rental periods, detailed descriptions, and high-resolution images to make informed decisions. Vendors, join us to reach a broader audience, increase your brand's visibility, and generate additional revenue by renting out your inventory. Embrace sustainable fashion and reduce waste by opting for rental options. Discover the perfect pieces for any occasion without the commitment of purchasing. Shop now and elevate your style with ease."
+  },
+  "company": {
+    "title": "Company",
+    "subtitle": "Information about our company",
+    "text": "At Black Circle, we are committed to providing a seamless and sustainable rental experience for fashion enthusiasts. Our mission is to make high-quality fashion accessible to everyone while promoting eco-friendly practices. With a focus on customer satisfaction, we offer a diverse range of clothing, shoes, and accessories from renowned vendors. Join our community and enjoy the benefits of fashion without the long-term commitment."
+  },
+  "contact": {
+    "title": "Contact Us",
+    "subtitle": "Get in touch with us",
+    "text": "We're here to help! Whether you have questions about our services, need assistance with your rental, or want to provide feedback, our dedicated support team is ready to assist you. Reach out to us via email, phone, or our online contact form. We value your input and strive to provide prompt and helpful responses to all inquiries."
+  },
+  "help": {
+    "title": "Help",
+    "subtitle": "How can we assist you?",
+    "text": "At Black Circle, we prioritize customer support and aim to make your rental experience as smooth as possible. Our Help section provides comprehensive guides and answers to common questions about our platform, rental process, and policies. If you need further assistance, our support team is always available to offer personalized help and ensure you have a seamless experience."
+  },
+  "faq": {
+    "title": "FAQ",
+    "subtitle": "Frequently Asked Questions",
+    "text": "Find answers to the most frequently asked questions about Black Circle. Our FAQ section covers topics such as account setup, rental procedures, payment methods, shipping, and returns. We aim to address your concerns and provide detailed information to make your rental experience straightforward and enjoyable. If you can't find what you're looking for, feel free to contact our support team."
+  },
+  "shipping": {
+    "title": "Shipping",
+    "subtitle": "Shipping Information",
+    "text": "Learn about our shipping policies and procedures at Black Circle. We offer reliable and timely shipping options to ensure your rented items arrive in perfect condition. Our shipping information section details our delivery methods, estimated delivery times, and shipping costs. We are committed to providing a hassle-free and efficient shipping experience for all our customers."
+  },
+  "rent": {
+    "title": "Rent",
+    "subtitle": "How to Rent",
+    "text": "Renting from Black Circle is simple and convenient. Browse our extensive catalog of fashion items, select your desired products, and choose your rental period. Our platform provides clear pricing and rental terms, ensuring a transparent and user-friendly experience. Enjoy the flexibility of wearing high-quality fashion pieces without the commitment of buying. Embrace sustainable fashion with Black Circle today."
+  },
+  "orderSelect": {
+    "priceAsc": "Price - Ascending",
+    "priceDesc": "Price - Descending",
+    "dateAsc": "Date - Ascending",
+    "dateDesc": "Date - Descending",
+    "nameAsc": "Name - Ascending",
+    "nameDesc": "Name - Descending",
+    "noSort": "No Sort"
+  },
   "cart": {
     "viewWarning": "Please, sign in to view your cart",
     "addWarning": "Please, sign in to add a product to your cart",
@@ -386,6 +442,37 @@
   "wishlist": {
     "addError": "Error occured while adding product to wishlist",
     "removeError": "Error occured while removing the product from wishlist"
+  },
+  "notFound": {
+    "title": "Page not found",
+    "text": "Oops! Page not found",
+    "back": "Back to home"
+  },
+  "colors": {
+    "black": "Black",
+    "red": "Red",
+    "white": "White",
+    "green": "Green",
+    "pink": "Pink",
+    "yellow": "Yellow",
+    "purple": "Purple",
+    "blue": "Blue",
+    "grey": "Grey",
+    "brown": "Brown"
+  },
+  "selectedFilters": {
+    "clearAll": "Clear All",
+    "from": "From",
+    "to": "To"
+  },
+  "addProduct": {
+    "title": "Add Product",
+    "category": "Category",
+    "categorySubtitle": "Please select your product category from the list provided",
+    "type": "Type",
+    "typeSubtitle": "Please select product Type",
+    "style": "Style",
+    "styleSubtitle": "Please select product Style"
   },
   "cartPage": {
     "title": "Cart",

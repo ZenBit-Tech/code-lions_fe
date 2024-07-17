@@ -1,4 +1,4 @@
-import { Button, Slider } from '@mui/material';
+import { Button } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
 import theme from 'src/theme';
@@ -24,27 +24,12 @@ export const ColorButton = styled(Button, {
   },
 }));
 
-export const CustomizedSlider = styled(Slider)`
-  & .MuiSlider-rail {
-    border: 1.49px solid ${theme.palette.secondary.main};
-    width: 100%;
-    height: 1px;
-    opacity: 1;
-  }
-
-  & .MuiSlider-thumb {
-    width: 14px;
-    height: 12px;
-    border-radius: 100%;
-    background-color: ${theme.palette.secondary.main};
-  }
-  & .MuiSlider-track {
-    border: 1.49px solid ${theme.palette.common.black};
-    background-color: ${theme.palette.common.black};
-    height: 1px;
-  }
-
-  & .MuiSlider-mark {
-    background-color: transparent;
-  }
-`;
+export const style = {
+  subTitle: {
+    width: '100%',
+    margin: '16px 0',
+    textAlign: 'center',
+    fontSize: `${theme.typography.h4.fontSize}px`,
+    letterSpacing: '0.6px',
+  },
+};

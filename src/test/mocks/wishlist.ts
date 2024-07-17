@@ -1,6 +1,6 @@
 import { IProduct } from 'src/redux/product/types';
 
-import allProducts from './allproducts';
+import allProducts from './allProducts';
 
 const userId: string = '1';
 

@@ -12,10 +12,7 @@ const allProducts: IProduct[] = [
     type: 'Type 1',
     size: 'M',
     images: ['image1.jpg', 'image2.jpg'],
-    colors: [
-      { id: 9, color: 'Red' },
-      { id: 2, color: 'Blue' },
-    ],
+    colors: ['red', 'blue'],
     vendor: {
       id: 'vendor1',
       name: 'Vendor 1',
@@ -35,10 +32,7 @@ const allProducts: IProduct[] = [
     type: 'Type 2',
     size: 'L',
     images: ['image3.jpg', 'image4.jpg'],
-    colors: [
-      { id: 4, color: 'Green' },
-      { id: 11, color: 'Yellow' },
-    ],
+    colors: ['green', 'yellow'],
     vendor: {
       id: 'vendor2',
       name: 'Vendor 2',
@@ -58,10 +52,7 @@ const allProducts: IProduct[] = [
     type: 'Type 3',
     size: 'S',
     images: ['image5.jpg', 'image6.jpg'],
-    colors: [
-      { id: 7, color: 'Pink' },
-      { id: 8, color: 'Purple' },
-    ],
+    colors: ['pink', 'purple'],
     vendor: {
       id: 'vendor3',
       name: 'Vendor 3',
@@ -81,10 +72,7 @@ const allProducts: IProduct[] = [
     type: 'Type 4',
     size: 'XL',
     images: ['image7.jpg', 'image8.jpg'],
-    colors: [
-      { id: 6, color: 'Orange' },
-      { id: 1, color: 'Black' },
-    ],
+    colors: ['orange', 'black'],
     vendor: {
       id: 'vendor4',
       name: 'Vendor 4',
@@ -104,10 +92,7 @@ const allProducts: IProduct[] = [
     type: 'Type 5',
     size: 'M',
     images: ['image9.jpg', 'image10.jpg'],
-    colors: [
-      { id: 10, color: 'White' },
-      { id: 5, color: 'Grey' },
-    ],
+    colors: ['white', 'grey'],
     vendor: {
       id: 'vendor5',
       name: 'Vendor 5',

@@ -2,6 +2,8 @@ import { SortOrder } from 'src/redux/user/types';
 
 export const apiUrl = import.meta.env.VITE_API_URL;
 
+export const productsOnPage = 12;
+
 export const urls = {
   HOME: '/',
   SIGN_UP: '/signup',
@@ -40,6 +42,8 @@ export const urls = {
   PROFILE_SETTINGS: 'settings',
   PROFILE_SUPPORT: 'support',
   PRODUCT_FEED: '/products',
+  PRODUCT_CATEGORY: '/products/category/:category',
+  PRODUCT_CATEGORY_URL: '/products/category',
   PRODUCT: '/products/:productId',
   VENDOR: '/vendor',
   VENDOR_ADD_PRODUCT: 'add-product',
@@ -51,6 +55,13 @@ export const urls = {
   VENDOR_CHATS: 'chats',
   VENDOR_PROFILE: 'profile',
   BEST_VENDORS: '/best-vendors',
+  COMPANY: '/company',
+  ABOUT_US: '/about-us',
+  CONTACT: '/contact',
+  FAQ: '/faq',
+  SHIPPING: '/shipping',
+  RENT: '/rent',
+  HELP: '/help',
   CART: 'cart',
   CHECKOUT: 'checkout',
 };
@@ -147,6 +158,8 @@ export const countryCodes: CountryCode[] = [
   { code: '' },
 ];
 
+export const defaultCountryCode = '+1';
+
 export const userRoles = {
   BUYER: 'buyer',
   VENDOR: 'vendor',
@@ -213,6 +226,35 @@ export const homeProductsSorting = {
   RECOMMENDED: 'recommended',
   YOUR_SIZE: 'yoursize',
 };
+
+export const productStyles = {
+  CASUAL: 'casual',
+  PREMIUM: 'premium',
+  FANCY: 'fancy',
+};
+
+export const maxProductPrice = 500;
+
+export const productCategories = [
+  'bags',
+  'shoes',
+  'clothing',
+  'designers',
+  'accessories',
+];
+
+export const colors = [
+  { name: 'black', hex: '#000000' },
+  { name: 'red', hex: '#EB5757' },
+  { name: 'white', hex: '#FFFFFF' },
+  { name: 'green', hex: '#008000' },
+  { name: 'pink', hex: '#F178B6' },
+  { name: 'yellow', hex: '#F2C94C' },
+  { name: 'purple', hex: '#7700C8' },
+  { name: 'blue', hex: '#0990FF' },
+  { name: 'grey', hex: '#6D6B6B' },
+  { name: 'brown', hex: '#955539' },
+];
 
 export const shippingOption = {
   FREE: 'Free shipping',

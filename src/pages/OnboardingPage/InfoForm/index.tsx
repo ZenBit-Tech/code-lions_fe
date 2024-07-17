@@ -9,8 +9,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import ChevronDown from 'src/assets/icons/chevron-down.svg';
 import PhotoIcon from 'src/assets/icons/photo.svg';
 import UserImageIcon from 'src/assets/icons/user-image.svg';
-import { countryCodes } from 'src/common/constants';
-import { apiUrl } from 'src/common/constants.ts';
+import { countryCodes, defaultCountryCode } from 'src/common/constants';
 import splitPhoneNumber from 'src/common/splitPhoneNumber';
 import StyledButton from 'src/components/shared/StyledButton';
 import {
@@ -51,15 +50,13 @@ function OnboardingInfoForm() {
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.user);
   const { countryCode: countryCodeValue, number: phoneNumberValue } =
-    splitPhoneNumber(user.phoneNumber || '', countryCodes);
+    splitPhoneNumber(user.phoneNumber || defaultCountryCode, countryCodes);
 
   const [countryCode, setCountryCode] = useState<string>(countryCodeValue);
 
   const [uploadPhoto, { isLoading }] = useUploadPhotoMutation();
   const [updatePhone, { isLoading: isLoadingPhone }] = useUpdatePhoneMutation();
-  const [preview, setPreview] = useState<string | null>(
-    user.photoUrl ? apiUrl + user.photoUrl : null
-  );
+  const [preview, setPreview] = useState<string | null>(user.photoUrl || null);
   const { showToast } = useToast();
   const {
     control,

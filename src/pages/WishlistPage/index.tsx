@@ -46,8 +46,8 @@ function WishlistPage() {
           sx={{
             width: {
               xs: '100%',
-              md: 'calc(50% - 20px)',
-              lg: 'calc(33% - 19px)',
+              md: 'calc(50% - 12px)',
+              lg: 'calc(33.33% - 16px)',
               xl: 'calc(25% - 18px)',
             },
           }}

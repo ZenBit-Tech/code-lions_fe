@@ -27,7 +27,7 @@ function BestVendorsPage() {
             gap: '32px',
           }}
         >
-          <ProductFilters />
+          <ProductFilters filters={{}} onFilterChange={() => {}} />
           <Box component="div" sx={{ flexGrow: 1 }}>
             <BestVendorsList />
           </Box>
