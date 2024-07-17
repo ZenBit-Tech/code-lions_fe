@@ -13,7 +13,7 @@ import theme from 'src/theme';
 import RadioLabel from './RadioLabel';
 import { StyledInput, StyledFormControlLabel } from './styles';
 
-const stringLimit = 30;
+const stringLimit: number = 30;
 
 interface ProductSectionProps {
   product: IProduct;
