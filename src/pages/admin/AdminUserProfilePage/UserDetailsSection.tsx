@@ -7,12 +7,12 @@ import { Box, IconButton, Typography } from '@mui/material';
 import ChevronRight from 'src/assets/icons/chevron-right-grey-small.svg';
 import DeleteTrash from 'src/assets/icons/delete-trash.svg';
 import EditPencil from 'src/assets/icons/edit-pencil.svg';
+import StyledBackdrop from 'src/components/shared/StyledBackdrop';
 import theme from 'src/theme';
 
 import AdminSectionSubTitle from '../AdminSectionSubTitle';
 import AdminSectionTitle from '../AdminSectionTitle';
 import ModalPopup from '../ModalPopup';
-import StyledBackdrop from '../StyledBackdrop';
 
 import useUserDetails from './hooks/useUserDetails';
 
