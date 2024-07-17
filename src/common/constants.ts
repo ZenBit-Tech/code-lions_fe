@@ -47,7 +47,7 @@ export const urls = {
   VENDOR_EDIT_PRODUCT: 'edit-product/:productId',
   VENDOR_DASHBOARD: 'dashboard',
   VENDOR_PRODUCTS: 'products',
-  VENDOR_PRODUCT: 'products/:productId',
+  VENDOR_PRODUCT: 'vendor/products/:productId',
   VENDOR_ORDERS: 'orders',
   VENDOR_CHATS: 'chats',
   VENDOR_PROFILE: 'profile',
