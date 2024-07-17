@@ -91,8 +91,8 @@ function ImagesSection({
               top: 15,
               right: 15,
               padding: '3px',
-              opacity: '0.5',
               transition: 'all 0.3s ease',
+              backgroundColor: theme.palette.common.white,
             }}
             onClick={
               isInWishlist ? handleRemoveFromWishlist : handleAddToWishlist
