@@ -26,7 +26,7 @@ const durations = [
 
 const weeksCount: number = 2;
 
-const radioValue: string = durations[0]?.duration.toString();
+const radioValue: string = durations[0].duration.toString();
 
 function ProductSection({ product }: ProductSectionProps) {
   const { t } = useTranslation();
