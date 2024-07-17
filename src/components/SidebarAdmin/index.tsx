@@ -180,7 +180,7 @@ function SideBar() {
           selected={selectedIndex === listIndexes.products}
           onClick={(event) => {
             handleListItemClick(event, listIndexes.products);
-            navigate(`${urls.ADMIN_PRODUCT}/${urls.ADMIN_PRODUCT_REQUEST}`);
+            navigate(urls.ADMIN_PRODUCT_REQUEST);
             handleProductsClick();
             handleSubListItemClick(
               event,
@@ -242,14 +242,14 @@ function SideBar() {
               marginBottom: '12px',
             }}
           >
-            <NavLink to={`${urls.ADMIN_PRODUCT}/${urls.ADMIN_PRODUCT_REQUEST}`}>
+            <NavLink to={urls.ADMIN_PRODUCT_REQUEST}>
               {({ isActive }) => (
                 <StyledSubListItemButton selected={isActive}>
                   <Typography variant="h4">{t('sidebar.requests')}</Typography>
                 </StyledSubListItemButton>
               )}
             </NavLink>
-            <NavLink to={`${urls.ADMIN_PRODUCT}/${urls.ADMIN_PRODUCT_LIST}`}>
+            <NavLink to={urls.ADMIN_PRODUCT_LIST}>
               {({ isActive }) => (
                 <StyledSubListItemButton selected={isActive}>
                   <Typography variant="h4">

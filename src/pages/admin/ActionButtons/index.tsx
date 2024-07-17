@@ -9,7 +9,6 @@ import { linkUrls } from 'src/common/constants';
 
 interface IActionButtons {
   userId: string;
-
   handleOpen: () => void;
 }
 

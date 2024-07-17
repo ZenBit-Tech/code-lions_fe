@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { Box, Typography } from '@mui/material';
@@ -11,6 +12,13 @@ type PartialProduct = Partial<Pick<IProduct, 'name' | 'size' | 'images'>>;
 
 function ProductTableCard({ images, size, name }: PartialProduct) {
   const { t } = useTranslation();
+  const [imgSrc, setImgSrc] = useState(
+    images && images.length > 0 ? images[0] : 'src/assets/photos/no-image.jpg'
+  );
+
+  const handleError = () => {
+    setImgSrc('src/assets/photos/no-image.jpg');
+  };
 
   return (
     <Box display="flex" gap="16px" alignItems="center">
@@ -18,12 +26,9 @@ function ProductTableCard({ images, size, name }: PartialProduct) {
         <Image
           width="52px"
           height="67px"
-          src={
-            images && images.length > 0
-              ? images[0]
-              : 'src/assets/photos/no-image.jpg'
-          }
+          src={imgSrc}
           alt={name || 'Product image'}
+          onError={handleError}
         />
       </ImageWrapper>
       <Box width="223px">

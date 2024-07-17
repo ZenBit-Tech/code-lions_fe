@@ -28,10 +28,15 @@ export const StyledListItemButton = styled(ListItemButton)(({ theme }) => ({
   },
 }));
 
-export const StyledTypography = styled(Typography)(
-  ({ isActive, theme }: { isActive: boolean; theme: Theme }) => ({
-    fontWeight: isActive
-      ? theme.typography.bold.fontWeight
-      : theme.typography.fontWeightRegular,
-  })
-);
+interface StyledTypographyProps {
+  isActive: boolean;
+  theme: Theme;
+}
+
+export const StyledTypography = styled(Typography, {
+  shouldForwardProp: (prop) => prop !== 'isActive',
+})<StyledTypographyProps>(({ isActive, theme }) => ({
+  fontWeight: isActive
+    ? theme.typography.fontWeightBold
+    : theme.typography.fontWeightRegular,
+}));

@@ -12,7 +12,7 @@ import theme from 'src/theme';
 
 import AdminSectionSubTitle from '../AdminSectionSubTitle';
 import AdminSectionTitle from '../AdminSectionTitle';
-import ModalPopup from '../ModalPopup';
+import ModalPopup from '../UsersPage/ModalPopupUsers';
 
 import useUserDetails from './hooks/useUserDetails';
 

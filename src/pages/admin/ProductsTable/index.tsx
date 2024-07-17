@@ -1,16 +1,21 @@
 import { useState } from 'react';
 import { createPortal } from 'react-dom';
 import { useTranslation } from 'react-i18next';
+import { useLocation } from 'react-router-dom';
 
 import { Table, TableContainer, TableRow, Typography } from '@mui/material';
 
+import { urls } from 'src/common/constants';
 import formatToTwoDecimalPlaces from 'src/common/utils/formatToTwoDecimalPlaces';
 import ProductTableCard from 'src/components/ProductTableCard';
 import StyledBackdrop from 'src/components/shared/StyledBackdrop';
 import StyledPagination from 'src/pages/admin/StyledPagination';
-import ActionButtons from 'src/pages/vendor/VendorProductsPage/ActionButtons';
-import ModalPopup from 'src/pages/vendor/VendorProductsPage/ModalPopup';
-import { IProductVendor } from 'src/redux/product/types';
+import { IProduct } from 'src/redux/product/types';
+
+import ActionButtonsProduct from '../ProductListPage/ActionButtonsProduct';
+import ModalPopupProduct from '../ProductListPage/ModalPopupProduct';
+import ActionButtonsRequest from '../ProductRequestPage/ActionButtonsRequest';
+import ModalPopupReject from '../ProductRequestPage/ModalPopupReject';
 
 import {
   BodyTableCell,
@@ -22,25 +27,26 @@ import {
 } from './styles';
 
 interface IProductsTable {
-  products: IProductVendor[];
-  // pagesCount: number;
+  products: IProduct[];
+  pagesCount: number;
   page: number;
   handleChange: (event: React.ChangeEvent<unknown>, value: number) => void;
 }
 
 function ProductsTable({
   products,
-  // pagesCount,
+  pagesCount,
   page,
   handleChange,
 }: IProductsTable) {
   const { t } = useTranslation();
+  const location = useLocation();
 
   const [showModal, setShowModal] = useState<boolean>(false);
-  const [selectedUser, setSelectedUser] = useState<string>('');
-  const handleOpen = (userId: string) => {
+  const [selectedProduct, setSelectedProduct] = useState<string>('');
+  const handleOpen = (productId: string) => {
     setShowModal(true);
-    setSelectedUser(userId);
+    setSelectedProduct(productId);
   };
   const handleClose = () => setShowModal(false);
 
@@ -92,7 +98,8 @@ function ProductsTable({
                 />
               </BodyTableCell>
               <BodyTableCell align="center">
-                {product.categories.length > 1 &&
+                {product?.categories &&
+                  product.categories.length >= 1 &&
                   product.categories.map((category) => (
                     <Typography
                       key={category}
@@ -105,21 +112,45 @@ function ProductsTable({
               <BodyTableCell align="center">
                 <Status label={product.status} status={product.status} />
               </BodyTableCell>
-              <BodyTableCell align="center">{product.stock}</BodyTableCell>
+              <BodyTableCell align="center">{product.stock ?? 1}</BodyTableCell>
               <BodyTableCell align="center">
                 ${formatToTwoDecimalPlaces(product.price)}
               </BodyTableCell>
               <BodyTableCell align="center">
-                <ActionButtons
-                  productId={product.id}
-                  handleOpen={() => handleOpen(product.id)}
-                />
+                {location.pathname.includes(urls.ADMIN_PRODUCT_REQUEST) && (
+                  <ActionButtonsRequest
+                    productId={product.id}
+                    handleOpen={() => handleOpen(product.id)}
+                  />
+                )}
+                {location.pathname.includes(urls.ADMIN_PRODUCT_LIST) && (
+                  <ActionButtonsProduct
+                    productId={product.id}
+                    handleOpen={() => handleOpen(product.id)}
+                  />
+                )}
               </BodyTableCell>
-              {showModal &&
-                product.id === selectedUser &&
+              {location.pathname.includes(urls.ADMIN_PRODUCT_REQUEST) &&
+                showModal &&
+                product.id === selectedProduct &&
                 createPortal(
                   <StyledBackdrop showModal={showModal}>
-                    <ModalPopup onClose={handleClose} productId={product.id} />
+                    <ModalPopupReject
+                      onClose={handleClose}
+                      productId={product.id}
+                    />
+                  </StyledBackdrop>,
+                  document.body
+                )}
+              {location.pathname.includes(urls.ADMIN_PRODUCT_LIST) &&
+                showModal &&
+                product.id === selectedProduct &&
+                createPortal(
+                  <StyledBackdrop showModal={showModal}>
+                    <ModalPopupProduct
+                      onClose={handleClose}
+                      productId={product.id}
+                    />
                   </StyledBackdrop>,
                   document.body
                 )}
@@ -128,7 +159,7 @@ function ProductsTable({
         </TableBodyStyled>
       </Table>
       <StyledPagination
-        // count={pagesCount}
+        count={pagesCount}
         page={page}
         handleChange={handleChange}
       />
