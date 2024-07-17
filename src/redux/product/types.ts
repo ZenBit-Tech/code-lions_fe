@@ -17,7 +17,6 @@ export interface IProduct {
     name: string;
     photoUrl: string;
   };
-  stock: number;
   status: ProductStatus;
   createdAt: string;
   lastUpdatedAt: string;

@@ -24,6 +24,7 @@ const mockProduct: IProduct = {
   },
   createdAt: '2023-01-01',
   lastUpdatedAt: '2023-01-01',
+  status: 'published',
 };
 
 describe('ProductCard', () => {
