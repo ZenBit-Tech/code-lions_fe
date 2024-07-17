@@ -387,6 +387,15 @@
     "addError": "Error occured while adding product to wishlist",
     "removeError": "Error occured while removing the product from wishlist"
   },
+  "addProduct": {
+    "title": "Add Product",
+    "category": "Category",
+    "categorySubtitle": "Please select your product category from the list provided",
+    "type": "Type",
+    "typeSubtitle": "Please select product Type",
+    "style": "Style",
+    "styleSubtitle": "Please select product Style"
+  },
   "cartPage": {
     "title": "Cart",
     "product": "Product",
