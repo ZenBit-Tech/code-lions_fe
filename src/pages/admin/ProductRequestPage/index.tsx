@@ -3,10 +3,11 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { NavLink } from 'react-router-dom';
 
-import { Box, CircularProgress } from '@mui/material';
+import { Box } from '@mui/material';
 
 import { sortOptions, urls } from 'src/common/constants';
 import useErrorHandling from 'src/common/hooks/useErrorHandlingHook';
+import Loader from 'src/components/Loader';
 import SearchInput from 'src/components/shared/SearchInput';
 import useToast from 'src/components/shared/toasts/components/ToastProvider/ToastProviderHooks';
 import { useGetAllProductsQuery } from 'src/redux/adminProduct/adminProductService';
@@ -15,6 +16,7 @@ import theme from 'src/theme';
 
 import AdminSectionSubTitle from '../AdminSectionSubTitle';
 import AdminSectionTitle from '../AdminSectionTitle';
+import useProducts from '../ProductListPage/useProductListHook';
 import ProductsTable from '../ProductsTable';
 import SortButton from '../SortButton';
 
@@ -30,16 +32,15 @@ function ProductRequestPage() {
   const methods = useForm();
 
   const [page, setPage] = useState(1);
+  const [sortOrder, setSortOrder] = useState<SortOrder>(sortOptions.DESC);
+  const [search, setSearch] = useState('');
+
   const handleChange = (_: React.ChangeEvent<unknown>, value: number) => {
     setPage(value);
   };
-
-  const [sortOrder, setSortOrder] = useState<SortOrder>(sortOptions.DESC);
   const handleClick = (value: SortOrder) => {
     setSortOrder(value);
   };
-
-  const [search, setSearch] = useState('');
   const handleSearchChange = (value: string) => {
     setSearch(value);
     setPage(1);
@@ -51,10 +52,8 @@ function ProductRequestPage() {
     sortOrder,
     search,
   });
-  const limit = 5;
-  const products = data?.products || [];
-  const count = data?.count || 1;
-  const pagesCount = Math.ceil(count / limit);
+
+  const { products, pagesCount } = useProducts({ data });
 
   const { handleOnSubmitError } = useErrorHandling();
 
@@ -65,7 +64,7 @@ function ProductRequestPage() {
   }, [error, handleOnSubmitError, showToast, t]);
 
   if (isLoading) {
-    return <CircularProgress />;
+    return <Loader />;
   }
 
   return (
