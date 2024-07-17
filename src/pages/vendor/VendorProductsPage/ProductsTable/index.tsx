@@ -8,7 +8,7 @@ import formatToTwoDecimalPlaces from 'src/common/utils/formatToTwoDecimalPlaces'
 import ProductTableCard from 'src/components/ProductTableCard';
 import StyledBackdrop from 'src/components/shared/StyledBackdrop';
 import StyledPagination from 'src/pages/admin/StyledPagination';
-import { IProductVendor } from 'src/redux/product/types';
+import { IProduct } from 'src/redux/product/types';
 
 import ActionButtons from '../ActionButtons';
 import ModalPopup from '../ModalPopup';
@@ -23,7 +23,7 @@ import {
 } from './styles';
 
 interface IProductsTable {
-  products: IProductVendor[];
+  products: IProduct[];
   pagesCount: number;
   page: number;
   handleChange: (event: React.ChangeEvent<unknown>, value: number) => void;
