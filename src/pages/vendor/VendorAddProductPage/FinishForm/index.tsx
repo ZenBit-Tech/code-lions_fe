@@ -21,7 +21,7 @@ import {
 import { useAppDispatch } from 'src/redux/hooks';
 import {
   decreaseOnboardingStep,
-  increaseOnboardingStep,
+  setOnboardingStepEqualFinish,
 } from 'src/redux/user/userSlice';
 import theme from 'src/theme';
 
@@ -52,7 +52,7 @@ function FinishForm() {
   };
 
   const goToNextStep = () => {
-    dispatch(increaseOnboardingStep());
+    dispatch(setOnboardingStepEqualFinish());
   };
 
   return (

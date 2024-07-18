@@ -1,11 +1,23 @@
+import { useState, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { Typography } from '@mui/material';
-import { Box } from '@mui/system';
+import {
+  Typography,
+  Box,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  DialogActions,
+  Button,
+} from '@mui/material';
 
 import OnboardingHeaderItem from 'src/pages/OnboardingPage/HeaderItem';
-import { useAppSelector } from 'src/redux/hooks';
-import { selectOnboardingStep } from 'src/redux/user/userSlice';
+import { useAppDispatch, useAppSelector } from 'src/redux/hooks';
+import {
+  selectOnboardingStep,
+  setOnboardingStepEqualFinish,
+} from 'src/redux/user/userSlice';
 import theme from 'src/theme';
 
 import CategoriesForm from './CategoriesForm';
@@ -38,7 +50,34 @@ const addProductData = [
 
 function VendorAddProductPage() {
   const { t } = useTranslation();
+  const dispatch = useAppDispatch();
   const currentStep = useAppSelector(selectOnboardingStep);
+  const [showConfirmDialog, setShowConfirmDialog] = useState(false);
+  const componentRef = useRef<HTMLDivElement>(null);
+
+  const handleClickOutside = (event: MouseEvent) => {
+    if (
+      componentRef.current &&
+      !componentRef.current.contains(event.target as Node)
+    ) {
+      const targetElement = event.target as HTMLElement;
+
+      if (
+        !targetElement.closest('.MuiSelect-root') &&
+        !targetElement.closest('.MuiPaper-root')
+      ) {
+        setShowConfirmDialog(true);
+      }
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   const currentStepComponent = addProductData.find(
     (step) => step.stepId === currentStep
@@ -51,6 +90,7 @@ function VendorAddProductPage() {
         sx={{
           width: '100%',
         }}
+        ref={componentRef}
       >
         <Box
           sx={{
@@ -88,6 +128,37 @@ function VendorAddProductPage() {
           {currentStepComponent}
         </Box>
       </Box>
+
+      <Dialog
+        open={showConfirmDialog}
+        onClose={() => setShowConfirmDialog(false)}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          {t('addProduct.confirmCloseTitle')}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            {t('addProduct.confirmCloseMessage')}
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setShowConfirmDialog(false)} color="primary">
+            {t('addProduct.no')}
+          </Button>
+          <Button
+            onClick={() => {
+              setShowConfirmDialog(false);
+              dispatch(setOnboardingStepEqualFinish());
+            }}
+            color="primary"
+            autoFocus
+          >
+            {t('addProduct.yes')}
+          </Button>
+        </DialogActions>
+      </Dialog>
     </>
   );
 }

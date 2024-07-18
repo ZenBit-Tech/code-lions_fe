@@ -1,15 +1,6 @@
 import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
 
-import {
-  Box,
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-} from '@mui/material';
+import { Box } from '@mui/material';
 
 import theme from 'src/theme';
 
@@ -51,12 +42,9 @@ const validateImage = (file: File): Promise<boolean> => {
 };
 
 function ImagesForm() {
-  const { t } = useTranslation();
-
   const [mediaItems, setMediaItems] = useState<
     { id: number; type: 'image' | 'video'; src: string; isPrimary: boolean }[]
   >([]);
-  const [showConfirmDialog, setShowConfirmDialog] = useState(false);
 
   const handleUpload = (file: File, id: number) => {
     validateImage(file).then((isValid) => {
@@ -151,35 +139,6 @@ function ImagesForm() {
           />
         )}
       </Box>
-      <Dialog
-        open={showConfirmDialog}
-        onClose={() => setShowConfirmDialog(false)}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <DialogTitle id="alert-dialog-title">
-          {t('onboarding.confirmCloseTitle')}
-        </DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            {t('onboarding.confirmCloseMessage')}
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={() => setShowConfirmDialog(false)} color="primary">
-            {t('no')}
-          </Button>
-          <Button
-            onClick={() => {
-              setShowConfirmDialog(false);
-            }}
-            color="primary"
-            autoFocus
-          >
-            {t('yes')}
-          </Button>
-        </DialogActions>
-      </Dialog>
     </Box>
   );
 }

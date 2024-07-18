@@ -505,7 +505,11 @@
     "priceDescription": "It's price for the product",
     "inputPrice": "Input the price of the product here",
     "priceRequired": "Price cannot be empty",
-    "priceInvalid": "Price must be a number"
+    "priceInvalid": "Price must be a number",
+    "confirmCloseTitle": "Do you want to close this form?",
+    "confirmCloseMessage": "If you close it, all the changes will be lost",
+    "yes": "Yes",
+    "no": "No"
   },
   "cartPage": {
     "title": "Cart",

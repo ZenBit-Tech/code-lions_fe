@@ -40,6 +40,9 @@ export const userSlice = createSlice({
     setOnboardingStepEqualOne(state) {
       state.onboardingStep = 1;
     },
+    setOnboardingStepEqualFinish(state) {
+      state.onboardingStep = 6;
+    },
     increaseOnboardingStep(state) {
       state.onboardingStep += 1;
     },
@@ -123,6 +126,7 @@ export const {
   increaseOnboardingStep,
   decreaseOnboardingStep,
   setOnboardingStepEqualOne,
+  setOnboardingStepEqualFinish,
   setTokens,
   logout,
 } = userSlice.actions;
