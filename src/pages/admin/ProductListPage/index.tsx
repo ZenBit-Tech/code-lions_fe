@@ -32,16 +32,15 @@ function ProductListPage() {
   const methods = useForm();
 
   const [page, setPage] = useState(1);
+  const [sortOrder, setSortOrder] = useState<SortOrder>(sortOptions.DESC);
+  const [search, setSearch] = useState('');
+
   const handleChange = (_: React.ChangeEvent<unknown>, value: number) => {
     setPage(value);
   };
-
-  const [sortOrder, setSortOrder] = useState<SortOrder>(sortOptions.DESC);
   const handleClick = (value: SortOrder) => {
     setSortOrder(value);
   };
-
-  const [search, setSearch] = useState('');
   const handleSearchChange = (value: string) => {
     setSearch(value);
     setPage(1);

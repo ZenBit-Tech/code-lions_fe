@@ -14,8 +14,8 @@ const limit = 5;
 
 const useProducts = ({ data }: UseProductsParams) => {
   const products = useMemo(() => data?.products || [], [data]);
-  const count = useMemo(() => data?.count || 1, [data]);
-  const pagesCount = useMemo(() => Math.ceil(count / limit), [count]);
+  const count = useMemo(() => data?.count || 0, [data]);
+  const pagesCount = useMemo(() => Math.ceil(count / limit) || 1, [count]);
 
   return {
     products,
