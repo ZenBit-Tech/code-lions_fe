@@ -4,6 +4,7 @@ import { Box, IconButton } from '@mui/material';
 
 import DeleteIcon from 'src/assets/icons/delete-trash.svg';
 import LookIcon from 'src/assets/icons/eye.svg';
+import { urls } from 'src/common/constants';
 
 interface IActionButtons {
   productId: string;
@@ -18,7 +19,10 @@ function ActionButtonsProduct({ productId, handleOpen }: IActionButtons) {
       <IconButton sx={{ padding: 0 }} onClick={handleOpen}>
         <DeleteIcon />
       </IconButton>
-      <Link to={`${productId}`} state={{ from: location }}>
+      <Link
+        to={`${urls.PUBLIC_PRODUCT}/${productId}`}
+        state={{ from: location }}
+      >
         <IconButton sx={{ padding: 0 }}>
           <LookIcon />
         </IconButton>

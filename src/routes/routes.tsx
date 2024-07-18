@@ -197,7 +197,7 @@ const router = createBrowserRouter([
       },
     ],
   },
-  { path: urls.VENDOR_PRODUCT, element: <VendorProductPage /> },
+  { path: urls.PUBLIC_PRODUCT_ID, element: <VendorProductPage /> },
 ]);
 
 export default router;

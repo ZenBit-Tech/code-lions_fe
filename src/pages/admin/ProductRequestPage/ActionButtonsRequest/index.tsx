@@ -6,6 +6,7 @@ import { Box, IconButton } from '@mui/material';
 import AcceptIcon from 'src/assets/icons/admin/accept.svg';
 import RejectIcon from 'src/assets/icons/admin/reject.svg';
 import LookIcon from 'src/assets/icons/eye.svg';
+import { urls } from 'src/common/constants';
 import useErrorHandling from 'src/common/hooks/useErrorHandlingHook';
 import useToast from 'src/components/shared/toasts/components/ToastProvider/ToastProviderHooks';
 import { useApproveProductMutation } from 'src/redux/adminProduct/adminProductService';
@@ -44,7 +45,10 @@ function ActionButtonsRequest({ productId, handleOpen }: IActionButtons) {
       <IconButton sx={{ padding: 0 }} onClick={handleOpen} disabled={isLoading}>
         <RejectIcon />
       </IconButton>
-      <Link to={`${productId}`} state={{ from: location }}>
+      <Link
+        to={`${urls.PUBLIC_PRODUCT}/${productId}`}
+        state={{ from: location }}
+      >
         <IconButton sx={{ padding: 0 }} disabled={isLoading}>
           <LookIcon />
         </IconButton>
