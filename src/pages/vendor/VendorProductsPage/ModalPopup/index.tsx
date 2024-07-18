@@ -1,15 +1,20 @@
 import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
 
 import { IconButton, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 
 import CloseIcon from 'src/assets/icons/close.svg';
 import DeleteIcon from 'src/assets/icons/delete-trash-red.svg';
+import useErrorHandling from 'src/common/hooks/useErrorHandlingHook';
 import StyledButton from 'src/components/shared/StyledButton';
 import {
   PaddingVariants,
   StyleVariants,
 } from 'src/components/shared/StyledButton/types';
+import useToast from 'src/components/shared/toasts/components/ToastProvider/ToastProviderHooks';
+import { selectUserId } from 'src/redux/user/userSlice';
+import { useDeleteProductVendorMutation } from 'src/redux/vendorProduct/vendorProductService';
 
 import {
   ModalTitle,
@@ -21,11 +26,29 @@ import {
 
 interface IModalPopup {
   onClose: () => void;
-  productId: string | undefined;
+  productId: string;
 }
 
 function ModalPopup({ onClose, productId }: IModalPopup) {
   const { t } = useTranslation();
+  const { showToast } = useToast();
+  const { handleOnSubmitError } = useErrorHandling();
+
+  const id = useSelector(selectUserId);
+
+  const [deleteProductVendor] = useDeleteProductVendorMutation();
+
+  const handleDelete = async () => {
+    try {
+      await deleteProductVendor({ productId, id }).unwrap();
+      onClose();
+      showToast('success', t('productsAdmin.deleteSuccess'));
+    } catch (err) {
+      handleOnSubmitError(err, showToast, t('productsAdmin.deleteError'));
+    }
+
+    return null;
+  };
 
   return (
     <Popup>
@@ -71,9 +94,7 @@ function ModalPopup({ onClose, productId }: IModalPopup) {
           width="200px"
           styles={StyleVariants.RED}
           padding={PaddingVariants.XL}
-          onClick={() => {
-            console.log(productId);
-          }}
+          onClick={handleDelete}
         >
           <Typography variant="h4">{t('vendorProductList.yes')} </Typography>
         </StyledButton>

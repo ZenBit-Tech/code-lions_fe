@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 
 import { Table, TableContainer, TableRow, Typography } from '@mui/material';
 
+import { productStock } from 'src/common/constants';
 import formatToTwoDecimalPlaces from 'src/common/utils/formatToTwoDecimalPlaces';
 import ProductTableCard from 'src/components/ProductTableCard';
 import StyledBackdrop from 'src/components/shared/StyledBackdrop';
@@ -38,10 +39,10 @@ function ProductsTable({
   const { t } = useTranslation();
 
   const [showModal, setShowModal] = useState<boolean>(false);
-  const [selectedUser, setSelectedUser] = useState<string>('');
-  const handleOpen = (userId: string) => {
+  const [selectedProduct, setSelectedProduct] = useState<string>('');
+  const handleOpen = (productId: string) => {
     setShowModal(true);
-    setSelectedUser(userId);
+    setSelectedProduct(productId);
   };
   const handleClose = () => setShowModal(false);
 
@@ -106,7 +107,7 @@ function ProductsTable({
               <BodyTableCell align="center">
                 <Status label={product.status} status={product.status} />
               </BodyTableCell>
-              <BodyTableCell align="center">1</BodyTableCell>
+              <BodyTableCell align="center">{productStock}</BodyTableCell>
               <BodyTableCell align="center">
                 ${formatToTwoDecimalPlaces(product.price)}
               </BodyTableCell>
@@ -117,7 +118,7 @@ function ProductsTable({
                 />
               </BodyTableCell>
               {showModal &&
-                product.id === selectedUser &&
+                product.id === selectedProduct &&
                 createPortal(
                   <StyledBackdrop showModal={showModal}>
                     <ModalPopup onClose={handleClose} productId={product.id} />

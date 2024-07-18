@@ -23,6 +23,7 @@ import { productApi } from './product/productService';
 import productReducer from './product/productSlice';
 import { userApi } from './user/userService';
 import userReducer from './user/userSlice';
+import { vendorProductsApi } from './vendorProduct/vendorProductService';
 import { wishlistApi } from './wishlist/wishlistService';
 import wishlistReducer from './wishlist/wishlistSlice';
 
@@ -39,6 +40,7 @@ const rootReducer = combineReducers({
   [wishlistApi.reducerPath]: wishlistApi.reducer,
   [cartApi.reducerPath]: cartApi.reducer,
   [adminProductsApi.reducerPath]: adminProductsApi.reducer,
+  [vendorProductsApi.reducerPath]: vendorProductsApi.reducer,
 });
 
 const persistConfig = {
@@ -62,7 +64,8 @@ const store = configureStore({
       bestVendorsApi.middleware,
       wishlistApi.middleware,
       cartApi.middleware,
-      adminProductsApi.middleware
+      adminProductsApi.middleware,
+      vendorProductsApi.middleware
     ),
 });
 

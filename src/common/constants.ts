@@ -98,6 +98,7 @@ export const RTKUrls = {
   PRODUCTS_ADMIN: 'products/admin',
   PRODUCTS_ADMIN_APPROVE: 'products/admin/approve',
   PRODUCTS_ADMIN_REJECT: 'products/admin/reject',
+  PRODUCTS_VENDOR: 'products/vendor',
 };
 
 export const HttpMethods = {
@@ -268,3 +269,5 @@ export const shippingFee = {
   FREE: 0,
   EXPRESS: 15,
 };
+
+export const productStock = 1;
