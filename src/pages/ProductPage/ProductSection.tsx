@@ -72,15 +72,27 @@ function ProductSection({ product }: ProductSectionProps) {
             </Typography>
           </Link>
           <ChevronRight />
-          <Typography
-            variant="overline"
+          <Link
+            href={`${urls.PRODUCT_CATEGORY_URL}/${product.categories[0]}`}
             sx={{
-              color: theme.palette.text.disabled,
-              margin: '0 5px',
+              textDecoration: 'none',
+              lineHeight: 0.8,
+              '&:hover': {
+                textDecoration: 'underline',
+                textDecorationColor: theme.palette.text.disabled,
+              },
             }}
           >
-            {capitalizeAndTruncate(product.categories[0])}
-          </Typography>
+            <Typography
+              variant="overline"
+              sx={{
+                color: theme.palette.text.disabled,
+                margin: '0 5px',
+              }}
+            >
+              {capitalizeAndTruncate(product.categories[0])}
+            </Typography>
+          </Link>
           <ChevronRight />
           <Typography
             variant="overline"
@@ -226,7 +238,7 @@ function ProductSection({ product }: ProductSectionProps) {
                 marginRight: '20px',
               }}
             >
-              {t('product.wishlist')}
+              {t('product.goToWishlist')}
             </Typography>
           </Link>
         </Button>

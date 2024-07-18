@@ -55,7 +55,6 @@ const style = {
     top: '5px',
     right: '5px',
     padding: '3px',
-    opacity: '0.5',
     transition: 'all 0.3s ease',
   },
   productInfoWrapper: {
