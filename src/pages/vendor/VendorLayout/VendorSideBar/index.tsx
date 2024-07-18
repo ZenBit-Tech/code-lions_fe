@@ -14,6 +14,8 @@ import { urls } from 'src/common/constants';
 import StyledButton from 'src/components/shared/StyledButton';
 import Logo from 'src/components/SidebarAdmin/Logo';
 import { StyledListItemButton } from 'src/components/SidebarAdmin/styles';
+import { useAppDispatch } from 'src/redux/hooks';
+import { setOnboardingStepEqualOne } from 'src/redux/user/userSlice.ts';
 import theme from 'src/theme';
 
 const listIndexes = {
@@ -29,7 +31,14 @@ function VendorSideBar() {
 
   const { t } = useTranslation();
 
+  const dispatch = useAppDispatch();
+
   const navigate = useNavigate();
+
+  const goToAddProduct = () => {
+    dispatch(setOnboardingStepEqualOne());
+    navigate(urls.VENDOR_ADD_PRODUCT);
+  };
 
   const handleListItemClick = (
     _event: React.MouseEvent<HTMLDivElement, MouseEvent>,
@@ -43,7 +52,7 @@ function VendorSideBar() {
       <Box marginBottom="40px" height="50px" width="100%">
         <Logo logoColor="black" />
       </Box>
-      <StyledButton fullWidth onClick={() => navigate(urls.VENDOR_ADD_PRODUCT)}>
+      <StyledButton fullWidth onClick={goToAddProduct}>
         <PlusIcon />
         <Typography ml="8px"> {t('vendorSidebar.addProduct')}</Typography>
       </StyledButton>

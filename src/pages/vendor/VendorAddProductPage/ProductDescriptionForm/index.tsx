@@ -1,3 +1,4 @@
+import { ChangeEvent, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { Box } from '@mui/material';
@@ -7,16 +8,155 @@ import {
   PaddingVariants,
   StyleVariants,
 } from 'src/components/shared/StyledButton/types';
-import { useAppDispatch } from 'src/redux/hooks';
+import StyledInput from 'src/components/shared/StyledInput';
+import {
+  InputPaddingVariants,
+  InputStyleVariants,
+} from 'src/components/shared/StyledInput/types';
+import { CustomSelect } from 'src/components/shared/StyledSelect';
+import {
+  OnboardingHeader4,
+  OnboardingText,
+} from 'src/pages/OnboardingPage/styles';
+import {
+  clothesSizeData,
+  shoeSizeData,
+} from 'src/pages/SizesGuidePage/tableData';
+import { useAppDispatch, useAppSelector } from 'src/redux/hooks';
 import {
   decreaseOnboardingStep,
   increaseOnboardingStep,
 } from 'src/redux/user/userSlice';
 import theme from 'src/theme';
 
+const brands = [
+  { label: 'Select brand', value: 'Select brand' },
+  { label: 'Michael Kors', value: 'Michael Kors' },
+  { label: 'Chiara Ferragni', value: 'Chiara Ferragni' },
+  { label: 'Beatrice B', value: 'Beatrice B' },
+  { label: 'Nai Lu-na', value: 'Nai Lu-na' },
+  { label: 'Marjolaine', value: 'Marjolaine' },
+  { label: 'Luisa Cerano', value: 'Luisa Cerano' },
+  { label: 'Deni Cler Milano', value: 'Deni Cler Milano' },
+  { label: 'KENZO', value: 'KENZO' },
+  { label: 'Andres Sarda', value: 'Andres Sarda' },
+  { label: 'Lolita dress', value: 'Lolita dress' },
+  { label: 'Armani Exchange', value: 'Armani Exchange' },
+  { label: 'Diesel', value: 'Diesel' },
+  { label: 'Other', value: 'Other' },
+];
+
+const clothesSizes = clothesSizeData.rows.map((row) => ({
+  label: row[3],
+  value: row[4],
+}));
+
+const shoesSizes = shoeSizeData.rows.map((row) => ({
+  label: row[0],
+  value: row[1],
+}));
+
+const jeansSizes = [
+  { label: 'W 27 H 33', value: 'W 27 H 33' },
+  { label: 'W 28 H 34', value: 'W 28 H 34' },
+  { label: 'W 26 H 35', value: 'W 26 H 35' },
+  { label: 'W 25 H 36', value: 'W 25 H 36' },
+  { label: 'W 30 H 38', value: 'W 30 H 38' },
+  { label: 'W 32 H 40', value: 'W 32 H 40' },
+  { label: 'W 28 H 37', value: 'W 28 H 37' },
+  { label: 'W 27 H 32', value: 'W 27 H 32' },
+  { label: 'W 31 H 39', value: 'W 31 H 39' },
+  { label: 'W 29 H 35', value: 'W 29 H 35' },
+];
+
+const uniqueSizes = [{ label: 'Unique size', value: 'Unique size' }];
+
+const colors = [
+  { label: 'Select color', value: 'Select color' },
+  { label: 'black', value: 'black' },
+  { label: 'blue', value: 'blue' },
+  { label: 'brown', value: 'brown' },
+  { label: 'green', value: 'green' },
+  { label: 'grey', value: 'grey' },
+  { label: 'orange', value: 'orange' },
+  { label: 'yellow', value: 'yellow' },
+  { label: 'pink', value: 'pink' },
+  { label: 'purple', value: 'purple' },
+  { label: 'red', value: 'red' },
+  { label: 'white', value: 'white' },
+];
+
+const materials = [
+  { label: 'Select material', value: 'Select material' },
+  { label: 'Chiffon', value: 'Chiffon' },
+  { label: 'Cotton', value: 'Cotton' },
+  { label: 'Crepe', value: 'Crepe' },
+  { label: 'Denim', value: 'Denim' },
+  { label: 'Lace', value: 'Lace' },
+  { label: 'Leather', value: 'Leather' },
+  { label: 'Linen', value: 'Linen' },
+  { label: 'Satin', value: 'Satin' },
+  { label: 'Silk', value: 'Silk' },
+  { label: 'Nylon', value: 'Nylon' },
+  { label: 'Polyester', value: 'Polyester' },
+  { label: 'Spandex', value: 'Spandex' },
+  { label: 'Velvet', value: 'Velvet' },
+  { label: 'Wool', value: 'Wool' },
+];
+
+const shoesMaterials = [
+  { label: 'Select material', value: 'Select material' },
+  { label: 'leather', value: 'leather' },
+  { label: 'textile', value: 'textile' },
+  { label: 'synthetic', value: 'synthetic' },
+  { label: 'rubber', value: 'rubber' },
+  { label: 'foam', value: 'foam' },
+  { label: 'plastic', value: 'plastic' },
+];
+
+const shoesCategory = 'Shoes';
+const bagsCategory = 'Bags';
+const accessoriesCategory = 'Accessories';
+
+const shoesType = 'Shoes';
+const dressType = 'Dress';
+const jeansType = 'Jeans';
+const otherType = 'Other';
+
 function ProductDescriptionForm() {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
+  const selectedCategory = useAppSelector((state) => state.addProduct.category);
+  const selectedType = useAppSelector((state) => state.addProduct.type);
+
+  const [productName, setProductName] = useState<string>('');
+  const [productDescription, setProductDescription] = useState<string>('');
+  const [productBrand, setProductBrand] = useState<string>(brands[0].value);
+  const [clothesSize, setClothesSize] = useState<string>(clothesSizes[0].value);
+  const [shoesSize, setShoesSize] = useState<string>(shoesSizes[0].value);
+  const [jeansSize, setJeansSize] = useState<string>(jeansSizes[0].value);
+  const [uniqueSize, setUniqueSize] = useState<string>(uniqueSizes[0].value);
+  const [productColor, setProductColor] = useState<string>(colors[0].value);
+  const [productMaterial, setProductMaterial] = useState<string>(
+    materials[0].value
+  );
+  const [shoesMaterial, setShoesMaterial] = useState<string>(
+    shoesMaterials[0].value
+  );
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+
+  const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files && event.target.files.length > 0) {
+      setSelectedFile(event.target.files[0]);
+    }
+  };
+
+  const handleUpload = () => {
+    if (selectedFile) {
+      JSON.stringify(selectedFile);
+      // TODO: connect with server
+    }
+  };
 
   const returnBack = () => {
     dispatch(decreaseOnboardingStep());
@@ -29,11 +169,326 @@ function ProductDescriptionForm() {
   return (
     <Box
       sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '24px',
         bgcolor: theme.palette.background.default,
         padding: '24px',
         borderRadius: '0 0 8px 8px',
       }}
     >
+      <Box
+        sx={{
+          display: 'flex',
+          gap: '40px',
+          alignItems: 'center',
+        }}
+      >
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            width: '236px',
+          }}
+        >
+          <OnboardingHeader4 component="h4">
+            {t('addProduct.name')}
+          </OnboardingHeader4>
+          <OnboardingText variant="subtitle2">
+            {t('addProduct.nameSubtitle')}
+          </OnboardingText>
+        </Box>
+        <Box sx={{ flex: 1 }}>
+          <StyledInput
+            stylevariant={InputStyleVariants.OUTLINED}
+            padding={InputPaddingVariants.MD}
+            width="100%"
+            placeholder={t('addProduct.namePlaceholder')}
+            value={productName}
+            onChange={(e) => {
+              setProductName(e.target.value);
+            }}
+          />
+        </Box>
+      </Box>
+      <Box
+        sx={{
+          display: 'flex',
+          gap: '40px',
+          alignItems: 'center',
+        }}
+      >
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            width: '236px',
+          }}
+        >
+          <OnboardingHeader4 component="h4">
+            {t('addProduct.description')}
+          </OnboardingHeader4>
+          <OnboardingText variant="subtitle2">
+            {t('addProduct.descriptionSubtitle')}
+          </OnboardingText>
+        </Box>
+        <Box sx={{ flex: 1 }}>
+          <StyledInput
+            stylevariant={InputStyleVariants.OUTLINED}
+            padding={InputPaddingVariants.MD}
+            multiline
+            rows={5}
+            width="100%"
+            placeholder={t('addProduct.descriptionPlaceholder')}
+            value={productDescription}
+            onChange={(e) => {
+              setProductDescription(e.target.value);
+            }}
+            sx={{
+              '& .css-kkhb97-MuiInputBase-root-MuiOutlinedInput-root': {
+                padding: 0,
+              },
+            }}
+          />
+        </Box>
+      </Box>
+      <Box
+        sx={{
+          display: 'flex',
+          gap: '40px',
+          alignItems: 'center',
+        }}
+      >
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            width: '236px',
+          }}
+        >
+          <OnboardingHeader4 component="h4">
+            {t('addProduct.brand')}
+          </OnboardingHeader4>
+          <OnboardingText variant="subtitle2">
+            {t('addProduct.brandSubtitle')}
+          </OnboardingText>
+        </Box>
+        <Box sx={{ flex: 1 }}>
+          <CustomSelect
+            options={brands}
+            displayEmpty
+            value={productBrand}
+            onChange={(v) => setProductBrand(String(v.target.value))}
+          />
+        </Box>
+      </Box>
+      <Box
+        sx={{
+          display: 'flex',
+          gap: '40px',
+          alignItems: 'center',
+        }}
+      >
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            width: '236px',
+          }}
+        >
+          <OnboardingHeader4 component="h4">
+            {t('addProduct.size')}
+          </OnboardingHeader4>
+          <OnboardingText variant="subtitle2">
+            {t('addProduct.sizeSubtitle')}
+          </OnboardingText>
+        </Box>
+        <Box sx={{ flex: 1 }}>
+          {selectedCategory === shoesCategory || selectedType === shoesType ? (
+            <CustomSelect
+              options={shoesSizes}
+              displayEmpty
+              value={shoesSize}
+              onChange={(v) => setShoesSize(String(v.target.value))}
+            />
+          ) : null}
+          {selectedType === dressType ||
+          (selectedType === otherType && selectedCategory !== shoesCategory) ? (
+            <CustomSelect
+              options={clothesSizes}
+              displayEmpty
+              value={clothesSize}
+              onChange={(v) => setClothesSize(String(v.target.value))}
+            />
+          ) : null}
+          {selectedCategory === bagsCategory ||
+          selectedCategory === accessoriesCategory ? (
+            <CustomSelect
+              options={uniqueSizes}
+              displayEmpty
+              disabled
+              value={uniqueSize}
+              onChange={(v) => setUniqueSize(String(v.target.value))}
+            />
+          ) : null}
+          {selectedType === jeansType ? (
+            <CustomSelect
+              options={jeansSizes}
+              displayEmpty
+              value={jeansSize}
+              onChange={(v) => setJeansSize(String(v.target.value))}
+            />
+          ) : null}
+        </Box>
+      </Box>
+      <Box
+        sx={{
+          display: 'flex',
+          gap: '40px',
+          alignItems: 'center',
+        }}
+      >
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            width: '236px',
+          }}
+        >
+          <OnboardingHeader4 component="h4">
+            {t('addProduct.color')}
+          </OnboardingHeader4>
+          <OnboardingText variant="subtitle2">
+            {t('addProduct.colorSubtitle')}
+          </OnboardingText>
+        </Box>
+        <Box sx={{ flex: 1 }}>
+          <CustomSelect
+            options={colors}
+            displayEmpty
+            value={productColor}
+            onChange={(v) => setProductColor(String(v.target.value))}
+          />
+        </Box>
+      </Box>
+      <Box
+        sx={{
+          display: 'flex',
+          gap: '40px',
+          alignItems: 'center',
+        }}
+      >
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            width: '236px',
+          }}
+        >
+          <OnboardingHeader4 component="h4">
+            {t('addProduct.materials')}
+          </OnboardingHeader4>
+          <OnboardingText variant="subtitle2">
+            {t('addProduct.materialsSubtitle')}
+          </OnboardingText>
+        </Box>
+        <Box sx={{ flex: 1 }}>
+          <CustomSelect
+            options={
+              selectedCategory === shoesCategory ? shoesMaterials : materials
+            }
+            displayEmpty
+            value={
+              selectedCategory === shoesCategory
+                ? shoesMaterial
+                : productMaterial
+            }
+            onChange={
+              selectedCategory === shoesCategory
+                ? (v) => setShoesMaterial(String(v.target.value))
+                : (v) => setProductMaterial(String(v.target.value))
+            }
+          />
+        </Box>
+      </Box>
+      <Box
+        sx={{
+          display: 'flex',
+          gap: '40px',
+          alignItems: 'center',
+        }}
+      >
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            width: '236px',
+          }}
+        >
+          <OnboardingHeader4 component="h4">
+            {t('addProduct.upload')}
+          </OnboardingHeader4>
+          <OnboardingText variant="subtitle2">
+            {t('addProduct.uploadSubtitle')}
+          </OnboardingText>
+        </Box>
+        <Box sx={{ display: 'flex', gap: '24px', alignItems: 'center' }}>
+          <input
+            type="file"
+            accept="application/pdf"
+            onChange={handleFileChange}
+            style={{ display: 'none' }}
+            id="file-upload"
+          />
+          <label htmlFor="file-upload">
+            <Box
+              sx={{
+                width: '600px',
+                border: `1px solid ${theme.palette.border.primary}`,
+                borderRadius: '6px',
+                padding: '12px 16px',
+                cursor: 'pointer',
+                fontFamily: theme.typography.subtitle2.fontFamily,
+                fontWeight: 400,
+                color: theme.palette.text.primary,
+                lineHeight: 1.37,
+
+                '&:hover': {
+                  border: `1px solid ${theme.palette.border.dark}`,
+                },
+
+                '&:focus': {
+                  border: `1px solid ${theme.palette.border.dark}`,
+                },
+              }}
+            >
+              {selectedFile ? selectedFile.name : t('addProduct.chooseFile')}
+            </Box>
+          </label>
+          <StyledButton
+            onClick={handleUpload}
+            styles={StyleVariants.BLACK}
+            padding={PaddingVariants.SM}
+            variant="contained"
+            fontSize={String(theme.typography.h4.fontSize)}
+            fontFamily={theme.typography.fontFamily}
+            radius="8px"
+            disabled={!selectedFile}
+            sx={{
+              height: '34px',
+            }}
+          >
+            {t('addProduct.uploadBtn')}
+          </StyledButton>
+        </Box>
+      </Box>
       <Box
         sx={{
           display: 'flex',
@@ -60,6 +515,15 @@ function ProductDescriptionForm() {
           fontFamily={theme.typography.fontFamily}
           radius="8px"
           onClick={goToNextStep}
+          disabled={
+            !productName ||
+            !productDescription ||
+            productBrand === brands[0].value ||
+            !productColor ||
+            !productMaterial ||
+            !shoesMaterial ||
+            !selectedFile
+          }
         >
           {t('onboarding.next')}
         </StyledButton>

@@ -37,6 +37,9 @@ export const userSlice = createSlice({
     setEmail(state, action) {
       state.email = action.payload;
     },
+    setOnboardingStepEqualOne(state) {
+      state.onboardingStep = 1;
+    },
     increaseOnboardingStep(state) {
       state.onboardingStep += 1;
     },
@@ -119,6 +122,7 @@ export const {
   setEmail,
   increaseOnboardingStep,
   decreaseOnboardingStep,
+  setOnboardingStepEqualOne,
   setTokens,
   logout,
 } = userSlice.actions;
