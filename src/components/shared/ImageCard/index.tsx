@@ -15,12 +15,6 @@ import {
   useDeleteProductPhotoMutation,
   useSetProductPhotoPrimaryMutation,
 } from 'src/redux/addProduct/addProductService';
-import {
-  addPhoto,
-  removePhoto,
-  setPrimaryPhoto,
-} from 'src/redux/addProduct/addProductSlice';
-import { useAppDispatch } from 'src/redux/hooks';
 import theme from 'src/theme';
 
 const transparency = 0.6;
@@ -68,7 +62,6 @@ function ImageCard({ type, src, isPrimary }: ImageCardProps) {
   const { t } = useTranslation();
   const inputRef = useRef<HTMLInputElement>(null);
   const { showToast } = useToast();
-  const dispatch = useAppDispatch();
 
   const [uploadProductPhoto] = useUploadProductPhotoMutation();
   const [deleteProductPhoto] = useDeleteProductPhotoMutation();
@@ -90,7 +83,6 @@ function ImageCard({ type, src, isPrimary }: ImageCardProps) {
         const newPhoto = response.images[0];
 
         console.log(newPhoto);
-        dispatch(addPhoto(newPhoto));
       }
     } catch (err) {
       if (err instanceof Error) {
@@ -120,7 +112,6 @@ function ImageCard({ type, src, isPrimary }: ImageCardProps) {
 
         formData.append('photo', src);
         await deleteProductPhoto({ photo: formData }).unwrap();
-        dispatch(removePhoto(src));
       } catch (error) {
         console.error('Failed to delete photo: ', error);
       }
@@ -134,7 +125,6 @@ function ImageCard({ type, src, isPrimary }: ImageCardProps) {
 
         formData.append('photo', src);
         await setProductPhotoPrimary({ photo: formData }).unwrap();
-        dispatch(setPrimaryPhoto(src));
       } catch (error) {
         console.error('Failed to set primary photo: ', error);
       }

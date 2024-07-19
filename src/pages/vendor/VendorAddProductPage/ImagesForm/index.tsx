@@ -10,6 +10,7 @@ import {
 } from 'src/components/shared/StyledButton/types';
 import { increaseAddProductStep } from 'src/redux/addProduct/addProductSlice';
 import { useAppDispatch } from 'src/redux/hooks';
+// import { addPhoto } from 'src/redux/addProduct/addProductSlice';
 import theme from 'src/theme';
 
 import { AddProductHeader4, AddProductText } from './styles';
@@ -20,6 +21,7 @@ function ImagesForm() {
 
   const goToNextStep = () => {
     dispatch(increaseAddProductStep());
+    // dispatch(addPhoto());
   };
 
   return (

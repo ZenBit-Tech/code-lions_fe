@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { IAddedProduct, IPhoto } from './types';
+import { IAddedProduct } from './types';
 
 const initialState: IAddedProduct = {
   category: '',
@@ -32,18 +32,8 @@ export const addProductSlice = createSlice({
     setStyle(state, action: PayloadAction<string>) {
       state.style = action.payload;
     },
-    addPhoto(state, action: PayloadAction<IPhoto>) {
+    addPhoto(state, action: PayloadAction<string>) {
       state.photos.push(action.payload);
-    },
-    removePhoto(state, action: PayloadAction<string>) {
-      state.photos = state.photos.filter(
-        (photo) => photo.id !== action.payload
-      );
-    },
-    setPrimaryPhoto(state, action: PayloadAction<string>) {
-      state.photos.forEach((photo) => {
-        photo.isPrimary = photo.id === action.payload;
-      });
     },
   },
 });
@@ -53,8 +43,6 @@ export const {
   setType,
   setStyle,
   addPhoto,
-  removePhoto,
-  setPrimaryPhoto,
   increaseAddProductStep,
   decreaseAddProductStep,
   setAddProductStep,
