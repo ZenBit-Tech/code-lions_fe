@@ -6,6 +6,8 @@ import AboutUsPage from 'src/pages/AboutUsPage';
 import AdminLayout from 'src/pages/admin/AdminLayout';
 import AdminUserProfileEditPage from 'src/pages/admin/AdminUserProfileEditPage';
 import AdminUserProfilePage from 'src/pages/admin/AdminUserProfilePage';
+import ProductListPage from 'src/pages/admin/ProductListPage';
+import ProductRequestPage from 'src/pages/admin/ProductRequestPage';
 import SignInAdminPage from 'src/pages/admin/SignInAdminPage';
 import UsersPage from 'src/pages/admin/UsersPage';
 import BestVendorsPage from 'src/pages/BestVendorsPage';
@@ -156,6 +158,15 @@ const router = createBrowserRouter([
         path: urls.ADMIN_VENDOR_PROFILE_EDIT,
         element: <AdminUserProfileEditPage />,
       },
+
+      {
+        path: urls.ADMIN_PRODUCT_REQUEST,
+        element: <ProductRequestPage />,
+      },
+      {
+        path: urls.ADMIN_PRODUCT_LIST,
+        element: <ProductListPage />,
+      },
     ],
   },
   {
@@ -186,7 +197,7 @@ const router = createBrowserRouter([
       },
     ],
   },
-  { path: urls.VENDOR_PRODUCT, element: <VendorProductPage /> },
+  { path: urls.PUBLIC_PRODUCT_ID, element: <VendorProductPage /> },
 ]);
 
 export default router;

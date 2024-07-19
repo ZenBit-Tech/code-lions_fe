@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 
 import {
   Collapse,
@@ -53,6 +53,10 @@ function SideBar() {
     setOpenProducts(!openProducts);
   };
 
+  const handleProductsClose = () => {
+    setOpenProducts(false);
+  };
+
   const handleListItemClick = (
     _event: React.MouseEvent<HTMLDivElement, MouseEvent>,
     index: number
@@ -83,6 +87,7 @@ function SideBar() {
             navigate(urls.ADMIN_USERS, {
               state: { role: undefined },
             });
+            handleProductsClose();
           }}
         >
           <Box
@@ -175,6 +180,13 @@ function SideBar() {
           selected={selectedIndex === listIndexes.products}
           onClick={(event) => {
             handleListItemClick(event, listIndexes.products);
+            navigate(urls.ADMIN_PRODUCT_REQUEST);
+            handleProductsClick();
+            handleSubListItemClick(
+              event,
+              subListIndexes.requests,
+              listIndexes.products
+            );
           }}
         >
           <Box
@@ -230,30 +242,22 @@ function SideBar() {
               marginBottom: '12px',
             }}
           >
-            <StyledSubListItemButton
-              selected={selectedSubIndex === subListIndexes.requests}
-              onClick={(event) =>
-                handleSubListItemClick(
-                  event,
-                  subListIndexes.requests,
-                  listIndexes.products
-                )
-              }
-            >
-              <Typography variant="h4">{t('sidebar.requests')}</Typography>
-            </StyledSubListItemButton>
-            <StyledSubListItemButton
-              selected={selectedSubIndex === subListIndexes.productsList}
-              onClick={(event) =>
-                handleSubListItemClick(
-                  event,
-                  subListIndexes.productsList,
-                  listIndexes.products
-                )
-              }
-            >
-              <Typography variant="h4">{t('sidebar.productsList')}</Typography>
-            </StyledSubListItemButton>
+            <NavLink to={urls.ADMIN_PRODUCT_REQUEST}>
+              {({ isActive }) => (
+                <StyledSubListItemButton selected={isActive}>
+                  <Typography variant="h4">{t('sidebar.requests')}</Typography>
+                </StyledSubListItemButton>
+              )}
+            </NavLink>
+            <NavLink to={urls.ADMIN_PRODUCT_LIST}>
+              {({ isActive }) => (
+                <StyledSubListItemButton selected={isActive}>
+                  <Typography variant="h4">
+                    {t('sidebar.productsList')}
+                  </Typography>
+                </StyledSubListItemButton>
+              )}
+            </NavLink>
           </List>
         </Collapse>
 

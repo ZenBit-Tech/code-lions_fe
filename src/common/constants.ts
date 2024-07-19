@@ -29,6 +29,8 @@ export const urls = {
   ADMIN_VENDOR_PROFILE: 'vendors/:userId',
   ADMIN_VENDOR_PROFILE_EDIT: 'vendors/edit/:userId',
   ADMIN_USERS_FULL: '/admin/users',
+  ADMIN_PRODUCT_REQUEST: 'product-request',
+  ADMIN_PRODUCT_LIST: 'product-list',
   PROFILE: '/profile',
   USER_BUYER_PROFILE: 'buyer/:id',
   USER_VENDOR_PROFILE: 'vendor/:id',
@@ -47,7 +49,8 @@ export const urls = {
   VENDOR_EDIT_PRODUCT: 'edit-product/:productId',
   VENDOR_DASHBOARD: 'dashboard',
   VENDOR_PRODUCTS: 'products',
-  VENDOR_PRODUCT: 'vendor/products/:productId',
+  PUBLIC_PRODUCT_ID: '/public-product/:productId',
+  PUBLIC_PRODUCT: '/public-product',
   VENDOR_ORDERS: 'orders',
   VENDOR_CHATS: 'chats',
   VENDOR_PROFILE: 'profile',
@@ -92,6 +95,9 @@ export const RTKUrls = {
   BEST_VENDORS: 'best-vendors',
   LATEST: 'latest',
   SIZES: 'sizes',
+  PRODUCTS_ADMIN: 'products/admin',
+  PRODUCTS_ADMIN_APPROVE: 'products/admin/approve',
+  PRODUCTS_ADMIN_REJECT: 'products/admin/reject',
 };
 
 export const HttpMethods = {

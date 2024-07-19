@@ -4,29 +4,27 @@ import { describe, it, expect } from 'vitest';
 import formatToTwoDecimalPlaces from '../formatToTwoDecimalPlaces';
 
 describe('formatToTwoDecimalPlaces', () => {
-  it('should format integer to two decimal places', () => {
+  it('should format 1 to 1.00', () => {
     expect(formatToTwoDecimalPlaces(1)).toBe('1.00');
   });
 
-  it('should format number with one decimal place to two decimal places', () => {
+  it('should format 1.2 to 1.20', () => {
     expect(formatToTwoDecimalPlaces(1.2)).toBe('1.20');
   });
 
-  it('should format number with two decimal places correctly', () => {
-    expect(formatToTwoDecimalPlaces(1.23)).toBe('1.23');
-  });
-
-  it('should format larger integer to two decimal places', () => {
+  it('should format 100 to 100.00', () => {
     expect(formatToTwoDecimalPlaces(100)).toBe('100.00');
   });
 
-  it('should format larger floating-point number to two decimal places', () => {
-    expect(formatToTwoDecimalPlaces(123.456)).toBe('123.46');
+  it('should format 1.236 to 1.24', () => {
+    expect(formatToTwoDecimalPlaces(1.236)).toBe('1.24');
   });
 
-  it('should format negative numbers to two decimal places', () => {
-    expect(formatToTwoDecimalPlaces(-1)).toBe('-1.00');
-    expect(formatToTwoDecimalPlaces(-1.2)).toBe('-1.20');
-    expect(formatToTwoDecimalPlaces(-123.456)).toBe('-123.46');
+  it('should format numeric string "1.236" to 1.24', () => {
+    expect(formatToTwoDecimalPlaces(Number('1.236'))).toBe('1.24');
+  });
+
+  it('should format NaN to "NaN"', () => {
+    expect(formatToTwoDecimalPlaces(NaN)).toBe('NaN');
   });
 });

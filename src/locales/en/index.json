@@ -519,5 +519,27 @@
     "details": "The product will no longer be available in the search, but information about it will be available to customers in the order",
     "yes": "Yes",
     "no": "No"
+  },
+  "productsAdmin": {
+    "title": "Products",
+    "subTitle": "Product List",
+    "requests": "Requests",
+    "productsList": "Products List",
+    "product": "Product",
+    "category": "Category",
+    "status": "Status",
+    "quantity": "Q-ty",
+    "price": "Price",
+    "action": "Action",
+    "popupReject": "Are you sure want to reject this product?",
+    "details": "The product will no longer be available in the search, but information about it will be available to vendor",
+    "approveSuccess": "The product was successfully aproved and published",
+    "approveError": "Was unable to approve this product, please try again later",
+    "rejectSuccess": "The product was successfully rejected",
+    "rejectError": "Was unable to reject this product, please try again later",
+    "deleteSuccess": "The product was successfully deleted",
+    "deleteError": "Was unable to delete this product, please try again later",
+    "requestError": "Unable to get list of request, please try again later",
+    "productListError": "Unable to get list of products, please try again later"
   }
 }

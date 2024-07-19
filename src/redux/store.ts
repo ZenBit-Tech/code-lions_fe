@@ -14,6 +14,7 @@ import {
 } from 'redux-persist';
 
 import addProductReducer from './addProduct/addProductSlice';
+import { adminProductsApi } from './adminProduct/adminProductService';
 import { bestVendorsApi } from './bestVendors/bestVendorsService';
 import bestVendorsReducer from './bestVendors/bestVendorsSlice';
 import { cartApi } from './cart/cartService';
@@ -37,6 +38,7 @@ const rootReducer = combineReducers({
   [bestVendorsApi.reducerPath]: bestVendorsApi.reducer,
   [wishlistApi.reducerPath]: wishlistApi.reducer,
   [cartApi.reducerPath]: cartApi.reducer,
+  [adminProductsApi.reducerPath]: adminProductsApi.reducer,
 });
 
 const persistConfig = {
@@ -59,7 +61,8 @@ const store = configureStore({
       productApi.middleware,
       bestVendorsApi.middleware,
       wishlistApi.middleware,
-      cartApi.middleware
+      cartApi.middleware,
+      adminProductsApi.middleware
     ),
 });
 
