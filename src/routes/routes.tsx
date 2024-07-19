@@ -3,6 +3,7 @@ import { createBrowserRouter } from 'react-router-dom';
 import { urls } from 'src/common/constants';
 import Layout from 'src/components/Layout';
 import AboutUsPage from 'src/pages/AboutUsPage';
+import AdminChatsPage from 'src/pages/admin/AdminChatsPage';
 import AdminLayout from 'src/pages/admin/AdminLayout';
 import AdminUserProfileEditPage from 'src/pages/admin/AdminUserProfileEditPage';
 import AdminUserProfilePage from 'src/pages/admin/AdminUserProfilePage';
@@ -166,6 +167,10 @@ const router = createBrowserRouter([
       {
         path: urls.ADMIN_PRODUCT_LIST,
         element: <ProductListPage />,
+      },
+      {
+        path: urls.ADMIN_CHATS,
+        element: <AdminChatsPage />,
       },
     ],
   },

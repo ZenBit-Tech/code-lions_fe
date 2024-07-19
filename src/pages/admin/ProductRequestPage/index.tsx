@@ -3,7 +3,7 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { NavLink } from 'react-router-dom';
 
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 
 import { sortOptions, urls } from 'src/common/constants';
 import useErrorHandling from 'src/common/hooks/useErrorHandlingHook';
@@ -101,12 +101,16 @@ function ProductRequestPage() {
         <FormProvider {...methods}>
           <SearchInput setSearch={handleSearchChange} />
         </FormProvider>
-        <ProductsTable
-          pagesCount={pagesCount}
-          products={products}
-          page={page}
-          handleChange={handleChange}
-        />
+        {products && products.length > 0 ? (
+          <ProductsTable
+            pagesCount={pagesCount}
+            products={products}
+            page={page}
+            handleChange={handleChange}
+          />
+        ) : (
+          <Typography>{t('productsAdmin.noRequests')}</Typography>
+        )}
       </SectionWrapper>
     </>
   );

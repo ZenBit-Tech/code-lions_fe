@@ -94,7 +94,8 @@ function ProductsTable({
                 />
               </BodyTableCell>
               <BodyTableCell align="center">
-                {product.categories.length > 1 &&
+                {product?.categories &&
+                  product.categories.length > 1 &&
                   product.categories.map((category) => (
                     <Typography
                       key={category}

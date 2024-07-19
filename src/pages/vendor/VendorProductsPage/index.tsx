@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 
-import { Grid, Box } from '@mui/material';
+import { Grid, Box, Typography } from '@mui/material';
 
 import { sortOptions } from 'src/common/constants';
 import useErrorHandling from 'src/common/hooks/useErrorHandlingHook';
@@ -77,12 +77,16 @@ function VendorProductPage() {
             </Box>
           </Grid>
           <Grid item xs={12}>
-            <ProductsTable
-              products={products}
-              pagesCount={pagesCount}
-              page={page}
-              handleChange={handleChange}
-            />
+            {products && products.length > 0 ? (
+              <ProductsTable
+                products={products}
+                pagesCount={pagesCount}
+                page={page}
+                handleChange={handleChange}
+              />
+            ) : (
+              <Typography>{t('vendorProductList.noProducts')}</Typography>
+            )}
           </Grid>
         </SectionWrapper>
       </Box>

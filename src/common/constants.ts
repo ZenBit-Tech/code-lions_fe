@@ -31,6 +31,7 @@ export const urls = {
   ADMIN_USERS_FULL: '/admin/users',
   ADMIN_PRODUCT_REQUEST: 'product-request',
   ADMIN_PRODUCT_LIST: 'product-list',
+  ADMIN_CHATS: 'chats',
   PROFILE: '/profile',
   USER_BUYER_PROFILE: 'buyer/:id',
   USER_VENDOR_PROFILE: 'vendor/:id',

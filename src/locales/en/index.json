@@ -518,7 +518,8 @@
     "popup": "Are you sure want to delete this product?",
     "details": "The product will no longer be available in the search, but information about it will be available to customers in the order",
     "yes": "Yes",
-    "no": "No"
+    "no": "No",
+    "noProducts": "You haven't added any products yet"
   },
   "productsAdmin": {
     "title": "Products",
@@ -540,6 +541,7 @@
     "deleteSuccess": "The product was successfully deleted",
     "deleteError": "Was unable to delete this product, please try again later",
     "requestError": "Unable to get list of request, please try again later",
-    "productListError": "Unable to get list of products, please try again later"
+    "productListError": "Unable to get list of products, please try again later",
+    "noRequests": "You have no requests"
   }
 }
