@@ -268,3 +268,8 @@ export const shippingFee = {
   FREE: 0,
   EXPRESS: 15,
 };
+
+export const cardTypes = {
+  VIDEO: 'video',
+  IMAGE: 'image',
+};

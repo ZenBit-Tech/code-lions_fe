@@ -476,7 +476,16 @@
     "type": "Type",
     "typeSubtitle": "Please select product Type",
     "style": "Style",
-    "styleSubtitle": "Please select product Style"
+    "styleSubtitle": "Please select product Style",
+    "photo": "Photo Product",
+    "video": "Video Product",
+    "photoSubtitle": "Recommended minimum width 1080px X 1080px, with a max size of 5MB, only *.png, *.jpg and *.jpeg image files are accepted",
+    "videoSubtitle": "Recommended , with a max size of 250MB, only *.mp4, *.move  files are accepted",
+    "primary": "Primary",
+    "addImage": "Add Image",
+    "dropImage": "Or Drop Image To Upload",
+    "addVideo": "Add Video",
+    "dropVideo": "Or Drop Video To Upload"
   },
   "cartPage": {
     "title": "Cart",
