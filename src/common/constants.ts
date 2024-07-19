@@ -177,8 +177,8 @@ export const linkUrls = {
 };
 
 export const sortOptions: Record<string, SortOrder> = {
-  DESC: 'desc',
-  ASC: 'asc',
+  DESC: 'DESC',
+  ASC: 'ASC',
 };
 
 export const countries = [{ label: 'Canada', value: 'Canada' }];
