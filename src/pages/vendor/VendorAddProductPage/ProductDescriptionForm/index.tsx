@@ -7,11 +7,11 @@ import {
   PaddingVariants,
   StyleVariants,
 } from 'src/components/shared/StyledButton/types';
-import { useAppDispatch } from 'src/redux/hooks';
 import {
-  decreaseOnboardingStep,
-  increaseOnboardingStep,
-} from 'src/redux/user/userSlice';
+  increaseAddProductStep,
+  decreaseAddProductStep,
+} from 'src/redux/addProduct/addProductSlice';
+import { useAppDispatch } from 'src/redux/hooks';
 import theme from 'src/theme';
 
 function ProductDescriptionForm() {
@@ -19,11 +19,11 @@ function ProductDescriptionForm() {
   const dispatch = useAppDispatch();
 
   const returnBack = () => {
-    dispatch(decreaseOnboardingStep());
+    dispatch(decreaseAddProductStep());
   };
 
   const goToNextStep = () => {
-    dispatch(increaseOnboardingStep());
+    dispatch(increaseAddProductStep());
   };
 
   return (

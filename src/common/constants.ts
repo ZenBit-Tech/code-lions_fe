@@ -92,6 +92,7 @@ export const RTKUrls = {
   BEST_VENDORS: 'best-vendors',
   LATEST: 'latest',
   SIZES: 'sizes',
+  PRIMARY: 'set-primary',
 };
 
 export const HttpMethods = {

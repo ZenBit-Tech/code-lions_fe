@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import React, { useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { Box, IconButton, Typography, Button } from '@mui/material';
@@ -9,35 +9,135 @@ import Primary from 'src/assets/icons/addProduct/primary.svg';
 import PrimaryTrue from 'src/assets/icons/addProduct/primaryTrue.svg';
 import Trash from 'src/assets/icons/addProduct/trash.svg';
 import Add from 'src/assets/icons/addProduct/upload.svg';
+import useToast from 'src/components/shared/toasts/components/ToastProvider/ToastProviderHooks';
+import {
+  useUploadProductPhotoMutation,
+  useDeleteProductPhotoMutation,
+  useSetProductPhotoPrimaryMutation,
+} from 'src/redux/addProduct/addProductService';
+import {
+  addPhoto,
+  removePhoto,
+  setPrimaryPhoto,
+} from 'src/redux/addProduct/addProductSlice';
+import { useAppDispatch } from 'src/redux/hooks';
 import theme from 'src/theme';
 
 const transparency = 0.6;
+const maxMbImage = 50;
+const maxSizeImage = 1024;
+const maxWidthImage = 1080;
+const maxHeightImage = 1080;
 
 interface ImageCardProps {
   type: 'image' | 'video';
   src?: string;
   isPrimary?: boolean;
-  onRemove?: () => void;
-  onUpload: (file: File) => void;
-  onPrimary?: () => void;
 }
 
-function ImageCard({
-  type,
-  src,
-  isPrimary,
-  onRemove,
-  onUpload,
-  onPrimary,
-}: ImageCardProps) {
+const validateImage = (file: File): Promise<boolean> => {
+  const validTypes = ['image/jpeg', 'image/png', 'image/heic'];
+
+  if (!validTypes.includes(file.type)) {
+    alert('Invalid file type. Only jpg, png, and heic are allowed.');
+
+    return Promise.resolve(false);
+  }
+  if (file.size > maxMbImage * maxSizeImage * maxSizeImage) {
+    alert('File is too large. Maximum size is 50 MB.');
+
+    return Promise.resolve(false);
+  }
+
+  return new Promise((resolve) => {
+    const img = new Image();
+
+    img.src = URL.createObjectURL(file);
+    img.onload = () => {
+      if (img.width < maxWidthImage || img.height < maxHeightImage) {
+        alert('Image is too small. Minimum dimensions are 1080x1080 pixels.');
+        resolve(false);
+      } else {
+        resolve(true);
+      }
+    };
+  });
+};
+
+function ImageCard({ type, src, isPrimary }: ImageCardProps) {
   const { t } = useTranslation();
   const inputRef = useRef<HTMLInputElement>(null);
+  const { showToast } = useToast();
+  const dispatch = useAppDispatch();
 
-  const handleUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.files && event.target.files[0]) {
-      const file = event.target.files[0];
+  const [uploadProductPhoto] = useUploadProductPhotoMutation();
+  const [deleteProductPhoto] = useDeleteProductPhotoMutation();
+  const [setProductPhotoPrimary] = useSetProductPhotoPrimaryMutation();
 
-      onUpload(file);
+  const sendPhotoRequest = async (file: File | null) => {
+    console.log('111');
+    try {
+      if (file instanceof File) {
+        const formDataPhoto = new FormData();
+
+        formDataPhoto.append('file', file);
+        console.log('222');
+        const response = await uploadProductPhoto({
+          photo: formDataPhoto,
+        }).unwrap();
+
+        console.log(response);
+        const newPhoto = response.images[0];
+
+        console.log(newPhoto);
+        dispatch(addPhoto(newPhoto));
+      }
+    } catch (err) {
+      if (err instanceof Error) {
+        showToast('error', err.message);
+      } else {
+        showToast('error', t('onboarding.unknownError'));
+      }
+    }
+  };
+
+  const handleUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0] || null;
+
+    if (file) {
+      const isValid = await validateImage(file);
+
+      if (isValid) {
+        await sendPhotoRequest(file);
+      }
+    }
+  };
+
+  const handleRemove = async () => {
+    if (src) {
+      try {
+        const formData = new FormData();
+
+        formData.append('photo', src);
+        await deleteProductPhoto({ photo: formData }).unwrap();
+        dispatch(removePhoto(src));
+      } catch (error) {
+        console.error('Failed to delete photo: ', error);
+      }
+    }
+  };
+
+  const handleSetPrimary = async () => {
+    if (src) {
+      try {
+        const formData = new FormData();
+
+        formData.append('photo', src);
+        await setProductPhotoPrimary({ photo: formData }).unwrap();
+        dispatch(setPrimaryPhoto(src));
+      } catch (error) {
+        console.error('Failed to set primary photo: ', error);
+      }
     }
   };
 
@@ -79,7 +179,7 @@ function ImageCard({
               top: '0px',
               right: '129px',
             }}
-            onClick={onPrimary}
+            onClick={handleSetPrimary}
           >
             {isPrimary ? <PrimaryTrue /> : <Primary />}
           </IconButton>
@@ -124,7 +224,7 @@ function ImageCard({
               top: '0px',
               right: '1px',
             }}
-            onClick={onRemove}
+            onClick={handleRemove}
           >
             <Trash />
           </IconButton>
