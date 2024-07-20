@@ -272,3 +272,8 @@ export const shippingFee = {
 };
 
 export const productStock = 1;
+
+export const cardTypes = {
+  VIDEO: 'video',
+  IMAGE: 'image',
+};
