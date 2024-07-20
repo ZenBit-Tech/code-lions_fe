@@ -5,7 +5,7 @@ import { useLocation } from 'react-router-dom';
 
 import { Table, TableContainer, TableRow, Typography } from '@mui/material';
 
-import { urls } from 'src/common/constants';
+import { productStock, urls } from 'src/common/constants';
 import formatToTwoDecimalPlaces from 'src/common/utils/formatToTwoDecimalPlaces';
 import ProductTableCard from 'src/components/ProductTableCard';
 import StyledBackdrop from 'src/components/shared/StyledBackdrop';
@@ -112,7 +112,7 @@ function ProductsTable({
               <BodyTableCell align="center">
                 <Status label={product.status} status={product.status} />
               </BodyTableCell>
-              <BodyTableCell align="center">{product.stock ?? 1}</BodyTableCell>
+              <BodyTableCell align="center">{productStock}</BodyTableCell>
               <BodyTableCell align="center">
                 ${formatToTwoDecimalPlaces(product.price)}
               </BodyTableCell>

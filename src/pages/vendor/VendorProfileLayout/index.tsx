@@ -4,7 +4,6 @@ import { Outlet } from 'react-router-dom';
 import { Avatar, Grid } from '@mui/material';
 import { Box } from '@mui/system';
 
-import { apiUrl } from 'src/common/constants.ts';
 import useProfileTitle from 'src/common/hooks/useProfileTitle';
 import { useAppSelector } from 'src/redux/hooks';
 import { selectUserAvatar, selectUserName } from 'src/redux/user/userSlice';
@@ -49,7 +48,7 @@ function VendorProfileLayout() {
               >
                 <AvatarWrapper>
                   <Avatar
-                    src={`${apiUrl}${userAvatar}`}
+                    src={userAvatar}
                     sx={{ width: '120px', height: '120px' }}
                   />
                   <NameTitle
