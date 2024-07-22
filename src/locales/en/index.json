@@ -7,6 +7,9 @@
     "signInPage": "Sing In",
     "newPasswordPage": "New Password"
   },
+  "chat": {
+    "yesterday": "Yesterday"
+  },
   "header": {
     "shop": "Shop",
     "vendors": "Vendors",
