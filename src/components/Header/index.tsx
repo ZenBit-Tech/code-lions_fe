@@ -96,7 +96,8 @@ function Header() {
             flexDirection: 'row',
             justifyContent: 'flex-end',
             gap: '40px',
-            width: '316px',
+            width: '355px',
+            marginLeft: '60px',
           }}
         >
           <MenuMainLink to={urls.PRODUCT_FEED}>{t('header.shop')}</MenuMainLink>
@@ -104,6 +105,9 @@ function Header() {
             {t('header.vendors')}
           </MenuMainLink>
           <MenuMainLink to={urls.HOME}>{t('header.messages')}</MenuMainLink>
+          <MenuMainLink to={urls.HOW_IT_WORKS}>
+            {t('header.howItWorks')}
+          </MenuMainLink>
         </Box>
 
         <Box
