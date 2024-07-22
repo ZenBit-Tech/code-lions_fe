@@ -4,10 +4,12 @@ import { RootState } from 'src/redux/store';
 import { IAddedProduct, ProductImage } from './types';
 
 const initialState: IAddedProduct = {
+  id: '',
   category: '',
   type: '',
   style: '',
   images: [],
+  price: 0,
   step: 1,
 };
 
@@ -43,6 +45,12 @@ export const addProductSlice = createSlice({
     setStyle(state, action: PayloadAction<string>) {
       state.style = action.payload;
     },
+    setPrice(state, action: PayloadAction<number>) {
+      state.price = action.payload;
+    },
+    setId(state, action: PayloadAction<string>) {
+      state.id = action.payload;
+    },
     addPhoto(state, action: PayloadAction<ProductImage>) {
       state.images.push(action.payload);
     },
@@ -70,9 +78,11 @@ export const addProductSlice = createSlice({
 });
 
 export const {
+  setId,
   setCategory,
   setType,
   setStyle,
+  setPrice,
   addPhoto,
   removePhoto,
   setPrimaryPhoto,
@@ -87,5 +97,7 @@ export const selectAddProductStep = (state: { addProduct: IAddedProduct }) =>
 
 export const selectProductImages = (state: RootState) =>
   state.addProduct.images;
+
+export const selectProductId = (state: RootState) => state.addProduct.id;
 
 export default addProductSlice.reducer;

@@ -492,7 +492,8 @@
     "priceDescription": "It's price for the product",
     "inputPrice": "Input the price of the product here",
     "priceRequired": "Price cannot be empty",
-    "priceInvalid": "Price must be a number"
+    "priceInvalid": "Price must be a number",
+    "failedCreateProduct": "Failed to create product"
   },
   "cartPage": {
     "title": "Cart",

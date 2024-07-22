@@ -25,11 +25,29 @@ export interface IProduct {
   brand: string;
 }
 
+export interface IUpdateProductRequest {
+  id: string;
+  data: {
+    name?: string;
+    description?: string;
+    price?: number;
+    size?: string;
+    brand?: string;
+    colors?: string[];
+    material?: string;
+    categories?: string[];
+    style?: string;
+    type?: string;
+  };
+}
+
 export interface IAddedProduct {
+  id: string;
   category: string;
   type: string;
   style: string;
   images: ProductImage[];
+  price: number;
   step: number;
 }
 

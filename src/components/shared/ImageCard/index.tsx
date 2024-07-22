@@ -19,6 +19,7 @@ import {
 import {
   addPhoto,
   removePhoto,
+  setId,
   setPrimaryPhoto,
 } from 'src/redux/addProduct/addProductSlice';
 import theme from 'src/theme';
@@ -84,6 +85,8 @@ function ImageCard({ type, src, isPrimary }: ImageCardProps) {
         const response = await uploadProductPhoto({
           photo: formDataPhoto,
         }).unwrap();
+
+        dispatch(setId(response.id));
         const newPhoto = response.images[response.images.length - 1];
 
         dispatch(addPhoto({ type: 'image', src: newPhoto, isPrimary: false }));

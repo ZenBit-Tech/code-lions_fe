@@ -61,6 +61,7 @@ export const urls = {
   HELP: '/help',
   CART: 'cart',
   CHECKOUT: 'checkout',
+  VENDOR_GLOBAL_PRODUCTS: '/vendor/products',
 };
 
 export const RTKUrls = {

@@ -6,6 +6,7 @@ import {
   IUploadProductPhotoRequest,
   IProduct,
   IDeleteProductPhotoRequest,
+  IUpdateProductRequest,
 } from './types';
 
 export const addProductApi = createApi({
@@ -36,6 +37,13 @@ export const addProductApi = createApi({
         body: url,
       }),
     }),
+    updateProduct: build.mutation<IProduct, IUpdateProductRequest>({
+      query: ({ id, data }) => ({
+        url: `${RTKUrls.PRODUCTS}/${id}`,
+        method: HttpMethods.PATCH,
+        body: data,
+      }),
+    }),
   }),
 });
 
@@ -43,4 +51,5 @@ export const {
   useUploadProductPhotoMutation,
   useDeleteProductPhotoMutation,
   useSetProductPhotoPrimaryMutation,
+  useUpdateProductMutation,
 } = addProductApi;

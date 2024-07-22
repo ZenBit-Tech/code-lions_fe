@@ -1,9 +1,11 @@
 import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 
 import { Box } from '@mui/system';
 
 import Oval from 'src/assets/icons/addProduct/oval.svg';
+import { urls } from 'src/common/constants';
 import StyledButton from 'src/components/shared/StyledButton';
 import {
   PaddingVariants,
@@ -14,23 +16,30 @@ import {
   InputPaddingVariants,
   InputStyleVariants,
 } from 'src/components/shared/StyledInput/types';
+import useToast from 'src/components/shared/toasts/components/ToastProvider/ToastProviderHooks';
 import {
   OnboardingHeader4,
   OnboardingText,
 } from 'src/pages/OnboardingPage/styles';
-import { useAppDispatch } from 'src/redux/hooks';
+import { useUpdateProductMutation } from 'src/redux/addProduct/addProductService';
 import {
-  decreaseOnboardingStep,
-  increaseOnboardingStep,
-} from 'src/redux/user/userSlice';
+  decreaseAddProductStep,
+  setPrice,
+  resetAddProduct,
+  selectProductId,
+} from 'src/redux/addProduct/addProductSlice';
+import { useAppDispatch, useAppSelector } from 'src/redux/hooks';
 import theme from 'src/theme';
 
 import OnboardingHeader3 from './styles';
 
 function FinishForm() {
   const { t } = useTranslation();
-
   const dispatch = useAppDispatch();
+  const { showToast } = useToast();
+  const navigate = useNavigate();
+  const productId = useAppSelector(selectProductId);
+  const [updateProduct] = useUpdateProductMutation();
 
   interface IFinishCardForm {
     price: string;
@@ -48,11 +57,21 @@ function FinishForm() {
   });
 
   const returnBack = () => {
-    dispatch(decreaseOnboardingStep());
+    dispatch(decreaseAddProductStep());
   };
 
-  const goToNextStep = () => {
-    dispatch(increaseOnboardingStep());
+  const onSubmit = async (data: IFinishCardForm) => {
+    try {
+      await updateProduct({
+        id: productId,
+        data: { price: parseFloat(data.price) },
+      }).unwrap();
+      dispatch(setPrice(parseFloat(data.price)));
+      dispatch(resetAddProduct());
+      navigate(urls.VENDOR_GLOBAL_PRODUCTS);
+    } catch (error) {
+      showToast('error', t('addProduct.failedCreateProduct'));
+    }
   };
 
   return (
@@ -151,7 +170,7 @@ function FinishForm() {
           fontSize={String(theme.typography.h4.fontSize)}
           fontFamily={theme.typography.fontFamily}
           radius="8px"
-          onClick={handleSubmit(goToNextStep)}
+          onClick={handleSubmit(onSubmit)}
           disabled={!isValid}
         >
           {t('onboarding.next')}
