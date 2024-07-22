@@ -9,6 +9,7 @@ import { useAppSelector } from 'src/redux/hooks';
 import theme from 'src/theme';
 
 import CategoriesForm from './CategoriesForm';
+import FinishForm from './FinishForm';
 import ImagesForm from './ImagesForm';
 import ProductDescriptionForm from './ProductDescriptionForm';
 
@@ -31,7 +32,7 @@ const addProductData = [
   {
     stepId: 4,
     title: 'Finish & Publish',
-    component: '',
+    component: <FinishForm />,
   },
 ];
 

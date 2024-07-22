@@ -486,7 +486,13 @@
     "failedDelete": "Failed to delete photo",
     "fileTooSmall": "Image is too small. Minimum dimensions are 1080x1080 pixels.",
     "fileTooBig": "File is too large. Maximum size is 50 MB.",
-    "invalidFileType": "Invalid file type. Only jpg, png, and heic are allowed."
+    "invalidFileType": "Invalid file type. Only jpg, png, and heic are allowed.",
+    "productPrice": "Product Price",
+    "price": "Price",
+    "priceDescription": "It's price for the product",
+    "inputPrice": "Input the price of the product here",
+    "priceRequired": "Price cannot be empty",
+    "priceInvalid": "Price must be a number"
   },
   "cartPage": {
     "title": "Cart",
