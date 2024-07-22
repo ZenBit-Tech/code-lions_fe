@@ -30,6 +30,7 @@ const useProductSection = (product: IProduct) => {
 
   const [selectedSize] = useState<string>(product.size);
   const [value, setValue] = useState<string>(durations[0]?.duration.toString());
+  const [showModal, setShowModal] = useState<boolean>(false);
 
   durations[0].price = product.price;
   durations[1].price = product.price * weeksCount;
@@ -43,6 +44,10 @@ const useProductSection = (product: IProduct) => {
   const isProductInCart = cartData?.some(
     (item: ICartItem) => item.productId === product.id
   );
+
+  const handleOpen = () => setShowModal(true);
+
+  const handleClose = () => setShowModal(false);
 
   const handleRadioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue((event.target as HTMLInputElement).value);
@@ -75,7 +80,7 @@ const useProductSection = (product: IProduct) => {
 
       showToast('error', toastError);
 
-      return error;
+      return false;
     }
   };
 
@@ -108,6 +113,9 @@ const useProductSection = (product: IProduct) => {
     selectedSize,
     value,
     setValue,
+    showModal,
+    handleOpen,
+    handleClose,
     handleRadioChange,
     handleAddToCart,
     handleRemoveFromCart,

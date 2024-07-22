@@ -134,6 +134,7 @@
   },
   "rentalRules": {
     "title": "How It Works",
+    "rentalRules": "Rental Rules",
     "userSubtitle": "User Registration and Verification",
     "userRule1": "All users must register and verify their identity to rent or list items.",
     "userRule2": "Users must provide accurate and truthful information during registration.",
@@ -170,7 +171,8 @@
     "platformRule3": "BlackCircle has the right to suspend or terminate accounts for rule violations.",
     "privacySubtitle": "Privacy and Data Protection",
     "privacyRule1": "User data will be handled in accordance with the privacy policy of BlackCircle.",
-    "privacyRule2": "Personal information will not be shared with third parties without consent."
+    "privacyRule2": "Personal information will not be shared with third parties without consent.",
+    "doNotShowRules": "Do not show the rental rules again"
   },
   "sidebar": {
     "users": "Users",
