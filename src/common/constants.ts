@@ -278,3 +278,5 @@ export const cardTypes = {
   VIDEO: 'video',
   IMAGE: 'image',
 };
+
+export const eventalCategory: string = 'evental';

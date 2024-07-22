@@ -155,7 +155,13 @@ function ProductSection({ product }: ProductSectionProps) {
                         }}
                       />
                     }
-                    label={<RadioLabel duration={duration} price={price} />}
+                    label={
+                      <RadioLabel
+                        categories={product.categories}
+                        duration={duration}
+                        price={price}
+                      />
+                    }
                     checked={value === duration.toString()}
                   />
                   <Box
