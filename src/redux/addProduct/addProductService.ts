@@ -32,9 +32,8 @@ export const addProductApi = createApi({
       IDeleteProductPhotoRequest
     >({
       query: ({ url }) => ({
-        url: `${RTKUrls.PRODUCTS}/${RTKUrls.PHOTO}/${RTKUrls.PRIMARY}`,
+        url: `${RTKUrls.PRODUCTS}/${RTKUrls.PHOTO}/${RTKUrls.PRIMARY}?file=${encodeURIComponent(url)}`,
         method: HttpMethods.PATCH,
-        body: url,
       }),
     }),
     updateProduct: build.mutation<IProduct, IUpdateProductRequest>({
