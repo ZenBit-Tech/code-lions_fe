@@ -58,6 +58,9 @@ export const addProductSlice = createSlice({
           : { ...image, isPrimary: false }
       );
     },
+    resetAddProduct(state) {
+      Object.assign(state, initialState);
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchProductImages.fulfilled, (state, action) => {
@@ -76,6 +79,7 @@ export const {
   increaseAddProductStep,
   decreaseAddProductStep,
   setAddProductStep,
+  resetAddProduct,
 } = addProductSlice.actions;
 
 export const selectAddProductStep = (state: { addProduct: IAddedProduct }) =>

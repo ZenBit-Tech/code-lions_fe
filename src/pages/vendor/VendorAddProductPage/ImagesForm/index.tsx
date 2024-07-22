@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { Box } from '@mui/material';
@@ -8,9 +9,11 @@ import {
   PaddingVariants,
   StyleVariants,
 } from 'src/components/shared/StyledButton/types';
-import { increaseAddProductStep } from 'src/redux/addProduct/addProductSlice';
+import {
+  increaseAddProductStep,
+  resetAddProduct,
+} from 'src/redux/addProduct/addProductSlice';
 import { useAppDispatch } from 'src/redux/hooks';
-// import { addPhoto } from 'src/redux/addProduct/addProductSlice';
 import theme from 'src/theme';
 
 import { AddProductHeader4, AddProductText } from './styles';
@@ -18,10 +21,19 @@ import { AddProductHeader4, AddProductText } from './styles';
 function ImagesForm() {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
+  const [isNextClicked, setIsNextClicked] = useState(false);
+
+  useEffect(() => {
+    return () => {
+      if (!isNextClicked) {
+        dispatch(resetAddProduct());
+      }
+    };
+  }, [dispatch, isNextClicked]);
 
   const goToNextStep = () => {
+    setIsNextClicked(true);
     dispatch(increaseAddProductStep());
-    // dispatch(addPhoto());
   };
 
   return (
