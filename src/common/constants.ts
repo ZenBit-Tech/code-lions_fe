@@ -29,6 +29,9 @@ export const urls = {
   ADMIN_VENDOR_PROFILE: 'vendors/:userId',
   ADMIN_VENDOR_PROFILE_EDIT: 'vendors/edit/:userId',
   ADMIN_USERS_FULL: '/admin/users',
+  ADMIN_PRODUCT_REQUEST: 'product-request',
+  ADMIN_PRODUCT_LIST: 'product-list',
+  ADMIN_CHATS: 'chats',
   PROFILE: '/profile',
   USER_BUYER_PROFILE: 'buyer/:id',
   USER_VENDOR_PROFILE: 'vendor/:id',
@@ -47,7 +50,8 @@ export const urls = {
   VENDOR_EDIT_PRODUCT: 'edit-product/:productId',
   VENDOR_DASHBOARD: 'dashboard',
   VENDOR_PRODUCTS: 'products',
-  VENDOR_PRODUCT: 'products/:productId',
+  PUBLIC_PRODUCT_ID: '/public-product/:productId',
+  PUBLIC_PRODUCT: '/public-product',
   VENDOR_ORDERS: 'orders',
   VENDOR_CHATS: 'chats',
   VENDOR_PROFILE: 'profile',
@@ -94,6 +98,10 @@ export const RTKUrls = {
   LATEST: 'latest',
   SIZES: 'sizes',
   PRIMARY: 'set-primary',
+  PRODUCTS_ADMIN: 'products/admin',
+  PRODUCTS_ADMIN_APPROVE: 'products/admin/approve',
+  PRODUCTS_ADMIN_REJECT: 'products/admin/reject',
+  PRODUCTS_VENDOR: 'products/vendor',
 };
 
 export const HttpMethods = {
@@ -171,8 +179,8 @@ export const linkUrls = {
 };
 
 export const sortOptions: Record<string, SortOrder> = {
-  DESC: 'desc',
-  ASC: 'asc',
+  DESC: 'DESC',
+  ASC: 'ASC',
 };
 
 export const countries = [{ label: 'Canada', value: 'Canada' }];
@@ -264,6 +272,8 @@ export const shippingFee = {
   FREE: 0,
   EXPRESS: 15,
 };
+
+export const productStock = 1;
 
 export const cardTypes = {
   VIDEO: 'video',

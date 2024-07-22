@@ -3,11 +3,12 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router-dom';
 
-import { Box, CircularProgress } from '@mui/material';
+import { Box } from '@mui/material';
 
 import { SerializedError } from '@reduxjs/toolkit';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import { sortOptions, urlRoles } from 'src/common/constants';
+import Loader from 'src/components/Loader';
 import SearchInput from 'src/components/shared/SearchInput';
 import useToast from 'src/components/shared/toasts/components/ToastProvider/ToastProviderHooks';
 import { SortOrder } from 'src/redux/user/types';
@@ -92,7 +93,7 @@ function UsersPage() {
   }, [error, showToast, t]);
 
   if (isLoading) {
-    return <CircularProgress />;
+    return <Loader />;
   }
 
   const getTitle = (path: string): string => {

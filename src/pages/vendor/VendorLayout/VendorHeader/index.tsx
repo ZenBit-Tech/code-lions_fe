@@ -72,7 +72,7 @@ function VendorHeader() {
         }}
       >
         <Box display="flex" alignItems="center">
-          <StyledAvatar src={`${import.meta.env.VITE_API_URL}${userAvatar}`} />
+          <StyledAvatar src={userAvatar} />
           <Box
             display="flex"
             flexDirection="column"

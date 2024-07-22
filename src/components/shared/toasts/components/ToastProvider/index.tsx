@@ -46,6 +46,7 @@ function ToastProvider({ children }: ToastProviderProps): JSX.Element {
         <Alert
           onClose={handleClose}
           severity={severity}
+          variant="filled"
           sx={{
             width: '100%',
             display: 'flex',

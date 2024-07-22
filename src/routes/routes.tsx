@@ -3,9 +3,12 @@ import { createBrowserRouter } from 'react-router-dom';
 import { urls } from 'src/common/constants';
 import Layout from 'src/components/Layout';
 import AboutUsPage from 'src/pages/AboutUsPage';
+import AdminChatsPage from 'src/pages/admin/AdminChatsPage';
 import AdminLayout from 'src/pages/admin/AdminLayout';
 import AdminUserProfileEditPage from 'src/pages/admin/AdminUserProfileEditPage';
 import AdminUserProfilePage from 'src/pages/admin/AdminUserProfilePage';
+import ProductListPage from 'src/pages/admin/ProductListPage';
+import ProductRequestPage from 'src/pages/admin/ProductRequestPage';
 import SignInAdminPage from 'src/pages/admin/SignInAdminPage';
 import UsersPage from 'src/pages/admin/UsersPage';
 import BestVendorsPage from 'src/pages/BestVendorsPage';
@@ -36,7 +39,8 @@ import TermsOfUsePage from 'src/pages/TermsOfUsePage';
 import VendorAddProductPage from 'src/pages/vendor/VendorAddProductPage';
 import VendorDashboard from 'src/pages/vendor/VendorDashboard';
 import VendorLayout from 'src/pages/vendor/VendorLayout';
-import VendorProductPage from 'src/pages/vendor/VendorProductsPage';
+import VendorProductPage from 'src/pages/vendor/VendorProductPage';
+import VendorProductsPage from 'src/pages/vendor/VendorProductsPage';
 import VendorProfileLayout from 'src/pages/vendor/VendorProfileLayout';
 import VendorProfilePage from 'src/pages/vendor/VendorProfilePage';
 import VendorPublicProfilePage from 'src/pages/vendor/VendorPublicProfilePage';
@@ -155,6 +159,19 @@ const router = createBrowserRouter([
         path: urls.ADMIN_VENDOR_PROFILE_EDIT,
         element: <AdminUserProfileEditPage />,
       },
+
+      {
+        path: urls.ADMIN_PRODUCT_REQUEST,
+        element: <ProductRequestPage />,
+      },
+      {
+        path: urls.ADMIN_PRODUCT_LIST,
+        element: <ProductListPage />,
+      },
+      {
+        path: urls.ADMIN_CHATS,
+        element: <AdminChatsPage />,
+      },
     ],
   },
   {
@@ -171,8 +188,7 @@ const router = createBrowserRouter([
       { path: urls.VENDOR_DASHBOARD, element: <VendorDashboard /> },
       { path: urls.VENDOR_ADD_PRODUCT, element: <VendorAddProductPage /> },
       { path: urls.VENDOR_EDIT_PRODUCT, element: <ProfileComingSoon /> },
-      { path: urls.VENDOR_PRODUCTS, element: <VendorProductPage /> },
-      { path: urls.VENDOR_PRODUCT, element: <ProfileComingSoon /> },
+      { path: urls.VENDOR_PRODUCTS, element: <VendorProductsPage /> },
       { path: urls.VENDOR_ORDERS, element: <ProfileComingSoon /> },
       { path: urls.VENDOR_CHATS, element: <ProfileComingSoon /> },
       {
@@ -186,6 +202,7 @@ const router = createBrowserRouter([
       },
     ],
   },
+  { path: urls.PUBLIC_PRODUCT_ID, element: <VendorProductPage /> },
 ]);
 
 export default router;

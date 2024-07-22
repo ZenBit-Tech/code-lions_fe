@@ -115,7 +115,7 @@ export interface IUserDataResponse {
   pagesCount: number;
 }
 
-export type SortOrder = 'asc' | 'desc';
+export type SortOrder = 'ASC' | 'DESC';
 
 export interface IAdminUsersRequest {
   page?: number;

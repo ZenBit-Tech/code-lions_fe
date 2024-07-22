@@ -15,6 +15,7 @@ import {
 
 import { addProductApi } from './addProduct/addProductService';
 import addProductReducer from './addProduct/addProductSlice';
+import { adminProductsApi } from './adminProduct/adminProductService';
 import { bestVendorsApi } from './bestVendors/bestVendorsService';
 import bestVendorsReducer from './bestVendors/bestVendorsSlice';
 import { cartApi } from './cart/cartService';
@@ -23,6 +24,7 @@ import { productApi } from './product/productService';
 import productReducer from './product/productSlice';
 import { userApi } from './user/userService';
 import userReducer from './user/userSlice';
+import { vendorProductsApi } from './vendorProduct/vendorProductService';
 import { wishlistApi } from './wishlist/wishlistService';
 import wishlistReducer from './wishlist/wishlistSlice';
 
@@ -39,6 +41,8 @@ const rootReducer = combineReducers({
   [wishlistApi.reducerPath]: wishlistApi.reducer,
   [cartApi.reducerPath]: cartApi.reducer,
   [addProductApi.reducerPath]: addProductApi.reducer,
+  [adminProductsApi.reducerPath]: adminProductsApi.reducer,
+  [vendorProductsApi.reducerPath]: vendorProductsApi.reducer,
 });
 
 const persistConfig = {
@@ -63,6 +67,8 @@ const store = configureStore({
       wishlistApi.middleware,
       cartApi.middleware,
       addProductApi.middleware
+      adminProductsApi.middleware,
+      vendorProductsApi.middleware
     ),
 });
 

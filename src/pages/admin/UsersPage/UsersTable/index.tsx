@@ -13,8 +13,8 @@ import {
 import formatDateString from 'src/common/utils/formatDateString';
 import StyledBackdrop from 'src/components/shared/StyledBackdrop';
 import ActionButtons from 'src/pages/admin/ActionButtons';
-import ModalPopup from 'src/pages/admin/ModalPopup';
 import StyledPagination from 'src/pages/admin/StyledPagination';
+import ModalPopupUsers from 'src/pages/admin/UsersPage/ModalPopupUsers';
 import { IAdminUser } from 'src/redux/user/types';
 
 import {
@@ -106,7 +106,7 @@ function UsersTable({ users, pagesCount, page, handleChange }: IUsersTable) {
                 user.id === selectedUser &&
                 createPortal(
                   <StyledBackdrop showModal={showModal}>
-                    <ModalPopup onClose={handleClose} userId={user.id} />
+                    <ModalPopupUsers onClose={handleClose} userId={user.id} />
                   </StyledBackdrop>,
                   document.body
                 )}

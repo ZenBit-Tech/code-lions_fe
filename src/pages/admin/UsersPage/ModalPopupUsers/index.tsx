@@ -33,7 +33,7 @@ interface IModalPopup {
   userId: string | undefined;
 }
 
-function ModalPopup({ onClose, userId }: IModalPopup) {
+function ModalPopupUsers({ onClose, userId }: IModalPopup) {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { showToast } = useToast();
@@ -119,4 +119,4 @@ function ModalPopup({ onClose, userId }: IModalPopup) {
   );
 }
 
-export default ModalPopup;
+export default ModalPopupUsers;
