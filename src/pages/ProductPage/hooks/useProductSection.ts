@@ -13,7 +13,7 @@ import {
 import { ICartItem } from 'src/redux/cart/types';
 import { useAppSelector } from 'src/redux/hooks';
 import { IProduct } from 'src/redux/product/types';
-import { selectUserId } from 'src/redux/user/userSlice';
+import { selectHideRentalRules, selectUserId } from 'src/redux/user/userSlice';
 
 const durations = [
   { duration: 7, price: 0 },
@@ -27,6 +27,7 @@ const useProductSection = (product: IProduct) => {
   const { showToast } = useToast();
 
   const userId = useSelector(selectUserId);
+  const willHideRentalRules = useSelector(selectHideRentalRules);
 
   const [selectedSize] = useState<string>(product.size);
   const [value, setValue] = useState<string>(durations[0]?.duration.toString());
@@ -108,6 +109,14 @@ const useProductSection = (product: IProduct) => {
     }
   };
 
+  const handleAddToCartOrOpenModal = async () => {
+    if (willHideRentalRules) {
+      await handleAddToCart();
+    } else {
+      handleOpen();
+    }
+  };
+
   return {
     userId,
     selectedSize,
@@ -120,6 +129,7 @@ const useProductSection = (product: IProduct) => {
     handleAddToCart,
     handleRemoveFromCart,
     handleCartClick,
+    handleAddToCartOrOpenModal,
     isProductInCart,
     isAddingToCart,
     isRemovingFromCart,

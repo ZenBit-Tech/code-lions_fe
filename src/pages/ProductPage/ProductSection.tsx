@@ -37,9 +37,9 @@ function ProductSection({ product }: ProductSectionProps) {
     selectedSize,
     value,
     showModal,
-    handleOpen,
     handleClose,
     handleRadioChange,
+    handleAddToCartOrOpenModal,
     handleAddToCart,
     handleRemoveFromCart,
     handleCartClick,
@@ -62,7 +62,6 @@ function ProductSection({ product }: ProductSectionProps) {
               isAddingToCart={isAddingToCart}
               userId={userId}
               handleAddToCart={handleAddToCart}
-              handleCartClick={handleCartClick}
             />
           </StyledBackdrop>,
           document.body
@@ -227,8 +226,7 @@ function ProductSection({ product }: ProductSectionProps) {
             fullWidth
             variant="contained"
             startIcon={<BagCheckIcon />}
-            // onClick={userId ? handleAddToCart : handleCartClick}
-            onClick={handleOpen}
+            onClick={userId ? handleAddToCartOrOpenModal : handleCartClick}
             disabled={isAddingToCart}
             sx={{ borderRadius: '12px', padding: '16px 24px' }}
           >

@@ -14,6 +14,7 @@ const initialState: IUser = {
   accessToken: '',
   refreshToken: '',
   isAccountActive: true,
+  willHideRentalRules: false,
   photoUrl: '',
   phoneNumber: '',
   addressLine1: '',
@@ -112,6 +113,12 @@ export const userSlice = createSlice({
         state.shoesSize = action.payload.shoesSize;
       }
     );
+    builder.addMatcher(
+      userApi.endpoints.hideRentalRules.matchFulfilled,
+      (state: IUser) => {
+        state.willHideRentalRules = true;
+      }
+    );
   },
 });
 
@@ -138,5 +145,7 @@ export const selectUserJeansSize = (state: { user: IUser }) =>
   state.user.jeansSize;
 export const selectUserShoesSize = (state: { user: IUser }) =>
   state.user.shoesSize;
+export const selectHideRentalRules = (state: { user: IUser }) =>
+  state.user.willHideRentalRules;
 
 export default userSlice.reducer;

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
 
 import {
   Button,
@@ -15,6 +16,8 @@ import { Box } from '@mui/system';
 import BagCheckIcon from 'src/assets/icons/bag-check.svg';
 import ChevronDown from 'src/assets/icons/chevron-down.svg';
 import CloseIcon from 'src/assets/icons/close.svg';
+import { useHideRentalRulesMutation } from 'src/redux/user/userService';
+import { selectHideRentalRules } from 'src/redux/user/userSlice';
 import theme from 'src/theme';
 
 import rulesData from '../RentalRulesPage/rulesData';
@@ -26,7 +29,6 @@ interface IModalPopup {
   onClose: () => void;
   userId: string;
   isAddingToCart: boolean;
-  handleCartClick: React.MouseEventHandler<HTMLButtonElement>;
   handleAddToCart: () => Promise<boolean>;
 }
 
@@ -34,14 +36,41 @@ function RentalRulesPopup({
   onClose,
   userId,
   isAddingToCart,
-  handleCartClick,
   handleAddToCart,
 }: IModalPopup) {
   const { t } = useTranslation();
   const [expanded, setExpanded] = useState<number | null>(null);
+  const [isCheckboxChecked, setIsCheckboxChecked] = useState(false);
+
+  const willHideRentalRules = useSelector(selectHideRentalRules);
+
+  const [hideRentalRules] = useHideRentalRulesMutation();
 
   const handleExpandClick = (id: number) => {
     setExpanded(expanded === id ? null : id);
+  };
+
+  const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setIsCheckboxChecked(event.target.checked);
+  };
+
+  const handleAddToCartAndCloseModal = async () => {
+    const addToCartPromise = handleAddToCart();
+
+    const hideRentalRulesPromise =
+      !willHideRentalRules && isCheckboxChecked
+        ? hideRentalRules({ id: userId }).unwrap()
+        : Promise.resolve();
+
+    try {
+      await Promise.all([addToCartPromise, hideRentalRulesPromise]);
+
+      return true;
+    } catch (error) {
+      return error;
+    } finally {
+      onClose();
+    }
   };
 
   return (
@@ -89,9 +118,8 @@ function RentalRulesPopup({
                 <Collapse in={expanded === id} timeout="auto" unmountOnExit>
                   <List sx={{ margin: '0 20px' }}>
                     {rules.map((rule, index) => (
-                      <Box marginBottom="15px">
+                      <Box marginBottom="15px" key={index}>
                         <Typography
-                          key={index}
                           variant="body2"
                           color={theme.palette.text.disabled}
                         >
@@ -110,7 +138,7 @@ function RentalRulesPopup({
               margin="10px 0"
             >
               <FormControlLabel
-                control={<Checkbox />}
+                control={<Checkbox onChange={handleCheckboxChange} />}
                 label={t('rentalRules.doNotShowRules')}
               />
             </Box>
@@ -122,7 +150,7 @@ function RentalRulesPopup({
           fullWidth
           variant="contained"
           startIcon={<BagCheckIcon />}
-          onClick={userId ? handleAddToCart : handleCartClick}
+          onClick={handleAddToCartAndCloseModal}
           disabled={isAddingToCart}
           sx={{ borderRadius: '12px', padding: '16px 24px' }}
         >
