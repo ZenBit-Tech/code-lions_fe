@@ -12,14 +12,18 @@ function formatDateForChatList(date: Date): string {
   const millisecondsInADay = hours * seconds * milliseconds;
   const diff = (now.getTime() - date.getTime()) / millisecondsInADay;
 
+  const timeFormat = 'p';
+  const monthAndDayFormat = 'MMMM d';
+  const yearMonthAndDayFormat = 'yyyy MM d';
+
   if (diff < oneDayDifference) {
-    return format(date, 'p');
+    return format(date, timeFormat);
   } else if (diff < twoDayDifference) {
     return t('chat.yesterday');
   } else if (diff < daysInAYear) {
-    return format(date, 'MMMM d');
+    return format(date, monthAndDayFormat);
   } else {
-    return format(date, 'yyyy MM d');
+    return format(date, yearMonthAndDayFormat);
   }
 }
 
