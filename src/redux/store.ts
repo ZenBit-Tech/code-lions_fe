@@ -66,7 +66,7 @@ const store = configureStore({
       bestVendorsApi.middleware,
       wishlistApi.middleware,
       cartApi.middleware,
-      addProductApi.middleware
+      addProductApi.middleware,
       adminProductsApi.middleware,
       vendorProductsApi.middleware
     ),
