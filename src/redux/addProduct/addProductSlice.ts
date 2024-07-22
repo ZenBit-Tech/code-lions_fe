@@ -1,14 +1,25 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
+import { RootState } from 'src/redux/store';
 
-import { IAddedProduct } from './types';
+import { IAddedProduct, ProductImage } from './types';
 
 const initialState: IAddedProduct = {
   category: '',
   type: '',
   style: '',
-  photos: [],
+  images: [],
   step: 1,
 };
+
+export const fetchProductImages = createAsyncThunk(
+  'addProduct/fetchProductImages',
+  async (_, { getState }) => {
+    const state = getState() as RootState;
+    const { images } = state.addProduct;
+
+    return images;
+  }
+);
 
 export const addProductSlice = createSlice({
   name: 'addProduct',
@@ -32,9 +43,26 @@ export const addProductSlice = createSlice({
     setStyle(state, action: PayloadAction<string>) {
       state.style = action.payload;
     },
-    addPhoto(state, action: PayloadAction<string>) {
-      state.photos.push(action.payload);
+    addPhoto(state, action: PayloadAction<ProductImage>) {
+      state.images.push(action.payload);
     },
+    removePhoto(state, action: PayloadAction<string>) {
+      state.images = state.images.filter(
+        (image) => image.src !== action.payload
+      );
+    },
+    setPrimaryPhoto(state, action: PayloadAction<string>) {
+      state.images = state.images.map((image) =>
+        image.src === action.payload
+          ? { ...image, isPrimary: true }
+          : { ...image, isPrimary: false }
+      );
+    },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(fetchProductImages.fulfilled, (state, action) => {
+      state.images = action.payload;
+    });
   },
 });
 
@@ -43,6 +71,8 @@ export const {
   setType,
   setStyle,
   addPhoto,
+  removePhoto,
+  setPrimaryPhoto,
   increaseAddProductStep,
   decreaseAddProductStep,
   setAddProductStep,
@@ -50,5 +80,8 @@ export const {
 
 export const selectAddProductStep = (state: { addProduct: IAddedProduct }) =>
   state.addProduct.step;
+
+export const selectProductImages = (state: RootState) =>
+  state.addProduct.images;
 
 export default addProductSlice.reducer;

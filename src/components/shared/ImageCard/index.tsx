@@ -1,5 +1,6 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useDispatch } from 'react-redux';
 
 import { Box, IconButton, Typography, Button } from '@mui/material';
 import { alpha } from '@mui/system';
@@ -15,6 +16,11 @@ import {
   useDeleteProductPhotoMutation,
   useSetProductPhotoPrimaryMutation,
 } from 'src/redux/addProduct/addProductService';
+import {
+  addPhoto,
+  removePhoto,
+  setPrimaryPhoto,
+} from 'src/redux/addProduct/addProductSlice';
 import theme from 'src/theme';
 
 const transparency = 0.6;
@@ -29,60 +35,63 @@ interface ImageCardProps {
   isPrimary?: boolean;
 }
 
-const validateImage = (file: File): Promise<boolean> => {
-  const validTypes = ['image/jpeg', 'image/png', 'image/heic'];
-
-  if (!validTypes.includes(file.type)) {
-    alert('Invalid file type. Only jpg, png, and heic are allowed.');
-
-    return Promise.resolve(false);
-  }
-  if (file.size > maxMbImage * maxSizeImage * maxSizeImage) {
-    alert('File is too large. Maximum size is 50 MB.');
-
-    return Promise.resolve(false);
-  }
-
-  return new Promise((resolve) => {
-    const img = new Image();
-
-    img.src = URL.createObjectURL(file);
-    img.onload = () => {
-      if (img.width < maxWidthImage || img.height < maxHeightImage) {
-        alert('Image is too small. Minimum dimensions are 1080x1080 pixels.');
-        resolve(false);
-      } else {
-        resolve(true);
-      }
-    };
-  });
-};
-
 function ImageCard({ type, src, isPrimary }: ImageCardProps) {
   const { t } = useTranslation();
   const inputRef = useRef<HTMLInputElement>(null);
   const { showToast } = useToast();
+  const dispatch = useDispatch();
 
   const [uploadProductPhoto] = useUploadProductPhotoMutation();
   const [deleteProductPhoto] = useDeleteProductPhotoMutation();
   const [setProductPhotoPrimary] = useSetProductPhotoPrimaryMutation();
+  const [pendingSrc, setPendingSrc] = useState<string | null | undefined>(null);
+
+  const validateImage = (file: File): Promise<boolean> => {
+    const validTypes = ['image/jpeg', 'image/png', 'image/heic'];
+
+    if (!validTypes.includes(file.type)) {
+      showToast('error', t('addProduct.invalidFileType'));
+
+      return Promise.resolve(false);
+    }
+    if (file.size > maxMbImage * maxSizeImage * maxSizeImage) {
+      showToast('error', t('addProduct.fileTooBig'));
+
+      return Promise.resolve(false);
+    }
+
+    return new Promise((resolve) => {
+      const img = new Image();
+
+      img.src = URL.createObjectURL(file);
+      img.onload = () => {
+        if (img.width < maxWidthImage || img.height < maxHeightImage) {
+          showToast('error', t('addProduct.fileTooSmall'));
+          resolve(false);
+        } else {
+          resolve(true);
+        }
+      };
+    });
+  };
 
   const sendPhotoRequest = async (file: File | null) => {
-    console.log('111');
     try {
       if (file instanceof File) {
         const formDataPhoto = new FormData();
 
         formDataPhoto.append('file', file);
-        console.log('222');
         const response = await uploadProductPhoto({
           photo: formDataPhoto,
         }).unwrap();
+        const newPhoto = response.images[response.images.length - 1];
 
-        console.log(response);
-        const newPhoto = response.images[0];
-
-        console.log(newPhoto);
+        dispatch(addPhoto({ type: 'image', src: newPhoto, isPrimary: false }));
+        if (pendingSrc) {
+          await deleteProductPhoto({ url: pendingSrc }).unwrap();
+          dispatch(removePhoto(pendingSrc));
+        }
+        setPendingSrc(null);
       }
     } catch (err) {
       if (err instanceof Error) {
@@ -101,19 +110,24 @@ function ImageCard({ type, src, isPrimary }: ImageCardProps) {
 
       if (isValid) {
         await sendPhotoRequest(file);
+      } else {
+        setPendingSrc(null);
       }
     }
+  };
+
+  const handleClick = () => {
+    setPendingSrc(src);
+    inputRef.current?.click();
   };
 
   const handleRemove = async () => {
     if (src) {
       try {
-        const formData = new FormData();
-
-        formData.append('photo', src);
-        await deleteProductPhoto({ photo: formData }).unwrap();
+        dispatch(removePhoto(src));
+        await deleteProductPhoto({ url: src }).unwrap();
       } catch (error) {
-        console.error('Failed to delete photo: ', error);
+        showToast('error', t('addProduct.failedDelete'));
       }
     }
   };
@@ -121,18 +135,31 @@ function ImageCard({ type, src, isPrimary }: ImageCardProps) {
   const handleSetPrimary = async () => {
     if (src) {
       try {
-        const formData = new FormData();
-
-        formData.append('photo', src);
-        await setProductPhotoPrimary({ photo: formData }).unwrap();
+        await setProductPhotoPrimary({ url: src }).unwrap();
+        dispatch(setPrimaryPhoto(src));
       } catch (error) {
-        console.error('Failed to set primary photo: ', error);
+        showToast('error', t('addProduct.failedSetPrimary'));
       }
     }
   };
 
-  const triggerUpload = () => {
-    inputRef.current?.click();
+  const handleDragOver = (event: React.DragEvent<HTMLDivElement>) => {
+    event.preventDefault();
+    event.stopPropagation();
+  };
+
+  const handleDrop = async (event: React.DragEvent<HTMLDivElement>) => {
+    event.preventDefault();
+    event.stopPropagation();
+    const file = event.dataTransfer.files?.[0] || null;
+
+    if (file) {
+      const isValid = await validateImage(file);
+
+      if (isValid) {
+        await sendPhotoRequest(file);
+      }
+    }
   };
 
   return (
@@ -151,6 +178,8 @@ function ImageCard({ type, src, isPrimary }: ImageCardProps) {
           ? 'transparent'
           : alpha(theme.palette.primary.light, transparency),
       }}
+      onDragOver={handleDragOver}
+      onDrop={handleDrop}
     >
       <input
         type="file"
@@ -193,7 +222,7 @@ function ImageCard({ type, src, isPrimary }: ImageCardProps) {
               top: '0px',
               right: '25px',
             }}
-            onClick={triggerUpload}
+            onClick={handleClick}
           >
             <Pen />
           </IconButton>
@@ -221,7 +250,6 @@ function ImageCard({ type, src, isPrimary }: ImageCardProps) {
         </>
       ) : (
         <Button
-          onClick={triggerUpload}
           sx={{
             display: 'flex',
             flexDirection: 'column',
@@ -235,6 +263,7 @@ function ImageCard({ type, src, isPrimary }: ImageCardProps) {
               backgroundColor: 'transparent',
             },
           }}
+          onClick={handleClick}
         >
           <Add />
           <Typography

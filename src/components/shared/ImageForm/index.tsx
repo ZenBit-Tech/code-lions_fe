@@ -1,7 +1,9 @@
-import { useState } from 'react';
+import { useSelector } from 'react-redux';
 
 import { Box } from '@mui/material';
 
+import { selectProductImages } from 'src/redux/addProduct/addProductSlice';
+import { RootState } from 'src/redux/store';
 import theme from 'src/theme';
 
 import ImageCard from '../ImageCard';
@@ -9,9 +11,7 @@ import ImageCard from '../ImageCard';
 const maxNumberImage = 4;
 
 function ImagesForm() {
-  const [mediaItems] = useState<
-    { id: number; type: 'image' | 'video'; src: string; isPrimary: boolean }[]
-  >([]);
+  const images = useSelector((state: RootState) => selectProductImages(state));
 
   return (
     <Box
@@ -28,15 +28,17 @@ function ImagesForm() {
           gap: '5px',
         }}
       >
-        {mediaItems.map((item) => (
-          <ImageCard
-            key={item.id}
-            type={item.type}
-            src={item.src}
-            isPrimary={item.isPrimary}
-          />
-        ))}
-        {mediaItems.filter((item) => item.type === 'image').length <
+        {images.map(
+          (item) =>
+            (item.type === 'image' || item.type === 'video') && (
+              <ImageCard
+                type={item.type}
+                src={item.src}
+                isPrimary={item.isPrimary}
+              />
+            )
+        )}
+        {images.filter((item) => item.type === 'image').length <
           maxNumberImage && <ImageCard type="image" />}
       </Box>
     </Box>

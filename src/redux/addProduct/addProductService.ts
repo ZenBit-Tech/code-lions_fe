@@ -1,13 +1,16 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { apiUrl, HttpMethods, RTKUrls } from 'src/common/constants.ts';
+import { createApi } from '@reduxjs/toolkit/query/react';
+import { HttpMethods, RTKUrls } from 'src/common/constants.ts';
+import { baseQueryWithReauth } from 'src/redux/user/userService';
 
-import { IUploadProductPhotoRequest, IProduct } from './types';
+import {
+  IUploadProductPhotoRequest,
+  IProduct,
+  IDeleteProductPhotoRequest,
+} from './types';
 
 export const addProductApi = createApi({
   reducerPath: 'addProductApi',
-  baseQuery: fetchBaseQuery({
-    baseUrl: apiUrl,
-  }),
+  baseQuery: baseQueryWithReauth,
   tagTypes: ['AddProduct'],
   endpoints: (build) => ({
     uploadProductPhoto: build.mutation<IProduct, IUploadProductPhotoRequest>({
@@ -17,21 +20,20 @@ export const addProductApi = createApi({
         body: photo,
       }),
     }),
-    deleteProductPhoto: build.mutation<IProduct, IUploadProductPhotoRequest>({
-      query: ({ photo }) => ({
-        url: `${RTKUrls.PRODUCTS}/${RTKUrls.PHOTO}`,
+    deleteProductPhoto: build.mutation<IProduct, IDeleteProductPhotoRequest>({
+      query: ({ url }) => ({
+        url: `${RTKUrls.PRODUCTS}/${RTKUrls.PHOTO}?file=${encodeURIComponent(url)}`,
         method: HttpMethods.DELETE,
-        body: photo,
       }),
     }),
     setProductPhotoPrimary: build.mutation<
       IProduct,
-      IUploadProductPhotoRequest
+      IDeleteProductPhotoRequest
     >({
-      query: ({ photo }) => ({
+      query: ({ url }) => ({
         url: `${RTKUrls.PRODUCTS}/${RTKUrls.PHOTO}/${RTKUrls.PRIMARY}`,
         method: HttpMethods.PATCH,
-        body: photo,
+        body: url,
       }),
     }),
   }),

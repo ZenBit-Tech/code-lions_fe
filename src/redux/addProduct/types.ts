@@ -29,10 +29,20 @@ export interface IAddedProduct {
   category: string;
   type: string;
   style: string;
-  photos: string[];
+  images: ProductImage[];
   step: number;
 }
 
 export interface IUploadProductPhotoRequest {
   photo: FormData;
+}
+
+export interface IDeleteProductPhotoRequest {
+  url: string;
+}
+
+export interface ProductImage {
+  type: string;
+  src: string;
+  isPrimary: boolean;
 }

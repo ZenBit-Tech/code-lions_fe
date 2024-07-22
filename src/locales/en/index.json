@@ -481,7 +481,12 @@
     "addImage": "Add Image",
     "dropImage": "Or Drop Image To Upload",
     "addVideo": "Add Video",
-    "dropVideo": "Or Drop Video To Upload"
+    "dropVideo": "Or Drop Video To Upload",
+    "failedSetPrimary": "Failed to set primary photo",
+    "failedDelete": "Failed to delete photo",
+    "fileTooSmall": "Image is too small. Minimum dimensions are 1080x1080 pixels.",
+    "fileTooBig": "File is too large. Maximum size is 50 MB.",
+    "invalidFileType": "Invalid file type. Only jpg, png, and heic are allowed."
   },
   "cartPage": {
     "title": "Cart",
