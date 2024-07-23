@@ -281,3 +281,6 @@ export const cardTypes = {
 };
 
 export const eventalCategory: string = 'evental';
+export const timeFormat = 'p';
+export const monthAndDayFormat = 'MMMM d';
+export const yearMonthAndDayFormat = 'yyyy MM d';
