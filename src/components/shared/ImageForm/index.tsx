@@ -1,101 +1,17 @@
-import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
 
-import {
-  Box,
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-} from '@mui/material';
+import { Box } from '@mui/material';
 
+import { selectProductImages } from 'src/redux/addProduct/addProductSlice';
+import { RootState } from 'src/redux/store';
 import theme from 'src/theme';
 
 import ImageCard from '../ImageCard';
 
-const maxMbImage = 50;
-const maxSizeImage = 1024;
-const maxWidthImage = 1600;
-const maxHeightImage = 2400;
 const maxNumberImage = 4;
 
-const validateImage = (file: File): Promise<boolean> => {
-  const validTypes = ['image/jpeg', 'image/png', 'image/heic'];
-
-  if (!validTypes.includes(file.type)) {
-    alert('Invalid file type. Only jpg, png, and heic are allowed.');
-
-    return Promise.resolve(false);
-  }
-  if (file.size > maxMbImage * maxSizeImage * maxSizeImage) {
-    alert('File is too large. Maximum size is 50 MB.');
-
-    return Promise.resolve(false);
-  }
-
-  return new Promise((resolve) => {
-    const img = new Image();
-
-    img.src = URL.createObjectURL(file);
-    img.onload = () => {
-      if (img.width < maxWidthImage || img.height < maxHeightImage) {
-        alert('Image is too small. Minimum dimensions are 1600x2400 pixels.');
-        resolve(false);
-      } else {
-        resolve(true);
-      }
-    };
-  });
-};
-
 function ImagesForm() {
-  const { t } = useTranslation();
-
-  const [mediaItems, setMediaItems] = useState<
-    { id: number; type: 'image' | 'video'; src: string; isPrimary: boolean }[]
-  >([]);
-  const [showConfirmDialog, setShowConfirmDialog] = useState(false);
-
-  const handleUpload = (file: File, id: number) => {
-    validateImage(file).then((isValid) => {
-      if (isValid) {
-        const newSrc = URL.createObjectURL(file);
-
-        setMediaItems((prevItems) =>
-          prevItems.map((item) =>
-            item.id === id ? { ...item, src: newSrc } : item
-          )
-        );
-      }
-    });
-  };
-
-  const handleRemove = (id: number) => {
-    setMediaItems((prevItems) => {
-      const updatedItems = prevItems.filter((item) => item.id !== id);
-
-      if (
-        updatedItems.length > 0 &&
-        !updatedItems.some((item) => item.isPrimary)
-      ) {
-        updatedItems[0].isPrimary = true;
-      }
-
-      return updatedItems;
-    });
-  };
-
-  const handlePrimary = (id: number) => {
-    setMediaItems((prevItems) =>
-      prevItems.map((item) =>
-        item.id === id
-          ? { ...item, isPrimary: true }
-          : { ...item, isPrimary: false }
-      )
-    );
-  };
+  const images = useSelector((state: RootState) => selectProductImages(state));
 
   return (
     <Box
@@ -112,74 +28,19 @@ function ImagesForm() {
           gap: '5px',
         }}
       >
-        {mediaItems.map((item) => (
-          <ImageCard
-            key={item.id}
-            type={item.type}
-            src={item.src}
-            isPrimary={item.isPrimary}
-            onUpload={(file) => handleUpload(file, item.id)}
-            onRemove={() => handleRemove(item.id)}
-            onPrimary={() => handlePrimary(item.id)}
-          />
-        ))}
-        {mediaItems.filter((item) => item.type === 'image').length <
-          maxNumberImage && (
-          <ImageCard
-            type="image"
-            onUpload={(file) => {
-              const newId = mediaItems.length
-                ? Math.max(...mediaItems.map((item) => item.id)) + 1
-                : 1;
-
-              validateImage(file).then((isValid) => {
-                if (isValid) {
-                  const newSrc = URL.createObjectURL(file);
-
-                  setMediaItems([
-                    ...mediaItems,
-                    {
-                      id: newId,
-                      type: 'image',
-                      src: newSrc,
-                      isPrimary: mediaItems.length === 0,
-                    },
-                  ]);
-                }
-              });
-            }}
-          />
+        {images.map(
+          (item) =>
+            (item.type === 'image' || item.type === 'video') && (
+              <ImageCard
+                type={item.type}
+                src={item.src}
+                isPrimary={item.isPrimary}
+              />
+            )
         )}
+        {images.filter((item) => item.type === 'image').length <
+          maxNumberImage && <ImageCard type="image" />}
       </Box>
-      <Dialog
-        open={showConfirmDialog}
-        onClose={() => setShowConfirmDialog(false)}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <DialogTitle id="alert-dialog-title">
-          {t('onboarding.confirmCloseTitle')}
-        </DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            {t('onboarding.confirmCloseMessage')}
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={() => setShowConfirmDialog(false)} color="primary">
-            {t('no')}
-          </Button>
-          <Button
-            onClick={() => {
-              setShowConfirmDialog(false);
-            }}
-            color="primary"
-            autoFocus
-          >
-            {t('yes')}
-          </Button>
-        </DialogActions>
-      </Dialog>
     </Box>
   );
 }

@@ -488,7 +488,19 @@
     "addImage": "Add Image",
     "dropImage": "Or Drop Image To Upload",
     "addVideo": "Add Video",
-    "dropVideo": "Or Drop Video To Upload"
+    "dropVideo": "Or Drop Video To Upload",
+    "failedSetPrimary": "Failed to set primary photo",
+    "failedDelete": "Failed to delete photo",
+    "fileTooSmall": "Image is too small. Minimum dimensions are 1080x1080 pixels.",
+    "fileTooBig": "File is too large. Maximum size is 50 MB.",
+    "invalidFileType": "Invalid file type. Only jpg, png, and heic are allowed.",
+    "productPrice": "Product Price",
+    "price": "Price",
+    "priceDescription": "It's price for the product",
+    "inputPrice": "Input the price of the product here",
+    "priceRequired": "Price cannot be empty",
+    "priceInvalid": "Price must be a number",
+    "failedCreateProduct": "Failed to create product"
   },
   "cartPage": {
     "title": "Cart",

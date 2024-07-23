@@ -1,4 +1,3 @@
-import { useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { Box, IconButton, Typography, Button } from '@mui/material';
@@ -11,39 +10,27 @@ import Trash from 'src/assets/icons/addProduct/trash.svg';
 import Add from 'src/assets/icons/addProduct/upload.svg';
 import theme from 'src/theme';
 
+import useImageCard from './useImageCard';
+
 const transparency = 0.6;
 
 interface ImageCardProps {
   type: 'image' | 'video';
   src?: string;
   isPrimary?: boolean;
-  onRemove?: () => void;
-  onUpload: (file: File) => void;
-  onPrimary?: () => void;
 }
 
-function ImageCard({
-  type,
-  src,
-  isPrimary,
-  onRemove,
-  onUpload,
-  onPrimary,
-}: ImageCardProps) {
+function ImageCard({ type, src, isPrimary }: ImageCardProps) {
   const { t } = useTranslation();
-  const inputRef = useRef<HTMLInputElement>(null);
-
-  const handleUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.files && event.target.files[0]) {
-      const file = event.target.files[0];
-
-      onUpload(file);
-    }
-  };
-
-  const triggerUpload = () => {
-    inputRef.current?.click();
-  };
+  const {
+    inputRef,
+    handleUpload,
+    handleClick,
+    handleRemove,
+    handleSetPrimary,
+    handleDragOver,
+    handleDrop,
+  } = useImageCard(type, src);
 
   return (
     <Box
@@ -61,6 +48,8 @@ function ImageCard({
           ? 'transparent'
           : alpha(theme.palette.primary.light, transparency),
       }}
+      onDragOver={handleDragOver}
+      onDrop={handleDrop}
     >
       <input
         type="file"
@@ -79,7 +68,7 @@ function ImageCard({
               top: '0px',
               right: '129px',
             }}
-            onClick={onPrimary}
+            onClick={handleSetPrimary}
           >
             {isPrimary ? <PrimaryTrue /> : <Primary />}
           </IconButton>
@@ -103,7 +92,7 @@ function ImageCard({
               top: '0px',
               right: '25px',
             }}
-            onClick={triggerUpload}
+            onClick={handleClick}
           >
             <Pen />
           </IconButton>
@@ -124,14 +113,13 @@ function ImageCard({
               top: '0px',
               right: '1px',
             }}
-            onClick={onRemove}
+            onClick={handleRemove}
           >
             <Trash />
           </IconButton>
         </>
       ) : (
         <Button
-          onClick={triggerUpload}
           sx={{
             display: 'flex',
             flexDirection: 'column',
@@ -145,6 +133,7 @@ function ImageCard({
               backgroundColor: 'transparent',
             },
           }}
+          onClick={handleClick}
         >
           <Add />
           <Typography
