@@ -19,7 +19,6 @@ function RadioLabel({ price, duration, categories }: IRadioLabelProps) {
   return (
     <Box display="flex" flexDirection="column" gap="5px">
       <Typography variant="button">
-        {' '}
         {isEvental ? t('product.eventalRent') : t('product.oneTimeRental')}
       </Typography>
       <Typography variant="h4" sx={{ letterSpacing: '-1px' }}>

@@ -7,21 +7,26 @@ import { IProduct } from 'src/redux/product/types';
 import theme from 'src/theme';
 
 import { StyledTypography } from './styles';
+import processStringArray from './utils/processStringArray';
 
 interface ProductSectionProps {
   product: IProduct;
 }
 
+const mockPDFUrl: string =
+  'https://helpseo.net/files/uploads/669e5053c3911.pdf';
+
 function DescriptionSection({ product }: ProductSectionProps) {
   const { t } = useTranslation();
 
-  const processedColors = product.colors
-    .map((color) => capitalizeAndTruncate(color))
-    .join(', ');
-
-  const processedCategories = product.categories
-    .map((category) => capitalizeAndTruncate(category))
-    .join(', ');
+  const processedColors = processStringArray(
+    product.colors,
+    capitalizeAndTruncate
+  );
+  const processedCategories = processStringArray(
+    product.categories,
+    capitalizeAndTruncate
+  );
 
   return (
     <Box padding="0 166px 52px 166px">
@@ -143,11 +148,11 @@ function DescriptionSection({ product }: ProductSectionProps) {
               </StyledTypography>
               <StyledTypography>
                 <Link
-                  href="https://helpseo.net/files/uploads/669e5053c3911.pdf"
+                  href={mockPDFUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  Product File
+                  {t('product.productFile')}
                 </Link>
               </StyledTypography>
             </Grid>

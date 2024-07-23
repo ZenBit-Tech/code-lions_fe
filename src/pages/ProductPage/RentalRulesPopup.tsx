@@ -1,7 +1,3 @@
-import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { useSelector } from 'react-redux';
-
 import {
   Button,
   Checkbox,
@@ -16,16 +12,14 @@ import { Box } from '@mui/system';
 import BagCheckIcon from 'src/assets/icons/bag-check.svg';
 import ChevronDown from 'src/assets/icons/chevron-down.svg';
 import CloseIcon from 'src/assets/icons/close.svg';
-import { useHideRentalRulesMutation } from 'src/redux/user/userService';
-import { selectHideRentalRules } from 'src/redux/user/userSlice';
+import rulesData from 'src/pages/RentalRulesPage/rulesData';
+import { TitleStyled } from 'src/pages/RentalRulesPage/styles';
 import theme from 'src/theme';
 
-import rulesData from '../RentalRulesPage/rulesData';
-import { TitleStyled } from '../RentalRulesPage/styles';
-
+import useRentalRulesPopup from './hooks/useRentalRulesPopup';
 import { ModalTitle, Popup } from './styles';
 
-interface IModalPopup {
+interface IRentalRulesPopup {
   onClose: () => void;
   userId: string;
   isAddingToCart: boolean;
@@ -37,41 +31,14 @@ function RentalRulesPopup({
   userId,
   isAddingToCart,
   handleAddToCart,
-}: IModalPopup) {
-  const { t } = useTranslation();
-  const [expanded, setExpanded] = useState<number | null>(null);
-  const [isCheckboxChecked, setIsCheckboxChecked] = useState(false);
-
-  const willHideRentalRules = useSelector(selectHideRentalRules);
-
-  const [hideRentalRules] = useHideRentalRulesMutation();
-
-  const handleExpandClick = (id: number) => {
-    setExpanded(expanded === id ? null : id);
-  };
-
-  const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setIsCheckboxChecked(event.target.checked);
-  };
-
-  const handleAddToCartAndCloseModal = async () => {
-    const addToCartPromise = handleAddToCart();
-
-    const hideRentalRulesPromise =
-      !willHideRentalRules && isCheckboxChecked
-        ? hideRentalRules({ id: userId }).unwrap()
-        : Promise.resolve();
-
-    try {
-      await Promise.all([addToCartPromise, hideRentalRulesPromise]);
-
-      return true;
-    } catch (error) {
-      return error;
-    } finally {
-      onClose();
-    }
-  };
+}: IRentalRulesPopup) {
+  const {
+    t,
+    expanded,
+    handleExpandClick,
+    handleCheckboxChange,
+    handleAddToCartAndCloseModal,
+  } = useRentalRulesPopup(handleAddToCart, onClose, userId);
 
   return (
     <Popup>
