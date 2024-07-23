@@ -1,5 +1,10 @@
 import { format } from 'date-fns';
 import { t } from 'i18next';
+import {
+  monthAndDayFormat,
+  timeFormat,
+  yearMonthAndDayFormat,
+} from 'src/common/constants';
 
 function formatDateForChatList(date: Date): string {
   const now = new Date();
@@ -11,10 +16,6 @@ function formatDateForChatList(date: Date): string {
   const twoDayDifference = 2;
   const millisecondsInADay = hours * seconds * milliseconds;
   const diff = (now.getTime() - date.getTime()) / millisecondsInADay;
-
-  const timeFormat = 'p';
-  const monthAndDayFormat = 'MMMM d';
-  const yearMonthAndDayFormat = 'yyyy MM d';
 
   if (diff < oneDayDifference) {
     return format(date, timeFormat);
