@@ -4,7 +4,7 @@ import { RootState } from 'src/redux/store';
 import { IAddedProduct, ProductImage } from './types';
 
 const initialState: IAddedProduct = {
-  id: '',
+  id: 'new',
   category: '',
   type: '',
   style: '',

@@ -15,8 +15,8 @@ export const addProductApi = createApi({
   tagTypes: ['AddProduct'],
   endpoints: (build) => ({
     uploadProductPhoto: build.mutation<IProduct, IUploadProductPhotoRequest>({
-      query: ({ photo }) => ({
-        url: `${RTKUrls.PRODUCTS}/${RTKUrls.PHOTO}`,
+      query: ({ id, photo }) => ({
+        url: `${RTKUrls.PRODUCTS}/${id}/${RTKUrls.PHOTO}`,
         method: HttpMethods.POST,
         body: photo,
       }),

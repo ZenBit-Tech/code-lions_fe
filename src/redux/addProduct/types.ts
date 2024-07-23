@@ -52,6 +52,7 @@ export interface IAddedProduct {
 }
 
 export interface IUploadProductPhotoRequest {
+  id: string;
   photo: FormData;
 }
 
