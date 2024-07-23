@@ -3,7 +3,6 @@ import { createBrowserRouter } from 'react-router-dom';
 import { urls } from 'src/common/constants';
 import Layout from 'src/components/Layout';
 import AboutUsPage from 'src/pages/AboutUsPage';
-import AdminChatsPage from 'src/pages/admin/AdminChatsPage';
 import AdminLayout from 'src/pages/admin/AdminLayout';
 import AdminUserProfileEditPage from 'src/pages/admin/AdminUserProfileEditPage';
 import AdminUserProfilePage from 'src/pages/admin/AdminUserProfilePage';
@@ -14,6 +13,7 @@ import UsersPage from 'src/pages/admin/UsersPage';
 import BestVendorsPage from 'src/pages/BestVendorsPage';
 import BuyerPublicProfilePage from 'src/pages/BuyerPublicProfilePage';
 import CartPage from 'src/pages/CartPage';
+import ChatsPage from 'src/pages/Chats';
 import CheckoutPage from 'src/pages/CheckoutPage';
 import CompanyPage from 'src/pages/CompanyPage';
 import ContactPage from 'src/pages/ContactPage';
@@ -170,7 +170,7 @@ const router = createBrowserRouter([
       },
       {
         path: urls.ADMIN_CHATS,
-        element: <AdminChatsPage />,
+        element: <ChatsPage />,
       },
     ],
   },
@@ -190,7 +190,7 @@ const router = createBrowserRouter([
       { path: urls.VENDOR_EDIT_PRODUCT, element: <ProfileComingSoon /> },
       { path: urls.VENDOR_PRODUCTS, element: <VendorProductsPage /> },
       { path: urls.VENDOR_ORDERS, element: <ProfileComingSoon /> },
-      { path: urls.VENDOR_CHATS, element: <ProfileComingSoon /> },
+      { path: urls.VENDOR_CHATS, element: <ChatsPage /> },
       {
         path: urls.VENDOR_PROFILE,
         element: <VendorProfileLayout />,

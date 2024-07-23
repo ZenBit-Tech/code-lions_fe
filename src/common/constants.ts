@@ -277,3 +277,7 @@ export const cardTypes = {
   VIDEO: 'video',
   IMAGE: 'image',
 };
+
+export const timeFormat = 'p';
+export const monthAndDayFormat = 'MMMM d';
+export const yearMonthAndDayFormat = 'yyyy MM d';
