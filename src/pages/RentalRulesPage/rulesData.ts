@@ -27,12 +27,20 @@ const rulesData = [
   {
     id: 5,
     subtitle: 'rentalRules.returnSubtitle',
-    rules: ['rentalRules.returnRule1', 'rentalRules.returnRule2'],
+    rules: [
+      'rentalRules.returnRule1',
+      'rentalRules.returnRule2',
+      'rentalRules.returnRule3',
+    ],
   },
   {
     id: 6,
     subtitle: 'rentalRules.damageSubtitle',
-    rules: ['rentalRules.damageRule1', 'rentalRules.damageRule2'],
+    rules: [
+      'rentalRules.damageRule1',
+      'rentalRules.damageRule2',
+      'rentalRules.damageRule3',
+    ],
   },
   {
     id: 7,

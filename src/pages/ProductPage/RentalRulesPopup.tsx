@@ -145,14 +145,32 @@ function RentalRulesPopup({
           </Box>
         </Box>
       </Box>
-      <Box margin="0 5px" display="flex" justifyContent="center">
+      <Box marginBottom="10px" display="flex" justifyContent="center">
         <Button
-          fullWidth
+          variant="outlined"
+          onClick={onClose}
+          sx={{ borderRadius: '12px', padding: '12px 72px' }}
+        >
+          <Typography
+            variant="button"
+            sx={{
+              fontWeight: theme.typography.body1.fontWeight,
+              fontSize: theme.typography.h5.fontSize,
+            }}
+          >
+            {t('userProfileAdmin.cancelButton')}
+          </Typography>
+        </Button>
+        <Button
           variant="contained"
           startIcon={<BagCheckIcon />}
           onClick={handleAddToCartAndCloseModal}
           disabled={isAddingToCart}
-          sx={{ borderRadius: '12px', padding: '16px 24px' }}
+          sx={{
+            borderRadius: '12px',
+            padding: '12px 54px',
+            marginLeft: '24px',
+          }}
         >
           <Typography
             variant="button"

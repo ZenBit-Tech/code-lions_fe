@@ -47,6 +47,17 @@ export const Popup = styled(Box)({
   width: '60%',
   maxHeight: '90%',
   overflowY: 'scroll',
+  '&::-webkit-scrollbar': {
+    width: '8px',
+  },
+  '&::-webkit-scrollbar-thumb': {
+    background: theme.palette.text.disabled,
+    borderRadius: '8px',
+  },
+  '&::-webkit-scrollbar-track': {
+    background: theme.palette.background.paper,
+    borderRadius: '8px',
+  },
 });
 
 export const ModalTitle = styled(Typography)({
