@@ -102,6 +102,7 @@ export const RTKUrls = {
   PRODUCTS_ADMIN_APPROVE: 'products/admin/approve',
   PRODUCTS_ADMIN_REJECT: 'products/admin/reject',
   PRODUCTS_VENDOR: 'products/vendor',
+  FILE: 'pdf-file',
 };
 
 export const HttpMethods = {

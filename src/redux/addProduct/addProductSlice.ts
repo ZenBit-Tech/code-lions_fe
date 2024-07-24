@@ -8,6 +8,12 @@ const initialState: IAddedProduct = {
   category: '',
   type: '',
   style: '',
+  name: '',
+  description: '',
+  brand: '',
+  size: '',
+  color: '',
+  material: '',
   images: [],
   price: 0,
   step: 1,
@@ -44,6 +50,24 @@ export const addProductSlice = createSlice({
     },
     setStyle(state, action: PayloadAction<string>) {
       state.style = action.payload;
+    },
+    setName(state, action: PayloadAction<string>) {
+      state.name = action.payload;
+    },
+    setDescription(state, action: PayloadAction<string>) {
+      state.description = action.payload;
+    },
+    setBrand(state, action: PayloadAction<string>) {
+      state.brand = action.payload;
+    },
+    setSize(state, action: PayloadAction<string>) {
+      state.size = action.payload;
+    },
+    setColor(state, action: PayloadAction<string>) {
+      state.color = action.payload;
+    },
+    setMaterial(state, action: PayloadAction<string>) {
+      state.material = action.payload;
     },
     setPrice(state, action: PayloadAction<number>) {
       state.price = action.payload;
@@ -82,6 +106,12 @@ export const {
   setCategory,
   setType,
   setStyle,
+  setName,
+  setDescription,
+  setBrand,
+  setSize,
+  setColor,
+  setMaterial,
   setPrice,
   addPhoto,
   removePhoto,

@@ -46,6 +46,12 @@ export interface IAddedProduct {
   category: string;
   type: string;
   style: string;
+  name: string;
+  description: string;
+  brand: string;
+  size: string;
+  color: string;
+  material: string;
   images: ProductImage[];
   price: number;
   step: number;
@@ -64,4 +70,9 @@ export interface ProductImage {
   type: string;
   src: string;
   isPrimary: boolean;
+}
+
+export interface IUploadProductPdfRequest {
+  id: string;
+  file: FormData;
 }
