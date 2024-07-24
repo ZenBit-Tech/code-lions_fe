@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 
 import { Box } from '@mui/material';
 
+import ReusableDescriptionBox from 'src/components/ReusableDescriptionBox';
 import StyledButton from 'src/components/shared/StyledButton';
 import {
   PaddingVariants,
@@ -42,7 +43,6 @@ import {
   uniqueSizes,
 } from './constants';
 import useProductDispatch from './hooks/useProductDispatch';
-import ReusableDescriptionBox from './ReusableDescriptionBox';
 
 function ProductDescriptionForm() {
   const { t } = useTranslation();
