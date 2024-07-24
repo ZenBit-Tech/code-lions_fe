@@ -17,12 +17,10 @@ import {
   setCategory,
   setStyle,
   setType,
+  increaseAddProductStep,
+  decreaseAddProductStep,
 } from 'src/redux/addProduct/addProductSlice';
 import { useAppDispatch } from 'src/redux/hooks';
-import {
-  decreaseOnboardingStep,
-  increaseOnboardingStep,
-} from 'src/redux/user/userSlice';
 import theme from 'src/theme';
 
 const categories = [
@@ -60,14 +58,14 @@ function CategoriesForm() {
   const [clothesStyle, setClothesStyle] = useState(styles[0].value);
 
   const returnBack = () => {
-    dispatch(decreaseOnboardingStep());
+    dispatch(decreaseAddProductStep());
   };
 
   const goToNextStep = () => {
     dispatch(setCategory(clothesCategory));
     dispatch(setType(clothesType));
     dispatch(setStyle(clothesStyle));
-    dispatch(increaseOnboardingStep());
+    dispatch(increaseAddProductStep());
   };
 
   return (

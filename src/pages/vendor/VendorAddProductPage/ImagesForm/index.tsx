@@ -8,9 +8,8 @@ import {
   PaddingVariants,
   StyleVariants,
 } from 'src/components/shared/StyledButton/types';
-import VideoForm from 'src/components/shared/VideoForm';
+import { increaseAddProductStep } from 'src/redux/addProduct/addProductSlice';
 import { useAppDispatch } from 'src/redux/hooks';
-import { increaseOnboardingStep } from 'src/redux/user/userSlice';
 import theme from 'src/theme';
 
 import { AddProductHeader4, AddProductText } from './styles';
@@ -20,7 +19,7 @@ function ImagesForm() {
   const dispatch = useAppDispatch();
 
   const goToNextStep = () => {
-    dispatch(increaseOnboardingStep());
+    dispatch(increaseAddProductStep());
   };
 
   return (
@@ -55,33 +54,6 @@ function ImagesForm() {
         </Box>
         <Box sx={{ flex: 1 }}>
           <ImageForm />
-        </Box>
-      </Box>
-
-      <Box
-        sx={{
-          display: 'flex',
-          gap: '40px',
-          alignItems: 'top',
-        }}
-      >
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            width: '150px',
-          }}
-        >
-          <AddProductHeader4 component="h4">
-            {t('addProduct.video')}
-          </AddProductHeader4>
-          <AddProductText variant="subtitle2">
-            {t('addProduct.videoSubtitle')}
-          </AddProductText>
-        </Box>
-        <Box sx={{ flex: 1 }}>
-          <VideoForm />
         </Box>
       </Box>
 

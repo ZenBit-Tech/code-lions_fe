@@ -66,6 +66,7 @@ export const urls = {
   HELP: '/help',
   CART: 'cart',
   CHECKOUT: 'checkout',
+  VENDOR_GLOBAL_PRODUCTS: '/vendor/products',
 };
 
 export const RTKUrls = {
@@ -97,6 +98,7 @@ export const RTKUrls = {
   BEST_VENDORS: 'best-vendors',
   LATEST: 'latest',
   SIZES: 'sizes',
+  PRIMARY: 'set-primary',
   PRODUCTS_ADMIN: 'products/admin',
   PRODUCTS_ADMIN_APPROVE: 'products/admin/approve',
   PRODUCTS_ADMIN_REJECT: 'products/admin/reject',

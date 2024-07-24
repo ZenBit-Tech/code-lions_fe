@@ -4,11 +4,12 @@ import { Typography } from '@mui/material';
 import { Box } from '@mui/system';
 
 import OnboardingHeaderItem from 'src/pages/OnboardingPage/HeaderItem';
+import { selectAddProductStep } from 'src/redux/addProduct/addProductSlice';
 import { useAppSelector } from 'src/redux/hooks';
-import { selectOnboardingStep } from 'src/redux/user/userSlice';
 import theme from 'src/theme';
 
 import CategoriesForm from './CategoriesForm';
+import FinishForm from './FinishForm';
 import ImagesForm from './ImagesForm';
 import ProductDescriptionForm from './ProductDescriptionForm';
 
@@ -31,13 +32,13 @@ const addProductData = [
   {
     stepId: 4,
     title: 'Finish & Publish',
-    component: '',
+    component: <FinishForm />,
   },
 ];
 
 function VendorAddProductPage() {
   const { t } = useTranslation();
-  const currentStep = useAppSelector(selectOnboardingStep);
+  const currentStep = useAppSelector(selectAddProductStep);
 
   const currentStepComponent = addProductData.find(
     (step) => step.stepId === currentStep
