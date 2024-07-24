@@ -38,7 +38,22 @@ function FinishForm() {
   const dispatch = useAppDispatch();
   const { showToast } = useToast();
   const navigate = useNavigate();
+
   const productId = useAppSelector(selectProductId);
+  const productName = useAppSelector((state) => state.addProduct.name);
+  const productDescription = useAppSelector(
+    (state) => state.addProduct.description
+  );
+  const productSize = useAppSelector((state) => state.addProduct.size);
+  const productBrand = useAppSelector((state) => state.addProduct.brand);
+  const productColors = useAppSelector((state) => state.addProduct.colors);
+  const productMaterial = useAppSelector((state) => state.addProduct.material);
+  const productCategories = useAppSelector(
+    (state) => state.addProduct.categories
+  );
+  const productStyle = useAppSelector((state) => state.addProduct.style);
+  const productType = useAppSelector((state) => state.addProduct.type);
+
   const [updateProduct] = useUpdateProductMutation();
 
   interface IFinishCardForm {
@@ -64,8 +79,20 @@ function FinishForm() {
     try {
       await updateProduct({
         id: productId,
-        data: { price: parseFloat(data.price) },
+        data: {
+          name: productName,
+          description: productDescription,
+          price: parseFloat(data.price),
+          size: productSize,
+          brand: productBrand,
+          colors: productColors,
+          material: productMaterial,
+          categories: productCategories,
+          style: productStyle,
+          type: productType,
+        },
       }).unwrap();
+
       dispatch(setPrice(parseFloat(data.price)));
       dispatch(resetAddProduct());
       navigate(urls.VENDOR_GLOBAL_PRODUCTS);

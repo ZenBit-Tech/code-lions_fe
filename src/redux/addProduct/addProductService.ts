@@ -7,6 +7,7 @@ import {
   IProduct,
   IDeleteProductPhotoRequest,
   IUpdateProductRequest,
+  IUploadProductPdfRequest,
 } from './types';
 
 export const addProductApi = createApi({
@@ -43,6 +44,13 @@ export const addProductApi = createApi({
         body: data,
       }),
     }),
+    uploadProductPdf: build.mutation<IProduct, IUploadProductPdfRequest>({
+      query: ({ id, file }) => ({
+        url: `${RTKUrls.PRODUCTS}/${id}/${RTKUrls.FILE}`,
+        method: HttpMethods.POST,
+        body: file,
+      }),
+    }),
   }),
 });
 
@@ -51,4 +59,5 @@ export const {
   useDeleteProductPhotoMutation,
   useSetProductPhotoPrimaryMutation,
   useUpdateProductMutation,
+  useUploadProductPdfMutation,
 } = addProductApi;
