@@ -25,9 +25,9 @@ const createMenuData = (
       id: 'help',
       mainLink: { to: urls.HELP, label: t('menu.help') },
       links: [
+        { id: 'rent', to: urls.HOW_IT_WORKS, label: t('menu.howItWorks') },
         { id: 'faqs', to: urls.FAQ, label: t('menu.faqs') },
         { id: 'shipping', to: urls.SHIPPING, label: t('menu.shipping') },
-        { id: 'rent', to: urls.RENT, label: t('menu.rent') },
       ],
     },
   ];

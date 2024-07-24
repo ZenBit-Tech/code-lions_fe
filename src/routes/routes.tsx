@@ -29,6 +29,7 @@ import ProductPage from 'src/pages/ProductPage';
 import ProfileLayout from 'src/pages/ProfileLayout';
 import ProfilePage from 'src/pages/ProfilePage';
 import ProfileComingSoon from 'src/pages/ProfilePage/ProfileComingSoon';
+import RentalRulesPage from 'src/pages/RentalRulesPage';
 import RentPage from 'src/pages/RentPage';
 import RestorePasswordPage from 'src/pages/RestorePasswordPage';
 import ShippingPage from 'src/pages/ShippingPage';
@@ -71,6 +72,7 @@ const router = createBrowserRouter([
       { path: urls.PRODUCT_CATEGORY, element: <ProductFeedPage /> },
       { path: urls.PRODUCT, element: <ProductPage /> },
       { path: urls.PRIVACY_POLICY, element: <PrivacyPolicyPage /> },
+      { path: urls.HOW_IT_WORKS, element: <RentalRulesPage /> },
       { path: urls.ABOUT_US, element: <AboutUsPage /> },
       { path: urls.COMPANY, element: <CompanyPage /> },
       { path: urls.CONTACT, element: <ContactPage /> },

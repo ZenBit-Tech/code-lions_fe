@@ -19,6 +19,7 @@ export interface IUser {
   jeansSize?: string;
   shoesSize?: string;
   isAccountActive: boolean;
+  willHideRentalRules: boolean;
   createdAt?: Date;
   lastUpdatedAt?: Date;
   deletedAt?: Date;
@@ -212,6 +213,7 @@ export interface IPublicUser {
   clothesSize?: string;
   jeansSize?: string;
   shoesSize?: string;
+  willHideRentalRules: boolean;
   isAccountActive: boolean;
   rating: number;
   orders: number;

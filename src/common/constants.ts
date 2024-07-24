@@ -13,6 +13,7 @@ export const urls = {
   ENTER_CODE: '/enter-code',
   NEW_PASSWORD: '/new-password',
   PRIVACY_POLICY: '/privacy-policy',
+  HOW_IT_WORKS: '/how-it-works',
   TERMS_OF_USE: '/terms-of-use',
   SIZES_GUIDE: '/sizes-guide',
   SIGN_IN_ADMIN: 'admin/signin',
@@ -102,6 +103,7 @@ export const RTKUrls = {
   PRODUCTS_ADMIN_APPROVE: 'products/admin/approve',
   PRODUCTS_ADMIN_REJECT: 'products/admin/reject',
   PRODUCTS_VENDOR: 'products/vendor',
+  HIDE_RENTAL_RULES: 'hide-rental-rules',
 };
 
 export const HttpMethods = {
@@ -280,6 +282,7 @@ export const cardTypes = {
   IMAGE: 'image',
 };
 
+export const eventalCategory: string = 'evental';
 export const timeFormat = 'p';
 export const monthAndDayFormat = 'MMMM d';
 export const yearMonthAndDayFormat = 'yyyy MM d';
