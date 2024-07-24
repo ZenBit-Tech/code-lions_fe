@@ -30,7 +30,7 @@ const categories = [
   { label: 'Clothing', value: 'Clothing' },
   { label: 'Shoes', value: 'Shoes' },
   { label: 'Designers', value: 'Designers' },
-  { label: 'Evental Rent', value: 'Evental Rent' },
+  { label: 'Evental', value: 'Evental' },
 ];
 
 const clothesTypes = [
@@ -38,6 +38,7 @@ const clothesTypes = [
   { label: 'Shoes', value: 'Shoes' },
   { label: 'Dress', value: 'Dress' },
   { label: 'Bag', value: 'Bag' },
+  { label: 'Jeans', value: 'Jeans' },
   { label: 'Accessory', value: 'Accessory' },
   { label: 'Other', value: 'Other' },
 ];
@@ -62,9 +63,9 @@ function CategoriesForm() {
   };
 
   const goToNextStep = () => {
-    dispatch(setCategory(clothesCategory));
-    dispatch(setType(clothesType));
-    dispatch(setStyle(clothesStyle));
+    dispatch(setCategory(clothesCategory.toLowerCase()));
+    dispatch(setType(clothesType.toLowerCase()));
+    dispatch(setStyle(clothesStyle.toLowerCase()));
     dispatch(increaseAddProductStep());
   };
 

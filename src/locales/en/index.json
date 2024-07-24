@@ -518,7 +518,9 @@
     "upload": "Upload Documents",
     "uploadSubtitle": "Format size should be less then 5MB",
     "uploadBtn": "Upload",
-    "chooseFile": "Choose file"
+    "chooseFile": "Choose file",
+    "uploadSuccess": "File uploaded successfully",
+    "loading": "Loading.."
   },
   "cartPage": {
     "title": "Cart",

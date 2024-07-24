@@ -92,7 +92,7 @@ export const shoesCategory = 'Shoes';
 export const bagsCategory = 'Bags';
 export const accessoriesCategory = 'Accessories';
 
-export const shoesType = 'Shoes';
-export const dressType = 'Dress';
-export const jeansType = 'Jeans';
-export const otherType = 'Other';
+export const shoesType = 'shoes';
+export const dressType = 'dress';
+export const jeansType = 'jeans';
+export const otherType = 'other';

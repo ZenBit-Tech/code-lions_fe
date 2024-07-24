@@ -31,7 +31,9 @@ const useProductDispatch = (
   productMaterial: string
 ): (() => void) => {
   const dispatch = useAppDispatch();
-  const selectedCategory = useAppSelector((state) => state.addProduct.category);
+  const selectedCategory = useAppSelector(
+    (state) => state.addProduct.categories[0]
+  );
   const selectedType = useAppSelector((state) => state.addProduct.type);
 
   return () => {

@@ -5,14 +5,14 @@ import { IAddedProduct, ProductImage } from './types';
 
 const initialState: IAddedProduct = {
   id: 'new',
-  category: '',
+  categories: [],
   type: '',
   style: '',
   name: '',
   description: '',
   brand: '',
   size: '',
-  color: '',
+  colors: [],
   material: '',
   images: [],
   price: 0,
@@ -43,7 +43,7 @@ export const addProductSlice = createSlice({
       state.step -= 1;
     },
     setCategory(state, action: PayloadAction<string>) {
-      state.category = action.payload;
+      state.categories.push(action.payload);
     },
     setType(state, action: PayloadAction<string>) {
       state.type = action.payload;
@@ -64,7 +64,7 @@ export const addProductSlice = createSlice({
       state.size = action.payload;
     },
     setColor(state, action: PayloadAction<string>) {
-      state.color = action.payload;
+      state.colors.push(action.payload);
     },
     setMaterial(state, action: PayloadAction<string>) {
       state.material = action.payload;

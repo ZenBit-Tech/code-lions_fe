@@ -43,14 +43,14 @@ export interface IUpdateProductRequest {
 
 export interface IAddedProduct {
   id: string;
-  category: string;
+  categories: string[];
   type: string;
   style: string;
   name: string;
   description: string;
   brand: string;
   size: string;
-  color: string;
+  colors: string[];
   material: string;
   images: ProductImage[];
   price: number;

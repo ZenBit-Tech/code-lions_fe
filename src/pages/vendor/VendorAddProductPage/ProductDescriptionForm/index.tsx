@@ -48,7 +48,9 @@ function ProductDescriptionForm() {
   const { t } = useTranslation();
   const { showToast } = useToast();
   const dispatch = useAppDispatch();
-  const selectedCategory = useAppSelector((state) => state.addProduct.category);
+  const selectedCategory = useAppSelector(
+    (state) => state.addProduct.categories[0]
+  );
   const selectedType = useAppSelector((state) => state.addProduct.type);
   const productId = useAppSelector(selectProductId);
 
@@ -67,7 +69,7 @@ function ProductDescriptionForm() {
     shoesMaterials[0].value
   );
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const [uploadProductPdf] = useUploadProductPdfMutation();
+  const [uploadProductPdf, { isLoading }] = useUploadProductPdfMutation();
 
   const productDispatch = useProductDispatch(
     productName,
@@ -95,12 +97,12 @@ function ProductDescriptionForm() {
 
         formDataPdf.append('file', selectedFile);
 
-        const response = await uploadProductPdf({
+        await uploadProductPdf({
           id: productId,
           file: formDataPdf,
         }).unwrap();
 
-        console.log(response);
+        showToast('success', t('addProduct.uploadSuccess'));
       }
     } catch (error) {
       if (error instanceof Error) {
@@ -364,7 +366,7 @@ function ProductDescriptionForm() {
               height: '34px',
             }}
           >
-            {t('addProduct.uploadBtn')}
+            {isLoading ? t('addProduct.loading') : t('addProduct.uploadBtn')}
           </StyledButton>
         </Box>
       </Box>
