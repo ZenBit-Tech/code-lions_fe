@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 
@@ -27,7 +27,7 @@ const useRentalRulesPopup = (
     setIsCheckboxChecked(event.target.checked);
   };
 
-  const handleAddToCartAndCloseModal = async () => {
+  const handleAddToCartAndCloseModal = useCallback(async () => {
     const addToCartPromise = handleAddToCart();
 
     const hideRentalRulesPromise =
@@ -44,7 +44,14 @@ const useRentalRulesPopup = (
     } finally {
       onClose();
     }
-  };
+  }, [
+    handleAddToCart,
+    willHideRentalRules,
+    isCheckboxChecked,
+    hideRentalRules,
+    userId,
+    onClose,
+  ]);
 
   return {
     t,

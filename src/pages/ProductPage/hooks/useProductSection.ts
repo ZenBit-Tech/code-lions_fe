@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 
@@ -109,13 +109,13 @@ const useProductSection = (product: IProduct) => {
     }
   };
 
-  const handleAddToCartOrOpenModal = async () => {
+  const handleAddToCartOrOpenModal = useCallback(async () => {
     if (willHideRentalRules) {
       await handleAddToCart();
     } else {
       handleOpen();
     }
-  };
+  }, [willHideRentalRules, handleAddToCart, handleOpen]);
 
   return {
     userId,
