@@ -10,6 +10,8 @@ export interface IProduct {
   style: string;
   type: string;
   size: string;
+  brand: string;
+  material: string;
   images: string[];
   colors: string[];
   vendor: {

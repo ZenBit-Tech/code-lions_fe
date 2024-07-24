@@ -263,6 +263,14 @@ export const userApi = createApi({
         method: HttpMethods.GET,
       }),
     }),
+
+    hideRentalRules: build.mutation<void, { id: string }>({
+      query: ({ id }) => ({
+        url: `${RTKUrls.USERS}/${id}/${RTKUrls.HIDE_RENTAL_RULES}`,
+        method: HttpMethods.PATCH,
+      }),
+      invalidatesTags: [{ type: 'User', id: 'LIST' }],
+    }),
   }),
 });
 
@@ -288,4 +296,5 @@ export const {
   useUpdatePersonalInfoMutation,
   useGetUserReviewsQuery,
   useGetPublicUserByIdQuery,
+  useHideRentalRulesMutation,
 } = userApi;

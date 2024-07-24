@@ -1,3 +1,4 @@
+import { createPortal } from 'react-dom';
 import { useTranslation } from 'react-i18next';
 
 import {
@@ -15,11 +16,13 @@ import ChevronRight from 'src/assets/icons/chevron-right-grey-small.svg';
 import Heart from 'src/assets/icons/heart.svg';
 import { urls } from 'src/common/constants';
 import capitalizeAndTruncate from 'src/common/utils/capitalizeAndTruncate';
+import StyledBackdrop from 'src/components/shared/StyledBackdrop';
 import { IProduct } from 'src/redux/product/types';
 import theme from 'src/theme';
 
 import useProductSection from './hooks/useProductSection';
 import RadioLabel from './RadioLabel';
+import RentalRulesPopup from './RentalRulesPopup';
 import { StyledInput, StyledFormControlLabel } from './styles';
 
 const stringLimit = 30;
@@ -33,7 +36,10 @@ function ProductSection({ product }: ProductSectionProps) {
     userId,
     selectedSize,
     value,
+    showModal,
+    handleClose,
     handleRadioChange,
+    handleAddToCartOrOpenModal,
     handleAddToCart,
     handleRemoveFromCart,
     handleCartClick,
@@ -48,6 +54,18 @@ function ProductSection({ product }: ProductSectionProps) {
 
   return (
     <Box width="456px">
+      {showModal &&
+        createPortal(
+          <StyledBackdrop showModal={showModal}>
+            <RentalRulesPopup
+              onClose={handleClose}
+              isAddingToCart={isAddingToCart}
+              userId={userId}
+              handleAddToCart={handleAddToCart}
+            />
+          </StyledBackdrop>,
+          document.body
+        )}
       <Box paddingBottom="24px" marginBottom="24px">
         <Box display="flex" alignItems="center" mb="12px">
           <Link
@@ -155,7 +173,13 @@ function ProductSection({ product }: ProductSectionProps) {
                         }}
                       />
                     }
-                    label={<RadioLabel duration={duration} price={price} />}
+                    label={
+                      <RadioLabel
+                        categories={product.categories}
+                        duration={duration}
+                        price={price}
+                      />
+                    }
                     checked={value === duration.toString()}
                   />
                   <Box
@@ -202,7 +226,7 @@ function ProductSection({ product }: ProductSectionProps) {
             fullWidth
             variant="contained"
             startIcon={<BagCheckIcon />}
-            onClick={userId ? handleAddToCart : handleCartClick}
+            onClick={userId ? handleAddToCartOrOpenModal : handleCartClick}
             disabled={isAddingToCart}
             sx={{ borderRadius: '12px', padding: '16px 24px' }}
           >

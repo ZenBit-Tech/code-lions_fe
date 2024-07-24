@@ -1,4 +1,4 @@
-import { TextField, Typography, FormControlLabel } from '@mui/material';
+import { TextField, Typography, FormControlLabel, Box } from '@mui/material';
 import { styled } from '@mui/system';
 
 import theme from 'src/theme';
@@ -33,4 +33,38 @@ export const StyledTypography = styled(Typography)({
   fontSize: '18px',
   lineHeight: '30px',
   marginRight: '50px',
+});
+
+export const Popup = styled(Box)({
+  backgroundColor: theme.palette.background.default,
+  padding: '24px',
+  borderRadius: '8px',
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '20px',
+  justifyContent: 'space-between',
+  zIndex: theme.zIndex.modal,
+  width: '60%',
+  maxHeight: '90%',
+  overflowY: 'scroll',
+  '&::-webkit-scrollbar': {
+    width: '8px',
+  },
+  '&::-webkit-scrollbar-thumb': {
+    background: theme.palette.text.disabled,
+    borderRadius: '8px',
+  },
+  '&::-webkit-scrollbar-track': {
+    background: theme.palette.background.paper,
+    borderRadius: '8px',
+  },
+});
+
+export const ModalTitle = styled(Typography)({
+  color: theme.palette.text.primary,
+  fontSize: '36px',
+  fontWeight: theme.typography.bold.fontWeight,
+  lineHeight: 1.22,
+  letterSpacing: '-0.36px',
+  textAlign: 'center',
 });

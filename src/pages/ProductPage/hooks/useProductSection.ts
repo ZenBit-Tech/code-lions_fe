@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 
@@ -13,7 +13,7 @@ import {
 import { ICartItem } from 'src/redux/cart/types';
 import { useAppSelector } from 'src/redux/hooks';
 import { IProduct } from 'src/redux/product/types';
-import { selectUserId } from 'src/redux/user/userSlice';
+import { selectHideRentalRules, selectUserId } from 'src/redux/user/userSlice';
 
 const durations = [
   { duration: 7, price: 0 },
@@ -27,9 +27,11 @@ const useProductSection = (product: IProduct) => {
   const { showToast } = useToast();
 
   const userId = useSelector(selectUserId);
+  const willHideRentalRules = useSelector(selectHideRentalRules);
 
   const [selectedSize] = useState<string>(product.size);
   const [value, setValue] = useState<string>(durations[0]?.duration.toString());
+  const [showModal, setShowModal] = useState<boolean>(false);
 
   durations[0].price = product.price;
   durations[1].price = product.price * weeksCount;
@@ -43,6 +45,10 @@ const useProductSection = (product: IProduct) => {
   const isProductInCart = cartData?.some(
     (item: ICartItem) => item.productId === product.id
   );
+
+  const handleOpen = () => setShowModal(true);
+
+  const handleClose = () => setShowModal(false);
 
   const handleRadioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue((event.target as HTMLInputElement).value);
@@ -75,7 +81,7 @@ const useProductSection = (product: IProduct) => {
 
       showToast('error', toastError);
 
-      return error;
+      return false;
     }
   };
 
@@ -103,15 +109,27 @@ const useProductSection = (product: IProduct) => {
     }
   };
 
+  const handleAddToCartOrOpenModal = useCallback(async () => {
+    if (willHideRentalRules) {
+      await handleAddToCart();
+    } else {
+      handleOpen();
+    }
+  }, [willHideRentalRules, handleAddToCart, handleOpen]);
+
   return {
     userId,
     selectedSize,
     value,
     setValue,
+    showModal,
+    handleOpen,
+    handleClose,
     handleRadioChange,
     handleAddToCart,
     handleRemoveFromCart,
     handleCartClick,
+    handleAddToCartOrOpenModal,
     isProductInCart,
     isAddingToCart,
     isRemovingFromCart,

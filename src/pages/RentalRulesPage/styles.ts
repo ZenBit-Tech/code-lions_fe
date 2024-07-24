@@ -1,0 +1,52 @@
+import { Typography } from '@mui/material';
+import { Box, styled } from '@mui/system';
+
+export const Container = styled(Box)(({ theme }) => ({
+  width: '100%',
+  display: 'flex',
+  flexDirection: 'column',
+  [theme.breakpoints.down('sm')]: {
+    margin: '44px 0 21px 0',
+  },
+}));
+
+export const SectionWrapper = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  justifyContent: 'center',
+  [theme.breakpoints.down('sm')]: {
+    marginTop: '12px',
+  },
+  [theme.breakpoints.up('sm')]: {
+    padding: '0 50px',
+  },
+  [theme.breakpoints.up('md')]: {
+    padding: '0 100px',
+  },
+  [theme.breakpoints.up('lg')]: {
+    padding: '0 165px',
+  },
+}));
+
+export const TextWrapper = styled(Box)(({ theme }) => ({
+  width: '70%',
+  padding: '16px',
+  borderRadius: '12px',
+  border: `1px solid ${theme.palette.border.primary}`,
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '24px',
+  [theme.breakpoints.up('sm')]: {
+    border: 'none',
+    padding: '64px 32px',
+  },
+}));
+
+export const TitleStyled = styled(Typography)(({ theme }) => ({
+  color: theme.palette.text.primary,
+  [theme.breakpoints.up('sm')]: {
+    color: theme.palette.text.primary,
+    textAlign: 'center',
+    lineHeight: 1.83,
+    letterSpacing: '-0.4px',
+  },
+}));
