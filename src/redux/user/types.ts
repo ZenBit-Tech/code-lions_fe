@@ -20,6 +20,8 @@ export interface IUser {
   shoesSize?: string;
   isAccountActive: boolean;
   willHideRentalRules: boolean;
+  deactivationTimestamp: Date;
+  reactivationTimestamp: Date;
   createdAt?: Date;
   lastUpdatedAt?: Date;
   deletedAt?: Date;
