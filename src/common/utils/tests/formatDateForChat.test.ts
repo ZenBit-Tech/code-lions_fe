@@ -23,7 +23,7 @@ vi.mock('i18next', () => ({
 describe('formatDateForChatList', () => {
   it('should format date as time when the date is today', () => {
     const now = new Date();
-    const result = formatDateForChatList(now);
+    const result = formatDateForChatList(now.toString());
 
     expect(result).toBe(format(now, timeFormat));
   });
@@ -33,7 +33,7 @@ describe('formatDateForChatList', () => {
     const oneDayAgo = 1;
 
     yesterday.setDate(yesterday.getDate() - oneDayAgo);
-    const result = formatDateForChatList(yesterday);
+    const result = formatDateForChatList(yesterday.toString());
 
     expect(result).toBe(t('chat.yesterday'));
   });
@@ -43,7 +43,7 @@ describe('formatDateForChatList', () => {
     const oneMonthAgo = 1;
 
     dateWithinYear.setMonth(dateWithinYear.getMonth() - oneMonthAgo);
-    const result = formatDateForChatList(dateWithinYear);
+    const result = formatDateForChatList(dateWithinYear.toString());
 
     expect(result).toBe(format(dateWithinYear, monthAndDayFormat));
   });

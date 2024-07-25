@@ -1,5 +1,5 @@
-import { Chat } from 'common/types.ts';
-import formatDateForChatList from 'src/common/utils/formatDateForChat.ts';
+import { ChatWithMainData } from 'common/types.ts';
+import formatDateForChat from 'src/common/utils/formatDateForChat';
 
 import {
   ChatDetails,
@@ -13,24 +13,25 @@ import {
 } from './styles';
 
 type Props = {
-  chat: Chat;
+  onClick: () => void;
+  chat: ChatWithMainData;
 };
 
-function ChatDetail({ chat }: Props) {
+function ChatDetail({ chat, onClick }: Props) {
   return (
     <>
-      <ChatItem key={chat.fullName}>
-        <StyledAvatar src={chat.photo} />
+      <ChatItem onClick={onClick} key={chat.chatPartner.name}>
+        <StyledAvatar src={chat.chatPartner.photoUrl} />
         <ChatDetails>
           <ChatHeader>
-            <FullName>{chat.fullName}</FullName>
+            <FullName>{chat.chatPartner.name}</FullName>
             <LastMessageDate>
-              {formatDateForChatList(chat.lastMessageDate)}
+              {formatDateForChat(chat.lastMessage.createdAt)}
             </LastMessageDate>
           </ChatHeader>
           <ChatHeader>
-            <LastMessage>{chat.lastMessage}</LastMessage>
-            <UnreadMessages>{chat.unreadMessages}</UnreadMessages>
+            <LastMessage>{chat.lastMessage.content}</LastMessage>
+            <UnreadMessages>{chat.unreadMessageCount}</UnreadMessages>
           </ChatHeader>
         </ChatDetails>
       </ChatItem>

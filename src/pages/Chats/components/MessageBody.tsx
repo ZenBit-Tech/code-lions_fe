@@ -1,30 +1,33 @@
 import { IMessage } from 'common/types.ts';
+import formatDateForChatList from 'src/common/utils/formatDateForChat';
 
 import {
   SenderMessage,
   OwnMessage,
   SenderMessageBody,
   OwnMessageBody,
-  AvatarMessageContainer,
   StyledMessageAvatar,
+  AvatarMessageContainer,
   LastMessageDate,
 } from './styles.ts';
 
 export type Props = {
   message: IMessage;
-  myId: number;
+  myId: string;
 };
 
 function MessageBody({ message, myId }: Props) {
-  if (myId !== message.author.id) {
+  if (myId !== message.sender?.id) {
     return (
       <SenderMessage>
         <div>
           <AvatarMessageContainer>
-            <StyledMessageAvatar src={message.author.photo} />
-            <SenderMessageBody>{message.messageBody}</SenderMessageBody>
+            <StyledMessageAvatar src={message.sender?.photoUrl} />
+            <SenderMessageBody>{message.content}</SenderMessageBody>
           </AvatarMessageContainer>
-          <LastMessageDate>{message.createdAt}</LastMessageDate>
+          <LastMessageDate>
+            {message.createdAt && formatDateForChatList(message.createdAt)}
+          </LastMessageDate>
         </div>
       </SenderMessage>
     );
@@ -32,8 +35,10 @@ function MessageBody({ message, myId }: Props) {
     return (
       <OwnMessage>
         <div>
-          <OwnMessageBody>{message.messageBody}</OwnMessageBody>
-          <LastMessageDate>{message.createdAt}</LastMessageDate>
+          <OwnMessageBody>{message.content}</OwnMessageBody>
+          <LastMessageDate>
+            {formatDateForChatList(message.createdAt)}
+          </LastMessageDate>
         </div>
       </OwnMessage>
     );
