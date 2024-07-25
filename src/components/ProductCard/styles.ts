@@ -37,6 +37,31 @@ export const Popup = styled(Box)({
   },
 });
 
+export const IconBigWrapper = styled(Box)({
+  backgroundColor: theme.palette.error.light,
+  width: '94px',
+  height: '94px',
+  borderRadius: '50%',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+});
+
+export const IconSmallWrapper = styled(Box)({
+  backgroundColor: theme.palette.error.dark,
+  width: '64px',
+  height: '64px',
+  borderRadius: '50%',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+});
+
+export const ModalDescription = styled(Typography)({
+  color: theme.palette.grey[500],
+  textAlign: 'center',
+});
+
 const style = {
   card: {
     position: 'relative',

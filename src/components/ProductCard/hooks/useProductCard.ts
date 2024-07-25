@@ -4,7 +4,10 @@ import { useNavigate } from 'react-router-dom';
 
 import { SerializedError } from '@reduxjs/toolkit';
 import { FetchBaseQueryError, skipToken } from '@reduxjs/toolkit/query';
-import { getErrorMessage } from 'src/common/hooks/useErrorHandling';
+import {
+  getErrorMessage,
+  isFetchBaseQueryError,
+} from 'src/common/hooks/useErrorHandling';
 import useToast from 'src/components/shared/toasts/components/ToastProvider/ToastProviderHooks';
 import {
   useAddToCartMutation,
@@ -25,10 +28,12 @@ import {
 
 const decimalPoints: number = 2;
 const defaultDuration: number = 7;
+const rentDurationTwoWeeks: number = 14;
 const weeksCount: number = 2;
 const threeFiveStarsRatings: number = 3;
 const averageRatingFourPointNine: number = 4.9;
 const fiveStarsRating: number = 5;
+const conflictHttpStatus: number = 409;
 
 const useProductCard = (item: IProduct) => {
   const { t } = useTranslation();
@@ -48,6 +53,8 @@ const useProductCard = (item: IProduct) => {
   const [showSelectDurationModal, setShowSelectDurationModal] =
     useState<boolean>(false);
   const [duration, setDuration] = useState<number>(defaultDuration);
+  const [rulesErrorPopupVisible, setRulesErrorPopupVisible] = useState(false);
+  const [rulesErrorMessage, setRulesErrorMessage] = useState('');
 
   const [addToWishlist] = useAddToWishlistMutation();
   const [removeFromWishlist] = useRemoveFromWishlistMutation();
@@ -96,14 +103,19 @@ const useProductCard = (item: IProduct) => {
     }
   }, [cartData, item.id]);
 
-  const handleRulesModalOpen = () => setShowRulesModal(true);
+  const handleRulesModalOpen = useCallback(() => setShowRulesModal(true), []);
 
-  const handleRulesModalClose = () => setShowRulesModal(false);
+  const handleRulesModalClose = useCallback(() => setShowRulesModal(false), []);
 
-  const handleSelectDurationModalOpen = () => setShowSelectDurationModal(true);
+  const handleSelectDurationModalOpen = useCallback(
+    () => setShowSelectDurationModal(true),
+    []
+  );
 
-  const handleSelectDurationModalClose = () =>
-    setShowSelectDurationModal(false);
+  const handleSelectDurationModalClose = useCallback(
+    () => setShowSelectDurationModal(false),
+    []
+  );
 
   const handleAddToWishlist = async (
     event: React.MouseEvent<HTMLButtonElement>
@@ -143,27 +155,53 @@ const useProductCard = (item: IProduct) => {
     }
   };
 
-  const handleAddToCart = async (rentDuration: number) => {
-    if (userId) {
-      try {
-        await addToCart({
-          userId,
-          productId: item.id,
-          duration: rentDuration,
-          price: item.price,
-        }).unwrap();
-        setIsInCart(true);
-        showToast('success', t('cart.productAdded'));
-      } catch (error) {
-        const toastError = getErrorMessage(
-          error as FetchBaseQueryError | SerializedError,
-          t('cart.addError')
-        );
+  const handleAddToCart = useCallback(
+    async (rentDuration: number) => {
+      if (userId) {
+        try {
+          const price =
+            rentDuration === rentDurationTwoWeeks
+              ? item.price * weeksCount
+              : item.price;
 
-        showToast('error', toastError);
+          if (!rentDuration) {
+            showToast('error', t('product.durationNotSelected'));
+
+            return;
+          }
+
+          await addToCart({
+            userId,
+            productId: item.id,
+            duration: rentDuration,
+            price,
+          }).unwrap();
+          setIsInCart(true);
+          showToast('success', t('cart.productAdded'));
+        } catch (error) {
+          if (
+            isFetchBaseQueryError(error) &&
+            error.status === conflictHttpStatus
+          ) {
+            const message =
+              (error.data as { message?: string }).message ||
+              t('cart.conflictError');
+
+            setRulesErrorMessage(message);
+            setRulesErrorPopupVisible(true);
+          } else {
+            const toastError = getErrorMessage(
+              error as FetchBaseQueryError | SerializedError,
+              t('cart.addError')
+            );
+
+            showToast('error', toastError);
+          }
+        }
       }
-    }
-  };
+    },
+    [userId, addToCart, item.price, showToast, t]
+  );
 
   const handleRemoveFromCart = async (
     event: React.MouseEvent<HTMLButtonElement>
@@ -196,7 +234,7 @@ const useProductCard = (item: IProduct) => {
     async (event: React.MouseEvent<HTMLButtonElement>) => {
       event.stopPropagation();
       if (willHideRentalRules && !isEligibleForExtendedPrivileges) {
-        await handleAddToCart(duration);
+        await handleAddToCart(defaultDuration);
       } else if (willHideRentalRules && isEligibleForExtendedPrivileges) {
         handleSelectDurationModalOpen();
       } else {
@@ -233,6 +271,9 @@ const useProductCard = (item: IProduct) => {
     duration,
     setDuration,
     isEligibleForExtendedPrivileges,
+    rulesErrorMessage,
+    rulesErrorPopupVisible,
+    setRulesErrorPopupVisible,
   };
 };
 

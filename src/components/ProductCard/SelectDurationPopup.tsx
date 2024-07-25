@@ -12,11 +12,10 @@ import { Box } from '@mui/system';
 
 import BagCheckIcon from 'src/assets/icons/bag-check.svg';
 import CloseIcon from 'src/assets/icons/close.svg';
+import RadioLabel from 'src/pages/ProductPage/RadioLabel';
+import { StyledFormControlLabel } from 'src/pages/ProductPage/styles';
 import { IProduct } from 'src/redux/product/types';
 import theme from 'src/theme';
-
-import RadioLabel from '../../pages/ProductPage/RadioLabel';
-import { StyledFormControlLabel } from '../../pages/ProductPage/styles';
 
 import { ModalTitle, Popup } from './styles';
 
@@ -64,15 +63,8 @@ function SelectDurationPopup({
           onClose();
         }
       },
-    [handleAddToCart, onClose, value]
+    [handleAddToCart, onClose]
   );
-  // const {
-  //   t,
-  //   expanded,
-  //   handleExpandClick,
-  //   handleCheckboxChange,
-  //   handleAddToCartAndCloseModal,
-  // } = useProductCardRulesPopup(handleAddToCart, onClose, userId);
 
   return (
     <Popup sx={{ width: '50%' }}>

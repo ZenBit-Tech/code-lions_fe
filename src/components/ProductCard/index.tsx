@@ -13,6 +13,7 @@ import theme from 'src/theme';
 
 import useProductCard from './hooks/useProductCard';
 import ProductCardRulesPopup from './ProductCardRulesPopup';
+import RulesErrorPopup from './RulesErrorPopup';
 import SelectDurationPopup from './SelectDurationPopup';
 import style from './styles';
 
@@ -41,6 +42,9 @@ function ProductCard({ item }: IProductCardProps) {
     durations,
     duration,
     isEligibleForExtendedPrivileges,
+    rulesErrorMessage,
+    rulesErrorPopupVisible,
+    setRulesErrorPopupVisible,
   } = useProductCard(item);
 
   return (
@@ -70,6 +74,17 @@ function ProductCard({ item }: IProductCardProps) {
               durations={durations}
               isAddingToCart={isAddingToCart}
               handleAddToCart={handleAddToCart}
+            />
+          </StyledBackdrop>,
+          document.body
+        )}
+
+      {rulesErrorPopupVisible &&
+        createPortal(
+          <StyledBackdrop showModal={rulesErrorPopupVisible}>
+            <RulesErrorPopup
+              onClose={() => setRulesErrorPopupVisible(false)}
+              errorMessage={rulesErrorMessage}
             />
           </StyledBackdrop>,
           document.body

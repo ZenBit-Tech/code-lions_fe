@@ -53,11 +53,13 @@ const useProductCardRulesPopup = (
     isCheckboxChecked,
     hideRentalRules,
     userId,
+    duration,
     onClose,
   ]);
 
   const handleAddToCartOrSelectDuration = () => {
     if (isEligibleForExtendedPrivileges) {
+      onClose();
       handleSelectDurationModalOpen();
     } else {
       handleAddToCartAndCloseModal();

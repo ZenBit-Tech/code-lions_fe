@@ -4,7 +4,10 @@ import { useTranslation } from 'react-i18next';
 import { SerializedError } from '@reduxjs/toolkit';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import { skipToken } from '@reduxjs/toolkit/query/react';
-import { getErrorMessage } from 'src/common/hooks/useErrorHandling';
+import {
+  getErrorMessage,
+  isFetchBaseQueryError,
+} from 'src/common/hooks/useErrorHandling';
 import useToast from 'src/components/shared/toasts/components/ToastProvider/ToastProviderHooks';
 import {
   useAddToCartMutation,
@@ -24,6 +27,7 @@ const weeksCount: number = 2;
 const threeFiveStarsRatings: number = 3;
 const averageRatingFourPointNine: number = 4.9;
 const fiveStarsRating: number = 5;
+const conflictHttpStatus: number = 409;
 
 const useProductSection = (product: IProduct) => {
   const { t } = useTranslation();
@@ -37,6 +41,8 @@ const useProductSection = (product: IProduct) => {
   const [selectedSize] = useState<string>(product.size);
   const [value, setValue] = useState<string>('');
   const [showModal, setShowModal] = useState<boolean>(false);
+  const [rulesErrorPopupVisible, setRulesErrorPopupVisible] = useState(false);
+  const [rulesErrorMessage, setRulesErrorMessage] = useState('');
 
   const [addToCart, { isLoading: isAddingToCart }] = useAddToCartMutation();
   const [removeFromCart, { isLoading: isRemovingFromCart }] =
@@ -65,15 +71,15 @@ const useProductSection = (product: IProduct) => {
     (item: ICartItem) => item.productId === product.id
   );
 
-  const handleOpen = () => setShowModal(true);
+  const handleOpen = useCallback(() => setShowModal(true), []);
 
-  const handleClose = () => setShowModal(false);
+  const handleClose = useCallback(() => setShowModal(false), []);
 
   const handleRadioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue((event.target as HTMLInputElement).value);
   };
 
-  const handleAddToCart = async () => {
+  const handleAddToCart = useCallback(async () => {
     const selectedDuration = durations.find(
       (d) => d.duration.toString() === value
     );
@@ -95,16 +101,25 @@ const useProductSection = (product: IProduct) => {
 
       return true;
     } catch (error) {
-      const toastError = getErrorMessage(
-        error as FetchBaseQueryError | SerializedError,
-        t('cart.addError')
-      );
+      if (isFetchBaseQueryError(error) && error.status === conflictHttpStatus) {
+        const message =
+          (error.data as { message?: string }).message ||
+          t('cart.conflictError');
 
-      showToast('error', toastError);
+        setRulesErrorMessage(message);
+        setRulesErrorPopupVisible(true);
+      } else {
+        const toastError = getErrorMessage(
+          error as FetchBaseQueryError | SerializedError,
+          t('cart.addError')
+        );
+
+        showToast('error', toastError);
+      }
 
       return false;
     }
-  };
+  }, [addToCart, durations, showToast, t, userId, value]);
 
   const handleRemoveFromCart = async () => {
     try {
@@ -155,6 +170,9 @@ const useProductSection = (product: IProduct) => {
     isAddingToCart,
     isRemovingFromCart,
     durations,
+    rulesErrorPopupVisible,
+    setRulesErrorPopupVisible,
+    rulesErrorMessage,
   };
 };
 

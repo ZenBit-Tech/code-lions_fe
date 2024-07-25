@@ -16,6 +16,7 @@ import ChevronRight from 'src/assets/icons/chevron-right-grey-small.svg';
 import Heart from 'src/assets/icons/heart.svg';
 import { urls } from 'src/common/constants';
 import capitalizeAndTruncate from 'src/common/utils/capitalizeAndTruncate';
+import RulesErrorPopup from 'src/components/ProductCard/RulesErrorPopup';
 import StyledBackdrop from 'src/components/shared/StyledBackdrop';
 import { IProduct } from 'src/redux/product/types';
 import theme from 'src/theme';
@@ -47,6 +48,9 @@ function ProductSection({ product }: ProductSectionProps) {
     isAddingToCart,
     isRemovingFromCart,
     durations,
+    rulesErrorPopupVisible,
+    setRulesErrorPopupVisible,
+    rulesErrorMessage,
   } = useProductSection(product);
 
   const { t } = useTranslation();
@@ -62,6 +66,17 @@ function ProductSection({ product }: ProductSectionProps) {
               isAddingToCart={isAddingToCart}
               userId={userId}
               handleAddToCart={handleAddToCart}
+            />
+          </StyledBackdrop>,
+          document.body
+        )}
+
+      {rulesErrorPopupVisible &&
+        createPortal(
+          <StyledBackdrop showModal={rulesErrorPopupVisible}>
+            <RulesErrorPopup
+              onClose={() => setRulesErrorPopupVisible(false)}
+              errorMessage={rulesErrorMessage}
             />
           </StyledBackdrop>,
           document.body
