@@ -372,7 +372,9 @@
     "modalTitle": "You are in preview mode",
     "modalText": "On this page you can see how the buyer sees the product page",
     "ok": "Ok",
-    "productFile": "product file"
+    "productFile": "product file",
+    "selectPopupTitle": "Select rent duration",
+    "durationNotSelected": "Please, select the rent duration"
   },
   "products": {
     "title": "Products",
