@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -13,7 +13,7 @@ import {
 } from 'src/redux/cart/cartService';
 import { useAppSelector } from 'src/redux/hooks';
 import { IProduct } from 'src/redux/product/types';
-import { selectUserId } from 'src/redux/user/userSlice';
+import { selectUserId, selectHideRentalRules } from 'src/redux/user/userSlice';
 import {
   useAddToWishlistMutation,
   useRemoveFromWishlistMutation,
@@ -26,15 +26,17 @@ const useProductCard = (item: IProduct) => {
   const { showToast } = useToast();
 
   const userId = useSelector(selectUserId);
+  const willHideRentalRules = useSelector(selectHideRentalRules);
 
   const navigate = useNavigate();
 
   const [isInWishlist, setIsInWishlist] = useState<boolean>(false);
   const [isInCart, setIsInCart] = useState<boolean>(false);
+  const [showModal, setShowModal] = useState<boolean>(false);
 
   const [addToWishlist] = useAddToWishlistMutation();
   const [removeFromWishlist] = useRemoveFromWishlistMutation();
-  const [addToCart] = useAddToCartMutation();
+  const [addToCart, { isLoading: isAddingToCart }] = useAddToCartMutation();
   const [removeFromCart] = useRemoveFromCartMutation();
 
   const wishlistData = useAppSelector((state) => state.wishlist);
@@ -59,6 +61,10 @@ const useProductCard = (item: IProduct) => {
       setIsInCart(isCartItem);
     }
   }, [cartData, item.id]);
+
+  const handleOpen = () => setShowModal(true);
+
+  const handleClose = () => setShowModal(false);
 
   const handleAddToWishlist = async (
     event: React.MouseEvent<HTMLButtonElement>
@@ -98,10 +104,7 @@ const useProductCard = (item: IProduct) => {
     }
   };
 
-  const handleAddToCart = async (
-    event: React.MouseEvent<HTMLButtonElement>
-  ) => {
-    event.stopPropagation();
+  const handleAddToCart = async () => {
     if (userId) {
       try {
         await addToCart({
@@ -150,10 +153,26 @@ const useProductCard = (item: IProduct) => {
     }
   };
 
+  const handleAddToCartOrOpenModal = useCallback(
+    async (event: React.MouseEvent<HTMLButtonElement>) => {
+      event.stopPropagation();
+      if (willHideRentalRules) {
+        await handleAddToCart();
+      } else {
+        handleOpen();
+      }
+    },
+    [willHideRentalRules, handleAddToCart, handleOpen]
+  );
+
   return {
     userId,
     isInWishlist,
     isInCart,
+    showModal,
+    isAddingToCart,
+    handleClose,
+    handleAddToCartOrOpenModal,
     handleAddToWishlist,
     handleRemoveFromWishlist,
     handleAddToCart,
