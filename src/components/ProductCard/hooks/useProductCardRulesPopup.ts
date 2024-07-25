@@ -6,9 +6,12 @@ import { useHideRentalRulesMutation } from 'src/redux/user/userService';
 import { selectHideRentalRules } from 'src/redux/user/userSlice';
 
 const useProductCardRulesPopup = (
-  handleAddToCart: () => Promise<void>,
+  handleAddToCart: (duration: number) => Promise<void>,
   onClose: () => void,
-  userId: string
+  duration: number,
+  userId: string,
+  isEligibleForExtendedPrivileges: boolean,
+  handleSelectDurationModalOpen: () => void
 ) => {
   const { t } = useTranslation();
 
@@ -28,7 +31,7 @@ const useProductCardRulesPopup = (
   };
 
   const handleAddToCartAndCloseModal = useCallback(async () => {
-    const addToCartPromise = handleAddToCart();
+    const addToCartPromise = handleAddToCart(duration);
 
     const hideRentalRulesPromise =
       !willHideRentalRules && isCheckboxChecked
@@ -53,6 +56,14 @@ const useProductCardRulesPopup = (
     onClose,
   ]);
 
+  const handleAddToCartOrSelectDuration = () => {
+    if (isEligibleForExtendedPrivileges) {
+      handleSelectDurationModalOpen();
+    } else {
+      handleAddToCartAndCloseModal();
+    }
+  };
+
   return {
     t,
     expanded,
@@ -60,6 +71,7 @@ const useProductCardRulesPopup = (
     handleExpandClick,
     handleCheckboxChange,
     handleAddToCartAndCloseModal,
+    handleAddToCartOrSelectDuration,
   };
 };
 

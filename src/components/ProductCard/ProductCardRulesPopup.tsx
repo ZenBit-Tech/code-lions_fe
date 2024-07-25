@@ -23,7 +23,10 @@ interface IProductCardRulesPopup {
   onClose: () => void;
   userId: string;
   isAddingToCart: boolean;
-  handleAddToCart: () => Promise<void>;
+  handleAddToCart: (duration: number) => Promise<void>;
+  duration: number;
+  isEligibleForExtendedPrivileges: boolean;
+  handleSelectDurationModalOpen: () => void;
 }
 
 function ProductCardRulesPopup({
@@ -31,14 +34,24 @@ function ProductCardRulesPopup({
   userId,
   isAddingToCart,
   handleAddToCart,
+  duration,
+  isEligibleForExtendedPrivileges,
+  handleSelectDurationModalOpen,
 }: IProductCardRulesPopup) {
   const {
     t,
     expanded,
     handleExpandClick,
     handleCheckboxChange,
-    handleAddToCartAndCloseModal,
-  } = useProductCardRulesPopup(handleAddToCart, onClose, userId);
+    handleAddToCartOrSelectDuration,
+  } = useProductCardRulesPopup(
+    handleAddToCart,
+    onClose,
+    duration,
+    userId,
+    isEligibleForExtendedPrivileges,
+    handleSelectDurationModalOpen
+  );
 
   return (
     <Popup>
@@ -131,7 +144,7 @@ function ProductCardRulesPopup({
         <Button
           variant="contained"
           startIcon={<BagCheckIcon />}
-          onClick={handleAddToCartAndCloseModal}
+          onClick={handleAddToCartOrSelectDuration}
           disabled={isAddingToCart}
           sx={{
             borderRadius: '12px',

@@ -13,6 +13,7 @@ import theme from 'src/theme';
 
 import useProductCard from './hooks/useProductCard';
 import ProductCardRulesPopup from './ProductCardRulesPopup';
+import SelectDurationPopup from './SelectDurationPopup';
 import style from './styles';
 
 interface IProductCardProps {
@@ -24,8 +25,11 @@ function ProductCard({ item }: IProductCardProps) {
     userId,
     isInWishlist,
     isInCart,
-    showModal,
-    handleClose,
+    showRulesModal,
+    showSelectDurationModal,
+    handleRulesModalClose,
+    handleSelectDurationModalOpen,
+    handleSelectDurationModalClose,
     isAddingToCart,
     handleAddToWishlist,
     handleRemoveFromWishlist,
@@ -34,17 +38,37 @@ function ProductCard({ item }: IProductCardProps) {
     handleCartClick,
     handleAddToCartOrOpenModal,
     navigate,
+    durations,
+    duration,
+    isEligibleForExtendedPrivileges,
   } = useProductCard(item);
 
   return (
     <>
-      {showModal &&
+      {showRulesModal &&
         createPortal(
-          <StyledBackdrop showModal={showModal}>
+          <StyledBackdrop showModal={showRulesModal}>
             <ProductCardRulesPopup
-              onClose={handleClose}
-              isAddingToCart={isAddingToCart}
+              onClose={handleRulesModalClose}
               userId={userId}
+              isAddingToCart={isAddingToCart}
+              handleAddToCart={handleAddToCart}
+              duration={duration}
+              isEligibleForExtendedPrivileges={isEligibleForExtendedPrivileges}
+              handleSelectDurationModalOpen={handleSelectDurationModalOpen}
+            />
+          </StyledBackdrop>,
+          document.body
+        )}
+
+      {showSelectDurationModal &&
+        createPortal(
+          <StyledBackdrop showModal={showSelectDurationModal}>
+            <SelectDurationPopup
+              onClose={handleSelectDurationModalClose}
+              product={item}
+              durations={durations}
+              isAddingToCart={isAddingToCart}
               handleAddToCart={handleAddToCart}
             />
           </StyledBackdrop>,

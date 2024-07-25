@@ -1,10 +1,9 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import { SerializedError } from '@reduxjs/toolkit';
-import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
+import { FetchBaseQueryError, skipToken } from '@reduxjs/toolkit/query';
 import { getErrorMessage } from 'src/common/hooks/useErrorHandling';
 import useToast from 'src/components/shared/toasts/components/ToastProvider/ToastProviderHooks';
 import {
@@ -13,34 +12,69 @@ import {
 } from 'src/redux/cart/cartService';
 import { useAppSelector } from 'src/redux/hooks';
 import { IProduct } from 'src/redux/product/types';
-import { selectUserId, selectHideRentalRules } from 'src/redux/user/userSlice';
+import { useGetUserReviewsQuery } from 'src/redux/user/userService';
+import {
+  selectUserId,
+  selectHideRentalRules,
+  selectUser,
+} from 'src/redux/user/userSlice';
 import {
   useAddToWishlistMutation,
   useRemoveFromWishlistMutation,
 } from 'src/redux/wishlist/wishlistService';
 
-const duration: number = 7;
+const decimalPoints: number = 2;
+const defaultDuration: number = 7;
+const weeksCount: number = 2;
+const threeFiveStarsRatings: number = 3;
+const averageRatingFourPointNine: number = 4.9;
+const fiveStarsRating: number = 5;
 
 const useProductCard = (item: IProduct) => {
   const { t } = useTranslation();
   const { showToast } = useToast();
 
-  const userId = useSelector(selectUserId);
-  const willHideRentalRules = useSelector(selectHideRentalRules);
+  const userId = useAppSelector(selectUserId);
+  const willHideRentalRules = useAppSelector(selectHideRentalRules);
+  const user = useAppSelector(selectUser);
+  const wishlistData = useAppSelector((state) => state.wishlist);
+  const cartData = useAppSelector((state) => state.cart);
 
   const navigate = useNavigate();
 
   const [isInWishlist, setIsInWishlist] = useState<boolean>(false);
   const [isInCart, setIsInCart] = useState<boolean>(false);
-  const [showModal, setShowModal] = useState<boolean>(false);
+  const [showRulesModal, setShowRulesModal] = useState<boolean>(false);
+  const [showSelectDurationModal, setShowSelectDurationModal] =
+    useState<boolean>(false);
+  const [duration, setDuration] = useState<number>(defaultDuration);
 
   const [addToWishlist] = useAddToWishlistMutation();
   const [removeFromWishlist] = useRemoveFromWishlistMutation();
   const [addToCart, { isLoading: isAddingToCart }] = useAddToCartMutation();
   const [removeFromCart] = useRemoveFromCartMutation();
+  const { data: reviewsData } = useGetUserReviewsQuery(userId || skipToken);
 
-  const wishlistData = useAppSelector((state) => state.wishlist);
-  const cartData = useAppSelector((state) => state.cart);
+  const hasThreeFiveStarReviews = reviewsData
+    ? reviewsData.filter((review) => review.rating === fiveStarsRating)
+        .length >= threeFiveStarsRatings
+    : false;
+  const isHighRated = user ? user.rating >= averageRatingFourPointNine : false;
+  const isEligibleForExtendedPrivileges =
+    hasThreeFiveStarReviews && isHighRated;
+
+  const durations = useMemo(() => {
+    const baseDurations = [{ duration: 7, price: item.price }];
+
+    if (isEligibleForExtendedPrivileges) {
+      baseDurations.push({
+        duration: 14,
+        price: parseFloat((item.price * weeksCount).toFixed(decimalPoints)),
+      });
+    }
+
+    return baseDurations;
+  }, [isEligibleForExtendedPrivileges, item.price]);
 
   useEffect(() => {
     if (wishlistData) {
@@ -62,9 +96,14 @@ const useProductCard = (item: IProduct) => {
     }
   }, [cartData, item.id]);
 
-  const handleOpen = () => setShowModal(true);
+  const handleRulesModalOpen = () => setShowRulesModal(true);
 
-  const handleClose = () => setShowModal(false);
+  const handleRulesModalClose = () => setShowRulesModal(false);
+
+  const handleSelectDurationModalOpen = () => setShowSelectDurationModal(true);
+
+  const handleSelectDurationModalClose = () =>
+    setShowSelectDurationModal(false);
 
   const handleAddToWishlist = async (
     event: React.MouseEvent<HTMLButtonElement>
@@ -104,13 +143,13 @@ const useProductCard = (item: IProduct) => {
     }
   };
 
-  const handleAddToCart = async () => {
+  const handleAddToCart = async (rentDuration: number) => {
     if (userId) {
       try {
         await addToCart({
           userId,
           productId: item.id,
-          duration,
+          duration: rentDuration,
           price: item.price,
         }).unwrap();
         setIsInCart(true);
@@ -156,22 +195,34 @@ const useProductCard = (item: IProduct) => {
   const handleAddToCartOrOpenModal = useCallback(
     async (event: React.MouseEvent<HTMLButtonElement>) => {
       event.stopPropagation();
-      if (willHideRentalRules) {
-        await handleAddToCart();
+      if (willHideRentalRules && !isEligibleForExtendedPrivileges) {
+        await handleAddToCart(duration);
+      } else if (willHideRentalRules && isEligibleForExtendedPrivileges) {
+        handleSelectDurationModalOpen();
       } else {
-        handleOpen();
+        handleRulesModalOpen();
       }
     },
-    [willHideRentalRules, handleAddToCart, handleOpen]
+    [
+      willHideRentalRules,
+      isEligibleForExtendedPrivileges,
+      handleAddToCart,
+      handleSelectDurationModalOpen,
+      handleRulesModalOpen,
+    ]
   );
 
   return {
     userId,
     isInWishlist,
     isInCart,
-    showModal,
+    showRulesModal,
+    showSelectDurationModal,
     isAddingToCart,
-    handleClose,
+    durations,
+    handleRulesModalClose,
+    handleSelectDurationModalOpen,
+    handleSelectDurationModalClose,
     handleAddToCartOrOpenModal,
     handleAddToWishlist,
     handleRemoveFromWishlist,
@@ -179,6 +230,9 @@ const useProductCard = (item: IProduct) => {
     handleRemoveFromCart,
     handleCartClick,
     navigate,
+    duration,
+    setDuration,
+    isEligibleForExtendedPrivileges,
   };
 };
 
