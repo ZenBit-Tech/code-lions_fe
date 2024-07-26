@@ -493,9 +493,9 @@
     "noSort": "No Sort"
   },
   "cart": {
-    "viewWarning": "Please, sign in to view your cart.",
+    "viewWarning": "Please, <a href='/signin'>sign in</a> to view your cart.",
     "signIn": "sign in",
-    "addWarning": "Please, sign in to add a product to your cart",
+    "addWarning": "Please, <a href='/signin'>sign in</a> to add a product to your cart",
     "productAdded": "Product is added to your cart",
     "productRemoved": "Product is removed from your cart",
     "addError": "Error occured while adding product to cart",
@@ -504,7 +504,8 @@
   },
   "wishlist": {
     "addError": "Error occured while adding product to wishlist",
-    "removeError": "Error occured while removing the product from wishlist"
+    "removeError": "Error occured while removing the product from wishlist",
+    "viewWarning": "Please, <a href='/signin'>sign in</a> to view your wishlist."
   },
   "notFound": {
     "title": "Page not found",

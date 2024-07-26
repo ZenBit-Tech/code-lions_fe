@@ -44,6 +44,7 @@ function ProductSection({ product }: ProductSectionProps) {
     handleAddToCart,
     handleRemoveFromCart,
     handleCartClick,
+    handleGoToWishlistClick,
     isProductInCart,
     isAddingToCart,
     isRemovingFromCart,
@@ -258,28 +259,17 @@ function ProductSection({ product }: ProductSectionProps) {
         )}
       </Box>
       <Box display="flex" marginTop="12px">
-        <Button startIcon={<Heart />} sx={{}}>
-          <Link
-            href={
-              userId
-                ? `${urls.PROFILE}/${urls.WISHLIST}/${userId}`
-                : urls.SIGN_IN
-            }
+        <Button startIcon={<Heart />} onClick={handleGoToWishlistClick}>
+          <Typography
+            variant="button"
             sx={{
-              textDecoration: 'none',
+              fontWeight: theme.typography.bold.fontWeight,
+              lineHeight: 1.75,
+              marginRight: '20px',
             }}
           >
-            <Typography
-              variant="button"
-              sx={{
-                fontWeight: theme.typography.bold.fontWeight,
-                lineHeight: 1.75,
-                marginRight: '20px',
-              }}
-            >
-              {t('product.goToWishlist')}
-            </Typography>
-          </Link>
+            {t('product.goToWishlist')}
+          </Typography>
         </Button>
         <Button startIcon={<ChatDots />}>
           <Typography

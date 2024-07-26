@@ -12,6 +12,7 @@ import { Box } from '@mui/system';
 
 import BagCheckIcon from 'src/assets/icons/bag-check.svg';
 import CloseIcon from 'src/assets/icons/close.svg';
+import useToast from 'src/components/shared/toasts/components/ToastProvider/ToastProviderHooks';
 import RadioLabel from 'src/pages/ProductPage/RadioLabel';
 import { StyledFormControlLabel } from 'src/pages/ProductPage/styles';
 import { IProduct } from 'src/redux/product/types';
@@ -40,6 +41,7 @@ function SelectDurationPopup({
   handleAddToCart,
 }: ISelectDurationPopup) {
   const { t } = useTranslation();
+  const { showToast } = useToast();
 
   const radioImage = product.images[0];
 
@@ -54,13 +56,18 @@ function SelectDurationPopup({
       async (event: React.MouseEvent<HTMLButtonElement>) => {
         event.stopPropagation();
         try {
-          await handleAddToCart(duration);
+          if (!duration) {
+            showToast('error', t('product.durationNotSelected'));
 
-          return true;
+            return false;
+          } else {
+            await handleAddToCart(duration);
+            onClose();
+
+            return true;
+          }
         } catch (error) {
           return error;
-        } finally {
-          onClose();
         }
       },
     [handleAddToCart, onClose]

@@ -1,9 +1,11 @@
 import { useState, useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 
 import { SerializedError } from '@reduxjs/toolkit';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import { skipToken } from '@reduxjs/toolkit/query/react';
+import { urls } from 'src/common/constants';
 import {
   getErrorMessage,
   isFetchBaseQueryError,
@@ -32,6 +34,7 @@ const conflictHttpStatus: number = 409;
 const useProductSection = (product: IProduct) => {
   const { t } = useTranslation();
   const { showToast } = useToast();
+  const navigate = useNavigate();
 
   const userId = useAppSelector(selectUserId);
   const willHideRentalRules = useAppSelector(selectHideRentalRules);
@@ -153,6 +156,14 @@ const useProductSection = (product: IProduct) => {
     }
   }, [willHideRentalRules, handleAddToCart, handleOpen]);
 
+  const handleGoToWishlistClick = () => {
+    if (!userId) {
+      showToast('warning', t('wishlist.viewWarning'));
+    } else {
+      navigate(`${urls.PROFILE}/${urls.WISHLIST}/${userId}`);
+    }
+  };
+
   return {
     userId,
     selectedSize,
@@ -166,6 +177,7 @@ const useProductSection = (product: IProduct) => {
     handleRemoveFromCart,
     handleCartClick,
     handleAddToCartOrOpenModal,
+    handleGoToWishlistClick,
     isProductInCart,
     isAddingToCart,
     isRemovingFromCart,
