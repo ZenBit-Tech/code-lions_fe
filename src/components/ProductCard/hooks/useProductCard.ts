@@ -161,8 +161,8 @@ const useProductCard = (item: IProduct) => {
         try {
           const price =
             rentDuration === rentDurationTwoWeeks
-              ? parseFloat((item.price * weeksCount).toFixed(decimalPrecision))
-              : parseFloat(item.price.toFixed(decimalPrecision));
+              ? item.price * weeksCount
+              : item.price;
 
           if (!rentDuration) {
             showToast('error', t('product.durationNotSelected'));
