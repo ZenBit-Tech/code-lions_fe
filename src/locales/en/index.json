@@ -493,12 +493,14 @@
     "noSort": "No Sort"
   },
   "cart": {
-    "viewWarning": "Please, sign in to view your cart",
+    "viewWarning": "Please, sign in to view your cart.",
+    "signIn": "sign in",
     "addWarning": "Please, sign in to add a product to your cart",
     "productAdded": "Product is added to your cart",
     "productRemoved": "Product is removed from your cart",
     "addError": "Error occured while adding product to cart",
-    "removeError": "Error occured while removing the product from cart"
+    "removeError": "Error occured while removing the product from cart",
+    "conflictError": "Conflict error occurred"
   },
   "wishlist": {
     "addError": "Error occured while adding product to wishlist",

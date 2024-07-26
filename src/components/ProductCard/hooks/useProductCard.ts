@@ -26,7 +26,7 @@ import {
   useRemoveFromWishlistMutation,
 } from 'src/redux/wishlist/wishlistService';
 
-const decimalPoints: number = 2;
+const decimalPrecision: number = 2;
 const defaultDuration: number = 7;
 const rentDurationTwoWeeks: number = 14;
 const weeksCount: number = 2;
@@ -76,7 +76,7 @@ const useProductCard = (item: IProduct) => {
     if (isEligibleForExtendedPrivileges) {
       baseDurations.push({
         duration: 14,
-        price: parseFloat((item.price * weeksCount).toFixed(decimalPoints)),
+        price: parseFloat((item.price * weeksCount).toFixed(decimalPrecision)),
       });
     }
 
@@ -161,8 +161,8 @@ const useProductCard = (item: IProduct) => {
         try {
           const price =
             rentDuration === rentDurationTwoWeeks
-              ? item.price * weeksCount
-              : item.price;
+              ? parseFloat((item.price * weeksCount).toFixed(decimalPrecision))
+              : parseFloat(item.price.toFixed(decimalPrecision));
 
           if (!rentDuration) {
             showToast('error', t('product.durationNotSelected'));
