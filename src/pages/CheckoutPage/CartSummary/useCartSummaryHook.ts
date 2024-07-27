@@ -7,6 +7,7 @@ const useCartSummary = (cartItems: ICartItem[], shipping: string) => {
   const [shippingPrice, setShippingPrice] = useState<number>(0);
   const [subtotal, setSubtotal] = useState<number>(0);
   const [total, setTotal] = useState<number>(0);
+  const [numberOfVendors, setNumberOfVendors] = useState<number>(0);
 
   useEffect(() => {
     const itemsSubtotal = cartItems.reduce((sum, item) => {
@@ -15,16 +16,24 @@ const useCartSummary = (cartItems: ICartItem[], shipping: string) => {
 
     setSubtotal(itemsSubtotal);
 
+    const uniqueVendorIds = new Set(cartItems.map((item) => item.vendorId));
+
+    setNumberOfVendors(uniqueVendorIds.size);
+
+    let calculatedShippingPrice = 0;
+
     if (shipping === shippingOption.FREE) {
-      setShippingPrice(shippingFee.FREE);
+      calculatedShippingPrice = shippingFee.FREE;
     } else if (shipping === shippingOption.EXPRESS) {
-      setShippingPrice(shippingFee.EXPRESS);
+      calculatedShippingPrice = shippingFee.EXPRESS;
     }
 
-    setTotal(itemsSubtotal + shippingPrice);
-  }, [cartItems, shipping, shippingPrice]);
+    setShippingPrice(calculatedShippingPrice * numberOfVendors);
 
-  return { subtotal, total };
+    setTotal(itemsSubtotal + shippingPrice);
+  }, [cartItems, numberOfVendors, shipping, shippingPrice]);
+
+  return { subtotal, total, numberOfVendors };
 };
 
 export default useCartSummary;

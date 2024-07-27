@@ -599,7 +599,8 @@
     "expressPrice": "15.00",
     "subtotal": "Subtotal",
     "totalRenting": "Total Renting",
-    "payButton": "Pay"
+    "payButton": "Pay",
+    "vendor": "Vendor"
   },
   "vendorProductList": {
     "title": "Categories",

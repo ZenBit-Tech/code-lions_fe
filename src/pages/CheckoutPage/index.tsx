@@ -7,20 +7,30 @@ import { Box } from '@mui/material';
 import { urls } from 'src/common/constants';
 import Container from 'src/components/shared/Container';
 import SectionTitle from 'src/components/shared/SectionTitle';
-import CartTable from 'src/pages/CartPage/CartTable';
 import TableWrapper from 'src/pages/CartPage/styles';
 import { selectCart } from 'src/redux/cart/cartSlice';
+import { ICartItem } from 'src/redux/cart/types';
 import { useAppSelector } from 'src/redux/hooks';
 
 import AddressForm from '../ProfilePage/AddressForm';
 
 import CartSummary from './CartSummary';
+import CheckoutTable from './CheckoutTable';
+import useGroupedByVendor from './useGroupedByVendorHook';
+
+export interface IGroupedByVendor {
+  [vendorId: string]: ICartItem[];
+}
 
 function CheckoutPage() {
   const { t } = useTranslation();
 
   const cartItems = useAppSelector(selectCart);
   const navigate = useNavigate();
+
+  const groupedEntries = useGroupedByVendor(cartItems);
+
+  console.log(cartItems);
 
   useEffect(() => {
     if (cartItems.length === 0) {
@@ -38,7 +48,9 @@ function CheckoutPage() {
       <Container>
         <SectionTitle title={t('checkoutPage.title')} showBackLink mt="12px" />
         <TableWrapper>
-          <CartTable data={cartItems} />
+          {groupedEntries.map(([vendorId, items]) => (
+            <CheckoutTable key={vendorId} data={[vendorId, items]} />
+          ))}
         </TableWrapper>
         <Box
           display="flex"
