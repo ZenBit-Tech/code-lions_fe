@@ -1,0 +1,58 @@
+const mockOrder = {
+  date: 'June 8, 2023',
+  itemsCount: 10,
+  status: 'On Request',
+  total: '$3000',
+  products: [
+    {
+      id: 1,
+      name: 'Product Name Long',
+      price: '$122.27',
+      count: 1,
+      total: '$122.27',
+      url: 'https://img.kwcdn.com/product/fancy/44688cfd-16ae-43a1-bc76-bca158e9a242.jpg?imageView2/2/w/800/q/70/format/webp',
+    },
+    {
+      id: 2,
+      name: 'Product Name Long',
+      price: '$122.27',
+      count: 1,
+      total: '$122.27',
+      url: 'https://img.kwcdn.com/product/fancy/44688cfd-16ae-43a1-bc76-bca158e9a242.jpg?imageView2/2/w/800/q/70/format/webp',
+    },
+    {
+      id: 3,
+      name: 'Product Name Long',
+      price: '$122.27',
+      count: 1,
+      total: '$122.27',
+      url: 'https://img.kwcdn.com/product/fancy/44688cfd-16ae-43a1-bc76-bca158e9a242.jpg?imageView2/2/w/800/q/70/format/webp',
+    },
+    {
+      id: 4,
+      name: 'Product Name Long',
+      price: '$122.27',
+      count: 1,
+      total: '$122.27',
+      url: 'https://img.kwcdn.com/product/fancy/44688cfd-16ae-43a1-bc76-bca158e9a242.jpg?imageView2/2/w/800/q/70/format/webp',
+    },
+    {
+      id: 5,
+      name: 'Product Name Long',
+      price: '$122.27',
+      count: 1,
+      total: '$122.27',
+      url: 'https://img.kwcdn.com/product/fancy/44688cfd-16ae-43a1-bc76-bca158e9a242.jpg?imageView2/2/w/800/q/70/format/webp',
+    },
+    {
+      id: 6,
+      name: 'Product Name Long',
+      price: '$122.27',
+      count: 1,
+      total: '$122.27',
+      url: 'https://img.kwcdn.com/product/fancy/44688cfd-16ae-43a1-bc76-bca158e9a242.jpg?imageView2/2/w/800/q/70/format/webp',
+    },
+  ],
+};
+
+export default mockOrder;

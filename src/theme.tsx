@@ -28,11 +28,13 @@ declare module '@mui/material/styles' {
   interface TypographyVariants {
     interBody: React.CSSProperties;
     bold: React.CSSProperties;
+    semiBold: React.CSSProperties;
   }
 
   interface TypographyVariantsOptions {
     interBody?: React.CSSProperties;
     bold?: React.CSSProperties;
+    semiBold?: React.CSSProperties;
   }
 }
 
@@ -125,6 +127,10 @@ const theme: Theme = createTheme({
 
     bold: {
       fontWeight: 700,
+    },
+
+    semiBold: {
+      fontWeight: 500,
     },
 
     h1: {
