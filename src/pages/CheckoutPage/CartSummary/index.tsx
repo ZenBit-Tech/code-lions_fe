@@ -25,7 +25,10 @@ function CartSummary() {
   const [createCheckoutSession, { isLoading }] =
     useCreateCheckoutSessionMutation();
 
-  const { subtotal, total } = useCartSummary(cartItems, shipping);
+  const { subtotal, total, numberOfVendors } = useCartSummary(
+    cartItems,
+    shipping
+  );
 
   const handleShippingChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setShipping((event.target as HTMLInputElement).value);
@@ -70,7 +73,9 @@ function CartSummary() {
               control={<Radio />}
               label={t('checkoutPage.expressShipping')}
             />
-            <Typography>+${t('checkoutPage.expressPrice')}</Typography>
+            <Typography>
+              {`+$${t('checkoutPage.expressPrice')} x ${numberOfVendors}`}
+            </Typography>
           </ShippingOption>
         </FormWrapper>
         <Box

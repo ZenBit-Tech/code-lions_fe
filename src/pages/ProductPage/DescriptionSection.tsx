@@ -13,9 +13,6 @@ interface ProductSectionProps {
   product: IProduct;
 }
 
-const mockPDFUrl: string =
-  'https://helpseo.net/files/uploads/669e5053c3911.pdf';
-
 function DescriptionSection({ product }: ProductSectionProps) {
   const { t } = useTranslation();
 
@@ -75,13 +72,15 @@ function DescriptionSection({ product }: ProductSectionProps) {
               >
                 {t('product.material')}
               </StyledTypography>
-              <StyledTypography
-                sx={{
-                  fontWeight: theme.typography.bold.fontWeight,
-                }}
-              >
-                {t('product.categories')}
-              </StyledTypography>
+              {product.pdfUrl && (
+                <StyledTypography
+                  sx={{
+                    fontWeight: theme.typography.bold.fontWeight,
+                  }}
+                >
+                  {t('product.file')}
+                </StyledTypography>
+              )}
             </Grid>
             <Grid item xs={2}>
               <StyledTypography
@@ -105,12 +104,30 @@ function DescriptionSection({ product }: ProductSectionProps) {
               >
                 {capitalizeAndTruncate(product.material)}
               </StyledTypography>
-              <StyledTypography>{processedCategories}</StyledTypography>
+              {product.pdfUrl && (
+                <StyledTypography>
+                  <Link
+                    href={product.pdfUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {t('product.productFile')}
+                  </Link>
+                </StyledTypography>
+              )}
             </Grid>
           </Grid>
 
           <Grid container columns={3}>
             <Grid item xs={1}>
+              <StyledTypography
+                sx={{
+                  fontWeight: theme.typography.bold.fontWeight,
+                  paddingBottom: '20px',
+                }}
+              >
+                {t('product.categories')}
+              </StyledTypography>
               <StyledTypography
                 sx={{
                   fontWeight: theme.typography.bold.fontWeight,
@@ -127,15 +144,11 @@ function DescriptionSection({ product }: ProductSectionProps) {
               >
                 {t('product.style')}
               </StyledTypography>
-              <StyledTypography
-                sx={{
-                  fontWeight: theme.typography.bold.fontWeight,
-                }}
-              >
-                {t('product.file')}
-              </StyledTypography>
             </Grid>
             <Grid item xs={2}>
+              <StyledTypography sx={{ paddingBottom: '20px' }}>
+                {processedCategories}
+              </StyledTypography>
               <StyledTypography sx={{ paddingBottom: '20px' }}>
                 {capitalizeAndTruncate(product.type)}
               </StyledTypography>
@@ -145,15 +158,6 @@ function DescriptionSection({ product }: ProductSectionProps) {
                 }}
               >
                 {capitalizeAndTruncate(product.style)}
-              </StyledTypography>
-              <StyledTypography>
-                <Link
-                  href={mockPDFUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {t('product.productFile')}
-                </Link>
               </StyledTypography>
             </Grid>
           </Grid>

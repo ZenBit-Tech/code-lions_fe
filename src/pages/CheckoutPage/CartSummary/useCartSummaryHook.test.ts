@@ -7,7 +7,7 @@ import { ICartItem } from 'src/redux/cart/types';
 import useCartSummary from './useCartSummaryHook';
 
 const FREESHIP = 50;
-const EXPRESSSHIP = 65;
+const EXPRESSSHIP = 80;
 
 describe('useCartSummary', () => {
   const testCartItems: ICartItem[] = [
@@ -21,7 +21,8 @@ describe('useCartSummary', () => {
       duration: 0,
       userId: '',
       productId: '',
-      vendorId: '',
+      vendorId: 'vendor1',
+      vendorName: '',
       createdAt: '',
     },
     {
@@ -34,7 +35,8 @@ describe('useCartSummary', () => {
       duration: 0,
       userId: '',
       productId: '',
-      vendorId: '',
+      vendorId: 'vendor2',
+      vendorName: '',
       createdAt: '',
     },
   ];

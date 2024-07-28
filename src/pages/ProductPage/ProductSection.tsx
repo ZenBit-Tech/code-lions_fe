@@ -16,6 +16,7 @@ import ChevronRight from 'src/assets/icons/chevron-right-grey-small.svg';
 import Heart from 'src/assets/icons/heart.svg';
 import { urls } from 'src/common/constants';
 import capitalizeAndTruncate from 'src/common/utils/capitalizeAndTruncate';
+import RulesErrorPopup from 'src/components/ProductCard/RulesErrorPopup';
 import StyledBackdrop from 'src/components/shared/StyledBackdrop';
 import { IProduct } from 'src/redux/product/types';
 import theme from 'src/theme';
@@ -43,10 +44,14 @@ function ProductSection({ product }: ProductSectionProps) {
     handleAddToCart,
     handleRemoveFromCart,
     handleCartClick,
+    handleGoToWishlistClick,
     isProductInCart,
     isAddingToCart,
     isRemovingFromCart,
     durations,
+    rulesErrorPopupVisible,
+    setRulesErrorPopupVisible,
+    rulesErrorMessage,
   } = useProductSection(product);
 
   const { t } = useTranslation();
@@ -62,6 +67,17 @@ function ProductSection({ product }: ProductSectionProps) {
               isAddingToCart={isAddingToCart}
               userId={userId}
               handleAddToCart={handleAddToCart}
+            />
+          </StyledBackdrop>,
+          document.body
+        )}
+
+      {rulesErrorPopupVisible &&
+        createPortal(
+          <StyledBackdrop showModal={rulesErrorPopupVisible}>
+            <RulesErrorPopup
+              onClose={() => setRulesErrorPopupVisible(false)}
+              errorMessage={rulesErrorMessage}
             />
           </StyledBackdrop>,
           document.body
@@ -243,28 +259,17 @@ function ProductSection({ product }: ProductSectionProps) {
         )}
       </Box>
       <Box display="flex" marginTop="12px">
-        <Button startIcon={<Heart />} sx={{}}>
-          <Link
-            href={
-              userId
-                ? `${urls.PROFILE}/${urls.WISHLIST}/${userId}`
-                : urls.SIGN_IN
-            }
+        <Button startIcon={<Heart />} onClick={handleGoToWishlistClick}>
+          <Typography
+            variant="button"
             sx={{
-              textDecoration: 'none',
+              fontWeight: theme.typography.bold.fontWeight,
+              lineHeight: 1.75,
+              marginRight: '20px',
             }}
           >
-            <Typography
-              variant="button"
-              sx={{
-                fontWeight: theme.typography.bold.fontWeight,
-                lineHeight: 1.75,
-                marginRight: '20px',
-              }}
-            >
-              {t('product.goToWishlist')}
-            </Typography>
-          </Link>
+            {t('product.goToWishlist')}
+          </Typography>
         </Button>
         <Button startIcon={<ChatDots />}>
           <Typography

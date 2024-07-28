@@ -15,6 +15,8 @@ const initialState: IUser = {
   refreshToken: '',
   isAccountActive: true,
   willHideRentalRules: false,
+  orders: 0,
+  rating: 0,
   photoUrl: '',
   phoneNumber: '',
   addressLine1: '',

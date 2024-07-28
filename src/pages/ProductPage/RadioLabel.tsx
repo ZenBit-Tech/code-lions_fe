@@ -28,7 +28,7 @@ function RadioLabel({ price, duration, categories }: IRadioLabelProps) {
         variant="body1"
         sx={{ fontWeight: theme.typography.h4.fontWeight, lineHeight: '21px' }}
       >
-        {`$${price}`}
+        {`$${price.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }).replace(',', '.')}`}
       </Typography>
     </Box>
   );
