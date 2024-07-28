@@ -7,13 +7,12 @@ import ChevronRight from 'src/assets/icons/chevron-right-grey-small.svg';
 import AdminSectionTitle from 'src/pages/admin/AdminSectionTitle';
 import theme from 'src/theme';
 
-interface IUserDetailsSectionProps {
+interface IOrdersDetailsSectionProps {
   children?: ReactNode;
-  sectionHeight: string;
 }
 
-function OrderDetailsSection(props: IUserDetailsSectionProps) {
-  const { children, sectionHeight } = props;
+function OrderDetailsSection(props: IOrdersDetailsSectionProps) {
+  const { children } = props;
   const { t } = useTranslation();
 
   return (
@@ -58,7 +57,6 @@ function OrderDetailsSection(props: IUserDetailsSectionProps) {
           backgroundColor: theme.palette.common.white,
           borderRadius: '10px',
           padding: '24px',
-          height: sectionHeight,
         }}
       >
         {children}

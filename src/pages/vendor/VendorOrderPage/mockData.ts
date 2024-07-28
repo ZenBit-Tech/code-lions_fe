@@ -53,6 +53,10 @@ const mockOrder = {
       url: 'https://img.kwcdn.com/product/fancy/44688cfd-16ae-43a1-bc76-bca158e9a242.jpg?imageView2/2/w/800/q/70/format/webp',
     },
   ],
+  subtotal: '$1277.7',
+  discount: '-$100',
+  shipping: '$25',
+  totalSum: '$1202.7',
 };
 
 export default mockOrder;
