@@ -83,7 +83,7 @@ function ProductCardRulesPopup({
                   <IconButton
                     onClick={() => handleExpandClick(id)}
                     aria-expanded={expanded === id}
-                    aria-label="show more"
+                    aria-label={t('product.showMore')}
                     size="small"
                     sx={{
                       marginLeft: 'auto',

@@ -374,7 +374,8 @@
     "ok": "Ok",
     "productFile": "product file",
     "selectPopupTitle": "Select rent duration",
-    "durationNotSelected": "Please, select the rent duration"
+    "durationNotSelected": "Please, select the rent duration",
+    "showMore": "show more"
   },
   "products": {
     "title": "Products",
