@@ -7,12 +7,13 @@ import ChevronRight from 'src/assets/icons/chevron-right-grey-small.svg';
 import AdminSectionTitle from 'src/pages/admin/AdminSectionTitle';
 import theme from 'src/theme';
 
+import styles from './styles';
+
 interface IOrdersDetailsSectionProps {
   children?: ReactNode;
 }
 
-function OrderDetailsSection(props: IOrdersDetailsSectionProps) {
-  const { children } = props;
+function OrderDetailsSection({ children }: IOrdersDetailsSectionProps) {
   const { t } = useTranslation();
 
   return (
@@ -25,25 +26,11 @@ function OrderDetailsSection(props: IOrdersDetailsSectionProps) {
           {t('vendorOrder.vendor')}
         </Typography>
         <ChevronRight />
-        <Typography
-          variant="subtitle2"
-          sx={{
-            color: theme.palette.text.disabled,
-            margin: '0 5px',
-            fontSize: '13px',
-          }}
-        >
+        <Typography variant="subtitle2" sx={styles.link}>
           {`${t('vendorOrder.orders')}`}
         </Typography>
         <ChevronRight />
-        <Typography
-          variant="subtitle2"
-          sx={{
-            color: theme.palette.text.disabled,
-            margin: '0 5px',
-            fontSize: '13px',
-          }}
-        >
+        <Typography variant="subtitle2" sx={styles.link}>
           {`${t('vendorOrder.order100')}`}
         </Typography>
       </Box>
@@ -52,15 +39,7 @@ function OrderDetailsSection(props: IOrdersDetailsSectionProps) {
         fontWeight={700}
         showBackLink
       />
-      <Box
-        sx={{
-          backgroundColor: theme.palette.common.white,
-          borderRadius: '10px',
-          padding: '24px',
-        }}
-      >
-        {children}
-      </Box>
+      <Box sx={styles.mainSectionWrapper}>{children}</Box>
     </Box>
   );
 }

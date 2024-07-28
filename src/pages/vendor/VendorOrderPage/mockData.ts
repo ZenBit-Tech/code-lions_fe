@@ -57,6 +57,13 @@ const mockOrder = {
   discount: '-$100',
   shipping: '$25',
   totalSum: '$1202.7',
+  buyer: {
+    name: 'Anna Asol',
+    addressLine1: 'South Banasree',
+    addressLine2: 'Road No: 5/2 Blog',
+    state: 'Toronto',
+    country: 'Canada',
+  },
 };
 
 export default mockOrder;
