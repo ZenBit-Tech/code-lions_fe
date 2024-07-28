@@ -2,15 +2,11 @@ import { createApi } from '@reduxjs/toolkit/query/react';
 import { HttpMethods, RTKUrls } from 'src/common/constants';
 import { baseQueryWithReauth } from 'src/redux/user/userService';
 
-import { ICartItem } from './types';
-
-interface IStripeSessionResponse {
-  url: string;
-}
-
-interface IStripeSessionRequest {
-  amount: number;
-}
+import {
+  ICartItem,
+  IStripeSessionResponse,
+  IStripeSessionRequest,
+} from './types';
 
 export const cartApi = createApi({
   reducerPath: 'cartApi',
@@ -51,10 +47,10 @@ export const cartApi = createApi({
       IStripeSessionResponse,
       IStripeSessionRequest
     >({
-      query: ({ amount }) => ({
-        url: `/stripe/create-checkout-session`,
+      query: ({ total, productIds, shippingPrice }) => ({
+        url: RTKUrls.CREATE_CHECKOUT,
         method: HttpMethods.POST,
-        body: { amount },
+        body: { total, productIds, shippingPrice },
       }),
       invalidatesTags: ['Cart'],
     }),

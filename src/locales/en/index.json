@@ -606,7 +606,8 @@
     "subtotal": "Subtotal",
     "totalRenting": "Total Renting",
     "payButton": "Pay",
-    "vendor": "Vendor"
+    "vendor": "Vendor",
+    "checkoutError": "Failed to create checkout session"
   },
   "vendorProductList": {
     "title": "Categories",

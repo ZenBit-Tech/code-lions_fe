@@ -11,7 +11,6 @@ import {
 
 import { shippingOption } from 'src/common/constants';
 import StyledButton from 'src/components/shared/StyledButton';
-import { useCreateCheckoutSessionMutation } from 'src/redux/cart/cartService';
 import { selectCart } from 'src/redux/cart/cartSlice';
 import { useAppSelector } from 'src/redux/hooks';
 
@@ -22,28 +21,12 @@ function CartSummary() {
   const { t } = useTranslation();
   const cartItems = useAppSelector(selectCart);
   const [shipping, setShipping] = useState<string>(shippingOption.FREE);
-  const [createCheckoutSession, { isLoading }] =
-    useCreateCheckoutSessionMutation();
 
-  const { subtotal, total, numberOfVendors } = useCartSummary(
-    cartItems,
-    shipping
-  );
+  const { subtotal, total, numberOfVendors, isLoading, handlePayment } =
+    useCartSummary(cartItems, shipping);
 
   const handleShippingChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setShipping((event.target as HTMLInputElement).value);
-  };
-
-  const handlePayment = async () => {
-    try {
-      const result = await createCheckoutSession({ amount: total }).unwrap();
-
-      if (result.url) {
-        window.location.href = result.url;
-      }
-    } catch (err) {
-      console.error('Failed to create checkout session:', err);
-    }
   };
 
   return (

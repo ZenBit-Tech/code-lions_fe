@@ -8,11 +8,10 @@ import { urls } from 'src/common/constants';
 import Container from 'src/components/shared/Container';
 import SectionTitle from 'src/components/shared/SectionTitle';
 import TableWrapper from 'src/pages/CartPage/styles';
+import AddressForm from 'src/pages/ProfilePage/AddressForm';
 import { selectCart } from 'src/redux/cart/cartSlice';
 import { ICartItem } from 'src/redux/cart/types';
 import { useAppSelector } from 'src/redux/hooks';
-
-import AddressForm from '../ProfilePage/AddressForm';
 
 import CartSummary from './CartSummary';
 import CheckoutTable from './CheckoutTable';
@@ -29,8 +28,6 @@ function CheckoutPage() {
   const navigate = useNavigate();
 
   const groupedEntries = useGroupedByVendor(cartItems);
-
-  console.log(cartItems);
 
   useEffect(() => {
     if (cartItems.length === 0) {

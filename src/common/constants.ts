@@ -105,6 +105,7 @@ export const RTKUrls = {
   PRODUCTS_VENDOR: 'products/vendor',
   FILE: 'pdf-file',
   HIDE_RENTAL_RULES: 'hide-rental-rules',
+  CREATE_CHECKOUT: '/stripe/create-checkout-session',
 };
 
 export const HttpMethods = {
