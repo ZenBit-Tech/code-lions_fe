@@ -4,6 +4,14 @@ import { baseQueryWithReauth } from 'src/redux/user/userService';
 
 import { ICartItem } from './types';
 
+interface IStripeSessionResponse {
+  url: string;
+}
+
+interface IStripeSessionRequest {
+  amount: number;
+}
+
 export const cartApi = createApi({
   reducerPath: 'cartApi',
   baseQuery: baseQueryWithReauth,
@@ -39,6 +47,17 @@ export const cartApi = createApi({
         invalidatesTags: ['Cart'],
       }
     ),
+    createCheckoutSession: build.mutation<
+      IStripeSessionResponse,
+      IStripeSessionRequest
+    >({
+      query: ({ amount }) => ({
+        url: `/stripe/create-checkout-session`,
+        method: HttpMethods.POST,
+        body: { amount },
+      }),
+      invalidatesTags: ['Cart'],
+    }),
   }),
 });
 
@@ -46,4 +65,5 @@ export const {
   useGetCartByIdQuery,
   useAddToCartMutation,
   useRemoveFromCartMutation,
+  useCreateCheckoutSessionMutation,
 } = cartApi;
