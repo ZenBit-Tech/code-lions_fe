@@ -287,3 +287,13 @@ export const eventalCategory: string = 'evental';
 export const timeFormat = 'p';
 export const monthAndDayFormat = 'MMMM d';
 export const yearMonthAndDayFormat = 'yyyy MM d';
+
+export const orderStatus = {
+  NEW: 'New order',
+  SENT: 'Sent',
+  DELIVERED: 'Delivered',
+  RECEIVED: 'Received',
+  WAITING_RETURNING: 'Waiting for returning',
+  RETURNED: 'Returned',
+  REJECTED: 'Rejected',
+};

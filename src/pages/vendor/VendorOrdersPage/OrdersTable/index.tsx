@@ -9,15 +9,14 @@ import {
 } from '@mui/material';
 
 import { urls } from 'src/common/constants';
-import {
-  Status,
-  StyledLink,
-} from 'src/pages/vendor/VendorOrdersPage/OrdersTable/styles';
+import StyledPagination from 'src/pages/admin/StyledPagination';
 
-import { Order } from '../types';
+import { Order } from '../../VendorDashboard/types';
 
 import {
   BodyTableCell,
+  Status,
+  StyledLink,
   TableBodyStyled,
   TableCellStyled,
   TableHeadStyled,
@@ -25,10 +24,13 @@ import {
 } from './styles';
 
 interface IOrdersTable {
-  data: Order[];
+  orders: Order[];
+  pagesCount: number;
+  page: number;
+  handleChange: (event: React.ChangeEvent<unknown>, value: number) => void;
 }
 
-function OrdersTable({ data }: IOrdersTable) {
+function OrdersTable({ orders, pagesCount, page, handleChange }: IOrdersTable) {
   const { t } = useTranslation();
 
   return (
@@ -51,7 +53,7 @@ function OrdersTable({ data }: IOrdersTable) {
                 {t('vendorDashboard.price')}
               </Typography>
             </TableCellStyled>
-            <TableCellStyled align="left">
+            <TableCellStyled align="center">
               <Typography variant="subtitle1">
                 {t('vendorDashboard.status')}
               </Typography>
@@ -64,7 +66,7 @@ function OrdersTable({ data }: IOrdersTable) {
           </TableRowStyled>
         </TableHeadStyled>
         <TableBodyStyled>
-          {data.map((order) => (
+          {orders.map((order) => (
             <TableRow key={order.id}>
               <BodyTableCell component="th" scope="row" align="left">
                 #{order.id}
@@ -80,7 +82,7 @@ function OrdersTable({ data }: IOrdersTable) {
                 ))}
               </BodyTableCell>
               <BodyTableCell align="left">${order.amount}</BodyTableCell>
-              <BodyTableCell align="left">
+              <BodyTableCell align="center">
                 <Status label={order.status} status={order.status} />
               </BodyTableCell>
               <BodyTableCell align="center">
@@ -94,6 +96,11 @@ function OrdersTable({ data }: IOrdersTable) {
           ))}
         </TableBodyStyled>
       </Table>
+      <StyledPagination
+        count={pagesCount}
+        page={page}
+        handleChange={handleChange}
+      />
     </TableContainer>
   );
 }

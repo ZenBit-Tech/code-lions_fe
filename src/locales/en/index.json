@@ -624,6 +624,17 @@
     "no": "No",
     "noProducts": "You haven't added any products yet"
   },
+  "vendorOrders": {
+    "title": "My Orders",
+    "newOrder": "New Order",
+    "sent": "Sent",
+    "delivered": "Delivered",
+    "received": "Received",
+    "waiting": "Waiting for returning",
+    "returned": "Returned",
+    "rejected": "Rejected",
+    "noOrders": "You have no orders"
+  },
   "productsAdmin": {
     "title": "Products",
     "subTitle": "Product List",
