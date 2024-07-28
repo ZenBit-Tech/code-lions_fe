@@ -20,6 +20,7 @@ export interface IProduct {
     photoUrl: string;
   };
   status: ProductStatus;
+  pdfUrl: string;
   createdAt: string;
   lastUpdatedAt: string;
 }
