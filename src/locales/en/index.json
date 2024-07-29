@@ -436,6 +436,25 @@
     "avatarRequirements": "Only *.png, *.jpg and *.jpeg image files are accepted",
     "changePhoto": "Change Photo"
   },
+  "vendorOrder": {
+    "vendor": "Vendor",
+    "orders": "Orders",
+    "order100": "Order #100",
+    "orderInfo": "Order Information",
+    "customer": "Customer",
+    "address": "Address",
+    "products": "Products",
+    "chat": "Go To Chat",
+    "date": "Date",
+    "items": "Items",
+    "status": "Status",
+    "total": "Total",
+    "reject": "Reject",
+    "subtotal": "Subtotal",
+    "discount": "Discount",
+    "shipping": "Shipping",
+    "label": "simple table"
+  },
   "filters": {
     "title": "Filters",
     "price": "PRICE",

@@ -55,6 +55,7 @@ export const urls = {
   PUBLIC_PRODUCT_ID: '/public-product/:productId',
   PUBLIC_PRODUCT: '/public-product',
   VENDOR_ORDERS: 'orders',
+  VENDOR_ORDER: 'order',
   VENDOR_CHATS: '/vendor/chats',
   VENDOR_CHAT_ID: '/vendor/chats/:chatId',
   BUYER_CHATS: '/buyer/chats',
