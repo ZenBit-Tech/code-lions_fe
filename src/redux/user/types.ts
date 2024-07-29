@@ -8,6 +8,8 @@ export interface IUser {
   role: UserRole;
   isEmailVerified: boolean;
   isLoggedIn: boolean;
+  orders: number;
+  rating: number;
   photoUrl?: string;
   phoneNumber?: string;
   addressLine1?: string;
@@ -20,6 +22,8 @@ export interface IUser {
   shoesSize?: string;
   isAccountActive: boolean;
   willHideRentalRules: boolean;
+  deactivationTimestamp?: Date;
+  reactivationTimestamp?: Date;
   createdAt?: Date;
   lastUpdatedAt?: Date;
   deletedAt?: Date;

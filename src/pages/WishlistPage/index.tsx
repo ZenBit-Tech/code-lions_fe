@@ -15,13 +15,7 @@ function WishlistPage() {
     return <CircularProgress sx={{ color: theme.palette.common.black }} />;
   }
 
-  const products =
-    data.map((item) => ({
-      ...item,
-      images: item.images.map((image) => image).sort(),
-    })) || [];
-
-  if (products.length === 0) {
+  if (data.length === 0) {
     return (
       <Typography variant="h4" sx={{ mt: 4, fontSize: '20px' }}>
         {t('profile.emptyWishlist')}
@@ -39,7 +33,7 @@ function WishlistPage() {
         mb: '40px',
       }}
     >
-      {products.map((item) => (
+      {data.map((item) => (
         <Box
           key={item.id}
           component="div"

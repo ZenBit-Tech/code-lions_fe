@@ -11,6 +11,27 @@ interface ToastProviderProps {
   children: React.ReactNode;
 }
 
+interface ToastMessageProps {
+  message: string;
+}
+
+function ToastMessage({ message }: ToastMessageProps) {
+  const linkStyle = {
+    textDecoration: 'underline',
+  };
+
+  return (
+    <Typography
+      variant="body1"
+      component="div"
+      dangerouslySetInnerHTML={{ __html: message }}
+      sx={{
+        '& a': linkStyle,
+      }}
+    />
+  );
+}
+
 function ToastProvider({ children }: ToastProviderProps): JSX.Element {
   const [show, setShow] = useState(false);
   const [text, setText] = useState('');
@@ -57,7 +78,7 @@ function ToastProvider({ children }: ToastProviderProps): JSX.Element {
             '& .MuiAlert-icon': { padding: 0, margin: '5px' },
           }}
         >
-          <Typography variant="body1"> {text}</Typography>
+          <ToastMessage message={text} />
         </Alert>
       </Snackbar>
     </ToastContext.Provider>
