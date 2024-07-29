@@ -22,7 +22,7 @@ export const TabButton = styled(Button, {
   shouldForwardProp: (prop) => prop !== ACTIVE,
 })<TabButtonProps>(({ active }) => ({
   flex: 1,
-  padding: '12px 24px',
+  padding: '12px 0',
   borderRadius: '8px',
   backgroundColor: active
     ? theme.palette.secondary.main
