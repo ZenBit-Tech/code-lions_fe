@@ -10,7 +10,7 @@ import {
   RTKUrls,
   httpStatusCodes,
 } from 'src/common/constants.ts';
-import { RootState } from 'src/redux/store';
+import { RootState } from 'src/common/types';
 import { setTokens, logout } from 'src/redux/user/userSlice';
 
 import {

@@ -1,5 +1,5 @@
-import { Chat } from 'common/types.ts';
-import formatDateForChatList from 'src/common/utils/formatDateForChat.ts';
+import { ChatWithMainData } from 'common/types.ts';
+import formatDateForChat from 'src/common/utils/formatDateForChat';
 
 import {
   ChatDetails,
@@ -13,24 +13,37 @@ import {
 } from './styles';
 
 type Props = {
-  chat: Chat;
+  onClick: () => void;
+  chat: ChatWithMainData;
 };
 
-function ChatDetail({ chat }: Props) {
+function ChatDetail({ chat, onClick }: Props) {
+  const maxLength = 20;
+  const startIndex = 0;
+
   return (
     <>
-      <ChatItem key={chat.fullName}>
-        <StyledAvatar src={chat.photo} />
+      <ChatItem onClick={onClick} key={chat.chatPartner.name}>
+        <StyledAvatar src={chat.chatPartner.photoUrl} />
         <ChatDetails>
           <ChatHeader>
-            <FullName>{chat.fullName}</FullName>
+            <FullName>{chat.chatPartner.name}</FullName>
             <LastMessageDate>
-              {formatDateForChatList(chat.lastMessageDate)}
+              {chat.lastMessage?.createdAt &&
+                formatDateForChat(chat.lastMessage.createdAt)}
             </LastMessageDate>
           </ChatHeader>
           <ChatHeader>
-            <LastMessage>{chat.lastMessage}</LastMessage>
-            <UnreadMessages>{chat.unreadMessages}</UnreadMessages>
+            <LastMessage>
+              {chat.lastMessage?.content.length > maxLength
+                ? `${chat.lastMessage?.content.slice(startIndex, maxLength)}......`
+                : chat.lastMessage?.content}
+            </LastMessage>
+            {chat.unreadMessageCount ? (
+              <UnreadMessages>{chat.unreadMessageCount}</UnreadMessages>
+            ) : (
+              <></>
+            )}
           </ChatHeader>
         </ChatDetails>
       </ChatItem>

@@ -32,7 +32,8 @@ export const urls = {
   ADMIN_USERS_FULL: '/admin/users',
   ADMIN_PRODUCT_REQUEST: 'product-request',
   ADMIN_PRODUCT_LIST: 'product-list',
-  ADMIN_CHATS: 'chats',
+  ADMIN_CHATS: '/admin/chats',
+  ADMIN_CHAT_ID: '/admin/chats/:chatId',
   PROFILE: '/profile',
   USER_BUYER_PROFILE: 'buyer/:id',
   USER_VENDOR_PROFILE: 'vendor/:id',
@@ -55,7 +56,10 @@ export const urls = {
   PUBLIC_PRODUCT: '/public-product',
   VENDOR_ORDERS: 'orders',
   VENDOR_ORDER: 'order',
-  VENDOR_CHATS: 'chats',
+  VENDOR_CHATS: '/vendor/chats',
+  VENDOR_CHAT_ID: '/vendor/chats/:chatId',
+  BUYER_CHATS: '/buyer/chats',
+  BUYER_CHAT_ID: '/buyer/chats/:chatId',
   VENDOR_PROFILE: 'profile',
   BEST_VENDORS: '/best-vendors',
   COMPANY: '/company',
@@ -106,6 +110,7 @@ export const RTKUrls = {
   PRODUCTS_VENDOR: 'products/vendor',
   FILE: 'pdf-file',
   HIDE_RENTAL_RULES: 'hide-rental-rules',
+  CHAT: 'chats',
 };
 
 export const HttpMethods = {

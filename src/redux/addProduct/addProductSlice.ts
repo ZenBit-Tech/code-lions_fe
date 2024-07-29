@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
-import { RootState } from 'src/redux/store';
+import { RootState } from 'src/common/types';
 
 import { IAddedProduct, ProductImage } from './types';
 

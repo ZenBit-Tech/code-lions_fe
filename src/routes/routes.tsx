@@ -175,12 +175,18 @@ const router = createBrowserRouter([
         path: urls.ADMIN_CHATS,
         element: <ChatsPage />,
       },
+      {
+        path: urls.ADMIN_CHAT_ID,
+        element: <ChatsPage />,
+      },
     ],
   },
   {
     path: urls.ONBOARDING,
     element: <FinishedOnboardingGuard element={<OnboardingPage />} />,
   },
+  { path: urls.BUYER_CHATS, element: <ChatsPage /> },
+  { path: urls.BUYER_CHAT_ID, element: <ChatsPage /> },
   { path: urls.PROFILE, element: <ProfilePage /> },
   { path: urls.USER_VENDOR_PROFILE, element: <VendorPublicProfilePage /> },
   {
@@ -195,6 +201,7 @@ const router = createBrowserRouter([
       { path: urls.VENDOR_ORDERS, element: <ProfileComingSoon /> },
       { path: urls.VENDOR_ORDER, element: <VendorOrderPage /> },
       { path: urls.VENDOR_CHATS, element: <ChatsPage /> },
+      { path: urls.VENDOR_CHAT_ID, element: <ChatsPage /> },
       {
         path: urls.VENDOR_PROFILE,
         element: <VendorProfileLayout />,

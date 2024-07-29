@@ -1,7 +1,10 @@
+import { useEffect, useRef } from 'react';
+
 import { TextField, InputAdornment, IconButton } from '@mui/material';
 
-import { IMessage } from 'common/types.ts';
+import { Chat } from 'common/types.ts';
 import SendMessageIcon from 'src/assets/icons/SendMessage.svg';
+import { useAppSelector } from 'src/redux/hooks';
 
 import MessageBody from './MessageBody.tsx';
 import {
@@ -12,39 +15,61 @@ import {
   ScrollableMessageBox,
   ChatWithTextBox,
 } from './styles.ts';
+import useChatSocket from './useChatSocket';
 
 type Props = {
-  messages: IMessage[];
+  chat?: Chat;
 };
 
-function ChatMessages({ messages }: Props) {
-  const myId = 1; /** * TODO get current user's id ***/
-  const chatUser = messages.find((chat) => chat.author.id !== myId);
+function ChatMessages({ chat }: Props) {
+  const { id: myId, accessToken } = useAppSelector((state) => state.user);
+  const { inputValue, setInputValue, send, setMarkAsRead } = useChatSocket({
+    myId,
+    chatId: chat?.id,
+    accessToken,
+  });
+
+  const bottomOfMessagesRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (bottomOfMessagesRef.current) {
+      bottomOfMessagesRef.current.scrollIntoView({ behavior: 'smooth' });
+      if (chat?.messages?.length) {
+        setMarkAsRead();
+      }
+    }
+  }, [chat?.messages]);
 
   return (
     <ChatMessagesContainer>
       <AvatarContainer>
-        <StyledAvatar src={chatUser?.author.photo} />
-        <StyledTypography>
-          {`${chatUser?.author.firstName} ${chatUser?.author.lastName}`}
-        </StyledTypography>
+        <StyledAvatar src={chat?.chatPartner?.photoUrl} />
+        <StyledTypography>{chat?.chatPartner?.name}</StyledTypography>
       </AvatarContainer>
       <ChatWithTextBox>
         <ScrollableMessageBox>
-          {messages.map((messageElement) => (
+          {chat?.messages?.map((messageElement) => (
             <MessageBody
               key={messageElement.id}
               message={messageElement}
               myId={myId}
             />
           ))}
+          <div ref={bottomOfMessagesRef} />
         </ScrollableMessageBox>
         <TextField
+          value={inputValue}
+          onChange={(e) => setInputValue(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') {
+              send(inputValue);
+            }
+          }}
           fullWidth
           InputProps={{
             endAdornment: (
               <InputAdornment position="end">
-                <IconButton edge="end">
+                <IconButton onClick={() => send(inputValue)} edge="end">
                   <SendMessageIcon />
                 </IconButton>
               </InputAdornment>
