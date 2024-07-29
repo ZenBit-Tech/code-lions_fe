@@ -16,8 +16,10 @@ export default function generateMockOrders(): Order[] {
     'New order',
     'Sent',
     'Delivered',
+    'Received',
     'Waiting for returning',
     'Returned',
+    'Rejected',
   ];
 
   const itemSizes: Record<Category, string[]> = {

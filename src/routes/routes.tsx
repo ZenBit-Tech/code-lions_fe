@@ -41,6 +41,7 @@ import VendorAddProductPage from 'src/pages/vendor/VendorAddProductPage';
 import VendorDashboard from 'src/pages/vendor/VendorDashboard';
 import VendorLayout from 'src/pages/vendor/VendorLayout';
 import VendorOrderPage from 'src/pages/vendor/VendorOrderPage';
+import VendorOrdersPage from 'src/pages/vendor/VendorOrdersPage';
 import VendorProductPage from 'src/pages/vendor/VendorProductPage';
 import VendorProductsPage from 'src/pages/vendor/VendorProductsPage';
 import VendorProfileLayout from 'src/pages/vendor/VendorProfileLayout';
@@ -198,7 +199,7 @@ const router = createBrowserRouter([
       { path: urls.VENDOR_ADD_PRODUCT, element: <VendorAddProductPage /> },
       { path: urls.VENDOR_EDIT_PRODUCT, element: <ProfileComingSoon /> },
       { path: urls.VENDOR_PRODUCTS, element: <VendorProductsPage /> },
-      { path: urls.VENDOR_ORDERS, element: <ProfileComingSoon /> },
+      { path: urls.VENDOR_ORDERS, element: <VendorOrdersPage /> },
       { path: urls.VENDOR_ORDER, element: <VendorOrderPage /> },
       { path: urls.VENDOR_CHATS, element: <ChatsPage /> },
       { path: urls.VENDOR_CHAT_ID, element: <ChatsPage /> },
