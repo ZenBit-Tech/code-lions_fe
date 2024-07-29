@@ -292,3 +292,8 @@ export const eventalCategory: string = 'evental';
 export const timeFormat = 'p';
 export const monthAndDayFormat = 'MMMM d';
 export const yearMonthAndDayFormat = 'yyyy MM d';
+
+export const profileOrdersTabs = {
+  CURRENT: 'Current',
+  ARCHIVE: 'Archive',
+};
