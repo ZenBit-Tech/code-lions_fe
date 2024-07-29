@@ -19,7 +19,7 @@ function OrderProductsTable() {
       <AdminSectionSubTitle title={t('vendorOrder.products')} />
       <Box sx={{ margin: '20px 0 16px 0' }}>
         <TableContainer>
-          <Table aria-label="simple table">
+          <Table aria-label={t('vendorOrder.label')}>
             <TableBodyStyled>
               {mockOrder.products.map((product) => (
                 <TableRow key={product.id}>

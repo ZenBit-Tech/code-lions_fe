@@ -452,7 +452,8 @@
     "reject": "Reject",
     "subtotal": "Subtotal",
     "discount": "Discount",
-    "shipping": "Shipping"
+    "shipping": "Shipping",
+    "label": "simple table"
   },
   "filters": {
     "title": "Filters",
