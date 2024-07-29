@@ -4,7 +4,6 @@ import {
 } from 'src/pages/SizesGuidePage/tableData';
 
 export const brands = [
-  { label: 'Select brand', value: 'Select brand' },
   { label: 'Michael Kors', value: 'Michael Kors' },
   { label: 'Chiara Ferragni', value: 'Chiara Ferragni' },
   { label: 'Beatrice B', value: 'Beatrice B' },
@@ -46,7 +45,6 @@ export const jeansSizes = [
 export const uniqueSizes = [{ label: 'Unique size', value: 'Unique size' }];
 
 export const colors = [
-  { label: 'Select color', value: 'Select color' },
   { label: 'black', value: 'black' },
   { label: 'blue', value: 'blue' },
   { label: 'brown', value: 'brown' },
@@ -61,21 +59,20 @@ export const colors = [
 ];
 
 export const materials = [
-  { label: 'Select material', value: 'Select material' },
-  { label: 'Chiffon', value: 'Chiffon' },
-  { label: 'Cotton', value: 'Cotton' },
-  { label: 'Crepe', value: 'Crepe' },
-  { label: 'Denim', value: 'Denim' },
-  { label: 'Lace', value: 'Lace' },
-  { label: 'Leather', value: 'Leather' },
-  { label: 'Linen', value: 'Linen' },
-  { label: 'Satin', value: 'Satin' },
-  { label: 'Silk', value: 'Silk' },
-  { label: 'Nylon', value: 'Nylon' },
-  { label: 'Polyester', value: 'Polyester' },
-  { label: 'Spandex', value: 'Spandex' },
-  { label: 'Velvet', value: 'Velvet' },
-  { label: 'Wool', value: 'Wool' },
+  { label: 'Chiffon', value: 'chiffon' },
+  { label: 'Cotton', value: 'cotton' },
+  { label: 'Crepe', value: 'crepe' },
+  { label: 'Denim', value: 'denim' },
+  { label: 'Lace', value: 'lace' },
+  { label: 'Leather', value: 'leather' },
+  { label: 'Linen', value: 'linen' },
+  { label: 'Satin', value: 'satin' },
+  { label: 'Silk', value: 'silk' },
+  { label: 'Nylon', value: 'nylon' },
+  { label: 'Polyester', value: 'polyester' },
+  { label: 'Spandex', value: 'spandex' },
+  { label: 'Velvet', value: 'velvet' },
+  { label: 'Wool', value: 'wool' },
 ];
 
 export const shoesMaterials = [
@@ -88,7 +85,7 @@ export const shoesMaterials = [
   { label: 'plastic', value: 'plastic' },
 ];
 
-export const shoesCategory = 'Shoes';
+export const shoesCategory = 'shoes';
 export const bagsCategory = 'bags';
 export const accessoriesCategory = 'accessories';
 

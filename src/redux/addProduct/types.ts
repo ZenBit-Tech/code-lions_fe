@@ -12,6 +12,7 @@ export interface IProduct {
   type: string;
   size: string;
   images: string[];
+  pdfUrl?: string;
   colors: string;
   vendor: {
     id: string;
@@ -52,6 +53,7 @@ export interface IAddedProduct {
   size: string;
   colors: string[];
   material: string;
+  pdfUrl?: string;
   images: ProductImage[];
   price: number;
   step: number;

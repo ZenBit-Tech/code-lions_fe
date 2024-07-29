@@ -1,0 +1,458 @@
+import { ChangeEvent, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+
+import { Box } from '@mui/material';
+
+import ReusableDescriptionBox from 'src/components/ReusableDescriptionBox';
+import StyledButton from 'src/components/shared/StyledButton';
+import {
+  PaddingVariants,
+  StyleVariants,
+} from 'src/components/shared/StyledButton/types';
+import StyledInput from 'src/components/shared/StyledInput';
+import {
+  InputPaddingVariants,
+  InputStyleVariants,
+} from 'src/components/shared/StyledInput/types';
+import { CustomSelect } from 'src/components/shared/StyledSelect';
+import useToast from 'src/components/shared/toasts/components/ToastProvider/ToastProviderHooks';
+import { useUploadProductPdfMutation } from 'src/redux/addProduct/addProductService';
+import {
+  decreaseAddProductStep,
+  increaseAddProductStep,
+  selectProductId,
+} from 'src/redux/addProduct/addProductSlice';
+import { useAppDispatch, useAppSelector } from 'src/redux/hooks';
+import theme from 'src/theme';
+
+import RejectEditingModal from '../RejectEditingModal';
+
+import {
+  accessoriesCategory,
+  bagsCategory,
+  brands,
+  clothesSizes,
+  dressType,
+  jeansSizes,
+  jeansType,
+  materials,
+  otherType,
+  colors,
+  shoesCategory,
+  shoesMaterials,
+  shoesSizes,
+  shoesType,
+  uniqueSizes,
+} from './constants';
+import useProductDispatch from './hooks/useProductDispatch';
+
+function ProductDescriptionForm() {
+  const { t } = useTranslation();
+  const { showToast } = useToast();
+  const dispatch = useAppDispatch();
+  const selectedCategory = useAppSelector(
+    (state) => state.addProduct.categories[0]
+  );
+  const selectedType = useAppSelector((state) => state.addProduct.type);
+  const selectedName = useAppSelector((state) => state.addProduct.name);
+  const selectedBrand = useAppSelector((state) => state.addProduct.brand);
+  const selectedClothesSize = useAppSelector((state) => state.addProduct.size);
+  const selectedShoesSize = useAppSelector((state) => state.addProduct.size);
+  const selectedJeansSize = useAppSelector((state) => state.addProduct.size);
+  const selectedUniqueSize = useAppSelector((state) => state.addProduct.size);
+  const selectedProductColor = useAppSelector(
+    (state) => state.addProduct.colors[0]
+  );
+  const selectedDescription = useAppSelector(
+    (state) => state.addProduct.description
+  );
+  const selectedProductMaterial = useAppSelector(
+    (state) => state.addProduct.material
+  );
+  const selectedShoesMaterial = useAppSelector(
+    (state) => state.addProduct.material
+  );
+
+  const productId = useAppSelector(selectProductId);
+
+  const [productName, setProductName] = useState<string>(selectedName);
+  const [productDescription, setProductDescription] =
+    useState<string>(selectedDescription);
+  const [productBrand, setProductBrand] = useState<string>(selectedBrand);
+  const [clothesSize, setClothesSize] = useState<string>(selectedClothesSize);
+  const [shoesSize, setShoesSize] = useState<string>(selectedShoesSize);
+  const [jeansSize, setJeansSize] = useState<string>(selectedJeansSize);
+  const [uniqueSize, setUniqueSize] = useState<string>(selectedUniqueSize);
+  const [productColor, setProductColor] =
+    useState<string>(selectedProductColor);
+  const [productMaterial, setProductMaterial] = useState<string>(
+    selectedProductMaterial
+  );
+  const [shoesMaterial, setShoesMaterial] = useState<string>(
+    selectedShoesMaterial
+  );
+  const selectedPdfUrl = useAppSelector((state) => state.addProduct.pdfUrl);
+
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+
+  const toggleModal = (): void => {
+    setIsModalOpen(!isModalOpen);
+  };
+
+  const [uploadProductPdf, { isLoading }] = useUploadProductPdfMutation();
+
+  const productDispatch = useProductDispatch(
+    productName,
+    productDescription,
+    productBrand,
+    shoesSize,
+    clothesSize,
+    uniqueSize,
+    jeansSize,
+    productColor,
+    shoesMaterial,
+    productMaterial
+  );
+
+  const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files && event.target.files.length > 0) {
+      setSelectedFile(event.target.files[0]);
+    }
+  };
+
+  const handleUpload = async () => {
+    try {
+      if (selectedFile) {
+        const formDataPdf = new FormData();
+
+        formDataPdf.append('file', selectedFile);
+
+        await uploadProductPdf({
+          id: productId,
+          file: formDataPdf,
+        }).unwrap();
+
+        showToast('success', t('addProduct.uploadSuccess'));
+      }
+    } catch (error) {
+      if (error instanceof Error) {
+        showToast('error', error.message);
+      } else {
+        showToast('error', t('onboarding.unknownError'));
+      }
+    }
+  };
+
+  const returnBack = () => {
+    dispatch(decreaseAddProductStep());
+  };
+
+  const goToNextStep = () => {
+    productDispatch();
+    dispatch(increaseAddProductStep());
+  };
+
+  return (
+    <>
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '24px',
+          bgcolor: theme.palette.background.default,
+          padding: '24px',
+          borderRadius: '0 0 8px 8px',
+        }}
+      >
+        <Box
+          sx={{
+            display: 'flex',
+            gap: '40px',
+            alignItems: 'center',
+          }}
+        >
+          <ReusableDescriptionBox
+            descriptionTitle={t('addProduct.name')}
+            descriptionSubtitle={t('addProduct.nameSubtitle')}
+          />
+          <Box sx={{ flex: 1 }}>
+            <StyledInput
+              stylevariant={InputStyleVariants.OUTLINED}
+              padding={InputPaddingVariants.MD}
+              width="100%"
+              placeholder={t('addProduct.namePlaceholder')}
+              value={productName}
+              onChange={(e) => {
+                setProductName(e.target.value);
+              }}
+            />
+          </Box>
+        </Box>
+        <Box
+          sx={{
+            display: 'flex',
+            gap: '40px',
+            alignItems: 'center',
+          }}
+        >
+          <ReusableDescriptionBox
+            descriptionTitle={t('addProduct.description')}
+            descriptionSubtitle={t('addProduct.descriptionSubtitle')}
+          />
+          <Box sx={{ flex: 1 }}>
+            <StyledInput
+              stylevariant={InputStyleVariants.OUTLINED}
+              padding={InputPaddingVariants.MD}
+              multiline
+              rows={5}
+              width="100%"
+              placeholder={t('addProduct.descriptionPlaceholder')}
+              value={productDescription}
+              onChange={(e) => {
+                setProductDescription(e.target.value);
+              }}
+              sx={{
+                '& .css-kkhb97-MuiInputBase-root-MuiOutlinedInput-root': {
+                  padding: 0,
+                },
+              }}
+            />
+          </Box>
+        </Box>
+        <Box
+          sx={{
+            display: 'flex',
+            gap: '40px',
+            alignItems: 'center',
+          }}
+        >
+          <ReusableDescriptionBox
+            descriptionTitle={t('addProduct.brand')}
+            descriptionSubtitle={t('addProduct.brandSubtitle')}
+          />
+          <Box sx={{ flex: 1 }}>
+            <CustomSelect
+              options={brands}
+              displayEmpty
+              value={productBrand}
+              onChange={(v) => setProductBrand(String(v.target.value))}
+            />
+          </Box>
+        </Box>
+        <Box
+          sx={{
+            display: 'flex',
+            gap: '40px',
+            alignItems: 'center',
+          }}
+        >
+          <ReusableDescriptionBox
+            descriptionTitle={t('addProduct.size')}
+            descriptionSubtitle={t('addProduct.sizeSubtitle')}
+          />
+          <Box sx={{ flex: 1 }}>
+            {selectedCategory === shoesCategory ||
+            selectedType === shoesType ? (
+              <CustomSelect
+                options={shoesSizes}
+                displayEmpty
+                value={shoesSize}
+                onChange={(v) => setShoesSize(String(v.target.value))}
+              />
+            ) : null}
+            {selectedType === dressType ||
+            (selectedType === otherType &&
+              selectedCategory !== shoesCategory) ? (
+              <CustomSelect
+                options={clothesSizes}
+                displayEmpty
+                value={clothesSize}
+                onChange={(v) => setClothesSize(String(v.target.value))}
+              />
+            ) : null}
+            {selectedCategory === bagsCategory ||
+            selectedCategory === accessoriesCategory ? (
+              <CustomSelect
+                options={uniqueSizes}
+                displayEmpty
+                disabled
+                value={uniqueSize}
+                onChange={(v) => setUniqueSize(String(v.target.value))}
+              />
+            ) : null}
+            {selectedType === jeansType ? (
+              <CustomSelect
+                options={jeansSizes}
+                displayEmpty
+                value={jeansSize}
+                onChange={(v) => setJeansSize(String(v.target.value))}
+              />
+            ) : null}
+          </Box>
+        </Box>
+        <Box
+          sx={{
+            display: 'flex',
+            gap: '40px',
+            alignItems: 'center',
+          }}
+        >
+          <ReusableDescriptionBox
+            descriptionTitle={t('addProduct.color')}
+            descriptionSubtitle={t('addProduct.colorSubtitle')}
+          />
+          <Box sx={{ flex: 1 }}>
+            <CustomSelect
+              options={colors}
+              displayEmpty
+              value={productColor}
+              onChange={(v) => setProductColor(String(v.target.value))}
+            />
+          </Box>
+        </Box>
+        <Box
+          sx={{
+            display: 'flex',
+            gap: '40px',
+            alignItems: 'center',
+          }}
+        >
+          <ReusableDescriptionBox
+            descriptionTitle={t('addProduct.materials')}
+            descriptionSubtitle={t('addProduct.materialsSubtitle')}
+          />
+          <Box sx={{ flex: 1 }}>
+            <CustomSelect
+              options={
+                selectedCategory === shoesCategory || selectedType === shoesType
+                  ? shoesMaterials
+                  : materials
+              }
+              displayEmpty
+              value={
+                selectedCategory === shoesCategory || selectedType === shoesType
+                  ? shoesMaterial
+                  : productMaterial
+              }
+              onChange={
+                selectedCategory === shoesCategory || selectedType === shoesType
+                  ? (v) => setShoesMaterial(String(v.target.value))
+                  : (v) => setProductMaterial(String(v.target.value))
+              }
+            />
+          </Box>
+        </Box>
+        <Box
+          sx={{
+            display: 'flex',
+            gap: '40px',
+            alignItems: 'center',
+          }}
+        >
+          <ReusableDescriptionBox
+            descriptionTitle={t('addProduct.upload')}
+            descriptionSubtitle={t('addProduct.uploadSubtitle')}
+          />
+          <Box sx={{ display: 'flex', gap: '24px', alignItems: 'center' }}>
+            <input
+              type="file"
+              accept="application/pdf"
+              onChange={handleFileChange}
+              style={{ display: 'none' }}
+              id="file-upload"
+            />
+            <label htmlFor="file-upload">
+              <Box
+                sx={{
+                  width: '600px',
+                  border: `1px solid ${theme.palette.border.primary}`,
+                  borderRadius: '6px',
+                  padding: '12px 16px',
+                  cursor: 'pointer',
+                  fontFamily: theme.typography.subtitle2.fontFamily,
+                  fontWeight: 400,
+                  color: theme.palette.text.primary,
+                  lineHeight: 1.37,
+
+                  '&:hover': {
+                    border: `1px solid ${theme.palette.border.dark}`,
+                  },
+
+                  '&:focus': {
+                    border: `1px solid ${theme.palette.border.dark}`,
+                  },
+                }}
+              >
+                {selectedFile
+                  ? selectedFile.name
+                  : selectedPdfUrl || t('addProduct.chooseFile')}
+              </Box>
+            </label>
+            <StyledButton
+              onClick={handleUpload}
+              styles={StyleVariants.BLACK}
+              padding={PaddingVariants.SM}
+              variant="contained"
+              fontSize={String(theme.typography.h4.fontSize)}
+              fontFamily={theme.typography.fontFamily}
+              radius="8px"
+              disabled={!selectedFile}
+              sx={{
+                height: '34px',
+              }}
+            >
+              {isLoading ? t('addProduct.loading') : t('addProduct.uploadBtn')}
+            </StyledButton>
+          </Box>
+        </Box>
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'flex-end',
+            gap: '10px',
+            marginTop: '24px',
+          }}
+        >
+          <StyledButton
+            styles={StyleVariants.TRANSPARENT2}
+            padding={PaddingVariants.SM}
+            variant="contained"
+            fontSize={String(theme.typography.h4.fontSize)}
+            fontFamily={theme.typography.fontFamily}
+            onClick={returnBack}
+          >
+            {t('onboarding.prev')}
+          </StyledButton>
+          <StyledButton
+            styles={StyleVariants.BLACK}
+            padding={PaddingVariants.SM}
+            variant="contained"
+            fontSize={String(theme.typography.h4.fontSize)}
+            fontFamily={theme.typography.fontFamily}
+            radius="8px"
+            onClick={goToNextStep}
+          >
+            {t('onboarding.next')}
+          </StyledButton>
+          <StyledButton
+            styles={StyleVariants.RED}
+            padding={PaddingVariants.SM}
+            variant="contained"
+            fontSize={String(theme.typography.h4.fontSize)}
+            fontFamily={theme.typography.fontFamily}
+            onClick={toggleModal}
+          >
+            {t('editProduct.cancelBtn')}
+          </StyledButton>
+        </Box>
+      </Box>
+      {isModalOpen && (
+        <RejectEditingModal isModalOpen={isModalOpen} onClose={toggleModal} />
+      )}
+    </>
+  );
+}
+
+export default ProductDescriptionForm;

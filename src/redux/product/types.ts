@@ -14,6 +14,7 @@ export interface IProduct {
   material: string;
   images: string[];
   colors: string[];
+  pdfUrl?: string;
   vendor: {
     id: string;
     name: string;

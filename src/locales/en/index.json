@@ -639,5 +639,17 @@
     "requestError": "Unable to get list of request, please try again later",
     "productListError": "Unable to get list of products, please try again later",
     "noRequests": "You have no requests"
+  },
+  "editProduct": {
+    "title": "Edit Product",
+    "cancelBtn": "Cancel",
+    "editingSuccess": "Your information has been successfully updated",
+    "editingFailed": "Failed to update product"
+  },
+  "editModal": {
+    "title": "Are you sure want to stop editing the product?",
+    "subtitle": "The added information will not be saved.",
+    "no": "No",
+    "yes": "Yes"
   }
 }
