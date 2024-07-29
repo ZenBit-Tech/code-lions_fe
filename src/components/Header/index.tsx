@@ -104,7 +104,9 @@ function Header() {
           <MenuMainLink to={urls.BEST_VENDORS}>
             {t('header.vendors')}
           </MenuMainLink>
-          <MenuMainLink to={urls.HOME}>{t('header.messages')}</MenuMainLink>
+          <MenuMainLink to={urls.BUYER_CHATS}>
+            {t('header.messages')}
+          </MenuMainLink>
           <MenuMainLink to={urls.HOW_IT_WORKS}>
             {t('header.howItWorks')}
           </MenuMainLink>

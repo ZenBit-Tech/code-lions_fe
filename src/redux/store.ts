@@ -20,6 +20,8 @@ import { bestVendorsApi } from './bestVendors/bestVendorsService';
 import bestVendorsReducer from './bestVendors/bestVendorsSlice';
 import { cartApi } from './cart/cartService';
 import cartReducer from './cart/cartSlice';
+import { chatApi } from './chat/chatService';
+import chatReducer from './chat/chatSlice';
 import { productApi } from './product/productService';
 import productReducer from './product/productSlice';
 import { userApi } from './user/userService';
@@ -28,13 +30,14 @@ import { vendorProductsApi } from './vendorProduct/vendorProductService';
 import { wishlistApi } from './wishlist/wishlistService';
 import wishlistReducer from './wishlist/wishlistSlice';
 
-const rootReducer = combineReducers({
+export const rootReducer = combineReducers({
   user: userReducer,
   product: productReducer,
   bestVendors: bestVendorsReducer,
   wishlist: wishlistReducer,
   cart: cartReducer,
   addProduct: addProductReducer,
+  chat: chatReducer,
   [userApi.reducerPath]: userApi.reducer,
   [productApi.reducerPath]: productApi.reducer,
   [bestVendorsApi.reducerPath]: bestVendorsApi.reducer,
@@ -43,6 +46,7 @@ const rootReducer = combineReducers({
   [addProductApi.reducerPath]: addProductApi.reducer,
   [adminProductsApi.reducerPath]: adminProductsApi.reducer,
   [vendorProductsApi.reducerPath]: vendorProductsApi.reducer,
+  [chatApi.reducerPath]: chatApi.reducer,
 });
 
 const persistConfig = {
@@ -68,7 +72,8 @@ const store = configureStore({
       cartApi.middleware,
       addProductApi.middleware,
       adminProductsApi.middleware,
-      vendorProductsApi.middleware
+      vendorProductsApi.middleware,
+      chatApi.middleware
     ),
 });
 
@@ -76,7 +81,6 @@ setupListeners(store.dispatch);
 
 export const persistor = persistStore(store);
 
-export type RootState = ReturnType<typeof rootReducer>;
 export type AppDispatch = typeof store.dispatch;
 
 export default store;

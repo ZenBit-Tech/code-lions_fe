@@ -2,8 +2,8 @@ import { ReactNode } from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
 
 import { urls } from 'src/common/constants';
+import { RootState } from 'src/common/types';
 import { useAppSelector } from 'src/redux/hooks';
-import { RootState } from 'src/redux/store';
 
 interface PrivateRouteProps {
   children?: ReactNode;
