@@ -45,7 +45,7 @@ function VendorProfileMenu() {
 
       navigate(`${urls.PROFILE_SUPPORT}/${support.id}`);
     } catch {
-      showToast('error', '');
+      showToast('error', t('toasterMessages.failedCreateSupport'));
     }
   };
 

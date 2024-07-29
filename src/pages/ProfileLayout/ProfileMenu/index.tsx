@@ -50,7 +50,7 @@ function ProfileMenu() {
 
       navigate(`${urls.PROFILE_SUPPORT}/${support.id}`);
     } catch {
-      showToast('error', '');
+      showToast('error', t('toasterMessages.failedCreateSupport'));
     }
   };
 
