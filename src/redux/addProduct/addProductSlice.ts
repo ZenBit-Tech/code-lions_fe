@@ -14,6 +14,7 @@ const initialState: IAddedProduct = {
   size: '',
   colors: [],
   material: '',
+  pdfUrl: '',
   images: [],
   price: 0,
   step: 1,
@@ -69,6 +70,9 @@ export const addProductSlice = createSlice({
     setMaterial(state, action: PayloadAction<string>) {
       state.material = action.payload;
     },
+    setPdfUrl(state, action: PayloadAction<string>) {
+      state.pdfUrl = action.payload;
+    },
     setPrice(state, action: PayloadAction<number>) {
       state.price = action.payload;
     },
@@ -77,6 +81,9 @@ export const addProductSlice = createSlice({
     },
     addPhoto(state, action: PayloadAction<ProductImage>) {
       state.images.push(action.payload);
+    },
+    addPhotos(state, action: PayloadAction<ProductImage[]>) {
+      state.images = action.payload;
     },
     removePhoto(state, action: PayloadAction<string>) {
       state.images = state.images.filter(
@@ -112,8 +119,10 @@ export const {
   setSize,
   setColor,
   setMaterial,
+  setPdfUrl,
   setPrice,
   addPhoto,
+  addPhotos,
   removePhoto,
   setPrimaryPhoto,
   increaseAddProductStep,
