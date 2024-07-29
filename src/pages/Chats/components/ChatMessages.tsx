@@ -19,21 +19,21 @@ import useChatSocket from './useChatSocket';
 
 type Props = {
   chat?: Chat;
+  socket: ReturnType<typeof useChatSocket>;
 };
 
-function ChatMessages({ chat }: Props) {
-  const { id: myId, accessToken } = useAppSelector((state) => state.user);
-  const { inputValue, setInputValue, send, setMarkAsRead } = useChatSocket({
-    myId,
-    chatId: chat?.id,
-    accessToken,
-  });
+function ChatMessages({ chat, socket }: Props) {
+  const { id: myId } = useAppSelector((state) => state.user);
+  const { inputValue, setInputValue, send, setMarkAsRead } = socket;
 
   const bottomOfMessagesRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (bottomOfMessagesRef.current) {
-      bottomOfMessagesRef.current.scrollIntoView({ behavior: 'smooth' });
+      bottomOfMessagesRef.current.scrollTo({
+        top: bottomOfMessagesRef.current.scrollHeight,
+        behavior: 'smooth',
+      });
       if (chat?.messages?.length) {
         setMarkAsRead();
       }
@@ -47,7 +47,7 @@ function ChatMessages({ chat }: Props) {
         <StyledTypography>{chat?.chatPartner?.name}</StyledTypography>
       </AvatarContainer>
       <ChatWithTextBox>
-        <ScrollableMessageBox>
+        <ScrollableMessageBox ref={bottomOfMessagesRef}>
           {chat?.messages?.map((messageElement) => (
             <MessageBody
               key={messageElement.id}
@@ -55,7 +55,6 @@ function ChatMessages({ chat }: Props) {
               myId={myId}
             />
           ))}
-          <div ref={bottomOfMessagesRef} />
         </ScrollableMessageBox>
         <TextField
           value={inputValue}

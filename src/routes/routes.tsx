@@ -89,6 +89,8 @@ const router = createBrowserRouter([
           { path: urls.PROFILE_DETAILS, element: <ProfilePage /> },
           { path: urls.PROFILE_ORDERS, element: <ProfileComingSoon /> },
           { path: urls.PROFILE_WISHLIST, element: <WishlistPage /> },
+          { path: urls.BUYER_CHATS, element: <ChatsPage /> },
+          { path: urls.BUYER_CHAT_ID, element: <ChatsPage /> },
           { path: urls.PROFILE_SETTINGS, element: <ProfileComingSoon /> },
           { path: urls.PROFILE_SUPPORT, element: <ProfileComingSoon /> },
         ],
@@ -184,8 +186,6 @@ const router = createBrowserRouter([
     path: urls.ONBOARDING,
     element: <FinishedOnboardingGuard element={<OnboardingPage />} />,
   },
-  { path: urls.BUYER_CHATS, element: <ChatsPage /> },
-  { path: urls.BUYER_CHAT_ID, element: <ChatsPage /> },
   { path: urls.PROFILE, element: <ProfilePage /> },
   { path: urls.USER_VENDOR_PROFILE, element: <VendorPublicProfilePage /> },
   {
