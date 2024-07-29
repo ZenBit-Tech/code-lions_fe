@@ -12,7 +12,7 @@ import formatDateForChatList from '../formatDateForChat';
 
 vi.mock('i18next', () => ({
   t: vi.fn((key: string) => {
-    const translations = {
+    const translations: { [key: string]: string } = {
       'chat.yesterday': 'Yesterday',
     };
 
@@ -53,7 +53,7 @@ describe('formatDateForChatList', () => {
     const twoYearAgo = 2;
 
     overAYearAgo.setFullYear(overAYearAgo.getFullYear() - twoYearAgo);
-    const result = formatDateForChatList(overAYearAgo);
+    const result = formatDateForChatList(overAYearAgo.toString());
 
     expect(result).toBe(format(overAYearAgo, yearMonthAndDayFormat));
   });

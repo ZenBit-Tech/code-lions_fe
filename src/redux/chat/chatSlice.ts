@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Chat, IMessage, ChatWithMainData } from 'src/common/types';
-import api from 'src/redux/api';
+import { chatApi } from 'src/redux/chat/chatService';
 
 type ChatState = {
   chatsWithMainData: ChatWithMainData[];
@@ -21,14 +21,14 @@ export const chatSlice = createSlice({
       action: PayloadAction<{ message: IMessage; chatId?: string }>
     ) => {
       const { message, chatId } = action.payload;
-      const updateChatMessages = (chat) => {
+      const updateChatMessages = (chat: Chat) => {
         return {
           ...chat,
           messages: [...chat.messages, message],
         };
       };
 
-      const updateChatWithMainData = (chatWithMainData) => {
+      const updateChatWithMainData = (chatWithMainData: ChatWithMainData) => {
         const increment = 1;
 
         return {
@@ -76,14 +76,14 @@ export const chatSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addMatcher(
-      api.endpoints.getChats.matchFulfilled,
-      (state, action) => {
+      chatApi.endpoints.getChats.matchFulfilled,
+      (state: ChatState, action: PayloadAction<ChatWithMainData[]>) => {
         state.chatsWithMainData = action.payload;
       }
     );
     builder.addMatcher(
-      api.endpoints.getChatById.matchFulfilled,
-      (state, action) => {
+      chatApi.endpoints.getChatById.matchFulfilled,
+      (state: ChatState, action: PayloadAction<Chat>) => {
         const chat = action.payload;
         const notFoundIndex = -1;
 

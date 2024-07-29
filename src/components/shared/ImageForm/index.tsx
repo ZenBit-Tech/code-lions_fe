@@ -2,8 +2,8 @@ import { useSelector } from 'react-redux';
 
 import { Box } from '@mui/material';
 
+import { RootState } from 'src/common/types';
 import { selectProductImages } from 'src/redux/addProduct/addProductSlice';
-import { RootState } from 'src/redux/store';
 import theme from 'src/theme';
 
 import ImageCard from '../ImageCard';

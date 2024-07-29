@@ -72,8 +72,8 @@ function ProductSection({ product }: ProductSectionProps) {
       }).unwrap();
 
       navigate(`${urls.BUYER_CHATS}/${result.id}`);
-    } catch (error) {
-      showToast('error', error.data.message);
+    } catch {
+      showToast('error', '');
     }
   };
 

@@ -24,7 +24,9 @@ function ChatsPage() {
   const { chats, chatsWithMainData } = useAppSelector((state) => state.chat);
   const { id: myId, accessToken } = useAppSelector((state) => state.user);
   const { isLoading } = useGetChatsQuery();
-  const { isLoading: isLoadingSelectedChat } = useGetChatByIdQuery(chatId);
+  const { isLoading: isLoadingSelectedChat } = useGetChatByIdQuery(
+    chatId || ''
+  );
 
   useChatSocket({ myId, accessToken });
 
@@ -38,7 +40,7 @@ function ChatsPage() {
 
   useEffect(() => {
     if (chatId && chats) {
-      const chat = chats.find((chatElement) => chatElement.id === chatId);
+      const chat = chats.find((chatElement: Chat) => chatElement.id === chatId);
 
       setSelectedChat(chat);
     }

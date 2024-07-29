@@ -19,7 +19,7 @@ export const chatApi = api.injectEndpoints({
       }),
       providesTags: ['Chat'],
     }),
-    createChat: build.mutation<CreateChat, Chat>({
+    createChat: build.mutation<Chat, CreateChat>({
       query: (body) => ({
         url: RTKUrls.CHAT,
         method: HttpMethods.POST,

@@ -1,4 +1,5 @@
-import { Box, styled } from '@mui/system';
+import { styled } from '@mui/material/styles';
+import { Box } from '@mui/system';
 
 const SectionWrapper = styled(Box)(({ theme }) => ({
   backgroundColor: theme.palette.common.white,

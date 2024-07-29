@@ -56,7 +56,9 @@ const useChatSocket = ({ chatId, accessToken, myId }: UseChatSocketParams) => {
 
   const setMarkAsRead = () => {
     socketRef.current?.emit('markMessageAsRead', { chatId });
-    dispatch(markAsRead(chatId));
+    if (chatId) {
+      dispatch(markAsRead(chatId));
+    }
   };
 
   return {
