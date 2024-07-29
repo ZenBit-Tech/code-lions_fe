@@ -12,7 +12,7 @@ export const chatApi = api.injectEndpoints({
       }),
       providesTags: ['Chat'],
     }),
-    getChatById: build.query<Chat, string>({
+    getChatById: build.query<Chat, string | undefined>({
       query: (id: string) => ({
         url: `${RTKUrls.CHAT}/${id}`,
         method: HttpMethods.GET,
@@ -26,8 +26,18 @@ export const chatApi = api.injectEndpoints({
         body,
       }),
     }),
+    createSupport: build.mutation<Chat, undefined>({
+      query: () => ({
+        url: RTKUrls.SUPPORT,
+        method: HttpMethods.POST,
+      }),
+    }),
   }),
 });
 
-export const { useGetChatsQuery, useGetChatByIdQuery, useCreateChatMutation } =
-  chatApi;
+export const {
+  useGetChatsQuery,
+  useGetChatByIdQuery,
+  useCreateChatMutation,
+  useCreateSupportMutation,
+} = chatApi;

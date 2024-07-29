@@ -4,6 +4,7 @@ import { TextField, InputAdornment, IconButton } from '@mui/material';
 
 import { Chat } from 'common/types.ts';
 import SendMessageIcon from 'src/assets/icons/SendMessage.svg';
+import useChatSocket from 'src/common/hooks/useChatSocket';
 import { useAppSelector } from 'src/redux/hooks';
 
 import MessageBody from './MessageBody.tsx';
@@ -15,7 +16,6 @@ import {
   ScrollableMessageBox,
   ChatWithTextBox,
 } from './styles.ts';
-import useChatSocket from './useChatSocket';
 
 type Props = {
   chat?: Chat;

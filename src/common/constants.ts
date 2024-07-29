@@ -43,6 +43,7 @@ export const urls = {
   WISHLIST: 'wishlist',
   PROFILE_SETTINGS: 'settings',
   PROFILE_SUPPORT: 'support',
+  PROFILE_SUPPORT_ID: 'support/:chatId',
   PRODUCT_FEED: '/products',
   PRODUCT_CATEGORY: '/products/category/:category',
   PRODUCT_CATEGORY_URL: '/products/category',
@@ -110,6 +111,7 @@ export const RTKUrls = {
   FILE: 'pdf-file',
   HIDE_RENTAL_RULES: 'hide-rental-rules',
   CHAT: 'chats',
+  SUPPORT: 'chats/support',
 };
 
 export const HttpMethods = {

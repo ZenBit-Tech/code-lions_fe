@@ -36,6 +36,7 @@ import ShippingPage from 'src/pages/ShippingPage';
 import SignInPage from 'src/pages/SignInPage';
 import SignUpPage from 'src/pages/SignUpPage';
 import SizesGuidePage from 'src/pages/SizesGuidePage';
+import SupportPage from 'src/pages/SupportPage';
 import TermsOfUsePage from 'src/pages/TermsOfUsePage';
 import VendorAddProductPage from 'src/pages/vendor/VendorAddProductPage';
 import VendorDashboard from 'src/pages/vendor/VendorDashboard';
@@ -92,7 +93,8 @@ const router = createBrowserRouter([
           { path: urls.BUYER_CHATS, element: <ChatsPage /> },
           { path: urls.BUYER_CHAT_ID, element: <ChatsPage /> },
           { path: urls.PROFILE_SETTINGS, element: <ProfileComingSoon /> },
-          { path: urls.PROFILE_SUPPORT, element: <ProfileComingSoon /> },
+          { path: urls.PROFILE_SUPPORT, element: <SupportPage /> },
+          { path: urls.PROFILE_SUPPORT_ID, element: <SupportPage /> },
         ],
       },
       { path: urls.CART, element: <CartPage /> },
@@ -206,7 +208,8 @@ const router = createBrowserRouter([
         children: [
           { path: urls.PROFILE_DETAILS, element: <VendorProfilePage /> },
           { path: urls.PROFILE_SETTINGS, element: <ProfileComingSoon /> },
-          { path: urls.PROFILE_SUPPORT, element: <ProfileComingSoon /> },
+          { path: urls.PROFILE_SUPPORT, element: <SupportPage /> },
+          { path: urls.PROFILE_SUPPORT_ID, element: <SupportPage /> },
         ],
       },
     ],

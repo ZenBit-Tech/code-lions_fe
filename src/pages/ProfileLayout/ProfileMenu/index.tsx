@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { MouseEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router';
 
 import LogoutIcon from 'src/assets/icons/profile/logout.svg';
 import OrdersIcon from 'src/assets/icons/profile/orders.svg';
@@ -9,6 +10,8 @@ import SettingsIcon from 'src/assets/icons/profile/settings.svg';
 import SupportIcon from 'src/assets/icons/profile/support.svg';
 import WishlistIcon from 'src/assets/icons/profile/wishlist.svg';
 import { urls } from 'src/common/constants';
+import useToast from 'src/components/shared/toasts/components/ToastProvider/ToastProviderHooks';
+import { useCreateSupportMutation } from 'src/redux/chat/chatService';
 import { useAppDispatch } from 'src/redux/hooks';
 import { logout, selectUserId } from 'src/redux/user/userSlice';
 
@@ -30,11 +33,25 @@ const IndexConstants = {
 function ProfileMenu() {
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
+  const navigate = useNavigate();
+  const { showToast } = useToast();
+  const [createSupport] = useCreateSupportMutation();
 
   const userId = useSelector(selectUserId);
 
   const handleLogout = () => {
     dispatch(logout());
+  };
+
+  const handleSupportClick = async (event: MouseEvent<HTMLAnchorElement>) => {
+    event.preventDefault();
+    try {
+      const support = await createSupport(undefined).unwrap();
+
+      navigate(`${urls.PROFILE_SUPPORT}/${support.id}`);
+    } catch {
+      showToast('error', '');
+    }
   };
 
   const menuItems = [
@@ -62,6 +79,7 @@ function ProfileMenu() {
       icon: <SupportIcon />,
       textKey: 'profileMenu.support',
       to: urls.PROFILE_SUPPORT,
+      onClick: handleSupportClick,
     },
     {
       icon: <LogoutIcon />,
