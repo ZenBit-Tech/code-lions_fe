@@ -18,6 +18,9 @@ type Props = {
 };
 
 function ChatDetail({ chat, onClick }: Props) {
+  const maxLength = 20;
+  const startIndex = 0;
+
   return (
     <>
       <ChatItem onClick={onClick} key={chat.chatPartner.name}>
@@ -26,12 +29,21 @@ function ChatDetail({ chat, onClick }: Props) {
           <ChatHeader>
             <FullName>{chat.chatPartner.name}</FullName>
             <LastMessageDate>
-              {formatDateForChat(chat.lastMessage.createdAt)}
+              {chat.lastMessage?.createdAt &&
+                formatDateForChat(chat.lastMessage.createdAt)}
             </LastMessageDate>
           </ChatHeader>
           <ChatHeader>
-            <LastMessage>{chat.lastMessage.content}</LastMessage>
-            <UnreadMessages>{chat.unreadMessageCount}</UnreadMessages>
+            <LastMessage>
+              {chat.lastMessage?.content.length > maxLength
+                ? `${chat.lastMessage?.content.slice(startIndex, maxLength)}......`
+                : chat.lastMessage?.content}
+            </LastMessage>
+            {chat.unreadMessageCount ? (
+              <UnreadMessages>{chat.unreadMessageCount}</UnreadMessages>
+            ) : (
+              <></>
+            )}
           </ChatHeader>
         </ChatDetails>
       </ChatItem>

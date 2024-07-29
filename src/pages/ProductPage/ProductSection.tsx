@@ -1,5 +1,7 @@
 import { createPortal } from 'react-dom';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router';
+import { useLocation } from 'react-router-dom';
 
 import {
   Button,
@@ -17,6 +19,8 @@ import Heart from 'src/assets/icons/heart.svg';
 import { urls } from 'src/common/constants';
 import capitalizeAndTruncate from 'src/common/utils/capitalizeAndTruncate';
 import StyledBackdrop from 'src/components/shared/StyledBackdrop';
+import useToast from 'src/components/shared/toasts/components/ToastProvider/ToastProviderHooks';
+import { useCreateChatMutation } from 'src/redux/chat/chatService';
 import { IProduct } from 'src/redux/product/types';
 import theme from 'src/theme';
 
@@ -24,8 +28,6 @@ import useProductSection from './hooks/useProductSection';
 import RadioLabel from './RadioLabel';
 import RentalRulesPopup from './RentalRulesPopup';
 import { StyledInput, StyledFormControlLabel } from './styles';
-
-const stringLimit = 30;
 
 interface ProductSectionProps {
   product: IProduct;
@@ -51,6 +53,24 @@ function ProductSection({ product }: ProductSectionProps) {
 
   const { t } = useTranslation();
   const radioImage = product.images[0];
+  const [createChat] = useCreateChatMutation();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { showToast } = useToast();
+  const stringLimit = 30;
+
+  const toChat = async () => {
+    try {
+      const result = await createChat({
+        chatPartnerId: product.vendor.id,
+        content: `${window.location.origin}${location.pathname}`,
+      }).unwrap();
+
+      navigate(`${urls.BUYER_CHATS}/${result.id}`);
+    } catch (error) {
+      showToast('error', error.data.message);
+    }
+  };
 
   return (
     <Box width="456px">
@@ -266,7 +286,7 @@ function ProductSection({ product }: ProductSectionProps) {
             </Typography>
           </Link>
         </Button>
-        <Button startIcon={<ChatDots />}>
+        <Button onClick={toChat} startIcon={<ChatDots />}>
           <Typography
             variant="button"
             sx={{

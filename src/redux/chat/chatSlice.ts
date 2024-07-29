@@ -18,32 +18,59 @@ export const chatSlice = createSlice({
   reducers: {
     setMessage: (
       state,
-      action: PayloadAction<{ chatId: string; message: IMessage }>
+      action: PayloadAction<{ message: IMessage; chatId?: string }>
     ) => {
-      const { chatId, message } = action.payload;
+      const { message, chatId } = action.payload;
+      const updateChatMessages = (chat) => {
+        return {
+          ...chat,
+          messages: [...chat.messages, message],
+        };
+      };
 
-      state.chats = state.chats.map((chat) => {
-        if (chat.id === chatId) {
-          return {
-            ...chat,
-            messages: [...chat.messages, message],
-          };
-        }
+      const updateChatWithMainData = (chatWithMainData) => {
+        const increment = 1;
 
-        return chat;
-      });
+        return {
+          ...chatWithMainData,
+          lastMessage: message,
+          unreadMessageCount: chatWithMainData.unreadMessageCount + increment,
+        };
+      };
+
+      if (chatId) {
+        state.chats = state.chats.map((chat) =>
+          chat.id === chatId ? updateChatMessages(chat) : chat
+        );
+        state.chatsWithMainData = state.chatsWithMainData.map(
+          (chatWithMainData) =>
+            chatWithMainData.id === chatId
+              ? updateChatWithMainData(chatWithMainData)
+              : chatWithMainData
+        );
+      } else {
+        state.chats = state.chats.map((chat) =>
+          chat.chatPartner.id === message.sender.id
+            ? updateChatMessages(chat)
+            : chat
+        );
+        state.chatsWithMainData = state.chatsWithMainData.map(
+          (chatWithMainData) =>
+            chatWithMainData.chatPartner.id === message.sender.id
+              ? updateChatWithMainData(chatWithMainData)
+              : chatWithMainData
+        );
+      }
+    },
+    markAsRead: (state, action: PayloadAction<string>) => {
+      const chatId = action.payload;
+      const messageCountZero = 0;
 
       state.chatsWithMainData = state.chatsWithMainData.map(
-        (chatWithMainData) => {
-          if (chatWithMainData.id === chatId) {
-            return {
-              ...chatWithMainData,
-              lastMessage: message,
-            };
-          }
-
-          return chatWithMainData;
-        }
+        (chatWithMainData) =>
+          chatWithMainData.id === chatId
+            ? { ...chatWithMainData, unreadMessageCount: messageCountZero }
+            : chatWithMainData
       );
     },
   },
@@ -57,8 +84,9 @@ export const chatSlice = createSlice({
     builder.addMatcher(
       api.endpoints.getChatById.matchFulfilled,
       (state, action) => {
-        const notFoundIndex = -1;
         const chat = action.payload;
+        const notFoundIndex = -1;
+
         const chatIndex = state.chats.findIndex(
           (existChat) => existChat.id === chat.id
         );
@@ -66,15 +94,13 @@ export const chatSlice = createSlice({
         if (chatIndex === notFoundIndex) {
           state.chats.push(chat);
         } else {
-          state.chats = state.chats.map((existChat) =>
-            existChat.id === chat.id ? chat : existChat
-          );
+          state.chats[chatIndex] = chat;
         }
       }
     );
   },
 });
 
-export const { setMessage } = chatSlice.actions;
+export const { setMessage, markAsRead } = chatSlice.actions;
 
 export default chatSlice.reducer;

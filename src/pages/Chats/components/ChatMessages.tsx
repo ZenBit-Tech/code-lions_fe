@@ -23,7 +23,8 @@ type Props = {
 
 function ChatMessages({ chat }: Props) {
   const { id: myId, accessToken } = useAppSelector((state) => state.user);
-  const { inputValue, setInputValue, send } = useChatSocket({
+  const { inputValue, setInputValue, send, setMarkAsRead } = useChatSocket({
+    myId,
     chatId: chat?.id,
     accessToken,
   });
@@ -33,6 +34,9 @@ function ChatMessages({ chat }: Props) {
   useEffect(() => {
     if (bottomOfMessagesRef.current) {
       bottomOfMessagesRef.current.scrollIntoView({ behavior: 'smooth' });
+      if (chat?.messages?.length) {
+        setMarkAsRead();
+      }
     }
   }, [chat?.messages]);
 
@@ -56,6 +60,11 @@ function ChatMessages({ chat }: Props) {
         <TextField
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') {
+              send(inputValue);
+            }
+          }}
           fullWidth
           InputProps={{
             endAdornment: (

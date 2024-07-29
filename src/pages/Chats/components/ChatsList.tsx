@@ -2,9 +2,10 @@ import { useState, useEffect } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router';
 
-import { ChatWithMainData } from 'common/types.ts';
 import { urls } from 'src/common/constants';
+import { ChatWithMainData, UserRole } from 'src/common/types.ts';
 import SearchInput from 'src/components/shared/SearchInput';
+import { useAppSelector } from 'src/redux/hooks';
 
 import ChatDetail from './ChatDetails.tsx';
 import { ChatsContainer, ScrollableBox } from './styles.ts';
@@ -16,6 +17,7 @@ type Props = {
 function ChatsList({ chats }: Props) {
   const methods = useForm();
   const navigate = useNavigate();
+  const userRole = useAppSelector((state) => state.user.role);
   const [filteredChats, setFilteredChats] = useState<ChatWithMainData[]>(chats);
 
   const handleSearchChange = (value: string): void => {
@@ -27,6 +29,26 @@ function ChatsList({ chats }: Props) {
       );
     } else {
       setFilteredChats(chats);
+    }
+  };
+
+  const redirectTo = (id: string): void => {
+    switch (userRole) {
+      case UserRole.ADMIN:
+        navigate(`${urls.ADMIN_CHATS}/${id}`);
+        break;
+
+      case UserRole.VENDOR:
+        navigate(`${urls.VENDOR_CHATS}/${id}`);
+        break;
+
+      case UserRole.BUYER:
+        navigate(`${urls.BUYER_CHATS}/${id}`);
+        break;
+
+      default:
+        navigate(`${urls.BUYER_CHATS}/${id}`);
+        break;
     }
   };
 
@@ -42,7 +64,7 @@ function ChatsList({ chats }: Props) {
       <ScrollableBox>
         {filteredChats?.map((chat) => (
           <ChatDetail
-            onClick={() => navigate(`${urls.VENDOR_CHATS}/${chat.id}`)}
+            onClick={() => redirectTo(chat.id)}
             key={chat.id}
             chat={chat}
           />

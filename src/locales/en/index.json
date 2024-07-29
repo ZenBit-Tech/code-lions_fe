@@ -8,7 +8,9 @@
     "newPasswordPage": "New Password"
   },
   "chat": {
-    "yesterday": "Yesterday"
+    "yesterday": "Yesterday",
+    "dontHaveAnyChats": "You do not have any chats yet.",
+    "selectChat": "Please select chat."
   },
   "header": {
     "shop": "Shop",

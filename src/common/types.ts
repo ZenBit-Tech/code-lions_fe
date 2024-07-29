@@ -26,6 +26,24 @@ type ChatWithMainData = {
   lastMessage: IMessage;
 };
 
+type CreateChat = {
+  chatPartnerId: string;
+  content?: string;
+};
+
+export enum UserRole {
+  BUYER = 'buyer',
+  VENDOR = 'vendor',
+  ADMIN = 'admin',
+}
+
 type RootState = ReturnType<typeof rootReducer>;
 
-export type { IMessage, Chat, ChatPartner, ChatWithMainData, RootState };
+export type {
+  IMessage,
+  Chat,
+  ChatPartner,
+  ChatWithMainData,
+  CreateChat,
+  RootState,
+};

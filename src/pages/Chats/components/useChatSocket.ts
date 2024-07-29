@@ -4,17 +4,20 @@ import { useDispatch } from 'react-redux';
 import { DefaultEventsMap } from '@socket.io/component-emitter';
 import { IMessage } from 'common/types.ts';
 import { io, Socket } from 'socket.io-client';
-import { setMessage } from 'src/redux/chat/chatSlice';
+import { useGetChatsQuery } from 'src/redux/chat/chatService';
+import { setMessage, markAsRead } from 'src/redux/chat/chatSlice';
 
 interface UseChatSocketParams {
-  chatId?: string;
+  myId: string;
   accessToken?: string;
+  chatId?: string;
 }
 
-const useChatSocket = ({ chatId, accessToken }: UseChatSocketParams) => {
+const useChatSocket = ({ chatId, accessToken, myId }: UseChatSocketParams) => {
   const dispatch = useDispatch();
   const [inputValue, setInputValue] = useState<string>('');
   const socketRef = useRef<Socket<DefaultEventsMap>>();
+  const { refetch } = useGetChatsQuery();
 
   useEffect(() => {
     const socket = io(`${import.meta.env.VITE_API_URL}`, {
@@ -25,16 +28,25 @@ const useChatSocket = ({ chatId, accessToken }: UseChatSocketParams) => {
 
     socket.on('newMessage', (incomingMessage: IMessage) => {
       if (chatId) {
-        dispatch(setMessage({ chatId, message: incomingMessage }));
+        if (incomingMessage.sender.id === myId) {
+          dispatch(setMessage({ message: incomingMessage, chatId }));
+        } else {
+          dispatch(setMessage({ message: incomingMessage }));
+        }
         setInputValue('');
       }
     });
 
+    socket.on('newChat', () => {
+      refetch();
+    });
+
     return () => {
       socket.off('newMessage');
+      socket.off('newChat');
       socket.disconnect();
     };
-  }, [chatId, accessToken, dispatch]);
+  }, [chatId, accessToken, dispatch, myId, refetch]);
 
   const send = (message: string) => {
     if (message.trim()) {
@@ -42,10 +54,16 @@ const useChatSocket = ({ chatId, accessToken }: UseChatSocketParams) => {
     }
   };
 
+  const setMarkAsRead = () => {
+    socketRef.current?.emit('markMessageAsRead', { chatId });
+    dispatch(markAsRead(chatId));
+  };
+
   return {
     inputValue,
     setInputValue,
     send,
+    setMarkAsRead,
   };
 };
 
