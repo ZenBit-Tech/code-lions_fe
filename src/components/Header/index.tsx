@@ -8,7 +8,7 @@ import { skipToken } from '@reduxjs/toolkit/query';
 import BagIcon from 'src/assets/icons/bag.svg';
 import BellIcon from 'src/assets/icons/bell.svg';
 import ProfileIcon from 'src/assets/icons/profile.svg';
-import { urls } from 'src/common/constants';
+import { urls, userRoles } from 'src/common/constants';
 import { MenuMainLink } from 'src/components/FooterMenu/styles';
 import HeaderLogo from 'src/components/HeaderLogo';
 import StyledButton from 'src/components/shared/StyledButton';
@@ -36,7 +36,7 @@ function Header() {
   );
 
   useEffect(() => {
-    if (user.id) {
+    if (user.id && user.role === userRoles.BUYER) {
       wishlistRefetch();
       cartRefetch();
     }
@@ -173,7 +173,13 @@ function Header() {
             </Box>
           )}
 
-          <Box sx={{ position: 'relative' }} onClick={handleCartClick}>
+          <Box
+            tabIndex={0}
+            role="button"
+            aria-label="Cart"
+            sx={{ position: 'relative', cursor: 'pointer' }}
+            onClick={handleCartClick}
+          >
             <Box sx={{ position: 'relative', top: '2px', right: '1px' }}>
               <SvgHover>
                 <BagIcon />
