@@ -25,29 +25,7 @@ import theme from 'src/theme';
 
 import RejectEditingModal from '../RejectEditingModal';
 
-const productCategories = [
-  { label: 'Accessories', value: 'accessories' },
-  { label: 'Bags', value: 'bags' },
-  { label: 'Clothing', value: 'clothing' },
-  { label: 'Shoes', value: 'shoes' },
-  { label: 'Designers', value: 'designers' },
-  { label: 'Evental', value: 'evental' },
-];
-
-const clothesTypes = [
-  { label: 'Shoes', value: 'shoes' },
-  { label: 'Dress', value: 'dress' },
-  { label: 'Bag', value: 'bag' },
-  { label: 'Jeans', value: 'jeans' },
-  { label: 'Accessory', value: 'accessory' },
-  { label: 'Other', value: 'other' },
-];
-
-const styles = [
-  { label: 'Casual', value: 'casual' },
-  { label: 'Premium', value: 'premium' },
-  { label: 'Fancy', value: 'fancy' },
-];
+import useCategoriesConstants from './hooks/useCategoriesConstants';
 
 function CategoriesForm() {
   const { t } = useTranslation();
@@ -64,9 +42,13 @@ function CategoriesForm() {
     setIsModalOpen(!isModalOpen);
   };
 
-  const [clothesCategory, setClothesCategory] = useState(selectedCategories[0]);
-  const [clothesType, setClothesType] = useState(selectedType);
-  const [clothesStyle, setClothesStyle] = useState(selectedStyle);
+  const [clothesCategory, setClothesCategory] = useState<string>(
+    selectedCategories[0]
+  );
+  const [clothesType, setClothesType] = useState<string>(selectedType);
+  const [clothesStyle, setClothesStyle] = useState<string>(selectedStyle);
+
+  const { productCategories, clothesTypes, styles } = useCategoriesConstants();
 
   const returnBack = () => {
     dispatch(decreaseAddProductStep());
