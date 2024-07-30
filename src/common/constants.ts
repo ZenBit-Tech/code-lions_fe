@@ -305,3 +305,8 @@ export const orderStatus = {
   RETURNED: 'Returned',
   REJECTED: 'Rejected',
 };
+
+export const profileOrdersTabs = {
+  CURRENT: 'Current',
+  ARCHIVE: 'Archive',
+};

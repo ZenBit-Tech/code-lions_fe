@@ -352,6 +352,16 @@
     "successPhotoUpdate": "Your photo was updated successfully",
     "successInfoUpdate": "Your information was updated successfully"
   },
+  "profileOrders": {
+    "current": "Current",
+    "archive": "Archive",
+    "order": "Order",
+    "items": "Items",
+    "freeReturn": "Free Return shipping",
+    "warning": "If you not return on time: Every extra day cost $20",
+    "status": "Status",
+    "return": "Return"
+  },
   "product": {
     "name": "Product Name",
     "mockDesc": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt et dolore",
