@@ -21,6 +21,9 @@ const allProducts: IProduct[] = [
     status: 'published',
     createdAt: '2022-01-01T10:00:00Z',
     lastUpdatedAt: '2022-02-01T10:00:00Z',
+    brand: 'Brand',
+    material: 'cotton',
+    pdfUrl: '',
   },
   {
     id: '2',
@@ -42,6 +45,9 @@ const allProducts: IProduct[] = [
     status: 'published',
     createdAt: '2022-03-01T10:00:00Z',
     lastUpdatedAt: '2022-04-01T10:00:00Z',
+    brand: 'Brand',
+    material: 'cotton',
+    pdfUrl: '',
   },
   {
     id: '3',
@@ -63,6 +69,9 @@ const allProducts: IProduct[] = [
     status: 'published',
     createdAt: '2022-05-01T10:00:00Z',
     lastUpdatedAt: '2022-06-01T10:00:00Z',
+    brand: 'Brand',
+    material: 'cotton',
+    pdfUrl: '',
   },
   {
     id: '4',
@@ -84,6 +93,9 @@ const allProducts: IProduct[] = [
     status: 'published',
     createdAt: '2022-07-01T10:00:00Z',
     lastUpdatedAt: '2022-08-01T10:00:00Z',
+    brand: 'Brand',
+    material: 'cotton',
+    pdfUrl: '',
   },
   {
     id: '5',
@@ -105,6 +117,9 @@ const allProducts: IProduct[] = [
     status: 'published',
     createdAt: '2022-09-01T10:00:00Z',
     lastUpdatedAt: '2022-10-01T10:00:00Z',
+    brand: 'Brand',
+    material: 'cotton',
+    pdfUrl: '',
   },
 ];
 
