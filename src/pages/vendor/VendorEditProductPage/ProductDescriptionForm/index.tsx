@@ -16,17 +16,6 @@ import {
 } from 'src/components/shared/StyledInput/types';
 import { CustomSelect } from 'src/components/shared/StyledSelect';
 import useToast from 'src/components/shared/toasts/components/ToastProvider/ToastProviderHooks';
-import { useUploadProductPdfMutation } from 'src/redux/addProduct/addProductService';
-import {
-  decreaseAddProductStep,
-  increaseAddProductStep,
-  selectProductId,
-} from 'src/redux/addProduct/addProductSlice';
-import { useAppDispatch, useAppSelector } from 'src/redux/hooks';
-import theme from 'src/theme';
-
-import RejectEditingModal from '../RejectEditingModal';
-
 import {
   accessoriesCategory,
   bagsCategory,
@@ -43,7 +32,18 @@ import {
   shoesSizes,
   shoesType,
   uniqueSizes,
-} from './constants';
+} from 'src/pages/vendor/VendorAddProductPage/ProductDescriptionForm/productDescriptionConstants';
+import { useUploadProductPdfMutation } from 'src/redux/addProduct/addProductService';
+import {
+  decreaseAddProductStep,
+  increaseAddProductStep,
+  selectProductId,
+} from 'src/redux/addProduct/addProductSlice';
+import { useAppDispatch, useAppSelector } from 'src/redux/hooks';
+import theme from 'src/theme';
+
+import RejectEditingModal from '../RejectEditingModal';
+
 import useProductDispatch from './hooks/useProductDispatch';
 
 function ProductDescriptionForm() {

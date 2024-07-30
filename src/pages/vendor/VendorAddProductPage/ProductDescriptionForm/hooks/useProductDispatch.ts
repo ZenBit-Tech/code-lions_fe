@@ -16,7 +16,7 @@ import {
   otherType,
   shoesCategory,
   shoesType,
-} from '../constants';
+} from '../productDescriptionConstants';
 
 const useProductDispatch = (
   productName: string,

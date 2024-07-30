@@ -4,6 +4,7 @@ import {
 } from 'src/pages/SizesGuidePage/tableData';
 
 export const brands = [
+  { label: 'Select brand', value: 'Select brand' },
   { label: 'Michael Kors', value: 'Michael Kors' },
   { label: 'Chiara Ferragni', value: 'Chiara Ferragni' },
   { label: 'Beatrice B', value: 'Beatrice B' },
@@ -45,20 +46,22 @@ export const jeansSizes = [
 export const uniqueSizes = [{ label: 'Unique size', value: 'Unique size' }];
 
 export const colors = [
-  { label: 'black', value: 'black' },
-  { label: 'blue', value: 'blue' },
-  { label: 'brown', value: 'brown' },
-  { label: 'green', value: 'green' },
-  { label: 'grey', value: 'grey' },
-  { label: 'orange', value: 'orange' },
-  { label: 'yellow', value: 'yellow' },
-  { label: 'pink', value: 'pink' },
-  { label: 'purple', value: 'purple' },
-  { label: 'red', value: 'red' },
-  { label: 'white', value: 'white' },
+  { label: 'Select color', value: 'Select color' },
+  { label: 'Black', value: 'black' },
+  { label: 'Blue', value: 'blue' },
+  { label: 'Brown', value: 'brown' },
+  { label: 'Green', value: 'green' },
+  { label: 'Grey', value: 'grey' },
+  { label: 'Orange', value: 'orange' },
+  { label: 'Yellow', value: 'yellow' },
+  { label: 'Pink', value: 'pink' },
+  { label: 'Purple', value: 'purple' },
+  { label: 'Red', value: 'red' },
+  { label: 'White', value: 'white' },
 ];
 
 export const materials = [
+  { label: 'Select material', value: 'Select material' },
   { label: 'Chiffon', value: 'chiffon' },
   { label: 'Cotton', value: 'cotton' },
   { label: 'Crepe', value: 'crepe' },
@@ -77,12 +80,12 @@ export const materials = [
 
 export const shoesMaterials = [
   { label: 'Select material', value: 'Select material' },
-  { label: 'leather', value: 'leather' },
-  { label: 'textile', value: 'textile' },
-  { label: 'synthetic', value: 'synthetic' },
-  { label: 'rubber', value: 'rubber' },
-  { label: 'foam', value: 'foam' },
-  { label: 'plastic', value: 'plastic' },
+  { label: 'Leather', value: 'leather' },
+  { label: 'Textile', value: 'textile' },
+  { label: 'Synthetic', value: 'synthetic' },
+  { label: 'Rubber', value: 'rubber' },
+  { label: 'Foam', value: 'foam' },
+  { label: 'Plastic', value: 'plastic' },
 ];
 
 export const shoesCategory = 'shoes';

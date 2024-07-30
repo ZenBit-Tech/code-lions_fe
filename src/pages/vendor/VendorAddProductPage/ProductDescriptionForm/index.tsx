@@ -25,6 +25,7 @@ import {
 import { useAppDispatch, useAppSelector } from 'src/redux/hooks';
 import theme from 'src/theme';
 
+import useProductDispatch from './hooks/useProductDispatch';
 import {
   accessoriesCategory,
   bagsCategory,
@@ -41,8 +42,7 @@ import {
   shoesSizes,
   shoesType,
   uniqueSizes,
-} from './constants';
-import useProductDispatch from './hooks/useProductDispatch';
+} from './productDescriptionConstants';
 
 function ProductDescriptionForm() {
   const { t } = useTranslation();

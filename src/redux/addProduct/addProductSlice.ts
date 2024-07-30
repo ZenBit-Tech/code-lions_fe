@@ -44,6 +44,7 @@ export const addProductSlice = createSlice({
       state.step -= 1;
     },
     setCategory(state, action: PayloadAction<string>) {
+      state.categories = [];
       state.categories.push(action.payload);
     },
     setType(state, action: PayloadAction<string>) {
@@ -65,6 +66,7 @@ export const addProductSlice = createSlice({
       state.size = action.payload;
     },
     setColor(state, action: PayloadAction<string>) {
+      state.colors = [];
       state.colors.push(action.payload);
     },
     setMaterial(state, action: PayloadAction<string>) {
