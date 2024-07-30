@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { Box, Avatar, Typography } from '@mui/material';
@@ -9,11 +10,49 @@ import {
   PaddingVariants,
   StyleVariants,
 } from 'src/components/shared/StyledButton/types';
-import { useGetBestVendorsQuery } from 'src/redux/bestVendors/bestVendorsService';
+import {
+  useGetBestVendorsQuery,
+  useUpdateFollowStatusMutation,
+} from 'src/redux/bestVendors/bestVendorsService';
 
 function BestVendorsList() {
   const { t } = useTranslation();
   const { data: bestVendors } = useGetBestVendorsQuery();
+  const [updateFollowStatus] = useUpdateFollowStatusMutation();
+
+  const [followStatus, setFollowStatus] = useState<Record<string, boolean>>({});
+
+  useEffect(() => {
+    if (bestVendors) {
+      const initialStatus = bestVendors.reduce(
+        (acc, vendor) => {
+          acc[vendor.vendorId] = vendor.isFollowed || false;
+
+          return acc;
+        },
+        {} as Record<string, boolean>
+      );
+
+      setFollowStatus(initialStatus);
+    }
+  }, [bestVendors]);
+
+  const handleUpdateFollowStatus = async (vendorId: string) => {
+    try {
+      const currentStatus = followStatus[vendorId];
+      const response = await updateFollowStatus({
+        id: vendorId,
+        body: { isFollowed: !currentStatus },
+      }).unwrap();
+
+      setFollowStatus((prevStatus) => ({
+        ...prevStatus,
+        [vendorId]: response.isFollowed,
+      }));
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <>
@@ -48,6 +87,9 @@ function BestVendorsList() {
                 sx={{
                   width: '196px',
                 }}
+                onClick={() => {
+                  handleUpdateFollowStatus(vendorId);
+                }}
               >
                 <Typography
                   variant="subtitle1"
@@ -57,7 +99,9 @@ function BestVendorsList() {
                     letterSpacing: 'normal',
                   }}
                 >
-                  {t('vendorProfile.follow')}
+                  {followStatus[vendorId]
+                    ? 'Unfollow'
+                    : t('vendorProfile.follow')}
                 </Typography>
               </StyledButton>
             </Box>

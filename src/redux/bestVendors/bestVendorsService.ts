@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { HttpMethods, RTKUrls, apiUrl } from 'src/common/constants';
 
-import { IBestVendor } from './types';
+import { IBestVendor, IFollowedVendor } from './types';
 
 export const bestVendorsApi = createApi({
   reducerPath: 'bestVendorsApi',
@@ -17,7 +17,19 @@ export const bestVendorsApi = createApi({
       }),
       providesTags: ['BestVendor'],
     }),
+    updateFollowStatus: build.mutation<
+      IFollowedVendor,
+      { id: string; body: { isFollowed: boolean } }
+    >({
+      query: ({ id, body }) => ({
+        url: `vendors/${id}/follow`,
+        method: HttpMethods.POST,
+        body,
+      }),
+      invalidatesTags: ['BestVendor'],
+    }),
   }),
 });
 
-export const { useGetBestVendorsQuery } = bestVendorsApi;
+export const { useGetBestVendorsQuery, useUpdateFollowStatusMutation } =
+  bestVendorsApi;
