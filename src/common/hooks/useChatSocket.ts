@@ -34,6 +34,8 @@ const useChatSocket = ({ chatId, accessToken, myId }: UseChatSocketParams) => {
           dispatch(setMessage({ message: incomingMessage }));
         }
         setInputValue('');
+      } else {
+        refetch();
       }
     });
 

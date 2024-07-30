@@ -43,6 +43,7 @@ export const urls = {
   WISHLIST: 'wishlist',
   PROFILE_SETTINGS: 'settings',
   PROFILE_SUPPORT: 'support',
+  PROFILE_SUPPORT_ID: 'support/:chatId',
   PRODUCT_FEED: '/products',
   PRODUCT_CATEGORY: '/products/category/:category',
   PRODUCT_CATEGORY_URL: '/products/category',
@@ -58,8 +59,8 @@ export const urls = {
   VENDOR_ORDER: 'order',
   VENDOR_CHATS: '/vendor/chats',
   VENDOR_CHAT_ID: '/vendor/chats/:chatId',
-  BUYER_CHATS: '/buyer/chats',
-  BUYER_CHAT_ID: '/buyer/chats/:chatId',
+  BUYER_CHATS: '/profile/buyer/chats',
+  BUYER_CHAT_ID: '/profile/buyer/chats/:chatId',
   VENDOR_PROFILE: 'profile',
   BEST_VENDORS: '/best-vendors',
   COMPANY: '/company',
@@ -111,6 +112,7 @@ export const RTKUrls = {
   FILE: 'pdf-file',
   HIDE_RENTAL_RULES: 'hide-rental-rules',
   CHAT: 'chats',
+  SUPPORT: 'chats/support',
 };
 
 export const HttpMethods = {

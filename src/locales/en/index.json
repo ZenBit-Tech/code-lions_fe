@@ -7,6 +7,10 @@
     "signInPage": "Sing In",
     "newPasswordPage": "New Password"
   },
+  "toasterMessages": {
+    "failedCreateChat": "Failed create chat with vendor. Please try later.",
+    "failedCreateSupport": "Failed create chat with administrator. Please try later."
+  },
   "chat": {
     "yesterday": "Yesterday",
     "dontHaveAnyChats": "You do not have any chats yet.",

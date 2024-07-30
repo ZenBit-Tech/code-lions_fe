@@ -78,7 +78,8 @@ const ScrollableMessageBox = styled(Box)({
 });
 
 const ChatMessagesContainer = styled(Box)({
-  width: '67%',
+  maxWidth: '100%',
+  minWidth: '64%',
   height: '100%',
   display: 'flex',
   flexDirection: 'column',
