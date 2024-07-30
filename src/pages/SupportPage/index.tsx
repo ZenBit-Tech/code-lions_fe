@@ -11,18 +11,15 @@ import {
 } from 'src/redux/chat/chatService';
 import { useAppSelector } from 'src/redux/hooks';
 
-import AdminSectionTitle from '../admin/AdminSectionTitle';
+import ChatMessages from '../Chats/components/ChatMessages';
 
-import ChatMessages from './components/ChatMessages';
-import ChatsList from './components/ChatsList';
 import { SectionWrapper, TextWrapper } from './styles.ts';
 
-function ChatsPage() {
-  const firstIndexOfArray = 0;
+function SupportPage() {
   const { t } = useTranslation();
   const { chatId } = useParams();
   const [selectedChat, setSelectedChat] = useState<Chat | undefined>();
-  const { chats, chatsWithMainData } = useAppSelector((state) => state.chat);
+  const { chats } = useAppSelector((state) => state.chat);
   const { id: myId, accessToken } = useAppSelector((state) => state.user);
   const { isLoading } = useGetChatsQuery();
   const { isLoading: isLoadingSelectedChat } = useGetChatByIdQuery(chatId);
@@ -30,16 +27,8 @@ function ChatsPage() {
   const socket = useChatSocket({
     myId,
     accessToken,
-    chatId: chatId || chatsWithMainData[firstIndexOfArray]?.id,
+    chatId,
   });
-
-  const renderMessages = () => {
-    if (selectedChat) {
-      return <ChatMessages chat={selectedChat} socket={socket} />;
-    }
-
-    return <TextWrapper>{t('chat.selectChat')}</TextWrapper>;
-  };
 
   useEffect(() => {
     if (chatId && chats) {
@@ -47,25 +36,19 @@ function ChatsPage() {
 
       setSelectedChat(chat);
     }
-  }, [chatId, chats, renderMessages]);
+  }, [chatId, chats]);
 
   if (isLoading || isLoadingSelectedChat) return <Loader />;
 
   return (
-    <>
-      <AdminSectionTitle title={t('sidebar.chats')} fontWeight={600} />
-      <SectionWrapper>
-        {chatsWithMainData.length ? (
-          <>
-            <ChatsList chats={chatsWithMainData} />
-            {renderMessages()}
-          </>
-        ) : (
-          <TextWrapper>{t('chat.dontHaveAnyChats')}</TextWrapper>
-        )}
-      </SectionWrapper>
-    </>
+    <SectionWrapper>
+      {selectedChat ? (
+        <ChatMessages chat={selectedChat} socket={socket} />
+      ) : (
+        <TextWrapper>{t('chat.selectChat')}</TextWrapper>
+      )}
+    </SectionWrapper>
   );
 }
 
-export default ChatsPage;
+export default SupportPage;

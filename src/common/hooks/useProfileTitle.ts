@@ -13,6 +13,8 @@ const useProfileTitle = () => {
     [`${urls.PROFILE}/${urls.WISHLIST}`]: t('profileMenu.wishlist'),
     [urls.PROFILE_SETTINGS]: t('profileMenu.settings'),
     [urls.PROFILE_SUPPORT]: t('profileMenu.support'),
+    [urls.BUYER_CHATS]: t('header.messages'),
+    [urls.BUYER_CHAT_ID]: t('header.messages'),
   };
 
   const matchedPath = Object.keys(pathTitleMap).find((path) =>

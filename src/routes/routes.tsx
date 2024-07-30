@@ -37,10 +37,13 @@ import ShippingPage from 'src/pages/ShippingPage';
 import SignInPage from 'src/pages/SignInPage';
 import SignUpPage from 'src/pages/SignUpPage';
 import SizesGuidePage from 'src/pages/SizesGuidePage';
+import SupportPage from 'src/pages/SupportPage';
 import TermsOfUsePage from 'src/pages/TermsOfUsePage';
 import VendorAddProductPage from 'src/pages/vendor/VendorAddProductPage';
 import VendorDashboard from 'src/pages/vendor/VendorDashboard';
 import VendorLayout from 'src/pages/vendor/VendorLayout';
+import VendorOrderPage from 'src/pages/vendor/VendorOrderPage';
+import VendorOrdersPage from 'src/pages/vendor/VendorOrdersPage';
 import VendorProductPage from 'src/pages/vendor/VendorProductPage';
 import VendorProductsPage from 'src/pages/vendor/VendorProductsPage';
 import VendorProfileLayout from 'src/pages/vendor/VendorProfileLayout';
@@ -90,8 +93,11 @@ const router = createBrowserRouter([
           { path: urls.PROFILE_DETAILS, element: <ProfilePage /> },
           { path: urls.PROFILE_ORDERS, element: <ProfileOrders /> },
           { path: urls.PROFILE_WISHLIST, element: <WishlistPage /> },
+          { path: urls.BUYER_CHATS, element: <ChatsPage /> },
+          { path: urls.BUYER_CHAT_ID, element: <ChatsPage /> },
           { path: urls.PROFILE_SETTINGS, element: <ProfileComingSoon /> },
-          { path: urls.PROFILE_SUPPORT, element: <ProfileComingSoon /> },
+          { path: urls.PROFILE_SUPPORT, element: <SupportPage /> },
+          { path: urls.PROFILE_SUPPORT_ID, element: <SupportPage /> },
         ],
       },
       { path: urls.CART, element: <CartPage /> },
@@ -185,8 +191,6 @@ const router = createBrowserRouter([
     path: urls.ONBOARDING,
     element: <FinishedOnboardingGuard element={<OnboardingPage />} />,
   },
-  { path: urls.BUYER_CHATS, element: <ChatsPage /> },
-  { path: urls.BUYER_CHAT_ID, element: <ChatsPage /> },
   { path: urls.PROFILE, element: <ProfilePage /> },
   { path: urls.USER_VENDOR_PROFILE, element: <VendorPublicProfilePage /> },
   {
@@ -198,7 +202,8 @@ const router = createBrowserRouter([
       { path: urls.VENDOR_ADD_PRODUCT, element: <VendorAddProductPage /> },
       { path: urls.VENDOR_EDIT_PRODUCT, element: <ProfileComingSoon /> },
       { path: urls.VENDOR_PRODUCTS, element: <VendorProductsPage /> },
-      { path: urls.VENDOR_ORDERS, element: <ProfileComingSoon /> },
+      { path: urls.VENDOR_ORDERS, element: <VendorOrdersPage /> },
+      { path: urls.VENDOR_ORDER, element: <VendorOrderPage /> },
       { path: urls.VENDOR_CHATS, element: <ChatsPage /> },
       { path: urls.VENDOR_CHAT_ID, element: <ChatsPage /> },
       {
@@ -207,7 +212,8 @@ const router = createBrowserRouter([
         children: [
           { path: urls.PROFILE_DETAILS, element: <VendorProfilePage /> },
           { path: urls.PROFILE_SETTINGS, element: <ProfileComingSoon /> },
-          { path: urls.PROFILE_SUPPORT, element: <ProfileComingSoon /> },
+          { path: urls.PROFILE_SUPPORT, element: <SupportPage /> },
+          { path: urls.PROFILE_SUPPORT_ID, element: <SupportPage /> },
         ],
       },
     ],

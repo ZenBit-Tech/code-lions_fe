@@ -73,7 +73,7 @@ function ProductSection({ product }: ProductSectionProps) {
 
       navigate(`${urls.BUYER_CHATS}/${result.id}`);
     } catch {
-      showToast('error', '');
+      showToast('error', t('toasterMessages.failedCreateChat'));
     }
   };
 

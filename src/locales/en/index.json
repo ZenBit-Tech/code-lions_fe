@@ -7,6 +7,10 @@
     "signInPage": "Sing In",
     "newPasswordPage": "New Password"
   },
+  "toasterMessages": {
+    "failedCreateChat": "Failed create chat with vendor. Please try later.",
+    "failedCreateSupport": "Failed create chat with administrator. Please try later."
+  },
   "chat": {
     "yesterday": "Yesterday",
     "dontHaveAnyChats": "You do not have any chats yet.",
@@ -446,6 +450,25 @@
     "avatarRequirements": "Only *.png, *.jpg and *.jpeg image files are accepted",
     "changePhoto": "Change Photo"
   },
+  "vendorOrder": {
+    "vendor": "Vendor",
+    "orders": "Orders",
+    "order100": "Order #100",
+    "orderInfo": "Order Information",
+    "customer": "Customer",
+    "address": "Address",
+    "products": "Products",
+    "chat": "Go To Chat",
+    "date": "Date",
+    "items": "Items",
+    "status": "Status",
+    "total": "Total",
+    "reject": "Reject",
+    "subtotal": "Subtotal",
+    "discount": "Discount",
+    "shipping": "Shipping",
+    "label": "simple table"
+  },
   "filters": {
     "title": "Filters",
     "price": "PRICE",
@@ -635,6 +658,17 @@
     "yes": "Yes",
     "no": "No",
     "noProducts": "You haven't added any products yet"
+  },
+  "vendorOrders": {
+    "title": "My Orders",
+    "newOrder": "New Order",
+    "sent": "Sent",
+    "delivered": "Delivered",
+    "received": "Received",
+    "waiting": "Waiting for returning",
+    "returned": "Returned",
+    "rejected": "Rejected",
+    "noOrders": "You have no orders"
   },
   "productsAdmin": {
     "title": "Products",
