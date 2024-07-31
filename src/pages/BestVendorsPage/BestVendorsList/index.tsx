@@ -2,7 +2,6 @@ import { useTranslation } from 'react-i18next';
 
 import { Box, Avatar, Typography } from '@mui/material';
 
-import mockAvatar from 'src/assets/photos/avatar.jpg';
 import ProductCard from 'src/components/ProductCard';
 import StyledButton from 'src/components/shared/StyledButton';
 import {
@@ -10,10 +9,15 @@ import {
   StyleVariants,
 } from 'src/components/shared/StyledButton/types';
 import { useGetBestVendorsQuery } from 'src/redux/bestVendors/bestVendorsService';
+import { IProductFilters } from 'src/redux/product/types';
 
-function BestVendorsList() {
+type BestVerdorsListProps = {
+  filters: IProductFilters;
+};
+
+function BestVendorsList({ filters }: BestVerdorsListProps) {
   const { t } = useTranslation();
-  const { data: bestVendors } = useGetBestVendorsQuery();
+  const { data: bestVendors } = useGetBestVendorsQuery(filters);
 
   return (
     <>
@@ -36,7 +40,7 @@ function BestVendorsList() {
                   gap: '24px',
                 }}
               >
-                <Avatar alt="vendor-avatar" src={photoUrl || mockAvatar} />
+                <Avatar alt="vendor-avatar" src={photoUrl} />
                 <Typography variant="subtitle1" sx={{ fontWeight: 500 }}>
                   {vendorName}
                 </Typography>
