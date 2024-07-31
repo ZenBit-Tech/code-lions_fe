@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from 'react';
+import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -9,6 +9,7 @@ import BagIcon from 'src/assets/icons/bag.svg';
 import BellIcon from 'src/assets/icons/bell.svg';
 import ProfileIcon from 'src/assets/icons/profile.svg';
 import { urls } from 'src/common/constants';
+import useUnreadChatsCount from 'src/common/hooks/useUnreadChatsCount';
 import { MenuMainLink } from 'src/components/FooterMenu/styles';
 import HeaderLogo from 'src/components/HeaderLogo';
 import StyledButton from 'src/components/shared/StyledButton';
@@ -25,18 +26,7 @@ function Header() {
   const { t } = useTranslation();
   const { showToast } = useToast();
 
-  const chatsWithMainData = useAppSelector(
-    (state) => state.chat.chatsWithMainData
-  );
-  const noMessageCount = 0;
-  const incrementMessageCount = 1;
-  const unreadChatsCount = useMemo(() => {
-    return chatsWithMainData.reduce((count, chat) => {
-      return chat.unreadMessageCount > noMessageCount
-        ? count + incrementMessageCount
-        : count;
-    }, noMessageCount);
-  }, [chatsWithMainData]);
+  const unreadChatsCount = useUnreadChatsCount();
 
   const user = useAppSelector((state) => state.user);
   const navigate = useNavigate();

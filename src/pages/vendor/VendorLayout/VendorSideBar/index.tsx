@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
@@ -11,11 +11,12 @@ import PlusIcon from 'src/assets/icons/vendor/plus.svg';
 import ProductsIcon from 'src/assets/icons/vendor/products.svg';
 import ProfileIcon from 'src/assets/icons/vendor/profile.svg';
 import { urls } from 'src/common/constants';
+import useUnreadChatsCount from 'src/common/hooks/useUnreadChatsCount';
 import StyledButton from 'src/components/shared/StyledButton';
 import Logo from 'src/components/SidebarAdmin/Logo';
 import { StyledListItemButton } from 'src/components/SidebarAdmin/styles';
 import { setAddProductStep } from 'src/redux/addProduct/addProductSlice';
-import { useAppDispatch, useAppSelector } from 'src/redux/hooks';
+import { useAppDispatch } from 'src/redux/hooks';
 import theme from 'src/theme';
 
 import { UnreadMessages, StyledChat } from './styles';
@@ -29,18 +30,7 @@ const listIndexes = {
 };
 
 function VendorSideBar() {
-  const chatsWithMainData = useAppSelector(
-    (state) => state.chat.chatsWithMainData
-  );
-  const noMessageCount = 0;
-  const incrementMessageCount = 1;
-  const unreadChatsCount = useMemo(() => {
-    return chatsWithMainData.reduce((count, chat) => {
-      return chat.unreadMessageCount > noMessageCount
-        ? count + incrementMessageCount
-        : count;
-    }, noMessageCount);
-  }, [chatsWithMainData]);
+  const unreadChatsCount = useUnreadChatsCount();
 
   const [selectedIndex, setSelectedIndex] = useState(listIndexes.dashboard);
 

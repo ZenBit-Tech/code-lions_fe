@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { NavLink, useLocation } from 'react-router-dom';
 
@@ -17,7 +17,7 @@ import ChevronUp from 'src/assets/icons/chevron-up.svg';
 import ProductsIcon from 'src/assets/icons/products.svg';
 import UsersIcon from 'src/assets/icons/users.svg';
 import { urls, userRoles } from 'src/common/constants';
-import { useAppSelector } from 'src/redux/hooks';
+import useUnreadChatsCount from 'src/common/hooks/useUnreadChatsCount';
 import theme from 'src/theme';
 
 import Logo from './Logo';
@@ -29,18 +29,7 @@ import {
 } from './styles';
 
 function SideBar() {
-  const chatsWithMainData = useAppSelector(
-    (state) => state.chat.chatsWithMainData
-  );
-  const noMessageCount = 0;
-  const incrementMessageCount = 1;
-  const unreadChatsCount = useMemo(() => {
-    return chatsWithMainData.reduce((count, chat) => {
-      return chat.unreadMessageCount > noMessageCount
-        ? count + incrementMessageCount
-        : count;
-    }, noMessageCount);
-  }, [chatsWithMainData]);
+  const unreadChatsCount = useUnreadChatsCount();
 
   const [openUsers, setOpenUsers] = useState(false);
   const [openProducts, setOpenProducts] = useState(false);
