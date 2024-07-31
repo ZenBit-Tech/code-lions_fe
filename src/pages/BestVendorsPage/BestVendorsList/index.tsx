@@ -11,46 +11,75 @@ import {
   StyleVariants,
 } from 'src/components/shared/StyledButton/types';
 import {
+  useFollowVendorMutation,
   useGetBestVendorsQuery,
-  useUpdateFollowStatusMutation,
+  useUnfollowVendorMutation,
 } from 'src/redux/bestVendors/bestVendorsService';
+import { useAppSelector } from 'src/redux/hooks';
+import { selectUserId } from 'src/redux/user/userSlice';
+
+interface FollowStatus {
+  [vendorId: string]: boolean;
+}
 
 function BestVendorsList() {
   const { t } = useTranslation();
   const { data: bestVendors } = useGetBestVendorsQuery();
-  const [updateFollowStatus] = useUpdateFollowStatusMutation();
+  const [followVendor] = useFollowVendorMutation();
+  const [unFollowVendor] = useUnfollowVendorMutation();
+  const userId = useAppSelector(selectUserId);
 
-  const [followStatus, setFollowStatus] = useState<Record<string, boolean>>({});
+  const [followStatus, setFollowStatus] = useState<FollowStatus>({});
 
   useEffect(() => {
     if (bestVendors) {
-      const initialStatus = bestVendors.reduce(
-        (acc, vendor) => {
-          acc[vendor.vendorId] = vendor.isFollowed || false;
+      const initialStatus = bestVendors.reduce((acc, vendor) => {
+        acc[vendor.vendorId] = false;
 
-          return acc;
-        },
-        {} as Record<string, boolean>
-      );
+        return acc;
+      }, {} as FollowStatus);
 
       setFollowStatus(initialStatus);
     }
   }, [bestVendors]);
 
-  const handleUpdateFollowStatus = async (vendorId: string) => {
+  const handleFollowVendor = async (vendorId: string) => {
     try {
-      const currentStatus = followStatus[vendorId];
-      const response = await updateFollowStatus({
-        id: vendorId,
-        body: { isFollowed: !currentStatus },
+      const response = await followVendor({
+        body: { buyerId: userId, vendorId },
       }).unwrap();
 
       setFollowStatus((prevStatus) => ({
         ...prevStatus,
-        [vendorId]: response.isFollowed,
+        [vendorId]: true,
       }));
+      console.log(response);
     } catch (error) {
       console.log(error);
+    }
+  };
+
+  const handleUnFollowVendor = async (vendorId: string) => {
+    try {
+      const response = await unFollowVendor({
+        body: { buyerId: userId, vendorId },
+      }).unwrap();
+
+      setFollowStatus((prevStatus) => ({
+        ...prevStatus,
+        [vendorId]: false,
+      }));
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const toggleFollowStatus = (vendorId: string) => {
+    if (followStatus[vendorId]) {
+      handleUnFollowVendor(vendorId);
+    } else {
+      handleFollowVendor(vendorId);
     }
   };
 
@@ -88,7 +117,7 @@ function BestVendorsList() {
                   width: '196px',
                 }}
                 onClick={() => {
-                  handleUpdateFollowStatus(vendorId);
+                  toggleFollowStatus(vendorId);
                 }}
               >
                 <Typography

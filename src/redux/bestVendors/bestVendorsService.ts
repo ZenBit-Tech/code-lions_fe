@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { HttpMethods, RTKUrls, apiUrl } from 'src/common/constants';
 
-import { IBestVendor, IFollowedVendor } from './types';
+import { IBestVendor, IFollower } from './types';
 
 export const bestVendorsApi = createApi({
   reducerPath: 'bestVendorsApi',
@@ -17,13 +17,24 @@ export const bestVendorsApi = createApi({
       }),
       providesTags: ['BestVendor'],
     }),
-    updateFollowStatus: build.mutation<
-      IFollowedVendor,
-      { id: string; body: { isFollowed: boolean } }
+    followVendor: build.mutation<
+      IFollower,
+      { body: { buyerId: string; vendorId: string } }
     >({
-      query: ({ id, body }) => ({
-        url: `vendors/${id}/follow`,
+      query: ({ body }) => ({
+        url: `/vendors/follow`,
         method: HttpMethods.POST,
+        body,
+      }),
+      invalidatesTags: ['BestVendor'],
+    }),
+    unfollowVendor: build.mutation<
+      void,
+      { body: { buyerId: string; vendorId: string } }
+    >({
+      query: ({ body }) => ({
+        url: `/vendors/unfollow`,
+        method: HttpMethods.DELETE,
         body,
       }),
       invalidatesTags: ['BestVendor'],
@@ -31,5 +42,8 @@ export const bestVendorsApi = createApi({
   }),
 });
 
-export const { useGetBestVendorsQuery, useUpdateFollowStatusMutation } =
-  bestVendorsApi;
+export const {
+  useGetBestVendorsQuery,
+  useFollowVendorMutation,
+  useUnfollowVendorMutation,
+} = bestVendorsApi;
