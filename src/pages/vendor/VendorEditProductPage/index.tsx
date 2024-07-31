@@ -32,33 +32,33 @@ import FinishForm from './FinishForm';
 import ImagesForm from './ImagesForm';
 import ProductDescriptionForm from './ProductDescriptionForm';
 
-const addProductData = [
-  {
-    stepId: 1,
-    title: 'Product Photos',
-    component: <ImagesForm />,
-  },
-  {
-    stepId: 2,
-    title: 'Category & Type',
-    component: <CategoriesForm />,
-  },
-  {
-    stepId: 3,
-    title: 'Product description',
-    component: <ProductDescriptionForm />,
-  },
-  {
-    stepId: 4,
-    title: 'Finish & Publish',
-    component: <FinishForm />,
-  },
-];
-
 function VendorEditProductPage() {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const { productId } = useParams();
+
+  const addProductData = [
+    {
+      stepId: 1,
+      title: t('editProduct.stepOneTitle'),
+      component: <ImagesForm />,
+    },
+    {
+      stepId: 2,
+      title: t('editProduct.stepTwoTitle'),
+      component: <CategoriesForm />,
+    },
+    {
+      stepId: 3,
+      title: t('editProduct.stepThreeTitle'),
+      component: <ProductDescriptionForm />,
+    },
+    {
+      stepId: 4,
+      title: t('editProduct.stepFourTitle'),
+      component: <FinishForm />,
+    },
+  ];
 
   const { data } = useGetProductByIdQuery(
     productId ? { productId } : skipToken

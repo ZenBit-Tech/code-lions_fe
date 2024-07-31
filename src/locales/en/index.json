@@ -653,7 +653,11 @@
     "title": "Edit Product",
     "cancelBtn": "Cancel",
     "editingSuccess": "Your information has been successfully updated",
-    "editingFailed": "Failed to update product"
+    "editingFailed": "Failed to update product",
+    "stepOneTitle": "Product Photos",
+    "stepTwoTitle": "Category & Type",
+    "stepThreeTitle": "Product description",
+    "stepFourTitle": "Finish & Publish"
   },
   "editModal": {
     "title": "Are you sure want to stop editing the product?",
