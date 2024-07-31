@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -19,11 +19,25 @@ import { useAppSelector } from 'src/redux/hooks';
 import { useGetWishlistByIdQuery } from 'src/redux/wishlist/wishlistService';
 import theme from 'src/theme';
 
-import SvgHover from './styles';
+import { SvgHover, UnreadMessages } from './styles';
 
 function Header() {
   const { t } = useTranslation();
   const { showToast } = useToast();
+
+  const chatsWithMainData = useAppSelector(
+    (state) => state.chat.chatsWithMainData
+  );
+  const noMessageCount = 0;
+  const incrementMessageCount = 1;
+  const unreadChatsCount = useMemo(() => {
+    return chatsWithMainData.reduce((count, chat) => {
+      return chat.unreadMessageCount > noMessageCount
+        ? count + incrementMessageCount
+        : count;
+    }, noMessageCount);
+  }, [chatsWithMainData]);
+
   const user = useAppSelector((state) => state.user);
   const navigate = useNavigate();
 
@@ -105,7 +119,8 @@ function Header() {
             {t('header.vendors')}
           </MenuMainLink>
           <MenuMainLink to={urls.BUYER_CHATS}>
-            {t('header.messages')}
+            {t('header.messages')}{' '}
+            {unreadChatsCount ? <UnreadMessages>1</UnreadMessages> : <></>}
           </MenuMainLink>
           <MenuMainLink to={urls.HOW_IT_WORKS}>
             {t('header.howItWorks')}

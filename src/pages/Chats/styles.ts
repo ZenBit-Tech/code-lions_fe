@@ -8,8 +8,7 @@ const SectionWrapper = styled(Box)(({ theme }) => ({
   paddingRight: '10px',
   display: 'flex',
   justifyContent: 'space-between',
-  flexWrap: 'wrap',
-  gap: '32px;',
+  gap: '2rem',
   height: '76vh',
 }));
 

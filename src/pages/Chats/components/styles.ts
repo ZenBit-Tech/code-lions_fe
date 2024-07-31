@@ -129,6 +129,9 @@ const OwnMessageBody = styled(Typography)(({ theme }) => ({
   borderBottomRightRadius: '0',
   backgroundColor: theme.palette.common.black,
   color: theme.palette.common.white,
+  wordWrap: 'break-word',
+  whiteSpace: 'pre-wrap',
+  wordBreak: 'break-word',
 }));
 
 const SenderMessage = styled(Box)(() => ({
@@ -143,6 +146,17 @@ const SenderMessageBody = styled(Typography)(({ theme }) => ({
   borderRadius: '1rem',
   borderBottomLeftRadius: '0',
   backgroundColor: theme.palette.border.secondary,
+  wordWrap: 'break-word',
+  whiteSpace: 'pre-wrap',
+  wordBreak: 'break-word',
+}));
+
+const Typing = styled(Box)(({ theme }) => ({
+  borderRadius: '0.8rem',
+  borderBottomLeftRadius: '0',
+  padding: '0.1rem 0.5rem',
+  backgroundColor: theme.palette.border.secondary,
+  marginBottom: '0.5rem',
 }));
 
 const ChatWithTextBox = styled(Box)({
@@ -174,4 +188,5 @@ export {
   StyledMessageAvatar,
   ScrollableMessageBox,
   ChatWithTextBox,
+  Typing,
 };

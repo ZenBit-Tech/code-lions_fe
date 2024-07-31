@@ -19,9 +19,17 @@ type ChatPartner = {
   photoUrl: string;
 };
 
+type ChatPartnerWithStatus = {
+  id: string;
+  name: string;
+  photoUrl: string;
+  isOnline: boolean;
+  lastActiveAt: string;
+};
+
 type ChatWithMainData = {
   id: string;
-  chatPartner: ChatPartner;
+  chatPartner: ChatPartnerWithStatus;
   unreadMessageCount: number;
   lastMessage: IMessage;
 };
@@ -44,6 +52,7 @@ export type {
   Chat,
   ChatPartner,
   ChatWithMainData,
+  ChatPartnerWithStatus,
   CreateChat,
   RootState,
 };
