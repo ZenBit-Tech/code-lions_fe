@@ -7,6 +7,8 @@ import AdminSectionSubTitle from 'src/pages/admin/AdminSectionSubTitle';
 import { IOrder } from 'src/redux/order/types';
 import theme from 'src/theme';
 
+import { Status } from '../VendorOrdersPage/OrdersTable/styles';
+
 import styles from './styles';
 
 interface IOrderInfoSectionProps {
@@ -40,11 +42,7 @@ function OrderInfoSection({ order }: IOrderInfoSectionProps) {
           <Typography variant="h4" sx={{ color: theme.palette.grey[400] }}>
             {t('vendorOrder.status')}
           </Typography>
-          <Box sx={styles.statusWrapper}>
-            <Typography variant="h4" sx={{ color: theme.palette.error.main }}>
-              {order.status}
-            </Typography>
-          </Box>
+          <Status label={order.status} status={order.status} />
         </Box>
         <Box display="flex" flexDirection="column" gap="8px">
           <Typography variant="h4" sx={{ color: theme.palette.grey[400] }}>
