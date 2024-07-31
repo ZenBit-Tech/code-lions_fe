@@ -88,9 +88,37 @@ export const shoesMaterials = [
   { label: 'Plastic', value: 'plastic' },
 ];
 
+export const bagTypeOptions = [
+  { label: 'Select type', value: 'Select type' },
+  { label: 'Bag', value: 'bag' },
+  { label: 'Other', value: 'other' },
+];
+
+export const accessoryTypeOptions = [
+  { label: 'Select type', value: 'Select type' },
+  { label: 'Accessory', value: 'accessory' },
+  { label: 'Other', value: 'other' },
+];
+
+export const shoesTypeOptions = [
+  { label: 'Select type', value: 'Select type' },
+  { label: 'Shoes', value: 'shoes' },
+  { label: 'Other', value: 'other' },
+];
+
+export const clothingTypeOptions = [
+  { label: 'Select type', value: 'Select type' },
+  { label: 'Dress', value: 'dress' },
+  { label: 'Jeans', value: 'jeans' },
+  { label: 'Other', value: 'other' },
+];
+
 export const shoesCategory = 'shoes';
 export const bagsCategory = 'bags';
 export const accessoriesCategory = 'accessories';
+export const clothingCategory = 'clothing';
+export const designersCategory = 'designers';
+export const eventalCategory = 'evental';
 
 export const shoesType = 'shoes';
 export const dressType = 'dress';
