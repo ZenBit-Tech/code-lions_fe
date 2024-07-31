@@ -10,10 +10,14 @@ import theme from 'src/theme';
 import styles from './styles';
 
 interface IOrdersDetailsSectionProps {
+  orderNumber: number;
   children?: ReactNode;
 }
 
-function OrderDetailsSection({ children }: IOrdersDetailsSectionProps) {
+function OrderDetailsSection({
+  orderNumber,
+  children,
+}: IOrdersDetailsSectionProps) {
   const { t } = useTranslation();
 
   return (
@@ -31,11 +35,11 @@ function OrderDetailsSection({ children }: IOrdersDetailsSectionProps) {
         </Typography>
         <ChevronRight />
         <Typography variant="subtitle2" sx={styles.link}>
-          {`${t('vendorOrder.order100')}`}
+          {`${t('vendorOrder.order')}${orderNumber}`}
         </Typography>
       </Box>
       <AdminSectionTitle
-        title={t('vendorOrder.order100')}
+        title={`${t('vendorOrder.order')}${orderNumber}`}
         fontWeight={700}
         showBackLink
       />

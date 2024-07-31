@@ -453,7 +453,7 @@
   "vendorOrder": {
     "vendor": "Vendor",
     "orders": "Orders",
-    "order100": "Order #100",
+    "order": "Order #",
     "orderInfo": "Order Information",
     "customer": "Customer",
     "address": "Address",

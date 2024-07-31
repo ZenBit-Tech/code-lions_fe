@@ -36,6 +36,7 @@ export const urls = {
   ADMIN_CHAT_ID: '/admin/chats/:chatId',
   PROFILE: '/profile',
   USER_BUYER_PROFILE: 'buyer/:id',
+  BUYER: 'buyer',
   USER_VENDOR_PROFILE: 'vendor/:id',
   PROFILE_DETAILS: 'details',
   PROFILE_ORDERS: 'orders',
@@ -56,7 +57,7 @@ export const urls = {
   PUBLIC_PRODUCT_ID: '/public-product/:productId',
   PUBLIC_PRODUCT: '/public-product',
   VENDOR_ORDERS: 'orders',
-  VENDOR_ORDER: 'order',
+  VENDOR_ORDER: 'orders/:orderId',
   VENDOR_CHATS: '/vendor/chats',
   VENDOR_CHAT_ID: '/vendor/chats/:chatId',
   BUYER_CHATS: '/profile/buyer/chats',
@@ -113,6 +114,7 @@ export const RTKUrls = {
   HIDE_RENTAL_RULES: 'hide-rental-rules',
   CHAT: 'chats',
   SUPPORT: 'chats/support',
+  ORDERS: 'orders',
 };
 
 export const HttpMethods = {

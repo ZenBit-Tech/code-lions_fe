@@ -2,13 +2,18 @@ import { useTranslation } from 'react-i18next';
 
 import { Box, Typography, Button } from '@mui/material';
 
+import formatDateString from 'src/common/utils/formatDateString';
 import AdminSectionSubTitle from 'src/pages/admin/AdminSectionSubTitle';
+import { IOrder } from 'src/redux/order/types';
 import theme from 'src/theme';
 
-import mockOrder from './mockData';
 import styles from './styles';
 
-function OrderInfoSection() {
+interface IOrderInfoSectionProps {
+  order: IOrder;
+}
+
+function OrderInfoSection({ order }: IOrderInfoSectionProps) {
   const { t } = useTranslation();
 
   return (
@@ -20,7 +25,7 @@ function OrderInfoSection() {
             {t('vendorOrder.date')}
           </Typography>
           <Typography sx={{ fontWeight: theme.typography.semiBold }}>
-            {mockOrder.date}
+            {formatDateString(order.createdAt)}
           </Typography>
         </Box>
         <Box display="flex" flexDirection="column" gap="8px">
@@ -29,7 +34,7 @@ function OrderInfoSection() {
           </Typography>
           <Typography
             sx={{ fontWeight: theme.typography.semiBold }}
-          >{`${mockOrder.itemsCount} ${t('vendorOrder.items')}`}</Typography>
+          >{`${order.products.length} ${t('vendorOrder.items')}`}</Typography>
         </Box>
         <Box display="flex" flexDirection="column" gap="8px">
           <Typography variant="h4" sx={{ color: theme.palette.grey[400] }}>
@@ -37,7 +42,7 @@ function OrderInfoSection() {
           </Typography>
           <Box sx={styles.statusWrapper}>
             <Typography variant="h4" sx={{ color: theme.palette.error.main }}>
-              {mockOrder.status}
+              {order.status}
             </Typography>
           </Box>
         </Box>
@@ -46,7 +51,7 @@ function OrderInfoSection() {
             {t('vendorOrder.total')}
           </Typography>
           <Typography sx={{ fontWeight: theme.typography.semiBold }}>
-            {mockOrder.total}
+            {`$${order.price}`}
           </Typography>
         </Box>
       </Box>
