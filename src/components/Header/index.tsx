@@ -120,7 +120,11 @@ function Header() {
           </MenuMainLink>
           <MenuMainLink to={urls.BUYER_CHATS}>
             {t('header.messages')}{' '}
-            {unreadChatsCount ? <UnreadMessages>1</UnreadMessages> : <></>}
+            {unreadChatsCount ? (
+              <UnreadMessages>{unreadChatsCount}</UnreadMessages>
+            ) : (
+              <></>
+            )}
           </MenuMainLink>
           <MenuMainLink to={urls.HOW_IT_WORKS}>
             {t('header.howItWorks')}
