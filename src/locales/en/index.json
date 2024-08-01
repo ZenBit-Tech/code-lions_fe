@@ -319,11 +319,13 @@
     "follow": "Follow",
     "products": "Products",
     "reviews": "Reviews",
+    "closet": "Vendor's closet",
     "readMore": " Read More",
     "readLess": " Read Less",
     "errorLoadingProfile": "Error loading vendor's information",
     "errorLoadingReviews": "Error loading reviews",
-    "noReviews": "This vendor has no comments"
+    "noReviews": "This vendor has no comments",
+    "noProducts": "This vendor has no products"
   },
   "buyerProfile": {
     "noReviews": "This buyer has no comments",
