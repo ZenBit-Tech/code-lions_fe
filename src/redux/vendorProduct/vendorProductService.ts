@@ -18,10 +18,10 @@ export const vendorProductsApi = createApi({
       IVendorProductsResponse,
       IVendorProductsRequest
     >({
-      query: ({ id, page, sortOrder, search }) => ({
+      query: ({ id, page, sortOrder, search, limit }) => ({
         url: `${RTKUrls.PRODUCTS_VENDOR}/${id}`,
         method: HttpMethods.GET,
-        params: { page, sortOrder, search },
+        params: { page, sortOrder, search, limit },
       }),
       providesTags: (result) =>
         result ? [{ type: 'VendorProduct', id: 'LIST' }] : [],
