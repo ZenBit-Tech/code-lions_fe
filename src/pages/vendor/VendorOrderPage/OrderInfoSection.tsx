@@ -4,8 +4,10 @@ import { Box, Typography, Button } from '@mui/material';
 
 import { orderStatus } from 'src/common/constants';
 import formatDateString from 'src/common/utils/formatDateString';
+import useToast from 'src/components/shared/toasts/components/ToastProvider/ToastProviderHooks';
 import AdminSectionSubTitle from 'src/pages/admin/AdminSectionSubTitle';
 import { Status } from 'src/pages/vendor/VendorOrdersPage/OrdersTable/styles';
+import { useRejectOrderMutation } from 'src/redux/order/orderService';
 import { IOrder } from 'src/redux/order/types';
 import theme from 'src/theme';
 
@@ -17,6 +19,19 @@ interface IOrderInfoSectionProps {
 
 function OrderInfoSection({ order }: IOrderInfoSectionProps) {
   const { t } = useTranslation();
+  const { showToast } = useToast();
+
+  const [rejectOrder] = useRejectOrderMutation();
+
+  const rejectOrderByVendor = async () => {
+    try {
+      await rejectOrder({
+        orderId: order.orderId,
+      }).unwrap();
+    } catch {
+      showToast('error', t('toasterMessages.failedToRejectOrder'));
+    }
+  };
 
   return (
     <>
@@ -59,7 +74,7 @@ function OrderInfoSection({ order }: IOrderInfoSectionProps) {
       </Box>
       {order.status === orderStatus.NEW && (
         <Box sx={styles.buttonWrapper}>
-          <Button sx={styles.rejectButton}>
+          <Button sx={styles.rejectButton} onClick={rejectOrderByVendor}>
             <Typography
               variant="h4"
               sx={{

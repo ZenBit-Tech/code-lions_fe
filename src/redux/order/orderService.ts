@@ -19,7 +19,16 @@ export const orderApi = createApi({
       }),
       providesTags: ['Order'],
     }),
+
+    rejectOrder: build.mutation<void, { orderId: number }>({
+      query: ({ orderId }) => ({
+        url: `${RTKUrls.ORDERS}/${orderId}`,
+        method: HttpMethods.PATCH,
+      }),
+      invalidatesTags: ['Order'],
+    }),
   }),
 });
 
-export const { useGetOrderByUserIdAndOrderIdQuery } = orderApi;
+export const { useGetOrderByUserIdAndOrderIdQuery, useRejectOrderMutation } =
+  orderApi;
