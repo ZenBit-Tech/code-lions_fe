@@ -31,9 +31,15 @@ function VendorOrdersPage() {
 
   const id = useSelector(selectUserId);
 
-  const { data } = useGetAllOrdersVendorQuery({
-    id,
-  });
+  const { data } = useGetAllOrdersVendorQuery(
+    {
+      id,
+    },
+    {
+      refetchOnFocus: true,
+      refetchOnReconnect: true,
+    }
+  );
 
   const ORDERSONPAGE = 8;
   const orderQuantity = data?.length ?? 0;

@@ -24,9 +24,15 @@ function VendorDashboard() {
 
   const id = useSelector(selectUserId);
 
-  const { data, isLoading, error } = useGetAllOrdersVendorQuery({
-    id,
-  });
+  const { data, isLoading, error } = useGetAllOrdersVendorQuery(
+    {
+      id,
+    },
+    {
+      refetchOnFocus: true,
+      refetchOnReconnect: true,
+    }
+  );
 
   const {
     salesTotal,
