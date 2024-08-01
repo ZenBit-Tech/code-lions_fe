@@ -78,7 +78,8 @@ const ScrollableMessageBox = styled(Box)({
 });
 
 const ChatMessagesContainer = styled(Box)({
-  width: '67%',
+  maxWidth: '100%',
+  minWidth: '64%',
   height: '100%',
   display: 'flex',
   flexDirection: 'column',
@@ -115,7 +116,6 @@ const StyledTypography = styled(Typography)(({ theme }) => ({
 }));
 
 const OwnMessage = styled(Box)(() => ({
-  width: '100%',
   display: 'flex',
   justifyContent: 'flex-end',
   textAlign: 'right',
@@ -128,10 +128,12 @@ const OwnMessageBody = styled(Typography)(({ theme }) => ({
   borderBottomRightRadius: '0',
   backgroundColor: theme.palette.common.black,
   color: theme.palette.common.white,
+  wordWrap: 'break-word',
+  whiteSpace: 'pre-wrap',
+  wordBreak: 'break-word',
 }));
 
 const SenderMessage = styled(Box)(() => ({
-  width: '100%',
   display: 'flex',
   justifyContent: 'flex-start',
 }));
@@ -142,6 +144,17 @@ const SenderMessageBody = styled(Typography)(({ theme }) => ({
   borderRadius: '1rem',
   borderBottomLeftRadius: '0',
   backgroundColor: theme.palette.border.secondary,
+  wordWrap: 'break-word',
+  whiteSpace: 'pre-wrap',
+  wordBreak: 'break-word',
+}));
+
+const Typing = styled(Box)(({ theme }) => ({
+  borderRadius: '0.8rem',
+  borderBottomLeftRadius: '0',
+  padding: '0.1rem 0.5rem',
+  backgroundColor: theme.palette.border.secondary,
+  marginBottom: '0.5rem',
 }));
 
 const ChatWithTextBox = styled(Box)({
@@ -149,6 +162,12 @@ const ChatWithTextBox = styled(Box)({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'flex-end',
+});
+
+const ChatImage = styled('img')({
+  width: '15rem',
+  height: '15rem',
+  objectFit: 'cover',
 });
 
 export {
@@ -173,4 +192,6 @@ export {
   StyledMessageAvatar,
   ScrollableMessageBox,
   ChatWithTextBox,
+  Typing,
+  ChatImage,
 };

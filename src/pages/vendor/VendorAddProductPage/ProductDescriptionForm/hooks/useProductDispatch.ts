@@ -16,7 +16,7 @@ import {
   otherType,
   shoesCategory,
   shoesType,
-} from '../constants';
+} from '../productDescriptionConstants';
 
 const useProductDispatch = (
   productName: string,
@@ -63,7 +63,7 @@ const useProductDispatch = (
       setMaterial(
         selectedCategory === shoesCategory || selectedType === shoesType
           ? shoesMaterial
-          : productMaterial
+          : productMaterial?.toLowerCase()
       )
     );
   };

@@ -50,3 +50,17 @@ export const ReviewLabel = styled(Typography)(() => ({
   fontSize: theme.typography.h5.fontSize,
   fontFamily: theme.typography.h1.fontFamily,
 }));
+
+export const ProductsContainerWrapper = styled(Box)(() => ({
+  display: 'flex',
+  flexDirection: 'column',
+  marginBottom: '20px',
+}));
+
+export const ProductsContainer = styled(Box)(() => ({
+  display: 'flex',
+  flexDirection: 'row',
+  flexWrap: 'wrap',
+  gap: '24px',
+  marginBottom: '20px',
+}));

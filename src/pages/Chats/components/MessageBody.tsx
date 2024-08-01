@@ -1,30 +1,49 @@
-import { IMessage } from 'common/types.ts';
+import { ContentType, IMessage } from 'src/common/types.ts';
+import formatDateForChatList from 'src/common/utils/formatDateForChat';
 
 import {
-  SenderMessage,
-  OwnMessage,
-  SenderMessageBody,
-  OwnMessageBody,
   AvatarMessageContainer,
-  StyledMessageAvatar,
   LastMessageDate,
+  OwnMessage,
+  OwnMessageBody,
+  SenderMessage,
+  SenderMessageBody,
+  StyledMessageAvatar,
+  ChatImage,
 } from './styles.ts';
 
 export type Props = {
   message: IMessage;
-  myId: number;
+  myId: string;
 };
 
+function RenderContent(content: string, contentType: ContentType) {
+  switch (contentType) {
+    case ContentType.TEXT:
+      return content;
+
+    case ContentType.LINK:
+      return <a href={content}>{content}</a>;
+
+    default:
+      return <ChatImage src={content} />;
+  }
+}
+
 function MessageBody({ message, myId }: Props) {
-  if (myId !== message.author.id) {
+  if (myId !== message.sender?.id) {
     return (
       <SenderMessage>
         <div>
           <AvatarMessageContainer>
-            <StyledMessageAvatar src={message.author.photo} />
-            <SenderMessageBody>{message.messageBody}</SenderMessageBody>
+            <StyledMessageAvatar src={message.sender?.photoUrl} />
+            <SenderMessageBody>
+              {RenderContent(message.content, message.contentType)}
+            </SenderMessageBody>
           </AvatarMessageContainer>
-          <LastMessageDate>{message.createdAt}</LastMessageDate>
+          <LastMessageDate>
+            {message.createdAt && formatDateForChatList(message.createdAt)}
+          </LastMessageDate>
         </div>
       </SenderMessage>
     );
@@ -32,8 +51,12 @@ function MessageBody({ message, myId }: Props) {
     return (
       <OwnMessage>
         <div>
-          <OwnMessageBody>{message.messageBody}</OwnMessageBody>
-          <LastMessageDate>{message.createdAt}</LastMessageDate>
+          <OwnMessageBody>
+            {RenderContent(message.content, message.contentType)}
+          </OwnMessageBody>
+          <LastMessageDate>
+            {formatDateForChatList(message.createdAt)}
+          </LastMessageDate>
         </div>
       </OwnMessage>
     );

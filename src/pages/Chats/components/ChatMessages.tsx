@@ -1,55 +1,68 @@
-import { TextField, InputAdornment, IconButton } from '@mui/material';
+import { useEffect, useRef } from 'react';
 
-import { IMessage } from 'common/types.ts';
-import SendMessageIcon from 'src/assets/icons/SendMessage.svg';
+import { Chat } from 'common/types.ts';
+import useChatSocket from 'src/common/hooks/useChatSocket';
+import { useAppSelector } from 'src/redux/hooks';
 
+import ChatAvatar from './ChatAvatar';
 import MessageBody from './MessageBody.tsx';
+import MessageInput from './MessageInput';
+import SenderTyping from './SenderTyping';
 import {
-  AvatarContainer,
   ChatMessagesContainer,
-  StyledAvatar,
-  StyledTypography,
   ScrollableMessageBox,
   ChatWithTextBox,
 } from './styles.ts';
 
 type Props = {
-  messages: IMessage[];
+  chat?: Chat;
+  socket: ReturnType<typeof useChatSocket>;
 };
 
-function ChatMessages({ messages }: Props) {
-  const myId = 1; /** * TODO get current user's id ***/
-  const chatUser = messages.find((chat) => chat.author.id !== myId);
+function ChatMessages({ chat, socket }: Props) {
+  const { id: myId } = useAppSelector((state) => state.user);
+  const chatWithMainData = useAppSelector((state) =>
+    state.chat.chatsWithMainData.find(
+      (chatElement) => chatElement?.id === chat?.id
+    )
+  );
+  const { inputValue, send, setMarkAsRead, setTyping, typingStatus } = socket;
+
+  const bottomOfMessagesRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (bottomOfMessagesRef.current) {
+      bottomOfMessagesRef.current.scrollTo({
+        top: bottomOfMessagesRef.current.scrollHeight,
+        behavior: 'smooth',
+      });
+      if (chat?.messages?.length) {
+        setMarkAsRead();
+      }
+    }
+  }, [chat?.messages, typingStatus]);
 
   return (
     <ChatMessagesContainer>
-      <AvatarContainer>
-        <StyledAvatar src={chatUser?.author.photo} />
-        <StyledTypography>
-          {`${chatUser?.author.firstName} ${chatUser?.author.lastName}`}
-        </StyledTypography>
-      </AvatarContainer>
+      <ChatAvatar chat={chat} chatPartner={chatWithMainData?.chatPartner} />
       <ChatWithTextBox>
-        <ScrollableMessageBox>
-          {messages.map((messageElement) => (
+        <ScrollableMessageBox ref={bottomOfMessagesRef}>
+          {chat?.messages?.map((messageElement) => (
             <MessageBody
               key={messageElement.id}
               message={messageElement}
               myId={myId}
             />
           ))}
+          {typingStatus && (
+            <SenderTyping chatPartner={chatWithMainData?.chatPartner} />
+          )}
         </ScrollableMessageBox>
-        <TextField
-          fullWidth
-          InputProps={{
-            endAdornment: (
-              <InputAdornment position="end">
-                <IconButton edge="end">
-                  <SendMessageIcon />
-                </IconButton>
-              </InputAdornment>
-            ),
-          }}
+        <MessageInput
+          chatId={chat!.id}
+          inputValue={inputValue}
+          setTyping={setTyping}
+          send={send}
         />
       </ChatWithTextBox>
     </ChatMessagesContainer>

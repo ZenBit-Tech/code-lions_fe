@@ -9,6 +9,7 @@ import BagIcon from 'src/assets/icons/bag.svg';
 import BellIcon from 'src/assets/icons/bell.svg';
 import ProfileIcon from 'src/assets/icons/profile.svg';
 import { urls, userRoles } from 'src/common/constants';
+import useUnreadChatsCount from 'src/common/hooks/useUnreadChatsCount';
 import { MenuMainLink } from 'src/components/FooterMenu/styles';
 import HeaderLogo from 'src/components/HeaderLogo';
 import StyledButton from 'src/components/shared/StyledButton';
@@ -19,11 +20,14 @@ import { useAppSelector } from 'src/redux/hooks';
 import { useGetWishlistByIdQuery } from 'src/redux/wishlist/wishlistService';
 import theme from 'src/theme';
 
-import SvgHover from './styles';
+import { SvgHover, UnreadMessages } from './styles';
 
 function Header() {
   const { t } = useTranslation();
   const { showToast } = useToast();
+
+  const unreadChatsCount = useUnreadChatsCount();
+
   const user = useAppSelector((state) => state.user);
   const navigate = useNavigate();
 
@@ -96,15 +100,22 @@ function Header() {
             flexDirection: 'row',
             justifyContent: 'flex-end',
             gap: '40px',
-            width: '355px',
-            marginLeft: '60px',
+            width: '400px',
+            marginLeft: '10px',
           }}
         >
           <MenuMainLink to={urls.PRODUCT_FEED}>{t('header.shop')}</MenuMainLink>
           <MenuMainLink to={urls.BEST_VENDORS}>
             {t('header.vendors')}
           </MenuMainLink>
-          <MenuMainLink to={urls.HOME}>{t('header.messages')}</MenuMainLink>
+          <MenuMainLink to={urls.BUYER_CHATS}>
+            {t('header.messages')}{' '}
+            {unreadChatsCount ? (
+              <UnreadMessages>{unreadChatsCount}</UnreadMessages>
+            ) : (
+              <></>
+            )}
+          </MenuMainLink>
           <MenuMainLink to={urls.HOW_IT_WORKS}>
             {t('header.howItWorks')}
           </MenuMainLink>

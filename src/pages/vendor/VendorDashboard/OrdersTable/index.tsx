@@ -9,13 +9,15 @@ import {
 } from '@mui/material';
 
 import { urls } from 'src/common/constants';
+import {
+  Status,
+  StyledLink,
+} from 'src/pages/vendor/VendorOrdersPage/OrdersTable/styles';
 
 import { Order } from '../types';
 
 import {
   BodyTableCell,
-  Status,
-  StyledLink,
   TableBodyStyled,
   TableCellStyled,
   TableHeadStyled,

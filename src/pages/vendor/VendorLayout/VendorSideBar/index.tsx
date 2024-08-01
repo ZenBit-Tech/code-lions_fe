@@ -11,12 +11,15 @@ import PlusIcon from 'src/assets/icons/vendor/plus.svg';
 import ProductsIcon from 'src/assets/icons/vendor/products.svg';
 import ProfileIcon from 'src/assets/icons/vendor/profile.svg';
 import { urls } from 'src/common/constants';
+import useUnreadChatsCount from 'src/common/hooks/useUnreadChatsCount';
 import StyledButton from 'src/components/shared/StyledButton';
 import Logo from 'src/components/SidebarAdmin/Logo';
 import { StyledListItemButton } from 'src/components/SidebarAdmin/styles';
 import { setAddProductStep } from 'src/redux/addProduct/addProductSlice';
 import { useAppDispatch } from 'src/redux/hooks';
 import theme from 'src/theme';
+
+import { UnreadMessages, StyledChat } from './styles';
 
 const listIndexes = {
   dashboard: 0,
@@ -27,6 +30,8 @@ const listIndexes = {
 };
 
 function VendorSideBar() {
+  const unreadChatsCount = useUnreadChatsCount();
+
   const [selectedIndex, setSelectedIndex] = useState(listIndexes.dashboard);
 
   const { t } = useTranslation();
@@ -193,9 +198,9 @@ function VendorSideBar() {
           >
             <Box
               display="flex"
-              justifyContent="flex-start"
+              justifyContent="space-between"
               alignItems="center"
-              width="140px"
+              width="100%"
             >
               {selectedIndex === listIndexes.chats ? (
                 <>
@@ -204,12 +209,19 @@ function VendorSideBar() {
                   >
                     <ChatsIcon />
                   </ListItemIcon>
-                  <Typography
-                    variant="subtitle1"
-                    sx={{ marginLeft: '12px', fontSize: '16px' }}
-                  >
-                    {t('vendorSidebar.chats')}
-                  </Typography>
+                  <StyledChat>
+                    <Typography
+                      variant="subtitle1"
+                      sx={{ marginLeft: '12px', fontSize: '16px' }}
+                    >
+                      {t('vendorSidebar.chats')}
+                    </Typography>
+                    {unreadChatsCount ? (
+                      <UnreadMessages>{unreadChatsCount}</UnreadMessages>
+                    ) : (
+                      <></>
+                    )}
+                  </StyledChat>
                 </>
               ) : (
                 <>
@@ -218,9 +230,16 @@ function VendorSideBar() {
                   >
                     <ChatsIcon />
                   </ListItemIcon>
-                  <Typography sx={{ marginLeft: '12px', fontWeight: '500' }}>
-                    {t('vendorSidebar.chats')}
-                  </Typography>
+                  <StyledChat>
+                    <Typography sx={{ marginLeft: '12px', fontWeight: '500' }}>
+                      {t('vendorSidebar.chats')}
+                    </Typography>
+                    {unreadChatsCount ? (
+                      <UnreadMessages>{unreadChatsCount}</UnreadMessages>
+                    ) : (
+                      <></>
+                    )}
+                  </StyledChat>
                 </>
               )}
             </Box>

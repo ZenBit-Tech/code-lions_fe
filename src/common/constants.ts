@@ -32,16 +32,20 @@ export const urls = {
   ADMIN_USERS_FULL: '/admin/users',
   ADMIN_PRODUCT_REQUEST: 'product-request',
   ADMIN_PRODUCT_LIST: 'product-list',
-  ADMIN_CHATS: 'chats',
+  ADMIN_CHATS: '/admin/chats',
+  ADMIN_CHAT_ID: '/admin/chats/:chatId',
   PROFILE: '/profile',
   USER_BUYER_PROFILE: 'buyer/:id',
+  BUYER: 'buyer',
   USER_VENDOR_PROFILE: 'vendor/:id',
   PROFILE_DETAILS: 'details',
   PROFILE_ORDERS: 'orders',
+  PROFILE_ORDER: 'orders/:orderId',
   PROFILE_WISHLIST: 'wishlist/:userId',
   WISHLIST: 'wishlist',
   PROFILE_SETTINGS: 'settings',
   PROFILE_SUPPORT: 'support',
+  PROFILE_SUPPORT_ID: 'support/:chatId',
   PRODUCT_FEED: '/products',
   PRODUCT_CATEGORY: '/products/category/:category',
   PRODUCT_CATEGORY_URL: '/products/category',
@@ -54,7 +58,11 @@ export const urls = {
   PUBLIC_PRODUCT_ID: '/public-product/:productId',
   PUBLIC_PRODUCT: '/public-product',
   VENDOR_ORDERS: 'orders',
-  VENDOR_CHATS: 'chats',
+  VENDOR_ORDER: 'orders/:orderId',
+  VENDOR_CHATS: '/vendor/chats',
+  VENDOR_CHAT_ID: '/vendor/chats/:chatId',
+  BUYER_CHATS: '/profile/buyer/chats',
+  BUYER_CHAT_ID: '/profile/buyer/chats/:chatId',
   VENDOR_PROFILE: 'profile',
   BEST_VENDORS: '/best-vendors',
   COMPANY: '/company',
@@ -106,6 +114,9 @@ export const RTKUrls = {
   FILE: 'pdf-file',
   HIDE_RENTAL_RULES: 'hide-rental-rules',
   CREATE_CHECKOUT: '/stripe/create-checkout-session',
+  CHAT: 'chats',
+  SUPPORT: 'chats/support',
+  ORDERS: 'orders',
 };
 
 export const HttpMethods = {
@@ -288,3 +299,18 @@ export const eventalCategory: string = 'evental';
 export const timeFormat = 'p';
 export const monthAndDayFormat = 'MMMM d';
 export const yearMonthAndDayFormat = 'yyyy MM d';
+
+export const orderStatus = {
+  NEW: 'New order',
+  SENT: 'Sent',
+  DELIVERED: 'Delivered',
+  RECEIVED: 'Received',
+  WAITING_RETURNING: 'Waiting for returning',
+  RETURNED: 'Returned',
+  REJECTED: 'Rejected',
+};
+
+export const profileOrdersTabs = {
+  CURRENT: 'Current',
+  ARCHIVE: 'Archive',
+};
