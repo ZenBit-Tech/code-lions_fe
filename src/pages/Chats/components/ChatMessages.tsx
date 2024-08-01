@@ -44,7 +44,7 @@ function ChatMessages({ chat, socket }: Props) {
 
   return (
     <ChatMessagesContainer>
-      <ChatAvatar chat={chat} chatPartner={chatWithMainData!.chatPartner} />
+      <ChatAvatar chat={chat} chatPartner={chatWithMainData?.chatPartner} />
       <ChatWithTextBox>
         <ScrollableMessageBox ref={bottomOfMessagesRef}>
           {chat?.messages?.map((messageElement) => (
@@ -55,7 +55,7 @@ function ChatMessages({ chat, socket }: Props) {
             />
           ))}
           {typingStatus && (
-            <SenderTyping chatPartner={chatWithMainData!.chatPartner} />
+            <SenderTyping chatPartner={chatWithMainData?.chatPartner} />
           )}
         </ScrollableMessageBox>
         <MessageInput

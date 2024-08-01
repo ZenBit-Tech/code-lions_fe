@@ -9,14 +9,14 @@ import {
 } from './styles.ts';
 
 export type Props = {
-  chatPartner: ChatPartnerWithStatus;
+  chatPartner: ChatPartnerWithStatus | undefined;
 };
 
 function SenderTyping({ chatPartner }: Props) {
   return (
     <SenderMessage>
       <AvatarMessageContainer>
-        <StyledMessageAvatar src={chatPartner.photoUrl} />
+        <StyledMessageAvatar src={chatPartner?.photoUrl} />
         <Typing>
           <TypingIcon />
         </Typing>
