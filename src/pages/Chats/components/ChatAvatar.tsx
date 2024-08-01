@@ -12,7 +12,7 @@ import {
 
 type Props = {
   chat: Chat | undefined;
-  chatPartner: ChatPartnerWithStatus;
+  chatPartner: ChatPartnerWithStatus | undefined;
 };
 
 function ChatAvatar({ chat, chatPartner }: Props) {
@@ -24,9 +24,10 @@ function ChatAvatar({ chat, chatPartner }: Props) {
       <div>
         <StyledTypography>{chat?.chatPartner?.name}</StyledTypography>
         <LastActive>
-          {chatPartner.isOnline
+          {chatPartner?.isOnline
             ? t('chat.online')
-            : `${t('chat.active')}${formatDateForChat(chatPartner.lastActiveAt)}`}
+            : chatPartner?.lastActiveAt &&
+              `${t('chat.active')}${formatDateForChat(chatPartner.lastActiveAt)}`}
         </LastActive>
       </div>
     </AvatarContainer>

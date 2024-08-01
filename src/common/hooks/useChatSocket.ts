@@ -63,7 +63,7 @@ const useChatSocket = ({ accessToken, myId }: UseChatSocketParams) => {
         } else {
           dispatch(setMessage({ message: incomingMessage }));
         }
-      } else {
+      } else if (accessToken) {
         refetch();
       }
     });
@@ -75,7 +75,9 @@ const useChatSocket = ({ accessToken, myId }: UseChatSocketParams) => {
     });
 
     socket.on('newChat', () => {
-      refetch();
+      if (accessToken) {
+        refetch();
+      }
     });
 
     socket.on(
@@ -102,7 +104,9 @@ const useChatSocket = ({ accessToken, myId }: UseChatSocketParams) => {
   }, [chatId]);
 
   useEffect(() => {
-    refetch();
+    if (accessToken) {
+      refetch();
+    }
   }, [myId]);
 
   return {
