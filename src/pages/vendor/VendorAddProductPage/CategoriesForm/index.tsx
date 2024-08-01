@@ -23,14 +23,27 @@ import {
 import { useAppDispatch } from 'src/redux/hooks';
 import theme from 'src/theme';
 
+import {
+  accessoriesCategory,
+  accessoryTypeOptions,
+  bagsCategory,
+  bagTypeOptions,
+  clothingCategory,
+  clothingTypeOptions,
+  designersCategory,
+  eventalCategory,
+  shoesCategory,
+  shoesTypeOptions,
+} from '../ProductDescriptionForm/productDescriptionConstants';
+
 const categories = [
   { label: 'Select category', value: 'Select category' },
-  { label: 'Accessories', value: 'Accessories' },
-  { label: 'Bags', value: 'Bags' },
-  { label: 'Clothing', value: 'Clothing' },
-  { label: 'Shoes', value: 'Shoes' },
-  { label: 'Designers', value: 'Designers' },
-  { label: 'Evental', value: 'Evental' },
+  { label: 'Accessories', value: 'accessories' },
+  { label: 'Bags', value: 'bags' },
+  { label: 'Clothing', value: 'clothing' },
+  { label: 'Shoes', value: 'shoes' },
+  { label: 'Designers', value: 'designers' },
+  { label: 'Evental', value: 'evental' },
 ];
 
 const clothesTypes = [
@@ -54,9 +67,19 @@ function CategoriesForm() {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
 
-  const [clothesCategory, setClothesCategory] = useState(categories[0].value);
-  const [clothesType, setClothesType] = useState(clothesTypes[0].value);
-  const [clothesStyle, setClothesStyle] = useState(styles[0].value);
+  const [clothesCategory, setClothesCategory] = useState<string>(
+    categories[0].value
+  );
+  const [clothesType, setClothesType] = useState<string>(clothesTypes[0].value);
+  const [shoesType, setShoesType] = useState<string>(shoesTypeOptions[0].value);
+  const [bagType, setBagType] = useState<string>(bagTypeOptions[0].value);
+  const [accessoryType, setAccessoryType] = useState<string>(
+    accessoryTypeOptions[0].value
+  );
+  const [clothingType, setClothingType] = useState<string>(
+    clothingTypeOptions[0].value
+  );
+  const [clothesStyle, setClothesStyle] = useState<string>(styles[0].value);
 
   const returnBack = () => {
     dispatch(decreaseAddProductStep());
@@ -64,7 +87,25 @@ function CategoriesForm() {
 
   const goToNextStep = () => {
     dispatch(setCategory(clothesCategory.toLowerCase()));
-    dispatch(setType(clothesType.toLowerCase()));
+
+    if (
+      clothesCategory === designersCategory ||
+      clothesCategory === eventalCategory
+    ) {
+      dispatch(setType(clothesType.toLowerCase()));
+    }
+    if (clothesCategory === shoesCategory) {
+      dispatch(setType(shoesType.toLowerCase()));
+    }
+    if (clothesCategory === bagsCategory) {
+      dispatch(setType(bagType.toLowerCase()));
+    }
+    if (clothesCategory === accessoriesCategory) {
+      dispatch(setType(accessoryType.toLowerCase()));
+    }
+    if (clothesCategory === clothingCategory) {
+      dispatch(setType(clothingType.toLowerCase()));
+    }
     dispatch(setStyle(clothesStyle.toLowerCase()));
     dispatch(increaseAddProductStep());
   };
@@ -135,12 +176,48 @@ function CategoriesForm() {
           </OnboardingText>
         </Box>
         <Box sx={{ flex: 1 }}>
-          <CustomSelect
-            options={clothesTypes}
-            displayEmpty
-            value={clothesType}
-            onChange={(v) => setClothesType(String(v.target.value))}
-          />
+          {clothesCategory === designersCategory ||
+          clothesCategory === eventalCategory ||
+          clothesCategory === categories[0].value ? (
+            <CustomSelect
+              options={clothesTypes}
+              displayEmpty
+              value={clothesType}
+              onChange={(v) => setClothesType(String(v.target.value))}
+            />
+          ) : null}
+          {clothesCategory === shoesCategory ? (
+            <CustomSelect
+              options={shoesTypeOptions}
+              displayEmpty
+              value={shoesType}
+              onChange={(v) => setShoesType(String(v.target.value))}
+            />
+          ) : null}
+          {clothesCategory === bagsCategory ? (
+            <CustomSelect
+              options={bagTypeOptions}
+              displayEmpty
+              value={bagType}
+              onChange={(v) => setBagType(String(v.target.value))}
+            />
+          ) : null}
+          {clothesCategory === accessoriesCategory ? (
+            <CustomSelect
+              options={accessoryTypeOptions}
+              displayEmpty
+              value={accessoryType}
+              onChange={(v) => setAccessoryType(String(v.target.value))}
+            />
+          ) : null}
+          {clothesCategory === clothingCategory ? (
+            <CustomSelect
+              options={clothingTypeOptions}
+              displayEmpty
+              value={clothingType}
+              onChange={(v) => setClothingType(String(v.target.value))}
+            />
+          ) : null}
         </Box>
       </Box>
 
@@ -205,7 +282,6 @@ function CategoriesForm() {
           onClick={goToNextStep}
           disabled={
             clothesCategory === categories[0].value ||
-            clothesType === clothesTypes[0].value ||
             clothesStyle === styles[0].value
           }
         >

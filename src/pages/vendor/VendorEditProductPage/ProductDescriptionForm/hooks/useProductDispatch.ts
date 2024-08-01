@@ -1,4 +1,13 @@
 import {
+  accessoriesCategory,
+  bagsCategory,
+  dressType,
+  jeansType,
+  otherType,
+  shoesCategory,
+  shoesType,
+} from 'src/pages/vendor/VendorAddProductPage/ProductDescriptionForm/productDescriptionConstants';
+import {
   setBrand,
   setColor,
   setDescription,
@@ -7,16 +16,6 @@ import {
   setSize,
 } from 'src/redux/addProduct/addProductSlice';
 import { useAppDispatch, useAppSelector } from 'src/redux/hooks';
-
-import {
-  accessoriesCategory,
-  bagsCategory,
-  dressType,
-  jeansType,
-  otherType,
-  shoesCategory,
-  shoesType,
-} from '../productDescriptionConstants';
 
 const useProductDispatch = (
   productName: string,

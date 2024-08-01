@@ -21,6 +21,9 @@ const latestProducts: IProduct[] = [
     status: 'published',
     createdAt: '2024-07-07T10:00:00Z',
     lastUpdatedAt: '2024-07-07T10:00:00Z',
+    brand: 'Brand',
+    material: 'cotton',
+    pdfUrl: '',
   },
   {
     id: '2',
@@ -42,6 +45,9 @@ const latestProducts: IProduct[] = [
     status: 'published',
     createdAt: '2024-07-07T10:00:00Z',
     lastUpdatedAt: '2024-07-07T10:00:00Z',
+    brand: 'Brand',
+    material: 'cotton',
+    pdfUrl: '',
   },
   {
     id: '3',
@@ -63,6 +69,9 @@ const latestProducts: IProduct[] = [
     status: 'published',
     createdAt: '2024-07-07T10:00:00Z',
     lastUpdatedAt: '2024-07-07T10:00:00Z',
+    brand: 'Brand',
+    material: 'cotton',
+    pdfUrl: '',
   },
 ];
 

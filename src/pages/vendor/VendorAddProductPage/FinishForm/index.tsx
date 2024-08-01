@@ -21,7 +21,6 @@ import {
   OnboardingHeader4,
   OnboardingText,
 } from 'src/pages/OnboardingPage/styles';
-import { useUpdateProductMutation } from 'src/redux/addProduct/addProductService';
 import {
   decreaseAddProductStep,
   setPrice,
@@ -29,6 +28,7 @@ import {
   selectProductId,
 } from 'src/redux/addProduct/addProductSlice';
 import { useAppDispatch, useAppSelector } from 'src/redux/hooks';
+import { useUpdateProductMutation } from 'src/redux/vendorProduct/vendorProductService';
 import theme from 'src/theme';
 
 import OnboardingHeader3 from './styles';
@@ -40,19 +40,17 @@ function FinishForm() {
   const navigate = useNavigate();
 
   const productId = useAppSelector(selectProductId);
-  const productName = useAppSelector((state) => state.addProduct.name);
-  const productDescription = useAppSelector(
-    (state) => state.addProduct.description
-  );
-  const productSize = useAppSelector((state) => state.addProduct.size);
-  const productBrand = useAppSelector((state) => state.addProduct.brand);
-  const productColors = useAppSelector((state) => state.addProduct.colors);
-  const productMaterial = useAppSelector((state) => state.addProduct.material);
-  const productCategories = useAppSelector(
-    (state) => state.addProduct.categories
-  );
-  const productStyle = useAppSelector((state) => state.addProduct.style);
-  const productType = useAppSelector((state) => state.addProduct.type);
+  const {
+    name: productName,
+    description: productDescription,
+    size: productSize,
+    brand: productBrand,
+    colors: productColors,
+    material: productMaterial,
+    categories: productCategories,
+    style: productStyle,
+    type: productType,
+  } = useAppSelector((state) => state.addProduct);
 
   const [updateProduct] = useUpdateProductMutation();
 
