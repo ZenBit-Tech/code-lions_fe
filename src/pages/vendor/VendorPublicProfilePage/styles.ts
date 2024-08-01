@@ -54,7 +54,6 @@ export const ReviewLabel = styled(Typography)(() => ({
 export const ProductsContainerWrapper = styled(Box)(() => ({
   display: 'flex',
   flexDirection: 'column',
-  alignItems: 'center',
   marginBottom: '20px',
 }));
 
