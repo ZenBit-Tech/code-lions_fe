@@ -116,7 +116,6 @@ const StyledTypography = styled(Typography)(({ theme }) => ({
 }));
 
 const OwnMessage = styled(Box)(() => ({
-  width: '100%',
   display: 'flex',
   justifyContent: 'flex-end',
   textAlign: 'right',
@@ -135,7 +134,6 @@ const OwnMessageBody = styled(Typography)(({ theme }) => ({
 }));
 
 const SenderMessage = styled(Box)(() => ({
-  width: '100%',
   display: 'flex',
   justifyContent: 'flex-start',
 }));
@@ -166,6 +164,12 @@ const ChatWithTextBox = styled(Box)({
   justifyContent: 'flex-end',
 });
 
+const ChatImage = styled('img')({
+  width: '15rem',
+  height: '15rem',
+  objectFit: 'cover',
+});
+
 export {
   UnreadMessages,
   LastMessageDate,
@@ -189,4 +193,5 @@ export {
   ScrollableMessageBox,
   ChatWithTextBox,
   Typing,
+  ChatImage,
 };

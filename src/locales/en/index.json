@@ -16,7 +16,8 @@
     "dontHaveAnyChats": "You do not have any chats yet.",
     "selectChat": "Please select chat.",
     "online": "online",
-    "active": "Active "
+    "active": "Active ",
+    "cantSend": "Failed to send this message. Please try later."
   },
   "header": {
     "shop": "Shop",

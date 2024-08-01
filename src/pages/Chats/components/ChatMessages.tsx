@@ -1,14 +1,12 @@
 import { useEffect, useRef } from 'react';
 
-import { TextField, InputAdornment, IconButton } from '@mui/material';
-
 import { Chat } from 'common/types.ts';
-import SendMessageIcon from 'src/assets/icons/SendMessage.svg';
 import useChatSocket from 'src/common/hooks/useChatSocket';
 import { useAppSelector } from 'src/redux/hooks';
 
 import ChatAvatar from './ChatAvatar';
 import MessageBody from './MessageBody.tsx';
+import MessageInput from './MessageInput';
 import SenderTyping from './SenderTyping';
 import {
   ChatMessagesContainer,
@@ -60,24 +58,11 @@ function ChatMessages({ chat, socket }: Props) {
             <SenderTyping chatPartner={chatWithMainData!.chatPartner} />
           )}
         </ScrollableMessageBox>
-        <TextField
-          value={inputValue}
-          onChange={(e) => setTyping(e.target.value)}
-          onKeyDown={(e) => {
-            if (e.key === 'Enter') {
-              send(inputValue);
-            }
-          }}
-          fullWidth
-          InputProps={{
-            endAdornment: (
-              <InputAdornment position="end">
-                <IconButton onClick={() => send(inputValue)} edge="end">
-                  <SendMessageIcon />
-                </IconButton>
-              </InputAdornment>
-            ),
-          }}
+        <MessageInput
+          chatId={chat!.id}
+          inputValue={inputValue}
+          setTyping={setTyping}
+          send={send}
         />
       </ChatWithTextBox>
     </ChatMessagesContainer>
