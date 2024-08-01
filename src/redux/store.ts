@@ -13,7 +13,6 @@ import {
   REGISTER,
 } from 'redux-persist';
 
-import { addProductApi } from './addProduct/addProductService';
 import addProductReducer from './addProduct/addProductSlice';
 import { adminProductsApi } from './adminProduct/adminProductService';
 import { bestVendorsApi } from './bestVendors/bestVendorsService';
@@ -43,7 +42,6 @@ export const rootReducer = combineReducers({
   [bestVendorsApi.reducerPath]: bestVendorsApi.reducer,
   [wishlistApi.reducerPath]: wishlistApi.reducer,
   [cartApi.reducerPath]: cartApi.reducer,
-  [addProductApi.reducerPath]: addProductApi.reducer,
   [adminProductsApi.reducerPath]: adminProductsApi.reducer,
   [vendorProductsApi.reducerPath]: vendorProductsApi.reducer,
   [chatApi.reducerPath]: chatApi.reducer,
@@ -70,7 +68,6 @@ const store = configureStore({
       bestVendorsApi.middleware,
       wishlistApi.middleware,
       cartApi.middleware,
-      addProductApi.middleware,
       adminProductsApi.middleware,
       vendorProductsApi.middleware,
       chatApi.middleware
