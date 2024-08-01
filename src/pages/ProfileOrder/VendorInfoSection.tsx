@@ -1,11 +1,14 @@
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router';
 import { Link, useLocation } from 'react-router-dom';
 
 import { Box, Typography, Button } from '@mui/material';
 
 import Chat from 'src/assets/icons/vendor/chat-white.svg';
 import { urls } from 'src/common/constants';
+import useToast from 'src/components/shared/toasts/components/ToastProvider/ToastProviderHooks';
 import AdminSectionSubTitle from 'src/pages/admin/AdminSectionSubTitle';
+import { useCreateChatMutation } from 'src/redux/chat/chatService';
 import { IAddress } from 'src/redux/order/types';
 import theme from 'src/theme';
 
@@ -19,7 +22,23 @@ interface IVendorInfoSection {
 
 function VendorInfoSection({ userName, userId, address }: IVendorInfoSection) {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const location = useLocation();
+  const { showToast } = useToast();
+
+  const [createChat] = useCreateChatMutation();
+
+  const goToChat = async () => {
+    try {
+      const result = await createChat({
+        chatPartnerId: userId,
+      }).unwrap();
+
+      navigate(`${urls.BUYER_CHATS}/${result.id}`);
+    } catch {
+      showToast('error', t('toasterMessages.failedCreateChat'));
+    }
+  };
 
   return (
     <Box display="flex" flexDirection="column" sx={{ padding: '0 24px' }}>
@@ -29,7 +48,7 @@ function VendorInfoSection({ userName, userId, address }: IVendorInfoSection) {
           <Typography variant="h4">{userName}</Typography>
         </Link>
 
-        <Button sx={styles.chatButton} startIcon={<Chat />}>
+        <Button sx={styles.chatButton} startIcon={<Chat />} onClick={goToChat}>
           <Typography variant="h4" sx={{ color: theme.palette.common.white }}>
             {t('vendorOrder.chat')}
           </Typography>
