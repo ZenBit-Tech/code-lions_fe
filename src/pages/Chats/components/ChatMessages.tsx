@@ -1,18 +1,15 @@
 import { useEffect, useRef } from 'react';
 
-import { TextField, InputAdornment, IconButton } from '@mui/material';
-
 import { Chat } from 'common/types.ts';
-import SendMessageIcon from 'src/assets/icons/SendMessage.svg';
 import useChatSocket from 'src/common/hooks/useChatSocket';
 import { useAppSelector } from 'src/redux/hooks';
 
+import ChatAvatar from './ChatAvatar';
 import MessageBody from './MessageBody.tsx';
+import MessageInput from './MessageInput';
+import SenderTyping from './SenderTyping';
 import {
-  AvatarContainer,
   ChatMessagesContainer,
-  StyledAvatar,
-  StyledTypography,
   ScrollableMessageBox,
   ChatWithTextBox,
 } from './styles.ts';
@@ -24,7 +21,12 @@ type Props = {
 
 function ChatMessages({ chat, socket }: Props) {
   const { id: myId } = useAppSelector((state) => state.user);
-  const { inputValue, setInputValue, send, setMarkAsRead } = socket;
+  const chatWithMainData = useAppSelector((state) =>
+    state.chat.chatsWithMainData.find(
+      (chatElement) => chatElement?.id === chat?.id
+    )
+  );
+  const { inputValue, send, setMarkAsRead, setTyping, typingStatus } = socket;
 
   const bottomOfMessagesRef = useRef<HTMLDivElement>(null);
 
@@ -38,14 +40,11 @@ function ChatMessages({ chat, socket }: Props) {
         setMarkAsRead();
       }
     }
-  }, [chat?.messages]);
+  }, [chat?.messages, typingStatus]);
 
   return (
     <ChatMessagesContainer>
-      <AvatarContainer>
-        <StyledAvatar src={chat?.chatPartner?.photoUrl} />
-        <StyledTypography>{chat?.chatPartner?.name}</StyledTypography>
-      </AvatarContainer>
+      <ChatAvatar chat={chat} chatPartner={chatWithMainData?.chatPartner} />
       <ChatWithTextBox>
         <ScrollableMessageBox ref={bottomOfMessagesRef}>
           {chat?.messages?.map((messageElement) => (
@@ -55,25 +54,15 @@ function ChatMessages({ chat, socket }: Props) {
               myId={myId}
             />
           ))}
+          {typingStatus && (
+            <SenderTyping chatPartner={chatWithMainData?.chatPartner} />
+          )}
         </ScrollableMessageBox>
-        <TextField
-          value={inputValue}
-          onChange={(e) => setInputValue(e.target.value)}
-          onKeyDown={(e) => {
-            if (e.key === 'Enter') {
-              send(inputValue);
-            }
-          }}
-          fullWidth
-          InputProps={{
-            endAdornment: (
-              <InputAdornment position="end">
-                <IconButton onClick={() => send(inputValue)} edge="end">
-                  <SendMessageIcon />
-                </IconButton>
-              </InputAdornment>
-            ),
-          }}
+        <MessageInput
+          chatId={chat!.id}
+          inputValue={inputValue}
+          setTyping={setTyping}
+          send={send}
         />
       </ChatWithTextBox>
     </ChatMessagesContainer>

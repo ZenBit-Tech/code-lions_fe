@@ -15,7 +15,10 @@
   "chat": {
     "yesterday": "Yesterday",
     "dontHaveAnyChats": "You do not have any chats yet.",
-    "selectChat": "Please select chat."
+    "selectChat": "Please select chat.",
+    "online": "online",
+    "active": "Active ",
+    "cantSend": "Failed to send this message. Please try later."
   },
   "header": {
     "shop": "Shop",
