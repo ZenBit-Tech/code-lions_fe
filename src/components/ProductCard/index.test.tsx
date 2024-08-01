@@ -25,6 +25,9 @@ const mockProduct: IProduct = {
   createdAt: '2023-01-01',
   lastUpdatedAt: '2023-01-01',
   status: 'published',
+  brand: 'Brand',
+  material: 'cotton',
+  pdfUrl: '',
 };
 
 describe('ProductCard', () => {

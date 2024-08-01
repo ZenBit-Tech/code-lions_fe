@@ -21,6 +21,9 @@ const productsBySizes: IProduct[] = [
     status: 'published',
     createdAt: '2024-07-07T10:00:00Z',
     lastUpdatedAt: '2024-07-07T10:00:00Z',
+    brand: 'Brand',
+    material: 'cotton',
+    pdfUrl: '',
   },
   {
     id: '2',
@@ -42,6 +45,9 @@ const productsBySizes: IProduct[] = [
     status: 'published',
     createdAt: '2024-01-01T10:00:00Z',
     lastUpdatedAt: '2024-01-01T10:00:00Z',
+    brand: 'Brand',
+    material: 'cotton',
+    pdfUrl: '',
   },
 ];
 

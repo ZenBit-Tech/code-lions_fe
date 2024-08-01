@@ -694,5 +694,42 @@
     "requestError": "Unable to get list of request, please try again later",
     "productListError": "Unable to get list of products, please try again later",
     "noRequests": "You have no requests"
+  },
+  "editProduct": {
+    "title": "Edit Product",
+    "cancelBtn": "Cancel",
+    "editingSuccess": "Your information has been successfully updated",
+    "editingFailed": "Failed to update product",
+    "stepOneTitle": "Product Photos",
+    "stepTwoTitle": "Category & Type",
+    "stepThreeTitle": "Product description",
+    "stepFourTitle": "Finish & Publish"
+  },
+  "editModal": {
+    "title": "Are you sure want to stop editing the product?",
+    "subtitle": "The added information will not be saved.",
+    "no": "No",
+    "yes": "Yes"
+  },
+  "productCategories": {
+    "accessories": { "label": "Accessories", "value": "accessories" },
+    "bags": { "label": "Bags", "value": "bags" },
+    "clothing": { "label": "Clothing", "value": "clothing" },
+    "shoes": { "label": "Shoes", "value": "shoes" },
+    "designers": { "label": "Designers", "value": "designers" },
+    "evental": { "label": "Evental", "value": "evental" }
+  },
+  "productTypes": {
+    "shoes": { "label": "Shoes", "value": "shoes" },
+    "dress": { "label": "Dress", "value": "dress" },
+    "bag": { "label": "Bag", "value": "bag" },
+    "jeans": { "label": "Jeans", "value": "jeans" },
+    "accessory": { "label": "Accessory", "value": "accessory" },
+    "other": { "label": "Other", "value": "other" }
+  },
+  "productStyles": {
+    "casual": { "label": "Casual", "value": "casual" },
+    "premium": { "label": "Premium", "value": "premium" },
+    "fancy": { "label": "Fancy", "value": "fancy" }
   }
 }
