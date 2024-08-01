@@ -1,17 +1,33 @@
+import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
 
 import { Grid, Typography } from '@mui/material';
+
+import useErrorHandling from 'src/common/hooks/useErrorHandlingHook';
+import Loader from 'src/components/Loader';
+import useToast from 'src/components/shared/toasts/components/ToastProvider/ToastProviderHooks';
+import { selectUserId } from 'src/redux/user/userSlice';
+import { useGetAllOrdersVendorQuery } from 'src/redux/vendorOrders/vendorOrdersService';
 
 import VendorSectionTitle from '../VendorSectionTitle';
 
 import DashboardCard from './DashboardCard';
-import { orders } from './mockOrderData';
 import OrdersTable from './OrdersTable';
 import useSalesData from './useSalesDataHook';
 import VendorBarChart from './VendorBarChart';
 import VendorPieChart from './VendorPieChart';
 
 function VendorDashboard() {
+  const { t } = useTranslation();
+  const { showToast } = useToast();
+
+  const id = useSelector(selectUserId);
+
+  const { data, isLoading, error } = useGetAllOrdersVendorQuery({
+    id,
+  });
+
   const {
     salesTotal,
     salesTotalChange,
@@ -21,10 +37,8 @@ function VendorDashboard() {
     totalOrdersChange,
     dataset,
     categoryData,
-    ordersPlacedThreeDaysAgo,
-  } = useSalesData(orders);
-
-  const { t } = useTranslation();
+    ordersPlacedThreeDaysAgo = [],
+  } = useSalesData(data || []);
 
   const tabData = [
     {
@@ -44,17 +58,33 @@ function VendorDashboard() {
     },
   ];
 
+  const { handleOnSubmitError } = useErrorHandling();
+
+  useEffect(() => {
+    if (error) {
+      handleOnSubmitError(
+        error,
+        showToast,
+        t('productsAdmin.productListError')
+      );
+    }
+  }, [error, handleOnSubmitError, showToast, t]);
+
+  if (isLoading) {
+    return <Loader />;
+  }
+
   return (
     <Grid container columns={6} spacing={3}>
       <Grid item xs={6}>
         <VendorSectionTitle title={t('vendorDashboard.title')} />
       </Grid>
-      {tabData.map((data) => (
-        <Grid item xs={2} key={data.title}>
+      {tabData.map((tab) => (
+        <Grid item xs={2} key={tab.title}>
           <DashboardCard
-            title={data.title}
-            amount={data.amount}
-            change={data.change}
+            title={tab.title}
+            amount={tab.amount}
+            change={tab.change}
           />
         </Grid>
       ))}

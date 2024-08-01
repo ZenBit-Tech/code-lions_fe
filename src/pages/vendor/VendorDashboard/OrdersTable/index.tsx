@@ -13,8 +13,7 @@ import {
   Status,
   StyledLink,
 } from 'src/pages/vendor/VendorOrdersPage/OrdersTable/styles';
-
-import { Order } from '../types';
+import { IOrder } from 'src/redux/vendorOrders/types';
 
 import {
   BodyTableCell,
@@ -25,7 +24,7 @@ import {
 } from './styles';
 
 interface IOrdersTable {
-  data: Order[];
+  data: IOrder[];
 }
 
 function OrdersTable({ data }: IOrdersTable) {
@@ -51,7 +50,7 @@ function OrdersTable({ data }: IOrdersTable) {
                 {t('vendorDashboard.price')}
               </Typography>
             </TableCellStyled>
-            <TableCellStyled align="left">
+            <TableCellStyled align="center">
               <Typography variant="subtitle1">
                 {t('vendorDashboard.status')}
               </Typography>
@@ -67,11 +66,11 @@ function OrdersTable({ data }: IOrdersTable) {
           {data.map((order) => (
             <TableRow key={order.id}>
               <BodyTableCell component="th" scope="row" align="left">
-                #{order.id}
+                #{order.orderId}
               </BodyTableCell>
               <BodyTableCell align="left">
-                {order.items.map((item) => (
-                  <Box display="flex" gap="4px" key={item.name}>
+                {order.products.map((item) => (
+                  <Box display="flex" gap="8px" key={item.name}>
                     <Typography>{item.name || ''}</Typography>
                     <Typography>
                       {t('vendorDashboard.size')} {item.size || ''}
@@ -79,8 +78,8 @@ function OrdersTable({ data }: IOrdersTable) {
                   </Box>
                 ))}
               </BodyTableCell>
-              <BodyTableCell align="left">${order.amount}</BodyTableCell>
-              <BodyTableCell align="left">
+              <BodyTableCell align="left">${order.price}</BodyTableCell>
+              <BodyTableCell align="center">
                 <Status label={order.status} status={order.status} />
               </BodyTableCell>
               <BodyTableCell align="center">

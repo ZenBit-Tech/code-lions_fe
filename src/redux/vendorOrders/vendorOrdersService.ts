@@ -3,6 +3,8 @@ import { HttpMethods, RTKUrls } from 'src/common/constants.ts';
 
 import { baseQueryWithReauth } from '../user/userService';
 
+import { IVendorOrdersRequest, IVendorOrdersResponse } from './types';
+
 export const vendorOrdersApi = createApi({
   reducerPath: 'vendorOrdersApi',
   baseQuery: baseQueryWithReauth,

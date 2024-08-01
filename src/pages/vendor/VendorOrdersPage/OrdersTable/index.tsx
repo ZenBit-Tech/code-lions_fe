@@ -10,8 +10,7 @@ import {
 
 import { urls } from 'src/common/constants';
 import StyledPagination from 'src/pages/admin/StyledPagination';
-
-import { Order } from '../../VendorDashboard/types';
+import { IOrder } from 'src/redux/vendorOrders/types';
 
 import {
   BodyTableCell,
@@ -24,7 +23,7 @@ import {
 } from './styles';
 
 interface IOrdersTable {
-  orders: Order[];
+  orders: IOrder[];
   pagesCount: number;
   page: number;
   handleChange: (event: React.ChangeEvent<unknown>, value: number) => void;
@@ -69,19 +68,19 @@ function OrdersTable({ orders, pagesCount, page, handleChange }: IOrdersTable) {
           {orders.map((order) => (
             <TableRow key={order.id}>
               <BodyTableCell component="th" scope="row" align="left">
-                #{order.id}
+                #{order.orderId}
               </BodyTableCell>
               <BodyTableCell align="left">
-                {order.items.map((item) => (
-                  <Box display="flex" gap="4px" key={item.name}>
-                    <Typography>{item.name || ''}</Typography>
+                {order.products.map((product) => (
+                  <Box display="flex" gap="4px" key={product.id}>
+                    <Typography>{product.name || ''}</Typography>
                     <Typography>
-                      {t('vendorDashboard.size')} {item.size || ''}
+                      {t('vendorDashboard.size')} {product.size || ''}
                     </Typography>
                   </Box>
                 ))}
               </BodyTableCell>
-              <BodyTableCell align="left">${order.amount}</BodyTableCell>
+              <BodyTableCell align="left">${order.price}</BodyTableCell>
               <BodyTableCell align="center">
                 <Status label={order.status} status={order.status} />
               </BodyTableCell>

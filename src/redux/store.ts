@@ -26,6 +26,7 @@ import { productApi } from './product/productService';
 import productReducer from './product/productSlice';
 import { userApi } from './user/userService';
 import userReducer from './user/userSlice';
+import { vendorOrdersApi } from './vendorOrders/vendorOrdersService';
 import { vendorProductsApi } from './vendorProduct/vendorProductService';
 import { wishlistApi } from './wishlist/wishlistService';
 import wishlistReducer from './wishlist/wishlistSlice';
@@ -47,6 +48,7 @@ export const rootReducer = combineReducers({
   [adminProductsApi.reducerPath]: adminProductsApi.reducer,
   [vendorProductsApi.reducerPath]: vendorProductsApi.reducer,
   [chatApi.reducerPath]: chatApi.reducer,
+  [vendorOrdersApi.reducerPath]: vendorOrdersApi.reducer,
 });
 
 const persistConfig = {
@@ -73,7 +75,8 @@ const store = configureStore({
       addProductApi.middleware,
       adminProductsApi.middleware,
       vendorProductsApi.middleware,
-      chatApi.middleware
+      chatApi.middleware,
+      vendorOrdersApi.middleware
     ),
 });
 
