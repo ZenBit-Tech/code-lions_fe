@@ -25,10 +25,7 @@ function VendorInfoSection({ userName, userId, address }: IVendorInfoSection) {
     <Box display="flex" flexDirection="column" sx={{ padding: '0 24px' }}>
       <AdminSectionSubTitle title={`${t('vendorOrder.vendor')}`} />
       <Box sx={{ margin: '24px 0' }}>
-        <Link
-          to={`${urls.VENDOR}/${urls.BUYER}/${userId}`}
-          state={{ from: location }}
-        >
+        <Link to={`${urls.VENDOR}/${userId}`} state={{ from: location }}>
           <Typography variant="h4">{userName}</Typography>
         </Link>
 
