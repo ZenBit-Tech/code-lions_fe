@@ -113,6 +113,7 @@ export const RTKUrls = {
   HIDE_RENTAL_RULES: 'hide-rental-rules',
   CHAT: 'chats',
   SUPPORT: 'chats/support',
+  ORDERS_VENDOR: 'orders/vendor',
 };
 
 export const HttpMethods = {
