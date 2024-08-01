@@ -1,7 +1,9 @@
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 
 import { Box, Avatar, Typography } from '@mui/material';
 
+import { urls } from 'src/common/constants';
 import ProductCard from 'src/components/ProductCard';
 import StyledButton from 'src/components/shared/StyledButton';
 import {
@@ -42,7 +44,7 @@ function BestVendorsList({ filters }: BestVerdorsListProps) {
               >
                 <Avatar alt="vendor-avatar" src={photoUrl} />
                 <Typography variant="subtitle1" sx={{ fontWeight: 500 }}>
-                  {vendorName}
+                  <Link to={`${urls.VENDOR}/${vendorId}`}>{vendorName}</Link>
                 </Typography>
               </Box>
               <StyledButton
