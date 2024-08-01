@@ -1,5 +1,10 @@
 import { HttpMethods, RTKUrls } from 'src/common/constants';
-import { Chat, ChatWithMainData, CreateChat } from 'src/common/types.ts';
+import {
+  Chat,
+  ChatWithMainData,
+  CreateChat,
+  UploadFile,
+} from 'src/common/types.ts';
 
 import api from '../api';
 
@@ -32,6 +37,13 @@ export const chatApi = api.injectEndpoints({
         method: HttpMethods.POST,
       }),
     }),
+    uploadFile: build.mutation<void, UploadFile>({
+      query: ({ id, file }) => ({
+        url: `${RTKUrls.CHAT}/${id}/file`,
+        method: HttpMethods.POST,
+        body: file,
+      }),
+    }),
   }),
 });
 
@@ -40,4 +52,5 @@ export const {
   useGetChatByIdQuery,
   useCreateChatMutation,
   useCreateSupportMutation,
+  useUploadFileMutation,
 } = chatApi;

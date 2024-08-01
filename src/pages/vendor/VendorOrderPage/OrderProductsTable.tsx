@@ -8,10 +8,17 @@ import {
   BodyTableCell,
   TableBodyStyled,
 } from 'src/pages/vendor/VendorProductsPage/ProductsTable/styles';
+import { IOrderProduct } from 'src/redux/order/types';
 
-import mockOrder from './mockData';
+import getProductImageUrl from './utils/getProductImageUrl';
 
-function OrderProductsTable() {
+interface IOrderProductsTableProps {
+  products: IOrderProduct[];
+}
+
+const productStock: number = 1;
+
+function OrderProductsTable({ products }: IOrderProductsTableProps) {
   const { t } = useTranslation();
 
   return (
@@ -21,7 +28,7 @@ function OrderProductsTable() {
         <TableContainer>
           <Table aria-label={t('vendorOrder.label')}>
             <TableBodyStyled>
-              {mockOrder.products.map((product) => (
+              {products.map((product) => (
                 <TableRow key={product.id}>
                   <BodyTableCell
                     component="th"
@@ -32,8 +39,8 @@ function OrderProductsTable() {
                     <Image
                       width="52px"
                       height="67px"
-                      src={product.url}
-                      alt={product.url}
+                      src={getProductImageUrl(product)}
+                      alt={product.name}
                     />
                   </BodyTableCell>
                   <BodyTableCell
@@ -46,7 +53,7 @@ function OrderProductsTable() {
                     {product.name}
                   </BodyTableCell>
                   <BodyTableCell align="center">{product.price}</BodyTableCell>
-                  <BodyTableCell align="center">{1}</BodyTableCell>
+                  <BodyTableCell align="center">{productStock}</BodyTableCell>
                   <BodyTableCell
                     align="right"
                     sx={{ padding: '16px 0 16px 16px' }}

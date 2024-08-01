@@ -17,12 +17,20 @@ import ChevronUp from 'src/assets/icons/chevron-up.svg';
 import ProductsIcon from 'src/assets/icons/products.svg';
 import UsersIcon from 'src/assets/icons/users.svg';
 import { urls, userRoles } from 'src/common/constants';
+import useUnreadChatsCount from 'src/common/hooks/useUnreadChatsCount';
 import theme from 'src/theme';
 
 import Logo from './Logo';
-import { StyledListItemButton, StyledSubListItemButton } from './styles';
+import {
+  StyledListItemButton,
+  StyledSubListItemButton,
+  StyledChat,
+  UnreadMessages,
+} from './styles';
 
 function SideBar() {
+  const unreadChatsCount = useUnreadChatsCount();
+
   const [openUsers, setOpenUsers] = useState(false);
   const [openProducts, setOpenProducts] = useState(false);
 
@@ -198,24 +206,38 @@ function SideBar() {
             <StyledListItemButton selected={isActive}>
               <Box
                 display="flex"
-                justifyContent="flex-start"
+                justifyContent="space-between"
                 alignItems="center"
-                width="140px"
+                width="100%"
               >
                 <ListItemIcon sx={{ minWidth: '24px' }}>
                   <ChatsIcon />
                 </ListItemIcon>
                 {isActive ? (
-                  <Typography
-                    variant="subtitle1"
-                    sx={{ marginLeft: '12px', fontSize: '16px' }}
-                  >
-                    {t('sidebar.chats')}
-                  </Typography>
+                  <StyledChat>
+                    <Typography
+                      variant="subtitle1"
+                      sx={{ marginLeft: '12px', fontSize: '16px' }}
+                    >
+                      {t('sidebar.chats')}
+                    </Typography>
+                    {unreadChatsCount ? (
+                      <UnreadMessages>{unreadChatsCount}</UnreadMessages>
+                    ) : (
+                      <></>
+                    )}
+                  </StyledChat>
                 ) : (
-                  <Typography sx={{ marginLeft: '12px', fontWeight: '500' }}>
-                    {t('sidebar.chats')}
-                  </Typography>
+                  <StyledChat>
+                    <Typography sx={{ marginLeft: '12px', fontWeight: '500' }}>
+                      {t('sidebar.chats')}
+                    </Typography>
+                    {unreadChatsCount ? (
+                      <UnreadMessages>{unreadChatsCount}</UnreadMessages>
+                    ) : (
+                      <></>
+                    )}
+                  </StyledChat>
                 )}
               </Box>
             </StyledListItemButton>

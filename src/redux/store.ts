@@ -13,7 +13,6 @@ import {
   REGISTER,
 } from 'redux-persist';
 
-import { addProductApi } from './addProduct/addProductService';
 import addProductReducer from './addProduct/addProductSlice';
 import { adminProductsApi } from './adminProduct/adminProductService';
 import { bestVendorsApi } from './bestVendors/bestVendorsService';
@@ -22,6 +21,8 @@ import { cartApi } from './cart/cartService';
 import cartReducer from './cart/cartSlice';
 import { chatApi } from './chat/chatService';
 import chatReducer from './chat/chatSlice';
+import { orderApi } from './order/orderService';
+import orderReducer from './order/orderSlice';
 import { productApi } from './product/productService';
 import productReducer from './product/productSlice';
 import { userApi } from './user/userService';
@@ -39,15 +40,16 @@ export const rootReducer = combineReducers({
   cart: cartReducer,
   addProduct: addProductReducer,
   chat: chatReducer,
+  order: orderReducer,
   [userApi.reducerPath]: userApi.reducer,
   [productApi.reducerPath]: productApi.reducer,
   [bestVendorsApi.reducerPath]: bestVendorsApi.reducer,
   [wishlistApi.reducerPath]: wishlistApi.reducer,
   [cartApi.reducerPath]: cartApi.reducer,
-  [addProductApi.reducerPath]: addProductApi.reducer,
   [adminProductsApi.reducerPath]: adminProductsApi.reducer,
   [vendorProductsApi.reducerPath]: vendorProductsApi.reducer,
   [chatApi.reducerPath]: chatApi.reducer,
+  [orderApi.reducerPath]: orderApi.reducer,
   [vendorOrdersApi.reducerPath]: vendorOrdersApi.reducer,
 });
 
@@ -72,9 +74,10 @@ const store = configureStore({
       bestVendorsApi.middleware,
       wishlistApi.middleware,
       cartApi.middleware,
-      addProductApi.middleware,
       adminProductsApi.middleware,
       vendorProductsApi.middleware,
+      chatApi.middleware,
+      orderApi.middleware,
       chatApi.middleware,
       vendorOrdersApi.middleware
     ),

@@ -27,6 +27,7 @@ export const MenuMainLink = styled(Link)(({ theme }) => ({
   fontFamily: theme.typography.h2.fontFamily,
   fontSize: theme.typography.h4.fontSize,
   lineHeight: 1.71,
+  display: 'flex',
   color: theme.palette.common.black,
   textDecoration: 'none',
   '&:hover': {

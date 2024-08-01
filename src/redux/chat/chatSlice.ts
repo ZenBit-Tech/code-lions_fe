@@ -16,6 +16,33 @@ export const chatSlice = createSlice({
   name: 'chats',
   initialState,
   reducers: {
+    setStatus: (
+      state,
+      action: PayloadAction<{
+        userId: string;
+        status: string;
+        lastActive?: string;
+      }>
+    ) => {
+      const { userId, lastActive } = action.payload;
+
+      const isOnline = !lastActive;
+
+      state.chatsWithMainData = state.chatsWithMainData.map(
+        (chatWithMainData) =>
+          chatWithMainData.chatPartner.id === userId
+            ? {
+                ...chatWithMainData,
+                chatPartner: {
+                  ...chatWithMainData.chatPartner,
+                  isOnline,
+                  lastActiveAt:
+                    lastActive || chatWithMainData.chatPartner.lastActiveAt,
+                },
+              }
+            : chatWithMainData
+      );
+    },
     setMessage: (
       state,
       action: PayloadAction<{ message: IMessage; chatId?: string }>
@@ -34,7 +61,9 @@ export const chatSlice = createSlice({
         return {
           ...chatWithMainData,
           lastMessage: message,
-          unreadMessageCount: chatWithMainData.unreadMessageCount + increment,
+          unreadMessageCount: chatId
+            ? chatWithMainData.unreadMessageCount
+            : chatWithMainData.unreadMessageCount + increment,
         };
       };
 
@@ -101,6 +130,6 @@ export const chatSlice = createSlice({
   },
 });
 
-export const { setMessage, markAsRead } = chatSlice.actions;
+export const { setMessage, markAsRead, setStatus } = chatSlice.actions;
 
 export default chatSlice.reducer;

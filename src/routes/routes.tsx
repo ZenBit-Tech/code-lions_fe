@@ -27,6 +27,7 @@ import PrivacyPolicyPage from 'src/pages/PrivacyPolicyPage';
 import ProductFeedPage from 'src/pages/ProductFeedPage';
 import ProductPage from 'src/pages/ProductPage';
 import ProfileLayout from 'src/pages/ProfileLayout';
+import ProfileOrder from 'src/pages/ProfileOrder';
 import ProfileOrders from 'src/pages/ProfileOrders';
 import ProfilePage from 'src/pages/ProfilePage';
 import ProfileComingSoon from 'src/pages/ProfilePage/ProfileComingSoon';
@@ -41,6 +42,7 @@ import SupportPage from 'src/pages/SupportPage';
 import TermsOfUsePage from 'src/pages/TermsOfUsePage';
 import VendorAddProductPage from 'src/pages/vendor/VendorAddProductPage';
 import VendorDashboard from 'src/pages/vendor/VendorDashboard';
+import VendorEditProductPage from 'src/pages/vendor/VendorEditProductPage';
 import VendorLayout from 'src/pages/vendor/VendorLayout';
 import VendorOrderPage from 'src/pages/vendor/VendorOrderPage';
 import VendorOrdersPage from 'src/pages/vendor/VendorOrdersPage';
@@ -92,6 +94,7 @@ const router = createBrowserRouter([
         children: [
           { path: urls.PROFILE_DETAILS, element: <ProfilePage /> },
           { path: urls.PROFILE_ORDERS, element: <ProfileOrders /> },
+          { path: urls.PROFILE_ORDER, element: <ProfileOrder /> },
           { path: urls.PROFILE_WISHLIST, element: <WishlistPage /> },
           { path: urls.BUYER_CHATS, element: <ChatsPage /> },
           { path: urls.BUYER_CHAT_ID, element: <ChatsPage /> },
@@ -200,7 +203,7 @@ const router = createBrowserRouter([
       { path: urls.USER_BUYER_PROFILE, element: <BuyerPublicProfilePage /> },
       { path: urls.VENDOR_DASHBOARD, element: <VendorDashboard /> },
       { path: urls.VENDOR_ADD_PRODUCT, element: <VendorAddProductPage /> },
-      { path: urls.VENDOR_EDIT_PRODUCT, element: <ProfileComingSoon /> },
+      { path: urls.VENDOR_EDIT_PRODUCT, element: <VendorEditProductPage /> },
       { path: urls.VENDOR_PRODUCTS, element: <VendorProductsPage /> },
       { path: urls.VENDOR_ORDERS, element: <VendorOrdersPage /> },
       { path: urls.VENDOR_ORDER, element: <VendorOrderPage /> },

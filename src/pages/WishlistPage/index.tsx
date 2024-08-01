@@ -4,6 +4,7 @@ import { Box, CircularProgress, Typography } from '@mui/material';
 
 import ProductCard from 'src/components/ProductCard';
 import { useAppSelector } from 'src/redux/hooks';
+import { IProduct } from 'src/redux/product/types';
 import theme from 'src/theme';
 
 function WishlistPage() {
@@ -33,7 +34,7 @@ function WishlistPage() {
         mb: '40px',
       }}
     >
-      {data.map((item) => (
+      {data.map((item: IProduct) => (
         <Box
           key={item.id}
           component="div"
