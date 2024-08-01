@@ -40,6 +40,7 @@ export const urls = {
   USER_VENDOR_PROFILE: 'vendor/:id',
   PROFILE_DETAILS: 'details',
   PROFILE_ORDERS: 'orders',
+  PROFILE_ORDER: 'orders/:orderId',
   PROFILE_WISHLIST: 'wishlist/:userId',
   WISHLIST: 'wishlist',
   PROFILE_SETTINGS: 'settings',

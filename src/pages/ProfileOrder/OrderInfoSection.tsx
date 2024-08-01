@@ -1,15 +1,12 @@
 import { useTranslation } from 'react-i18next';
 
-import { Box, Typography, Button } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 
-import { orderStatus } from 'src/common/constants';
 import formatDateString from 'src/common/utils/formatDateString';
 import AdminSectionSubTitle from 'src/pages/admin/AdminSectionSubTitle';
 import { Status } from 'src/pages/vendor/VendorOrdersPage/OrdersTable/styles';
 import { IOrder } from 'src/redux/order/types';
 import theme from 'src/theme';
-
-import styles from './styles';
 
 interface IOrderInfoSectionProps {
   order: IOrder;
@@ -24,7 +21,7 @@ function OrderInfoSection({ order }: IOrderInfoSectionProps) {
       <Box
         display="flex"
         justifyContent="space-between"
-        sx={{ margin: '24px 0 24px 0' }}
+        sx={{ margin: '24px 0 36px 0' }}
       >
         <Box display="flex" flexDirection="column" gap="8px">
           <Typography variant="h4" sx={{ color: theme.palette.grey[400] }}>
@@ -57,20 +54,6 @@ function OrderInfoSection({ order }: IOrderInfoSectionProps) {
           </Typography>
         </Box>
       </Box>
-      {order.status === orderStatus.NEW && (
-        <Box sx={styles.buttonWrapper}>
-          <Button sx={styles.rejectButton}>
-            <Typography
-              variant="h4"
-              sx={{
-                color: theme.palette.common.black,
-              }}
-            >
-              {t('vendorOrder.reject')}
-            </Typography>
-          </Button>
-        </Box>
-      )}
     </>
   );
 }
