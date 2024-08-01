@@ -4,11 +4,6 @@ import { useDispatch } from 'react-redux';
 
 import useToast from 'src/components/shared/toasts/components/ToastProvider/ToastProviderHooks';
 import {
-  useUploadProductPhotoMutation,
-  useDeleteProductPhotoMutation,
-  useSetProductPhotoPrimaryMutation,
-} from 'src/redux/addProduct/addProductService';
-import {
   addPhoto,
   removePhoto,
   selectProductId,
@@ -16,6 +11,11 @@ import {
   setPrimaryPhoto,
 } from 'src/redux/addProduct/addProductSlice';
 import { useAppSelector } from 'src/redux/hooks';
+import {
+  useUploadProductPhotoMutation,
+  useDeleteProductPhotoMutation,
+  useSetProductPhotoPrimaryMutation,
+} from 'src/redux/vendorProduct/vendorProductService';
 
 const maxMbImage = 50;
 const maxSizeImage = 1024;

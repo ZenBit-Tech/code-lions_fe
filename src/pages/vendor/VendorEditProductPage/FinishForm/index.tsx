@@ -22,7 +22,6 @@ import {
   OnboardingHeader4,
   OnboardingText,
 } from 'src/pages/OnboardingPage/styles';
-import { useUpdateProductMutation } from 'src/redux/addProduct/addProductService';
 import {
   decreaseAddProductStep,
   setPrice,
@@ -30,6 +29,7 @@ import {
   selectProductId,
 } from 'src/redux/addProduct/addProductSlice';
 import { useAppDispatch, useAppSelector } from 'src/redux/hooks';
+import { useUpdateProductMutation } from 'src/redux/vendorProduct/vendorProductService';
 import theme from 'src/theme';
 
 import RejectEditingModal from '../RejectEditingModal';

@@ -33,13 +33,13 @@ import {
   shoesType,
   uniqueSizes,
 } from 'src/pages/vendor/VendorAddProductPage/ProductDescriptionForm/productDescriptionConstants';
-import { useUploadProductPdfMutation } from 'src/redux/addProduct/addProductService';
 import {
   decreaseAddProductStep,
   increaseAddProductStep,
   selectProductId,
 } from 'src/redux/addProduct/addProductSlice';
 import { useAppDispatch, useAppSelector } from 'src/redux/hooks';
+import { useUploadProductPdfMutation } from 'src/redux/vendorProduct/vendorProductService';
 import theme from 'src/theme';
 
 import RejectEditingModal from '../RejectEditingModal';
