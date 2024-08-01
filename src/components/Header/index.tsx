@@ -100,8 +100,8 @@ function Header() {
             flexDirection: 'row',
             justifyContent: 'flex-end',
             gap: '40px',
-            width: '355px',
-            marginLeft: '60px',
+            width: '400px',
+            marginLeft: '10px',
           }}
         >
           <MenuMainLink to={urls.PRODUCT_FEED}>{t('header.shop')}</MenuMainLink>
