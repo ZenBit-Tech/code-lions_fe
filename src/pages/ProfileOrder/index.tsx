@@ -8,13 +8,13 @@ import { IOrder } from 'src/redux/order/types';
 import { selectUserId } from 'src/redux/user/userSlice';
 import theme from 'src/theme';
 
-import BuyerInfoSection from './BuyerInfoSection';
 import OrderDetailsSection from './OrderDetailsSection';
 import OrderInfoSection from './OrderInfoSection';
 import OrderProductsTable from './OrderProductsTable';
 import OrderSummarySection from './OrderSummarySection';
+import VendorInfoSection from './VendorInfoSection';
 
-function VendorOrderPage() {
+function ProfileOrderPage() {
   const userId = useAppSelector(selectUserId);
   const { orderId } = useParams<{ orderId: string }>();
 
@@ -40,7 +40,7 @@ function VendorOrderPage() {
           <OrderSummarySection shipping={order.shipping} price={order.price} />
         </Grid>
         <Grid item xs={2}>
-          <BuyerInfoSection
+          <VendorInfoSection
             userName={data.userName}
             userId={data.userId}
             address={data.address}
@@ -51,4 +51,4 @@ function VendorOrderPage() {
   );
 }
 
-export default VendorOrderPage;
+export default ProfileOrderPage;

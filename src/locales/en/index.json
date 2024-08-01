@@ -9,7 +9,8 @@
   },
   "toasterMessages": {
     "failedCreateChat": "Failed create chat with vendor. Please try later.",
-    "failedCreateSupport": "Failed create chat with administrator. Please try later."
+    "failedCreateSupport": "Failed create chat with administrator. Please try later.",
+    "failedToRejectOrder": "Failed to reject order"
   },
   "chat": {
     "yesterday": "Yesterday",
@@ -458,7 +459,7 @@
   "vendorOrder": {
     "vendor": "Vendor",
     "orders": "Orders",
-    "order100": "Order #100",
+    "order": "Order #",
     "orderInfo": "Order Information",
     "customer": "Customer",
     "address": "Address",
