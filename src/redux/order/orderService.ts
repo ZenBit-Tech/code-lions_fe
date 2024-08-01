@@ -2,12 +2,16 @@ import { createApi } from '@reduxjs/toolkit/query/react';
 import { HttpMethods, RTKUrls } from 'src/common/constants';
 import { baseQueryWithReauth } from 'src/redux/user/userService';
 
-import { IOrderData } from './types';
+import {
+  IOrderData,
+  IVendorOrdersRequest,
+  IVendorOrdersResponse,
+} from './types';
 
 export const orderApi = createApi({
   reducerPath: 'orderApi',
   baseQuery: baseQueryWithReauth,
-  tagTypes: ['Order'],
+  tagTypes: ['Order', 'Orders'],
   endpoints: (build) => ({
     getOrderByUserIdAndOrderId: build.query<
       IOrderData,
@@ -27,8 +31,22 @@ export const orderApi = createApi({
       }),
       invalidatesTags: ['Order'],
     }),
+    getAllOrdersVendor: build.query<
+      IVendorOrdersResponse,
+      IVendorOrdersRequest
+    >({
+      query: ({ id }) => ({
+        url: `${RTKUrls.ORDERS_VENDOR}/${id}`,
+        method: HttpMethods.GET,
+      }),
+      providesTags: (result) =>
+        result ? [{ type: 'Orders', id: 'LIST' }] : [],
+    }),
   }),
 });
 
-export const { useGetOrderByUserIdAndOrderIdQuery, useRejectOrderMutation } =
-  orderApi;
+export const {
+  useGetOrderByUserIdAndOrderIdQuery,
+  useRejectOrderMutation,
+  useGetAllOrdersVendorQuery,
+} = orderApi;

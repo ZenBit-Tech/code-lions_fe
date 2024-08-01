@@ -13,7 +13,7 @@ import {
   Status,
   StyledLink,
 } from 'src/pages/vendor/VendorOrdersPage/OrdersTable/styles';
-import { IOrder } from 'src/redux/vendorOrders/types';
+import { IVendorOrder } from 'src/redux/order/types';
 
 import {
   BodyTableCell,
@@ -24,7 +24,7 @@ import {
 } from './styles';
 
 interface IOrdersTable {
-  data: IOrder[];
+  data: IVendorOrder[];
 }
 
 function OrdersTable({ data }: IOrdersTable) {

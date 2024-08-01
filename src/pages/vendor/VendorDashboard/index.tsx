@@ -7,8 +7,8 @@ import { Grid, Typography } from '@mui/material';
 import useErrorHandling from 'src/common/hooks/useErrorHandlingHook';
 import Loader from 'src/components/Loader';
 import useToast from 'src/components/shared/toasts/components/ToastProvider/ToastProviderHooks';
+import { useGetAllOrdersVendorQuery } from 'src/redux/order/orderService';
 import { selectUserId } from 'src/redux/user/userSlice';
-import { useGetAllOrdersVendorQuery } from 'src/redux/vendorOrders/vendorOrdersService';
 
 import VendorSectionTitle from '../VendorSectionTitle';
 

@@ -6,9 +6,9 @@ import { Box, Grid, Typography } from '@mui/material';
 
 import { sortOptions } from 'src/common/constants';
 import SortButton from 'src/pages/admin/SortButton';
+import { useGetAllOrdersVendorQuery } from 'src/redux/order/orderService';
 import { SortOrder } from 'src/redux/user/types';
 import { selectUserId } from 'src/redux/user/userSlice';
-import { useGetAllOrdersVendorQuery } from 'src/redux/vendorOrders/vendorOrdersService';
 
 import VendorSectionTitle from '../VendorSectionTitle';
 

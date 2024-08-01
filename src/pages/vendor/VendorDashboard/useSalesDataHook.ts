@@ -1,6 +1,6 @@
 import getDateNDaysAgo from 'src/common/utils/getDateNDaysAgo';
 import isLeapYear from 'src/common/utils/isALeapYear';
-import { Category, IOrder } from 'src/redux/vendorOrders/types';
+import { Category, IVendorOrder } from 'src/redux/order/types';
 
 interface SalesData {
   salesTotal: number;
@@ -16,7 +16,7 @@ interface SalesData {
     orders: number;
     value: number;
   }[];
-  ordersPlacedThreeDaysAgo: IOrder[];
+  ordersPlacedThreeDaysAgo: IVendorOrder[];
 }
 
 const numberOfDays = {
@@ -39,7 +39,7 @@ const decimalNumbers = {
   TWO: 2,
 };
 
-function useSalesData(orders: IOrder[] = []): SalesData {
+function useSalesData(orders: IVendorOrder[] = []): SalesData {
   // Helper function to calculate percentage change
   const calculateChange = (newValue: number, oldValue: number) => {
     if (oldValue === 0) {

@@ -10,7 +10,7 @@ import {
 
 import { urls } from 'src/common/constants';
 import StyledPagination from 'src/pages/admin/StyledPagination';
-import { IOrder } from 'src/redux/vendorOrders/types';
+import { IVendorOrder } from 'src/redux/order/types';
 
 import {
   BodyTableCell,
@@ -23,7 +23,7 @@ import {
 } from './styles';
 
 interface IOrdersTable {
-  orders: IOrder[];
+  orders: IVendorOrder[];
   pagesCount: number;
   page: number;
   handleChange: (event: React.ChangeEvent<unknown>, value: number) => void;
