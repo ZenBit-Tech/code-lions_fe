@@ -16,15 +16,16 @@ import {
 } from 'src/components/shared/StyledInput/types';
 import { CustomSelect } from 'src/components/shared/StyledSelect';
 import useToast from 'src/components/shared/toasts/components/ToastProvider/ToastProviderHooks';
-import { useUploadProductPdfMutation } from 'src/redux/addProduct/addProductService';
 import {
   decreaseAddProductStep,
   increaseAddProductStep,
   selectProductId,
 } from 'src/redux/addProduct/addProductSlice';
 import { useAppDispatch, useAppSelector } from 'src/redux/hooks';
+import { useUploadProductPdfMutation } from 'src/redux/vendorProduct/vendorProductService';
 import theme from 'src/theme';
 
+import useProductDispatch from './hooks/useProductDispatch';
 import {
   accessoriesCategory,
   bagsCategory,
@@ -41,8 +42,7 @@ import {
   shoesSizes,
   shoesType,
   uniqueSizes,
-} from './constants';
-import useProductDispatch from './hooks/useProductDispatch';
+} from './productDescriptionConstants';
 
 function ProductDescriptionForm() {
   const { t } = useTranslation();
