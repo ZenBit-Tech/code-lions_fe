@@ -28,20 +28,18 @@ function ImagesForm() {
           gap: '5px',
         }}
       >
-        {images &&
-          images.map(
-            (item) =>
-              (item.type === 'image' || item.type === 'video') && (
-                <ImageCard
-                  type={item.type}
-                  src={item.src}
-                  isPrimary={item.isPrimary}
-                />
-              )
-          )}
-        {images &&
-          images.filter((item) => item.type === 'image').length <
-            maxNumberImage && <ImageCard type="image" />}
+        {images?.map(
+          (item) =>
+            (item.type === 'image' || item.type === 'video') && (
+              <ImageCard
+                type={item.type}
+                src={item.src}
+                isPrimary={item.isPrimary}
+              />
+            )
+        )}
+        {images?.filter((item) => item.type === 'image').length <
+          maxNumberImage && <ImageCard type="image" />}
       </Box>
     </Box>
   );
