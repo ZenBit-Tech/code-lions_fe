@@ -10,4 +10,17 @@ const SvgHover = styled(Box)(() => ({
   },
 }));
 
-export default SvgHover;
+const UnreadMessages = styled('div')(({ theme }) => ({
+  backgroundColor: theme.palette.common.black,
+  color: theme.palette.common.white,
+  margin: '0 0.5rem',
+  borderRadius: '50%',
+  paddingBottom: '0.15rem',
+  width: '1.5rem',
+  height: '1.5rem',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+}));
+
+export { UnreadMessages, SvgHover };
