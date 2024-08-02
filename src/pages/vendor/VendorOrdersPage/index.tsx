@@ -1,13 +1,15 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
 
 import { Box, Grid, Typography } from '@mui/material';
 
 import { sortOptions } from 'src/common/constants';
 import SortButton from 'src/pages/admin/SortButton';
+import { useGetAllOrdersVendorQuery } from 'src/redux/order/orderService';
 import { SortOrder } from 'src/redux/user/types';
+import { selectUserId } from 'src/redux/user/userSlice';
 
-import { orders } from '../VendorDashboard/mockOrderData';
 import VendorSectionTitle from '../VendorSectionTitle';
 
 import OrdersButtons from './OrderButtons';
@@ -27,9 +29,22 @@ function VendorOrdersPage() {
     setPage(value);
   };
 
-  const ORDERSONPAGE = 8;
+  const id = useSelector(selectUserId);
 
-  const pagesCount = Math.ceil(orders.length / ORDERSONPAGE);
+  const { data } = useGetAllOrdersVendorQuery(
+    {
+      id,
+    },
+    {
+      refetchOnFocus: true,
+      refetchOnReconnect: true,
+    }
+  );
+
+  const ORDERSONPAGE = 8;
+  const orderQuantity = data?.length ?? 0;
+
+  const pagesCount = Math.ceil(orderQuantity / ORDERSONPAGE);
 
   return (
     <Grid container columns={12}>
@@ -48,9 +63,9 @@ function VendorOrdersPage() {
             </Box>
           </Grid>
           <Grid item xs={12} mt={4}>
-            {orders && orders.length > 0 ? (
+            {data && data.length > 0 ? (
               <OrdersTable
-                orders={orders}
+                orders={data}
                 pagesCount={pagesCount}
                 page={page}
                 handleChange={handleChange}

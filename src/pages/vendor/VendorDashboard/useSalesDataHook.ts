@@ -1,9 +1,6 @@
-import { useState, useEffect } from 'react';
-
 import getDateNDaysAgo from 'src/common/utils/getDateNDaysAgo';
 import isLeapYear from 'src/common/utils/isALeapYear';
-
-import { Category, Order } from './types';
+import { Category, IVendorOrder } from 'src/redux/order/types';
 
 interface SalesData {
   salesTotal: number;
@@ -19,7 +16,7 @@ interface SalesData {
     orders: number;
     value: number;
   }[];
-  ordersPlacedThreeDaysAgo: Order[];
+  ordersPlacedThreeDaysAgo: IVendorOrder[];
 }
 
 const numberOfDays = {
@@ -30,6 +27,10 @@ const numberOfDays = {
   LEAPYEAR: 366,
 };
 
+const numberOfMonth = {
+  TWELVE: 12,
+};
+
 const changePercentage = {
   HUNDRED: 100,
 };
@@ -38,297 +39,195 @@ const decimalNumbers = {
   TWO: 2,
 };
 
-function useSalesData(orders: Order[]): SalesData {
-  const [salesTotal, setSalesTotal] = useState<number>(0);
-  const [salesTotalChange, setSalesTotalChange] = useState<number>(0);
-  const [averageOrderValue, setAverageOrderValue] = useState<number>(0);
-  const [averageOrderValueChange, setAverageOrderValueChange] =
-    useState<number>(0);
-  const [totalOrders, setTotalOrders] = useState<number>(0);
-  const [totalOrdersChange, setTotalOrdersChange] = useState<number>(0);
-  const [dataset, setDataset] = useState<{ month: string; amount: number }[]>(
-    []
-  );
-  const [categoryData, setCategoryData] = useState<
-    { id: Category; category: Category; orders: number; value: number }[]
-  >([]);
-  const [ordersPlacedThreeDaysAgo, setOrdersPlacedThreeDaysAgo] = useState<
-    Order[]
-  >([]);
-
-  useEffect(() => {
-    if (orders.length === 0) {
-      setSalesTotal(0);
-      setSalesTotalChange(0);
-      setAverageOrderValue(0);
-      setAverageOrderValueChange(0);
-      setTotalOrders(0);
-      setTotalOrdersChange(0);
-      setDataset([]);
-      setCategoryData([]);
-      setOrdersPlacedThreeDaysAgo([]);
-
-      return;
+function useSalesData(orders: IVendorOrder[] = []): SalesData {
+  // Helper function to calculate percentage change
+  const calculateChange = (newValue: number, oldValue: number) => {
+    if (oldValue === 0) {
+      return newValue > 0 ? changePercentage.HUNDRED : 0;
     }
 
-    // Function to calculate metrics for a given number of days
-    const calculateMetricsForDays = (
-      days: number,
-      today: Date
-    ): {
-      totalSales: number;
-      avgOrderValue: number;
-      totalOrderCount: number;
-    } => {
-      const startDate = getDateNDaysAgo(days, today);
+    return ((newValue - oldValue) / oldValue) * changePercentage.HUNDRED;
+  };
 
-      // Filter orders within the specified date range
-      const filteredOrders = orders.filter((order) => {
-        const orderDate = new Date(order.datePlaced);
+  const todayDay = new Date();
 
-        return orderDate >= startDate && orderDate <= today;
-      });
+  // Function to calculate metrics for a given number of days
+  const calculateMetricsForDays = (days: number, today: Date) => {
+    const startDate = getDateNDaysAgo(days, today);
+    const filteredOrders = orders.filter((order) => {
+      const orderDate = new Date(order.createdAt);
 
-      // Calculate total sales for the filtered orders
-      const totalSales = filteredOrders.reduce(
-        (sum, order) => sum + order.amount,
-        0
-      );
-
-      // Calculate average order value
-      const totalOrderCount = filteredOrders.length;
-      const avgOrderValue =
-        totalOrderCount > 0 ? totalSales / totalOrderCount : 0;
-
-      return { totalSales, avgOrderValue, totalOrderCount };
-    };
-
-    // Function to calculate sales per month dataset
-    const calculateSalesPerMonthDataset = (
-      ordersEachMonth: Order[]
-    ): {
-      month: string;
-      amount: number;
-    }[] => {
-      const salesPerMonth: { [key: string]: { year: number; amount: number } } =
-        {};
-
-      ordersEachMonth.forEach((order) => {
-        const orderDate = new Date(order.datePlaced);
-        const month = orderDate.toLocaleString('en-US', { month: 'short' });
-        const year = orderDate.getFullYear();
-        const monthYearKey = `${year}-${month}`;
-
-        if (salesPerMonth[monthYearKey]) {
-          salesPerMonth[monthYearKey].amount += order.amount;
-        } else {
-          salesPerMonth[monthYearKey] = { year, amount: order.amount };
-        }
-      });
-
-      const monthlyData = Object.keys(salesPerMonth)
-        .map((key) => {
-          const [year, month] = key.split('-');
-
-          return {
-            month,
-            amount: salesPerMonth[key].amount,
-            year: parseInt(year, 10),
-          };
-        })
-        .sort(
-          (a, b) =>
-            a.year - b.year ||
-            new Date(`${a.month} 1`).getMonth() -
-              new Date(`${b.month} 1`).getMonth()
-        )
-        .map(({ month, amount }) => ({
-          month,
-          amount,
-        }));
-
-      return monthlyData;
-    };
-
-    // Function to calculate sales per category for a given number of days
-    const calculateSalesPerCategory = (
-      days: number,
-      today: Date
-    ): {
-      id: Category;
-      category: Category;
-      orders: number;
-      value: number;
-    }[] => {
-      const salesPerCategory: {
-        [key in Category]: { orders: number; value: number };
-      } = {
-        Clothing: { orders: 0, value: 0 },
-        Shoes: { orders: 0, value: 0 },
-        Bags: { orders: 0, value: 0 },
-        Accessories: { orders: 0, value: 0 },
-      };
-
-      // Calculate the date `days` ago from `today`
-      const startDate = getDateNDaysAgo(days, today);
-
-      // Filter orders within the specified date range
-      const filteredOrders = orders.filter((order) => {
-        const orderDate = new Date(order.datePlaced);
-
-        return orderDate >= startDate && orderDate <= today;
-      });
-
-      // Iterate through filtered orders and update sales per category
-      filteredOrders.forEach((order) => {
-        order.items.forEach((item) => {
-          const { category, price, quantity } = item;
-
-          salesPerCategory[category].orders += quantity;
-          salesPerCategory[category].value += price * quantity;
-        });
-      });
-
-      // Format the data into an array of objects
-      const dataForCategories = Object.keys(salesPerCategory).map(
-        (category) => ({
-          id: category as Category,
-          category: category as Category,
-          orders: salesPerCategory[category as Category].orders,
-          value: salesPerCategory[category as Category].value,
-        })
-      );
-
-      return dataForCategories;
-    };
-
-    // Get today's date
-    const today = new Date();
-
-    // Determine the number of days based on current year's leap status
-    const daysInYear = isLeapYear(today.getFullYear())
-      ? numberOfDays.LEAPYEAR
-      : numberOfDays.YEAR;
-
-    // Calculate total sales, average order value and number of orders for the last 7 days
-    const {
-      totalSales: salesLast7Days,
-      avgOrderValue: avgOrderValueLast7Days,
-      totalOrderCount: ordersLast7Days,
-    } = calculateMetricsForDays(numberOfDays.SEVEN, today);
-
-    // Calculate total sales, average order value and number of orders for the 7 days before the last 7 days
-    const sevenDaysAgo = getDateNDaysAgo(numberOfDays.SEVEN, today);
-    const {
-      totalSales: salesPrevious7Days,
-      avgOrderValue: avgOrderValuePrevious7Days,
-      totalOrderCount: ordersPrevious7Days,
-    } = calculateMetricsForDays(numberOfDays.SEVEN, sevenDaysAgo);
-
-    // Calculate total sales, average order value and number of orders for all time (365 or 366 days)
-    const {
-      totalSales: totalSalesAllTime,
-      avgOrderValue: avgOrderValueAllTime,
-      totalOrderCount: ordersAllTime,
-    } = calculateMetricsForDays(daysInYear, today);
-
-    // Set state values
-    setSalesTotal(parseFloat(totalSalesAllTime.toFixed(decimalNumbers.TWO)));
-    setAverageOrderValue(
-      parseFloat(avgOrderValueAllTime.toFixed(decimalNumbers.TWO))
-    );
-    setTotalOrders(ordersAllTime);
-
-    // Calculate percentage change in total sales over the last 7 days
-    let salesChange;
-
-    if (salesPrevious7Days === 0) {
-      if (salesLast7Days > 0) {
-        salesChange = changePercentage.HUNDRED;
-      } else {
-        salesChange = 0;
-      }
-    } else {
-      salesChange =
-        ((salesLast7Days - salesPrevious7Days) / salesPrevious7Days) *
-        changePercentage.HUNDRED;
-    }
-
-    setSalesTotalChange(parseFloat(salesChange.toFixed(decimalNumbers.TWO)));
-
-    // Calculate percentage change in average order value over the last 7 days
-    let avgOrderValueChange;
-
-    if (avgOrderValuePrevious7Days === 0) {
-      if (avgOrderValueLast7Days > 0) {
-        avgOrderValueChange = changePercentage.HUNDRED;
-      } else {
-        avgOrderValueChange = 0;
-      }
-    } else {
-      avgOrderValueChange =
-        ((avgOrderValueLast7Days - avgOrderValuePrevious7Days) /
-          avgOrderValuePrevious7Days) *
-        changePercentage.HUNDRED;
-    }
-    setAverageOrderValueChange(
-      parseFloat(avgOrderValueChange.toFixed(decimalNumbers.TWO))
-    );
-
-    // Calculate percentage change in total orders over the last 7 days
-    let ordersChange;
-
-    if (ordersPrevious7Days === 0) {
-      if (ordersLast7Days > 0) {
-        ordersChange = changePercentage.HUNDRED;
-      } else {
-        ordersChange = 0;
-      }
-    } else {
-      ordersChange =
-        ((ordersLast7Days - ordersPrevious7Days) / ordersPrevious7Days) *
-        changePercentage.HUNDRED;
-    }
-    setTotalOrdersChange(parseFloat(ordersChange.toFixed(decimalNumbers.TWO)));
-
-    // Calculate sales per month dataset
-    const salesPerMonthDataset = calculateSalesPerMonthDataset(orders);
-
-    setDataset(salesPerMonthDataset);
-
-    // Calculate sales per category for the last 7 days
-    const salesPerCategory = calculateSalesPerCategory(
-      numberOfDays.SEVEN,
-      today
-    );
-
-    setCategoryData(salesPerCategory);
-
-    // Calculate orders placed exactly three days ago
-    const threeDaysAgo = getDateNDaysAgo(numberOfDays.THREE, today);
-    // const startOfDayThreeDaysAgo = new Date(
-    //   threeDaysAgo.getFullYear(),
-    //   threeDaysAgo.getMonth(),
-    //   threeDaysAgo.getDate()
-    // );
-    // const endOfDayThreeDaysAgo = new Date(
-    //   threeDaysAgo.getFullYear(),
-    //   threeDaysAgo.getMonth(),
-    //   threeDaysAgo.getDate(),
-    //   23,
-    //   59,
-    //   59,
-    //   999
-    // );
-
-    const ordersThreeDaysAgo = orders.filter((order) => {
-      const orderDate = new Date(order.datePlaced);
-
-      return orderDate >= threeDaysAgo && orderDate <= today;
+      return orderDate >= startDate && orderDate <= today;
     });
 
-    setOrdersPlacedThreeDaysAgo(ordersThreeDaysAgo);
-  }, [orders]);
+    const totalSales = filteredOrders.reduce(
+      (sum, order) => sum + parseFloat(order.price),
+      0
+    );
+    const totalOrderCount = filteredOrders.length;
+    const avgOrderValue =
+      totalOrderCount > 0 ? totalSales / totalOrderCount : 0;
+
+    return { totalSales, avgOrderValue, totalOrderCount };
+  };
+
+  const daysInYear = isLeapYear(todayDay.getFullYear())
+    ? numberOfDays.LEAPYEAR
+    : numberOfDays.YEAR;
+
+  const {
+    totalSales: salesLast7Days,
+    avgOrderValue: avgOrderValueLast7Days,
+    totalOrderCount: ordersLast7Days,
+  } = calculateMetricsForDays(numberOfDays.SEVEN, todayDay);
+
+  const sevenDaysAgo = getDateNDaysAgo(numberOfDays.SEVEN, todayDay);
+  const {
+    totalSales: salesPrevious7Days,
+    avgOrderValue: avgOrderValuePrevious7Days,
+    totalOrderCount: ordersPrevious7Days,
+  } = calculateMetricsForDays(numberOfDays.SEVEN, sevenDaysAgo);
+
+  const {
+    totalSales: totalSalesAllTime,
+    avgOrderValue: avgOrderValueAllTime,
+    totalOrderCount: ordersAllTime,
+  } = calculateMetricsForDays(daysInYear, todayDay);
+
+  const salesTotal = parseFloat(totalSalesAllTime.toFixed(decimalNumbers.TWO));
+  const averageOrderValue = parseFloat(
+    avgOrderValueAllTime.toFixed(decimalNumbers.TWO)
+  );
+  const totalOrders = ordersAllTime;
+  const salesTotalChange = parseFloat(
+    calculateChange(salesLast7Days, salesPrevious7Days).toFixed(
+      decimalNumbers.TWO
+    )
+  );
+  const averageOrderValueChange = parseFloat(
+    calculateChange(avgOrderValueLast7Days, avgOrderValuePrevious7Days).toFixed(
+      decimalNumbers.TWO
+    )
+  );
+  const totalOrdersChange = parseFloat(
+    calculateChange(ordersLast7Days, ordersPrevious7Days).toFixed(
+      decimalNumbers.TWO
+    )
+  );
+
+  const calculateSalesPerMonthDataset = () => {
+    const today = new Date();
+    const currentYear = today.getFullYear();
+    const currentMonthIndex = today.getMonth();
+
+    // Define all months
+    const months = [
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'May',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dec',
+    ];
+
+    // Initialize sales data for the last 12 months
+    const salesPerMonth: Record<string, number> = {};
+
+    for (let i = 0; i < numberOfMonth.TWELVE; i += 1) {
+      // Calculate the month index and year
+      const monthIndex =
+        (currentMonthIndex - i + numberOfMonth.TWELVE) % numberOfMonth.TWELVE;
+      const month = months[monthIndex];
+      const year =
+        monthIndex > currentMonthIndex ? currentYear - 1 : currentYear;
+      const monthKey = `${year}-${month}`;
+
+      salesPerMonth[monthKey] = 0;
+    }
+
+    // Filter orders for the last 12 months
+    const filteredOrders = orders.filter((order) => {
+      const orderDate = new Date(order.createdAt);
+      const orderYear = orderDate.getFullYear();
+      const orderMonthIndex = orderDate.getMonth();
+      const isWithinLastYear =
+        orderYear > currentYear - 1 ||
+        (orderYear === currentYear - 1 &&
+          orderMonthIndex >= currentMonthIndex) ||
+        (orderYear === currentYear && orderMonthIndex <= currentMonthIndex);
+
+      return isWithinLastYear;
+    });
+
+    // Update sales data with the filtered orders
+    filteredOrders.forEach((order) => {
+      const orderDate = new Date(order.createdAt);
+      const month = orderDate.toLocaleString('en-US', { month: 'short' });
+      const year = orderDate.getFullYear();
+      const key = `${year}-${month}`;
+
+      salesPerMonth[key] = (salesPerMonth[key] || 0) + parseFloat(order.price);
+    });
+
+    // Convert the data into the required format and sort by date
+    return Object.entries(salesPerMonth)
+      .map(([key, amount]) => {
+        const [year, month] = key.split('-');
+
+        return { year, month, amount };
+      })
+      .sort((a, b) => {
+        const aDate = new Date(`${a.year}-${months.indexOf(a.month) + 1}-01`);
+        const bDate = new Date(`${b.year}-${months.indexOf(b.month) + 1}-01`);
+
+        return aDate.getTime() - bDate.getTime();
+      });
+  };
+
+  const dataset = calculateSalesPerMonthDataset();
+
+  const calculateSalesPerCategory = () => {
+    const salesPerCategory = orders.reduce(
+      (acc, order) => {
+        order.products.forEach((item) => {
+          const category = item.categories?.[0] as Category | undefined;
+
+          if (category) {
+            if (!acc[category]) {
+              acc[category] = { orders: 0, value: 0 };
+            }
+            acc[category].orders += 1;
+            acc[category].value += parseFloat(item.price);
+          }
+        });
+
+        return acc;
+      },
+      {} as Record<Category, { orders: number; value: number }>
+    );
+
+    return Object.entries(salesPerCategory).map(([category, data]) => ({
+      id: category as Category,
+      category: category as Category,
+      orders: data.orders,
+      value: data.value,
+    }));
+  };
+
+  const categoryData = calculateSalesPerCategory();
+
+  const ordersPlacedThreeDaysAgo = orders.filter((order) => {
+    const orderDate = new Date(order.createdAt);
+    const threeDaysAgo = getDateNDaysAgo(numberOfDays.THREE, todayDay);
+
+    return orderDate >= threeDaysAgo && orderDate <= todayDay;
+  });
 
   return {
     salesTotal,

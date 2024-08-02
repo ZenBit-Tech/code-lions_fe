@@ -4,13 +4,12 @@ import { Box, Table, TableContainer, TableRow } from '@mui/material';
 
 import AdminSectionSubTitle from 'src/pages/admin/AdminSectionSubTitle';
 import { Image } from 'src/pages/CartPage/CartTable/styles';
+import getProductImageUrl from 'src/pages/vendor/VendorOrderPage/utils/getProductImageUrl';
 import {
   BodyTableCell,
   TableBodyStyled,
 } from 'src/pages/vendor/VendorProductsPage/ProductsTable/styles';
 import { IOrderProduct } from 'src/redux/order/types';
-
-import getProductImageUrl from './utils/getProductImageUrl';
 
 interface IOrderProductsTableProps {
   products: IOrderProduct[];

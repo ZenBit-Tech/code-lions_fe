@@ -36,11 +36,17 @@ function VendorProductPage() {
     setPage(value);
   };
 
-  const { data, isLoading, error } = useGetAllProductsVendorQuery({
-    id,
-    page,
-    sortOrder,
-  });
+  const { data, isLoading, error } = useGetAllProductsVendorQuery(
+    {
+      id,
+      page,
+      sortOrder,
+    },
+    {
+      refetchOnFocus: true,
+      refetchOnReconnect: true,
+    }
+  );
 
   const { products, pagesCount } = useProducts({ data });
 

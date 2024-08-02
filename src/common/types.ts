@@ -3,6 +3,7 @@ import { rootReducer } from 'src/redux/store';
 type IMessage = {
   id?: string;
   content: string;
+  contentType: ContentType;
   createdAt: string;
   sender: ChatPartner;
 };
@@ -19,9 +20,17 @@ type ChatPartner = {
   photoUrl: string;
 };
 
+type ChatPartnerWithStatus = {
+  id: string;
+  name: string;
+  photoUrl: string;
+  isOnline: boolean;
+  lastActiveAt: string;
+};
+
 type ChatWithMainData = {
   id: string;
-  chatPartner: ChatPartner;
+  chatPartner: ChatPartnerWithStatus;
   unreadMessageCount: number;
   lastMessage: IMessage;
 };
@@ -37,6 +46,18 @@ export enum UserRole {
   ADMIN = 'admin',
 }
 
+export enum ContentType {
+  TEXT = 'text',
+  IMAGE = 'image',
+  FILE = 'file',
+  LINK = 'link',
+}
+
+type UploadFile = {
+  id: string;
+  file: FormData;
+};
+
 type RootState = ReturnType<typeof rootReducer>;
 
 export type {
@@ -44,6 +65,8 @@ export type {
   Chat,
   ChatPartner,
   ChatWithMainData,
+  ChatPartnerWithStatus,
   CreateChat,
+  UploadFile,
   RootState,
 };

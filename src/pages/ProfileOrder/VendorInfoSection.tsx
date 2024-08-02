@@ -14,13 +14,13 @@ import theme from 'src/theme';
 
 import styles from './styles';
 
-interface IBuyerInfoSection {
+interface IVendorInfoSection {
   userName: string;
   userId: string;
   address: IAddress;
 }
 
-function BuyerInfoSection({ userName, userId, address }: IBuyerInfoSection) {
+function VendorInfoSection({ userName, userId, address }: IVendorInfoSection) {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const location = useLocation();
@@ -34,7 +34,7 @@ function BuyerInfoSection({ userName, userId, address }: IBuyerInfoSection) {
         chatPartnerId: userId,
       }).unwrap();
 
-      navigate(`${urls.VENDOR_CHATS}/${result.id}`);
+      navigate(`${urls.BUYER_CHATS}/${result.id}`);
     } catch {
       showToast('error', t('toasterMessages.failedCreateChat'));
     }
@@ -42,12 +42,9 @@ function BuyerInfoSection({ userName, userId, address }: IBuyerInfoSection) {
 
   return (
     <Box display="flex" flexDirection="column" sx={{ padding: '0 24px' }}>
-      <AdminSectionSubTitle title={`${t('vendorOrder.customer')}`} />
+      <AdminSectionSubTitle title={`${t('vendorOrder.vendor')}`} />
       <Box sx={{ margin: '24px 0' }}>
-        <Link
-          to={`${urls.VENDOR}/${urls.BUYER}/${userId}`}
-          state={{ from: location }}
-        >
+        <Link to={`${urls.VENDOR}/${userId}`} state={{ from: location }}>
           <Typography variant="h4">{userName}</Typography>
         </Link>
 
@@ -70,4 +67,4 @@ function BuyerInfoSection({ userName, userId, address }: IBuyerInfoSection) {
   );
 }
 
-export default BuyerInfoSection;
+export default VendorInfoSection;

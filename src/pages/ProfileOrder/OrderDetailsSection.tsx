@@ -4,9 +4,9 @@ import { useTranslation } from 'react-i18next';
 import { Box, Typography } from '@mui/material';
 
 import ChevronRight from 'src/assets/icons/chevron-right-grey-small.svg';
-import AdminSectionTitle from 'src/pages/admin/AdminSectionTitle';
 import theme from 'src/theme';
 
+import OrderSectionTitle from './OrderSectionTitle';
 import styles from './styles';
 
 interface IOrdersDetailsSectionProps {
@@ -38,7 +38,7 @@ function OrderDetailsSection({
           {`${t('vendorOrder.order')}${orderNumber}`}
         </Typography>
       </Box>
-      <AdminSectionTitle
+      <OrderSectionTitle
         title={`${t('vendorOrder.order')}${orderNumber}`}
         fontWeight={700}
         showBackLink
