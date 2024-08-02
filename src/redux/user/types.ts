@@ -237,3 +237,10 @@ export interface IReview {
   reviewerAvatar: string;
   createdAt: string;
 }
+
+export interface ISendReview {
+  userId: string;
+  reviewerId: string;
+  rating: number;
+  text: string;
+}
