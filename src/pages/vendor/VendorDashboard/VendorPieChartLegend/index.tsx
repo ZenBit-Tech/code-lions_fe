@@ -7,6 +7,7 @@ import {
   TableHead,
   TableRow,
   Box,
+  Typography,
 } from '@mui/material';
 
 import { IVendorPieChartLegendProps } from '../types';
@@ -46,7 +47,9 @@ function VendorPieChartLegend({ data }: IVendorPieChartLegendProps) {
                     backgroundColor: row.color,
                   }}
                 />
-                {row.category}
+                <Typography sx={{ textTransform: 'capitalize' }}>
+                  {row.category}
+                </Typography>
               </TableBodyCellStyled>
               <TableBodyCellStyled align="left">
                 {row.orders}
