@@ -116,6 +116,7 @@ export const RTKUrls = {
   CHAT: 'chats',
   SUPPORT: 'chats/support',
   ORDERS: 'orders',
+  BUYER_ORDERS: 'orders/buyer',
   ORDERS_VENDOR: 'orders/vendor',
 };
 

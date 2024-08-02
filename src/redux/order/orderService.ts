@@ -6,6 +6,7 @@ import {
   IOrderData,
   IVendorOrdersRequest,
   IVendorOrdersResponse,
+  IOrder,
 } from './types';
 
 export const orderApi = createApi({
@@ -42,6 +43,18 @@ export const orderApi = createApi({
       providesTags: (result) =>
         result ? [{ type: 'Orders', id: 'LIST' }] : [],
     }),
+    getBuyerOrders: build.query<IOrder[], { statuses: string[] }>({
+      query: ({ statuses }) => {
+        const statusQuery = statuses
+          .map((status) => `statuses=${status}`)
+          .join('&');
+
+        return {
+          url: `${RTKUrls.BUYER_ORDERS}?${statusQuery}`,
+          method: HttpMethods.GET,
+        };
+      },
+    }),
   }),
 });
 
@@ -49,4 +62,5 @@ export const {
   useGetOrderByUserIdAndOrderIdQuery,
   useRejectOrderMutation,
   useGetAllOrdersVendorQuery,
+  useGetBuyerOrdersQuery,
 } = orderApi;

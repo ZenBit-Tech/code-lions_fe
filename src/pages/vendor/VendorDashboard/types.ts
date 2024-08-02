@@ -1,4 +1,4 @@
-import { Category } from 'src/redux/vendorOrders/types';
+import { Category } from 'src/redux/order/types';
 
 export interface PieChartData {
   id: Category;
