@@ -36,6 +36,14 @@ export const RatingWrapper = styled(Box)(() => ({
   marginTop: '5px',
 }));
 
+export const RatingWrapperBuyer = styled(Box)(() => ({
+  display: 'flex',
+  flexDirection: 'row',
+  alignItems: 'top',
+  marginLeft: 'auto',
+  marginTop: '5px',
+}));
+
 export const RatingNumber = styled(Typography)(({ theme }) => ({
   marginLeft: '4px',
   fontWeight: 'bold',
