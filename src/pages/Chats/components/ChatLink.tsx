@@ -3,7 +3,10 @@ import { Link } from 'react-router-dom';
 import { urls } from 'src/common/constants';
 import { ChatPartnerWithStatus, UserRole } from 'src/common/types';
 import { useAppSelector } from 'src/redux/hooks';
-import { useGetPublicUserByIdQuery } from 'src/redux/user/userService';
+import {
+  useGetUserByIdQuery,
+  useGetPublicUserByIdQuery,
+} from 'src/redux/user/userService';
 
 import { StyledTypography } from './styles.ts';
 
@@ -15,10 +18,20 @@ function ChatLink({ chatPartner }: Props) {
   const userId = chatPartner?.id;
   const chatPartnerName = chatPartner?.name;
   const userRole = useAppSelector((state) => state.user.role);
-  const { data: chatPartnerData } = useGetPublicUserByIdQuery(userId ?? '', {
-    skip: !userId,
-  });
-  const chatPartnerRole = chatPartnerData?.role;
+
+  const { data: userQueryData } = useGetUserByIdQuery(
+    { userId: userId ?? '' },
+    { skip: !userId || userRole !== UserRole.ADMIN }
+  );
+  const { data: publicUserQueryData } = useGetPublicUserByIdQuery(
+    userId ?? '',
+    { skip: !userId || userRole === UserRole.ADMIN }
+  );
+
+  const chatPartnerRole =
+    userRole === UserRole.ADMIN
+      ? userQueryData?.role
+      : publicUserQueryData?.role;
 
   if (!userId || !chatPartnerName) {
     return null;
