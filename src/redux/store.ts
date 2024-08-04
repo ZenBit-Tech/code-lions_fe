@@ -75,7 +75,8 @@ const store = configureStore({
       adminProductsApi.middleware,
       vendorProductsApi.middleware,
       chatApi.middleware,
-      orderApi.middleware
+      orderApi.middleware,
+      chatApi.middleware
     ),
 });
 

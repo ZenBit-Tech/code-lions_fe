@@ -9,10 +9,12 @@ import VendorPieChartLegend from '../VendorPieChartLegend';
 import { ChartWrapper, SubTitle } from './styles';
 
 const chartColors = {
-  Clothing: '#EDEAE9',
-  Shoes: '#F4E2DB',
-  Bags: '#C7D2C6',
-  Accessories: '#E3EEE2',
+  clothing: '#EDEAE9',
+  shoes: '#F4E2DB',
+  bags: '#C7D2C6',
+  accessories: '#E3EEE2',
+  designers: '#c6d2cf',
+  evental: '#d2c6cf',
 };
 
 function VendorPieChart({ data }: IVendorPieChartProps) {
