@@ -24,6 +24,7 @@ function BestVendorsList({ filters }: BestVerdorsListProps) {
   return (
     <>
       <Box sx={{ mt: '40px', mb: '49px' }}>
+        {!bestVendors?.length && <Box>{t('products.noProducts')}</Box>}
         {bestVendors?.map(({ vendorId, vendorName, photoUrl, products }) => (
           <Box key={vendorId} component="div" sx={{ mt: '24px' }}>
             <Box
