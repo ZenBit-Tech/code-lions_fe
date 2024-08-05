@@ -241,3 +241,10 @@ export interface IReview {
 export interface IStripeAccountResponse {
   url: string;
 }
+
+export interface ISendReview {
+  userId: string;
+  reviewerId: string;
+  rating: number;
+  text: string;
+}

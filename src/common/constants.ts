@@ -102,6 +102,7 @@ export const RTKUrls = {
   PRODUCTS: 'products',
   WISHLIST: 'wishlist',
   CART: 'cart',
+  REVIEWS: 'reviews',
   USER_REVIEWS: 'reviews/user',
   BEST_VENDORS: 'best-vendors',
   LATEST: 'latest',
