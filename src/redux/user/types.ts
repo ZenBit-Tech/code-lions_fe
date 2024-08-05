@@ -237,3 +237,7 @@ export interface IReview {
   reviewerAvatar: string;
   createdAt: string;
 }
+
+export interface IStripeAccountResponse {
+  url: string;
+}

@@ -114,6 +114,7 @@ export const RTKUrls = {
   FILE: 'pdf-file',
   HIDE_RENTAL_RULES: 'hide-rental-rules',
   CREATE_CHECKOUT: '/stripe/create-checkout-session',
+  CREATE_ACCOUNT: '/stripe/create-account',
   CHAT: 'chats',
   SUPPORT: 'chats/support',
   ORDERS: 'orders',

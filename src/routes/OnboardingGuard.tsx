@@ -12,7 +12,7 @@ function OnboardingGuard({ element }: { element: ReactElement }) {
   if (
     isLoggedIn &&
     (role === userRoles.VENDOR || role === null) &&
-    onboardingStep <= onboardingSteps.ADDRESS
+    onboardingStep <= onboardingSteps.SIZES
   ) {
     return <Navigate to={urls.ONBOARDING} replace />;
   }
