@@ -37,6 +37,7 @@ import {
   IRefreshTokenResponse,
   IPublicUser,
   IReview,
+  ISendReview,
 } from './types';
 
 const baseQuery = fetchBaseQuery({
@@ -257,6 +258,14 @@ export const userApi = createApi({
       }),
     }),
 
+    sendReview: build.mutation<IReview, ISendReview>({
+      query: (review) => ({
+        url: RTKUrls.REVIEWS,
+        method: HttpMethods.POST,
+        body: review,
+      }),
+    }),
+
     getUserReviews: build.query<IReview[], string>({
       query: (id) => ({
         url: `${RTKUrls.USER_REVIEWS}/${id}`,
@@ -294,6 +303,7 @@ export const {
   useUpdateUserProfileByAdminMutation,
   useDeleteUserByAdminMutation,
   useUpdatePersonalInfoMutation,
+  useSendReviewMutation,
   useGetUserReviewsQuery,
   useGetPublicUserByIdQuery,
   useHideRentalRulesMutation,
