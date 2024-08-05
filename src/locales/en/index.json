@@ -735,5 +735,13 @@
     "casual": { "label": "Casual", "value": "casual" },
     "premium": { "label": "Premium", "value": "premium" },
     "fancy": { "label": "Fancy", "value": "fancy" }
+  },
+  "reviewModal": {
+    "reviewOrder": "Review Order",
+    "writeReview": "Write Review",
+    "sendReview": "Send Review",
+    "cancel": "Cancel",
+    "placeholder": "Write review here",
+    "subtitle": "Share your thoughts about this order"
   }
 }

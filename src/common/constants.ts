@@ -102,6 +102,7 @@ export const RTKUrls = {
   PRODUCTS: 'products',
   WISHLIST: 'wishlist',
   CART: 'cart',
+  REVIEWS: 'reviews',
   USER_REVIEWS: 'reviews/user',
   BEST_VENDORS: 'best-vendors',
   LATEST: 'latest',
@@ -116,6 +117,7 @@ export const RTKUrls = {
   CHAT: 'chats',
   SUPPORT: 'chats/support',
   ORDERS: 'orders',
+  ORDERS_VENDOR: 'orders/vendor',
 };
 
 export const HttpMethods = {
