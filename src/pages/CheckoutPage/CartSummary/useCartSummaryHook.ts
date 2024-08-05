@@ -1,13 +1,25 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 
 import { SerializedError } from '@reduxjs/toolkit';
-import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
-import { shippingFee, shippingOption } from 'src/common/constants';
+import { FetchBaseQueryError, skipToken } from '@reduxjs/toolkit/query';
+import {
+  urls,
+  shippingFee,
+  shippingOption,
+  redirectDelay,
+} from 'src/common/constants';
 import { getErrorMessage } from 'src/common/hooks/useErrorHandling';
 import useToast from 'src/components/shared/toasts/components/ToastProvider/ToastProviderHooks';
-import { useCreateCheckoutSessionMutation } from 'src/redux/cart/cartService';
+import {
+  useCreateCheckoutSessionMutation,
+  useGetCartByIdQuery,
+} from 'src/redux/cart/cartService';
 import { ICartItem } from 'src/redux/cart/types';
+import { useAppSelector } from 'src/redux/hooks';
+
+const priceConflictCode = 409;
 
 const useCartSummary = (cartItems: ICartItem[], shipping: string) => {
   const { t } = useTranslation();
@@ -20,6 +32,13 @@ const useCartSummary = (cartItems: ICartItem[], shipping: string) => {
 
   const [createCheckoutSession, { isLoading }] =
     useCreateCheckoutSessionMutation();
+
+  const user = useAppSelector((state) => state.user);
+  const navigate = useNavigate();
+
+  const { refetch: cartRefetch } = useGetCartByIdQuery(
+    user.id ? { userId: user.id } : skipToken
+  );
 
   useEffect(() => {
     const itemsSubtotal = cartItems.reduce((sum, item) => {
@@ -61,6 +80,15 @@ const useCartSummary = (cartItems: ICartItem[], shipping: string) => {
         window.location.href = result.url;
       }
     } catch (error) {
+      const errorStatus = (error as { status?: number }).status;
+
+      if (errorStatus === priceConflictCode) {
+        cartRefetch();
+
+        setTimeout(() => {
+          navigate(`/${urls.CART}`);
+        }, redirectDelay);
+      }
       const toastError = getErrorMessage(
         error as FetchBaseQueryError | SerializedError,
         t('checkoutPage.checkoutError')

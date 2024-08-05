@@ -316,3 +316,5 @@ export const profileOrdersTabs = {
   CURRENT: 'Current',
   ARCHIVE: 'Archive',
 };
+
+export const redirectDelay = 3000;
