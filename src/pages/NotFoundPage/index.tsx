@@ -1,19 +1,18 @@
-import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
+import { useTranslation, Trans } from 'react-i18next';
 
-import { Typography } from '@mui/material';
-
-import { urls } from 'src/common/constants';
 import SectionTitle from 'src/components/shared/SectionTitle';
+
 import {
-  ArticleWrapper,
-  Container,
+  StyledTypography,
+  StyledLink,
   SectionWrapper,
   TextWrapper,
-} from 'src/pages/PrivacyPolicyPage/styles';
-import theme from 'src/theme';
+  Container,
+  ArticleWrapper,
+} from './styles';
 
 function NotFoundPage() {
+  const supportEmail = import.meta.env.VITE_SUPPORT_EMAIL;
   const { t } = useTranslation();
 
   return (
@@ -27,15 +26,23 @@ function NotFoundPage() {
       <SectionWrapper>
         <TextWrapper>
           <ArticleWrapper>
-            <Typography
-              variant="body2"
-              sx={{
-                textAlign: 'center',
-              }}
-              color={theme.palette.primary.main}
-            >
-              <Link to={urls.HOME}>{t('notFound.back')}</Link>
-            </Typography>
+            <StyledTypography>
+              {t('notFound.pageMovedOrDeleted')}
+            </StyledTypography>
+            <StyledTypography>{t('notFound.optionsToHelp')}</StyledTypography>
+            <StyledTypography>{t('notFound.firstOption')}</StyledTypography>
+            <StyledTypography>{t('notFound.secondOption')}</StyledTypography>
+            <StyledTypography>
+              <Trans
+                i18nKey="notFound.contactEmail"
+                components={{
+                  supportEmailLink: (
+                    <StyledLink href={`mailto:${supportEmail}`} />
+                  ),
+                  supportEmail,
+                }}
+              />
+            </StyledTypography>
           </ArticleWrapper>
         </TextWrapper>
       </SectionWrapper>

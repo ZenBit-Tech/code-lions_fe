@@ -551,8 +551,11 @@
   },
   "notFound": {
     "title": "Page not found",
-    "text": "Oops! Page not found",
-    "back": "Back to home"
+    "pageMovedOrDeleted": "We're sorry, but the page you are looking for could not be found. It seems that the link you followed may be outdated or the page may have been moved or deleted.",
+    "optionsToHelp": "Here are a few options to help you get back on track:",
+    "firstOption": "1) Double-check the URL: Please make sure that the URL you entered is spelled correctly and matches the intended page.",
+    "secondOption": "2) Go back to the previous page: Use your browser's back button to return to the previous page and try navigating from there.",
+    "contactEmail": "If you believe you've reached this page in error or if you have any questions or concerns, please don't hesitate to contact our support team at <supportEmailLink>{{supportEmail}}</supportEmailLink>. We're here to help!"
   },
   "colors": {
     "black": "Black",
