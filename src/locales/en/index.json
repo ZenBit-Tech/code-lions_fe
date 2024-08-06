@@ -622,7 +622,8 @@
     "uploadBtn": "Upload",
     "chooseFile": "Choose file",
     "uploadSuccess": "File uploaded successfully",
-    "loading": "Loading.."
+    "loading": "Loading..",
+    "saveBtn": "Save"
   },
   "cartPage": {
     "title": "Cart",
@@ -738,6 +739,11 @@
     "casual": { "label": "Casual", "value": "casual" },
     "premium": { "label": "Premium", "value": "premium" },
     "fancy": { "label": "Fancy", "value": "fancy" }
+  },
+  "verificationtModal": {
+    "title": "Your request was send",
+    "subtitle": "Your product was sent to the admin verification and will be reviewed within 24 hours. We will notify you by email when it will be published.",
+    "ok": "Ok"
   },
   "reviewModal": {
     "reviewOrder": "Review Order",
