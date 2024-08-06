@@ -12,6 +12,7 @@ import OnboardingInfoForm from 'src/pages/OnboardingPage/InfoForm';
 import OnboardingRoleForm from 'src/pages/OnboardingPage/RoleForm';
 import OnboardingShippingForm from 'src/pages/OnboardingPage/ShippingForm';
 import OnboardingSizeForm from 'src/pages/OnboardingPage/SizeForm';
+import OnboardingStripeForm from 'src/pages/OnboardingPage/StripeForm';
 import { useAppSelector } from 'src/redux/hooks';
 import { selectOnboardingStep } from 'src/redux/user/userSlice';
 import theme from 'src/theme';
@@ -46,6 +47,11 @@ function OnboardingPage() {
 
   if (user.role === userRoles.VENDOR) {
     onboardingData.pop();
+    onboardingData.push({
+      stepId: onboardingSteps.SIZES,
+      title: t('onboarding.stripe'),
+      component: <OnboardingStripeForm />,
+    });
   }
 
   const currentStepComponent = onboardingData.find(

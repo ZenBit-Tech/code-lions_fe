@@ -102,6 +102,7 @@ export const RTKUrls = {
   PRODUCTS: 'products',
   WISHLIST: 'wishlist',
   CART: 'cart',
+  REVIEWS: 'reviews',
   USER_REVIEWS: 'reviews/user',
   BEST_VENDORS: 'best-vendors',
   LATEST: 'latest',
@@ -113,6 +114,8 @@ export const RTKUrls = {
   PRODUCTS_VENDOR: 'products/vendor',
   FILE: 'pdf-file',
   HIDE_RENTAL_RULES: 'hide-rental-rules',
+  CREATE_CHECKOUT: '/stripe/create-checkout-session',
+  CREATE_ACCOUNT: '/stripe/create-account',
   CHAT: 'chats',
   SUPPORT: 'chats/support',
   ORDERS: 'orders',
@@ -314,3 +317,5 @@ export const profileOrdersTabs = {
   CURRENT: 'Current',
   ARCHIVE: 'Archive',
 };
+
+export const redirectDelay = 3000;

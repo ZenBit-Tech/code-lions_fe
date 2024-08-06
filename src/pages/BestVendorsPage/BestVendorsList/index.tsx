@@ -1,8 +1,9 @@
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 
 import { Box, Avatar, Typography } from '@mui/material';
 
-import mockAvatar from 'src/assets/photos/avatar.jpg';
+import { urls } from 'src/common/constants';
 import ProductCard from 'src/components/ProductCard';
 import StyledButton from 'src/components/shared/StyledButton';
 import {
@@ -10,14 +11,20 @@ import {
   StyleVariants,
 } from 'src/components/shared/StyledButton/types';
 import { useGetBestVendorsQuery } from 'src/redux/bestVendors/bestVendorsService';
+import { IProductFilters } from 'src/redux/product/types';
 
-function BestVendorsList() {
+type BestVerdorsListProps = {
+  filters: IProductFilters;
+};
+
+function BestVendorsList({ filters }: BestVerdorsListProps) {
   const { t } = useTranslation();
-  const { data: bestVendors } = useGetBestVendorsQuery();
+  const { data: bestVendors } = useGetBestVendorsQuery(filters);
 
   return (
     <>
       <Box sx={{ mt: '40px', mb: '49px' }}>
+        {!bestVendors?.length && <Box>{t('products.noProducts')}</Box>}
         {bestVendors?.map(({ vendorId, vendorName, photoUrl, products }) => (
           <Box key={vendorId} component="div" sx={{ mt: '24px' }}>
             <Box
@@ -36,9 +43,9 @@ function BestVendorsList() {
                   gap: '24px',
                 }}
               >
-                <Avatar alt="vendor-avatar" src={photoUrl || mockAvatar} />
+                <Avatar alt="vendor-avatar" src={photoUrl} />
                 <Typography variant="subtitle1" sx={{ fontWeight: 500 }}>
-                  {vendorName}
+                  <Link to={`${urls.VENDOR}/${vendorId}`}>{vendorName}</Link>
                 </Typography>
               </Box>
               <StyledButton
