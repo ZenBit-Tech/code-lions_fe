@@ -1,17 +1,16 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { Box, CircularProgress, Grid, Typography } from '@mui/material';
+import { Box, CircularProgress } from '@mui/material';
 
 import { orderStatus, profileOrdersTabs } from 'src/common/constants';
+import GridWrapper from 'src/components/shared/GridWrapper';
 import { useGetBuyerOrdersQuery } from 'src/redux/order/orderService';
-import { IOrderProduct } from 'src/redux/order/types';
+import { IOrder, IOrderProduct } from 'src/redux/order/types';
 import theme from 'src/theme';
 
 import OrderCard from './OrderCard';
 import { TabButton, TabsWrapper } from './styles';
-
-const noOrders = 0;
 
 function ProfileOrders() {
   const { t } = useTranslation();
@@ -77,24 +76,19 @@ function ProfileOrders() {
           {t('profileOrders.archive')}
         </TabButton>
       </TabsWrapper>
-      <Grid container spacing={3}>
-        {orders.length === noOrders ? (
-          <Grid item>
-            <Typography variant="h3">{t('profileOrders.noOrders')}</Typography>
-          </Grid>
-        ) : (
-          orders.map((order) => (
-            <Grid item key={order.id}>
-              <OrderCard
-                orderId={order.orderId}
-                orderStatus={order.status}
-                productsQuantity={order.products.length}
-                productsPhotos={getPrimaryImages(order.products)}
-              />
-            </Grid>
-          ))
+      <GridWrapper<IOrder>
+        data={orders}
+        message="profileOrders.noOrders"
+        spacing={3}
+        renderCard={(order) => (
+          <OrderCard
+            orderId={order.orderId}
+            orderStatus={order.status}
+            productsQuantity={order.products.length}
+            productsPhotos={getPrimaryImages(order.products)}
+          />
         )}
-      </Grid>
+      />
     </>
   );
 }
