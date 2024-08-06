@@ -28,18 +28,17 @@ function ImagesForm() {
           gap: '5px',
         }}
       >
-        {images.map(
+        {images?.map(
           (item) =>
             (item.type === 'image' || item.type === 'video') && (
               <ImageCard
-                key={item.src}
                 type={item.type}
                 src={item.src}
                 isPrimary={item.isPrimary}
               />
             )
         )}
-        {images.filter((item) => item.type === 'image').length <
+        {images?.filter((item) => item.type === 'image').length <
           maxNumberImage && <ImageCard type="image" />}
       </Box>
     </Box>

@@ -37,6 +37,7 @@ import {
   IRefreshTokenResponse,
   IPublicUser,
   IReview,
+  IStripeAccountResponse,
   ISendReview,
 } from './types';
 
@@ -280,6 +281,13 @@ export const userApi = createApi({
       }),
       invalidatesTags: [{ type: 'User', id: 'LIST' }],
     }),
+
+    createStripeAccount: build.mutation<IStripeAccountResponse, void>({
+      query: () => ({
+        url: RTKUrls.CREATE_ACCOUNT,
+        method: HttpMethods.POST,
+      }),
+    }),
   }),
 });
 
@@ -307,4 +315,5 @@ export const {
   useGetUserReviewsQuery,
   useGetPublicUserByIdQuery,
   useHideRentalRulesMutation,
+  useCreateStripeAccountMutation,
 } = userApi;

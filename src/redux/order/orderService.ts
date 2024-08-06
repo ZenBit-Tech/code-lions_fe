@@ -13,12 +13,9 @@ export const orderApi = createApi({
   baseQuery: baseQueryWithReauth,
   tagTypes: ['Order', 'Orders'],
   endpoints: (build) => ({
-    getOrderByUserIdAndOrderId: build.query<
-      IOrderData,
-      { userId: string; orderId: number }
-    >({
-      query: ({ userId, orderId }) => ({
-        url: `${RTKUrls.ORDERS}/${userId}/${orderId}`,
+    getOrderByUserIdAndOrderId: build.query<IOrderData, { orderId: number }>({
+      query: ({ orderId }) => ({
+        url: `${RTKUrls.ORDERS}/${orderId}`,
         method: HttpMethods.GET,
       }),
       providesTags: ['Order'],

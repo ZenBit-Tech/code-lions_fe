@@ -22,10 +22,8 @@ function CartSummary() {
   const cartItems = useAppSelector(selectCart);
   const [shipping, setShipping] = useState<string>(shippingOption.FREE);
 
-  const { subtotal, total, numberOfVendors } = useCartSummary(
-    cartItems,
-    shipping
-  );
+  const { subtotal, total, numberOfVendors, isLoading, handlePayment } =
+    useCartSummary(cartItems, shipping);
 
   const handleShippingChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setShipping((event.target as HTMLInputElement).value);
@@ -78,7 +76,11 @@ function CartSummary() {
           <Typography variant="h6">${total}</Typography>
         </Box>
         <Box display="flex" justifyContent="center" mt="32px">
-          <StyledButton width="489px">
+          <StyledButton
+            width="489px"
+            onClick={handlePayment}
+            disabled={isLoading}
+          >
             <Typography>{t('checkoutPage.payButton')}</Typography>
           </StyledButton>
         </Box>
