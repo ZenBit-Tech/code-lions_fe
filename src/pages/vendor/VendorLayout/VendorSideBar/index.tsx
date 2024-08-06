@@ -29,8 +29,6 @@ function VendorSideBar() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  console.log(!!unreadChatsCount);
-
   const profileActive = () => {
     return (
       location.pathname.includes(
