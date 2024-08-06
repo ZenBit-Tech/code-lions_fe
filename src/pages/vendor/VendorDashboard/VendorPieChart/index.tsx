@@ -8,7 +8,7 @@ import VendorPieChartLegend from '../VendorPieChartLegend';
 
 import { ChartWrapper, SubTitle } from './styles';
 
-const chartColors = {
+const chartColors: Record<string, string> = {
   clothing: '#EDEAE9',
   shoes: '#F4E2DB',
   bags: '#C7D2C6',

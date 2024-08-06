@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate, useLocation, useParams } from 'react-router-dom';
 
+import { skipToken } from '@reduxjs/toolkit/query';
 import { urls, productsOnPage } from 'src/common/constants';
 import createNavigationLink from 'src/common/utils/createNavigationLink';
 import { SortParameter, SortOrder } from 'src/components/shared/OrderSelector';
@@ -49,9 +50,13 @@ function useProductFeed(): UseProductFeedReturn {
 
   const { category } = useParams<{ category?: string }>();
 
-  const baseUrl = category
+  let baseUrl = category
     ? `${urls.PRODUCT_CATEGORY_URL}/${category}`
     : urls.PRODUCT_FEED;
+
+  if (location.pathname === urls.BEST_VENDORS) {
+    baseUrl = urls.BEST_VENDORS;
+  }
 
   const handleSearchChange = (searchTerm: string) => {
     const requestParams: Record<string, string> = { search: searchTerm };
@@ -108,15 +113,21 @@ function useProductFeed(): UseProductFeedReturn {
     setSortOrder(newSortOrder);
   };
 
-  const { data, isLoading, isFetching, isError } = useGetProductsQuery({
-    category,
-    page,
-    limit: productsOnPage,
-    search,
-    filters,
-    sortBy,
-    sortOrder,
-  });
+  const shouldFetch = location.pathname !== urls.BEST_VENDORS;
+
+  const { data, isLoading, isFetching, isError } = useGetProductsQuery(
+    shouldFetch
+      ? {
+          category,
+          page,
+          limit: productsOnPage,
+          search,
+          filters,
+          sortBy,
+          sortOrder,
+        }
+      : skipToken
+  );
 
   useEffect(() => {
     setSearchQuery(search);

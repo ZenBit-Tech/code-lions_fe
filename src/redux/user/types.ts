@@ -238,6 +238,10 @@ export interface IReview {
   createdAt: string;
 }
 
+export interface IStripeAccountResponse {
+  url: string;
+}
+
 export interface ISendReview {
   userId: string;
   reviewerId: string;

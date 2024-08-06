@@ -11,7 +11,7 @@ describe('bestVendorsApi', () => {
   const { useGetBestVendorsQuery } = bestVendorsApi;
 
   it('fetches best vendors successfully', async () => {
-    const { result } = renderHook(() => useGetBestVendorsQuery(), {
+    const { result } = renderHook(() => useGetBestVendorsQuery({}), {
       wrapper: ({ children }) => <Provider store={store}>{children}</Provider>,
     });
 

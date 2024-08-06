@@ -292,6 +292,12 @@
     "vendor": "Vendor",
     "uploadPhoto": "Upload Photo",
     "changeImage": "Change image",
+    "stripe": "Stripe",
+    "stripeAccount": "Stripe Account",
+    "stripeConnect": "Stripe Connect",
+    "stripeSuccess": "Stripe account was successfully created and connected to your account",
+    "stripeError": "Failed to create account. Please try again.",
+    "stripeOnboarding": "Please connect your Stripe account to have ability to be a vendor in our website",
     "unknownError": "An unexpected error occurred. Please try again later"
   },
   "usersAdmin": {
@@ -651,7 +657,8 @@
     "subtotal": "Subtotal",
     "totalRenting": "Total Renting",
     "payButton": "Pay",
-    "vendor": "Vendor"
+    "vendor": "Vendor",
+    "checkoutError": "Failed to create checkout session"
   },
   "vendorProductList": {
     "title": "Categories",
@@ -720,25 +727,70 @@
     "yes": "Yes"
   },
   "productCategories": {
-    "accessories": { "label": "Accessories", "value": "accessories" },
-    "bags": { "label": "Bags", "value": "bags" },
-    "clothing": { "label": "Clothing", "value": "clothing" },
-    "shoes": { "label": "Shoes", "value": "shoes" },
-    "designers": { "label": "Designers", "value": "designers" },
-    "evental": { "label": "Evental", "value": "evental" }
+    "accessories": {
+      "label": "Accessories",
+      "value": "accessories"
+    },
+    "bags": {
+      "label": "Bags",
+      "value": "bags"
+    },
+    "clothing": {
+      "label": "Clothing",
+      "value": "clothing"
+    },
+    "shoes": {
+      "label": "Shoes",
+      "value": "shoes"
+    },
+    "designers": {
+      "label": "Designers",
+      "value": "designers"
+    },
+    "evental": {
+      "label": "Evental",
+      "value": "evental"
+    }
   },
   "productTypes": {
-    "shoes": { "label": "Shoes", "value": "shoes" },
-    "dress": { "label": "Dress", "value": "dress" },
-    "bag": { "label": "Bag", "value": "bag" },
-    "jeans": { "label": "Jeans", "value": "jeans" },
-    "accessory": { "label": "Accessory", "value": "accessory" },
-    "other": { "label": "Other", "value": "other" }
+    "shoes": {
+      "label": "Shoes",
+      "value": "shoes"
+    },
+    "dress": {
+      "label": "Dress",
+      "value": "dress"
+    },
+    "bag": {
+      "label": "Bag",
+      "value": "bag"
+    },
+    "jeans": {
+      "label": "Jeans",
+      "value": "jeans"
+    },
+    "accessory": {
+      "label": "Accessory",
+      "value": "accessory"
+    },
+    "other": {
+      "label": "Other",
+      "value": "other"
+    }
   },
   "productStyles": {
-    "casual": { "label": "Casual", "value": "casual" },
-    "premium": { "label": "Premium", "value": "premium" },
-    "fancy": { "label": "Fancy", "value": "fancy" }
+    "casual": {
+      "label": "Casual",
+      "value": "casual"
+    },
+    "premium": {
+      "label": "Premium",
+      "value": "premium"
+    },
+    "fancy": {
+      "label": "Fancy",
+      "value": "fancy"
+    }
   },
   "verificationtModal": {
     "title": "Your request was send",

@@ -12,3 +12,13 @@ export interface ICartItem {
   price: number;
   createdAt: string;
 }
+
+export interface IStripeSessionResponse {
+  url: string;
+}
+
+export interface IStripeSessionRequest {
+  total: number;
+  shippingPrice: number;
+  productIds: string[];
+}
