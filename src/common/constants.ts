@@ -118,6 +118,8 @@ export const RTKUrls = {
   SUPPORT: 'chats/support',
   ORDERS: 'orders',
   ORDERS_VENDOR: 'orders/vendor',
+  FOLLOW_VENDOR: '/vendors/follow',
+  UNFOLLOW_VENDOR: '/vendors/unfollow',
 };
 
 export const HttpMethods = {

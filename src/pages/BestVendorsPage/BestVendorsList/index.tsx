@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { Box, Avatar, Typography } from '@mui/material';
@@ -9,11 +10,75 @@ import {
   PaddingVariants,
   StyleVariants,
 } from 'src/components/shared/StyledButton/types';
-import { useGetBestVendorsQuery } from 'src/redux/bestVendors/bestVendorsService';
+import useToast from 'src/components/shared/toasts/components/ToastProvider/ToastProviderHooks';
+import {
+  useFollowVendorMutation,
+  useGetBestVendorsQuery,
+  useUnfollowVendorMutation,
+} from 'src/redux/bestVendors/bestVendorsService';
+
+interface FollowStatus {
+  [vendorId: string]: boolean;
+}
 
 function BestVendorsList() {
   const { t } = useTranslation();
+  const { showToast } = useToast();
   const { data: bestVendors } = useGetBestVendorsQuery();
+  const [followVendor] = useFollowVendorMutation();
+  const [unFollowVendor] = useUnfollowVendorMutation();
+
+  const [followStatus, setFollowStatus] = useState<FollowStatus>({});
+
+  useEffect(() => {
+    if (bestVendors) {
+      const initialStatus = bestVendors.reduce((acc, vendor) => {
+        acc[vendor.vendorId] = false;
+
+        return acc;
+      }, {} as FollowStatus);
+
+      setFollowStatus(initialStatus);
+    }
+  }, [bestVendors]);
+
+  const handleFollowVendor = async (vendorId: string) => {
+    try {
+      await followVendor({
+        body: { vendorId },
+      }).unwrap();
+
+      setFollowStatus((prevStatus) => ({
+        ...prevStatus,
+        [vendorId]: true,
+      }));
+    } catch (error) {
+      showToast('error', t('bestVendors.followFailed'));
+    }
+  };
+
+  const handleUnFollowVendor = async (vendorId: string) => {
+    try {
+      await unFollowVendor({
+        body: { vendorId },
+      }).unwrap();
+
+      setFollowStatus((prevStatus) => ({
+        ...prevStatus,
+        [vendorId]: false,
+      }));
+    } catch (error) {
+      showToast('error', t('bestVendors.followFailed'));
+    }
+  };
+
+  const toggleFollowStatus = (vendorId: string) => {
+    if (followStatus[vendorId]) {
+      handleUnFollowVendor(vendorId);
+    } else {
+      handleFollowVendor(vendorId);
+    }
+  };
 
   return (
     <>
@@ -48,6 +113,9 @@ function BestVendorsList() {
                 sx={{
                   width: '196px',
                 }}
+                onClick={() => {
+                  toggleFollowStatus(vendorId);
+                }}
               >
                 <Typography
                   variant="subtitle1"
@@ -57,7 +125,9 @@ function BestVendorsList() {
                     letterSpacing: 'normal',
                   }}
                 >
-                  {t('vendorProfile.follow')}
+                  {followStatus[vendorId]
+                    ? t('bestVendors.unfollow')
+                    : t('bestVendors.follow')}
                 </Typography>
               </StyledButton>
             </Box>

@@ -488,7 +488,9 @@
   "bestVendors": {
     "title": "Best Vendors",
     "name": "Vendor Name",
-    "follow": "Follow"
+    "follow": "Follow",
+    "unfollow": "Unfollow",
+    "followFailed": "Failed to follow vendor"
   },
   "aboutUs": {
     "title": "About Us",
