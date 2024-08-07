@@ -1,12 +1,5 @@
 import { styled } from '@mui/system';
 
-const StyledChat = styled('div')({
-  width: '100%',
-  display: 'flex',
-  justifyContent: 'space-between',
-  marginBottom: '0.4rem',
-});
-
 const UnreadMessages = styled('div')(({ theme }) => ({
   backgroundColor: theme.palette.common.black,
   color: theme.palette.common.white,
@@ -20,4 +13,4 @@ const UnreadMessages = styled('div')(({ theme }) => ({
   fontSize: '0.9em',
 }));
 
-export { UnreadMessages, StyledChat };
+export default UnreadMessages;
