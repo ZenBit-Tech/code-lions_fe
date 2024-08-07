@@ -86,7 +86,7 @@ function OrdersTable({ orders, pagesCount, page, handleChange }: IOrdersTable) {
               </BodyTableCell>
               <BodyTableCell align="center">
                 <StyledLink
-                  to={`${urls.VENDOR}/${urls.VENDOR_ORDERS}/:${order.id}`}
+                  to={`${urls.VENDOR}/${urls.VENDOR_ORDERS}/${order.orderId}`}
                 >
                   <Typography>{t('vendorDashboard.openOrder')} </Typography>
                 </StyledLink>
