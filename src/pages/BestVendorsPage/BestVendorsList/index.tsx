@@ -34,7 +34,11 @@ function BestVendorsList({ filters }: BestVerdorsListProps) {
   const [followVendor] = useFollowVendorMutation();
   const [unFollowVendor] = useUnfollowVendorMutation();
 
-  const [followStatus, setFollowStatus] = useState<FollowStatus>({});
+  const [followStatus, setFollowStatus] = useState<FollowStatus>(() => {
+    const storedStatus = localStorage.getItem('followStatus');
+
+    return storedStatus ? JSON.parse(storedStatus) : {};
+  });
 
   useEffect(() => {
     if (bestVendors) {
@@ -47,6 +51,10 @@ function BestVendorsList({ filters }: BestVerdorsListProps) {
       setFollowStatus(initialStatus);
     }
   }, [bestVendors]);
+
+  useEffect(() => {
+    localStorage.setItem('followStatus', JSON.stringify(followStatus));
+  }, [followStatus]);
 
   const handleFollowVendor = async (vendorId: string) => {
     try {
@@ -74,7 +82,7 @@ function BestVendorsList({ filters }: BestVerdorsListProps) {
         [vendorId]: false,
       }));
     } catch (error) {
-      showToast('error', t('bestVendors.followFailed'));
+      showToast('error', t('bestVendors.unfollowFailed'));
     }
   };
 

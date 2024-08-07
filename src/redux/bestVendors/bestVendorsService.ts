@@ -1,5 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { HttpMethods, RTKUrls, apiUrl } from 'src/common/constants';
+import { RootState } from 'src/common/types';
 import { IProductFilters } from 'src/redux/product/types';
 
 import { IBestVendor, IFollower } from './types';
@@ -8,6 +9,15 @@ export const bestVendorsApi = createApi({
   reducerPath: 'bestVendorsApi',
   baseQuery: fetchBaseQuery({
     baseUrl: apiUrl,
+    prepareHeaders: (headers, { getState }) => {
+      const { accessToken } = (getState() as RootState).user;
+
+      if (accessToken) {
+        headers.set('Authorization', `Bearer ${accessToken}`);
+      }
+
+      return headers;
+    },
   }),
   tagTypes: ['BestVendor'],
   endpoints: (build) => ({
