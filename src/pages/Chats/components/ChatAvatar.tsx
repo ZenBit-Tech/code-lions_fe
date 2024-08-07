@@ -3,10 +3,10 @@ import { useTranslation } from 'react-i18next';
 import { Chat, ChatPartnerWithStatus } from 'common/types.ts';
 import formatDateForChat from 'src/common/utils/formatDateForChat';
 
+import ChatLink from './ChatLink';
 import {
   AvatarContainer,
   StyledAvatar,
-  StyledTypography,
   LastMessage as LastActive,
 } from './styles.ts';
 
@@ -22,7 +22,7 @@ function ChatAvatar({ chat, chatPartner }: Props) {
     <AvatarContainer>
       <StyledAvatar src={chat?.chatPartner?.photoUrl} />
       <div>
-        <StyledTypography>{chat?.chatPartner?.name}</StyledTypography>
+        <ChatLink chatPartner={chatPartner} />
         <LastActive>
           {chatPartner?.isOnline
             ? t('chat.online')

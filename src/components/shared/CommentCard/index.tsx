@@ -17,6 +17,7 @@ import {
   CommentDate,
   RatingWrapper,
   CommentText,
+  RatingWrapperBuyer,
 } from './styles';
 
 const numberOfWordsInSentence = 15;
@@ -84,6 +85,12 @@ function CommentCard({ comment, path }: CommentCardProps) {
               </RatingWrapper>
             )}
           </Box>
+          {!path.startsWith(profilePathsFor.vendor) && (
+            <RatingWrapperBuyer>
+              <StarIcon />
+              <RatingNumber>{comment.rating}</RatingNumber>
+            </RatingWrapperBuyer>
+          )}
         </Box>
         <CommentText variant="body2" sx={{ marginTop: '8px' }}>
           {renderContent()}
