@@ -306,12 +306,12 @@ export const yearMonthAndDayFormat = 'yyyy MM d';
 
 export const orderStatus = {
   NEW: 'New order',
-  SENT: 'Sent',
-  DELIVERED: 'Delivered',
-  RECEIVED: 'Received',
-  WAITING_RETURNING: 'Waiting for returning',
-  RETURNED: 'Returned',
   REJECTED: 'Rejected',
+  SENT: 'Sent',
+  RECEIVED: 'Received',
+  SENT_BACK: 'Sent back',
+  OVERDUE: 'Overdue',
+  RETURNED: 'Returned',
 };
 
 export const profileOrdersTabs = {

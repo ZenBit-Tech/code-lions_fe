@@ -2,24 +2,34 @@ import { useParams } from 'react-router-dom';
 
 import { CircularProgress, Grid } from '@mui/material';
 
+import { useAppSelector } from 'src/redux/hooks';
 import { useGetOrderByUserIdAndOrderIdQuery } from 'src/redux/order/orderService';
 import { IOrder } from 'src/redux/order/types';
+import { selectUserRole } from 'src/redux/user/userSlice';
 import theme from 'src/theme';
 
 import BuyerInfoSection from './BuyerInfoSection';
+import OrderActions from './OrderActions';
 import OrderDetailsSection from './OrderDetailsSection';
 import OrderInfoSection from './OrderInfoSection';
 import OrderProductsTable from './OrderProductsTable';
 import OrderSummarySection from './OrderSummarySection';
 
+const mockTrackingNumber: string = 'rghh-g5g6-5678';
+
 function VendorOrderPage() {
   const { orderId } = useParams<{ orderId: string }>();
+  const userRole = useAppSelector(selectUserRole);
 
   const orderIdNumber: number = Number(orderId);
 
   const { data, isLoading } = useGetOrderByUserIdAndOrderIdQuery({
     orderId: orderIdNumber,
   });
+
+  const handleActionClick = (action: string): void => {
+    console.log(`Action clicked: ${action}`);
+  };
 
   if (!data || isLoading) {
     return <CircularProgress sx={{ color: theme.palette.common.black }} />;
@@ -32,6 +42,12 @@ function VendorOrderPage() {
       <Grid container columns={7} sx={{ padding: '12px' }}>
         <Grid item xs={5} sx={{ paddingRight: '24px' }}>
           <OrderInfoSection order={order} />
+          <OrderActions
+            status={order.status}
+            role={userRole}
+            trackingNumber={mockTrackingNumber}
+            onActionClick={handleActionClick}
+          />
           <OrderProductsTable products={order.products} />
           <OrderSummarySection shipping={order.shipping} price={order.price} />
         </Grid>
