@@ -42,13 +42,15 @@ function BestVendorsList({ filters }: BestVerdorsListProps) {
 
   useEffect(() => {
     if (bestVendors) {
-      const initialStatus = bestVendors.reduce((acc, vendor) => {
-        acc[vendor.vendorId] = false;
+      setFollowStatus((prevStatus) => {
+        const updatedStatus = bestVendors.reduce((acc, vendor) => {
+          acc[vendor.vendorId] = prevStatus[vendor.vendorId] ?? false;
 
-        return acc;
-      }, {} as FollowStatus);
+          return acc;
+        }, {} as FollowStatus);
 
-      setFollowStatus(initialStatus);
+        return updatedStatus;
+      });
     }
   }, [bestVendors]);
 
