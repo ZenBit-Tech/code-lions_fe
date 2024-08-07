@@ -45,6 +45,7 @@ function ProfileOrderPage() {
           <OrderInfoSection order={order} />
           <OrderActions
             status={order.status}
+            orderId={order.orderId}
             role={userRole}
             trackingNumber={mockTrackingNumber}
             onActionClick={handleActionClick}

@@ -16,16 +16,42 @@ const styles = {
     padding: '4px 16px',
     backgroundColor: theme.palette.error.light,
   },
-  buttonWrapper: {
+  newOrderVendorWrapper: {
     display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-end',
     justifyContent: 'flex-end',
     margin: '8px 0 24px 0',
+  },
+  input: {
+    '& .MuiOutlinedInput-root': {
+      borderRadius: '8px 0 0 8px',
+    },
+    '& .MuiOutlinedInput-input': {
+      fontSize: '16px',
+      padding: '11.5px 16px',
+    },
+    '&:focus-visible': {
+      border: `1px solid ${theme.palette.common.black}`,
+    },
+  },
+  sendButton: {
+    marginRight: '16px',
+    borderRadius: '0 8px 8px 0',
+    padding: '12px 24px',
+    backgroundColor: theme.palette.common.black,
+    border: `1px solid ${theme.palette.common.black}`,
   },
   rejectButton: {
     borderRadius: '8px',
     padding: '12px 24px',
     backgroundColor: theme.palette.common.white,
     border: `1px solid ${theme.palette.common.black}`,
+  },
+  returnedWrapper: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+    margin: '8px 0 24px 0',
   },
   orderSummaryWrapper: {
     borderRadius: '8px',
