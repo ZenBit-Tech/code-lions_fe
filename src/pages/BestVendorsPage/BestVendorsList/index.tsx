@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
@@ -17,6 +17,12 @@ import {
   useGetBestVendorsQuery,
   useUnfollowVendorMutation,
 } from 'src/redux/bestVendors/bestVendorsService';
+import {
+  setFollowStatus,
+  setBestVendors,
+  updateFollowStatus,
+} from 'src/redux/bestVendors/bestVendorsSlice';
+import { useAppDispatch, useAppSelector } from 'src/redux/hooks';
 import { IProductFilters } from 'src/redux/product/types';
 
 interface FollowStatus {
@@ -30,33 +36,40 @@ type BestVerdorsListProps = {
 function BestVendorsList({ filters }: BestVerdorsListProps) {
   const { t } = useTranslation();
   const { showToast } = useToast();
+  const dispatch = useAppDispatch();
   const { data: bestVendors } = useGetBestVendorsQuery(filters);
   const [followVendor] = useFollowVendorMutation();
   const [unFollowVendor] = useUnfollowVendorMutation();
 
-  const [followStatus, setFollowStatus] = useState<FollowStatus>(() => {
-    const storedStatus = localStorage.getItem('followStatus');
+  const topRatedVendors = useAppSelector(
+    (state) => state.bestVendors.bestVendors
+  );
+  const followStatus = useAppSelector(
+    (state) => state.bestVendors.followStatus
+  );
 
-    return storedStatus ? JSON.parse(storedStatus) : {};
-  });
+  const initializeFollowStatus = useCallback(() => {
+    const updatedStatus = topRatedVendors.reduce((acc, vendor) => {
+      acc[vendor.vendorId] = followStatus[vendor.vendorId] ?? false;
+
+      return acc;
+    }, {} as FollowStatus);
+
+    const isStatusChanged = !Object.keys(updatedStatus).every(
+      (vendorId) => updatedStatus[vendorId] === followStatus[vendorId]
+    );
+
+    if (isStatusChanged) {
+      dispatch(setFollowStatus(updatedStatus));
+    }
+  }, [dispatch, followStatus, topRatedVendors]);
 
   useEffect(() => {
     if (bestVendors) {
-      setFollowStatus((prevStatus) => {
-        const updatedStatus = bestVendors.reduce((acc, vendor) => {
-          acc[vendor.vendorId] = prevStatus[vendor.vendorId] ?? false;
-
-          return acc;
-        }, {} as FollowStatus);
-
-        return updatedStatus;
-      });
+      dispatch(setBestVendors(bestVendors));
+      initializeFollowStatus();
     }
-  }, [bestVendors]);
-
-  useEffect(() => {
-    localStorage.setItem('followStatus', JSON.stringify(followStatus));
-  }, [followStatus]);
+  }, [bestVendors, dispatch, initializeFollowStatus]);
 
   const handleFollowVendor = async (vendorId: string) => {
     try {
@@ -64,10 +77,7 @@ function BestVendorsList({ filters }: BestVerdorsListProps) {
         body: { vendorId },
       }).unwrap();
 
-      setFollowStatus((prevStatus) => ({
-        ...prevStatus,
-        [vendorId]: true,
-      }));
+      dispatch(updateFollowStatus({ vendorId, status: true }));
     } catch (error) {
       showToast('error', t('bestVendors.followFailed'));
     }
@@ -79,10 +89,7 @@ function BestVendorsList({ filters }: BestVerdorsListProps) {
         body: { vendorId },
       }).unwrap();
 
-      setFollowStatus((prevStatus) => ({
-        ...prevStatus,
-        [vendorId]: false,
-      }));
+      dispatch(updateFollowStatus({ vendorId, status: false }));
     } catch (error) {
       showToast('error', t('bestVendors.unfollowFailed'));
     }
@@ -99,81 +106,83 @@ function BestVendorsList({ filters }: BestVerdorsListProps) {
   return (
     <>
       <Box sx={{ mt: '40px', mb: '49px' }}>
-        {!bestVendors?.length && <Box>{t('products.noProducts')}</Box>}
-        {bestVendors?.map(({ vendorId, vendorName, photoUrl, products }) => (
-          <Box key={vendorId} component="div" sx={{ mt: '24px' }}>
-            <Box
-              component="div"
-              sx={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                mb: '36px',
-              }}
-            >
+        {!topRatedVendors?.length && <Box>{t('products.noProducts')}</Box>}
+        {topRatedVendors?.map(
+          ({ vendorId, vendorName, photoUrl, products }) => (
+            <Box key={vendorId} component="div" sx={{ mt: '24px' }}>
               <Box
                 component="div"
                 sx={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  mb: '36px',
+                }}
+              >
+                <Box
+                  component="div"
+                  sx={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '24px',
+                  }}
+                >
+                  <Avatar alt="vendor-avatar" src={photoUrl} />
+                  <Typography variant="subtitle1" sx={{ fontWeight: 500 }}>
+                    <Link to={`${urls.VENDOR}/${vendorId}`}>{vendorName}</Link>
+                  </Typography>
+                </Box>
+                <StyledButton
+                  type="button"
+                  styles={StyleVariants.BLACK}
+                  padding={PaddingVariants.LG}
+                  sx={{
+                    width: '196px',
+                  }}
+                  onClick={() => {
+                    toggleFollowStatus(vendorId);
+                  }}
+                >
+                  <Typography
+                    variant="subtitle1"
+                    sx={{
+                      fontWeight: 400,
+                      lineHeight: 'normal',
+                      letterSpacing: 'normal',
+                    }}
+                  >
+                    {followStatus[vendorId]
+                      ? t('bestVendors.unfollow')
+                      : t('bestVendors.follow')}
+                  </Typography>
+                </StyledButton>
+              </Box>
+              <Box
+                component="div"
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  flexWrap: 'wrap',
                   gap: '24px',
                 }}
               >
-                <Avatar alt="vendor-avatar" src={photoUrl} />
-                <Typography variant="subtitle1" sx={{ fontWeight: 500 }}>
-                  <Link to={`${urls.VENDOR}/${vendorId}`}>{vendorName}</Link>
-                </Typography>
+                {products?.map((product) => (
+                  <Box
+                    key={product.id}
+                    sx={{
+                      width: {
+                        xs: '100%',
+                        sm: 'calc(50% - 12px)',
+                        lg: 'calc(25% - 18px)',
+                      },
+                    }}
+                  >
+                    <ProductCard item={product} />
+                  </Box>
+                ))}
               </Box>
-              <StyledButton
-                type="button"
-                styles={StyleVariants.BLACK}
-                padding={PaddingVariants.LG}
-                sx={{
-                  width: '196px',
-                }}
-                onClick={() => {
-                  toggleFollowStatus(vendorId);
-                }}
-              >
-                <Typography
-                  variant="subtitle1"
-                  sx={{
-                    fontWeight: 400,
-                    lineHeight: 'normal',
-                    letterSpacing: 'normal',
-                  }}
-                >
-                  {followStatus[vendorId]
-                    ? t('bestVendors.unfollow')
-                    : t('bestVendors.follow')}
-                </Typography>
-              </StyledButton>
             </Box>
-            <Box
-              component="div"
-              sx={{
-                display: 'flex',
-                flexDirection: 'row',
-                flexWrap: 'wrap',
-                gap: '24px',
-              }}
-            >
-              {products?.map((product) => (
-                <Box
-                  key={product.id}
-                  sx={{
-                    width: {
-                      xs: '100%',
-                      sm: 'calc(50% - 12px)',
-                      lg: 'calc(25% - 18px)',
-                    },
-                  }}
-                >
-                  <ProductCard item={product} />
-                </Box>
-              ))}
-            </Box>
-          </Box>
-        ))}
+          )
+        )}
       </Box>
     </>
   );
