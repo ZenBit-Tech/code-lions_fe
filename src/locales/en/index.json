@@ -372,7 +372,8 @@
     "freeReturn": "Free Return shipping",
     "warning": "If you not return on time: Every extra day cost $20",
     "status": "Status",
-    "return": "Return"
+    "return": "Return",
+    "noOrders": "You have no orders in this tab yet"
   },
   "product": {
     "name": "Product Name",

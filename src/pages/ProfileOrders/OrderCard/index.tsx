@@ -2,30 +2,40 @@ import { useTranslation } from 'react-i18next';
 
 import { Box, Typography } from '@mui/material';
 
-import mockPhoto1 from 'src/assets/photos/mockPhoto1.png';
-import mockPhoto2 from 'src/assets/photos/mockPhoto2.png';
-import mockPhoto3 from 'src/assets/photos/mockPhoto3.png';
+import { orderStatus as orderStatuses } from 'src/common/constants';
 import StyledButton from 'src/components/shared/StyledButton';
 import { StyleVariants } from 'src/components/shared/StyledButton/types';
 import theme from 'src/theme';
 
 import { StyledCard, StyledImage, StyledCardFooter } from './styles';
 
-function OrderCard() {
+type OrderCardProps = {
+  orderId: number;
+  orderStatus: (typeof orderStatuses)[keyof typeof orderStatuses];
+  productsQuantity: number;
+  productsPhotos: string[];
+};
+
+function OrderCard({
+  orderId,
+  productsQuantity,
+  productsPhotos,
+  orderStatus,
+}: OrderCardProps) {
   const { t } = useTranslation();
 
   return (
     <StyledCard>
       <Typography variant="subtitle1" sx={{ fontSize: '16px' }}>
-        {t('profileOrders.order')} #323
+        {t('profileOrders.order')} #{orderId}
       </Typography>
       <Typography variant="h4" sx={{ textDecoration: 'underline' }}>
-        3 {t('profileOrders.items')}
+        {productsQuantity} {t('profileOrders.items')}
       </Typography>
       <Box sx={{ display: 'flex', gap: '4px' }}>
-        <StyledImage src={mockPhoto1} alt="item" />
-        <StyledImage src={mockPhoto2} alt="item" />
-        <StyledImage src={mockPhoto3} alt="item" />
+        {productsPhotos.map((productPhoto) => (
+          <StyledImage src={productPhoto} key={productPhoto} />
+        ))}
       </Box>
       <Typography sx={{ color: theme.palette.text.disabled }}>
         {t('profileOrders.freeReturn')}:{' '}
@@ -47,7 +57,7 @@ function OrderCard() {
       </Typography>
       <StyledCardFooter>
         <Typography variant="subtitle1" sx={{ fontSize: '16px' }}>
-          {t('profileOrders.status')}: In Rent
+          {t('profileOrders.status')}: {orderStatus}
         </Typography>
         <StyledButton styles={StyleVariants.TRANSPARENT} type="button">
           {t('profileOrders.return')}
