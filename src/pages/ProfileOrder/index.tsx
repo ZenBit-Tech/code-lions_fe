@@ -1,7 +1,9 @@
+import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { CircularProgress, Grid } from '@mui/material';
 
+import { orderStatus } from 'src/common/constants';
 import OrderActions from 'src/pages/vendor/VendorOrderPage/OrderActions';
 import { useAppSelector } from 'src/redux/hooks';
 import { useGetOrderByUserIdAndOrderIdQuery } from 'src/redux/order/orderService';
@@ -24,12 +26,14 @@ function ProfileOrderPage() {
 
   const userRole = useAppSelector(selectUserRole);
 
+  const [fakeStatus, setFakeStatus] = useState<string>(orderStatus.RETURNED);
+
   const { data, isLoading } = useGetOrderByUserIdAndOrderIdQuery({
     orderId: orderIdNumber,
   });
 
-  const handleActionClick = (action: string): void => {
-    console.log(`Action clicked: ${action}`);
+  const handleActionClick = (status: string): void => {
+    setFakeStatus(status);
   };
 
   if (!data || isLoading) {
@@ -42,9 +46,9 @@ function ProfileOrderPage() {
     <OrderDetailsSection orderNumber={order.orderId}>
       <Grid container columns={7} sx={{ padding: '12px' }}>
         <Grid item xs={5} sx={{ paddingRight: '24px' }}>
-          <OrderInfoSection order={order} />
+          <OrderInfoSection order={order} fakeStatus={fakeStatus} />
           <OrderActions
-            status={order.status}
+            status={fakeStatus}
             orderId={order.orderId}
             role={userRole}
             trackingNumber={mockTrackingNumber}

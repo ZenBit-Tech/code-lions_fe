@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 
-import { Box, Button, Input, TextField, Typography } from '@mui/material';
+import { Box, Button, TextField, Typography } from '@mui/material';
 
 import { orderStatus, userRoles } from 'src/common/constants';
 import useToast from 'src/components/shared/toasts/components/ToastProvider/ToastProviderHooks';
@@ -98,22 +98,85 @@ function OrderActions({
             </Typography>
           </Box>
         ) : (
-          <Box>
-            {`${t('vendorOrder.trackingNumber')} ${trackingNumber}`}
-            <Button onClick={() => onActionClick('Received')}>
-              {t('vendorOrder.received')}
+          <Box
+            display="flex"
+            justifyContent="space-between"
+            alignItems="center"
+            sx={{ marginBottom: '24px' }}
+          >
+            <Box display="flex" flexDirection="column" gap="8px">
+              <Typography variant="h4" sx={{ color: theme.palette.grey[400] }}>
+                {t('vendorOrder.trackingNumber')}
+              </Typography>
+              <Typography sx={{ fontWeight: theme.typography.semiBold }}>
+                {trackingNumber}
+              </Typography>
+            </Box>
+            <Button
+              sx={styles.rejectButton}
+              onClick={() => onActionClick(orderStatus.RECEIVED)}
+            >
+              <Typography
+                variant="h4"
+                sx={{
+                  color: theme.palette.common.black,
+                }}
+              >
+                {t('vendorOrder.received')}
+              </Typography>
             </Button>
           </Box>
         );
 
       case orderStatus.RECEIVED:
         return role === userRoles.BUYER ? (
-          <Box>
-            <Box>{mockDays}</Box>
-            <Input placeholder="Tracking Number" />
-            <Button onClick={() => onActionClick('Return')}>
-              {t('vendorOrder.return')}
-            </Button>
+          <Box
+            display="flex"
+            justifyContent="space-between"
+            alignItems="flex-start"
+            sx={{ marginBottom: '24px' }}
+          >
+            <Box
+              display="flex"
+              flexDirection="column"
+              gap="8px"
+              sx={{ marginBottom: '24px' }}
+            >
+              <Typography variant="h4" sx={{ color: theme.palette.grey[400] }}>
+                {t('vendorOrder.rentDaysLeft')}
+              </Typography>
+              <Typography sx={{ fontWeight: theme.typography.semiBold }}>
+                {mockDays}
+              </Typography>
+            </Box>
+            <Box sx={styles.receivedWrapper}>
+              <Box display="flex" flexDirection="column" height="74px">
+                <Typography variant="subtitle1" sx={{ fontWeight: '500' }}>
+                  {t('vendorOrder.trackingNumber')}
+                </Typography>
+                <Box height="48px" padding="6px 0 12px 0">
+                  <TextField
+                    autoComplete="off"
+                    defaultValue={trackingNumber}
+                    placeholder={t('vendorOrder.trackingPlaceholder')}
+                    sx={styles.input}
+                  />
+                  <Button
+                    sx={styles.sendButton}
+                    onClick={() => onActionClick(orderStatus.SENT_BACK)}
+                  >
+                    <Typography
+                      variant="h4"
+                      sx={{
+                        color: theme.palette.common.white,
+                      }}
+                    >
+                      {t('vendorOrder.send')}
+                    </Typography>
+                  </Button>
+                </Box>
+              </Box>
+            </Box>
           </Box>
         ) : (
           <Box
@@ -162,7 +225,19 @@ function OrderActions({
             </Button>
           </Box>
         ) : (
-          <Box>{`${t('vendorOrder.trackingNumber')} ${trackingNumber}`}</Box>
+          <Box
+            display="flex"
+            flexDirection="column"
+            gap="8px"
+            sx={{ marginBottom: '24px' }}
+          >
+            <Typography variant="h4" sx={{ color: theme.palette.grey[400] }}>
+              {t('vendorOrder.trackingNumber')}
+            </Typography>
+            <Typography sx={{ fontWeight: theme.typography.semiBold }}>
+              {trackingNumber}
+            </Typography>
+          </Box>
         );
 
       case orderStatus.RETURNED:
@@ -183,11 +258,53 @@ function OrderActions({
 
       case orderStatus.OVERDUE:
         return role === userRoles.BUYER ? (
-          <Box>
-            <Input placeholder="Tracking number" />
-            <Button onClick={() => onActionClick('Pay&Send')}>
-              {t('vendorOrder.paySend')}
-            </Button>
+          <Box
+            display="flex"
+            justifyContent="space-between"
+            alignItems="flex-start"
+            sx={{ marginBottom: '24px' }}
+          >
+            <Box
+              display="flex"
+              flexDirection="column"
+              gap="8px"
+              sx={{ marginBottom: '24px' }}
+            >
+              <Typography variant="h4" sx={{ color: theme.palette.grey[400] }}>
+                {t('vendorOrder.rentDaysLeft')}
+              </Typography>
+              <Typography sx={{ fontWeight: theme.typography.semiBold }}>
+                {mockOverdue}
+              </Typography>
+            </Box>
+            <Box sx={styles.receivedWrapper}>
+              <Box display="flex" flexDirection="column" height="74px">
+                <Typography variant="subtitle1" sx={{ fontWeight: '500' }}>
+                  {t('vendorOrder.trackingNumber')}
+                </Typography>
+                <Box height="48px" padding="6px 0 12px 0">
+                  <TextField
+                    autoComplete="off"
+                    defaultValue={trackingNumber}
+                    placeholder={t('vendorOrder.trackingPlaceholder')}
+                    sx={styles.input}
+                  />
+                  <Button
+                    sx={styles.sendButton}
+                    onClick={() => onActionClick(orderStatus.SENT_BACK)}
+                  >
+                    <Typography
+                      variant="h4"
+                      sx={{
+                        color: theme.palette.common.white,
+                      }}
+                    >
+                      {t('vendorOrder.paySend')}
+                    </Typography>
+                  </Button>
+                </Box>
+              </Box>
+            </Box>
           </Box>
         ) : (
           <Box

@@ -36,17 +36,25 @@ const styles = {
     },
   },
   sendButton: {
-    marginRight: '16px',
     borderRadius: '0 8px 8px 0',
     padding: '12px 24px',
     backgroundColor: theme.palette.common.black,
     border: `1px solid ${theme.palette.common.black}`,
   },
   rejectButton: {
+    marginLeft: '16px',
     borderRadius: '8px',
     padding: '12px 24px',
     backgroundColor: theme.palette.common.white,
     border: `1px solid ${theme.palette.common.black}`,
+  },
+  receivedWrapper: {
+    newOrderVendorWrapper: {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'flex-end',
+      justifyContent: 'flex-end',
+    },
   },
   returnedWrapper: {
     display: 'flex',
