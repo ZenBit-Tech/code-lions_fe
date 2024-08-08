@@ -17,6 +17,7 @@ interface IOrderActionProps {
 
 interface INewOrderProps extends IOrderActionProps {
   orderId: number;
+  openModal: (() => void) | undefined;
 }
 
 const mockDays: string = '5 days';
@@ -26,12 +27,19 @@ export function NewOrderVendorAction({
   trackingNumber,
   onActionClick,
   orderId,
+  openModal,
 }: INewOrderProps) {
   const { t } = useTranslation();
   const { showToast } = useToast();
   const [rejectOrder] = useRejectOrderMutation();
 
   const rejectOrderByVendor = async () => {
+    if (openModal) {
+      openModal();
+
+      return;
+    }
+
     try {
       await rejectOrder({
         orderId,

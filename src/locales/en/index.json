@@ -489,7 +489,11 @@
     "subtotal": "Subtotal",
     "discount": "Discount",
     "shipping": "Shipping",
-    "label": "simple table"
+    "label": "simple table",
+    "cancel": "Cancel",
+    "modalTitle": "Why do you reject this order?",
+    "rejectPlaceholder": "Describe your rejection reason",
+    "rejectLabel": "maximum height"
   },
   "filters": {
     "title": "Filters",

@@ -21,6 +21,7 @@ interface IOrderActionsProps {
   role: string | null;
   trackingNumber: string;
   onActionClick: (status: string) => void;
+  openModal?: () => void;
 }
 
 function OrderActions({
@@ -29,6 +30,7 @@ function OrderActions({
   role,
   trackingNumber,
   onActionClick,
+  openModal,
 }: IOrderActionsProps) {
   const renderButtons = () => {
     switch (status) {
@@ -38,6 +40,7 @@ function OrderActions({
             orderId={orderId}
             trackingNumber={trackingNumber}
             onActionClick={onActionClick}
+            openModal={openModal}
           />
         ) : null;
 

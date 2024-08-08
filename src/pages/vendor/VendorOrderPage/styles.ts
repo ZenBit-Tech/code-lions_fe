@@ -1,4 +1,23 @@
+import { TextareaAutosize as BaseTextareaAutosize } from '@mui/base/TextareaAutosize';
+import { styled } from '@mui/system';
+
 import theme from 'src/theme';
+
+export const TextArea = styled(BaseTextareaAutosize)({
+  boxSizing: 'border-box',
+  width: '90%',
+  fontFamily: theme.typography.fontFamily,
+  fontSize: theme.typography.fontSize,
+  fontWeight: theme.typography.fontWeightRegular,
+  lineHeight: 1.5,
+  padding: '8px 12px',
+  borderRadius: '8px',
+  border: `1px solid ${theme.palette.border.light}`,
+
+  '&:hover, &:focus': {
+    borderColor: theme.palette.border.dark,
+  },
+});
 
 const styles = {
   link: {
