@@ -32,6 +32,7 @@ function ImagesForm() {
           (item) =>
             (item.type === 'image' || item.type === 'video') && (
               <ImageCard
+                key={item.src}
                 type={item.type}
                 src={item.src}
                 isPrimary={item.isPrimary}
