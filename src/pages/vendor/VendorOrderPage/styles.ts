@@ -28,7 +28,7 @@ const styles = {
       borderRadius: '8px 0 0 8px',
     },
     '& .MuiOutlinedInput-input': {
-      fontSize: '16px',
+      fontSize: theme.typography.fontSize,
       padding: '11.5px 16px',
     },
     '&:focus-visible': {

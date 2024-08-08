@@ -25,7 +25,7 @@ function VendorOrderPage() {
 
   const orderIdNumber: number = Number(orderId);
 
-  const [fakeStatus, setFakeStatus] = useState<string>(orderStatus.NEW);
+  const [fakeStatus, setFakeStatus] = useState<string>(orderStatus.RECEIVED);
 
   const { data, isLoading } = useGetOrderByUserIdAndOrderIdQuery({
     orderId: orderIdNumber,

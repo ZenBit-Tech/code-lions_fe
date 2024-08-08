@@ -26,7 +26,7 @@ function ProfileOrderPage() {
 
   const userRole = useAppSelector(selectUserRole);
 
-  const [fakeStatus, setFakeStatus] = useState<string>(orderStatus.RETURNED);
+  const [fakeStatus, setFakeStatus] = useState<string>(orderStatus.NEW);
 
   const { data, isLoading } = useGetOrderByUserIdAndOrderIdQuery({
     orderId: orderIdNumber,
