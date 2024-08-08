@@ -1,3 +1,4 @@
+import PdfLogo from 'src/assets/icons/pdf.svg';
 import { ContentType, IMessage } from 'src/common/types.ts';
 import formatDateForChatList from 'src/common/utils/formatDateForChat';
 
@@ -24,6 +25,18 @@ function RenderContent(content: string, contentType: ContentType) {
 
     case ContentType.LINK:
       return <a href={content}>{content}</a>;
+
+    case ContentType.FILE:
+      return (
+        <a
+          href={content}
+          target="_blank"
+          rel="noreferrer"
+          aria-label="Open PDF"
+        >
+          <PdfLogo />
+        </a>
+      );
 
     default:
       return <ChatImage src={content} />;
