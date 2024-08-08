@@ -50,9 +50,17 @@ const useChatSocket = ({ accessToken, myId }: UseChatSocketParams) => {
   useEffect(() => {
     const socket = io(`${import.meta.env.VITE_API_URL}`, {
       auth: { token: accessToken },
+      autoConnect: false,
     });
 
     socketRef.current = socket;
+
+    if (accessToken) {
+      socket.connect();
+      refetch();
+    } else {
+      socket.disconnect();
+    }
 
     socket.on('newMessage', (incomingMessage: IMessage) => {
       if (chatId) {
