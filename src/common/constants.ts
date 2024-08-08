@@ -121,6 +121,8 @@ export const RTKUrls = {
   ORDERS: 'orders',
   BUYER_ORDERS: 'orders/buyer',
   ORDERS_VENDOR: 'orders/vendor',
+  FOLLOW_VENDOR: '/vendors/follow',
+  UNFOLLOW_VENDOR: '/vendors/unfollow',
 };
 
 export const HttpMethods = {
