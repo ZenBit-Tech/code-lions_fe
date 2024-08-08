@@ -686,7 +686,8 @@
     "sent": "Sent",
     "delivered": "Delivered",
     "received": "Received",
-    "waiting": "Waiting for returning",
+    "sentBack": "Sent back",
+    "overdue": "Overdue",
     "returned": "Returned",
     "rejected": "Rejected",
     "noOrders": "You have no orders"

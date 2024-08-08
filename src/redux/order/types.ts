@@ -1,5 +1,7 @@
 import { ProductStatus } from 'src/redux/product/types';
 
+import { SortOrder } from '../user/types';
+
 export interface IOrder {
   id: string;
   orderId: number;
@@ -58,11 +60,12 @@ export interface IOrderData {
 }
 
 export type OrderStatus =
-  | 'New order'
+  | 'New Order'
   | 'Sent'
   | 'Delivered'
   | 'Received'
-  | 'Waiting for returning'
+  | 'Sent back'
+  | 'Overdue'
   | 'Returned'
   | 'Rejected';
 
@@ -109,4 +112,16 @@ export type IVendorOrdersResponse = IVendorOrder[];
 
 export interface IVendorOrdersRequest {
   id: string;
+}
+
+export interface IVendorPaginatedOrdersRequest {
+  status?: OrderStatus;
+  page?: number;
+  sortBy?: 'orderId' | 'price' | 'createdAt';
+  sortOrder: SortOrder;
+}
+
+export interface IVendorPaginatedOrdersResponse {
+  orders: IVendorOrder[];
+  count: number;
 }

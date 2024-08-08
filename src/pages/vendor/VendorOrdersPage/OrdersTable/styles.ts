@@ -40,8 +40,9 @@ const statusColors = {
   sent: '#36B37E',
   delivered: '#2668BD',
   received: '#FFBB0B',
-  waiting: '#FF640D',
+  sentBack: '#FF640D',
   returned: '#3F30F3',
+  overdue: '#DE50B8',
   rejected: '#DE506F',
 };
 
@@ -63,12 +64,15 @@ export const Status = styled(Chip)<{ status: string }>(({ status }) => {
   } else if (status === orderStatus.RECEIVED) {
     color = statusColors.received;
     backgroundColor = hexToRgba(statusColors.received, opacity);
-  } else if (status === orderStatus.WAITING_RETURNING) {
-    color = statusColors.waiting;
-    backgroundColor = hexToRgba(statusColors.waiting, opacity);
+  } else if (status === orderStatus.SENT_BACK) {
+    color = statusColors.sentBack;
+    backgroundColor = hexToRgba(statusColors.sentBack, opacity);
   } else if (status === orderStatus.RETURNED) {
     color = statusColors.returned;
     backgroundColor = hexToRgba(statusColors.returned, opacity);
+  } else if (status === orderStatus.OVERDUE) {
+    color = statusColors.overdue;
+    backgroundColor = hexToRgba(statusColors.overdue, opacity);
   } else if (status === orderStatus.REJECTED) {
     color = statusColors.rejected;
     backgroundColor = hexToRgba(statusColors.rejected, opacity);

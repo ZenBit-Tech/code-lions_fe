@@ -1,14 +1,13 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useSelector } from 'react-redux';
 
 import { Box, Grid, Typography } from '@mui/material';
 
 import { sortOptions } from 'src/common/constants';
 import SortButton from 'src/pages/admin/SortButton';
-import { useGetAllOrdersVendorQuery } from 'src/redux/order/orderService';
+import { useGetAllPaginatedOrdersVendorQuery } from 'src/redux/order/orderService';
+import { OrderStatus } from 'src/redux/order/types';
 import { SortOrder } from 'src/redux/user/types';
-import { selectUserId } from 'src/redux/user/userSlice';
 
 import VendorSectionTitle from '../VendorSectionTitle';
 
@@ -19,9 +18,13 @@ import SectionWrapper from './styles';
 function VendorOrdersPage() {
   const { t } = useTranslation();
 
-  const [, setSortOrder] = useState<SortOrder>(sortOptions.DESC);
+  const [status, setStatus] = useState<OrderStatus>('New Order');
+  const [sortOrder, setSortOrder] = useState<SortOrder>(sortOptions.DESC);
   const [page, setPage] = useState(1);
 
+  const changeStatus = (value: OrderStatus) => {
+    setStatus(value);
+  };
   const handleClick = (value: SortOrder) => {
     setSortOrder(value);
   };
@@ -29,11 +32,12 @@ function VendorOrdersPage() {
     setPage(value);
   };
 
-  const id = useSelector(selectUserId);
-
-  const { data } = useGetAllOrdersVendorQuery(
+  const { data } = useGetAllPaginatedOrdersVendorQuery(
     {
-      id,
+      status,
+      page,
+      sortBy: 'createdAt',
+      sortOrder,
     },
     {
       refetchOnFocus: true,
@@ -41,10 +45,12 @@ function VendorOrdersPage() {
     }
   );
 
-  const ORDERSONPAGE = 8;
-  const orderQuantity = data?.length ?? 0;
+  const orders = data?.orders || [];
+  const count = data?.count || 0;
 
-  const pagesCount = Math.ceil(orderQuantity / ORDERSONPAGE);
+  const ORDERSONPAGE = 16;
+
+  const pagesCount = Math.ceil(count / ORDERSONPAGE);
 
   return (
     <Grid container columns={12}>
@@ -55,7 +61,7 @@ function VendorOrdersPage() {
         <SectionWrapper item xs={12}>
           <Grid item xs={12}>
             <Box display="flex" justifyContent="space-between" width="100%">
-              <OrdersButtons />
+              <OrdersButtons status={status} changeStatus={changeStatus} />
               <SortButton
                 title={t('usersAdmin.sortButton')}
                 onClick={handleClick}
@@ -63,9 +69,9 @@ function VendorOrdersPage() {
             </Box>
           </Grid>
           <Grid item xs={12} mt={4}>
-            {data && data.length > 0 ? (
+            {orders && orders.length > 0 ? (
               <OrdersTable
-                orders={data}
+                orders={orders}
                 pagesCount={pagesCount}
                 page={page}
                 handleChange={handleChange}
