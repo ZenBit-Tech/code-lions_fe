@@ -124,6 +124,7 @@ export const RTKUrls = {
   ORDERS_VENDOR: 'orders/vendor',
   FOLLOW_VENDOR: '/vendors/follow',
   UNFOLLOW_VENDOR: '/vendors/unfollow',
+  STRIPE: '/stripe',
 };
 
 export const HttpMethods = {
