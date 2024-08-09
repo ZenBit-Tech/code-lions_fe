@@ -196,7 +196,8 @@
     "products": "Products",
     "requests": "Requests",
     "productsList": "Products List",
-    "chats": "Chats"
+    "chats": "Chats",
+    "stripeFees": "Stripe Fees"
   },
   "headerAdmin": {
     "mockAvatar": "AA",
@@ -226,6 +227,10 @@
     "mockSaveDate": "Apr 9, 2023-15-03",
     "saveButton": "Save",
     "cancelButton": "Cancel"
+  },
+  "stripeAdmin": {
+    "stripeFee": "Application fee",
+    "submit": "Submit"
   },
   "profile": {
     "title": "Your Profile",
