@@ -7,6 +7,7 @@ import { Box } from '@mui/system';
 
 import Oval from 'src/assets/icons/addProduct/oval.svg';
 import { urls } from 'src/common/constants';
+import RejectProductFlowModal from 'src/components/shared/RejectProductFlowModal';
 import StyledButton from 'src/components/shared/StyledButton';
 import {
   PaddingVariants,
@@ -32,8 +33,6 @@ import { useAppDispatch, useAppSelector } from 'src/redux/hooks';
 import { useUpdateProductMutation } from 'src/redux/vendorProduct/vendorProductService';
 import theme from 'src/theme';
 
-import RejectEditingModal from '../RejectEditingModal';
-
 import OnboardingHeader3 from './styles';
 
 function FinishForm() {
@@ -56,10 +55,10 @@ function FinishForm() {
     price: productPrice,
   } = useAppSelector((state) => state.addProduct);
 
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [isRejectModalOpen, setIsRejectModalOpen] = useState<boolean>(false);
 
-  const toggleModal = (): void => {
-    setIsModalOpen(!isModalOpen);
+  const toggleRejectModal = (): void => {
+    setIsRejectModalOpen(!isRejectModalOpen);
   };
 
   const [updateProduct] = useUpdateProductMutation();
@@ -104,7 +103,8 @@ function FinishForm() {
       dispatch(setPrice(parseFloat(values.price)));
       dispatch(resetAddProduct());
       showToast('success', t('editProduct.editingSuccess'));
-      navigate(`${urls.VENDOR}/${urls.VENDOR_ORDERS}`);
+      // navigate(`${urls.VENDOR}/${urls.VENDOR_ORDERS}`);
+      navigate(urls.VENDOR_GLOBAL_PRODUCTS);
     } catch (error) {
       showToast('error', t('editProduct.editingFailed'));
     }
@@ -218,14 +218,19 @@ function FinishForm() {
             variant="contained"
             fontSize={String(theme.typography.h4.fontSize)}
             fontFamily={theme.typography.fontFamily}
-            onClick={toggleModal}
+            onClick={toggleRejectModal}
           >
             {t('editProduct.cancelBtn')}
           </StyledButton>
         </Box>
       </Box>
-      {isModalOpen && (
-        <RejectEditingModal isModalOpen={isModalOpen} onClose={toggleModal} />
+      {isRejectModalOpen && (
+        <RejectProductFlowModal
+          isModalOpen={isRejectModalOpen}
+          onClose={toggleRejectModal}
+          modalTitle={t('editModal.title')}
+          modalSubtitle={t('editModal.subtitle')}
+        />
       )}
     </>
   );

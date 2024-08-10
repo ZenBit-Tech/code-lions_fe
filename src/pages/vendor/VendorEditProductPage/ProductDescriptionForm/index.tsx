@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { Box } from '@mui/material';
 
 import ReusableDescriptionBox from 'src/components/ReusableDescriptionBox';
+import RejectProductFlowModal from 'src/components/shared/RejectProductFlowModal';
 import StyledButton from 'src/components/shared/StyledButton';
 import {
   PaddingVariants,
@@ -19,7 +20,6 @@ import useToast from 'src/components/shared/toasts/components/ToastProvider/Toas
 import {
   accessoriesCategory,
   bagsCategory,
-  brands,
   clothesSizes,
   dressType,
   jeansSizes,
@@ -37,14 +37,20 @@ import {
   decreaseAddProductStep,
   increaseAddProductStep,
   selectProductId,
+  setPdfUrl,
 } from 'src/redux/addProduct/addProductSlice';
 import { useAppDispatch, useAppSelector } from 'src/redux/hooks';
 import { useUploadProductPdfMutation } from 'src/redux/vendorProduct/vendorProductService';
 import theme from 'src/theme';
 
-import RejectEditingModal from '../RejectEditingModal';
+import useGetProductBrands from '../../VendorAddProductPage/ProductDescriptionForm/hooks/useGetProductBrands';
 
 import useProductDispatch from './hooks/useProductDispatch';
+
+interface colorsOptions {
+  label: string;
+  value: string;
+}
 
 function ProductDescriptionForm() {
   const { t } = useTranslation();
@@ -60,8 +66,8 @@ function ProductDescriptionForm() {
   const selectedShoesSize = useAppSelector((state) => state.addProduct.size);
   const selectedJeansSize = useAppSelector((state) => state.addProduct.size);
   const selectedUniqueSize = useAppSelector((state) => state.addProduct.size);
-  const selectedProductColor = useAppSelector(
-    (state) => state.addProduct.colors[0]
+  const selectedProductColors = useAppSelector(
+    (state) => state.addProduct.colors
   );
   const selectedDescription = useAppSelector(
     (state) => state.addProduct.description
@@ -83,8 +89,7 @@ function ProductDescriptionForm() {
   const [shoesSize, setShoesSize] = useState<string>(selectedShoesSize);
   const [jeansSize, setJeansSize] = useState<string>(selectedJeansSize);
   const [uniqueSize, setUniqueSize] = useState<string>(selectedUniqueSize);
-  const [productColor, setProductColor] =
-    useState<string>(selectedProductColor);
+  const [productColors, setProductColors] = useState<string[]>([]);
   const [productMaterial, setProductMaterial] = useState<string>(
     selectedProductMaterial
   );
@@ -95,10 +100,10 @@ function ProductDescriptionForm() {
 
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [isRejectModalOpen, setIsRejectModalOpen] = useState<boolean>(false);
 
-  const toggleModal = (): void => {
-    setIsModalOpen(!isModalOpen);
+  const toggleRejectModal = (): void => {
+    setIsRejectModalOpen(!isRejectModalOpen);
   };
 
   const [uploadProductPdf, { isLoading }] = useUploadProductPdfMutation();
@@ -111,10 +116,12 @@ function ProductDescriptionForm() {
     clothesSize,
     uniqueSize,
     jeansSize,
-    productColor,
+    productColors,
     shoesMaterial,
     productMaterial
   );
+
+  const brands = useGetProductBrands();
 
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files.length > 0) {
@@ -135,6 +142,7 @@ function ProductDescriptionForm() {
         }).unwrap();
 
         showToast('success', t('addProduct.uploadSuccess'));
+        dispatch(setPdfUrl(selectedFile.name));
       }
     } catch (error) {
       if (error instanceof Error) {
@@ -187,6 +195,7 @@ function ProductDescriptionForm() {
               onChange={(e) => {
                 setProductName(e.target.value);
               }}
+              inputProps={{ maxLength: 500 }}
             />
           </Box>
         </Box>
@@ -213,6 +222,7 @@ function ProductDescriptionForm() {
               onChange={(e) => {
                 setProductDescription(e.target.value);
               }}
+              inputProps={{ maxLength: 500 }}
               sx={{
                 '& .css-kkhb97-MuiInputBase-root-MuiOutlinedInput-root': {
                   padding: 0,
@@ -306,9 +316,19 @@ function ProductDescriptionForm() {
           <Box sx={{ flex: 1 }}>
             <CustomSelect
               options={colors}
+              multiple
               displayEmpty
-              value={productColor}
-              onChange={(v) => setProductColor(String(v.target.value))}
+              value={productColors}
+              renderValue={(selected) => {
+                const selectedColors = selected as colorsOptions[];
+
+                if (selectedColors.length === 0) {
+                  return <p>{selectedProductColors.join(' ')}</p>;
+                }
+
+                return selectedColors.join(', ');
+              }}
+              onChange={(v) => setProductColors(v.target.value as string[])}
             />
           </Box>
         </Box>
@@ -398,7 +418,7 @@ function ProductDescriptionForm() {
               fontSize={String(theme.typography.h4.fontSize)}
               fontFamily={theme.typography.fontFamily}
               radius="8px"
-              disabled={!selectedFile}
+              disabled={!selectedFile || selectedFile.name === selectedPdfUrl}
               sx={{
                 height: '34px',
               }}
@@ -433,6 +453,11 @@ function ProductDescriptionForm() {
             fontFamily={theme.typography.fontFamily}
             radius="8px"
             onClick={goToNextStep}
+            disabled={
+              productColors[0] === materials[0].value ||
+              productMaterial === materials[0].value ||
+              shoesMaterial === materials[0].value
+            }
           >
             {t('onboarding.next')}
           </StyledButton>
@@ -442,14 +467,19 @@ function ProductDescriptionForm() {
             variant="contained"
             fontSize={String(theme.typography.h4.fontSize)}
             fontFamily={theme.typography.fontFamily}
-            onClick={toggleModal}
+            onClick={toggleRejectModal}
           >
             {t('editProduct.cancelBtn')}
           </StyledButton>
         </Box>
       </Box>
-      {isModalOpen && (
-        <RejectEditingModal isModalOpen={isModalOpen} onClose={toggleModal} />
+      {isRejectModalOpen && (
+        <RejectProductFlowModal
+          isModalOpen={isRejectModalOpen}
+          onClose={toggleRejectModal}
+          modalTitle={t('editModal.title')}
+          modalSubtitle={t('editModal.subtitle')}
+        />
       )}
     </>
   );
