@@ -1,6 +1,8 @@
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
 import { RootState } from 'src/common/types';
 
+import { logout } from '../user/userSlice';
+
 import { IAddedProduct, ProductImage } from './types';
 
 const initialState: IAddedProduct = {
@@ -65,9 +67,13 @@ export const addProductSlice = createSlice({
     setSize(state, action: PayloadAction<string>) {
       state.size = action.payload;
     },
-    setColor(state, action: PayloadAction<string>) {
+    setColors(state, action: PayloadAction<string[]>) {
+      // state.colors = [];
+      state.colors = action.payload;
+    },
+    setNewColors(state, action: PayloadAction<string[]>) {
       state.colors = [];
-      state.colors.push(action.payload);
+      state.colors = action.payload;
     },
     setMaterial(state, action: PayloadAction<string>) {
       state.material = action.payload;
@@ -107,6 +113,10 @@ export const addProductSlice = createSlice({
     builder.addCase(fetchProductImages.fulfilled, (state, action) => {
       state.images = action.payload;
     });
+    builder.addMatcher(
+      (action) => action.type === logout.type,
+      () => initialState
+    );
   },
 });
 
@@ -119,7 +129,8 @@ export const {
   setDescription,
   setBrand,
   setSize,
-  setColor,
+  setColors,
+  setNewColors,
   setMaterial,
   setPdfUrl,
   setPrice,

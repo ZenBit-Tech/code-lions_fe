@@ -81,6 +81,12 @@ export const vendorProductsApi = createApi({
       }),
       invalidatesTags: ['VendorProduct'],
     }),
+    getProductBrands: build.query<string[], void>({
+      query: () => ({
+        url: '/brands',
+        method: HttpMethods.GET,
+      }),
+    }),
   }),
 });
 
@@ -92,4 +98,5 @@ export const {
   useSetProductPhotoPrimaryMutation,
   useUpdateProductMutation,
   useUploadProductPdfMutation,
+  useGetProductBrandsQuery,
 } = vendorProductsApi;
