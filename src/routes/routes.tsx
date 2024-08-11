@@ -1,6 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom';
 
-import { urls } from 'src/common/constants';
+import { urls, userRoles } from 'src/common/constants';
 import Layout from 'src/components/Layout';
 import AboutUsPage from 'src/pages/AboutUsPage';
 import AdminLayout from 'src/pages/admin/AdminLayout';
@@ -56,6 +56,7 @@ import WishlistPage from 'src/pages/WishlistPage';
 
 import AdminPrivateRoute from './AdminPrivateRoute';
 import FinishedOnboardingGuard from './FinishedOnboardingGuard';
+import ForbiddenRoute from './ForbiddenRoute';
 import OnboardingGuard from './OnboardingGuard';
 import VendorPrivateRoute from './VendorPrivateRoute';
 import VerifyPrivateRoute from './VerifyPrivateRoute';
@@ -198,7 +199,11 @@ const router = createBrowserRouter([
   { path: urls.USER_VENDOR_PROFILE, element: <VendorPublicProfilePage /> },
   {
     path: urls.VENDOR,
-    element: <VendorLayout />,
+    element: (
+      <ForbiddenRoute allowedRoles={[userRoles.VENDOR]} redirectTo={urls.HOME}>
+        <VendorLayout />
+      </ForbiddenRoute>
+    ),
     children: [
       { path: urls.USER_BUYER_PROFILE, element: <BuyerPublicProfilePage /> },
       { path: urls.VENDOR_DASHBOARD, element: <VendorDashboard /> },
