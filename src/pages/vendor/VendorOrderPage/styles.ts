@@ -1,4 +1,23 @@
+import { TextareaAutosize as BaseTextareaAutosize } from '@mui/base/TextareaAutosize';
+import { styled } from '@mui/system';
+
 import theme from 'src/theme';
+
+export const TextArea = styled(BaseTextareaAutosize)({
+  boxSizing: 'border-box',
+  width: '90%',
+  fontFamily: theme.typography.fontFamily,
+  fontSize: theme.typography.fontSize,
+  fontWeight: theme.typography.fontWeightRegular,
+  lineHeight: 1.5,
+  padding: '8px 12px',
+  borderRadius: '8px',
+  border: `1px solid ${theme.palette.border.light}`,
+
+  '&:hover, &:focus': {
+    borderColor: theme.palette.border.dark,
+  },
+});
 
 const styles = {
   link: {
@@ -16,16 +35,50 @@ const styles = {
     padding: '4px 16px',
     backgroundColor: theme.palette.error.light,
   },
-  buttonWrapper: {
+  newOrderVendorWrapper: {
     display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-end',
     justifyContent: 'flex-end',
     margin: '8px 0 24px 0',
   },
+  input: {
+    '& .MuiOutlinedInput-root': {
+      borderRadius: '8px 0 0 8px',
+    },
+    '& .MuiOutlinedInput-input': {
+      fontSize: theme.typography.fontSize,
+      padding: '11.5px 16px',
+    },
+    '&:focus-visible': {
+      border: `1px solid ${theme.palette.common.black}`,
+    },
+  },
+  sendButton: {
+    borderRadius: '0 8px 8px 0',
+    padding: '12px 24px',
+    backgroundColor: theme.palette.common.black,
+    border: `1px solid ${theme.palette.common.black}`,
+  },
   rejectButton: {
+    marginLeft: '16px',
     borderRadius: '8px',
     padding: '12px 24px',
     backgroundColor: theme.palette.common.white,
     border: `1px solid ${theme.palette.common.black}`,
+  },
+  receivedWrapper: {
+    newOrderVendorWrapper: {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'flex-end',
+      justifyContent: 'flex-end',
+    },
+  },
+  returnedWrapper: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+    margin: '8px 0 24px 0',
   },
   orderSummaryWrapper: {
     borderRadius: '8px',

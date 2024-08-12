@@ -10,9 +10,10 @@ import theme from 'src/theme';
 
 interface IOrderInfoSectionProps {
   order: IOrder;
+  fakeStatus: string;
 }
 
-function OrderInfoSection({ order }: IOrderInfoSectionProps) {
+function OrderInfoSection({ order, fakeStatus }: IOrderInfoSectionProps) {
   const { t } = useTranslation();
 
   return (
@@ -43,7 +44,7 @@ function OrderInfoSection({ order }: IOrderInfoSectionProps) {
           <Typography variant="h4" sx={{ color: theme.palette.grey[400] }}>
             {t('vendorOrder.status')}
           </Typography>
-          <Status label={order.status} status={order.status} />
+          <Status label={fakeStatus} status={fakeStatus} />
         </Box>
         <Box display="flex" flexDirection="column" gap="8px">
           <Typography variant="h4" sx={{ color: theme.palette.grey[400] }}>
