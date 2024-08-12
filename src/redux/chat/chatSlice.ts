@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Chat, IMessage, ChatWithMainData } from 'src/common/types';
 import { chatApi } from 'src/redux/chat/chatService';
+import { logout } from 'src/redux/user/userSlice';
 
 type ChatState = {
   chatsWithMainData: ChatWithMainData[];
@@ -126,6 +127,10 @@ export const chatSlice = createSlice({
           state.chats[chatIndex] = chat;
         }
       }
+    );
+    builder.addMatcher(
+      (action) => action.type === logout.type,
+      () => initialState
     );
   },
 });
