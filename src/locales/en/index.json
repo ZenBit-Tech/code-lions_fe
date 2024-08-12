@@ -808,5 +808,9 @@
     "cancel": "Cancel",
     "placeholder": "Write review here",
     "subtitle": "Share your thoughts about this order"
+  },
+  "notifications": {
+    "noNotifications": "There is no notifications now.",
+    "notifications": "Notifications"
   }
 }

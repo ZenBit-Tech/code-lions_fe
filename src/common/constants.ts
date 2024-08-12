@@ -75,6 +75,7 @@ export const urls = {
   CART: 'cart',
   CHECKOUT: 'checkout',
   VENDOR_GLOBAL_PRODUCTS: '/vendor/products',
+  NOTIFICATIONS: 'notifications',
 };
 
 export const RTKUrls = {
@@ -123,6 +124,7 @@ export const RTKUrls = {
   ORDERS_VENDOR: 'orders/vendor',
   FOLLOW_VENDOR: '/vendors/follow',
   UNFOLLOW_VENDOR: '/vendors/unfollow',
+  NOTIFICATIONS: 'notifications',
 };
 
 export const HttpMethods = {

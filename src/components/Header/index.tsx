@@ -131,7 +131,7 @@ function Header() {
         >
           {user.isLoggedIn ? (
             <>
-              <Link to={urls.HOME}>
+              <Link to={urls.NOTIFICATIONS}>
                 <SvgHover>
                   <BellIcon />
                 </SvgHover>

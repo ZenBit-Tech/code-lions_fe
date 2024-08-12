@@ -1,7 +1,7 @@
 import { useState, MouseEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import {
   Typography,
@@ -11,6 +11,7 @@ import {
   ListItemText,
 } from '@mui/material';
 
+import BellIcon from 'src/assets/icons/bell.svg';
 import ChevronDown from 'src/assets/icons/chevron-down-grey.svg';
 import ChevronUp from 'src/assets/icons/chevron-up-grey.svg';
 import Logout from 'src/assets/icons/logout.svg';
@@ -26,6 +27,8 @@ import {
   selectUserName,
 } from 'src/redux/user/userSlice';
 import theme from 'src/theme';
+
+import SvgHover from './styles';
 
 function VendorHeader() {
   const { t } = useTranslation();
@@ -63,6 +66,11 @@ function VendorHeader() {
       height="70px"
       sx={{ borderLeft: `1px solid ${theme.palette.background.paper}` }}
     >
+      <Link to={urls.NOTIFICATIONS}>
+        <SvgHover>
+          <BellIcon />
+        </SvgHover>
+      </Link>
       <Box
         display="flex"
         justifyContent="flex-end"

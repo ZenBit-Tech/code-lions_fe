@@ -22,6 +22,7 @@ import HelpPage from 'src/pages/HelpPage';
 import HomePage from 'src/pages/HomePage';
 import NewPasswordPage from 'src/pages/NewPasswordPage';
 import NotFoundPage from 'src/pages/NotFoundPage';
+import NotificationsPage from 'src/pages/Notifications';
 import OnboardingPage from 'src/pages/OnboardingPage';
 import PrivacyPolicyPage from 'src/pages/PrivacyPolicyPage';
 import ProductFeedPage from 'src/pages/ProductFeedPage';
@@ -105,6 +106,7 @@ const router = createBrowserRouter([
       },
       { path: urls.CART, element: <CartPage /> },
       { path: urls.CHECKOUT, element: <CheckoutPage /> },
+      { path: urls.NOTIFICATIONS, element: <NotificationsPage /> },
     ],
   },
   {
@@ -209,6 +211,7 @@ const router = createBrowserRouter([
       { path: urls.VENDOR_ORDER, element: <VendorOrderPage /> },
       { path: urls.VENDOR_CHATS, element: <ChatsPage /> },
       { path: urls.VENDOR_CHAT_ID, element: <ChatsPage /> },
+      { path: urls.NOTIFICATIONS, element: <NotificationsPage /> },
       {
         path: urls.VENDOR_PROFILE,
         element: <VendorProfileLayout />,
