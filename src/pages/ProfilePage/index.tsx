@@ -22,7 +22,7 @@ function ProfilePage() {
       <Grid item xs={12} md={6}>
         <SizesForm />
       </Grid>
-      <Grid item xs={12}>
+      <Grid item xs={12} display="flex" justifyContent="end">
         <StyledLink to={urls.SIZES_GUIDE} state={{ from: location }}>
           <Typography>{t('profileDetails.sizeGuide')}</Typography>
         </StyledLink>

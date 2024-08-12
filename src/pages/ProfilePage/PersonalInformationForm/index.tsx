@@ -97,7 +97,7 @@ function PersonalInformationForm() {
   return (
     <FormProvider {...methods}>
       <FormStyled onSubmit={handleSubmit(onSubmit)}>
-        <TitleStyled variant="subtitle1">
+        <TitleStyled variant="subtitle1" theme={theme}>
           {t('profileDetails.personalInformation')}
         </TitleStyled>
         <TitleInputWrapper>
