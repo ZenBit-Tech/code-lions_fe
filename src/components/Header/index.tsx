@@ -108,14 +108,14 @@ function Header() {
           <MenuMainLink to={urls.BEST_VENDORS}>
             {t('header.vendors')}
           </MenuMainLink>
-          <MenuMainLink to={urls.BUYER_CHATS}>
-            {t('header.messages')}{' '}
-            {unreadChatsCount ? (
-              <UnreadMessages>{unreadChatsCount}</UnreadMessages>
-            ) : (
-              <></>
-            )}
-          </MenuMainLink>
+          {user.role === userRoles.BUYER && (
+            <MenuMainLink to={urls.BUYER_CHATS}>
+              {t('header.messages')}
+              {unreadChatsCount && (
+                <UnreadMessages>{unreadChatsCount}</UnreadMessages>
+              )}
+            </MenuMainLink>
+          )}
           <MenuMainLink to={urls.HOW_IT_WORKS}>
             {t('header.howItWorks')}
           </MenuMainLink>
