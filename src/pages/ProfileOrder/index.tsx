@@ -1,9 +1,14 @@
+import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { CircularProgress, Grid } from '@mui/material';
 
+import { orderStatus } from 'src/common/constants';
+import OrderActions from 'src/pages/vendor/VendorOrderPage/OrderActions';
+import { useAppSelector } from 'src/redux/hooks';
 import { useGetOrderByUserIdAndOrderIdQuery } from 'src/redux/order/orderService';
 import { IOrder } from 'src/redux/order/types';
+import { selectUserRole } from 'src/redux/user/userSlice';
 import theme from 'src/theme';
 
 import OrderDetailsSection from './OrderDetailsSection';
@@ -12,14 +17,24 @@ import OrderProductsTable from './OrderProductsTable';
 import OrderSummarySection from './OrderSummarySection';
 import VendorInfoSection from './VendorInfoSection';
 
+const mockTrackingNumber: string = 'rghh-g5g6-5678';
+
 function ProfileOrderPage() {
   const { orderId } = useParams<{ orderId: string }>();
 
   const orderIdNumber: number = Number(orderId);
 
+  const userRole = useAppSelector(selectUserRole);
+
+  const [fakeStatus, setFakeStatus] = useState<string>(orderStatus.NEW);
+
   const { data, isLoading } = useGetOrderByUserIdAndOrderIdQuery({
     orderId: orderIdNumber,
   });
+
+  const handleActionClick = (status: string): void => {
+    setFakeStatus(status);
+  };
 
   if (!data || isLoading) {
     return <CircularProgress sx={{ color: theme.palette.common.black }} />;
@@ -31,7 +46,14 @@ function ProfileOrderPage() {
     <OrderDetailsSection orderNumber={order.orderId}>
       <Grid container columns={7} sx={{ padding: '12px' }}>
         <Grid item xs={5} sx={{ paddingRight: '24px' }}>
-          <OrderInfoSection order={order} />
+          <OrderInfoSection order={order} fakeStatus={fakeStatus} />
+          <OrderActions
+            status={fakeStatus}
+            orderId={order.orderId}
+            role={userRole}
+            trackingNumber={mockTrackingNumber}
+            onActionClick={handleActionClick}
+          />
           <OrderProductsTable products={order.products} />
           <OrderSummarySection shipping={order.shipping} price={order.price} />
         </Grid>
