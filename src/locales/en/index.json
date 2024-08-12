@@ -821,5 +821,14 @@
     "cancel": "Cancel",
     "placeholder": "Write review here",
     "subtitle": "Share your thoughts about this order"
+  },
+  "settings": {
+    "notifications": "Notifications",
+    "manageAccount": "Manage Account",
+    "email": "Email",
+    "changeEmail": "Change Email",
+    "password": "Password",
+    "changePassword": "Change Password",
+    "deleteAccount": "Delete account"
   }
 }

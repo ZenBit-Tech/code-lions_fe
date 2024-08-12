@@ -21,6 +21,7 @@ import useToast from 'src/components/shared/toasts/components/ToastProvider/Toas
 import { useAppSelector } from 'src/redux/hooks';
 import { useUpdatePersonalInfoMutation } from 'src/redux/user/userService';
 import { selectUser } from 'src/redux/user/userSlice';
+import theme from 'src/theme';
 
 import { TitleStyled } from '../PersonalInformationForm/styles';
 
@@ -77,7 +78,9 @@ function SizesForm() {
 
   return (
     <FormStyled onSubmit={handleSubmit(onSubmit)}>
-      <TitleStyled variant="subtitle1">{t('profileDetails.sizes')}</TitleStyled>
+      <TitleStyled variant="subtitle1" theme={theme}>
+        {t('profileDetails.sizes')}
+      </TitleStyled>
       <TitleInputWrapper>
         <LabelText> {t('profileDetails.clothesSize')} </LabelText>
         <Controller
