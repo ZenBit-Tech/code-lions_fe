@@ -8,7 +8,7 @@ import { skipToken } from '@reduxjs/toolkit/query';
 import BagIcon from 'src/assets/icons/bag.svg';
 import BellIcon from 'src/assets/icons/bell.svg';
 import ProfileIcon from 'src/assets/icons/profile.svg';
-import { urls, userRoles } from 'src/common/constants';
+import { onboardingSteps, urls, userRoles } from 'src/common/constants';
 import useUnreadChatsCount from 'src/common/hooks/useUnreadChatsCount';
 import { MenuMainLink } from 'src/components/FooterMenu/styles';
 import HeaderLogo from 'src/components/HeaderLogo';
@@ -26,10 +26,14 @@ function Header() {
   const { t } = useTranslation();
   const { showToast } = useToast();
 
+  const navigate = useNavigate();
+
   const unreadChatsCount = useUnreadChatsCount();
 
   const user = useAppSelector((state) => state.user);
-  const navigate = useNavigate();
+  const showHeaderLinks = !(
+    user.onboardingStep && user.onboardingStep < onboardingSteps.FINISH
+  );
 
   const { data: cartData, refetch: cartRefetch } = useGetCartByIdQuery(
     user.id ? { userId: user.id } : skipToken
@@ -94,32 +98,36 @@ function Header() {
           <HeaderLogo />
         </Box>
 
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'flex-end',
-            gap: '40px',
-            width: '400px',
-            marginLeft: '10px',
-          }}
-        >
-          <MenuMainLink to={urls.PRODUCT_FEED}>{t('header.shop')}</MenuMainLink>
-          <MenuMainLink to={urls.BEST_VENDORS}>
-            {t('header.vendors')}
-          </MenuMainLink>
-          {user.role === userRoles.BUYER && (
-            <MenuMainLink to={urls.BUYER_CHATS}>
-              {t('header.messages')}
-              {unreadChatsCount && (
-                <UnreadMessages>{unreadChatsCount}</UnreadMessages>
-              )}
+        {showHeaderLinks && (
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'flex-end',
+              gap: '40px',
+              width: '400px',
+              marginLeft: '10px',
+            }}
+          >
+            <MenuMainLink to={urls.PRODUCT_FEED}>
+              {t('header.shop')}
             </MenuMainLink>
-          )}
-          <MenuMainLink to={urls.HOW_IT_WORKS}>
-            {t('header.howItWorks')}
-          </MenuMainLink>
-        </Box>
+            <MenuMainLink to={urls.BEST_VENDORS}>
+              {t('header.vendors')}
+            </MenuMainLink>
+            {user.role === userRoles.BUYER && (
+              <MenuMainLink to={urls.BUYER_CHATS}>
+                {t('header.messages')}
+                {unreadChatsCount > 0 && (
+                  <UnreadMessages>{unreadChatsCount}</UnreadMessages>
+                )}
+              </MenuMainLink>
+            )}
+            <MenuMainLink to={urls.HOW_IT_WORKS}>
+              {t('header.howItWorks')}
+            </MenuMainLink>
+          </Box>
+        )}
 
         <Box
           sx={{

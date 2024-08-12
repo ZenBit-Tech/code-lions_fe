@@ -91,7 +91,15 @@ const router = createBrowserRouter([
       { path: urls.BEST_VENDORS, element: <BestVendorsPage /> },
       {
         path: urls.PROFILE,
-        element: <ProfileLayout />,
+        element: (
+          <ForbiddenRoute
+            allowedRoles={[userRoles.BUYER]}
+            redirectTo={urls.HOME}
+          >
+            {' '}
+            <ProfileLayout />
+          </ForbiddenRoute>
+        ),
         children: [
           { path: urls.PROFILE_DETAILS, element: <ProfilePage /> },
           { path: urls.PROFILE_ORDERS, element: <ProfileOrders /> },
