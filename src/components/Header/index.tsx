@@ -105,8 +105,7 @@ function Header() {
         >
           <HeaderLogo />
         </Box>
-
-        {showHeaderLinks ? (
+        {showHeaderLinks && (
           <Box
             sx={{
               display: 'flex',
@@ -135,7 +134,8 @@ function Header() {
               {t('header.howItWorks')}
             </MenuMainLink>
           </Box>
-        ) : (
+        )}
+        {(!showHeaderLinks || user.role === userRoles.ADMIN) && (
           <StyledButton
             styles={StyleVariants.BLACK}
             variant="contained"
@@ -153,7 +153,6 @@ function Header() {
             {t('headerAdmin.logout')}
           </StyledButton>
         )}
-
         <Box
           sx={{
             display: showHeaderLinks ? 'flex' : 'none',
@@ -162,7 +161,7 @@ function Header() {
             gap: '30px',
           }}
         >
-          {user.isLoggedIn ? (
+          {user.isLoggedIn && user.role === userRoles.BUYER ? (
             <>
               <Link to={urls.HOME}>
                 <SvgHover>
@@ -179,7 +178,13 @@ function Header() {
               </Link>
             </>
           ) : (
-            <Box sx={{ display: 'flex', flexDirection: 'row', gap: '9px' }}>
+            <Box
+              sx={{
+                display: user.role === userRoles.ADMIN ? 'none' : 'flex',
+                flexDirection: 'row',
+                gap: '9px',
+              }}
+            >
               <Link to={urls.SIGN_IN}>
                 <StyledButton
                   styles={StyleVariants.BLACK}

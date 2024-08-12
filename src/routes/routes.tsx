@@ -58,21 +58,17 @@ import AdminPrivateRoute from './AdminPrivateRoute';
 import FinishedOnboardingGuard from './FinishedOnboardingGuard';
 import ForbiddenRoute from './ForbiddenRoute';
 import OnboardingGuard from './OnboardingGuard';
-import VendorPrivateRoute from './VendorPrivateRoute';
+import VendorGuard from './VendorGuard';
 import VerifyPrivateRoute from './VerifyPrivateRoute';
 
 const router = createBrowserRouter([
   {
     path: urls.HOME,
-    element: <OnboardingGuard element={<Layout />} />,
+    element: <OnboardingGuard element={<VendorGuard element={<Layout />} />} />,
     children: [
       {
         index: true,
-        element: (
-          <VendorPrivateRoute>
-            <HomePage />
-          </VendorPrivateRoute>
-        ),
+        element: <HomePage />,
       },
       { path: '*', element: <NotFoundPage /> },
       { path: urls.PRODUCT_FEED, element: <ProductFeedPage /> },
@@ -96,7 +92,6 @@ const router = createBrowserRouter([
             allowedRoles={[userRoles.BUYER]}
             redirectTo={urls.HOME}
           >
-            {' '}
             <ProfileLayout />
           </ForbiddenRoute>
         ),
