@@ -104,7 +104,7 @@ function ChangeEmailForm() {
             type="submit"
             width="195px"
             styles={StyleVariants.TRANSPARENT}
-            padding={PaddingVariants.MD}
+            padding={PaddingVariants.SM2}
             disabled={!isDirty || !isValid || isLoading || errorsLength > 0}
           >
             <Typography
