@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { Box } from '@mui/system';
 
 import RejectProductFlowModal from 'src/components/shared/RejectProductFlowModal';
+import useRejectProductFlowModal from 'src/components/shared/RejectProductFlowModal/hooks/useRejectProductFlowModal';
 import StyledButton from 'src/components/shared/StyledButton';
 import {
   PaddingVariants,
@@ -96,11 +97,7 @@ function CategoriesForm() {
     selectedStyle || styles[0].value
   );
 
-  const [isRejectModalOpen, setIsRejectModalOpen] = useState<boolean>(false);
-
-  const toggleRejectModal = (): void => {
-    setIsRejectModalOpen(!isRejectModalOpen);
-  };
+  const { isRejectModalOpen, toggleRejectModal } = useRejectProductFlowModal();
 
   const returnBack = () => {
     dispatch(decreaseAddProductStep());
