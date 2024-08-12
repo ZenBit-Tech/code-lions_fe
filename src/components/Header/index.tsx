@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 
 import { Box } from '@mui/system';
@@ -17,6 +18,7 @@ import { StyleVariants } from 'src/components/shared/StyledButton/types';
 import useToast from 'src/components/shared/toasts/components/ToastProvider/ToastProviderHooks';
 import { useGetCartByIdQuery } from 'src/redux/cart/cartService';
 import { useAppSelector } from 'src/redux/hooks';
+import { logout } from 'src/redux/user/userSlice';
 import { useGetWishlistByIdQuery } from 'src/redux/wishlist/wishlistService';
 import theme from 'src/theme';
 
@@ -27,13 +29,14 @@ function Header() {
   const { showToast } = useToast();
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const unreadChatsCount = useUnreadChatsCount();
 
   const user = useAppSelector((state) => state.user);
-  const showHeaderLinks = !(
-    user.onboardingStep && user.onboardingStep < onboardingSteps.FINISH
-  );
+  const showHeaderLinks =
+    !(user.onboardingStep && user.onboardingStep < onboardingSteps.FINISH) ||
+    !user.isLoggedIn;
 
   const { data: cartData, refetch: cartRefetch } = useGetCartByIdQuery(
     user.id ? { userId: user.id } : skipToken
@@ -49,6 +52,11 @@ function Header() {
       cartRefetch();
     }
   }, []);
+
+  const handleLogout = () => {
+    dispatch(logout());
+    navigate(urls.SIGN_IN);
+  };
 
   const cartItemCount = cartData?.length || 0;
 
@@ -98,7 +106,7 @@ function Header() {
           <HeaderLogo />
         </Box>
 
-        {showHeaderLinks && (
+        {showHeaderLinks ? (
           <Box
             sx={{
               display: 'flex',
@@ -127,11 +135,28 @@ function Header() {
               {t('header.howItWorks')}
             </MenuMainLink>
           </Box>
+        ) : (
+          <StyledButton
+            styles={StyleVariants.BLACK}
+            variant="contained"
+            fontSize={String(theme.typography.h4.fontSize)}
+            fontFamily={theme.typography.fontFamily}
+            onClick={handleLogout}
+            sx={{
+              padding: '8px 21px',
+              fontWeight: '500',
+              color: theme.palette.common.white,
+              letterSpacing: '-0.56px',
+              lineHeight: '16px',
+            }}
+          >
+            {t('headerAdmin.logout')}
+          </StyledButton>
         )}
 
         <Box
           sx={{
-            display: 'flex',
+            display: showHeaderLinks ? 'flex' : 'none',
             flexDirection: 'row',
             alignItems: 'center',
             gap: '30px',
