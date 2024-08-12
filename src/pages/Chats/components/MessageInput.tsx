@@ -63,7 +63,7 @@ function MessageInput({ chatId, inputValue, setTyping, send }: Props) {
         startAdornment: (
           <InputAdornment position="start">
             <input
-              accept=".jpg,.jpeg,.png"
+              accept=".jpg,.jpeg,.png,.pdf"
               type="file"
               style={{ display: 'none' }}
               ref={fileInputRef}
