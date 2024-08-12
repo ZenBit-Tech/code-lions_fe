@@ -12,9 +12,9 @@ interface PrivateRouteProps {
 function VerifyPrivateRoute({ children }: PrivateRouteProps) {
   const user = useAppSelector((state: RootState) => state.user);
 
-  if (user.isEmailVerified && user.isLoggedIn) {
+  if (user.isLoggedIn && user.isEmailVerified) {
     return <Navigate to={urls.HOME} />;
-  } else if (user.isEmailVerified && !user.isLoggedIn) {
+  } else if (!user.isLoggedIn) {
     return <Navigate to={urls.SIGN_IN} />;
   } else {
     return children ? <>{children}</> : <Outlet />;

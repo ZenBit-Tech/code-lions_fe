@@ -248,3 +248,7 @@ export interface ISendReview {
   rating: number;
   text: string;
 }
+
+export interface IChangeEmailRequest {
+  email: string;
+}

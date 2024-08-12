@@ -39,6 +39,7 @@ import {
   IReview,
   IStripeAccountResponse,
   ISendReview,
+  IChangeEmailRequest,
 } from './types';
 
 const baseQuery = fetchBaseQuery({
@@ -288,6 +289,21 @@ export const userApi = createApi({
         method: HttpMethods.POST,
       }),
     }),
+
+    changeEmail: build.mutation<void, IChangeEmailRequest>({
+      query: ({ email }) => ({
+        url: RTKUrls.CHANGE_EMAIL,
+        method: HttpMethods.PATCH,
+        body: { email },
+      }),
+    }),
+
+    toggleNotifications: build.mutation<void, void>({
+      query: () => ({
+        url: RTKUrls.TOGGLE_NOTIFICATIONS,
+        method: HttpMethods.PATCH,
+      }),
+    }),
   }),
 });
 
@@ -316,4 +332,6 @@ export const {
   useGetPublicUserByIdQuery,
   useHideRentalRulesMutation,
   useCreateStripeAccountMutation,
+  useChangeEmailMutation,
+  useToggleNotificationsMutation,
 } = userApi;

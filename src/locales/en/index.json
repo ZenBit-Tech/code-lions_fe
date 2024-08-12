@@ -816,6 +816,17 @@
     "changeEmail": "Change Email",
     "password": "Password",
     "changePassword": "Change Password",
-    "deleteAccount": "Delete account"
+    "deleteAccount": "Delete account",
+    "popupMessage": "Are you sure want to delete?",
+    "popupDescription": "You will lose access to the application and all your data",
+    "yes": "Yes",
+    "no": "No",
+    "deleteSuccess": "Your account was deleted successfully",
+    "deleteError": "Was unable to delete your account, please try again later",
+    "emailSuccess": "Please verify your new email",
+    "emailError": "Was unable to change your email, please try again later",
+    "notificationsOn": "You have turned on notifications",
+    "notificationsOff": "You have turned off notifications",
+    "notificationsError": "Was unable to change your notification settings, please try again later"
   }
 }

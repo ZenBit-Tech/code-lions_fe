@@ -121,6 +121,12 @@ export const userSlice = createSlice({
         state.willHideRentalRules = true;
       }
     );
+    builder.addMatcher(
+      userApi.endpoints.changeEmail.matchFulfilled,
+      (state: IUser) => {
+        state.isEmailVerified = false;
+      }
+    );
   },
 });
 

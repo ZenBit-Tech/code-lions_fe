@@ -79,7 +79,8 @@ function SignInForm() {
     if ([email, password].every(Boolean) && !isLoading) {
       try {
         await login({ email, password }).unwrap();
-        navigate(urls.HOME);
+
+        navigate(urls.VERIFY);
       } catch (err) {
         if (isFetchBaseQueryError(err) || isSerializedError(err)) {
           showToast('error', getErrorMessage(err));
