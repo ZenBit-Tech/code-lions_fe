@@ -9,6 +9,7 @@ import AdminUserProfilePage from 'src/pages/admin/AdminUserProfilePage';
 import ProductListPage from 'src/pages/admin/ProductListPage';
 import ProductRequestPage from 'src/pages/admin/ProductRequestPage';
 import SignInAdminPage from 'src/pages/admin/SignInAdminPage';
+import AdminStripe from 'src/pages/admin/Stripe';
 import UsersPage from 'src/pages/admin/UsersPage';
 import BestVendorsPage from 'src/pages/BestVendorsPage';
 import BuyerPublicProfilePage from 'src/pages/BuyerPublicProfilePage';
@@ -192,6 +193,7 @@ const router = createBrowserRouter([
         path: urls.ADMIN_CHAT_ID,
         element: <ChatsPage />,
       },
+      { path: urls.ADMIN_STRIPE, element: <AdminStripe /> },
     ],
   },
   {

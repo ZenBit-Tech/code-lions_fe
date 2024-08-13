@@ -34,6 +34,7 @@ export const urls = {
   ADMIN_PRODUCT_LIST: 'product-list',
   ADMIN_CHATS: '/admin/chats',
   ADMIN_CHAT_ID: '/admin/chats/:chatId',
+  ADMIN_STRIPE: '/admin/stripe',
   PROFILE: '/profile',
   USER_BUYER_PROFILE: 'buyer/:id',
   BUYER: 'buyer',
@@ -125,6 +126,7 @@ export const RTKUrls = {
   ORDERS_VENDOR: 'orders/vendor',
   FOLLOW_VENDOR: '/vendors/follow',
   UNFOLLOW_VENDOR: '/vendors/unfollow',
+  STRIPE: '/stripe',
 };
 
 export const HttpMethods = {
