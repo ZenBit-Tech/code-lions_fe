@@ -231,7 +231,7 @@
   "stripeAdmin": {
     "stripeFee": "Application fee",
     "submit": "Submit",
-    "invalidFee": "Invalid fee, it should be a decimal number between 0 and 1",
+    "invalidFee": "Invalid fee, it should be a decimal number between 0 and 100",
     "updateSuccess": "Application fee is updated",
     "updateError": "Something is wrong, try again later"
   },

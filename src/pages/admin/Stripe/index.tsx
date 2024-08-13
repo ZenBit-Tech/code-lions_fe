@@ -15,8 +15,9 @@ import AdminSectionTitle from '../AdminSectionTitle';
 
 import SectionWrapper from './styles';
 
-const minimumFee = 0;
-const maximumFee = 1;
+const minimumFeePercentage = 0;
+const maximumFeePercentage = 100;
+const fixedChars = 2;
 
 function AdminStripe() {
   const { t } = useTranslation();
@@ -26,29 +27,31 @@ function AdminStripe() {
   const [updateApplicationFee, { isLoading: isUpdating }] =
     useUpdateApplicationFeeMutation();
 
-  const [applicationFee, setApplicationFee] = useState<number | string>('');
+  const [applicationFee, setApplicationFee] = useState<string>('');
 
   useEffect(() => {
     if (fee !== undefined) {
-      setApplicationFee(fee);
+      setApplicationFee((fee * maximumFeePercentage).toFixed(fixedChars));
     }
   }, [fee]);
 
   const handleButtonClick = async () => {
     try {
-      const parsedFee = parseFloat(applicationFee as string);
+      const parsedFee = parseFloat(applicationFee);
 
       if (
         Number.isNaN(parsedFee) ||
-        parsedFee <= minimumFee ||
-        parsedFee >= maximumFee
+        parsedFee < minimumFeePercentage ||
+        parsedFee > maximumFeePercentage
       ) {
         showToast('error', t('stripeAdmin.invalidFee'));
 
         return;
       }
 
-      await updateApplicationFee({ applicationFee: parsedFee });
+      const decimalFee = parsedFee / maximumFeePercentage;
+
+      await updateApplicationFee({ applicationFee: decimalFee });
       showToast('success', t('stripeAdmin.updateSuccess'));
       refetch();
     } catch (error) {
