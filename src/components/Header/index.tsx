@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 
 import { Box } from '@mui/system';
@@ -8,7 +9,7 @@ import { skipToken } from '@reduxjs/toolkit/query';
 import BagIcon from 'src/assets/icons/bag.svg';
 import BellIcon from 'src/assets/icons/bell.svg';
 import ProfileIcon from 'src/assets/icons/profile.svg';
-import { urls, userRoles } from 'src/common/constants';
+import { onboardingSteps, urls, userRoles } from 'src/common/constants';
 import useUnreadChatsCount from 'src/common/hooks/useUnreadChatsCount';
 import { MenuMainLink } from 'src/components/FooterMenu/styles';
 import HeaderLogo from 'src/components/HeaderLogo';
@@ -17,6 +18,7 @@ import { StyleVariants } from 'src/components/shared/StyledButton/types';
 import useToast from 'src/components/shared/toasts/components/ToastProvider/ToastProviderHooks';
 import { useGetCartByIdQuery } from 'src/redux/cart/cartService';
 import { useAppSelector } from 'src/redux/hooks';
+import { logout } from 'src/redux/user/userSlice';
 import { useGetWishlistByIdQuery } from 'src/redux/wishlist/wishlistService';
 import theme from 'src/theme';
 
@@ -26,10 +28,15 @@ function Header() {
   const { t } = useTranslation();
   const { showToast } = useToast();
 
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const unreadChatsCount = useUnreadChatsCount();
 
   const user = useAppSelector((state) => state.user);
-  const navigate = useNavigate();
+  const showHeaderLinks =
+    !(user.onboardingStep && user.onboardingStep < onboardingSteps.FINISH) ||
+    !user.isLoggedIn;
 
   const { data: cartData, refetch: cartRefetch } = useGetCartByIdQuery(
     user.id ? { userId: user.id } : skipToken
@@ -45,6 +52,11 @@ function Header() {
       cartRefetch();
     }
   }, []);
+
+  const handleLogout = () => {
+    dispatch(logout());
+    navigate(urls.SIGN_IN);
+  };
 
   const cartItemCount = cartData?.length || 0;
 
@@ -93,43 +105,63 @@ function Header() {
         >
           <HeaderLogo />
         </Box>
-
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'flex-end',
-            gap: '40px',
-            width: '400px',
-            marginLeft: '10px',
-          }}
-        >
-          <MenuMainLink to={urls.PRODUCT_FEED}>{t('header.shop')}</MenuMainLink>
-          <MenuMainLink to={urls.BEST_VENDORS}>
-            {t('header.vendors')}
-          </MenuMainLink>
-          <MenuMainLink to={urls.BUYER_CHATS}>
-            {t('header.messages')}{' '}
-            {unreadChatsCount ? (
-              <UnreadMessages>{unreadChatsCount}</UnreadMessages>
-            ) : (
-              <></>
+        {showHeaderLinks && (
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'flex-end',
+              gap: '40px',
+              width: '400px',
+              marginLeft: '10px',
+            }}
+          >
+            <MenuMainLink to={urls.PRODUCT_FEED}>
+              {t('header.shop')}
+            </MenuMainLink>
+            <MenuMainLink to={urls.BEST_VENDORS}>
+              {t('header.vendors')}
+            </MenuMainLink>
+            {user.role === userRoles.BUYER && (
+              <MenuMainLink to={urls.BUYER_CHATS}>
+                {t('header.messages')}
+                {unreadChatsCount > 0 && (
+                  <UnreadMessages>{unreadChatsCount}</UnreadMessages>
+                )}
+              </MenuMainLink>
             )}
-          </MenuMainLink>
-          <MenuMainLink to={urls.HOW_IT_WORKS}>
-            {t('header.howItWorks')}
-          </MenuMainLink>
-        </Box>
-
+            <MenuMainLink to={urls.HOW_IT_WORKS}>
+              {t('header.howItWorks')}
+            </MenuMainLink>
+          </Box>
+        )}
+        {(!showHeaderLinks || user.role === userRoles.ADMIN) && (
+          <StyledButton
+            styles={StyleVariants.BLACK}
+            variant="contained"
+            fontSize={String(theme.typography.h4.fontSize)}
+            fontFamily={theme.typography.fontFamily}
+            onClick={handleLogout}
+            sx={{
+              padding: '8px 21px',
+              fontWeight: '500',
+              color: theme.palette.common.white,
+              letterSpacing: '-0.56px',
+              lineHeight: '16px',
+            }}
+          >
+            {t('headerAdmin.logout')}
+          </StyledButton>
+        )}
         <Box
           sx={{
-            display: 'flex',
+            display: showHeaderLinks ? 'flex' : 'none',
             flexDirection: 'row',
             alignItems: 'center',
             gap: '30px',
           }}
         >
-          {user.isLoggedIn ? (
+          {user.isLoggedIn && user.role === userRoles.BUYER ? (
             <>
               <Link to={urls.NOTIFICATIONS}>
                 <SvgHover>
@@ -146,7 +178,13 @@ function Header() {
               </Link>
             </>
           ) : (
-            <Box sx={{ display: 'flex', flexDirection: 'row', gap: '9px' }}>
+            <Box
+              sx={{
+                display: user.role === userRoles.ADMIN ? 'none' : 'flex',
+                flexDirection: 'row',
+                gap: '9px',
+              }}
+            >
               <Link to={urls.SIGN_IN}>
                 <StyledButton
                   styles={StyleVariants.BLACK}

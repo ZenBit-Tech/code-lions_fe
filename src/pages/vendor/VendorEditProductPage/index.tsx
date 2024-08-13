@@ -12,7 +12,7 @@ import {
   selectAddProductStep,
   setBrand,
   setCategory,
-  setColor,
+  setColors,
   setDescription,
   setId,
   setMaterial,
@@ -93,7 +93,7 @@ function VendorEditProductPage() {
       dispatch(setDescription(description));
       dispatch(setBrand(brand));
       dispatch(setSize(size));
-      dispatch(setColor(productColors[0]));
+      dispatch(setColors(productColors));
       dispatch(setMaterial(material));
       dispatch(setPdfUrl(pdfUrl));
       dispatch(setPrice(Number(price)));

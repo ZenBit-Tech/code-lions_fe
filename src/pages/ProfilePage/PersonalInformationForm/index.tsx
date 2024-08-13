@@ -39,7 +39,6 @@ import {
 
 interface IPersonalInformationForm {
   name: string;
-  email: string;
   countryCode: string;
   restPhoneNumber: string;
 }
@@ -61,7 +60,6 @@ function PersonalInformationForm() {
   } = useForm<IPersonalInformationForm>({
     defaultValues: {
       name: user.name,
-      email: user.email,
       countryCode: userCountryCode,
       restPhoneNumber: userRestPhoneNumber,
     },
@@ -76,7 +74,6 @@ function PersonalInformationForm() {
 
   const onSubmit = async ({
     name,
-    email,
     countryCode,
     restPhoneNumber,
   }: IPersonalInformationForm) => {
@@ -84,12 +81,10 @@ function PersonalInformationForm() {
       await updateInfo({
         id: user.id,
         name,
-        email,
         phoneNumber: `${countryCode}${restPhoneNumber}`,
       }).unwrap();
       reset({
         name,
-        email,
         countryCode,
         restPhoneNumber,
       });
@@ -102,7 +97,7 @@ function PersonalInformationForm() {
   return (
     <FormProvider {...methods}>
       <FormStyled onSubmit={handleSubmit(onSubmit)}>
-        <TitleStyled variant="subtitle1">
+        <TitleStyled variant="subtitle1" theme={theme}>
           {t('profileDetails.personalInformation')}
         </TitleStyled>
         <TitleInputWrapper>
@@ -132,28 +127,15 @@ function PersonalInformationForm() {
         </TitleInputWrapper>
         <TitleInputWrapper>
           <LabelText> {t('profileDetails.email')} </LabelText>
-          <Controller
+          <StyledInput
+            value={user.email}
+            fullWidth
+            disabled
             name="email"
-            control={control}
-            render={({ field }) => (
-              <ErrorWrapper>
-                <StyledInput
-                  {...field}
-                  fullWidth
-                  name="email"
-                  autoComplete="off"
-                  placeholder={t('profileDetails.emailPlaceholder')}
-                  padding={InputPaddingVariants.MD}
-                  stylevariant={InputStyleVariants.OUTLINED}
-                  error={!!errors.email}
-                />
-                {errors.email && (
-                  <ErrorMessage variant="subtitle2" mt={1}>
-                    {errors.email.message}
-                  </ErrorMessage>
-                )}
-              </ErrorWrapper>
-            )}
+            autoComplete="off"
+            placeholder={t('profileDetails.emailPlaceholder')}
+            padding={InputPaddingVariants.MD}
+            stylevariant={InputStyleVariants.OUTLINED}
           />
         </TitleInputWrapper>
         <TitleInputWrapper>

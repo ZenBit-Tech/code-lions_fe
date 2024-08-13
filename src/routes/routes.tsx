@@ -1,6 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom';
 
-import { urls } from 'src/common/constants';
+import { urls, userRoles } from 'src/common/constants';
 import Layout from 'src/components/Layout';
 import AboutUsPage from 'src/pages/AboutUsPage';
 import AdminLayout from 'src/pages/admin/AdminLayout';
@@ -9,6 +9,7 @@ import AdminUserProfilePage from 'src/pages/admin/AdminUserProfilePage';
 import ProductListPage from 'src/pages/admin/ProductListPage';
 import ProductRequestPage from 'src/pages/admin/ProductRequestPage';
 import SignInAdminPage from 'src/pages/admin/SignInAdminPage';
+import AdminStripe from 'src/pages/admin/Stripe';
 import UsersPage from 'src/pages/admin/UsersPage';
 import BestVendorsPage from 'src/pages/BestVendorsPage';
 import BuyerPublicProfilePage from 'src/pages/BuyerPublicProfilePage';
@@ -31,10 +32,10 @@ import ProfileLayout from 'src/pages/ProfileLayout';
 import ProfileOrder from 'src/pages/ProfileOrder';
 import ProfileOrders from 'src/pages/ProfileOrders';
 import ProfilePage from 'src/pages/ProfilePage';
-import ProfileComingSoon from 'src/pages/ProfilePage/ProfileComingSoon';
 import RentalRulesPage from 'src/pages/RentalRulesPage';
 import RentPage from 'src/pages/RentPage';
 import RestorePasswordPage from 'src/pages/RestorePasswordPage';
+import SettingsPage from 'src/pages/SettingsPage';
 import ShippingPage from 'src/pages/ShippingPage';
 import SignInPage from 'src/pages/SignInPage';
 import SignUpPage from 'src/pages/SignUpPage';
@@ -57,22 +58,19 @@ import WishlistPage from 'src/pages/WishlistPage';
 
 import AdminPrivateRoute from './AdminPrivateRoute';
 import FinishedOnboardingGuard from './FinishedOnboardingGuard';
+import ForbiddenRoute from './ForbiddenRoute';
 import OnboardingGuard from './OnboardingGuard';
-import VendorPrivateRoute from './VendorPrivateRoute';
+import VendorGuard from './VendorGuard';
 import VerifyPrivateRoute from './VerifyPrivateRoute';
 
 const router = createBrowserRouter([
   {
     path: urls.HOME,
-    element: <OnboardingGuard element={<Layout />} />,
+    element: <OnboardingGuard element={<VendorGuard element={<Layout />} />} />,
     children: [
       {
         index: true,
-        element: (
-          <VendorPrivateRoute>
-            <HomePage />
-          </VendorPrivateRoute>
-        ),
+        element: <HomePage />,
       },
       { path: '*', element: <NotFoundPage /> },
       { path: urls.PRODUCT_FEED, element: <ProductFeedPage /> },
@@ -91,7 +89,14 @@ const router = createBrowserRouter([
       { path: urls.BEST_VENDORS, element: <BestVendorsPage /> },
       {
         path: urls.PROFILE,
-        element: <ProfileLayout />,
+        element: (
+          <ForbiddenRoute
+            allowedRoles={[userRoles.BUYER]}
+            redirectTo={urls.HOME}
+          >
+            <ProfileLayout />
+          </ForbiddenRoute>
+        ),
         children: [
           { path: urls.PROFILE_DETAILS, element: <ProfilePage /> },
           { path: urls.PROFILE_ORDERS, element: <ProfileOrders /> },
@@ -99,7 +104,7 @@ const router = createBrowserRouter([
           { path: urls.PROFILE_WISHLIST, element: <WishlistPage /> },
           { path: urls.BUYER_CHATS, element: <ChatsPage /> },
           { path: urls.BUYER_CHAT_ID, element: <ChatsPage /> },
-          { path: urls.PROFILE_SETTINGS, element: <ProfileComingSoon /> },
+          { path: urls.PROFILE_SETTINGS, element: <SettingsPage /> },
           { path: urls.PROFILE_SUPPORT, element: <SupportPage /> },
           { path: urls.PROFILE_SUPPORT_ID, element: <SupportPage /> },
         ],
@@ -190,6 +195,7 @@ const router = createBrowserRouter([
         path: urls.ADMIN_CHAT_ID,
         element: <ChatsPage />,
       },
+      { path: urls.ADMIN_STRIPE, element: <AdminStripe /> },
     ],
   },
   {
@@ -200,7 +206,11 @@ const router = createBrowserRouter([
   { path: urls.USER_VENDOR_PROFILE, element: <VendorPublicProfilePage /> },
   {
     path: urls.VENDOR,
-    element: <VendorLayout />,
+    element: (
+      <ForbiddenRoute allowedRoles={[userRoles.VENDOR]} redirectTo={urls.HOME}>
+        <VendorLayout />
+      </ForbiddenRoute>
+    ),
     children: [
       { path: urls.USER_BUYER_PROFILE, element: <BuyerPublicProfilePage /> },
       { path: urls.VENDOR_DASHBOARD, element: <VendorDashboard /> },
@@ -217,7 +227,7 @@ const router = createBrowserRouter([
         element: <VendorProfileLayout />,
         children: [
           { path: urls.PROFILE_DETAILS, element: <VendorProfilePage /> },
-          { path: urls.PROFILE_SETTINGS, element: <ProfileComingSoon /> },
+          { path: urls.PROFILE_SETTINGS, element: <SettingsPage /> },
           { path: urls.PROFILE_SUPPORT, element: <SupportPage /> },
           { path: urls.PROFILE_SUPPORT_ID, element: <SupportPage /> },
         ],

@@ -57,13 +57,13 @@ export const Status = styled(Chip)<{ status: string }>(({ status }) => {
   } else if (status === orderStatus.SENT) {
     color = statusColors.sent;
     backgroundColor = hexToRgba(statusColors.sent, opacity);
-  } else if (status === orderStatus.DELIVERED) {
+  } else if (status === orderStatus.SENT_BACK) {
     color = statusColors.delivered;
     backgroundColor = hexToRgba(statusColors.delivered, opacity);
   } else if (status === orderStatus.RECEIVED) {
     color = statusColors.received;
     backgroundColor = hexToRgba(statusColors.received, opacity);
-  } else if (status === orderStatus.WAITING_RETURNING) {
+  } else if (status === orderStatus.OVERDUE) {
     color = statusColors.waiting;
     backgroundColor = hexToRgba(statusColors.waiting, opacity);
   } else if (status === orderStatus.RETURNED) {

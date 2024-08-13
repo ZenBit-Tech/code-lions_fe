@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 
 import { Box } from '@mui/system';
 
+import RejectProductFlowModal from 'src/components/shared/RejectProductFlowModal';
 import StyledButton from 'src/components/shared/StyledButton';
 import {
   PaddingVariants,
@@ -35,7 +36,6 @@ import {
   shoesCategory,
   shoesTypeOptions,
 } from '../../VendorAddProductPage/ProductDescriptionForm/productDescriptionConstants';
-import RejectEditingModal from '../RejectEditingModal';
 
 import useCategoriesConstants from './hooks/useCategoriesConstants';
 
@@ -48,10 +48,10 @@ function CategoriesForm() {
   const selectedType = useAppSelector((state) => state.addProduct.type);
   const selectedStyle = useAppSelector((state) => state.addProduct.style);
 
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [isRejectModalOpen, setIsRejectModalOpen] = useState<boolean>(false);
 
-  const toggleModal = (): void => {
-    setIsModalOpen(!isModalOpen);
+  const toggleRejectModal = (): void => {
+    setIsRejectModalOpen(!isRejectModalOpen);
   };
 
   const [clothesCategory, setClothesCategory] = useState<string>(
@@ -274,14 +274,19 @@ function CategoriesForm() {
             variant="contained"
             fontSize={String(theme.typography.h4.fontSize)}
             fontFamily={theme.typography.fontFamily}
-            onClick={toggleModal}
+            onClick={toggleRejectModal}
           >
             {t('editProduct.cancelBtn')}
           </StyledButton>
         </Box>
       </Box>
-      {isModalOpen && (
-        <RejectEditingModal isModalOpen={isModalOpen} onClose={toggleModal} />
+      {isRejectModalOpen && (
+        <RejectProductFlowModal
+          isModalOpen={isRejectModalOpen}
+          onClose={toggleRejectModal}
+          modalTitle={t('editModal.title')}
+          modalSubtitle={t('editModal.subtitle')}
+        />
       )}
     </>
   );

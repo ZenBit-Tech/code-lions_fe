@@ -30,8 +30,9 @@ export const FormWrapperSmall = styled(Box)(({ theme }) => ({
   },
 }));
 
-export const StyledLink = styled(Link)(({ theme }) => ({
+export const StyledLink = styled(Link)({
   textDecorationLine: 'underline',
   textAlign: 'right',
-  [theme.breakpoints.up('sm')]: {},
-}));
+  display: 'block',
+  width: '80px',
+});

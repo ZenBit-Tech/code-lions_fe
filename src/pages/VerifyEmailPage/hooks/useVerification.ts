@@ -26,8 +26,10 @@ const useVerification = () => {
 
   const [verifyEmail, { error: verifyEmailError, isLoading }] =
     userApi.useVerifyEmailMutation();
-  const [resendOtp, { error: resendOtpError }] = userApi.useResendOtpMutation();
+  const [forgotPassword, { error: resendOtpError }] =
+    userApi.useForgotPasswordMutation();
   const [resetPassword] = userApi.useResetPasswordMutation();
+  const [resendOtp] = userApi.useResendOtpMutation();
 
   const { timer, setTimer, formattedTimer } = useTimer(timerMax, intervalStep);
   const { errorMessages, setCurrentError } = useErrorHandling();
@@ -67,7 +69,11 @@ const useVerification = () => {
   const handleSendAgain = async () => {
     try {
       setTimer(timerMax);
-      await resendOtp({ id: userId }).unwrap();
+      if (userId) {
+        await resendOtp({ id: userId }).unwrap();
+      } else {
+        await forgotPassword({ email: userEmail }).unwrap();
+      }
     } catch (error) {
       setCurrentError(error as FetchBaseQueryError);
       setTimer(timerMin);
