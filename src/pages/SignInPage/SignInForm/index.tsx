@@ -78,8 +78,13 @@ function SignInForm() {
   const onSubmit: SubmitHandler<IFormInput> = async ({ email, password }) => {
     if ([email, password].every(Boolean) && !isLoading) {
       try {
-        await login({ email, password }).unwrap();
-        navigate(urls.HOME);
+        const loggedUser = await login({ email, password }).unwrap();
+
+        if (loggedUser.isEmailVerified) {
+          navigate(urls.HOME);
+        } else {
+          navigate(urls.VERIFY, { state: { newLoginUnverified: true } });
+        }
       } catch (err) {
         if (isFetchBaseQueryError(err) || isSerializedError(err)) {
           showToast('error', getErrorMessage(err));
