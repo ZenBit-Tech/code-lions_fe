@@ -477,10 +477,23 @@
     "status": "Status",
     "total": "Total",
     "reject": "Reject",
+    "send": "Send",
+    "received": "Received",
+    "return": "Return",
+    "returned": "Returned",
+    "leaveReview": "Leave Review",
+    "paySend": "Pay&Send",
+    "trackingPlaceholder": "rghh-g5g6-5678",
+    "trackingNumber": "Tracking Number",
+    "rentDaysLeft": "Rent Days Left",
     "subtotal": "Subtotal",
     "discount": "Discount",
     "shipping": "Shipping",
-    "label": "simple table"
+    "label": "simple table",
+    "cancel": "Cancel",
+    "modalTitle": "Why do you reject this order?",
+    "rejectPlaceholder": "Describe your rejection reason",
+    "rejectLabel": "maximum height"
   },
   "filters": {
     "title": "Filters",
@@ -730,6 +743,10 @@
     "no": "No",
     "yes": "Yes"
   },
+  "rejectAddProductModal": {
+    "title": "Are you sure want to stop adding the product?",
+    "subtitle": "The added information will not be saved."
+  },
   "productCategories": {
     "accessories": {
       "label": "Accessories",
@@ -808,5 +825,14 @@
     "cancel": "Cancel",
     "placeholder": "Write review here",
     "subtitle": "Share your thoughts about this order"
+  },
+  "settings": {
+    "notifications": "Notifications",
+    "manageAccount": "Manage Account",
+    "email": "Email",
+    "changeEmail": "Change Email",
+    "password": "Password",
+    "changePassword": "Change Password",
+    "deleteAccount": "Delete account"
   }
 }

@@ -30,10 +30,10 @@ import ProfileLayout from 'src/pages/ProfileLayout';
 import ProfileOrder from 'src/pages/ProfileOrder';
 import ProfileOrders from 'src/pages/ProfileOrders';
 import ProfilePage from 'src/pages/ProfilePage';
-import ProfileComingSoon from 'src/pages/ProfilePage/ProfileComingSoon';
 import RentalRulesPage from 'src/pages/RentalRulesPage';
 import RentPage from 'src/pages/RentPage';
 import RestorePasswordPage from 'src/pages/RestorePasswordPage';
+import SettingsPage from 'src/pages/SettingsPage';
 import ShippingPage from 'src/pages/ShippingPage';
 import SignInPage from 'src/pages/SignInPage';
 import SignUpPage from 'src/pages/SignUpPage';
@@ -102,7 +102,7 @@ const router = createBrowserRouter([
           { path: urls.PROFILE_WISHLIST, element: <WishlistPage /> },
           { path: urls.BUYER_CHATS, element: <ChatsPage /> },
           { path: urls.BUYER_CHAT_ID, element: <ChatsPage /> },
-          { path: urls.PROFILE_SETTINGS, element: <ProfileComingSoon /> },
+          { path: urls.PROFILE_SETTINGS, element: <SettingsPage /> },
           { path: urls.PROFILE_SUPPORT, element: <SupportPage /> },
           { path: urls.PROFILE_SUPPORT_ID, element: <SupportPage /> },
         ],
@@ -222,7 +222,7 @@ const router = createBrowserRouter([
         element: <VendorProfileLayout />,
         children: [
           { path: urls.PROFILE_DETAILS, element: <VendorProfilePage /> },
-          { path: urls.PROFILE_SETTINGS, element: <ProfileComingSoon /> },
+          { path: urls.PROFILE_SETTINGS, element: <SettingsPage /> },
           { path: urls.PROFILE_SUPPORT, element: <SupportPage /> },
           { path: urls.PROFILE_SUPPORT_ID, element: <SupportPage /> },
         ],
