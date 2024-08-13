@@ -103,7 +103,6 @@ function FinishForm() {
       dispatch(setPrice(parseFloat(values.price)));
       dispatch(resetAddProduct());
       showToast('success', t('editProduct.editingSuccess'));
-      // navigate(`${urls.VENDOR}/${urls.VENDOR_ORDERS}`);
       navigate(urls.VENDOR_GLOBAL_PRODUCTS);
     } catch (error) {
       showToast('error', t('editProduct.editingFailed'));

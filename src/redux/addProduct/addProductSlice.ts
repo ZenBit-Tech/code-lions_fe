@@ -68,7 +68,6 @@ export const addProductSlice = createSlice({
       state.size = action.payload;
     },
     setColors(state, action: PayloadAction<string[]>) {
-      // state.colors = [];
       state.colors = action.payload;
     },
     setNewColors(state, action: PayloadAction<string[]>) {

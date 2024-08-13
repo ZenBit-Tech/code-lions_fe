@@ -1,7 +1,7 @@
 import { ChangeEvent, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 
 import ReusableDescriptionBox from 'src/components/ReusableDescriptionBox';
 import RejectProductFlowModal from 'src/components/shared/RejectProductFlowModal';
@@ -326,7 +326,7 @@ function ProductDescriptionForm() {
                 const selectedOptions = selected as colorOptions[];
 
                 if (selectedOptions.length === 0) {
-                  return <p>{colors[0].value}</p>;
+                  return <Typography>{colors[0].value}</Typography>;
                 }
 
                 return selectedOptions.join(', ');
