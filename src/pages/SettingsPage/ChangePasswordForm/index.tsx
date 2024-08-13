@@ -1,10 +1,11 @@
-import { Controller, useForm } from 'react-hook-form';
+import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
 import { Typography } from '@mui/material';
 import { Box } from '@mui/system';
 
 import { yupResolver } from '@hookform/resolvers/yup';
+import useErrorHandling from 'src/common/hooks/useErrorHandlingHook';
 import LabelText from 'src/components/shared/LabelText';
 import PasswordInput from 'src/components/shared/PasswordInput';
 import StyledButton from 'src/components/shared/StyledButton';
@@ -17,11 +18,13 @@ import {
   InputStyleVariants,
 } from 'src/components/shared/StyledInput/types';
 import TitleInputWrapper from 'src/components/shared/TitleInputWrapper';
+import useToast from 'src/components/shared/toasts/components/ToastProvider/ToastProviderHooks';
 import {
   FormStyled,
   ErrorWrapper,
   ErrorMessage,
 } from 'src/pages/ProfilePage/PersonalInformationForm/styles';
+import { useNewPasswordMutation } from 'src/redux/user/userService';
 import theme from 'src/theme';
 
 import passwordSchema from './shema';
@@ -32,11 +35,15 @@ interface IChangePasswordForm {
 
 function ChangePasswordForm() {
   const { t } = useTranslation();
+  const { showToast } = useToast();
+  const { handleOnSubmitError } = useErrorHandling();
+
+  const [changePassword, { isLoading }] = useNewPasswordMutation();
 
   const {
     control,
     handleSubmit,
-    // reset,
+    reset,
     formState: { errors, isDirty, isValid },
   } = useForm<IChangePasswordForm>({
     defaultValues: {
@@ -48,7 +55,15 @@ function ChangePasswordForm() {
 
   const errorsLength: number = Object.keys(errors).length;
 
-  const onSubmit = () => {};
+  const onSubmit: SubmitHandler<IChangePasswordForm> = async ({ password }) => {
+    try {
+      await changePassword({ password }).unwrap();
+      showToast('success', t('newPassword.passwordChanged'));
+      reset();
+    } catch (error) {
+      handleOnSubmitError(error, showToast, t('newPassword.unknownError'));
+    }
+  };
 
   return (
     <FormStyled onSubmit={handleSubmit(onSubmit)}>
@@ -78,17 +93,17 @@ function ChangePasswordForm() {
             )}
           />
           <StyledButton
-            type="button"
+            type="submit"
             width="195px"
             styles={StyleVariants.TRANSPARENT}
-            padding={PaddingVariants.MD}
-            disabled={!isDirty || !isValid || errorsLength > 0}
+            padding={PaddingVariants.SM2}
+            disabled={!isDirty || !isValid || isLoading || errorsLength > 0}
           >
             <Typography
               variant="h4"
               sx={{
                 color:
-                  !isDirty || !isValid || errorsLength > 0
+                  !isDirty || !isValid || isLoading || errorsLength > 0
                     ? theme.palette.text.disabled
                     : theme.palette.text.primary,
               }}

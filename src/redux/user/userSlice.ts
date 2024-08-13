@@ -27,6 +27,7 @@ const initialState: IUser = {
   clothesSize: '',
   jeansSize: '',
   shoesSize: '',
+  notificationsEnabled: true,
 };
 
 const updateState = (state: IUser, action: PayloadAction<IUser>): IUser => {
@@ -121,6 +122,14 @@ export const userSlice = createSlice({
         state.willHideRentalRules = true;
       }
     );
+    builder.addMatcher(
+      userApi.endpoints.changeEmail.matchFulfilled,
+      updateState
+    );
+    builder.addMatcher(
+      userApi.endpoints.toggleNotifications.matchFulfilled,
+      updateState
+    );
   },
 });
 
@@ -149,5 +158,7 @@ export const selectUserShoesSize = (state: { user: IUser }) =>
   state.user.shoesSize;
 export const selectHideRentalRules = (state: { user: IUser }) =>
   state.user.willHideRentalRules;
+export const selectUserNotifications = (state: { user: IUser }) =>
+  state.user.notificationsEnabled;
 
 export default userSlice.reducer;
