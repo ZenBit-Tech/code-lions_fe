@@ -16,7 +16,7 @@ export const notificationsApi = createApi({
       }),
       providesTags: ['Notifications'],
     }),
-    createNotification: build.mutation<void, ICreateNotification>({
+    createNotification: build.mutation<INotification, ICreateNotification>({
       query: (notificationData) => ({
         url: RTKUrls.NOTIFICATIONS,
         method: HttpMethods.POST,

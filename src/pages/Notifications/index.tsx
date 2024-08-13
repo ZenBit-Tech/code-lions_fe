@@ -1,8 +1,10 @@
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 
 import { Typography } from '@mui/material';
 
+import useNotificationSocket from 'src/common/hooks/useNotificationSocket';
 import Loader from 'src/components/Loader';
 import { useGetNotificationsByUserQuery } from 'src/redux/notification/notificationsService';
 import { INotification } from 'src/redux/notification/types';
@@ -20,8 +22,19 @@ import {
 
 function NotificationsPage() {
   const { t } = useTranslation();
-  const id = useSelector(selectUserId);
-  const { data: notifications, isLoading } = useGetNotificationsByUserQuery(id);
+  const userId = useSelector(selectUserId);
+  const { data: dbNotifications, isLoading } =
+    useGetNotificationsByUserQuery(userId);
+
+  const { notifications: socketNotifications } = useNotificationSocket();
+
+  const [notifications, setNotifications] = useState<INotification[]>([]);
+
+  useEffect(() => {
+    if (dbNotifications) {
+      setNotifications(() => [...socketNotifications, ...dbNotifications]);
+    }
+  }, [dbNotifications, socketNotifications]);
 
   if (isLoading) {
     return <Loader />;
