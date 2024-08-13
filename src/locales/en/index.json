@@ -743,6 +743,10 @@
     "no": "No",
     "yes": "Yes"
   },
+  "rejectAddProductModal": {
+    "title": "Are you sure want to stop adding the product?",
+    "subtitle": "The added information will not be saved."
+  },
   "productCategories": {
     "accessories": {
       "label": "Accessories",
