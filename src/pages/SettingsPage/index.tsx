@@ -15,7 +15,10 @@ import {
 import useToast from 'src/components/shared/toasts/components/ToastProvider/ToastProviderHooks';
 import { useAppSelector } from 'src/redux/hooks';
 import { useToggleNotificationsMutation } from 'src/redux/user/userService';
-import { selectUserId } from 'src/redux/user/userSlice';
+import {
+  selectUserId,
+  selectUserNotifications,
+} from 'src/redux/user/userSlice';
 import theme from 'src/theme';
 
 import {
@@ -38,8 +41,9 @@ function SettingsPage() {
   const { handleOnSubmitError } = useErrorHandling();
 
   const userId = useAppSelector(selectUserId);
+  const notificationsEnabled = useAppSelector(selectUserNotifications);
 
-  const [checked, setChecked] = useState<boolean>(true);
+  const [checked, setChecked] = useState<boolean>(notificationsEnabled);
   const [showModal, setShowModal] = useState<boolean>(false);
 
   const [toggleNotifications, { isLoading }] = useToggleNotificationsMutation();
@@ -48,7 +52,11 @@ function SettingsPage() {
     setChecked(event.target.checked);
     try {
       await toggleNotifications().unwrap();
-      // showToast('success', t('newPassword.passwordChanged'));
+      if (notificationsEnabled) {
+        showToast('success', t('settings.notificationsOff'));
+      } else {
+        showToast('success', t('settings.notificationsOn'));
+      }
     } catch (error) {
       handleOnSubmitError(error, showToast, t('settings.notificationsError'));
     }

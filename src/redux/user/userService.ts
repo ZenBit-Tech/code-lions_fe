@@ -298,7 +298,7 @@ export const userApi = createApi({
       }),
     }),
 
-    toggleNotifications: build.mutation<void, void>({
+    toggleNotifications: build.mutation<IUser, void>({
       query: () => ({
         url: RTKUrls.TOGGLE_NOTIFICATIONS,
         method: HttpMethods.PATCH,
