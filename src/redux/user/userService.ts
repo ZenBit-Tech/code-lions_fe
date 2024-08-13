@@ -290,7 +290,7 @@ export const userApi = createApi({
       }),
     }),
 
-    changeEmail: build.mutation<void, IChangeEmailRequest>({
+    changeEmail: build.mutation<IUser, IChangeEmailRequest>({
       query: ({ email }) => ({
         url: RTKUrls.CHANGE_EMAIL,
         method: HttpMethods.PATCH,

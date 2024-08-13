@@ -30,6 +30,7 @@ export interface IUser {
   accessToken?: string;
   refreshToken?: string;
   onboardingStep: number;
+  notificationsEnabled: boolean;
 }
 
 export interface IVerifyEmailRequest {

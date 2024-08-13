@@ -27,6 +27,7 @@ const initialState: IUser = {
   clothesSize: '',
   jeansSize: '',
   shoesSize: '',
+  notificationsEnabled: true,
 };
 
 const updateState = (state: IUser, action: PayloadAction<IUser>): IUser => {
@@ -123,9 +124,7 @@ export const userSlice = createSlice({
     );
     builder.addMatcher(
       userApi.endpoints.changeEmail.matchFulfilled,
-      (state: IUser) => {
-        state.isEmailVerified = false;
-      }
+      updateState
     );
   },
 });
