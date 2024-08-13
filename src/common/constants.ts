@@ -271,6 +271,7 @@ export const productCategories = [
   'clothing',
   'designers',
   'accessories',
+  'evental',
 ];
 
 export const colors = [

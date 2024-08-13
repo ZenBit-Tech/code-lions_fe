@@ -1,6 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom';
 
-import { urls } from 'src/common/constants';
+import { urls, userRoles } from 'src/common/constants';
 import Layout from 'src/components/Layout';
 import AboutUsPage from 'src/pages/AboutUsPage';
 import AdminLayout from 'src/pages/admin/AdminLayout';
@@ -56,22 +56,19 @@ import WishlistPage from 'src/pages/WishlistPage';
 
 import AdminPrivateRoute from './AdminPrivateRoute';
 import FinishedOnboardingGuard from './FinishedOnboardingGuard';
+import ForbiddenRoute from './ForbiddenRoute';
 import OnboardingGuard from './OnboardingGuard';
-import VendorPrivateRoute from './VendorPrivateRoute';
+import VendorGuard from './VendorGuard';
 import VerifyPrivateRoute from './VerifyPrivateRoute';
 
 const router = createBrowserRouter([
   {
     path: urls.HOME,
-    element: <OnboardingGuard element={<Layout />} />,
+    element: <OnboardingGuard element={<VendorGuard element={<Layout />} />} />,
     children: [
       {
         index: true,
-        element: (
-          <VendorPrivateRoute>
-            <HomePage />
-          </VendorPrivateRoute>
-        ),
+        element: <HomePage />,
       },
       { path: '*', element: <NotFoundPage /> },
       { path: urls.PRODUCT_FEED, element: <ProductFeedPage /> },
@@ -90,7 +87,14 @@ const router = createBrowserRouter([
       { path: urls.BEST_VENDORS, element: <BestVendorsPage /> },
       {
         path: urls.PROFILE,
-        element: <ProfileLayout />,
+        element: (
+          <ForbiddenRoute
+            allowedRoles={[userRoles.BUYER]}
+            redirectTo={urls.HOME}
+          >
+            <ProfileLayout />
+          </ForbiddenRoute>
+        ),
         children: [
           { path: urls.PROFILE_DETAILS, element: <ProfilePage /> },
           { path: urls.PROFILE_ORDERS, element: <ProfileOrders /> },
@@ -198,7 +202,11 @@ const router = createBrowserRouter([
   { path: urls.USER_VENDOR_PROFILE, element: <VendorPublicProfilePage /> },
   {
     path: urls.VENDOR,
-    element: <VendorLayout />,
+    element: (
+      <ForbiddenRoute allowedRoles={[userRoles.VENDOR]} redirectTo={urls.HOME}>
+        <VendorLayout />
+      </ForbiddenRoute>
+    ),
     children: [
       { path: urls.USER_BUYER_PROFILE, element: <BuyerPublicProfilePage /> },
       { path: urls.VENDOR_DASHBOARD, element: <VendorDashboard /> },

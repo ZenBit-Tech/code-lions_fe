@@ -415,6 +415,7 @@
     "clothing": "Clothing",
     "designers": "Designers",
     "accessories": "Accessories",
+    "evental": "Evental",
     "noProducts": "No products found",
     "error": "An unexpected error occurred. Please try again later"
   },
@@ -447,7 +448,7 @@
     "source": "Source",
     "orders": "Orders",
     "amount": "Amount",
-    "resentOrders": "Resent Orders",
+    "resentOrders": "Recent Orders",
     "id": "Id",
     "product": "Product",
     "price": "Price",
@@ -742,6 +743,10 @@
     "subtitle": "The added information will not be saved.",
     "no": "No",
     "yes": "Yes"
+  },
+  "rejectAddProductModal": {
+    "title": "Are you sure want to stop adding the product?",
+    "subtitle": "The added information will not be saved."
   },
   "productCategories": {
     "accessories": {

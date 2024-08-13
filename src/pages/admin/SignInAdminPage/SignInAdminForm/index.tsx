@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { Typography } from '@mui/material';
 import { Box } from '@mui/system';
 
-import { appErrors, urls, validations } from 'src/common/constants';
+import { appErrors, urls, validations, userRoles } from 'src/common/constants';
 import LabelText from 'src/components/shared/LabelText';
 import PasswordInput from 'src/components/shared/PasswordInput';
 import StyledButton from 'src/components/shared/StyledButton';
@@ -71,9 +71,11 @@ function SignInAdminForm() {
 
   const onSubmit: SubmitHandler<IFormInput> = async ({ email, password }) => {
     try {
-      await login({ email, password }).unwrap();
+      const response = await login({ email, password }).unwrap();
 
-      navigate(urls.ADMIN_USERS_FULL);
+      const isAdmin = response.role === userRoles.ADMIN;
+
+      navigate(isAdmin ? urls.ADMIN_USERS_FULL : urls.HOME);
     } catch (err) {
       const error = err as CustomFetchBaseQueryError | SerializedError;
       const errorMessage = appErrors.FAILED_SIGN_IN;

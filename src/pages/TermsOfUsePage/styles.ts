@@ -50,14 +50,13 @@ interface TitleStyledProps extends TypographyProps {
   center?: boolean;
 }
 
-export const TitleStyled = styled(Typography)<TitleStyledProps>(
-  ({ theme, center }) => ({
-    color: theme.palette.text.primary,
-    [theme.breakpoints.up('sm')]: {
-      color: theme.palette.text.primary,
-      textAlign: center ? 'center' : 'left',
-      lineHeight: 1.83,
-      letterSpacing: '-0.4px',
-    },
-  })
-);
+export const TitleStyled = styled(Typography, {
+  shouldForwardProp: (prop) => prop !== 'center',
+})<TitleStyledProps>(({ theme, center }) => ({
+  color: theme.palette.text.primary,
+  [theme.breakpoints.up('sm')]: {
+    textAlign: center ? 'center' : 'left',
+    lineHeight: 1.83,
+    letterSpacing: '-0.4px',
+  },
+}));
