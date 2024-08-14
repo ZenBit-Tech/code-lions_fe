@@ -1,6 +1,7 @@
+import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 
-import { CircularProgress, Grid } from '@mui/material';
+import { CircularProgress, Grid, Typography } from '@mui/material';
 
 import { useAppSelector } from 'src/redux/hooks';
 import { useGetOrderByUserIdAndOrderIdQuery } from 'src/redux/order/orderService';
@@ -16,6 +17,7 @@ import OrderProductsTable from './OrderProductsTable';
 import OrderSummarySection from './OrderSummarySection';
 
 function VendorOrderPage() {
+  const { t } = useTranslation();
   const { orderId } = useParams<{ orderId: string }>();
   const userRole = useAppSelector(selectUserRole);
 
@@ -25,8 +27,19 @@ function VendorOrderPage() {
     orderId: orderIdNumber,
   });
 
-  if (!data || isLoading) {
+  if (isLoading) {
     return <CircularProgress sx={{ color: theme.palette.common.black }} />;
+  }
+
+  if (!data) {
+    return (
+      <Typography
+        variant="h4"
+        sx={{ mt: 4, fontSize: theme.typography.h5.fontSize }}
+      >
+        {t('profileOrders.orderNotFound')}
+      </Typography>
+    );
   }
 
   const order: IOrder = data.order[0];
