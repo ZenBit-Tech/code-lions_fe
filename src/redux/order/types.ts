@@ -8,6 +8,9 @@ export interface IOrder {
   shipping: number;
   status: string;
   products: IOrderProduct[];
+  trackingNumber: string | null;
+  rejectedBy: string | null;
+  rejectReason: string | null;
 }
 
 interface Image {
