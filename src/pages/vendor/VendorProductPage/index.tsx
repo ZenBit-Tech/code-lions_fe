@@ -126,15 +126,17 @@ function VendorProductPage() {
               alignItems: 'center',
             }}
           >
-            <IconButton
-              sx={{ padding: 0 }}
-              onClick={() => {
-                navigate(`/${linkUrls.VENDOR_EDIT_PRODUCT}/${productId}`);
-                dispatch(setPending(false));
-              }}
-            >
-              <EditIcon />
-            </IconButton>
+            {userRole === userRoles.ADMIN ? null : (
+              <IconButton
+                sx={{ padding: 0 }}
+                onClick={() => {
+                  navigate(`/${linkUrls.VENDOR_EDIT_PRODUCT}/${productId}`);
+                  dispatch(setPending(false));
+                }}
+              >
+                <EditIcon />
+              </IconButton>
+            )}
             <IconButton sx={{ padding: 0 }} onClick={handleDeleteModalOpen}>
               <DeleteIcon />
             </IconButton>
