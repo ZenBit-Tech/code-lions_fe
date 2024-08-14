@@ -13,7 +13,10 @@ import {
   PaddingVariants,
   StyleVariants,
 } from 'src/components/shared/StyledButton/types';
-import { resetAddProduct } from 'src/redux/addProduct/addProductSlice';
+import {
+  resetAddProduct,
+  setPending,
+} from 'src/redux/addProduct/addProductSlice';
 import { useAppDispatch } from 'src/redux/hooks';
 
 import {
@@ -82,6 +85,7 @@ function RejectProductFlowModal({
 
   const handleNavigation = (): void => {
     dispatch(resetAddProduct());
+    dispatch(setPending(true));
     navigate(`${urls.VENDOR}/${urls.VENDOR_ORDERS}`);
   };
 

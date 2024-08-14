@@ -57,6 +57,7 @@ export interface IAddedProduct {
   images: ProductImage[];
   price: number;
   step: number;
+  pending?: boolean | null;
 }
 
 export interface IUploadProductPhotoRequest {
