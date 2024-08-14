@@ -65,10 +65,22 @@ function ImageCard({ type, src, isPrimary }: ImageCardProps) {
           <IconButton
             sx={{
               position: 'absolute',
-              top: '0px',
-              right: '129px',
+              top: '2px',
+              right: '125px',
+              backgroundColor: theme.palette.imageButton.background,
+              border: `1px solid ${theme.palette.common.black}`,
+              transition: 'background-color 300ms, box-shadow 300ms',
+              '&:hover': {
+                backgroundColor: theme.palette.imageButton.hover,
+                boxShadow: `inset 0 2px 2px 0 ${theme.palette.grey[200]}`,
+              },
+              '&:focus': {
+                backgroundColor: theme.palette.imageButton.hover,
+                boxShadow: `inset 0 2px 2px 0 ${theme.palette.grey[200]}`,
+              },
             }}
             onClick={handleSetPrimary}
+            title={t('addProduct.primary')}
           >
             {isPrimary ? <PrimaryTrue /> : <Primary />}
           </IconButton>
@@ -89,10 +101,22 @@ function ImageCard({ type, src, isPrimary }: ImageCardProps) {
           <IconButton
             sx={{
               position: 'absolute',
-              top: '0px',
-              right: '25px',
+              top: '2px',
+              right: '38px',
+              border: `1px solid ${theme.palette.common.black}`,
+              transition: 'background-color 300ms, box-shadow 300ms',
+              backgroundColor: theme.palette.imageButton.background,
+              '&:hover': {
+                backgroundColor: theme.palette.imageButton.hover,
+                boxShadow: `inset 0 2px 2px 0 ${theme.palette.grey[200]}`,
+              },
+              '&:focus': {
+                backgroundColor: theme.palette.imageButton.hover,
+                boxShadow: `inset 0 2px 2px 0 ${theme.palette.grey[200]}`,
+              },
             }}
             onClick={handleClick}
+            title={t('addProduct.editPhoto')}
           >
             <Pen />
           </IconButton>
@@ -110,10 +134,22 @@ function ImageCard({ type, src, isPrimary }: ImageCardProps) {
           <IconButton
             sx={{
               position: 'absolute',
-              top: '0px',
+              top: '2px',
               right: '1px',
+              backgroundColor: theme.palette.imageButton.background,
+              border: `1px solid ${theme.palette.common.black}`,
+              transition: 'background-color 300ms, box-shadow 300ms',
+              '&:hover': {
+                backgroundColor: theme.palette.imageButton.hover,
+                boxShadow: `inset 0 2px 2px 0 ${theme.palette.grey[200]}`,
+              },
+              '&:focus': {
+                backgroundColor: theme.palette.imageButton.hover,
+                boxShadow: `inset 0 2px 2px 0 ${theme.palette.grey[200]}`,
+              },
             }}
             onClick={handleRemove}
+            title={t('addProduct.deletePhoto')}
           >
             <Trash />
           </IconButton>

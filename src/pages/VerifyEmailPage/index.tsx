@@ -24,7 +24,8 @@ import useVerification from './hooks/useVerification';
 import { OtpContainer, TitleContainer, TimerContainer } from './styles';
 
 function VerifyEmailPage() {
-  const { pathname } = useLocation();
+  const location = useLocation();
+  const { pathname } = location;
   const navigate = useNavigate();
   const { t } = useTranslation();
   const { showToast } = useToast();
@@ -62,7 +63,9 @@ function VerifyEmailPage() {
 
   const handleNavigation = () => {
     if (pathname === urls.VERIFY) {
-      navigate(urls.SIGN_UP);
+      const back = -1;
+
+      navigate(back);
     } else if (pathname === urls.ENTER_CODE) {
       navigate(urls.RESTORE_PASSWORD);
     }

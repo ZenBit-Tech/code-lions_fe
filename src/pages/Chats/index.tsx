@@ -23,7 +23,10 @@ function ChatsPage() {
   const [selectedChat, setSelectedChat] = useState<Chat | undefined>();
   const { chats, chatsWithMainData } = useAppSelector((state) => state.chat);
   const { isLoading } = useGetChatsQuery();
-  const { isLoading: isLoadingSelectedChat } = useGetChatByIdQuery(chatId);
+  const { isLoading: isLoadingSelectedChat } = useGetChatByIdQuery(chatId, {
+    skip: !chatId,
+    refetchOnMountOrArgChange: true,
+  });
 
   const socket = useContext(ChatContext);
 

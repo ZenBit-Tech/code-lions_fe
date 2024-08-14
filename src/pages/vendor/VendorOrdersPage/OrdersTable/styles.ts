@@ -37,13 +37,12 @@ export const BodyTableCell = styled(TableCell)(({ theme }) => ({
 
 const statusColors = {
   newOder: '#B2C450',
+  rejected: '#DE506F',
   sent: '#36B37E',
-  delivered: '#2668BD',
   received: '#FFBB0B',
   sentBack: '#FF640D',
-  returned: '#3F30F3',
   overdue: '#DE50B8',
-  rejected: '#DE506F',
+  returned: '#3F30F3',
 };
 
 const opacity = 0.25;
@@ -58,21 +57,18 @@ export const Status = styled(Chip)<{ status: string }>(({ status }) => {
   } else if (status === orderStatus.SENT) {
     color = statusColors.sent;
     backgroundColor = hexToRgba(statusColors.sent, opacity);
-  } else if (status === orderStatus.DELIVERED) {
-    color = statusColors.delivered;
-    backgroundColor = hexToRgba(statusColors.delivered, opacity);
-  } else if (status === orderStatus.RECEIVED) {
-    color = statusColors.received;
-    backgroundColor = hexToRgba(statusColors.received, opacity);
   } else if (status === orderStatus.SENT_BACK) {
     color = statusColors.sentBack;
     backgroundColor = hexToRgba(statusColors.sentBack, opacity);
-  } else if (status === orderStatus.RETURNED) {
-    color = statusColors.returned;
-    backgroundColor = hexToRgba(statusColors.returned, opacity);
+  } else if (status === orderStatus.RECEIVED) {
+    color = statusColors.received;
+    backgroundColor = hexToRgba(statusColors.received, opacity);
   } else if (status === orderStatus.OVERDUE) {
     color = statusColors.overdue;
     backgroundColor = hexToRgba(statusColors.overdue, opacity);
+  } else if (status === orderStatus.RETURNED) {
+    color = statusColors.returned;
+    backgroundColor = hexToRgba(statusColors.returned, opacity);
   } else if (status === orderStatus.REJECTED) {
     color = statusColors.rejected;
     backgroundColor = hexToRgba(statusColors.rejected, opacity);

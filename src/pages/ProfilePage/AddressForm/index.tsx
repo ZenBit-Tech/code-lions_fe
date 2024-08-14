@@ -24,10 +24,7 @@ function AddressForm() {
 
   return (
     <>
-      <TitleStyled
-        variant="subtitle1"
-        sx={{ fontSize: theme.typography.h5.fontSize }}
-      >
+      <TitleStyled variant="subtitle1" theme={theme}>
         {t('profileDetails.address')}
       </TitleStyled>
       {!showEdit && (

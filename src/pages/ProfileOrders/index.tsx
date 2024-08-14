@@ -25,10 +25,10 @@ function ProfileOrders() {
       activeTab === profileOrdersTabs.CURRENT
         ? [
             orderStatus.NEW,
-            orderStatus.DELIVERED,
+            orderStatus.OVERDUE,
             orderStatus.RECEIVED,
             orderStatus.SENT,
-            orderStatus.WAITING_RETURNING,
+            orderStatus.SENT_BACK,
           ]
         : [orderStatus.RETURNED, orderStatus.REJECTED],
   });

@@ -24,13 +24,70 @@ export const orderApi = createApi({
       providesTags: ['Order'],
     }),
 
-    rejectOrder: build.mutation<void, { orderId: number }>({
+    rejectOrder: build.mutation<
+      void,
+      { orderId: number; rejectReason: string }
+    >({
+      query: ({ orderId, rejectReason }) => ({
+        url: `${RTKUrls.ORDERS}/${RTKUrls.REJECT}/${orderId}`,
+        method: HttpMethods.PATCH,
+        body: { rejectReason },
+      }),
+      invalidatesTags: ['Order', 'Orders'],
+    }),
+
+    sendOrder: build.mutation<
+      void,
+      { orderId: number; trackingNumber: string }
+    >({
+      query: ({ orderId, trackingNumber }) => ({
+        url: `${RTKUrls.ORDERS}/${RTKUrls.SEND}/${orderId}`,
+        method: HttpMethods.PATCH,
+        body: { trackingNumber },
+      }),
+      invalidatesTags: ['Order', 'Orders'],
+    }),
+
+    receiveOrder: build.mutation<void, { orderId: number }>({
       query: ({ orderId }) => ({
-        url: `${RTKUrls.ORDERS}/${orderId}`,
+        url: `${RTKUrls.ORDERS}/${RTKUrls.RECEIVE}/${orderId}`,
         method: HttpMethods.PATCH,
       }),
-      invalidatesTags: ['Order'],
+      invalidatesTags: ['Order', 'Orders'],
     }),
+
+    sendBackOrder: build.mutation<
+      void,
+      { orderId: number; trackingNumber: string }
+    >({
+      query: ({ orderId, trackingNumber }) => ({
+        url: `${RTKUrls.ORDERS}/${RTKUrls.SEND_BACK}/${orderId}`,
+        method: HttpMethods.PATCH,
+        body: { trackingNumber },
+      }),
+      invalidatesTags: ['Order', 'Orders'],
+    }),
+
+    returnOrder: build.mutation<void, { orderId: number }>({
+      query: ({ orderId }) => ({
+        url: `${RTKUrls.ORDERS}/${RTKUrls.RETURN}/${orderId}`,
+        method: HttpMethods.PATCH,
+      }),
+      invalidatesTags: ['Order', 'Orders'],
+    }),
+
+    paySendOrder: build.mutation<
+      void,
+      { orderId: number; trackingNumber: string }
+    >({
+      query: ({ orderId, trackingNumber }) => ({
+        url: `${RTKUrls.ORDERS}/${RTKUrls.PAY_SEND}/${orderId}`,
+        method: HttpMethods.PATCH,
+        body: { trackingNumber },
+      }),
+      invalidatesTags: ['Order', 'Orders'],
+    }),
+
     getAllOrdersVendor: build.query<
       IVendorOrdersResponse,
       IVendorOrdersRequest
@@ -77,6 +134,11 @@ export const orderApi = createApi({
 export const {
   useGetOrderByUserIdAndOrderIdQuery,
   useRejectOrderMutation,
+  useReceiveOrderMutation,
+  useSendOrderMutation,
+  useSendBackOrderMutation,
+  useReturnOrderMutation,
+  usePaySendOrderMutation,
   useGetAllOrdersVendorQuery,
   useGetBuyerOrdersQuery,
   useGetAllPaginatedOrdersVendorQuery,

@@ -34,6 +34,7 @@ export const urls = {
   ADMIN_PRODUCT_LIST: 'product-list',
   ADMIN_CHATS: '/admin/chats',
   ADMIN_CHAT_ID: '/admin/chats/:chatId',
+  ADMIN_STRIPE: '/admin/stripe',
   PROFILE: '/profile',
   USER_BUYER_PROFILE: 'buyer/:id',
   BUYER: 'buyer',
@@ -87,6 +88,7 @@ export const RTKUrls = {
   NEW_PASSWORD: 'auth/new-password',
   REGISTER_USER: 'auth/register',
   GOOGLE_AUTH: 'auth/google',
+  CHANGE_EMAIL: 'auth/change-email',
   ADMIN_USERS: 'users/admin',
   USERS: 'users',
   ROLE: 'role',
@@ -99,6 +101,7 @@ export const RTKUrls = {
   CARD_DATA: '/card-data',
   UPDATE_PROFILE_ADMIN: 'update-profile-admin',
   SOFT_DELETE: 'soft-delete',
+  TOGGLE_NOTIFICATIONS: 'users/toggle-notifications',
   PRODUCTS: 'products',
   WISHLIST: 'wishlist',
   CART: 'cart',
@@ -123,6 +126,13 @@ export const RTKUrls = {
   ORDERS_VENDOR: 'orders/vendor',
   FOLLOW_VENDOR: '/vendors/follow',
   UNFOLLOW_VENDOR: '/vendors/unfollow',
+  STRIPE: '/stripe',
+  REJECT: 'reject',
+  SEND: 'send',
+  RECEIVE: 'receive',
+  SEND_BACK: 'send-back',
+  RETURN: 'return',
+  PAY_SEND: 'pay-send',
 };
 
 export const HttpMethods = {
@@ -269,6 +279,7 @@ export const productCategories = [
   'clothing',
   'designers',
   'accessories',
+  'evental',
 ];
 
 export const colors = [
@@ -310,7 +321,6 @@ export const orderStatus = {
   NEW: 'New order',
   REJECTED: 'Rejected',
   SENT: 'Sent',
-  DELIVERED: 'Delivered',
   RECEIVED: 'Received',
   SENT_BACK: 'Sent back',
   OVERDUE: 'Overdue',

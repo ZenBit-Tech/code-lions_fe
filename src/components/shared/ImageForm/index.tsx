@@ -8,7 +8,7 @@ import theme from 'src/theme';
 
 import ImageCard from '../ImageCard';
 
-const maxNumberImage = 4;
+export const maxNumberImage = 4;
 
 function ImagesForm() {
   const images = useSelector((state: RootState) => selectProductImages(state));

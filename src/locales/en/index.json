@@ -10,7 +10,14 @@
   "toasterMessages": {
     "failedCreateChat": "Failed create chat with vendor. Please try later.",
     "failedCreateSupport": "Failed create chat with administrator. Please try later.",
-    "failedToRejectOrder": "Failed to reject order"
+    "failedToRejectOrder": "Failed to reject order",
+    "failedToSendOrder": "Failed to send order",
+    "rejectReasonRequired": "Reject reason is required",
+    "trackingNumberRequired": "Tracking number is required",
+    "failedToReceiveOrder": "Failed to receive order",
+    "failedToSendBack": "Failed to send the order back",
+    "failedToReturnOrder": "Failed to return order",
+    "failedToPaySendOrder": "Failed to pay the overdue and send the order back"
   },
   "chat": {
     "yesterday": "Yesterday",
@@ -196,7 +203,8 @@
     "products": "Products",
     "requests": "Requests",
     "productsList": "Products List",
-    "chats": "Chats"
+    "chats": "Chats",
+    "stripeFees": "Stripe Fees"
   },
   "headerAdmin": {
     "mockAvatar": "AA",
@@ -226,6 +234,13 @@
     "mockSaveDate": "Apr 9, 2023-15-03",
     "saveButton": "Save",
     "cancelButton": "Cancel"
+  },
+  "stripeAdmin": {
+    "stripeFee": "Application fee",
+    "submit": "Submit",
+    "invalidFee": "Invalid fee, it should be a decimal number between 0 and 100",
+    "updateSuccess": "Application fee is updated",
+    "updateError": "Something is wrong, try again later"
   },
   "profile": {
     "title": "Your Profile",
@@ -415,6 +430,7 @@
     "clothing": "Clothing",
     "designers": "Designers",
     "accessories": "Accessories",
+    "evental": "Evental",
     "noProducts": "No products found",
     "error": "An unexpected error occurred. Please try again later"
   },
@@ -447,7 +463,7 @@
     "source": "Source",
     "orders": "Orders",
     "amount": "Amount",
-    "resentOrders": "Resent Orders",
+    "resentOrders": "Recent Orders",
     "id": "Id",
     "product": "Product",
     "price": "Price",
@@ -477,10 +493,25 @@
     "status": "Status",
     "total": "Total",
     "reject": "Reject",
+    "send": "Send",
+    "received": "Received",
+    "return": "Return",
+    "returned": "Returned",
+    "leaveReview": "Leave Review",
+    "paySend": "Pay&Send",
+    "trackingPlaceholder": "rghh-g5g6-5678",
+    "trackingNumber": "Tracking Number",
+    "rentDaysLeft": "Rent Days Left",
     "subtotal": "Subtotal",
     "discount": "Discount",
     "shipping": "Shipping",
-    "label": "simple table"
+    "label": "simple table",
+    "cancel": "Cancel",
+    "modalTitle": "Why do you reject this order?",
+    "rejectPlaceholder": "Describe your rejection reason",
+    "rejectLabel": "maximum height",
+    "rejectedBy": "Rejected By",
+    "rejectReason": "Reject Reason"
   },
   "filters": {
     "title": "Filters",
@@ -594,7 +625,7 @@
     "styleSubtitle": "Please select product Style",
     "photo": "Photo Product",
     "video": "Video Product",
-    "photoSubtitle": "Recommended minimum width 1080px X 1080px, with a max size of 5MB, only *.png, *.jpg and *.jpeg image files are accepted",
+    "photoSubtitle": "Minimum number of images to upload is 4. Recommended minimum width 1080px X 1080px, with a max size of 5MB, only *.png, *.jpg and *.jpeg image files are accepted",
     "videoSubtitle": "Recommended , with a max size of 250MB, only *.mp4, *.move  files are accepted",
     "primary": "Primary",
     "addImage": "Add Image",
@@ -608,7 +639,7 @@
     "invalidFileType": "Invalid file type. Only jpg, png, and heic are allowed.",
     "productPrice": "Product Price",
     "price": "Price",
-    "priceDescription": "It's price for the product",
+    "priceDescription": "It's a rental price for the product in CA$. The vendor will receive the amount of money equal to rental price paid, minus the commission.",
     "inputPrice": "Input the price of the product here",
     "priceRequired": "Price cannot be empty",
     "priceInvalid": "Price must be a number",
@@ -633,7 +664,9 @@
     "chooseFile": "Choose file",
     "uploadSuccess": "File uploaded successfully",
     "loading": "Loading..",
-    "saveBtn": "Save"
+    "saveBtn": "Save",
+    "editPhoto": "Upload another photo",
+    "deletePhoto": "Delete photo"
   },
   "cartPage": {
     "title": "Cart",
@@ -731,6 +764,10 @@
     "no": "No",
     "yes": "Yes"
   },
+  "rejectAddProductModal": {
+    "title": "Are you sure want to stop adding the product?",
+    "subtitle": "The added information will not be saved."
+  },
   "productCategories": {
     "accessories": {
       "label": "Accessories",
@@ -809,5 +846,28 @@
     "cancel": "Cancel",
     "placeholder": "Write review here",
     "subtitle": "Share your thoughts about this order"
+  },
+  "settings": {
+    "notifications": "Notifications",
+    "manageAccount": "Manage Account",
+    "email": "Email",
+    "changeEmail": "Change Email",
+    "password": "Password",
+    "changePassword": "Change Password",
+    "deleteAccount": "Delete account",
+    "popupMessage": "Are you sure want to delete?",
+    "popupDescription": "You will lose access to the application and all your data",
+    "yes": "Yes",
+    "no": "No",
+    "deleteSuccess": "Your account was deleted successfully",
+    "deleteError": "Was unable to delete your account, please try again later",
+    "emailSuccess": "Please verify your new email",
+    "emailError": "Was unable to change your email, please try again later",
+    "notificationsOn": "You have turned on notifications",
+    "notificationsOff": "You have turned off notifications",
+    "notificationsError": "Was unable to change your notification settings, please try again later"
+  },
+  "vendorPublicProductPage": {
+    "productList": "To Products List"
   }
 }

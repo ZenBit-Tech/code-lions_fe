@@ -12,6 +12,13 @@ import {
   PaddingVariants,
   StyleVariants,
 } from 'src/components/shared/StyledButton/types';
+import useToast from 'src/components/shared/toasts/components/ToastProvider/ToastProviderHooks';
+import {
+  useFollowVendorMutation,
+  useUnfollowVendorMutation,
+} from 'src/redux/bestVendors/bestVendorsService';
+import { updateFollowStatus } from 'src/redux/bestVendors/bestVendorsSlice';
+import { useAppDispatch, useAppSelector } from 'src/redux/hooks';
 import theme from 'src/theme.tsx';
 
 import {
@@ -26,10 +33,50 @@ interface ProfileInfoProps {
   name: string;
   rating: number;
   avatar: string;
+  id: string;
 }
 
-function ProfileInfo({ name, rating, avatar }: ProfileInfoProps) {
+function ProfileInfo({ name, rating, avatar, id }: ProfileInfoProps) {
   const { t } = useTranslation();
+  const dispatch = useAppDispatch();
+  const { showToast } = useToast();
+  const [followVendor] = useFollowVendorMutation();
+  const [unFollowVendor] = useUnfollowVendorMutation();
+  const followStatus = useAppSelector(
+    (state) => state.bestVendors.followStatus
+  );
+
+  const handleFollowVendor = async (vendorId: string) => {
+    try {
+      await followVendor({
+        body: { vendorId },
+      }).unwrap();
+
+      dispatch(updateFollowStatus({ vendorId, status: true }));
+    } catch (error) {
+      showToast('error', t('bestVendors.followFailed'));
+    }
+  };
+
+  const handleUnFollowVendor = async (vendorId: string) => {
+    try {
+      await unFollowVendor({
+        body: { vendorId },
+      }).unwrap();
+
+      dispatch(updateFollowStatus({ vendorId, status: false }));
+    } catch (error) {
+      showToast('error', t('bestVendors.unfollowFailed'));
+    }
+  };
+
+  const toggleFollowStatus = (vendorId: string) => {
+    if (followStatus[vendorId]) {
+      handleUnFollowVendor(vendorId);
+    } else {
+      handleFollowVendor(vendorId);
+    }
+  };
 
   return (
     <SimpleSection>
@@ -73,8 +120,13 @@ function ProfileInfo({ name, rating, avatar }: ProfileInfoProps) {
                 lineHeight: 'normal',
                 letterSpacing: 'normal',
               }}
+              onClick={() => {
+                toggleFollowStatus(id);
+              }}
             >
-              {t('vendorProfile.follow')}
+              {followStatus[id]
+                ? t('bestVendors.unfollow')
+                : t('bestVendors.follow')}
             </Typography>
           </StyledButton>
         </FollowButtonWrapper>

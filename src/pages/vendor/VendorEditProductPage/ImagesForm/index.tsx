@@ -1,31 +1,26 @@
-import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { Box } from '@mui/material';
 
-import ImageForm from 'src/components/shared/ImageForm';
+import ImageForm, { maxNumberImage } from 'src/components/shared/ImageForm';
+import RejectProductFlowModal from 'src/components/shared/RejectProductFlowModal';
+import useRejectProductFlowModal from 'src/components/shared/RejectProductFlowModal/hooks/useRejectProductFlowModal';
 import StyledButton from 'src/components/shared/StyledButton';
 import {
   PaddingVariants,
   StyleVariants,
 } from 'src/components/shared/StyledButton/types';
 import { increaseAddProductStep } from 'src/redux/addProduct/addProductSlice';
-import { useAppDispatch } from 'src/redux/hooks';
+import { useAppDispatch, useAppSelector } from 'src/redux/hooks';
 import theme from 'src/theme';
-
-import RejectEditingModal from '../RejectEditingModal';
 
 import { AddProductHeader4, AddProductText } from './styles';
 
 function ImagesForm() {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
-
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-
-  const toggleModal = (): void => {
-    setIsModalOpen(!isModalOpen);
-  };
+  const { isRejectModalOpen, toggleRejectModal } = useRejectProductFlowModal();
+  const images = useAppSelector((state) => state.addProduct.images);
 
   const goToNextStep = () => {
     dispatch(increaseAddProductStep());
@@ -83,6 +78,7 @@ function ImagesForm() {
             fontFamily={theme.typography.fontFamily}
             radius="8px"
             onClick={goToNextStep}
+            disabled={images.length < maxNumberImage}
           >
             {t('onboarding.next')}
           </StyledButton>
@@ -92,14 +88,19 @@ function ImagesForm() {
             variant="contained"
             fontSize={String(theme.typography.h4.fontSize)}
             fontFamily={theme.typography.fontFamily}
-            onClick={toggleModal}
+            onClick={toggleRejectModal}
           >
             {t('editProduct.cancelBtn')}
           </StyledButton>
         </Box>
       </Box>
-      {isModalOpen && (
-        <RejectEditingModal isModalOpen={isModalOpen} onClose={toggleModal} />
+      {isRejectModalOpen && (
+        <RejectProductFlowModal
+          isModalOpen={isRejectModalOpen}
+          onClose={toggleRejectModal}
+          modalTitle={t('editModal.title')}
+          modalSubtitle={t('editModal.subtitle')}
+        />
       )}
     </>
   );

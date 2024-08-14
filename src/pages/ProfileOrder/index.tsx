@@ -2,8 +2,11 @@ import { useParams } from 'react-router-dom';
 
 import { CircularProgress, Grid } from '@mui/material';
 
+import OrderActions from 'src/pages/vendor/VendorOrderPage/OrderActions';
+import { useAppSelector } from 'src/redux/hooks';
 import { useGetOrderByUserIdAndOrderIdQuery } from 'src/redux/order/orderService';
 import { IOrder } from 'src/redux/order/types';
+import { selectUserRole } from 'src/redux/user/userSlice';
 import theme from 'src/theme';
 
 import OrderDetailsSection from './OrderDetailsSection';
@@ -16,6 +19,8 @@ function ProfileOrderPage() {
   const { orderId } = useParams<{ orderId: string }>();
 
   const orderIdNumber: number = Number(orderId);
+
+  const userRole = useAppSelector(selectUserRole);
 
   const { data, isLoading } = useGetOrderByUserIdAndOrderIdQuery({
     orderId: orderIdNumber,
@@ -32,6 +37,7 @@ function ProfileOrderPage() {
       <Grid container columns={7} sx={{ padding: '12px' }}>
         <Grid item xs={5} sx={{ paddingRight: '24px' }}>
           <OrderInfoSection order={order} />
+          <OrderActions status={order.status} order={order} role={userRole} />
           <OrderProductsTable products={order.products} />
           <OrderSummarySection shipping={order.shipping} price={order.price} />
         </Grid>

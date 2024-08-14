@@ -13,7 +13,10 @@ import {
   PaddingVariants,
   StyleVariants,
 } from 'src/components/shared/StyledButton/types';
-import { resetAddProduct } from 'src/redux/addProduct/addProductSlice';
+import {
+  resetAddProduct,
+  setPending,
+} from 'src/redux/addProduct/addProductSlice';
 import { useAppDispatch } from 'src/redux/hooks';
 
 import {
@@ -27,9 +30,11 @@ import {
   StyledCloseBtn,
 } from './styles';
 
-interface IRejectEditingModalProps {
+interface IRejectProductFlowModalProps {
   isModalOpen: boolean;
   onClose: () => void;
+  modalTitle: string;
+  modalSubtitle: string;
 }
 
 const modalRoot = document.querySelector('#modal-root');
@@ -37,10 +42,12 @@ const escapeBtn: string = 'Escape';
 const hiddenOverflow: string = 'hidden';
 const autoOverflow: string = 'auto';
 
-function RejectEditingModal({
+function RejectProductFlowModal({
   isModalOpen,
   onClose,
-}: IRejectEditingModalProps) {
+  modalTitle,
+  modalSubtitle,
+}: IRejectProductFlowModalProps) {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -78,6 +85,7 @@ function RejectEditingModal({
 
   const handleNavigation = (): void => {
     dispatch(resetAddProduct());
+    dispatch(setPending(true));
     navigate(`${urls.VENDOR}/${urls.VENDOR_ORDERS}`);
   };
 
@@ -93,8 +101,8 @@ function RejectEditingModal({
               <DeleteIcon />
             </IconSmallWrapper>
           </IconBigWrapper>
-          <ModalTitle variant="h1">{t('editModal.title')}</ModalTitle>
-          <ModalSubtitle>{t('editModal.subtitle')}</ModalSubtitle>
+          <ModalTitle variant="h1">{modalTitle}</ModalTitle>
+          <ModalSubtitle>{modalSubtitle}</ModalSubtitle>
           <StyledButtonsList>
             <li>
               <StyledButton
@@ -124,4 +132,4 @@ function RejectEditingModal({
   );
 }
 
-export default RejectEditingModal;
+export default RejectProductFlowModal;

@@ -9,7 +9,7 @@ import {
 } from 'src/pages/vendor/VendorAddProductPage/ProductDescriptionForm/productDescriptionConstants';
 import {
   setBrand,
-  setColor,
+  setNewColors,
   setDescription,
   setMaterial,
   setName,
@@ -25,7 +25,7 @@ const useProductDispatch = (
   clothesSize: string,
   uniqueSize: string,
   jeansSize: string,
-  productColor: string,
+  productColors: string[],
   shoesMaterial: string,
   productMaterial: string
 ): (() => void) => {
@@ -56,7 +56,7 @@ const useProductDispatch = (
       dispatch(setSize(jeansSize));
     }
 
-    dispatch(setColor(productColor));
+    dispatch(setNewColors(productColors));
 
     dispatch(
       setMaterial(

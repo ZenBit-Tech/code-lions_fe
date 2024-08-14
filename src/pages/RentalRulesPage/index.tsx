@@ -52,9 +52,8 @@ function RentalRulesPage() {
                 <Collapse in={expanded === id} timeout="auto" unmountOnExit>
                   <List sx={{ margin: '0 20px' }}>
                     {rules.map((rule, index) => (
-                      <Box marginBottom="15px">
+                      <Box key={index} marginBottom="15px">
                         <Typography
-                          key={index}
                           variant="body2"
                           color={theme.palette.text.disabled}
                         >

@@ -1,6 +1,8 @@
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
 import { RootState } from 'src/common/types';
 
+import { logout } from '../user/userSlice';
+
 import { IAddedProduct, ProductImage } from './types';
 
 const initialState: IAddedProduct = {
@@ -18,6 +20,7 @@ const initialState: IAddedProduct = {
   images: [],
   price: 0,
   step: 1,
+  pending: null,
 };
 
 export const fetchProductImages = createAsyncThunk(
@@ -65,9 +68,12 @@ export const addProductSlice = createSlice({
     setSize(state, action: PayloadAction<string>) {
       state.size = action.payload;
     },
-    setColor(state, action: PayloadAction<string>) {
+    setColors(state, action: PayloadAction<string[]>) {
+      state.colors = action.payload;
+    },
+    setNewColors(state, action: PayloadAction<string[]>) {
       state.colors = [];
-      state.colors.push(action.payload);
+      state.colors = action.payload;
     },
     setMaterial(state, action: PayloadAction<string>) {
       state.material = action.payload;
@@ -102,11 +108,18 @@ export const addProductSlice = createSlice({
     resetAddProduct(state) {
       Object.assign(state, initialState);
     },
+    setPending(state, action: PayloadAction<boolean>) {
+      state.pending = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchProductImages.fulfilled, (state, action) => {
       state.images = action.payload;
     });
+    builder.addMatcher(
+      (action) => action.type === logout.type,
+      () => initialState
+    );
   },
 });
 
@@ -119,7 +132,8 @@ export const {
   setDescription,
   setBrand,
   setSize,
-  setColor,
+  setColors,
+  setNewColors,
   setMaterial,
   setPdfUrl,
   setPrice,
@@ -131,6 +145,7 @@ export const {
   decreaseAddProductStep,
   setAddProductStep,
   resetAddProduct,
+  setPending,
 } = addProductSlice.actions;
 
 export const selectAddProductStep = (state: { addProduct: IAddedProduct }) =>
