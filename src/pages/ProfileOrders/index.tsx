@@ -24,11 +24,11 @@ function ProfileOrders() {
     statuses:
       activeTab === profileOrdersTabs.CURRENT
         ? [
-            orderStatus.NEW,
-            orderStatus.DELIVERED,
+            orderStatus.NEW_ORDER,
+            orderStatus.OVERDUE,
             orderStatus.RECEIVED,
             orderStatus.SENT,
-            orderStatus.WAITING_RETURNING,
+            orderStatus.SENT_BACK,
           ]
         : [orderStatus.RETURNED, orderStatus.REJECTED],
   });
@@ -60,6 +60,8 @@ function ProfileOrders() {
     );
   }
 
+  console.log(orders);
+
   return (
     <>
       <TabsWrapper>
@@ -86,6 +88,7 @@ function ProfileOrders() {
             orderStatus={order.status}
             productsQuantity={order.products.length}
             productsPhotos={getPrimaryImages(order.products)}
+            timer={order.timer}
           />
         )}
       />

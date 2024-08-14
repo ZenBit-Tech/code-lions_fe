@@ -8,6 +8,7 @@ export interface IOrder {
   shipping: number;
   status: string;
   products: IOrderProduct[];
+  timer: number;
 }
 
 interface Image {

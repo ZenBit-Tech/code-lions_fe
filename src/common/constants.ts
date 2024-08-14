@@ -307,11 +307,11 @@ export const monthAndDayFormat = 'MMMM d';
 export const yearMonthAndDayFormat = 'yyyy MM d';
 
 export const orderStatus = {
-  NEW: 'New order',
+  NEW_ORDER: 'New order',
   SENT: 'Sent',
-  DELIVERED: 'Delivered',
   RECEIVED: 'Received',
-  WAITING_RETURNING: 'Waiting for returning',
+  SENT_BACK: 'Sent back',
+  OVERDUE: 'Overdue',
   RETURNED: 'Returned',
   REJECTED: 'Rejected',
 };

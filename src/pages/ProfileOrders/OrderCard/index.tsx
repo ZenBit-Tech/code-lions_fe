@@ -14,6 +14,7 @@ type OrderCardProps = {
   orderStatus: (typeof orderStatuses)[keyof typeof orderStatuses];
   productsQuantity: number;
   productsPhotos: string[];
+  timer: number;
 };
 
 function OrderCard({
@@ -21,8 +22,34 @@ function OrderCard({
   productsQuantity,
   productsPhotos,
   orderStatus,
+  timer,
 }: OrderCardProps) {
   const { t } = useTranslation();
+
+  function millisecondsToDays(milliseconds: number): number {
+    const millisecondsInADay = 86400000;
+
+    return Math.floor(Math.abs(milliseconds) / millisecondsInADay);
+  }
+
+  const getButton = (status: OrderCardProps['orderStatus']) => {
+    if (status === orderStatuses.OVERDUE) {
+      return (
+        <StyledButton styles={StyleVariants.BLACK} type="button">
+          {t('profileOrders.pay')}
+        </StyledButton>
+      );
+    }
+
+    return (
+      <StyledButton styles={StyleVariants.TRANSPARENT} type="button">
+        {t('profileOrders.seeDetails')}
+      </StyledButton>
+    );
+  };
+
+  const days = millisecondsToDays(timer);
+  const isOverdue = timer < 0;
 
   return (
     <StyledCard>
@@ -37,31 +64,38 @@ function OrderCard({
           <StyledImage src={productPhoto} key={productPhoto} />
         ))}
       </Box>
-      <Typography sx={{ color: theme.palette.text.disabled }}>
-        {t('profileOrders.freeReturn')}:{' '}
-        <Typography
-          component="span"
-          sx={{
-            fontWeight: theme.typography.bold,
-            color: theme.palette.common.black,
-          }}
-        >
-          05d
-        </Typography>
-      </Typography>
-      <Typography
-        variant="subtitle2"
-        sx={{ color: theme.palette.text.disabled, fontSize: '10px' }}
-      >
-        {t('profileOrders.warning')}
-      </Typography>
+      {timer && (
+        <>
+          <Typography sx={{ color: theme.palette.text.disabled }}>
+            {isOverdue
+              ? t('profileOrders.daysInOverdue')
+              : t('profileOrders.rentalDaysLeft')}
+            :{' '}
+            <Typography
+              component="span"
+              sx={{
+                fontWeight: theme.typography.bold,
+                color: theme.palette.common.black,
+              }}
+            >
+              {days}
+            </Typography>
+          </Typography>
+          {isOverdue && (
+            <Typography
+              variant="subtitle2"
+              sx={{ color: theme.palette.text.disabled, fontSize: '10px' }}
+            >
+              {t('profileOrders.warning')}
+            </Typography>
+          )}
+        </>
+      )}
       <StyledCardFooter>
         <Typography variant="subtitle1" sx={{ fontSize: '16px' }}>
           {t('profileOrders.status')}: {orderStatus}
         </Typography>
-        <StyledButton styles={StyleVariants.TRANSPARENT} type="button">
-          {t('profileOrders.return')}
-        </StyledButton>
+        {getButton(orderStatus)}
       </StyledCardFooter>
     </StyledCard>
   );
