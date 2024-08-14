@@ -26,6 +26,10 @@ interface IActionProps {
   order: IOrder;
 }
 
+interface IReturnedProps extends IActionProps {
+  hasLeftReview: boolean;
+}
+
 const mockDays: string = '5 days';
 const mockOverdue: string = '0 days';
 const twentyFourHours: number = 24;
@@ -406,7 +410,7 @@ export function SentBackBuyerAction({ order }: IActionProps) {
   );
 }
 
-export function ReturnedBuyerAction({ order }: IActionProps) {
+export function ReturnedBuyerAction({ order, hasLeftReview }: IReturnedProps) {
   const { t } = useTranslation();
 
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
@@ -430,17 +434,19 @@ export function ReturnedBuyerAction({ order }: IActionProps) {
           document.body
         )}
       <Box sx={styles.returnedWrapper}>
-        <Button sx={styles.rejectButton} onClick={handleModalOpen}>
-          <Typography variant="h4" sx={{ color: theme.palette.common.black }}>
-            {t('vendorOrder.leaveReview')}
-          </Typography>
-        </Button>
+        {!hasLeftReview && (
+          <Button sx={styles.rejectButton} onClick={handleModalOpen}>
+            <Typography variant="h4" sx={{ color: theme.palette.common.black }}>
+              {t('vendorOrder.leaveReview')}
+            </Typography>
+          </Button>
+        )}
       </Box>
     </>
   );
 }
 
-export function ReturnedVendorAction({ order }: IActionProps) {
+export function ReturnedVendorAction({ order, hasLeftReview }: IReturnedProps) {
   const { t } = useTranslation();
 
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
@@ -464,11 +470,13 @@ export function ReturnedVendorAction({ order }: IActionProps) {
           document.body
         )}
       <Box sx={styles.returnedWrapper}>
-        <Button sx={styles.rejectButton} onClick={handleModalOpen}>
-          <Typography variant="h4" sx={{ color: theme.palette.common.black }}>
-            {t('vendorOrder.leaveReview')}
-          </Typography>
-        </Button>
+        {!hasLeftReview && (
+          <Button sx={styles.rejectButton} onClick={handleModalOpen}>
+            <Typography variant="h4" sx={{ color: theme.palette.common.black }}>
+              {t('vendorOrder.leaveReview')}
+            </Typography>
+          </Button>
+        )}
       </Box>
     </>
   );

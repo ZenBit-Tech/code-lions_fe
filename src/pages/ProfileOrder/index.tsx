@@ -31,13 +31,19 @@ function ProfileOrderPage() {
   }
 
   const order: IOrder = data.order[0];
+  const { hasLeftReview } = data;
 
   return (
     <OrderDetailsSection orderNumber={order.orderId}>
       <Grid container columns={7} sx={{ padding: '12px' }}>
         <Grid item xs={5} sx={{ paddingRight: '24px' }}>
           <OrderInfoSection order={order} />
-          <OrderActions status={order.status} order={order} role={userRole} />
+          <OrderActions
+            status={order.status}
+            order={order}
+            role={userRole}
+            hasLeftReview={hasLeftReview}
+          />
           <OrderProductsTable products={order.products} />
           <OrderSummarySection shipping={order.shipping} price={order.price} />
         </Grid>

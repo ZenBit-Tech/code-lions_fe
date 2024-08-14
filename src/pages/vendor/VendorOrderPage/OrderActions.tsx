@@ -23,9 +23,15 @@ interface IOrderActionsProps {
   status: string | undefined;
   order: IOrder;
   role: string | null;
+  hasLeftReview: boolean;
 }
 
-function OrderActions({ status, order, role }: IOrderActionsProps) {
+function OrderActions({
+  status,
+  order,
+  role,
+  hasLeftReview,
+}: IOrderActionsProps) {
   const renderButtons = () => {
     switch (status) {
       case orderStatus.NEW:
@@ -61,9 +67,9 @@ function OrderActions({ status, order, role }: IOrderActionsProps) {
 
       case orderStatus.RETURNED:
         return role === userRoles.BUYER ? (
-          <ReturnedBuyerAction order={order} />
+          <ReturnedBuyerAction order={order} hasLeftReview={hasLeftReview} />
         ) : (
-          <ReturnedVendorAction order={order} />
+          <ReturnedVendorAction order={order} hasLeftReview={hasLeftReview} />
         );
 
       case orderStatus.OVERDUE:
