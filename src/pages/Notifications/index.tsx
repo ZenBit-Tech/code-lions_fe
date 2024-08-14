@@ -4,6 +4,10 @@ import { useSelector } from 'react-redux';
 
 import { Typography } from '@mui/material';
 
+import {
+  dateLocalsForNotifications,
+  dateFormatForNotifications,
+} from 'src/common/constants';
 import useNotificationSocket from 'src/common/hooks/useNotificationSocket';
 import Loader from 'src/components/Loader';
 import { useGetNotificationsByUserQuery } from 'src/redux/notification/notificationsService';
@@ -60,8 +64,12 @@ function NotificationsPage() {
                 </NotificationTitle>
                 <Typography variant="caption">
                   {new Date(notification.createdAt).toLocaleTimeString(
-                    'en-US',
-                    { hour: '2-digit', minute: '2-digit', hour12: true }
+                    dateLocalsForNotifications,
+                    {
+                      hour: dateFormatForNotifications,
+                      minute: dateFormatForNotifications,
+                      hour12: true,
+                    }
                   )}
                 </Typography>
               </NotificationHeader>

@@ -16,32 +16,39 @@ const useNotificationSocket = () => {
   useEffect(() => {
     const socket = io(`${import.meta.env.VITE_API_URL}`, {
       auth: { token: accessToken },
+      autoConnect: false,
     });
 
     socketRef.current = socket;
 
-    socket.on('connect', () => {
-      socket.emit('getNotifications', { userId: myId });
-    });
+    if (accessToken) {
+      socket.connect();
 
-    socket.on('userNotifications', (data: INotification[]) => {
-      setNotifications(data);
-    });
-
-    socket.on('newNotification', (notification: INotification) => {
-      setNotifications((prevNotifications) => {
-        const exists = prevNotifications.find(
-          (notif) => notif.id === notification.id
-        );
-
-        if (!exists) {
-          return [...prevNotifications, notification];
-        }
-
-        return prevNotifications;
+      socket.on('connect', () => {
+        socket.emit('getNotifications', { userId: myId });
       });
-      dispatch(setNotification(notification));
-    });
+
+      socket.on('userNotifications', (data: INotification[]) => {
+        setNotifications(data);
+      });
+
+      socket.on('newNotification', (notification: INotification) => {
+        setNotifications((prevNotifications) => {
+          const exists = prevNotifications.find(
+            (notif) => notif.id === notification.id
+          );
+
+          if (!exists) {
+            return [...prevNotifications, notification];
+          }
+
+          return prevNotifications;
+        });
+        dispatch(setNotification(notification));
+      });
+    } else {
+      socket.disconnect();
+    }
 
     return () => {
       socket.off('userNotifications');

@@ -312,6 +312,8 @@ export const eventalCategory: string = 'evental';
 export const timeFormat = 'p';
 export const monthAndDayFormat = 'MMMM d';
 export const yearMonthAndDayFormat = 'yyyy MM d';
+export const dateLocalsForNotifications = 'en-US';
+export const dateFormatForNotifications = '2-digit';
 
 export const orderStatus = {
   NEW: 'New order',
