@@ -64,15 +64,15 @@ export interface IOrderData {
   address: IAddress;
 }
 
-export type OrderStatus =
-  | 'New Order'
-  | 'Sent'
-  | 'Delivered'
-  | 'Received'
-  | 'Sent back'
-  | 'Overdue'
-  | 'Returned'
-  | 'Rejected';
+export enum OrderStatus {
+  NEW = 'New order',
+  REJECTED = 'Rejected',
+  SENT = 'Sent',
+  RECEIVED = 'Received',
+  SENT_BACK = 'Sent back',
+  OVERDUE = 'Overdue',
+  RETURNED = 'Returned',
+}
 
 export type Category =
   | 'clothing'
@@ -120,7 +120,7 @@ export interface IVendorOrdersRequest {
 }
 
 export interface IVendorPaginatedOrdersRequest {
-  status?: OrderStatus;
+  status: OrderStatus;
   page?: number;
   sortBy?: 'orderId' | 'price' | 'createdAt';
   sortOrder: SortOrder;

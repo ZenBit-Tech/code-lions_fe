@@ -19,7 +19,6 @@ function OrdersButtons({ status, changeStatus }: IOrdersButtonsProps) {
     NEW_ORDER: t('vendorOrders.newOrder'),
     REJECTED: t('vendorOrders.rejected'),
     SENT: t('vendorOrders.sent'),
-    DELIVERED: t('vendorOrders.delivered'),
     RECEIVED: t('vendorOrders.received'),
     SENT_BACK: t('vendorOrders.sentBack'),
     OVERDUE: t('vendorOrders.overdue'),

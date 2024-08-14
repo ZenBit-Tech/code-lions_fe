@@ -715,15 +715,14 @@
   },
   "vendorOrders": {
     "title": "My Orders",
-    "newOrder": "New Order",
+    "newOrder": "New order",
     "sent": "Sent",
-    "delivered": "Delivered",
     "received": "Received",
     "sentBack": "Sent back",
     "overdue": "Overdue",
     "returned": "Returned",
     "rejected": "Rejected",
-    "noOrders": "You have no orders"
+    "noOrders": "You have no orders with status "
   },
   "productsAdmin": {
     "title": "Products",

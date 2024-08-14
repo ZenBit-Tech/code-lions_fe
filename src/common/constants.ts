@@ -1,3 +1,4 @@
+import { OrderStatus } from 'src/redux/order/types';
 import { SortOrder } from 'src/redux/user/types';
 
 export const apiUrl = import.meta.env.VITE_API_URL;
@@ -318,13 +319,13 @@ export const monthAndDayFormat = 'MMMM d';
 export const yearMonthAndDayFormat = 'yyyy MM d';
 
 export const orderStatus = {
-  NEW: 'New order',
-  REJECTED: 'Rejected',
-  SENT: 'Sent',
-  RECEIVED: 'Received',
-  SENT_BACK: 'Sent back',
-  OVERDUE: 'Overdue',
-  RETURNED: 'Returned',
+  NEW: OrderStatus.NEW,
+  REJECTED: OrderStatus.REJECTED,
+  SENT: OrderStatus.SENT,
+  RECEIVED: OrderStatus.RECEIVED,
+  SENT_BACK: OrderStatus.SENT_BACK,
+  OVERDUE: OrderStatus.OVERDUE,
+  RETURNED: OrderStatus.RETURNED,
 };
 
 export const profileOrdersTabs = {

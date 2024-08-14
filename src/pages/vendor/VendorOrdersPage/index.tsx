@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { Box, Grid, Typography } from '@mui/material';
 
 import { sortOptions } from 'src/common/constants';
+import Loader from 'src/components/Loader';
 import SortButton from 'src/pages/admin/SortButton';
 import { useGetAllPaginatedOrdersVendorQuery } from 'src/redux/order/orderService';
 import { OrderStatus } from 'src/redux/order/types';
@@ -18,7 +19,7 @@ import SectionWrapper from './styles';
 function VendorOrdersPage() {
   const { t } = useTranslation();
 
-  const [status, setStatus] = useState<OrderStatus>('New Order');
+  const [status, setStatus] = useState<OrderStatus>(OrderStatus.NEW);
   const [sortOrder, setSortOrder] = useState<SortOrder>(sortOptions.DESC);
   const [page, setPage] = useState(1);
 
@@ -32,7 +33,7 @@ function VendorOrdersPage() {
     setPage(value);
   };
 
-  const { data } = useGetAllPaginatedOrdersVendorQuery(
+  const { data, isLoading } = useGetAllPaginatedOrdersVendorQuery(
     {
       status,
       page,
@@ -51,6 +52,10 @@ function VendorOrdersPage() {
   const ORDERSONPAGE = 16;
 
   const pagesCount = Math.ceil(count / ORDERSONPAGE);
+
+  if (isLoading) {
+    return <Loader />;
+  }
 
   return (
     <Grid container columns={12}>
@@ -77,7 +82,10 @@ function VendorOrdersPage() {
                 handleChange={handleChange}
               />
             ) : (
-              <Typography>{t('vendorOrders.noOrders')}</Typography>
+              <Typography>
+                {t('vendorOrders.noOrders')}
+                {status}
+              </Typography>
             )}
           </Grid>
         </SectionWrapper>
