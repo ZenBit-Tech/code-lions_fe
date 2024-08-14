@@ -868,5 +868,8 @@
     "notificationsOn": "You have turned on notifications",
     "notificationsOff": "You have turned off notifications",
     "notificationsError": "Was unable to change your notification settings, please try again later"
+  },
+  "vendorPublicProductPage": {
+    "productList": "To Products List"
   }
 }
