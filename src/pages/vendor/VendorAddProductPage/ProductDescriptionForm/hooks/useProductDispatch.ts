@@ -1,6 +1,6 @@
 import {
   setBrand,
-  setColor,
+  setColors,
   setDescription,
   setMaterial,
   setName,
@@ -26,7 +26,7 @@ const useProductDispatch = (
   clothesSize: string,
   uniqueSize: string,
   jeansSize: string,
-  productColor: string,
+  productColors: string[],
   shoesMaterial: string,
   productMaterial: string
 ): (() => void) => {
@@ -57,7 +57,7 @@ const useProductDispatch = (
       dispatch(setSize(jeansSize));
     }
 
-    dispatch(setColor(productColor));
+    dispatch(setColors(productColors));
 
     dispatch(
       setMaterial(

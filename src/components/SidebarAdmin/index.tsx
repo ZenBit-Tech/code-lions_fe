@@ -11,6 +11,7 @@ import {
 } from '@mui/material';
 import { Box } from '@mui/system';
 
+import StripeIcon from 'src/assets/icons/admin/stripe.svg';
 import ChatsIcon from 'src/assets/icons/chats.svg';
 import ChevronDown from 'src/assets/icons/chevron-down.svg';
 import ChevronUp from 'src/assets/icons/chevron-up.svg';
@@ -237,6 +238,39 @@ function SideBar() {
                     ) : (
                       <></>
                     )}
+                  </StyledChat>
+                )}
+              </Box>
+            </StyledListItemButton>
+          )}
+        </NavLink>
+
+        <NavLink to={urls.ADMIN_STRIPE}>
+          {({ isActive }) => (
+            <StyledListItemButton selected={isActive}>
+              <Box
+                display="flex"
+                justifyContent="space-between"
+                alignItems="center"
+                width="100%"
+              >
+                <ListItemIcon sx={{ minWidth: '24px' }}>
+                  <StripeIcon />
+                </ListItemIcon>
+                {isActive ? (
+                  <StyledChat>
+                    <Typography
+                      variant="subtitle1"
+                      sx={{ marginLeft: '12px', fontSize: '16px' }}
+                    >
+                      {t('sidebar.stripeFees')}
+                    </Typography>
+                  </StyledChat>
+                ) : (
+                  <StyledChat>
+                    <Typography sx={{ marginLeft: '12px', fontWeight: '500' }}>
+                      {t('sidebar.stripeFees')}
+                    </Typography>
                   </StyledChat>
                 )}
               </Box>

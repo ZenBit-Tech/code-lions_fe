@@ -1,10 +1,8 @@
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
 
 import { Typography } from '@mui/material';
 import { Box } from '@mui/system';
 
-import ArrowLeftIcon from 'src/assets/icons/arrow-left.svg';
 import { onboardingSteps, userRoles } from 'src/common/constants';
 import Header from 'src/components/Header';
 import OnboardingHeaderItem from 'src/pages/OnboardingPage/HeaderItem';
@@ -87,14 +85,12 @@ function OnboardingPage() {
                   ml: '0',
                 }}
               >
-                <Box sx={{ height: '24px', mb: '2px' }}>
-                  <Link to="/">
-                    <ArrowLeftIcon />
-                  </Link>
-                </Box>
                 <Typography
                   variant="h1"
-                  sx={{ fontWeight: theme.typography.bold.fontWeight }}
+                  sx={{
+                    ml: '24px',
+                    fontWeight: theme.typography.bold.fontWeight,
+                  }}
                 >
                   {t('onboarding.fillProfile')}
                 </Typography>

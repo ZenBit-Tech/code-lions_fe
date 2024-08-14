@@ -3,31 +3,14 @@ import {
   shoeSizeData,
 } from 'src/pages/SizesGuidePage/tableData';
 
-export const brands = [
-  { label: 'Select brand', value: 'Select brand' },
-  { label: 'Michael Kors', value: 'Michael Kors' },
-  { label: 'Chiara Ferragni', value: 'Chiara Ferragni' },
-  { label: 'Beatrice B', value: 'Beatrice B' },
-  { label: 'Nai Lu-na', value: 'Nai Lu-na' },
-  { label: 'Marjolaine', value: 'Marjolaine' },
-  { label: 'Luisa Cerano', value: 'Luisa Cerano' },
-  { label: 'Deni Cler Milano', value: 'Deni Cler Milano' },
-  { label: 'KENZO', value: 'KENZO' },
-  { label: 'Andres Sarda', value: 'Andres Sarda' },
-  { label: 'Lolita dress', value: 'Lolita dress' },
-  { label: 'Armani Exchange', value: 'Armani Exchange' },
-  { label: 'Diesel', value: 'Diesel' },
-  { label: 'Other', value: 'Other' },
-];
-
 export const clothesSizes = clothesSizeData.rows.map((row) => ({
   label: row[3],
-  value: row[4],
+  value: row[3],
 }));
 
 export const shoesSizes = shoeSizeData.rows.map((row) => ({
   label: row[0],
-  value: row[1],
+  value: row[0],
 }));
 
 export const jeansSizes = [

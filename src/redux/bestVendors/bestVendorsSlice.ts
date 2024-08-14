@@ -1,5 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
+import { logout } from '../user/userSlice';
+
 import { IBestVendor } from './types';
 
 interface FollowStatus {
@@ -32,6 +34,12 @@ export const bestVendorsSlice = createSlice({
     ) {
       state.followStatus[action.payload.vendorId] = action.payload.status;
     },
+  },
+  extraReducers: (builder) => {
+    builder.addMatcher(
+      (action) => action.type === logout.type,
+      () => initialState
+    );
   },
 });
 

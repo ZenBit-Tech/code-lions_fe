@@ -1,10 +1,13 @@
 import { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router';
 
 import { Box } from '@mui/system';
 
 import Oval from 'src/assets/icons/addProduct/oval.svg';
+import { urls } from 'src/common/constants';
+import RejectProductFlowModal from 'src/components/shared/RejectProductFlowModal';
 import StyledButton from 'src/components/shared/StyledButton';
 import {
   PaddingVariants,
@@ -38,9 +41,16 @@ function FinishForm() {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const { showToast } = useToast();
+  const navigate = useNavigate();
 
   const [isVerificationModalOpen, setIsVerificationModalOpen] =
     useState<boolean>(false);
+
+  const [isRejectModalOpen, setIsRejectModalOpen] = useState<boolean>(false);
+
+  const toggleRejectModal = (): void => {
+    setIsRejectModalOpen(!isRejectModalOpen);
+  };
 
   const productId = useAppSelector(selectProductId);
   const {
@@ -208,6 +218,16 @@ function FinishForm() {
           >
             {t('addProduct.saveBtn')}
           </StyledButton>
+          <StyledButton
+            styles={StyleVariants.RED}
+            padding={PaddingVariants.SM}
+            variant="contained"
+            fontSize={String(theme.typography.h4.fontSize)}
+            fontFamily={theme.typography.fontFamily}
+            onClick={toggleRejectModal}
+          >
+            {t('editProduct.cancelBtn')}
+          </StyledButton>
         </Box>
       </Box>
       {isVerificationModalOpen && (
@@ -216,7 +236,16 @@ function FinishForm() {
           onClose={() => {
             setIsVerificationModalOpen(false);
             dispatch(resetAddProduct());
+            navigate(urls.VENDOR_GLOBAL_PRODUCTS);
           }}
+        />
+      )}
+      {isRejectModalOpen && (
+        <RejectProductFlowModal
+          isModalOpen={isRejectModalOpen}
+          onClose={toggleRejectModal}
+          modalTitle={t('rejectAddProductModal.title')}
+          modalSubtitle={t('rejectAddProductModal.subtitle')}
         />
       )}
     </>

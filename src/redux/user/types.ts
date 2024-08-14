@@ -30,6 +30,7 @@ export interface IUser {
   accessToken?: string;
   refreshToken?: string;
   onboardingStep: number;
+  notificationsEnabled: boolean;
 }
 
 export interface IVerifyEmailRequest {
@@ -247,4 +248,8 @@ export interface ISendReview {
   reviewerId: string;
   rating: number;
   text: string;
+}
+
+export interface IChangeEmailRequest {
+  email: string;
 }

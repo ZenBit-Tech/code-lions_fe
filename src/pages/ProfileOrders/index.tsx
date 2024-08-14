@@ -24,7 +24,7 @@ function ProfileOrders() {
     statuses:
       activeTab === profileOrdersTabs.CURRENT
         ? [
-            orderStatus.NEW_ORDER,
+            orderStatus.NEW,
             orderStatus.OVERDUE,
             orderStatus.RECEIVED,
             orderStatus.SENT,

@@ -1,11 +1,14 @@
 import { Typography, FormControl, InputBase } from '@mui/material';
+import { Theme } from '@mui/material/styles';
 import { Box, styled } from '@mui/system';
 
-export const TitleStyled = styled(Typography)(({ theme }) => ({
-  lineHeight: 1.85,
-  letterSpacing: '-0.2px',
-  [theme.breakpoints.up('sm')]: {},
-}));
+export const TitleStyled = styled(Typography)(
+  ({ theme }: { theme: Theme }) => ({
+    lineHeight: 1.85,
+    letterSpacing: '-0.2px',
+    fontSize: theme.typography.h5.fontSize,
+  })
+);
 
 export const FormStyled = styled('form')(({ theme }) => ({
   display: 'flex',
