@@ -3,6 +3,8 @@ import { ProductStatus } from 'src/redux/product/types';
 export interface IOrder {
   id: string;
   orderId: number;
+  vendorId: string;
+  buyerId: string;
   price: string;
   createdAt: string;
   shipping: number;

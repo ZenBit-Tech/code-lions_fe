@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 
 import { Box, Button, TextField, Typography } from '@mui/material';
 
+import ReviewModal from 'src/components/shared/ReviewModal';
 import StyledBackdrop from 'src/components/shared/StyledBackdrop';
 import useToast from 'src/components/shared/toasts/components/ToastProvider/ToastProviderHooks';
 import ProfileInputWrapper from 'src/pages/admin/AdminUserProfileEditPage/ProfileInputWrapper';
@@ -382,17 +383,71 @@ export function SentBackBuyerAction({ order }: IActionProps) {
   );
 }
 
-export function ReturnedAction() {
+export function ReturnedBuyerAction({ order }: IActionProps) {
   const { t } = useTranslation();
 
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+
+  const handleModalOpen = useCallback(() => setIsModalOpen(true), []);
+  const handleModalClose = useCallback(() => setIsModalOpen(false), []);
+
   return (
-    <Box sx={styles.returnedWrapper}>
-      <Button sx={styles.rejectButton}>
-        <Typography variant="h4" sx={{ color: theme.palette.common.black }}>
-          {t('vendorOrder.leaveReview')}
-        </Typography>
-      </Button>
-    </Box>
+    <>
+      {isModalOpen &&
+        createPortal(
+          <StyledBackdrop showModal={isModalOpen}>
+            <ReviewModal
+              isModalOpen={isModalOpen}
+              onClose={handleModalClose}
+              userId={order.vendorId}
+              reviewerId={order.buyerId}
+              orderId={order.orderId}
+            />
+          </StyledBackdrop>,
+          document.body
+        )}
+      <Box sx={styles.returnedWrapper}>
+        <Button sx={styles.rejectButton} onClick={handleModalOpen}>
+          <Typography variant="h4" sx={{ color: theme.palette.common.black }}>
+            {t('vendorOrder.leaveReview')}
+          </Typography>
+        </Button>
+      </Box>
+    </>
+  );
+}
+
+export function ReturnedVendorAction({ order }: IActionProps) {
+  const { t } = useTranslation();
+
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+
+  const handleModalOpen = useCallback(() => setIsModalOpen(true), []);
+  const handleModalClose = useCallback(() => setIsModalOpen(false), []);
+
+  return (
+    <>
+      {isModalOpen &&
+        createPortal(
+          <StyledBackdrop showModal={isModalOpen}>
+            <ReviewModal
+              isModalOpen={isModalOpen}
+              onClose={handleModalClose}
+              userId={order.buyerId}
+              reviewerId={order.vendorId}
+              orderId={order.orderId}
+            />
+          </StyledBackdrop>,
+          document.body
+        )}
+      <Box sx={styles.returnedWrapper}>
+        <Button sx={styles.rejectButton} onClick={handleModalOpen}>
+          <Typography variant="h4" sx={{ color: theme.palette.common.black }}>
+            {t('vendorOrder.leaveReview')}
+          </Typography>
+        </Button>
+      </Box>
+    </>
   );
 }
 
