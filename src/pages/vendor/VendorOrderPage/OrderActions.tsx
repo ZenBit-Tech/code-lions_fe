@@ -13,6 +13,7 @@ import {
   SentBackVendorAction,
   SentBackBuyerAction,
   ReturnedBuyerAction,
+  ReturnedVendorAction,
   OverdueBuyerAction,
   OverdueVendorAction,
   RejectedAction,
@@ -59,7 +60,11 @@ function OrderActions({ status, order, role }: IOrderActionsProps) {
         );
 
       case orderStatus.RETURNED:
-        return <ReturnedBuyerAction order={order} />;
+        return role === userRoles.BUYER ? (
+          <ReturnedBuyerAction order={order} />
+        ) : (
+          <ReturnedVendorAction order={order} />
+        );
 
       case orderStatus.OVERDUE:
         return role === userRoles.BUYER ? (
