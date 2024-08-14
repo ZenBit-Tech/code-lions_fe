@@ -1,4 +1,5 @@
 import { useTranslation } from 'react-i18next';
+import { useLocation } from 'react-router';
 
 import {
   Box,
@@ -31,6 +32,7 @@ interface IOrdersTable {
 
 function OrdersTable({ orders, pagesCount, page, handleChange }: IOrdersTable) {
   const { t } = useTranslation();
+  const location = useLocation();
 
   return (
     <TableContainer>
@@ -87,6 +89,7 @@ function OrdersTable({ orders, pagesCount, page, handleChange }: IOrdersTable) {
               <BodyTableCell align="center">
                 <StyledLink
                   to={`${urls.VENDOR}/${urls.VENDOR_ORDERS}/${order.orderId}`}
+                  state={{ from: location }}
                 >
                   <Typography>{t('vendorDashboard.openOrder')} </Typography>
                 </StyledLink>
