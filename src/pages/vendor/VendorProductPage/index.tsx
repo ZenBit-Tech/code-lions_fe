@@ -12,6 +12,7 @@ import DeleteIcon from 'src/assets/icons/delete-trash.svg';
 import EditIcon from 'src/assets/icons/edit-pencil.svg';
 import { linkUrls, urls, userRoles } from 'src/common/constants';
 import StyledBackdrop from 'src/components/shared/StyledBackdrop';
+import ModalPopupReject from 'src/pages/admin/ProductRequestPage/ModalPopupReject';
 import { setPending } from 'src/redux/addProduct/addProductSlice';
 import { useAppDispatch } from 'src/redux/hooks';
 import { useGetProductByIdQuery } from 'src/redux/product/productService';
@@ -42,6 +43,14 @@ function VendorProductPage() {
     setShowDeleteModal(true);
   };
   const handleDeleteModalClose = () => setShowDeleteModal(false);
+
+  const [showDeleteAdminModal, setShowDeleteAdminModal] =
+    useState<boolean>(false);
+
+  const handleDeleteAdminModalOpen = () => {
+    setShowDeleteAdminModal(true);
+  };
+  const handleDeleteAdminModalClose = () => setShowDeleteAdminModal(false);
 
   const [showModal, setShowModal] = useState<boolean>(false);
 
@@ -82,6 +91,16 @@ function VendorProductPage() {
           <StyledBackdrop showModal={showDeleteModal}>
             <ModalPopup
               onClose={handleDeleteModalClose}
+              productId={productId ?? ''}
+            />
+          </StyledBackdrop>,
+          document.body
+        )}
+      {showDeleteAdminModal &&
+        createPortal(
+          <StyledBackdrop showModal={showDeleteAdminModal}>
+            <ModalPopupReject
+              onClose={handleDeleteAdminModalClose}
               productId={productId ?? ''}
             />
           </StyledBackdrop>,
@@ -137,7 +156,14 @@ function VendorProductPage() {
                 <EditIcon />
               </IconButton>
             )}
-            <IconButton sx={{ padding: 0 }} onClick={handleDeleteModalOpen}>
+            <IconButton
+              sx={{ padding: 0 }}
+              onClick={
+                userRole === userRoles.ADMIN
+                  ? handleDeleteAdminModalOpen
+                  : handleDeleteModalOpen
+              }
+            >
               <DeleteIcon />
             </IconButton>
           </Box>
