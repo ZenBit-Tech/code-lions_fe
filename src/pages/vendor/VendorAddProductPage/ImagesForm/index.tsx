@@ -1,10 +1,10 @@
-import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { Box } from '@mui/material';
 
 import ImageForm from 'src/components/shared/ImageForm';
 import RejectProductFlowModal from 'src/components/shared/RejectProductFlowModal';
+import useRejectProductFlowModal from 'src/components/shared/RejectProductFlowModal/hooks/useRejectProductFlowModal';
 import StyledButton from 'src/components/shared/StyledButton';
 import {
   PaddingVariants,
@@ -19,12 +19,7 @@ import { AddProductHeader4, AddProductText } from './styles';
 function ImagesForm() {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
-
-  const [isRejectModalOpen, setIsRejectModalOpen] = useState<boolean>(false);
-
-  const toggleRejectModal = (): void => {
-    setIsRejectModalOpen(!isRejectModalOpen);
-  };
+  const { isRejectModalOpen, toggleRejectModal } = useRejectProductFlowModal();
 
   const goToNextStep = () => {
     dispatch(increaseAddProductStep());

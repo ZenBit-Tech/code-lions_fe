@@ -5,6 +5,7 @@ import { Box, Typography } from '@mui/material';
 
 import ReusableDescriptionBox from 'src/components/ReusableDescriptionBox';
 import RejectProductFlowModal from 'src/components/shared/RejectProductFlowModal';
+import useRejectProductFlowModal from 'src/components/shared/RejectProductFlowModal/hooks/useRejectProductFlowModal';
 import StyledButton from 'src/components/shared/StyledButton';
 import {
   PaddingVariants,
@@ -107,11 +108,7 @@ function ProductDescriptionForm() {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [uploadProductPdf, { isLoading }] = useUploadProductPdfMutation();
 
-  const [isRejectModalOpen, setIsRejectModalOpen] = useState<boolean>(false);
-
-  const toggleRejectModal = (): void => {
-    setIsRejectModalOpen(!isRejectModalOpen);
-  };
+  const { isRejectModalOpen, toggleRejectModal } = useRejectProductFlowModal();
 
   const productDispatch = useProductDispatch(
     productName,
