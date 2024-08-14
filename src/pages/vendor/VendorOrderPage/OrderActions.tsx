@@ -30,9 +30,9 @@ function OrderActions({ status, order, role }: IOrderActionsProps) {
     switch (status) {
       case orderStatus.NEW:
         return role === userRoles.VENDOR ? (
-          <NewOrderVendorAction orderId={order.orderId} />
+          <NewOrderVendorAction order={order} />
         ) : (
-          <NewOrderBuyerAction orderId={order.orderId} />
+          <NewOrderBuyerAction order={order} />
         );
 
       case orderStatus.REJECTED:

@@ -175,7 +175,7 @@
     "damageRule2": "Damage can be evaluated as small, medium or large, with corresponding fees of 10%, 25% and 50% of the item value respectively.",
     "damageRule3": "In case of loss or disputes regarding damage, compensation and resolution will be mediated by BlackCircle. Please contact our support at support@blackcircle.com to report your case.",
     "cancellationSubtitle": "Cancellation",
-    "cancellationRule1": "The owner or the renter can cancel the order within 12 hours max.",
+    "cancellationRule1": "The owner or the renter can cancel the order within 24 hours max.",
     "disputeSubtitle": "Dispute Resolution",
     "disputeRule1": "Any disputes between owners and renters should be reported to the support for mediation.",
     "disputeRule2": "The admin will investigate and make a final decision on disputes, which both parties must adhere to.",
