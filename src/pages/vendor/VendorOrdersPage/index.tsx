@@ -1,10 +1,12 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { Box, Grid, Typography } from '@mui/material';
 
 import { sortOptions } from 'src/common/constants';
+import useErrorHandling from 'src/common/hooks/useErrorHandlingHook';
 import Loader from 'src/components/Loader';
+import useToast from 'src/components/shared/toasts/components/ToastProvider/ToastProviderHooks';
 import SortButton from 'src/pages/admin/SortButton';
 import { useGetAllPaginatedOrdersVendorQuery } from 'src/redux/order/orderService';
 import { OrderStatus } from 'src/redux/order/types';
@@ -18,6 +20,7 @@ import SectionWrapper from './styles';
 
 function VendorOrdersPage() {
   const { t } = useTranslation();
+  const { showToast } = useToast();
 
   const [status, setStatus] = useState<OrderStatus>(OrderStatus.NEW);
   const [sortOrder, setSortOrder] = useState<SortOrder>(sortOptions.DESC);
@@ -33,7 +36,7 @@ function VendorOrdersPage() {
     setPage(value);
   };
 
-  const { data, isLoading } = useGetAllPaginatedOrdersVendorQuery(
+  const { data, isLoading, error } = useGetAllPaginatedOrdersVendorQuery(
     {
       status,
       page,
@@ -52,6 +55,14 @@ function VendorOrdersPage() {
   const ORDERSONPAGE = 16;
 
   const pagesCount = Math.ceil(count / ORDERSONPAGE);
+
+  const { handleOnSubmitError } = useErrorHandling();
+
+  useEffect(() => {
+    if (error) {
+      handleOnSubmitError(error, showToast, t('vendorOrders.ordersError'));
+    }
+  }, [error, handleOnSubmitError, showToast, t]);
 
   if (isLoading) {
     return <Loader />;

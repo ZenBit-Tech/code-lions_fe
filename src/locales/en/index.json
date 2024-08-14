@@ -722,7 +722,8 @@
     "overdue": "Overdue",
     "returned": "Returned",
     "rejected": "Rejected",
-    "noOrders": "You have no orders with status "
+    "noOrders": "You have no orders with status ",
+    "ordersError": "Unable to get list of orders, please try again later"
   },
   "productsAdmin": {
     "title": "Products",
