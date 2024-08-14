@@ -12,6 +12,10 @@ declare module '@mui/material/styles' {
       light: string;
       error: string;
     };
+    imageButton: {
+      background: string;
+      hover: string;
+    };
   }
 
   interface PaletteOptions {
@@ -22,6 +26,10 @@ declare module '@mui/material/styles' {
       grey?: string;
       light: string;
       error?: string;
+    };
+    imageButton: {
+      background: string;
+      hover: string;
     };
   }
 
@@ -112,6 +120,10 @@ const theme: Theme = createTheme({
     },
     action: {
       hoverOpacity: 0.3,
+    },
+    imageButton: {
+      background: '#eef0f2ad',
+      hover: '#eef0f2',
     },
   },
   typography: {

@@ -616,7 +616,7 @@
     "styleSubtitle": "Please select product Style",
     "photo": "Photo Product",
     "video": "Video Product",
-    "photoSubtitle": "Recommended minimum width 1080px X 1080px, with a max size of 5MB, only *.png, *.jpg and *.jpeg image files are accepted",
+    "photoSubtitle": "Minimum number of images to upload is 4. Recommended minimum width 1080px X 1080px, with a max size of 5MB, only *.png, *.jpg and *.jpeg image files are accepted",
     "videoSubtitle": "Recommended , with a max size of 250MB, only *.mp4, *.move  files are accepted",
     "primary": "Primary",
     "addImage": "Add Image",
@@ -630,7 +630,7 @@
     "invalidFileType": "Invalid file type. Only jpg, png, and heic are allowed.",
     "productPrice": "Product Price",
     "price": "Price",
-    "priceDescription": "It's price for the product",
+    "priceDescription": "It's a rental price for the product in CA$. The vendor will receive the amount of money equal to rental price paid, minus the commission.",
     "inputPrice": "Input the price of the product here",
     "priceRequired": "Price cannot be empty",
     "priceInvalid": "Price must be a number",
@@ -655,7 +655,9 @@
     "chooseFile": "Choose file",
     "uploadSuccess": "File uploaded successfully",
     "loading": "Loading..",
-    "saveBtn": "Save"
+    "saveBtn": "Save",
+    "editPhoto": "Upload another photo",
+    "deletePhoto": "Delete photo"
   },
   "cartPage": {
     "title": "Cart",
