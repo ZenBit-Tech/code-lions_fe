@@ -4,6 +4,8 @@ import { useTranslation } from 'react-i18next';
 
 import { Box, Button, TextField, Typography } from '@mui/material';
 
+import { orderStatus, priceForOneOverdueDay } from 'src/common/constants';
+import millisecondsToDays from 'src/common/millisecondsToDays';
 import ReviewModal from 'src/components/shared/ReviewModal';
 import StyledBackdrop from 'src/components/shared/StyledBackdrop';
 import useToast from 'src/components/shared/toasts/components/ToastProvider/ToastProviderHooks';
@@ -28,9 +30,6 @@ interface INewOrderProps {
 interface IActionProps {
   order: IOrder;
 }
-
-const mockDays: string = '5 days';
-const mockOverdue: string = '0 days';
 
 export function NewOrderVendorAction({ orderId }: INewOrderProps) {
   const { t } = useTranslation();
@@ -272,7 +271,7 @@ export function ReceivedBuyerAction({ order }: IActionProps) {
           {t('vendorOrder.rentDaysLeft')}
         </Typography>
         <Typography sx={{ fontWeight: theme.typography.semiBold }}>
-          {mockDays}
+          {`${millisecondsToDays(order.timer)} ${t('profileOrders.days')}`}
         </Typography>
       </Box>
       <Box sx={styles.receivedWrapper}>
@@ -303,7 +302,7 @@ export function ReceivedBuyerAction({ order }: IActionProps) {
   );
 }
 
-export function ReceivedVendorAction() {
+export function ReceivedVendorAction({ order }: IActionProps) {
   const { t } = useTranslation();
 
   return (
@@ -317,7 +316,7 @@ export function ReceivedVendorAction() {
         {t('vendorOrder.rentDaysLeft')}
       </Typography>
       <Typography sx={{ fontWeight: theme.typography.semiBold }}>
-        {mockDays}
+        {`${millisecondsToDays(order.timer)} ${t('profileOrders.days')}`}
       </Typography>
     </Box>
   );
@@ -457,6 +456,8 @@ export function OverdueBuyerAction({ order }: IActionProps) {
 
   const [trackingNumber, setTrackingNumber] = useState<string>('');
 
+  const overdueDays = millisecondsToDays(order.timer);
+
   const [paySendOrder] = usePaySendOrderMutation();
 
   const paySendOrderByBuyer = async () => {
@@ -465,6 +466,12 @@ export function OverdueBuyerAction({ order }: IActionProps) {
 
       return;
     }
+    const overdueSum =
+      order.status === orderStatus.OVERDUE
+        ? overdueDays * priceForOneOverdueDay
+        : 0;
+
+    console.log(overdueSum);
 
     try {
       await paySendOrder({
@@ -496,10 +503,12 @@ export function OverdueBuyerAction({ order }: IActionProps) {
         sx={{ marginBottom: '24px' }}
       >
         <Typography variant="h4" sx={{ color: theme.palette.grey[400] }}>
-          {t('vendorOrder.rentDaysLeft')}
+          {order.status === orderStatus.OVERDUE
+            ? t('profileOrders.daysInOverdue')
+            : t('vendorOrder.rentDaysLeft')}
         </Typography>
         <Typography sx={{ fontWeight: theme.typography.semiBold }}>
-          {mockOverdue}
+          {`${overdueDays} ${t('profileOrders.days')}`}
         </Typography>
       </Box>
       <Box sx={styles.receivedWrapper}>
@@ -530,7 +539,7 @@ export function OverdueBuyerAction({ order }: IActionProps) {
   );
 }
 
-export function OverdueVendorAction() {
+export function OverdueVendorAction({ order }: IActionProps) {
   const { t } = useTranslation();
 
   return (
@@ -541,10 +550,10 @@ export function OverdueVendorAction() {
       sx={{ marginBottom: '24px' }}
     >
       <Typography variant="h4" sx={{ color: theme.palette.grey[400] }}>
-        {t('vendorOrder.rentDaysLeft')}
+        {t('profileOrders.daysInOverdue')}
       </Typography>
       <Typography sx={{ fontWeight: theme.typography.semiBold }}>
-        {mockOverdue}
+        {`${millisecondsToDays(order.timer)} ${t('profileOrders.days')}`}
       </Typography>
     </Box>
   );

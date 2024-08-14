@@ -49,7 +49,7 @@ function OrderActions({ status, order, role }: IOrderActionsProps) {
         return role === userRoles.BUYER ? (
           <ReceivedBuyerAction order={order} />
         ) : (
-          <ReceivedVendorAction />
+          <ReceivedVendorAction order={order} />
         );
 
       case orderStatus.SENT_BACK:
@@ -70,7 +70,7 @@ function OrderActions({ status, order, role }: IOrderActionsProps) {
         return role === userRoles.BUYER ? (
           <OverdueBuyerAction order={order} />
         ) : (
-          <OverdueVendorAction />
+          <OverdueVendorAction order={order} />
         );
 
       default:

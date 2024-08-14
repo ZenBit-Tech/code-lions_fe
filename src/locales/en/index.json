@@ -390,7 +390,9 @@
     "status": "Status",
     "pay": "Pay",
     "seeDetails": "See details",
-    "noOrders": "You have no orders in this tab yet"
+    "noOrders": "You have no orders in this tab yet",
+    "trackingNumber": "Tracking Number",
+    "days": "days"
   },
   "product": {
     "name": "Product Name",

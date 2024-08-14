@@ -319,17 +319,17 @@ export const yearMonthAndDayFormat = 'yyyy MM d';
 
 export const orderStatus = {
   NEW: 'New order',
-  REJECTED: 'Rejected',
   SENT: 'Sent',
   RECEIVED: 'Received',
   SENT_BACK: 'Sent back',
   OVERDUE: 'Overdue',
   RETURNED: 'Returned',
+  REJECTED: 'Rejected',
 };
-
 export const profileOrdersTabs = {
   CURRENT: 'Current',
   ARCHIVE: 'Archive',
 };
 
 export const redirectDelay = 3000;
+export const priceForOneOverdueDay = 20;

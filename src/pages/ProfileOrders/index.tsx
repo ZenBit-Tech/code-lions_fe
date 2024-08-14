@@ -60,8 +60,6 @@ function ProfileOrders() {
     );
   }
 
-  console.log(orders);
-
   return (
     <>
       <TabsWrapper>
@@ -89,6 +87,7 @@ function ProfileOrders() {
             productsQuantity={order.products.length}
             productsPhotos={getPrimaryImages(order.products)}
             timer={order.timer}
+            trackingNumber={order.trackingNumber}
           />
         )}
       />
