@@ -1,86 +1,170 @@
+import { useCallback, useState, ChangeEvent } from 'react';
+import { createPortal } from 'react-dom';
 import { useTranslation } from 'react-i18next';
 
 import { Box, Button, TextField, Typography } from '@mui/material';
 
-import { orderStatus } from 'src/common/constants';
+import ReviewModal from 'src/components/shared/ReviewModal';
+import StyledBackdrop from 'src/components/shared/StyledBackdrop';
 import useToast from 'src/components/shared/toasts/components/ToastProvider/ToastProviderHooks';
 import ProfileInputWrapper from 'src/pages/admin/AdminUserProfileEditPage/ProfileInputWrapper';
-import { useRejectOrderMutation } from 'src/redux/order/orderService';
+import {
+  usePaySendOrderMutation,
+  useReceiveOrderMutation,
+  useReturnOrderMutation,
+  useSendBackOrderMutation,
+  useSendOrderMutation,
+} from 'src/redux/order/orderService';
+import { IOrder } from 'src/redux/order/types';
 import theme from 'src/theme';
 
+import RejectOrderModal from './RejectOrderModal';
 import styles from './styles';
 
-interface IOrderActionProps {
-  trackingNumber: string;
-  onActionClick: (status: string) => void;
+interface INewOrderProps {
+  orderId: number;
 }
 
-interface INewOrderProps extends IOrderActionProps {
-  orderId: number;
-  openModal: (() => void) | undefined;
+interface IActionProps {
+  order: IOrder;
 }
 
 const mockDays: string = '5 days';
 const mockOverdue: string = '0 days';
 
-export function NewOrderVendorAction({
-  trackingNumber,
-  onActionClick,
-  orderId,
-  openModal,
-}: INewOrderProps) {
+export function NewOrderVendorAction({ orderId }: INewOrderProps) {
   const { t } = useTranslation();
   const { showToast } = useToast();
-  const [rejectOrder] = useRejectOrderMutation();
 
-  const rejectOrderByVendor = async () => {
-    if (openModal) {
-      openModal();
+  const [showModal, setShowModal] = useState<boolean>(false);
+  const [trackingNumber, setTrackingNumber] = useState<string>('');
+
+  const handleModalOpen = useCallback(() => setShowModal(true), []);
+  const handleModalClose = useCallback(() => setShowModal(false), []);
+
+  const [sendOrder] = useSendOrderMutation();
+
+  const sendOrderByVendor = async () => {
+    if (!trackingNumber.trim()) {
+      showToast('error', t('toasterMessages.trackingNumberRequired'));
 
       return;
     }
 
     try {
-      await rejectOrder({
+      await sendOrder({
         orderId,
+        trackingNumber,
       }).unwrap();
+
+      setTrackingNumber('');
     } catch {
-      showToast('error', t('toasterMessages.failedToRejectOrder'));
+      showToast('error', t('toasterMessages.failedToSendOrder'));
     }
   };
 
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setTrackingNumber(e.target.value);
+  };
+
   return (
-    <Box sx={styles.newOrderVendorWrapper}>
-      <ProfileInputWrapper label={t('vendorOrder.trackingNumber')}>
-        <TextField
-          autoComplete="off"
-          defaultValue={trackingNumber}
-          placeholder={t('vendorOrder.trackingPlaceholder')}
-          sx={styles.input}
-        />
-        <Button
-          sx={styles.sendButton}
-          onClick={() => onActionClick(orderStatus.SENT)}
-        >
-          <Typography variant="h4" sx={{ color: theme.palette.common.white }}>
-            {t('vendorOrder.send')}
-          </Typography>
-        </Button>
-        <Button sx={styles.rejectButton} onClick={rejectOrderByVendor}>
+    <>
+      {showModal &&
+        createPortal(
+          <StyledBackdrop showModal={showModal}>
+            <RejectOrderModal onClose={handleModalClose} orderId={orderId} />
+          </StyledBackdrop>,
+          document.body
+        )}
+      <Box sx={styles.newOrderVendorWrapper}>
+        <ProfileInputWrapper label={t('vendorOrder.trackingNumber')}>
+          <TextField
+            autoComplete="off"
+            value={trackingNumber}
+            placeholder={t('vendorOrder.trackingPlaceholder')}
+            sx={styles.input}
+            onChange={handleInputChange}
+          />
+          <Button sx={styles.sendButton} onClick={sendOrderByVendor}>
+            <Typography variant="h4" sx={{ color: theme.palette.common.white }}>
+              {t('vendorOrder.send')}
+            </Typography>
+          </Button>
+          <Button sx={styles.rejectButton} onClick={handleModalOpen}>
+            <Typography variant="h4" sx={{ color: theme.palette.common.black }}>
+              {t('vendorOrder.reject')}
+            </Typography>
+          </Button>
+        </ProfileInputWrapper>
+      </Box>
+    </>
+  );
+}
+
+export function NewOrderBuyerAction({ orderId }: INewOrderProps) {
+  const { t } = useTranslation();
+
+  const [showModal, setShowModal] = useState<boolean>(false);
+
+  const handleModalOpen = useCallback(() => setShowModal(true), []);
+  const handleModalClose = useCallback(() => setShowModal(false), []);
+
+  return (
+    <>
+      {showModal &&
+        createPortal(
+          <StyledBackdrop showModal={showModal}>
+            <RejectOrderModal onClose={handleModalClose} orderId={orderId} />
+          </StyledBackdrop>,
+          document.body
+        )}
+      <Box sx={styles.newOrderVendorWrapper}>
+        <Button sx={styles.rejectButton} onClick={handleModalOpen}>
           <Typography variant="h4" sx={{ color: theme.palette.common.black }}>
             {t('vendorOrder.reject')}
           </Typography>
         </Button>
-      </ProfileInputWrapper>
+      </Box>
+    </>
+  );
+}
+
+export function RejectedAction({ order }: IActionProps) {
+  const { t } = useTranslation();
+
+  return (
+    <Box display="flex">
+      <Box
+        display="flex"
+        flexDirection="column"
+        gap="8px"
+        sx={{ marginBottom: '24px', width: '33%' }}
+      >
+        <Typography variant="h4" sx={{ color: theme.palette.grey[400] }}>
+          {t('vendorOrder.rejectedBy')}
+        </Typography>
+        <Typography sx={{ fontWeight: theme.typography.semiBold }}>
+          {order.rejectedBy}
+        </Typography>
+      </Box>
+      <Box
+        display="flex"
+        flexDirection="column"
+        gap="8px"
+        sx={{ marginBottom: '24px' }}
+      >
+        <Typography variant="h4" sx={{ color: theme.palette.grey[400] }}>
+          {t('vendorOrder.rejectReason')}
+        </Typography>
+        <Typography sx={{ fontWeight: theme.typography.semiBold }}>
+          {order.rejectReason}
+        </Typography>
+      </Box>
     </Box>
   );
 }
 
-export function SentVendorAction({
-  trackingNumber,
-}: {
-  trackingNumber: string;
-}) {
+export function SentVendorAction({ order }: IActionProps) {
   const { t } = useTranslation();
 
   return (
@@ -94,17 +178,27 @@ export function SentVendorAction({
         {t('vendorOrder.trackingNumber')}
       </Typography>
       <Typography sx={{ fontWeight: theme.typography.semiBold }}>
-        {trackingNumber}
+        {order.trackingNumber}
       </Typography>
     </Box>
   );
 }
 
-export function SentBuyerAction({
-  trackingNumber,
-  onActionClick,
-}: IOrderActionProps) {
+export function SentBuyerAction({ order }: IActionProps) {
   const { t } = useTranslation();
+  const { showToast } = useToast();
+
+  const [receiveOrder] = useReceiveOrderMutation();
+
+  const receiveOrderByBuyer = async () => {
+    try {
+      await receiveOrder({
+        orderId: order.orderId,
+      }).unwrap();
+    } catch {
+      showToast('error', t('toasterMessages.failedToReceiveOrder'));
+    }
+  };
 
   return (
     <Box
@@ -118,13 +212,10 @@ export function SentBuyerAction({
           {t('vendorOrder.trackingNumber')}
         </Typography>
         <Typography sx={{ fontWeight: theme.typography.semiBold }}>
-          {trackingNumber}
+          {order.trackingNumber}
         </Typography>
       </Box>
-      <Button
-        sx={styles.rejectButton}
-        onClick={() => onActionClick(orderStatus.RECEIVED)}
-      >
+      <Button sx={styles.rejectButton} onClick={receiveOrderByBuyer}>
         <Typography variant="h4" sx={{ color: theme.palette.common.black }}>
           {t('vendorOrder.received')}
         </Typography>
@@ -133,11 +224,36 @@ export function SentBuyerAction({
   );
 }
 
-export function ReceivedBuyerAction({
-  trackingNumber,
-  onActionClick,
-}: IOrderActionProps) {
+export function ReceivedBuyerAction({ order }: IActionProps) {
   const { t } = useTranslation();
+  const { showToast } = useToast();
+
+  const [trackingNumber, setTrackingNumber] = useState<string>('');
+
+  const [sendBackOrder] = useSendBackOrderMutation();
+
+  const sendOrderByBuyer = async () => {
+    if (!trackingNumber.trim()) {
+      showToast('error', t('toasterMessages.trackingNumberRequired'));
+
+      return;
+    }
+
+    try {
+      await sendBackOrder({
+        orderId: order.orderId,
+        trackingNumber,
+      }).unwrap();
+
+      setTrackingNumber('');
+    } catch {
+      showToast('error', t('toasterMessages.failedToSendBack'));
+    }
+  };
+
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setTrackingNumber(e.target.value);
+  };
 
   return (
     <Box
@@ -167,14 +283,12 @@ export function ReceivedBuyerAction({
           <Box height="48px" padding="6px 0 12px 0">
             <TextField
               autoComplete="off"
-              defaultValue={trackingNumber}
               placeholder={t('vendorOrder.trackingPlaceholder')}
               sx={styles.input}
+              value={trackingNumber}
+              onChange={handleInputChange}
             />
-            <Button
-              sx={styles.sendButton}
-              onClick={() => onActionClick(orderStatus.SENT_BACK)}
-            >
+            <Button sx={styles.sendButton} onClick={sendOrderByBuyer}>
               <Typography
                 variant="h4"
                 sx={{ color: theme.palette.common.white }}
@@ -209,11 +323,21 @@ export function ReceivedVendorAction() {
   );
 }
 
-export function SentBackVendorAction({
-  trackingNumber,
-  onActionClick,
-}: IOrderActionProps) {
+export function SentBackVendorAction({ order }: IActionProps) {
   const { t } = useTranslation();
+  const { showToast } = useToast();
+
+  const [returnOrder] = useReturnOrderMutation();
+
+  const returnOrderByVendor = async () => {
+    try {
+      await returnOrder({
+        orderId: order.orderId,
+      }).unwrap();
+    } catch {
+      showToast('error', t('toasterMessages.failedToReturnOrder'));
+    }
+  };
 
   return (
     <Box
@@ -227,13 +351,10 @@ export function SentBackVendorAction({
           {t('vendorOrder.trackingNumber')}
         </Typography>
         <Typography sx={{ fontWeight: theme.typography.semiBold }}>
-          {trackingNumber}
+          {order.trackingNumber}
         </Typography>
       </Box>
-      <Button
-        sx={styles.rejectButton}
-        onClick={() => onActionClick(orderStatus.RETURNED)}
-      >
+      <Button sx={styles.rejectButton} onClick={returnOrderByVendor}>
         <Typography variant="h4" sx={{ color: theme.palette.common.black }}>
           {t('vendorOrder.returned')}
         </Typography>
@@ -242,11 +363,7 @@ export function SentBackVendorAction({
   );
 }
 
-export function SentBackBuyerAction({
-  trackingNumber,
-}: {
-  trackingNumber: string;
-}) {
+export function SentBackBuyerAction({ order }: IActionProps) {
   const { t } = useTranslation();
 
   return (
@@ -260,31 +377,110 @@ export function SentBackBuyerAction({
         {t('vendorOrder.trackingNumber')}
       </Typography>
       <Typography sx={{ fontWeight: theme.typography.semiBold }}>
-        {trackingNumber}
+        {order.trackingNumber}
       </Typography>
     </Box>
   );
 }
 
-export function ReturnedAction() {
+export function ReturnedBuyerAction({ order }: IActionProps) {
   const { t } = useTranslation();
 
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+
+  const handleModalOpen = useCallback(() => setIsModalOpen(true), []);
+  const handleModalClose = useCallback(() => setIsModalOpen(false), []);
+
   return (
-    <Box sx={styles.returnedWrapper}>
-      <Button sx={styles.rejectButton}>
-        <Typography variant="h4" sx={{ color: theme.palette.common.black }}>
-          {t('vendorOrder.leaveReview')}
-        </Typography>
-      </Button>
-    </Box>
+    <>
+      {isModalOpen &&
+        createPortal(
+          <StyledBackdrop showModal={isModalOpen}>
+            <ReviewModal
+              isModalOpen={isModalOpen}
+              onClose={handleModalClose}
+              userId={order.vendorId}
+              reviewerId={order.buyerId}
+              orderId={order.orderId}
+            />
+          </StyledBackdrop>,
+          document.body
+        )}
+      <Box sx={styles.returnedWrapper}>
+        <Button sx={styles.rejectButton} onClick={handleModalOpen}>
+          <Typography variant="h4" sx={{ color: theme.palette.common.black }}>
+            {t('vendorOrder.leaveReview')}
+          </Typography>
+        </Button>
+      </Box>
+    </>
   );
 }
 
-export function OverdueBuyerAction({
-  trackingNumber,
-  onActionClick,
-}: IOrderActionProps) {
+export function ReturnedVendorAction({ order }: IActionProps) {
   const { t } = useTranslation();
+
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+
+  const handleModalOpen = useCallback(() => setIsModalOpen(true), []);
+  const handleModalClose = useCallback(() => setIsModalOpen(false), []);
+
+  return (
+    <>
+      {isModalOpen &&
+        createPortal(
+          <StyledBackdrop showModal={isModalOpen}>
+            <ReviewModal
+              isModalOpen={isModalOpen}
+              onClose={handleModalClose}
+              userId={order.buyerId}
+              reviewerId={order.vendorId}
+              orderId={order.orderId}
+            />
+          </StyledBackdrop>,
+          document.body
+        )}
+      <Box sx={styles.returnedWrapper}>
+        <Button sx={styles.rejectButton} onClick={handleModalOpen}>
+          <Typography variant="h4" sx={{ color: theme.palette.common.black }}>
+            {t('vendorOrder.leaveReview')}
+          </Typography>
+        </Button>
+      </Box>
+    </>
+  );
+}
+
+export function OverdueBuyerAction({ order }: IActionProps) {
+  const { t } = useTranslation();
+  const { showToast } = useToast();
+
+  const [trackingNumber, setTrackingNumber] = useState<string>('');
+
+  const [paySendOrder] = usePaySendOrderMutation();
+
+  const paySendOrderByBuyer = async () => {
+    if (!trackingNumber.trim()) {
+      showToast('error', t('toasterMessages.trackingNumberRequired'));
+
+      return;
+    }
+
+    try {
+      await paySendOrder({
+        orderId: order.orderId,
+        trackingNumber,
+      }).unwrap();
+
+      setTrackingNumber('');
+    } catch {
+      showToast('error', t('toasterMessages.failedToPaySendOrder'));
+    }
+  };
+
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setTrackingNumber(e.target.value);
+  };
 
   return (
     <Box
@@ -314,14 +510,12 @@ export function OverdueBuyerAction({
           <Box height="48px" padding="6px 0 12px 0">
             <TextField
               autoComplete="off"
-              defaultValue={trackingNumber}
+              value={trackingNumber}
               placeholder={t('vendorOrder.trackingPlaceholder')}
               sx={styles.input}
+              onChange={handleInputChange}
             />
-            <Button
-              sx={styles.sendButton}
-              onClick={() => onActionClick(orderStatus.SENT_BACK)}
-            >
+            <Button sx={styles.sendButton} onClick={paySendOrderByBuyer}>
               <Typography
                 variant="h4"
                 sx={{ color: theme.palette.common.white }}

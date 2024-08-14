@@ -10,7 +10,14 @@
   "toasterMessages": {
     "failedCreateChat": "Failed create chat with vendor. Please try later.",
     "failedCreateSupport": "Failed create chat with administrator. Please try later.",
-    "failedToRejectOrder": "Failed to reject order"
+    "failedToRejectOrder": "Failed to reject order",
+    "failedToSendOrder": "Failed to send order",
+    "rejectReasonRequired": "Reject reason is required",
+    "trackingNumberRequired": "Tracking number is required",
+    "failedToReceiveOrder": "Failed to receive order",
+    "failedToSendBack": "Failed to send the order back",
+    "failedToReturnOrder": "Failed to return order",
+    "failedToPaySendOrder": "Failed to pay the overdue and send the order back"
   },
   "chat": {
     "yesterday": "Yesterday",
@@ -502,7 +509,9 @@
     "cancel": "Cancel",
     "modalTitle": "Why do you reject this order?",
     "rejectPlaceholder": "Describe your rejection reason",
-    "rejectLabel": "maximum height"
+    "rejectLabel": "maximum height",
+    "rejectedBy": "Rejected By",
+    "rejectReason": "Reject Reason"
   },
   "filters": {
     "title": "Filters",
