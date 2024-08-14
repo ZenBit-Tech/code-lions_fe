@@ -1,3 +1,5 @@
+import { useParams } from 'react-router-dom';
+
 import { Box, CircularProgress } from '@mui/material';
 
 import { profilePathsFor } from 'src/common/constants';
@@ -22,6 +24,7 @@ import {
 } from './styles';
 
 function VendorPublicProfilePage() {
+  const { id } = useParams<{ id: string }>();
   const {
     t,
     userName,
@@ -47,7 +50,12 @@ function VendorPublicProfilePage() {
     <Container>
       <Header />
       <MainContainerWrapper>
-        <ProfileInfo name={userName} rating={userRating} avatar={userAvatar} />
+        <ProfileInfo
+          name={userName}
+          rating={userRating}
+          avatar={userAvatar}
+          id={id ?? ''}
+        />
         <Container sx={{ marginLeft: '32px', width: '100%' }}>
           <TabsWrapper>
             <TabButton
