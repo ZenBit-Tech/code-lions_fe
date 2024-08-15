@@ -17,7 +17,7 @@ const useVendorPublicProfile = () => {
   const { id: userId } = useParams<{ id: string }>();
 
   const [activeTab, setActiveTab] = useState<string>(
-    t('vendorProfile.reviews')
+    t('vendorProfile.products')
   );
   const [page, setPage] = useState<number>(pageOne);
 

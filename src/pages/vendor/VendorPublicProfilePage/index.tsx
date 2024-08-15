@@ -62,7 +62,7 @@ function VendorPublicProfilePage() {
               active={activeTab === t('vendorProfile.products')}
               onClick={() => handleTabChange(t('vendorProfile.products'))}
             >
-              {t('vendorProfile.products')}
+              {t('vendorProfile.products')} ({products.length})
             </TabButton>
             <TabButton
               active={activeTab === t('vendorProfile.reviews')}
@@ -88,7 +88,9 @@ function VendorPublicProfilePage() {
           )}
           {activeTab === t('vendorProfile.products') && (
             <>
-              <ReviewLabel>{t('vendorProfile.closet')}</ReviewLabel>
+              <ReviewLabel>
+                {t('vendorProfile.closet')} ({products.length})
+              </ReviewLabel>
               {products.length > 0 ? (
                 <ProductsContainerWrapper>
                   <ProductsContainer>
