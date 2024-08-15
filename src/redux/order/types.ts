@@ -15,6 +15,7 @@ export interface IOrder {
   trackingNumber: string | null;
   rejectedBy: string | null;
   rejectReason: string | null;
+  timer: number;
 }
 
 interface Image {
@@ -119,7 +120,6 @@ export type IVendorOrdersResponse = IVendorOrder[];
 export interface IVendorOrdersRequest {
   id: string;
 }
-
 export interface IVendorPaginatedOrdersRequest {
   status: OrderStatus;
   page?: number;
@@ -130,4 +130,13 @@ export interface IVendorPaginatedOrdersRequest {
 export interface IVendorPaginatedOrdersResponse {
   orders: IVendorOrder[];
   count: number;
+}
+
+export interface IPaySendOrderRequest {
+  orderId: number;
+  trackingNumber: string;
+}
+
+export interface IPaySendOrderResponse {
+  url: string;
 }

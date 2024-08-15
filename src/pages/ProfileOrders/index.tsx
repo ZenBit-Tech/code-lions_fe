@@ -86,6 +86,8 @@ function ProfileOrders() {
             orderStatus={order.status as OrderStatus}
             productsQuantity={order.products.length}
             productsPhotos={getPrimaryImages(order.products)}
+            timer={order.timer}
+            trackingNumber={order.trackingNumber}
           />
         )}
       />

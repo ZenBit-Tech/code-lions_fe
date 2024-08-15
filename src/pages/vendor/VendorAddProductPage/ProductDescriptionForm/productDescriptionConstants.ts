@@ -29,7 +29,7 @@ export const jeansSizes = [
 export const uniqueSizes = [{ label: 'Unique size', value: 'Unique size' }];
 
 export const colors = [
-  { label: 'Select color', value: 'Select color' },
+  // { label: 'Select color', value: 'Select color' },
   { label: 'Black', value: 'black' },
   { label: 'Blue', value: 'blue' },
   { label: 'Brown', value: 'brown' },
@@ -107,3 +107,5 @@ export const shoesType = 'shoes';
 export const dressType = 'dress';
 export const jeansType = 'jeans';
 export const otherType = 'other';
+export const bagProductType = 'bag';
+export const accessoryProductType = 'accessory';
