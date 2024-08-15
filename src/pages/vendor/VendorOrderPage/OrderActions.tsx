@@ -1,7 +1,7 @@
 import { Box } from '@mui/material';
 
-import { orderStatus, userRoles } from 'src/common/constants';
-import { IOrder } from 'src/redux/order/types';
+import { userRoles } from 'src/common/constants';
+import { IOrder, OrderStatus } from 'src/redux/order/types';
 
 import {
   NewOrderVendorAction,
@@ -23,50 +23,56 @@ interface IOrderActionsProps {
   status: string | undefined;
   order: IOrder;
   role: string | null;
+  hasLeftReview: boolean;
 }
 
-function OrderActions({ status, order, role }: IOrderActionsProps) {
+function OrderActions({
+  status,
+  order,
+  role,
+  hasLeftReview,
+}: IOrderActionsProps) {
   const renderButtons = () => {
     switch (status) {
-      case orderStatus.NEW:
+      case OrderStatus.NEW:
         return role === userRoles.VENDOR ? (
-          <NewOrderVendorAction orderId={order.orderId} />
+          <NewOrderVendorAction order={order} />
         ) : (
-          <NewOrderBuyerAction orderId={order.orderId} />
+          <NewOrderBuyerAction order={order} />
         );
 
-      case orderStatus.REJECTED:
+      case OrderStatus.REJECTED:
         return <RejectedAction order={order} />;
 
-      case orderStatus.SENT:
+      case OrderStatus.SENT:
         return role === userRoles.VENDOR ? (
           <SentVendorAction order={order} />
         ) : (
           <SentBuyerAction order={order} />
         );
 
-      case orderStatus.RECEIVED:
+      case OrderStatus.RECEIVED:
         return role === userRoles.BUYER ? (
           <ReceivedBuyerAction order={order} />
         ) : (
           <ReceivedVendorAction order={order} />
         );
 
-      case orderStatus.SENT_BACK:
+      case OrderStatus.SENT_BACK:
         return role === userRoles.VENDOR ? (
           <SentBackVendorAction order={order} />
         ) : (
           <SentBackBuyerAction order={order} />
         );
 
-      case orderStatus.RETURNED:
+      case OrderStatus.RETURNED:
         return role === userRoles.BUYER ? (
-          <ReturnedBuyerAction order={order} />
+          <ReturnedBuyerAction order={order} hasLeftReview={hasLeftReview} />
         ) : (
-          <ReturnedVendorAction order={order} />
+          <ReturnedVendorAction order={order} hasLeftReview={hasLeftReview} />
         );
 
-      case orderStatus.OVERDUE:
+      case OrderStatus.OVERDUE:
         return role === userRoles.BUYER ? (
           <OverdueBuyerAction order={order} />
         ) : (

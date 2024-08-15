@@ -1,11 +1,13 @@
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 import { IconButton, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 
 import CloseIcon from 'src/assets/icons/close.svg';
 import DeleteIcon from 'src/assets/icons/delete-trash-red.svg';
+import { urls } from 'src/common/constants';
 import useErrorHandling from 'src/common/hooks/useErrorHandlingHook';
 import StyledButton from 'src/components/shared/StyledButton';
 import {
@@ -32,6 +34,7 @@ interface IModalPopup {
 function ModalPopup({ onClose, productId }: IModalPopup) {
   const { t } = useTranslation();
   const { showToast } = useToast();
+  const navigate = useNavigate();
   const { handleOnSubmitError } = useErrorHandling();
 
   const id = useSelector(selectUserId);
@@ -43,6 +46,7 @@ function ModalPopup({ onClose, productId }: IModalPopup) {
       await deleteProductVendor({ productId, id }).unwrap();
       onClose();
       showToast('success', t('productsAdmin.deleteSuccess'));
+      navigate(urls.VENDOR_GLOBAL_PRODUCTS);
     } catch (err) {
       handleOnSubmitError(err, showToast, t('productsAdmin.deleteError'));
     }

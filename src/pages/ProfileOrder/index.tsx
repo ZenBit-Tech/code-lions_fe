@@ -1,6 +1,7 @@
+import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 
-import { CircularProgress, Grid } from '@mui/material';
+import { CircularProgress, Grid, Typography } from '@mui/material';
 
 import OrderActions from 'src/pages/vendor/VendorOrderPage/OrderActions';
 import { useAppSelector } from 'src/redux/hooks';
@@ -16,6 +17,8 @@ import OrderSummarySection from './OrderSummarySection';
 import VendorInfoSection from './VendorInfoSection';
 
 function ProfileOrderPage() {
+  const { t } = useTranslation();
+
   const { orderId } = useParams<{ orderId: string }>();
 
   const orderIdNumber: number = Number(orderId);
@@ -26,18 +29,35 @@ function ProfileOrderPage() {
     orderId: orderIdNumber,
   });
 
-  if (!data || isLoading) {
+  if (isLoading) {
     return <CircularProgress sx={{ color: theme.palette.common.black }} />;
   }
 
+  if (!data) {
+    return (
+      <Typography
+        variant="h4"
+        sx={{ mt: 4, fontSize: theme.typography.h5.fontSize }}
+      >
+        {t('profileOrders.orderNotFound')}
+      </Typography>
+    );
+  }
+
   const order: IOrder = data.order[0];
+  const { hasLeftReview } = data;
 
   return (
     <OrderDetailsSection orderNumber={order.orderId}>
       <Grid container columns={7} sx={{ padding: '12px' }}>
         <Grid item xs={5} sx={{ paddingRight: '24px' }}>
           <OrderInfoSection order={order} />
-          <OrderActions status={order.status} order={order} role={userRole} />
+          <OrderActions
+            status={order.status}
+            order={order}
+            role={userRole}
+            hasLeftReview={hasLeftReview}
+          />
           <OrderProductsTable products={order.products} />
           <OrderSummarySection shipping={order.shipping} price={order.price} />
         </Grid>

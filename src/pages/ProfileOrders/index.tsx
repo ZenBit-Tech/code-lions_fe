@@ -3,10 +3,10 @@ import { useTranslation } from 'react-i18next';
 
 import { Box, CircularProgress } from '@mui/material';
 
-import { orderStatus, profileOrdersTabs } from 'src/common/constants';
+import { profileOrdersTabs } from 'src/common/constants';
 import GridWrapper from 'src/components/shared/GridWrapper';
 import { useGetBuyerOrdersQuery } from 'src/redux/order/orderService';
-import { IOrder, IOrderProduct } from 'src/redux/order/types';
+import { IOrder, IOrderProduct, OrderStatus } from 'src/redux/order/types';
 import theme from 'src/theme';
 
 import OrderCard from './OrderCard';
@@ -24,13 +24,13 @@ function ProfileOrders() {
     statuses:
       activeTab === profileOrdersTabs.CURRENT
         ? [
-            orderStatus.NEW,
-            orderStatus.OVERDUE,
-            orderStatus.RECEIVED,
-            orderStatus.SENT,
-            orderStatus.SENT_BACK,
+            OrderStatus.NEW,
+            OrderStatus.OVERDUE,
+            OrderStatus.RECEIVED,
+            OrderStatus.SENT,
+            OrderStatus.SENT_BACK,
           ]
-        : [orderStatus.RETURNED, orderStatus.REJECTED],
+        : [OrderStatus.RETURNED, OrderStatus.REJECTED],
   });
 
   const handleTabClick = (tab: string) => {
@@ -83,7 +83,7 @@ function ProfileOrders() {
         renderCard={(order) => (
           <OrderCard
             orderId={order.orderId}
-            orderStatus={order.status}
+            orderStatus={order.status as OrderStatus}
             productsQuantity={order.products.length}
             productsPhotos={getPrimaryImages(order.products)}
             timer={order.timer}

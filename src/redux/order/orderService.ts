@@ -7,6 +7,8 @@ import {
   IVendorOrdersRequest,
   IVendorOrdersResponse,
   IOrder,
+  IVendorPaginatedOrdersRequest,
+  IVendorPaginatedOrdersResponse,
   IPaySendOrderResponse,
   IPaySendOrderRequest,
 } from './types';
@@ -108,6 +110,23 @@ export const orderApi = createApi({
         };
       },
     }),
+    getAllPaginatedOrdersVendor: build.query<
+      IVendorPaginatedOrdersResponse,
+      IVendorPaginatedOrdersRequest
+    >({
+      query: ({ status, page, sortBy, sortOrder }) => ({
+        url: `${RTKUrls.ORDERS_VENDOR}`,
+        method: HttpMethods.GET,
+        params: {
+          status,
+          page,
+          sortBy,
+          sortOrder,
+        },
+      }),
+      providesTags: (result) =>
+        result ? [{ type: 'Orders', id: 'LIST' }] : [],
+    }),
   }),
 });
 
@@ -121,4 +140,5 @@ export const {
   usePaySendOrderMutation,
   useGetAllOrdersVendorQuery,
   useGetBuyerOrdersQuery,
+  useGetAllPaginatedOrdersVendorQuery,
 } = orderApi;
