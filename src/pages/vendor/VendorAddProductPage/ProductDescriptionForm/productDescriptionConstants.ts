@@ -107,3 +107,5 @@ export const shoesType = 'shoes';
 export const dressType = 'dress';
 export const jeansType = 'jeans';
 export const otherType = 'other';
+export const bagProductType = 'bag';
+export const accessoryProductType = 'accessory';

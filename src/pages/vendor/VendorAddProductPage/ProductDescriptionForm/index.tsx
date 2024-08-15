@@ -32,10 +32,15 @@ import useGetProductBrands from './hooks/useGetProductBrands';
 import useProductDispatch from './hooks/useProductDispatch';
 import {
   accessoriesCategory,
+  accessoryProductType,
+  bagProductType,
   bagsCategory,
   clothesSizes,
+  clothingCategory,
   colors,
+  designersCategory,
   dressType,
+  eventalCategory,
   jeansSizes,
   jeansType,
   materials,
@@ -272,9 +277,15 @@ function ProductDescriptionForm() {
                 onChange={(v) => setShoesSize(String(v.target.value))}
               />
             ) : null}
-            {selectedType === dressType ||
-            (selectedType === otherType &&
-              selectedCategory !== shoesCategory) ? (
+            {(selectedType === dressType &&
+              selectedCategory === clothingCategory) ||
+            (selectedCategory === clothingCategory &&
+              selectedType === otherType) ||
+            (selectedCategory === designersCategory &&
+              selectedType === dressType) ||
+            selectedType === otherType ||
+            (selectedCategory === eventalCategory &&
+              selectedType === dressType) ? (
               <CustomSelect
                 options={clothesSizes}
                 displayEmpty
@@ -283,7 +294,12 @@ function ProductDescriptionForm() {
               />
             ) : null}
             {selectedCategory === bagsCategory ||
-            selectedCategory === accessoriesCategory ? (
+            selectedCategory === accessoriesCategory ||
+            (selectedCategory === eventalCategory &&
+              selectedType === bagProductType) ||
+            (selectedCategory === designersCategory &&
+              selectedType === bagProductType) ||
+            selectedType === accessoryProductType ? (
               <CustomSelect
                 options={uniqueSizes}
                 displayEmpty
