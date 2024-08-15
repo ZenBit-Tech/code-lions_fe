@@ -414,9 +414,13 @@ export function ReturnedBuyerAction({ order, hasLeftReview }: IReturnedProps) {
   const { t } = useTranslation();
 
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [leftReview, setLeftReview] = useState<boolean>(hasLeftReview);
 
   const handleModalOpen = useCallback(() => setIsModalOpen(true), []);
-  const handleModalClose = useCallback(() => setIsModalOpen(false), []);
+  const handleModalClose = useCallback(() => {
+    setIsModalOpen(false);
+    setLeftReview(true);
+  }, []);
 
   return (
     <>
@@ -434,7 +438,7 @@ export function ReturnedBuyerAction({ order, hasLeftReview }: IReturnedProps) {
           document.body
         )}
       <Box sx={styles.returnedWrapper}>
-        {!hasLeftReview && (
+        {!leftReview && (
           <Button sx={styles.rejectButton} onClick={handleModalOpen}>
             <Typography variant="h4" sx={{ color: theme.palette.common.black }}>
               {t('vendorOrder.leaveReview')}
@@ -450,9 +454,13 @@ export function ReturnedVendorAction({ order, hasLeftReview }: IReturnedProps) {
   const { t } = useTranslation();
 
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [leftReview, setLeftReview] = useState<boolean>(hasLeftReview);
 
   const handleModalOpen = useCallback(() => setIsModalOpen(true), []);
-  const handleModalClose = useCallback(() => setIsModalOpen(false), []);
+  const handleModalClose = useCallback(() => {
+    setIsModalOpen(false);
+    setLeftReview(true);
+  }, []);
 
   return (
     <>
@@ -470,7 +478,7 @@ export function ReturnedVendorAction({ order, hasLeftReview }: IReturnedProps) {
           document.body
         )}
       <Box sx={styles.returnedWrapper}>
-        {!hasLeftReview && (
+        {!leftReview && (
           <Button sx={styles.rejectButton} onClick={handleModalOpen}>
             <Typography variant="h4" sx={{ color: theme.palette.common.black }}>
               {t('vendorOrder.leaveReview')}
