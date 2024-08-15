@@ -46,7 +46,7 @@ function VendorPieChart({ data }: IVendorPieChartProps) {
         <Typography variant="button" component="h3">
           {t('vendorDashboard.salesByCategories')}
         </Typography>
-        <SubTitle variant="overline">{t('vendorDashboard.byWeek')}</SubTitle>
+        <SubTitle variant="overline">{t('vendorDashboard.total')}</SubTitle>
       </Box>
       <PieChart
         series={[

@@ -1,6 +1,6 @@
 import getDateNDaysAgo from 'src/common/utils/getDateNDaysAgo';
 import isLeapYear from 'src/common/utils/isALeapYear';
-import { Category, IVendorOrder } from 'src/redux/order/types';
+import { Category, IVendorOrder, OrderStatus } from 'src/redux/order/types';
 
 interface SalesData {
   salesTotal: number;
@@ -51,10 +51,15 @@ function useSalesData(orders: IVendorOrder[] = []): SalesData {
 
   const todayDay = new Date();
 
+  // Filter out rejected orders
+  const nonRejectedOrders = orders.filter(
+    (order) => order.status !== OrderStatus.REJECTED
+  );
+
   // Function to calculate metrics for a given number of days
   const calculateMetricsForDays = (days: number, today: Date) => {
     const startDate = getDateNDaysAgo(days, today);
-    const filteredOrders = orders.filter((order) => {
+    const filteredOrders = nonRejectedOrders.filter((order) => {
       const orderDate = new Date(order.createdAt);
 
       return orderDate >= startDate && orderDate <= today;
@@ -152,7 +157,7 @@ function useSalesData(orders: IVendorOrder[] = []): SalesData {
     }
 
     // Filter orders for the last 12 months
-    const filteredOrders = orders.filter((order) => {
+    const filteredOrders = nonRejectedOrders.filter((order) => {
       const orderDate = new Date(order.createdAt);
       const orderYear = orderDate.getFullYear();
       const orderMonthIndex = orderDate.getMonth();
@@ -193,7 +198,7 @@ function useSalesData(orders: IVendorOrder[] = []): SalesData {
   const dataset = calculateSalesPerMonthDataset();
 
   const calculateSalesPerCategory = () => {
-    const salesPerCategory = orders.reduce(
+    const salesPerCategory = nonRejectedOrders.reduce(
       (acc, order) => {
         order.products.forEach((item) => {
           const category = item.categories?.[0] as Category | undefined;
@@ -222,7 +227,7 @@ function useSalesData(orders: IVendorOrder[] = []): SalesData {
 
   const categoryData = calculateSalesPerCategory();
 
-  const ordersPlacedThreeDaysAgo = orders.filter((order) => {
+  const ordersPlacedThreeDaysAgo = nonRejectedOrders.filter((order) => {
     const orderDate = new Date(order.createdAt);
     const threeDaysAgo = getDateNDaysAgo(numberOfDays.THREE, todayDay);
 
