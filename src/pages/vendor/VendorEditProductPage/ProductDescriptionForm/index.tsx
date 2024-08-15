@@ -33,6 +33,11 @@ import {
   shoesSizes,
   shoesType,
   uniqueSizes,
+  clothingCategory,
+  designersCategory,
+  eventalCategory,
+  bagProductType,
+  accessoryProductType,
 } from 'src/pages/vendor/VendorAddProductPage/ProductDescriptionForm/productDescriptionConstants';
 import {
   decreaseAddProductStep,
@@ -125,6 +130,7 @@ function ProductDescriptionForm() {
       setSelectedFile(event.target.files[0]);
     }
   };
+  const [openColorsSelect, setColorsSelectOpen] = useState(false);
 
   const handleUpload = async () => {
     try {
@@ -269,9 +275,15 @@ function ProductDescriptionForm() {
                 onChange={(v) => setShoesSize(String(v.target.value))}
               />
             ) : null}
-            {selectedType === dressType ||
-            (selectedType === otherType &&
-              selectedCategory !== shoesCategory) ? (
+            {(selectedType === dressType &&
+              selectedCategory === clothingCategory) ||
+            (selectedCategory === clothingCategory &&
+              selectedType === otherType) ||
+            (selectedCategory === designersCategory &&
+              selectedType === dressType) ||
+            selectedType === otherType ||
+            (selectedCategory === eventalCategory &&
+              selectedType === dressType) ? (
               <CustomSelect
                 options={clothesSizes}
                 displayEmpty
@@ -280,7 +292,12 @@ function ProductDescriptionForm() {
               />
             ) : null}
             {selectedCategory === bagsCategory ||
-            selectedCategory === accessoriesCategory ? (
+            selectedCategory === accessoriesCategory ||
+            (selectedCategory === eventalCategory &&
+              selectedType === bagProductType) ||
+            (selectedCategory === designersCategory &&
+              selectedType === bagProductType) ||
+            selectedType === accessoryProductType ? (
               <CustomSelect
                 options={uniqueSizes}
                 displayEmpty
@@ -327,7 +344,18 @@ function ProductDescriptionForm() {
 
                 return selectedColors.join(', ');
               }}
-              onChange={(v) => setProductColors(v.target.value as string[])}
+              onChange={(v) => {
+                const selectedValues = v.target.value as string[];
+
+                setProductColors(selectedValues);
+
+                if (selectedValues.length >= 1) {
+                  setColorsSelectOpen(false);
+                }
+              }}
+              open={openColorsSelect}
+              onOpen={() => setColorsSelectOpen(true)}
+              onClose={() => setColorsSelectOpen(false)}
             />
           </Box>
         </Box>
@@ -453,7 +481,6 @@ function ProductDescriptionForm() {
             radius="8px"
             onClick={goToNextStep}
             disabled={
-              productColors[0] === materials[0].value ||
               productMaterial === materials[0].value ||
               shoesMaterial === materials[0].value
             }

@@ -86,7 +86,7 @@ function RejectProductFlowModal({
   const handleNavigation = (): void => {
     dispatch(resetAddProduct());
     dispatch(setPending(true));
-    navigate(`${urls.VENDOR}/${urls.VENDOR_ORDERS}`);
+    navigate(urls.VENDOR_GLOBAL_PRODUCTS);
   };
 
   return createPortal(

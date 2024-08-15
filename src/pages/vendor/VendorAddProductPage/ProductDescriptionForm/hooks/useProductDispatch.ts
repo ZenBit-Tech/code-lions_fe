@@ -10,8 +10,13 @@ import { useAppDispatch, useAppSelector } from 'src/redux/hooks';
 
 import {
   accessoriesCategory,
+  accessoryProductType,
+  bagProductType,
   bagsCategory,
+  clothingCategory,
+  designersCategory,
   dressType,
+  eventalCategory,
   jeansType,
   otherType,
   shoesCategory,
@@ -44,13 +49,21 @@ const useProductDispatch = (
     if (selectedCategory === shoesCategory || selectedType === shoesType) {
       dispatch(setSize(shoesSize));
     } else if (
-      selectedType === dressType ||
-      (selectedType === otherType && selectedCategory !== shoesCategory)
+      (selectedType === dressType && selectedCategory === clothingCategory) ||
+      (selectedCategory === clothingCategory && selectedType === otherType) ||
+      (selectedCategory === designersCategory && selectedType === dressType) ||
+      selectedType === otherType ||
+      (selectedCategory === eventalCategory && selectedType === dressType)
     ) {
       dispatch(setSize(clothesSize));
     } else if (
       selectedCategory === bagsCategory ||
-      selectedCategory === accessoriesCategory
+      selectedCategory === accessoriesCategory ||
+      (selectedCategory === eventalCategory &&
+        selectedType === bagProductType) ||
+      (selectedCategory === designersCategory &&
+        selectedType === bagProductType) ||
+      selectedType === accessoryProductType
     ) {
       dispatch(setSize(uniqueSize));
     } else if (selectedType === jeansType) {
