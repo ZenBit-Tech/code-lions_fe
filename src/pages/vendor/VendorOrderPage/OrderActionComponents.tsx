@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 
 import { Box, Button, TextField, Typography } from '@mui/material';
 
-import { orderStatus, priceForOneOverdueDay } from 'src/common/constants';
+import { orderStatus } from 'src/common/constants';
 import millisecondsToDays from 'src/common/millisecondsToDays';
 import ReviewModal from 'src/components/shared/ReviewModal';
 import StyledBackdrop from 'src/components/shared/StyledBackdrop';
@@ -458,7 +458,7 @@ export function OverdueBuyerAction({ order }: IActionProps) {
 
   const overdueDays = millisecondsToDays(order.timer);
 
-  const [paySendOrder] = usePaySendOrderMutation();
+  const [paySendOrder, { isLoading }] = usePaySendOrderMutation();
 
   const paySendOrderByBuyer = async () => {
     if (!trackingNumber.trim()) {
@@ -466,18 +466,18 @@ export function OverdueBuyerAction({ order }: IActionProps) {
 
       return;
     }
-    const overdueSum =
-      order.status === orderStatus.OVERDUE
-        ? overdueDays * priceForOneOverdueDay
-        : 0;
-
-    console.log(overdueSum);
 
     try {
-      await paySendOrder({
+      const result = await paySendOrder({
         orderId: order.orderId,
         trackingNumber,
       }).unwrap();
+
+      if (result.url) {
+        window.location.href = result.url;
+      } else {
+        throw new Error();
+      }
 
       setTrackingNumber('');
     } catch {
@@ -524,7 +524,11 @@ export function OverdueBuyerAction({ order }: IActionProps) {
               sx={styles.input}
               onChange={handleInputChange}
             />
-            <Button sx={styles.sendButton} onClick={paySendOrderByBuyer}>
+            <Button
+              sx={styles.sendButton}
+              onClick={paySendOrderByBuyer}
+              disabled={isLoading}
+            >
               <Typography
                 variant="h4"
                 sx={{ color: theme.palette.common.white }}

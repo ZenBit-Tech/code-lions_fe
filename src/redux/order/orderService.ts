@@ -7,6 +7,8 @@ import {
   IVendorOrdersRequest,
   IVendorOrdersResponse,
   IOrder,
+  IPaySendOrderResponse,
+  IPaySendOrderRequest,
 } from './types';
 
 export const orderApi = createApi({
@@ -74,10 +76,7 @@ export const orderApi = createApi({
       invalidatesTags: ['Order', 'Orders'],
     }),
 
-    paySendOrder: build.mutation<
-      void,
-      { orderId: number; trackingNumber: string }
-    >({
+    paySendOrder: build.mutation<IPaySendOrderResponse, IPaySendOrderRequest>({
       query: ({ orderId, trackingNumber }) => ({
         url: `${RTKUrls.ORDERS}/${RTKUrls.PAY_SEND}/${orderId}`,
         method: HttpMethods.PATCH,

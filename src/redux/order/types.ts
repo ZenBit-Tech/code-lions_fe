@@ -116,3 +116,12 @@ export type IVendorOrdersResponse = IVendorOrder[];
 export interface IVendorOrdersRequest {
   id: string;
 }
+
+export interface IPaySendOrderRequest {
+  orderId: number;
+  trackingNumber: string;
+}
+
+export interface IPaySendOrderResponse {
+  url: string;
+}
