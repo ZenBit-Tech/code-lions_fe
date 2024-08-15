@@ -122,7 +122,11 @@ function VendorProductPage() {
             }}
           >
             <IconButton
-              onClick={() => navigate(urls.VENDOR_GLOBAL_PRODUCTS)}
+              onClick={() =>
+                userRole === userRoles.ADMIN
+                  ? navigate(`${urls.ADMIN}/${urls.ADMIN_PRODUCT_LIST}`)
+                  : navigate(urls.VENDOR_GLOBAL_PRODUCTS)
+              }
               sx={{ padding: 0 }}
             >
               <GoBackArrow />
