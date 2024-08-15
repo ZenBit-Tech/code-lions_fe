@@ -68,13 +68,17 @@ function OrdersTable({ orders, pagesCount, page, handleChange }: IOrdersTable) {
         </TableHeadStyled>
         <TableBodyStyled>
           {orders.map((order) => (
-            <TableRow key={order.id}>
+            <TableRow key={order.orderId}>
               <BodyTableCell component="th" scope="row" align="left">
                 #{order.orderId}
               </BodyTableCell>
               <BodyTableCell align="left">
                 {order.products.map((product) => (
-                  <Box display="flex" gap="4px" key={product.id}>
+                  <Box
+                    display="flex"
+                    gap="4px"
+                    key={`${order.orderId}${product.id}`}
+                  >
                     <Typography>{product.name || ''}</Typography>
                     <Typography>
                       {t('vendorDashboard.size')} {product.size || ''}

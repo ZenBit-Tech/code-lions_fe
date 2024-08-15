@@ -85,7 +85,7 @@ function VendorOrdersPage() {
             </Box>
           </Grid>
           <Grid item xs={12} mt={4}>
-            {orders && orders.length > 0 ? (
+            {orders?.length > 0 ? (
               <OrdersTable
                 orders={orders}
                 pagesCount={pagesCount}
