@@ -175,7 +175,7 @@
     "damageRule2": "Damage can be evaluated as small, medium or large, with corresponding fees of 10%, 25% and 50% of the item value respectively.",
     "damageRule3": "In case of loss or disputes regarding damage, compensation and resolution will be mediated by BlackCircle. Please contact our support at support@blackcircle.com to report your case.",
     "cancellationSubtitle": "Cancellation",
-    "cancellationRule1": "The owner or the renter can cancel the order within 12 hours max.",
+    "cancellationRule1": "The owner or the renter can cancel the order within 24 hours max.",
     "disputeSubtitle": "Dispute Resolution",
     "disputeRule1": "Any disputes between owners and renters should be reported to the support for mediation.",
     "disputeRule2": "The admin will investigate and make a final decision on disputes, which both parties must adhere to.",
@@ -249,7 +249,8 @@
     "vendorMode": "Vendor Mode",
     "name": "Anna Asol",
     "logout": "Log out",
-    "emptyWishlist": "No products in your wishlist"
+    "emptyWishlist": "No products in your wishlist",
+    "wishlistNotFound": "The wishlist is not found"
   },
   "profileMenu": {
     "personalInformation": "Personal Information",
@@ -388,7 +389,8 @@
     "warning": "If you not return on time: Every extra day cost $20",
     "status": "Status",
     "return": "Return",
-    "noOrders": "You have no orders in this tab yet"
+    "noOrders": "You have no orders in this tab yet",
+    "orderNotFound": "The order is not found"
   },
   "product": {
     "name": "Product Name",
@@ -419,7 +421,8 @@
     "productFile": "product file",
     "selectPopupTitle": "Select rent duration",
     "durationNotSelected": "Please, select the rent duration",
-    "showMore": "show more"
+    "showMore": "show more",
+    "productNotFound": "The product is not found"
   },
   "products": {
     "title": "Products",
@@ -866,6 +869,10 @@
     "notificationsOn": "You have turned on notifications",
     "notificationsOff": "You have turned off notifications",
     "notificationsError": "Was unable to change your notification settings, please try again later"
+  },
+  "notifications": {
+    "noNotifications": "There is no notifications now.",
+    "notifications": "Notifications"
   },
   "vendorPublicProductPage": {
     "productList": "To Products List"

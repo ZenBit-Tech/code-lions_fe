@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 
-import { Box, CircularProgress, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 
 import ProductCard from 'src/components/ProductCard';
 import { useAppSelector } from 'src/redux/hooks';
@@ -13,12 +13,22 @@ function WishlistPage() {
   const data = useAppSelector((state) => state.wishlist);
 
   if (!data) {
-    return <CircularProgress sx={{ color: theme.palette.common.black }} />;
+    return (
+      <Typography
+        variant="h4"
+        sx={{ mt: 4, fontSize: theme.typography.h5.fontSize }}
+      >
+        {t('profile.wishlistNotFound')}
+      </Typography>
+    );
   }
 
   if (data.length === 0) {
     return (
-      <Typography variant="h4" sx={{ mt: 4, fontSize: '20px' }}>
+      <Typography
+        variant="h4"
+        sx={{ mt: 4, fontSize: theme.typography.h5.fontSize }}
+      >
         {t('profile.emptyWishlist')}
       </Typography>
     );

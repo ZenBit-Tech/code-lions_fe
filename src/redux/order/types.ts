@@ -61,6 +61,7 @@ export interface IOrderData {
   order: IOrder[];
   userName: string;
   userId: string;
+  hasLeftReview: boolean;
   address: IAddress;
 }
 

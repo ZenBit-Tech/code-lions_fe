@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 
 import { Box, Button, TextField, Typography } from '@mui/material';
 
+import { differenceInHours, parseISO } from 'date-fns';
 import ReviewModal from 'src/components/shared/ReviewModal';
 import StyledBackdrop from 'src/components/shared/StyledBackdrop';
 import useToast from 'src/components/shared/toasts/components/ToastProvider/ToastProviderHooks';
@@ -21,18 +22,27 @@ import theme from 'src/theme';
 import RejectOrderModal from './RejectOrderModal';
 import styles from './styles';
 
-interface INewOrderProps {
-  orderId: number;
-}
-
 interface IActionProps {
   order: IOrder;
 }
 
+interface IReturnedProps extends IActionProps {
+  hasLeftReview: boolean;
+}
+
 const mockDays: string = '5 days';
 const mockOverdue: string = '0 days';
+const twentyFourHours: number = 24;
 
-export function NewOrderVendorAction({ orderId }: INewOrderProps) {
+const isRejectButtonVisible = (orderCreationDate: string): boolean => {
+  const orderDate = parseISO(orderCreationDate);
+  const currentTime = new Date();
+  const hoursSinceOrderCreation = differenceInHours(currentTime, orderDate);
+
+  return hoursSinceOrderCreation <= twentyFourHours;
+};
+
+export function NewOrderVendorAction({ order }: IActionProps) {
   const { t } = useTranslation();
   const { showToast } = useToast();
 
@@ -53,7 +63,7 @@ export function NewOrderVendorAction({ orderId }: INewOrderProps) {
 
     try {
       await sendOrder({
-        orderId,
+        orderId: order.orderId,
         trackingNumber,
       }).unwrap();
 
@@ -67,12 +77,17 @@ export function NewOrderVendorAction({ orderId }: INewOrderProps) {
     setTrackingNumber(e.target.value);
   };
 
+  const showRejectButton = isRejectButtonVisible(order.createdAt);
+
   return (
     <>
       {showModal &&
         createPortal(
           <StyledBackdrop showModal={showModal}>
-            <RejectOrderModal onClose={handleModalClose} orderId={orderId} />
+            <RejectOrderModal
+              onClose={handleModalClose}
+              orderId={order.orderId}
+            />
           </StyledBackdrop>,
           document.body
         )}
@@ -90,18 +105,23 @@ export function NewOrderVendorAction({ orderId }: INewOrderProps) {
               {t('vendorOrder.send')}
             </Typography>
           </Button>
-          <Button sx={styles.rejectButton} onClick={handleModalOpen}>
-            <Typography variant="h4" sx={{ color: theme.palette.common.black }}>
-              {t('vendorOrder.reject')}
-            </Typography>
-          </Button>
+          {showRejectButton && (
+            <Button sx={styles.rejectButton} onClick={handleModalOpen}>
+              <Typography
+                variant="h4"
+                sx={{ color: theme.palette.common.black }}
+              >
+                {t('vendorOrder.reject')}
+              </Typography>
+            </Button>
+          )}
         </ProfileInputWrapper>
       </Box>
     </>
   );
 }
 
-export function NewOrderBuyerAction({ orderId }: INewOrderProps) {
+export function NewOrderBuyerAction({ order }: IActionProps) {
   const { t } = useTranslation();
 
   const [showModal, setShowModal] = useState<boolean>(false);
@@ -109,21 +129,28 @@ export function NewOrderBuyerAction({ orderId }: INewOrderProps) {
   const handleModalOpen = useCallback(() => setShowModal(true), []);
   const handleModalClose = useCallback(() => setShowModal(false), []);
 
+  const showRejectButton = isRejectButtonVisible(order.createdAt);
+
   return (
     <>
       {showModal &&
         createPortal(
           <StyledBackdrop showModal={showModal}>
-            <RejectOrderModal onClose={handleModalClose} orderId={orderId} />
+            <RejectOrderModal
+              onClose={handleModalClose}
+              orderId={order.orderId}
+            />
           </StyledBackdrop>,
           document.body
         )}
       <Box sx={styles.newOrderVendorWrapper}>
-        <Button sx={styles.rejectButton} onClick={handleModalOpen}>
-          <Typography variant="h4" sx={{ color: theme.palette.common.black }}>
-            {t('vendorOrder.reject')}
-          </Typography>
-        </Button>
+        {showRejectButton && (
+          <Button sx={styles.rejectButton} onClick={handleModalOpen}>
+            <Typography variant="h4" sx={{ color: theme.palette.common.black }}>
+              {t('vendorOrder.reject')}
+            </Typography>
+          </Button>
+        )}
       </Box>
     </>
   );
@@ -383,7 +410,7 @@ export function SentBackBuyerAction({ order }: IActionProps) {
   );
 }
 
-export function ReturnedBuyerAction({ order }: IActionProps) {
+export function ReturnedBuyerAction({ order, hasLeftReview }: IReturnedProps) {
   const { t } = useTranslation();
 
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
@@ -407,17 +434,19 @@ export function ReturnedBuyerAction({ order }: IActionProps) {
           document.body
         )}
       <Box sx={styles.returnedWrapper}>
-        <Button sx={styles.rejectButton} onClick={handleModalOpen}>
-          <Typography variant="h4" sx={{ color: theme.palette.common.black }}>
-            {t('vendorOrder.leaveReview')}
-          </Typography>
-        </Button>
+        {!hasLeftReview && (
+          <Button sx={styles.rejectButton} onClick={handleModalOpen}>
+            <Typography variant="h4" sx={{ color: theme.palette.common.black }}>
+              {t('vendorOrder.leaveReview')}
+            </Typography>
+          </Button>
+        )}
       </Box>
     </>
   );
 }
 
-export function ReturnedVendorAction({ order }: IActionProps) {
+export function ReturnedVendorAction({ order, hasLeftReview }: IReturnedProps) {
   const { t } = useTranslation();
 
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
@@ -441,11 +470,13 @@ export function ReturnedVendorAction({ order }: IActionProps) {
           document.body
         )}
       <Box sx={styles.returnedWrapper}>
-        <Button sx={styles.rejectButton} onClick={handleModalOpen}>
-          <Typography variant="h4" sx={{ color: theme.palette.common.black }}>
-            {t('vendorOrder.leaveReview')}
-          </Typography>
-        </Button>
+        {!hasLeftReview && (
+          <Button sx={styles.rejectButton} onClick={handleModalOpen}>
+            <Typography variant="h4" sx={{ color: theme.palette.common.black }}>
+              {t('vendorOrder.leaveReview')}
+            </Typography>
+          </Button>
+        )}
       </Box>
     </>
   );

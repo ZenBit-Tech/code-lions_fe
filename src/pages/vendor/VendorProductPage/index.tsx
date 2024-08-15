@@ -27,10 +27,10 @@ import PreviewModePopup from './PreviewModePopup';
 import ProductSection from './ProductSection';
 
 function VendorProductPage() {
+  const { t } = useTranslation();
   const { productId } = useParams();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const { t } = useTranslation();
   const { data, isLoading } = useGetProductByIdQuery(
     productId ? { productId } : skipToken
   );
@@ -61,7 +61,7 @@ function VendorProductPage() {
 
   const handleClose = () => setShowModal(false);
 
-  if (isLoading || !data) {
+  if (isLoading) {
     return (
       <Box
         width="100vw"
@@ -71,6 +71,25 @@ function VendorProductPage() {
         alignItems="center"
       >
         <CircularProgress sx={{ color: theme.palette.common.black }} />
+      </Box>
+    );
+  }
+
+  if (!data) {
+    return (
+      <Box
+        width="100vw"
+        height="100vh"
+        display="flex"
+        justifyContent="center"
+        alignItems="flex-start"
+      >
+        <Typography
+          variant="h4"
+          sx={{ mt: 4, fontSize: theme.typography.h5.fontSize }}
+        >
+          {t('product.productNotFound')}
+        </Typography>
       </Box>
     );
   }
@@ -122,7 +141,11 @@ function VendorProductPage() {
             }}
           >
             <IconButton
-              onClick={() => navigate(urls.VENDOR_GLOBAL_PRODUCTS)}
+              onClick={() =>
+                userRole === userRoles.ADMIN
+                  ? navigate(`${urls.ADMIN}/${urls.ADMIN_PRODUCT_LIST}`)
+                  : navigate(urls.VENDOR_GLOBAL_PRODUCTS)
+              }
               sx={{ padding: 0 }}
             >
               <GoBackArrow />

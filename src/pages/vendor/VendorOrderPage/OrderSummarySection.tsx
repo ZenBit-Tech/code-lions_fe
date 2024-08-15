@@ -16,7 +16,7 @@ function OrderSummarySection({ shipping, price }: IOrderSummarySectionProps) {
   const { t } = useTranslation();
 
   const total = useMemo(() => {
-    return Number(price) - discount + shipping;
+    return Number(price) - discount + Number(shipping);
   }, [price, discount, shipping]);
 
   return (
