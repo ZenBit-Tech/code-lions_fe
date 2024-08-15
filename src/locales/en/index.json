@@ -869,6 +869,10 @@
     "notificationsOff": "You have turned off notifications",
     "notificationsError": "Was unable to change your notification settings, please try again later"
   },
+  "notifications": {
+    "noNotifications": "There is no notifications now.",
+    "notifications": "Notifications"
+  },
   "vendorPublicProductPage": {
     "productList": "To Products List"
   }

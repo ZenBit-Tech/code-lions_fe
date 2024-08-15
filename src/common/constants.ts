@@ -76,6 +76,7 @@ export const urls = {
   CART: 'cart',
   CHECKOUT: 'checkout',
   VENDOR_GLOBAL_PRODUCTS: '/vendor/products',
+  NOTIFICATIONS: 'notifications',
 };
 
 export const RTKUrls = {
@@ -126,6 +127,7 @@ export const RTKUrls = {
   ORDERS_VENDOR: 'orders/vendor',
   FOLLOW_VENDOR: '/vendors/follow',
   UNFOLLOW_VENDOR: '/vendors/unfollow',
+  NOTIFICATIONS: 'notifications',
   STRIPE: '/stripe',
   REJECT: 'reject',
   SEND: 'send',
@@ -316,6 +318,8 @@ export const eventalCategory: string = 'evental';
 export const timeFormat = 'p';
 export const monthAndDayFormat = 'MMMM d';
 export const yearMonthAndDayFormat = 'yyyy MM d';
+export const dateLocalsForNotifications = 'en-US';
+export const dateFormatForNotifications = '2-digit';
 
 export const orderStatus = {
   NEW: 'New order',

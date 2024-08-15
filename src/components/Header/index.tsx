@@ -163,7 +163,7 @@ function Header() {
         >
           {user.isLoggedIn && user.role === userRoles.BUYER ? (
             <>
-              <Link to={urls.HOME}>
+              <Link to={urls.NOTIFICATIONS}>
                 <SvgHover>
                   <BellIcon />
                 </SvgHover>
