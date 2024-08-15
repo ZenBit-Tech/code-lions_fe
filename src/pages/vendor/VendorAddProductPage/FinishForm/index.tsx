@@ -8,6 +8,7 @@ import { Box } from '@mui/system';
 import Oval from 'src/assets/icons/addProduct/oval.svg';
 import { urls } from 'src/common/constants';
 import RejectProductFlowModal from 'src/components/shared/RejectProductFlowModal';
+import useRejectProductFlowModal from 'src/components/shared/RejectProductFlowModal/hooks/useRejectProductFlowModal';
 import StyledButton from 'src/components/shared/StyledButton';
 import {
   PaddingVariants,
@@ -28,6 +29,7 @@ import {
   setPrice,
   resetAddProduct,
   selectProductId,
+  setPending,
 } from 'src/redux/addProduct/addProductSlice';
 import { useAppDispatch, useAppSelector } from 'src/redux/hooks';
 import { useUpdateProductMutation } from 'src/redux/vendorProduct/vendorProductService';
@@ -46,11 +48,7 @@ function FinishForm() {
   const [isVerificationModalOpen, setIsVerificationModalOpen] =
     useState<boolean>(false);
 
-  const [isRejectModalOpen, setIsRejectModalOpen] = useState<boolean>(false);
-
-  const toggleRejectModal = (): void => {
-    setIsRejectModalOpen(!isRejectModalOpen);
-  };
+  const { isRejectModalOpen, toggleRejectModal } = useRejectProductFlowModal();
 
   const productId = useAppSelector(selectProductId);
   const {
@@ -236,6 +234,7 @@ function FinishForm() {
           onClose={() => {
             setIsVerificationModalOpen(false);
             dispatch(resetAddProduct());
+            dispatch(setPending(true));
             navigate(urls.VENDOR_GLOBAL_PRODUCTS);
           }}
         />

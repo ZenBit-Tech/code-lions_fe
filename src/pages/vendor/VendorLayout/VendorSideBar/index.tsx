@@ -14,20 +14,36 @@ import useUnreadChatsCount from 'src/common/hooks/useUnreadChatsCount';
 import StyledButton from 'src/components/shared/StyledButton';
 import Logo from 'src/components/SidebarAdmin/Logo';
 import { StyledListItemButton } from 'src/components/SidebarAdmin/styles';
-import { setAddProductStep } from 'src/redux/addProduct/addProductSlice';
-import { useAppDispatch } from 'src/redux/hooks';
+import {
+  setAddProductStep,
+  setPending,
+} from 'src/redux/addProduct/addProductSlice';
+import { useAppDispatch, useAppSelector } from 'src/redux/hooks';
 import theme from 'src/theme';
 
 import UnreadMessages from './styles';
 
 function VendorSideBar() {
   const unreadChatsCount = useUnreadChatsCount();
+  const pending = useAppSelector((state) => state.addProduct.pending);
 
   const { t } = useTranslation();
 
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+
+  const handleRejectProductFlowModalOpen = (
+    event: React.MouseEvent<HTMLAnchorElement, MouseEvent>
+  ): void => {
+    if (pending === null) {
+      return;
+    }
+    if (!pending) {
+      event.preventDefault();
+      dispatch(setPending(true));
+    }
+  };
 
   const profileActive = () => {
     return (
@@ -50,8 +66,9 @@ function VendorSideBar() {
       </Box>
       <StyledButton
         fullWidth
-        onClick={() => {
+        onClick={async () => {
           dispatch(setAddProductStep());
+          dispatch(setPending(false));
           navigate(urls.VENDOR_ADD_PRODUCT);
         }}
       >
@@ -60,7 +77,12 @@ function VendorSideBar() {
       </StyledButton>
       <Box mt="28px">
         <List component="nav">
-          <NavLink to={urls.VENDOR_DASHBOARD}>
+          <NavLink
+            to={urls.VENDOR_DASHBOARD}
+            onClick={(event) => {
+              handleRejectProductFlowModalOpen(event);
+            }}
+          >
             {({ isActive }) => (
               <StyledListItemButton selected={isActive}>
                 <Box
@@ -108,7 +130,12 @@ function VendorSideBar() {
             )}
           </NavLink>
 
-          <NavLink to={urls.VENDOR_PRODUCTS}>
+          <NavLink
+            to={urls.VENDOR_PRODUCTS}
+            onClick={(event) => {
+              handleRejectProductFlowModalOpen(event);
+            }}
+          >
             {({ isActive }) => (
               <StyledListItemButton selected={isActive}>
                 <Box
@@ -163,7 +190,12 @@ function VendorSideBar() {
             )}
           </NavLink>
 
-          <NavLink to={urls.VENDOR_ORDERS}>
+          <NavLink
+            to={urls.VENDOR_ORDERS}
+            onClick={(event) => {
+              handleRejectProductFlowModalOpen(event);
+            }}
+          >
             {({ isActive }) => (
               <StyledListItemButton selected={isActive}>
                 <Box
@@ -211,7 +243,12 @@ function VendorSideBar() {
             )}
           </NavLink>
 
-          <NavLink to={urls.VENDOR_CHATS}>
+          <NavLink
+            to={urls.VENDOR_CHATS}
+            onClick={(event) => {
+              handleRejectProductFlowModalOpen(event);
+            }}
+          >
             {({ isActive }) => (
               <StyledListItemButton selected={isActive}>
                 <Box
@@ -264,7 +301,12 @@ function VendorSideBar() {
             )}
           </NavLink>
 
-          <NavLink to={`${urls.VENDOR_PROFILE}/${urls.PROFILE_DETAILS}`}>
+          <NavLink
+            to={`${urls.VENDOR_PROFILE}/${urls.PROFILE_DETAILS}`}
+            onClick={(event) => {
+              handleRejectProductFlowModalOpen(event);
+            }}
+          >
             <StyledListItemButton selected={profileActive()}>
               <Box
                 display="flex"

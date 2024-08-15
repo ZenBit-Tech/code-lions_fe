@@ -10,7 +10,10 @@ import CloseIcon from 'src/assets/icons/close.svg';
 import { urls } from 'src/common/constants';
 import StyledButton from 'src/components/shared/StyledButton';
 import { StyleVariants } from 'src/components/shared/StyledButton/types';
-import { resetAddProduct } from 'src/redux/addProduct/addProductSlice';
+import {
+  resetAddProduct,
+  setPending,
+} from 'src/redux/addProduct/addProductSlice';
 import { useAppDispatch } from 'src/redux/hooks';
 
 import {
@@ -70,6 +73,7 @@ function VerificationModal({ isModalOpen, onClose }: IVerificationModalProps) {
   const handleNavigation = (): void => {
     onClose();
     dispatch(resetAddProduct());
+    dispatch(setPending(true));
     navigate(urls.VENDOR_GLOBAL_PRODUCTS);
   };
 

@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
@@ -8,6 +7,7 @@ import { Box } from '@mui/system';
 import Oval from 'src/assets/icons/addProduct/oval.svg';
 import { urls } from 'src/common/constants';
 import RejectProductFlowModal from 'src/components/shared/RejectProductFlowModal';
+import useRejectProductFlowModal from 'src/components/shared/RejectProductFlowModal/hooks/useRejectProductFlowModal';
 import StyledButton from 'src/components/shared/StyledButton';
 import {
   PaddingVariants,
@@ -55,11 +55,7 @@ function FinishForm() {
     price: productPrice,
   } = useAppSelector((state) => state.addProduct);
 
-  const [isRejectModalOpen, setIsRejectModalOpen] = useState<boolean>(false);
-
-  const toggleRejectModal = (): void => {
-    setIsRejectModalOpen(!isRejectModalOpen);
-  };
+  const { isRejectModalOpen, toggleRejectModal } = useRejectProductFlowModal();
 
   const [updateProduct] = useUpdateProductMutation();
 

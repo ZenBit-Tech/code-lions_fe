@@ -1,3 +1,5 @@
+import { useParams } from 'react-router-dom';
+
 import { Box, CircularProgress } from '@mui/material';
 
 import { profilePathsFor } from 'src/common/constants';
@@ -22,6 +24,7 @@ import {
 } from './styles';
 
 function VendorPublicProfilePage() {
+  const { id } = useParams<{ id: string }>();
   const {
     t,
     userName,
@@ -47,14 +50,19 @@ function VendorPublicProfilePage() {
     <Container>
       <Header />
       <MainContainerWrapper>
-        <ProfileInfo name={userName} rating={userRating} avatar={userAvatar} />
+        <ProfileInfo
+          name={userName}
+          rating={userRating}
+          avatar={userAvatar}
+          id={id ?? ''}
+        />
         <Container sx={{ marginLeft: '32px', width: '100%' }}>
           <TabsWrapper>
             <TabButton
               active={activeTab === t('vendorProfile.products')}
               onClick={() => handleTabChange(t('vendorProfile.products'))}
             >
-              {t('vendorProfile.products')}
+              {t('vendorProfile.products')} ({products.length})
             </TabButton>
             <TabButton
               active={activeTab === t('vendorProfile.reviews')}
@@ -80,7 +88,9 @@ function VendorPublicProfilePage() {
           )}
           {activeTab === t('vendorProfile.products') && (
             <>
-              <ReviewLabel>{t('vendorProfile.closet')}</ReviewLabel>
+              <ReviewLabel>
+                {t('vendorProfile.closet')} ({products.length})
+              </ReviewLabel>
               {products.length > 0 ? (
                 <ProductsContainerWrapper>
                   <ProductsContainer>

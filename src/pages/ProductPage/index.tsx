@@ -1,6 +1,7 @@
+import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 
-import { Box, CircularProgress } from '@mui/material';
+import { Box, Typography, CircularProgress } from '@mui/material';
 
 import { skipToken } from '@reduxjs/toolkit/query';
 import { useGetProductByIdQuery } from 'src/redux/product/productService';
@@ -11,12 +12,14 @@ import ImagesSection from './ImagesSection';
 import ProductSection from './ProductSection';
 
 function ProductPage() {
+  const { t } = useTranslation();
+
   const { productId } = useParams();
   const { data, isLoading } = useGetProductByIdQuery(
     productId ? { productId } : skipToken
   );
 
-  if (isLoading || !data) {
+  if (isLoading) {
     return (
       <Box
         width="100vw"
@@ -26,6 +29,25 @@ function ProductPage() {
         alignItems="center"
       >
         <CircularProgress sx={{ color: theme.palette.common.black }} />
+      </Box>
+    );
+  }
+
+  if (!data) {
+    return (
+      <Box
+        width="100vw"
+        height="100vh"
+        display="flex"
+        justifyContent="center"
+        alignItems="flex-start"
+      >
+        <Typography
+          variant="h4"
+          sx={{ mt: 4, fontSize: theme.typography.h5.fontSize }}
+        >
+          {t('product.productNotFound')}
+        </Typography>
       </Box>
     );
   }

@@ -129,6 +129,12 @@ export const RTKUrls = {
   UNFOLLOW_VENDOR: '/vendors/unfollow',
   NOTIFICATIONS: 'notifications',
   STRIPE: '/stripe',
+  REJECT: 'reject',
+  SEND: 'send',
+  RECEIVE: 'receive',
+  SEND_BACK: 'send-back',
+  RETURN: 'return',
+  PAY_SEND: 'pay-send',
 };
 
 export const HttpMethods = {

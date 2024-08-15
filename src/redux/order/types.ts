@@ -3,11 +3,16 @@ import { ProductStatus } from 'src/redux/product/types';
 export interface IOrder {
   id: string;
   orderId: number;
+  vendorId: string;
+  buyerId: string;
   price: string;
   createdAt: string;
   shipping: number;
   status: string;
   products: IOrderProduct[];
+  trackingNumber: string | null;
+  rejectedBy: string | null;
+  rejectReason: string | null;
 }
 
 interface Image {
@@ -54,6 +59,7 @@ export interface IOrderData {
   order: IOrder[];
   userName: string;
   userId: string;
+  hasLeftReview: boolean;
   address: IAddress;
 }
 

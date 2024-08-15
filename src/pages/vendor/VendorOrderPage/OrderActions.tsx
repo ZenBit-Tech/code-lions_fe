@@ -1,88 +1,80 @@
 import { Box } from '@mui/material';
 
 import { orderStatus, userRoles } from 'src/common/constants';
+import { IOrder } from 'src/redux/order/types';
 
 import {
   NewOrderVendorAction,
+  NewOrderBuyerAction,
   SentVendorAction,
   SentBuyerAction,
   ReceivedBuyerAction,
   ReceivedVendorAction,
   SentBackVendorAction,
   SentBackBuyerAction,
-  ReturnedAction,
+  ReturnedBuyerAction,
+  ReturnedVendorAction,
   OverdueBuyerAction,
   OverdueVendorAction,
+  RejectedAction,
 } from './OrderActionComponents';
 
 interface IOrderActionsProps {
   status: string | undefined;
-  orderId: number;
+  order: IOrder;
   role: string | null;
-  trackingNumber: string;
-  onActionClick: (status: string) => void;
-  openModal?: () => void;
+  hasLeftReview: boolean;
 }
 
 function OrderActions({
   status,
-  orderId,
+  order,
   role,
-  trackingNumber,
-  onActionClick,
-  openModal,
+  hasLeftReview,
 }: IOrderActionsProps) {
   const renderButtons = () => {
     switch (status) {
       case orderStatus.NEW:
         return role === userRoles.VENDOR ? (
-          <NewOrderVendorAction
-            orderId={orderId}
-            trackingNumber={trackingNumber}
-            onActionClick={onActionClick}
-            openModal={openModal}
-          />
-        ) : null;
+          <NewOrderVendorAction order={order} />
+        ) : (
+          <NewOrderBuyerAction order={order} />
+        );
+
+      case orderStatus.REJECTED:
+        return <RejectedAction order={order} />;
 
       case orderStatus.SENT:
         return role === userRoles.VENDOR ? (
-          <SentVendorAction trackingNumber={trackingNumber} />
+          <SentVendorAction order={order} />
         ) : (
-          <SentBuyerAction
-            trackingNumber={trackingNumber}
-            onActionClick={onActionClick}
-          />
+          <SentBuyerAction order={order} />
         );
 
       case orderStatus.RECEIVED:
         return role === userRoles.BUYER ? (
-          <ReceivedBuyerAction
-            trackingNumber={trackingNumber}
-            onActionClick={onActionClick}
-          />
+          <ReceivedBuyerAction order={order} />
         ) : (
           <ReceivedVendorAction />
         );
 
       case orderStatus.SENT_BACK:
         return role === userRoles.VENDOR ? (
-          <SentBackVendorAction
-            trackingNumber={trackingNumber}
-            onActionClick={onActionClick}
-          />
+          <SentBackVendorAction order={order} />
         ) : (
-          <SentBackBuyerAction trackingNumber={trackingNumber} />
+          <SentBackBuyerAction order={order} />
         );
 
       case orderStatus.RETURNED:
-        return <ReturnedAction />;
+        return role === userRoles.BUYER ? (
+          <ReturnedBuyerAction order={order} hasLeftReview={hasLeftReview} />
+        ) : (
+          <ReturnedVendorAction order={order} hasLeftReview={hasLeftReview} />
+        );
 
       case orderStatus.OVERDUE:
         return role === userRoles.BUYER ? (
-          <OverdueBuyerAction
-            trackingNumber={trackingNumber}
-            onActionClick={onActionClick}
-          />
+          <OverdueBuyerAction order={order} />
         ) : (
           <OverdueVendorAction />
         );

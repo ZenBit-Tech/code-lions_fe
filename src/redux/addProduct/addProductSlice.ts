@@ -20,6 +20,7 @@ const initialState: IAddedProduct = {
   images: [],
   price: 0,
   step: 1,
+  pending: null,
 };
 
 export const fetchProductImages = createAsyncThunk(
@@ -107,6 +108,9 @@ export const addProductSlice = createSlice({
     resetAddProduct(state) {
       Object.assign(state, initialState);
     },
+    setPending(state, action: PayloadAction<boolean>) {
+      state.pending = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchProductImages.fulfilled, (state, action) => {
@@ -141,6 +145,7 @@ export const {
   decreaseAddProductStep,
   setAddProductStep,
   resetAddProduct,
+  setPending,
 } = addProductSlice.actions;
 
 export const selectAddProductStep = (state: { addProduct: IAddedProduct }) =>
