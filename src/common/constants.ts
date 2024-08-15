@@ -318,6 +318,17 @@ export const eventalCategory: string = 'evental';
 export const timeFormat = 'p';
 export const monthAndDayFormat = 'MMMM d';
 export const yearMonthAndDayFormat = 'yyyy MM d';
+
+export const orderStatus = {
+  NEW: 'New order',
+  REJECTED: 'Rejected',
+  SENT: 'Sent',
+  RECEIVED: 'Received',
+  SENT_BACK: 'Sent back',
+  OVERDUE: 'Overdue',
+  RETURNED: 'Returned',
+};
+
 export const dateLocalsForNotifications = 'en-US';
 export const dateFormatForNotifications = '2-digit';
 
@@ -327,3 +338,4 @@ export const profileOrdersTabs = {
 };
 
 export const redirectDelay = 3000;
+export const priceForOneOverdueDay = 20;

@@ -385,12 +385,16 @@
     "archive": "Archive",
     "order": "Order",
     "items": "Items",
-    "freeReturn": "Free Return shipping",
+    "rentalDaysLeft": "Rental days left",
+    "daysInOverdue": "Days in overdue",
     "warning": "If you not return on time: Every extra day cost $20",
     "status": "Status",
     "return": "Return",
+    "pay": "Pay",
+    "seeDetails": "See details",
     "noOrders": "You have no orders in this tab yet",
-    "orderNotFound": "The order is not found"
+    "trackingNumber": "Tracking Number",
+    "days": "days"
   },
   "product": {
     "name": "Product Name",
