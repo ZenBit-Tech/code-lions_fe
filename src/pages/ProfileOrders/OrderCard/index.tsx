@@ -2,9 +2,9 @@ import { useTranslation } from 'react-i18next';
 
 import { Box, Typography } from '@mui/material';
 
-import { orderStatus as orderStatuses } from 'src/common/constants';
 import StyledButton from 'src/components/shared/StyledButton';
 import { StyleVariants } from 'src/components/shared/StyledButton/types';
+import { OrderStatus as orderStatuses } from 'src/redux/order/types';
 import theme from 'src/theme';
 
 import { StyledCard, StyledImage, StyledCardFooter } from './styles';

@@ -1,29 +1,28 @@
-import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { Box } from '@mui/system';
 
+import { OrderStatus } from 'src/redux/order/types';
 import theme from 'src/theme';
 
 import { StyledListItemButton, StyledTypography } from './styles';
 
-function OrdersButtons() {
+interface IOrdersButtonsProps {
+  status: OrderStatus;
+  changeStatus: (value: OrderStatus) => void;
+}
+
+function OrdersButtons({ status, changeStatus }: IOrdersButtonsProps) {
   const { t } = useTranslation();
 
-  const [selectedStatus, setSelectedStatus] = useState('');
-
-  const handleStatusClick = (status: string) => {
-    setSelectedStatus(status);
-  };
-
   const statuses = {
-    NEW: t('vendorOrders.newOrder'),
-    SENT: t('vendorOrders.sent'),
-    DELIVERED: t('vendorOrders.delivered'),
-    RECEIVED: t('vendorOrders.received'),
-    WAITING_RETURNING: t('vendorOrders.waiting'),
-    RETURNED: t('vendorOrders.returned'),
+    NEW_ORDER: t('vendorOrders.newOrder'),
     REJECTED: t('vendorOrders.rejected'),
+    SENT: t('vendorOrders.sent'),
+    RECEIVED: t('vendorOrders.received'),
+    SENT_BACK: t('vendorOrders.sentBack'),
+    OVERDUE: t('vendorOrders.overdue'),
+    RETURNED: t('vendorOrders.returned'),
   };
 
   return (
@@ -31,10 +30,10 @@ function OrdersButtons() {
       {Object.entries(statuses).map(([key, label]) => (
         <StyledListItemButton
           key={key}
-          selected={selectedStatus === label}
-          onClick={() => handleStatusClick(label)}
+          selected={status === label}
+          onClick={() => changeStatus(label as OrderStatus)}
         >
-          <StyledTypography theme={theme} isActive={selectedStatus === label}>
+          <StyledTypography theme={theme} isActive={status === label}>
             {label}
           </StyledTypography>
         </StyledListItemButton>

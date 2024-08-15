@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 import { Box, IconButton, Typography } from '@mui/material';
 
 import ArrowIcon from 'src/assets/icons/arrow-left.svg';
+import { urls } from 'src/common/constants';
 
 import StyledLink from './styles';
 
@@ -18,7 +19,8 @@ function AdminSectionTitle({
   showBackLink = false,
 }: IAdminSectionTitle) {
   const location = useLocation();
-  const backLinkHref = location.state?.from ?? '/';
+  const backLinkHref =
+    location.state?.from ?? `${urls.ADMIN}/${urls.ADMIN_USERS}`;
 
   return (
     <Box display="flex" alignItems="center" mb="24px" gap="8px">

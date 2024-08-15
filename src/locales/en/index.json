@@ -462,7 +462,7 @@
     "revenueAnalytics": "Revenue Analytics",
     "yearly": "Yearly",
     "salesByCategories": "Sales by categories",
-    "byWeek": "By week",
+    "total": "Total",
     "source": "Source",
     "orders": "Orders",
     "amount": "Amount",
@@ -718,14 +718,15 @@
   },
   "vendorOrders": {
     "title": "My Orders",
-    "newOrder": "New Order",
+    "newOrder": "New order",
     "sent": "Sent",
-    "delivered": "Delivered",
     "received": "Received",
-    "waiting": "Waiting for returning",
+    "sentBack": "Sent back",
+    "overdue": "Overdue",
     "returned": "Returned",
     "rejected": "Rejected",
-    "noOrders": "You have no orders"
+    "noOrders": "You have no orders with status ",
+    "ordersError": "Unable to get list of orders, please try again later"
   },
   "productsAdmin": {
     "title": "Products",

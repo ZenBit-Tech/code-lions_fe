@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 import { Chip, TableBody, TableCell, TableHead, TableRow } from '@mui/material';
 import { styled } from '@mui/system';
 
-import { orderStatus } from 'src/common/constants';
 import hexToRgba from 'src/common/utils/hexToRgba';
+import { OrderStatus } from 'src/redux/order/types';
 
 export const TableHeadStyled = styled(TableHead)(({ theme }) => ({
   backgroundColor: theme.palette.grey[300],
@@ -37,12 +37,12 @@ export const BodyTableCell = styled(TableCell)(({ theme }) => ({
 
 const statusColors = {
   newOder: '#B2C450',
-  sent: '#36B37E',
-  delivered: '#2668BD',
-  received: '#FFBB0B',
-  waiting: '#FF640D',
-  returned: '#3F30F3',
   rejected: '#DE506F',
+  sent: '#36B37E',
+  received: '#FFBB0B',
+  sentBack: '#FF640D',
+  overdue: '#DE50B8',
+  returned: '#3F30F3',
 };
 
 const opacity = 0.25;
@@ -51,25 +51,25 @@ export const Status = styled(Chip)<{ status: string }>(({ status }) => {
   let color;
   let backgroundColor;
 
-  if (status === orderStatus.NEW) {
+  if (status === OrderStatus.NEW) {
     color = statusColors.newOder;
     backgroundColor = hexToRgba(statusColors.newOder, opacity);
-  } else if (status === orderStatus.SENT) {
+  } else if (status === OrderStatus.SENT) {
     color = statusColors.sent;
     backgroundColor = hexToRgba(statusColors.sent, opacity);
-  } else if (status === orderStatus.SENT_BACK) {
-    color = statusColors.delivered;
-    backgroundColor = hexToRgba(statusColors.delivered, opacity);
-  } else if (status === orderStatus.RECEIVED) {
+  } else if (status === OrderStatus.SENT_BACK) {
+    color = statusColors.sentBack;
+    backgroundColor = hexToRgba(statusColors.sentBack, opacity);
+  } else if (status === OrderStatus.RECEIVED) {
     color = statusColors.received;
     backgroundColor = hexToRgba(statusColors.received, opacity);
-  } else if (status === orderStatus.OVERDUE) {
-    color = statusColors.waiting;
-    backgroundColor = hexToRgba(statusColors.waiting, opacity);
-  } else if (status === orderStatus.RETURNED) {
+  } else if (status === OrderStatus.OVERDUE) {
+    color = statusColors.overdue;
+    backgroundColor = hexToRgba(statusColors.overdue, opacity);
+  } else if (status === OrderStatus.RETURNED) {
     color = statusColors.returned;
     backgroundColor = hexToRgba(statusColors.returned, opacity);
-  } else if (status === orderStatus.REJECTED) {
+  } else if (status === OrderStatus.REJECTED) {
     color = statusColors.rejected;
     backgroundColor = hexToRgba(statusColors.rejected, opacity);
   } else {

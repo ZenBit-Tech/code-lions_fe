@@ -321,16 +321,6 @@ export const yearMonthAndDayFormat = 'yyyy MM d';
 export const dateLocalsForNotifications = 'en-US';
 export const dateFormatForNotifications = '2-digit';
 
-export const orderStatus = {
-  NEW: 'New order',
-  REJECTED: 'Rejected',
-  SENT: 'Sent',
-  RECEIVED: 'Received',
-  SENT_BACK: 'Sent back',
-  OVERDUE: 'Overdue',
-  RETURNED: 'Returned',
-};
-
 export const profileOrdersTabs = {
   CURRENT: 'Current',
   ARCHIVE: 'Archive',
