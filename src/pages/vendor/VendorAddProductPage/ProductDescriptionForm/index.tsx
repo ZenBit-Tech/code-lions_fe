@@ -134,6 +134,8 @@ function ProductDescriptionForm() {
     }
   };
 
+  const [openColorsSelect, setColorsSelectOpen] = useState(false);
+
   const handleUpload = async () => {
     try {
       if (selectedFile) {
@@ -339,12 +341,27 @@ function ProductDescriptionForm() {
                 const selectedOptions = selected as colorOptions[];
 
                 if (selectedOptions.length === 0) {
-                  return <Typography>{colors[0].value}</Typography>;
+                  return (
+                    <Typography>
+                      {t('editProduct.colorsPlaceholder')}
+                    </Typography>
+                  );
                 }
 
                 return selectedOptions.join(', ');
               }}
-              onChange={(v) => setProductColors(v.target.value as string[])}
+              onChange={(v) => {
+                const selectedValues = v.target.value as string[];
+
+                setProductColors(selectedValues);
+
+                if (selectedValues.length >= 1) {
+                  setColorsSelectOpen(false);
+                }
+              }}
+              open={openColorsSelect}
+              onOpen={() => setColorsSelectOpen(true)}
+              onClose={() => setColorsSelectOpen(false)}
             />
           </Box>
         </Box>
@@ -473,7 +490,7 @@ function ProductDescriptionForm() {
               !productName ||
               !productDescription ||
               productBrand === brands[0].value ||
-              productColors[0] === colors[0].value ||
+              !productColors[0] ||
               (!productMaterial && shoesMaterial === materials[0].value) ||
               (!shoesMaterial && productMaterial === materials[0].value) ||
               !selectedPdfUrl
