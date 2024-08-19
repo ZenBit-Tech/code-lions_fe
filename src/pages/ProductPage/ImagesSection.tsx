@@ -82,7 +82,12 @@ function ImagesSection({
                 cursor: 'pointer',
               }}
             >
-              <img src={item} alt={`product${index}`} loading="lazy" />
+              <img
+                srcSet={`${item}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+                src={`${item}?w=164&h=164&fit=crop&auto=format`}
+                alt={`product${index}`}
+                loading="lazy"
+              />
             </ImageListItem>
           ))}
         </ImageList>
