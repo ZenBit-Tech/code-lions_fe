@@ -70,7 +70,7 @@ export const baseQueryWithReauth = async (
       const refreshResult = await baseQuery(
         {
           url: RTKUrls.REFRESH_TOKEN,
-          method: 'POST',
+          method: HttpMethods.POST,
           body: { refreshToken },
         },
         api,
