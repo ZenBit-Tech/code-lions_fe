@@ -50,7 +50,8 @@ const useImagesSection = (productId: string, images: string[]) => {
     setInitialSlideIndex(index);
   };
 
-  const handleAddToWishlist = async () => {
+  const handleAddToWishlist = async (event: React.MouseEvent) => {
+    event.stopPropagation();
     if (userId) {
       try {
         await addToWishlist({ userId, productId }).unwrap();
@@ -65,7 +66,8 @@ const useImagesSection = (productId: string, images: string[]) => {
     }
   };
 
-  const handleRemoveFromWishlist = async () => {
+  const handleRemoveFromWishlist = async (event: React.MouseEvent) => {
+    event.stopPropagation();
     if (userId) {
       try {
         await removeFromWishlist({ userId, productId }).unwrap();
