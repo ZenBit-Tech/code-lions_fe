@@ -484,7 +484,8 @@
     "title": "General Information",
     "avatar": "Avatar",
     "avatarRequirements": "Only *.png, *.jpg and *.jpeg image files are accepted",
-    "changePhoto": "Change Photo"
+    "changePhoto": "Change Photo",
+    "goToStripe": "Go to your Stripe Account"
   },
   "vendorOrder": {
     "vendor": "Vendor",

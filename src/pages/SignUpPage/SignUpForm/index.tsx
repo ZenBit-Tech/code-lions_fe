@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
@@ -51,6 +52,7 @@ function SignUpForm() {
   const {
     control,
     watch,
+    trigger,
     handleSubmit,
     formState: { isDirty, isValid, errors },
   } = useForm<ISignUpForm>({
@@ -64,7 +66,20 @@ function SignUpForm() {
     mode: 'onTouched',
   });
 
-  watch('password');
+  const selectedPassword1 = watch('password');
+  const selectedPassword2 = watch('repeatPassword');
+
+  useEffect(() => {
+    if (selectedPassword2) {
+      trigger('password');
+    }
+  }, [selectedPassword2, trigger]);
+
+  useEffect(() => {
+    if (selectedPassword1) {
+      trigger('repeatPassword');
+    }
+  }, [selectedPassword1, trigger]);
 
   const errorsLength: number = Object.keys(errors).length;
 

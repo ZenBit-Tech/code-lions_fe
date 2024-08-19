@@ -38,8 +38,7 @@ export const TabButton = styled(Button, {
 
 export const MainContainerWrapper = styled(Box)(() => ({
   display: 'flex',
-  marginLeft: '54px',
-  marginRight: '54px',
+  margin: '30px 54px',
   alignItems: 'flex-start',
 }));
 

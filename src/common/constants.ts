@@ -120,6 +120,7 @@ export const RTKUrls = {
   HIDE_RENTAL_RULES: 'hide-rental-rules',
   CREATE_CHECKOUT: '/stripe/create-checkout-session',
   CREATE_ACCOUNT: '/stripe/create-account',
+  CREATE_LOGIN_LINK: '/stripe/create-login-link',
   CHAT: 'chats',
   SUPPORT: 'chats/support',
   ORDERS: 'orders',

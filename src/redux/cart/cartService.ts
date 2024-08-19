@@ -54,6 +54,13 @@ export const cartApi = createApi({
       }),
       invalidatesTags: ['Cart'],
     }),
+
+    createLoginLink: build.mutation<IStripeSessionResponse, void>({
+      query: () => ({
+        url: RTKUrls.CREATE_LOGIN_LINK,
+        method: HttpMethods.POST,
+      }),
+    }),
   }),
 });
 
@@ -62,4 +69,5 @@ export const {
   useAddToCartMutation,
   useRemoveFromCartMutation,
   useCreateCheckoutSessionMutation,
+  useCreateLoginLinkMutation,
 } = cartApi;

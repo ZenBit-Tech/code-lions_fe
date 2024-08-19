@@ -1,6 +1,6 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
 
-import baseQueryWithReauth from './service';
+import { baseQueryWithReauth } from './user/userService';
 
 const api = createApi({
   baseQuery: baseQueryWithReauth,

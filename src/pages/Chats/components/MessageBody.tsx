@@ -1,6 +1,8 @@
 import PdfLogo from 'src/assets/icons/pdf.svg';
+import { userRoles } from 'src/common/constants';
 import { ContentType, IMessage } from 'src/common/types.ts';
 import formatDateForChatList from 'src/common/utils/formatDateForChat';
+import { useAppSelector } from 'src/redux/hooks';
 
 import {
   AvatarMessageContainer,
@@ -18,13 +20,23 @@ export type Props = {
   myId: string;
 };
 
+function linkForVendor(link: string) {
+  return link.replace('/products/', '/public-product/');
+}
+
 function RenderContent(content: string, contentType: ContentType) {
+  const user = useAppSelector((state) => state.user);
+
   switch (contentType) {
     case ContentType.TEXT:
       return content;
 
-    case ContentType.LINK:
-      return <a href={content}>{content}</a>;
+    case ContentType.LINK: {
+      const link =
+        user.role === userRoles.VENDOR ? linkForVendor(content) : content;
+
+      return <a href={link}>{link}</a>;
+    }
 
     case ContentType.FILE:
       return (

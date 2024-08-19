@@ -43,71 +43,102 @@ function ImagesSection({
   } = useImagesSection(productId, images);
 
   return (
-    <Box width="570px" display="flex" marginRight="80px">
-      <ImageList
-        sx={{ width: 77, height: 450, marginRight: '20px' }}
-        cols={1}
-        rowHeight={102}
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        width: '50%',
+        marginRight: '80px',
+      }}
+    >
+      <Box
+        sx={{
+          display: 'flex',
+          width: '100%',
+          gap: '20px',
+          maxHeight: '600px',
+          alignItems: 'center',
+        }}
       >
-        {images.map((item, index) => (
-          <ImageListItem
-            key={index}
-            onClick={() => handleImageClick(item, index)}
+        <ImageList
+          sx={{
+            display: 'flex',
+            padding: '1px',
+            flexDirection: 'column',
+            maxHeight: '600px',
+            gap: '20px !important',
+            width: '100px',
+          }}
+        >
+          {images.map((item, index) => (
+            <ImageListItem
+              key={index}
+              onClick={() => handleImageClick(item, index)}
+              sx={{
+                outline:
+                  item === selectedImage
+                    ? `1px solid ${theme.palette.common.black}`
+                    : 'none',
+                cursor: 'pointer',
+              }}
+            >
+              <img
+                srcSet={`${item}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+                src={`${item}?w=164&h=164&fit=crop&auto=format`}
+                alt={`product${index}`}
+                loading="lazy"
+              />
+            </ImageListItem>
+          ))}
+        </ImageList>
+        <Box sx={{ flex: 1, maxHeight: '600px' }}>
+          <ProductSliderModal
+            open={open}
+            handleClose={handleClose}
+            images={images}
+            initialSlideIndex={initialSlideIndex}
+          />
+          <Box
             sx={{
-              border:
-                item === selectedImage
-                  ? `1px solid ${theme.palette.common.black}`
-                  : 'none',
-              cursor: 'pointer',
+              position: 'relative',
+              height: '600px',
+              padding: '20px',
+              borderRadius: '8px',
+              backgroundColor: theme.palette.grey[100],
             }}
+            onClick={() => handleOpen(initialSlideIndex)}
           >
             <img
-              srcSet={`${item}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
-              src={`${item}?w=164&h=164&fit=crop&auto=format`}
-              alt={`product${index}`}
-              loading="lazy"
+              src={selectedImage}
+              alt="Selected"
+              style={{ objectFit: 'contain', width: '100%', height: '100%' }}
             />
-          </ImageListItem>
-        ))}
-      </ImageList>
-      <Box mb={2} position="relative">
-        <ProductSliderModal
-          open={open}
-          handleClose={handleClose}
-          images={images}
-          initialSlideIndex={initialSlideIndex}
-        />
-        <Box onClick={() => handleOpen(initialSlideIndex)}>
-          <img
-            src={selectedImage}
-            alt="Selected"
-            style={{ width: '473px', height: '630px' }}
-          />
+            {userId && (
+              <IconButton
+                sx={{
+                  position: 'absolute',
+                  top: 15,
+                  right: 25,
+                  padding: '3px',
+                  transition: 'all 0.3s ease',
+                  backgroundColor: theme.palette.common.white,
+                }}
+                onClick={
+                  isInWishlist ? handleRemoveFromWishlist : handleAddToWishlist
+                }
+              >
+                {isInWishlist ? <RedHeartIcon /> : <BlackHeartIcon />}
+              </IconButton>
+            )}
+          </Box>
         </Box>
-        {userId && (
-          <IconButton
-            sx={{
-              position: 'absolute',
-              top: 15,
-              right: 15,
-              padding: '3px',
-              transition: 'all 0.3s ease',
-              backgroundColor: theme.palette.common.white,
-            }}
-            onClick={
-              isInWishlist ? handleRemoveFromWishlist : handleAddToWishlist
-            }
-          >
-            {isInWishlist ? <RedHeartIcon /> : <BlackHeartIcon />}
-          </IconButton>
-        )}
-        <Box sx={{ margin: '30px 0' }}>
-          <Link to={`${urls.VENDOR}/${vendorId}`}>
-            <Typography sx={{ color: theme.palette.text.disabled }}>
-              {vendorName}
-            </Typography>
-          </Link>
-        </Box>
+      </Box>
+      <Box sx={{ margin: '30px 120px' }}>
+        <Link to={`${urls.VENDOR}/${vendorId}`}>
+          <Typography sx={{ color: theme.palette.text.disabled }}>
+            {vendorName}
+          </Typography>
+        </Link>
       </Box>
     </Box>
   );

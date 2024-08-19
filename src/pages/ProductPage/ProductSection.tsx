@@ -1,16 +1,9 @@
 import { createPortal } from 'react-dom';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
-import {
-  Button,
-  Radio,
-  RadioGroup,
-  Box,
-  Typography,
-  Link,
-} from '@mui/material';
+import { Button, Radio, RadioGroup, Box, Typography } from '@mui/material';
 
 import BagCheckIcon from 'src/assets/icons/bag-check.svg';
 import ChatDots from 'src/assets/icons/chat-dots.svg';
@@ -103,50 +96,43 @@ function ProductSection({ product }: ProductSectionProps) {
           document.body
         )}
       <Box paddingBottom="24px" marginBottom="24px">
-        <Box display="flex" alignItems="center" mb="12px">
-          <Link
-            href={urls.HOME}
+        <Box
+          sx={{ display: 'flex', alignItems: 'center', marginBottom: '12px' }}
+        >
+          <Typography
+            variant="overline"
             sx={{
+              color: theme.palette.text.disabled,
+              marginRight: '5px',
               textDecoration: 'none',
-              lineHeight: 0.8,
               '&:hover': {
                 textDecoration: 'underline',
                 textDecorationColor: theme.palette.text.disabled,
               },
             }}
           >
-            <Typography
-              variant="overline"
-              sx={{
-                color: theme.palette.text.disabled,
-                marginRight: '5px',
-              }}
-            >
-              {t('product.home')}
-            </Typography>
-          </Link>
+            <Link to={urls.HOME}>{t('product.home')}</Link>
+          </Typography>
+
           <ChevronRight />
-          <Link
-            href={`${urls.PRODUCT_CATEGORY_URL}/${product.categories[0]}`}
+
+          <Typography
+            variant="overline"
             sx={{
+              color: theme.palette.text.disabled,
+              margin: '0 5px',
               textDecoration: 'none',
-              lineHeight: 0.8,
               '&:hover': {
                 textDecoration: 'underline',
                 textDecorationColor: theme.palette.text.disabled,
               },
             }}
           >
-            <Typography
-              variant="overline"
-              sx={{
-                color: theme.palette.text.disabled,
-                margin: '0 5px',
-              }}
-            >
+            <Link to={`${urls.PRODUCT_CATEGORY_URL}/${product.categories[0]}`}>
               {capitalizeAndTruncate(product.categories[0])}
-            </Typography>
-          </Link>
+            </Link>
+          </Typography>
+
           <ChevronRight />
           <Typography
             variant="overline"
